@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="numberAnalysisResult" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime" />
+   <var name="recipient" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_recipient" />
+      <block>
+         <assign name="recipient" expr="p_recipient" />
+         <goto next="#cond2" />
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="true">
+            <goto next="#proc1" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(546)" />
+            </prompt>
+            <goto next="#Return2" />
+         </if>
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="NumberAnalysis.vxml">
+         <param name="p_phoneNumber" expr="recipient" />
+         <param name="p_rule" expr="System_GetConfig('vva.numberanalysis', 'subscribernumberrule')" />
+         <param name="p_additionalPhoneNumber" expr="''" />
+         <filled>
+            <assign name="numberAnalysisResult" expr="sub.resultCode" />
+            <if cond="numberAnalysisResult[0] == true">
+               <goto next="#sub1" />
+               <else />
+               <goto next="#Return2" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub1">
+      <script>Subscriber_GetSingleStringAttribute (recipient, 'xAmtevaTitle')</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(547)" />
+         </prompt>
+         <goto next="#Return2" />
+      </block>
+   </form>
+   <form id="Return2">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(false)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt(551, new Array(System_GetMediaQualifier('Number', recipient)))" />
+      </prompt>
+      <goto next="#Return1" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <goto next="#pmess1" />
+   </catch>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(true, numberAnalysisResult[0])" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="pmess1">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="Greeting_GetGreeting(recipient, 'SpokenName', Call_GetMediaType())" />
+         </prompt>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

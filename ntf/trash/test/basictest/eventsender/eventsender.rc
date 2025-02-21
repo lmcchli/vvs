@@ -1,0 +1,6 @@
+set esshost ahost.lab.mobeon.com
+set interfacetype tui
+set sessionid 1
+set mailhost ahost.lab.mobeon.com
+set rate 20
+set count 1

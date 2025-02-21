@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<form id="qform">
+	
+	
+		<field name="q1">
+			<prompt>
+				tjoho
+				<audio src="a.wav">
+					Alternative text
+				</audio>
+				tjoho2
+			</prompt>
+
+			
+			<grammar mode="dtmf" scope="dialog" >
+			<rule id="main_rule">
+				<one-of>
+					<item>1</item>
+					<item>2</item>
+				</one-of>
+			</rule>
+			</grammar>
+		</field>
+		<block>
+			<if cond="true">
+				TRUE
+			<else />
+				FALSE
+			</if>
+		</block>
+	</form>
+</vxml>

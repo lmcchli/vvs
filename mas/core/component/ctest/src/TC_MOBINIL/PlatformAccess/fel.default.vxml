@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/vxmlhttp://www.w3.org/TR/voicexml21/vxml.xsd">
+
+		<var name="newMsg" />
+		<var name="msg1" />
+		<var name="msg2" />
+
+	<form id="main_form">
+		
+
+<!-- Get two prompts from the MCP package -->
+		<block>
+			<script>
+				<![CDATA[
+				
+mas.systemSetMediaResources( "en", "voice.pcmu", "video.h263.pcmu" );
+msg1 = mas.systemGetMediaContent( "prompt", "3");
+				msg2 = mas.systemGetMediaContent( "prompt", "1");
+				
+				]]>
+			</script>
+		<!-- Play the appended result -->
+		<!--audio expr="msg1" /-->
+		<prompt>
+			<audio expr="msg1" />
+			</prompt>
+		<exit />
+</block>
+	</form>
+	
+
+	<catch event="error">
+		<log>TC 10002000 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+
+

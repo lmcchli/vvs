@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.badfetch">
+        <log>TCPASS</log>
+    </catch>
+    <form>
+        <block>
+            <!-- Goto a document belonging to another application.
+            We expect this to not work-->
+            <goto next="goto_36_2.vxml"></goto>
+        </block>
+    </form>
+</vxml>

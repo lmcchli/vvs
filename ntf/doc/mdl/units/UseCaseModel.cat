@@ -1,0 +1,178 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "UseCaseModel"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"35B677F4010E"
+    documentation 	
+|The Use-Case Model in Rational Unified Process contains a model of the behavior of a system which supports the business processes.
+|
+|<The description entered here should capture the Survey Description of the Use Case Model>.  
+|
+|
+|
+    
+    visible_categories 	(list visibility_relationship_list
+	(object Visibility_Relationship
+	    quid       	"35C633DA030C"
+	    documentation 	"The Use-Case Model describes a system which realizes some of the required functionality described in the business use-case model, therefore the Use-Case Model is dependent on the Business Use-Case Model."
+	    supplier   	"Use Case View::BusinessUseCaseModel"
+	    quidu      	"35B677D701B8"))
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Association "$UNNAMED$0"
+	    quid       	"3A5A3C1D00FC"
+	    stereotype 	"communicate"
+	    roles      	(list role_list
+		(object Role "$UNNAMED$1"
+		    quid       	"3A5A3C1E034C"
+		    supplier   	"Use Case View::UseCaseModel::UseCases::WAP notification::PI\\: Push Initiator"
+		    quidu      	"34E37FB203D4"
+		    is_navigable 	TRUE)
+		(object Role "$UNNAMED$2"
+		    quid       	"3A5A3C1E034D"
+		    supplier   	"Use Case View::UseCaseModel::Actors::Filter Manager"
+		    quidu      	"3A5A3BF90321")))
+	(object Association "$UNNAMED$3"
+	    quid       	"3A5A3C2A0155"
+	    stereotype 	"communicate"
+	    roles      	(list role_list
+		(object Role "$UNNAMED$4"
+		    quid       	"3A5A3C2C013A"
+		    supplier   	"Use Case View::UseCaseModel::Actors::PPG\\: Push Proxy Gateway"
+		    quidu      	"353D5816026C"
+		    is_navigable 	TRUE)
+		(object Role "$UNNAMED$5"
+		    quid       	"3A5A3C2C0144"
+		    supplier   	"Use Case View::UseCaseModel::UseCases::WAP notification::PI\\: Push Initiator"
+		    quidu      	"34E37FB203D4")))
+	(object Class_Category "Actors"
+	    is_unit    	TRUE
+	    is_loaded  	FALSE
+	    file_name  	"$VIEW_ROOT\\ntf\\mdl\\units\\Actors.cat"
+	    quid       	"3518CBC9026C")
+	(object Class_Category "UseCases"
+	    is_unit    	TRUE
+	    is_loaded  	FALSE
+	    file_name  	"$VIEW_ROOT\\ntf\\mdl\\units\\UseCases.cat"
+	    quid       	"34E37E430280")
+	(object Class_Category "IPMS Actors"
+	    is_unit    	TRUE
+	    is_loaded  	FALSE
+	    file_name  	"$VIEW_ROOT\\ntf\\mdl\\units\\IpmsActors.cat"
+	    quid       	"36DAF0C3029E"))
+    logical_presentations 	(list unit_reference_list
+	(object UseCaseDiagram "Global View of Actors and Use Cases"
+	    quid       	"35B6803F0281"
+	    title      	"Global View of Actors and Use Cases"
+	    documentation 	"This is a global view of the system showing all Busines Use Cases and Business Actors.  It is intended to be an overview diagram, so if the diagram becomes too complex for easy comprehension, use several diagrams, each of which should focus on a different aspect of the system.  Usually, organizing use case diagrams around actors is a good approach."
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list
+		(object CategoryView "Use Case View::UseCaseModel::Actors" @1
+		    location   	(688, 496)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@1
+			location   	(544, 412)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"Actors")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"3518CBC9026C"
+		    width      	300
+		    height     	180)
+		(object CategoryView "Use Case View::UseCaseModel::UseCases" @2
+		    location   	(1184, 496)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@2
+			location   	(1040, 412)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"UseCases")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"34E37E430280"
+		    width      	300
+		    height     	180)
+		(object CategoryView "Use Case View::UseCaseModel::IPMS Actors" @3
+		    location   	(1664, 496)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@3
+			location   	(1520, 412)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"IPMS Actors")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"36DAF0C3029E"
+		    width      	300
+		    height     	180)
+		(object CategoryView "Logical View::IPMS iM-Bus" @4
+		    location   	(2096, 496)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@4
+			location   	(1919, 412)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	354
+			justify    	0
+			label      	"IPMS iM-Bus")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35ABA0CC01B7"
+		    width      	366
+		    height     	180)))))

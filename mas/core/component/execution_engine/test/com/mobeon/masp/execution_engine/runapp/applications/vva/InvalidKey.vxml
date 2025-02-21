@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--A local variable containing Key.-->
+   <var name="key" />
+   <!--The key(s) that has been pressed.-->
+   <var name="Key" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_Key" />
+      <block>
+         <assign name="Key" expr="p_Key" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="key" expr="Utility_RemoveSpaces(Key)" />
+         <if cond="((Key == '0'))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(25)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '1'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(26)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '2'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(27)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '3'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(28)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '4'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(29)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '5'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(30)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '6'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(31)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '7'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(32)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '8'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(33)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '9'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(34)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '#'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(35)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Key == '*'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(36)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*0'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(37)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*1'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(38)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*2'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(39)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*3'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(40)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*4'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(41)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*5'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(42)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*6'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(43)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*7'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(44)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*8'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(45)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*9'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(46)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '*#'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(47)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((key == '**'))" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(48)" />
+            </prompt>
+            <goto next="#Return1" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(49)" />
+            </prompt>
+            <goto next="#Return1" />
+         </if>
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

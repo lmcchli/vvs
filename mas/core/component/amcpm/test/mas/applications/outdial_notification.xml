@@ -1,0 +1,9 @@
+<application>
+    <documents base="file:/$WORKINGDIR/applications/myappprodid.1/" type="application/xml+ccxml">
+        <document src="outdial_notification.ccxml" root="true"/>
+    </documents>
+    <documents base="file:/$WORKINGDIR/applications/myappprodid.1/" type="application/xml+vxml">
+        <document src="doc1.vxml"/>
+        <document src="doc2.vxml"/>
+    </documents>
+</application>

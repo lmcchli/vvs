@@ -1,0 +1,228 @@
+/*
+ * Copyright (c) 2005 Mobeon AB. All Rights Reserved.
+ */
+package com.mobeon.masp.operateandmaintainmanager;
+
+
+import com.mobeon.masp.logging.ILoggerFactory;
+import com.mobeon.masp.logging.ILogger;
+import java.util.*;
+
+/**
+* This class handles call sessions.
+* Sessions can be put and removed.
+*
+* The class keep track of session positions so when a session is removed there is an "empty"
+* entry for antother session to use.
+*/
+
+public class ConnectionMonitorInfo implements ConnectionInfo {
+//    public enum callInfo {  VOICE,
+//                            VIDEO,
+//                            INBOUND,
+//                            OUTBOUND,
+//                            IDLE,
+//                            PLAY,
+//                            RECORD,
+//                            ALERTING,
+//                            PROGRESSING,
+//                            CONNECTED,
+//                            FAILED,
+//                            DISCONNECTED}
+//
+//
+//    private Calendar calendar;
+//    //private Integer peakConnections = 0;
+//    //private Date peakTime = calendar.getTime();
+//    private Integer currentConnections;
+//
+//    private Integer curVal = 0;
+//    private static Hashtable<String,Vector> lstConnectionInfo;
+//    private LinkedList<Integer> numberPol;
+//    private static Hashtable<String,Integer> keyRef;
+//    private ILogger log;
+//    private Long time = System.currentTimeMillis();
+//
+//    /**
+//     * Constructor
+//     */
+//    public ConnectionMonitorInfo() {
+//        log = ILoggerFactory.getILogger(ConnectionMonitorInfo.class);
+//        numberPol = new LinkedList<Integer>();
+//        keyRef  = new Hashtable<String,Integer>();
+//        lstConnectionInfo = new Hashtable<String,Vector>();
+//    }
+//
+//
+//    //private String defineValue(int value,boolean longValue){
+//    private String defineValue(callInfo value,boolean longValue){
+//        String output = "";
+//        switch(value) {
+//            case VOICE :
+//                output = "voice";
+//                break;
+//            case VIDEO :
+//                output = "video";
+//                break;
+//            case INBOUND :
+//                output = "in";      //inbound
+//                break;
+//            case OUTBOUND :
+//                output = "out";     //outboind
+//                break;
+//            case IDLE :
+//                if(longValue)
+//                    output = "idle";    // idle
+//                else
+//                    output = "i";       // idle
+//                break;
+//            case PLAY :
+//                if(longValue)
+//                    output = "play";
+//                else
+//                    output = "p";       // play
+//                break;
+//            case RECORD :
+//                if(longValue)
+//                    output = "record";
+//                else
+//                    output = "r";       // record
+//                break;
+//            case ALERTING :
+//                output = "alert";
+//                break;
+//            case PROGRESSING :
+//                output = "prog";
+//                break;
+//            case CONNECTED :
+//                output = "con";
+//                break;
+//            case FAILED :
+//                output = "fail";
+//                break;
+//            case DISCONNECTED :
+//                output = "dcon";
+//                break;
+//            default :
+//                output = "";
+//
+//
+//        }
+//        return output;
+//    }
+//
+//    /**
+//     * Removes session for specified session id.
+//     * @param sessionId
+//     */
+//   public synchronized void remove(String sessionId){
+//       Vector<String> empty = new Vector<String>();
+//       Integer pos;
+//        // Removing post with sessionId
+//        if (keyRef.containsKey(sessionId)) {
+//            // ta bort ur listan
+//            pos = keyRef.get(sessionId);
+//            empty.add(time.toString());
+//            empty.add(pos.toString());
+//            empty.add("EMPTY SLOT");
+//            //lstConnectionInfo.remove(pos);
+//            lstConnectionInfo.put(pos.toString() ,empty);
+//            keyRef.remove(sessionId);
+//            // addera ledig plats i number queue.
+//            numberPol.offer(pos);
+//        }
+//
+//        // Cant count total here..This obj will only be usend when monitor is on..
+//        //currentConnections--;
+//
+//    }
+//
+//    private Integer getPos(String sessionId){
+//        // om det finns ett element i keyRef listan. Returera det
+//        Integer returnVal;
+//        if (keyRef.containsKey(sessionId)) {
+//            return keyRef.get(sessionId);
+//        }
+//        else {
+//            // look if there is a free num in pol.
+//            if (numberPol.isEmpty()){
+//                // No..take new number
+//                returnVal = curVal;
+//                curVal++;
+//                return returnVal;
+//
+//            }
+//            else {
+//                // reuse old number
+//                returnVal = numberPol.poll();
+//                return returnVal;
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Adds a session with all its parameters for a specific session id.
+//     * If session id exsists then session data is updated with its parameters.
+//     * @param sessionId
+//     * @param service
+//     * @param sessionInitiator
+//     * @param connectionType
+//     * @param connectionState
+//     * @param direction
+//     * @param outboundActivity
+//     * @param inboundActivity
+//     * @param ANI
+//     * @param DNIS
+//     * @param RDNIS
+//     * @param farEndConProp
+//     */
+//    public synchronized void put(String sessionId,String service,String sessionInitiator,callInfo connectionType, callInfo connectionState,callInfo direction,callInfo outboundActivity,callInfo inboundActivity,String ANI,String DNIS, String RDNIS,String farEndConProp){
+//
+//        //Hämta possition för sessionID
+//        Integer pos = getPos(sessionId);
+//        Vector<String> cv = new Vector<String>();
+//
+//
+//        cv.add(time.toString());
+//        cv.add(pos.toString());
+//        cv.add(sessionId);
+//        cv.add(service);
+//        cv.add(sessionInitiator);
+//        cv.add(defineValue(connectionType,true));
+//        cv.add(defineValue(connectionState,true));
+//        cv.add(defineValue(direction,true));
+//        cv.add(defineValue(outboundActivity,false));
+//        cv.add(defineValue(inboundActivity,false));
+//        cv.add(ANI);
+//        cv.add(DNIS);
+//        cv.add(RDNIS);
+//        cv.add(farEndConProp);
+//
+//
+//        lstConnectionInfo.put(pos.toString() ,cv);
+//        keyRef.put(sessionId,pos);
+//
+//        // Cant count total here..This obj will only be usend when monitor is on..
+//        //currentConnections++;
+//        //if (currentConnections > peakConnections) {
+//        //    peakConnections = currentConnections;
+//        //    peakTime = calendar.getTime();
+//        //}
+//
+//    }
+//
+//
+//    // Cant count total here..This obj will only be usend when monitor is on..
+//    //public Integer getPeakConnecttions(){
+//    //    return peakConnections;
+//    //}
+//    //
+//    //public Date getPeakTime(){
+//    //    return peakTime;
+//    //}
+//
+//    public synchronized Hashtable<String, Vector> getInfo(){
+//     return lstConnectionInfo;
+//    }
+//
+}

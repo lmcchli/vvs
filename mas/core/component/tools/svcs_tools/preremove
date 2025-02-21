@@ -1,0 +1,249 @@
+#!/bin/sh
+#
+# preremove
+#
+# Copyright (C) 2004-2005 Mobeon AB
+# All Rights Reserved
+#
+# /usr/xp6/bin/tr is used to be able to handle -c parameter and multibyte char sets.
+TR=/usr/xpg6/bin/tr
+
+
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+version=`uname -r`
+HOST=`hostname`
+DOMAIN=`cat /etc/resolv.conf | grep domain |awk '{ print $2}'`
+
+disable_rc()
+{
+	/etc/init.d/rc.mas disableautostart
+	#/etc/init.d/rc.snmpagent disableautostart
+	rm -f /etc/init.d/rc.mas
+	#rm -f /etc/init.d/rc.snmpagent
+}
+
+shut_daemons()
+{
+	logAction "Shuting down daemons"
+	/etc/init.d/rc.mas stop
+}
+
+disable_svcs()
+{
+	logAction "Disable MOBYmas"
+        /usr/sbin/svcadm disable /application/mobeon/MOBYmas:mas
+        /usr/sbin/svcadm disable /application/mobeon/MOBYmas:snmpagent
+
+}
+
+remove_svcs()
+{
+	logAction "Remove MOBYmas"
+	/usr/sbin/svccfg delete -f MOBYmas:mas
+	/usr/sbin/svccfg delete -f MOBYmas:snmpagent
+	
+        rm -r /etc/sfw/mobeon/MOBYmas
+        rm -r /var/svc/manifest/application/mobeon/MOBYmas
+
+}
+
+setup_logdir()
+{
+	
+	MAS_INSTANCE_NAME="mas@$HOST.$DOMAIN"
+	DATE=`date +%Y_%m_%d_%H%M`
+	LOGDIR="$BASEDIR/../logs/mas"
+	UNINSTALL_LOGFILE="$BASEDIR/../logs/mas/$MAS_INSTANCE_NAME.$DATE.uninstallog"
+	echo "Uninstall log file: $UNINSTALL_LOGFILE"
+}
+
+logAction(){
+  action=$1
+  tt=`$BASEDIR/bin/getTimeZone`
+  echo "$tt info: $action" >> $UNINSTALL_LOGFILE
+}
+
+
+doBackupConfig()
+{
+	logAction "Backing up old configuration"
+	# get current installed version
+	INSTALLED_VERSION=`pkgparam $PKG VERSION`
+	#BACKUP_DIRNAME=`echo $INSTALLED_VERSION |awk -F, '{ print $1"_"$2}'`
+	BACKUP_DIRNAME=$INSTALLED_VERSION
+	#BACKUPDIR=/var/tmp/masbackup/$BACKUP_DIRNAME
+	#LATEST=/var/tmp/masbackup/LATEST
+	
+	BACKUPDIR=$BASEDIR/../backup/mas/$BACKUP_DIRNAME
+	LATEST=$BASEDIR/../backup/mas/LATEST
+	BACKUP_BASE=$BASEDIR/../backup
+	MCPDIST=$BASEDIR/../backup/mas/LATEST/dist/mcp
+	APPDIST=$BASEDIR/../backup/mas/LATEST/dist/app
+	
+	if [ -d $BACKUP_BASE ]; then
+		sleep 0
+	else
+		mkdir $BACKUP_BASE
+	fi
+	
+	if [ -d $BACKUP_BASE/mas ]; then
+		sleep 0
+	else
+		mkdir $BACKUP_BASE/mas
+	fi
+
+
+	# create backup dir
+	if [ -d $BACKUPDIR ]; then
+		sleep 0
+	else
+		mkdir $BACKUPDIR
+	fi
+
+	# create backup dir
+	if [ -d $BACKUPDIR/data ]; then
+		sleep 0
+	else
+		mkdir $BACKUPDIR/data
+	fi
+
+	# Create latest dir
+	if [ -d $LATEST ]; then
+		rm -r $LATEST/*
+	else
+		mkdir $LATEST
+	fi
+
+	# Create dist dir
+	if [ ! -d $LATEST/dist ]; then
+		mkdir mkdir $LATEST/dist
+	fi
+
+	
+	echo "Backing up configuration files to $BACKUPDIR"
+	logAction "Backing up $INSTALLED_VERSION to $BACKUPDIR"
+	
+	if [ -d $BASEDIR/cfg ]; then
+		cp $BASEDIR/cfg/* $BACKUPDIR/.
+	fi
+	
+	if [ -d $BASEDIR/data ]; then
+                #CONTENTS=`ls $BASEDIR/data` 
+                #if [ "$CONTENTS" != "" ];then 
+		cp $BASEDIR/data/* $BACKUPDIR/data/.
+                #fi
+	fi
+
+	if [ -d $BASEDIR/etc ]; then
+		cp $BASEDIR/etc/mas.conf $BACKUPDIR/.
+		cp $BASEDIR/etc/mas.conf $LATEST/.
+	fi
+
+	# copy all files to latest config to be able to use it if upgrade
+	DATE=`date '+%y-%m-%d %H:%M:%S'`
+	echo "VERSION=$INSTALLED_VERSION" > $LATEST/backup.info
+	echo "UNINST_DATE=\"$DATE\"" >> $LATEST/backup.info
+	echo "LATEST_BACKUPDIR=$BACKUPDIR" >> $LATEST/backup.info
+
+	cp $BASEDIR/cfg/* $LATEST/.
+
+
+	CURDIR=`pwd`
+
+	# Backup mcp
+	echo "Backing up media content."
+	FOUND="false"
+    	for MCPDIR in $BASEDIR/applications/mediacontentpackages/* ;
+	do
+  	   if [ -f "$MCPDIR"/dist/*.tar ];then
+  	   	FOUND="true"
+		PROPFILE=$MCPDIR/properties.cfg
+		PRODUCTID=`sed -n 's/productid=//p' $PROPFILE`
+		PRODUCTID=`echo "$PRODUCTID" | $TR '/' '.' | $TR -d ' '  | $TR -c -d '[:alnum:]_.'`
+		echo " Backing upp $PRODUCTID"
+		MEDIAFILE=$MCPDIR/dist/*.tar
+		if [ ! -d $MCPDIST ]; then
+			mkdir $MCPDIST
+		fi
+		cp $MEDIAFILE $MCPDIST
+
+		cd $MCPDIR/dist
+	   	FILE=`ls *.tar`
+	   	#echo "  Src file $FILE"
+	   	echo "PRODUCTID=$PRODUCTID" > $MCPDIST/$PRODUCTID.cfg
+	   	echo "APPFILE=$FILE" >> $MCPDIST/$PRODUCTID.cfg
+		#echo " Done"
+	   fi
+	done
+	if [ $FOUND = "false" ]; then
+		echo " No installed media content packages could be found"
+	fi
+	
+	
+	# backup app
+	echo "Backing up application."
+	FOUND="false"
+	APPDIR=$BASEDIR/applications/$APPID
+    	for APPDIR in $BASEDIR/applications/* ;
+	do
+	   if [ -f "$APPDIR"/dist/*.tar ];then
+	   	FOUND="true"
+		PROPFILE=$APPDIR/properties.cfg
+		PRODUCTID=`sed -n 's/productid=//p' $PROPFILE`
+		PRODUCTID=`echo "$PRODUCTID" | $TR '/' '.' | $TR -d ' '  | $TR -c -d '[:alnum:]_.'`
+		echo " backing upp $PRODUCTID"
+	   	APPFILE=$APPDIR/dist/*.tar
+		if [ ! -d $APPDIST ]; then
+			mkdir $APPDIST
+		fi
+		cp $APPFILE $APPDIST
+
+		cd $APPDIR/dist
+	   	FILE=`ls *.tar`
+	   	#echo "  Src file $FILE"
+	   	echo "PRODUCTID=$PRODUCTID" > $APPDIST/$PRODUCTID.cfg
+	   	echo "APPFILE=$FILE" >> $APPDIST/$PRODUCTID.cfg
+		#echo " Done"
+	   fi
+	done
+	if [ $FOUND = "false" ]; then
+		echo " No installed application packages could be found"
+	fi
+	
+	cd $CURDIR
+	
+	
+	
+
+}
+
+
+unregister()
+{
+	# Unregister mas
+	logAction "Unregister MAS."
+	$BASEDIR/etc/masadm unregister	
+	
+	# Unregister application if exist.
+	if [ -f $BASEDIR/bin/appmcpunreg.sh ]; then
+		logAction "Unregister applications."
+		$BASEDIR/bin/appmcpunreg.sh
+	fi
+	
+}
+
+
+#
+# MAIN
+#
+
+case $version in
+        5.8)    shut_daemons
+		disable_rc;;
+        *)      setup_logdir
+        	shut_daemons
+        	doBackupConfig
+        	#disable_svcs
+		remove_svcs
+		unregister;;
+esac

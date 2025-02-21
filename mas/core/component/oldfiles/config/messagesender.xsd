@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:element name="configuration" nillable="false">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="messagesender"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="messagesender">
+        <xs:complexType>
+            <xs:attribute name="smtpservicename" type="xs:string" use="required"/>
+            <xs:attribute name="smtpretries" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="smtpconnectiontimeout" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="smtpcommandtimeout" type="xs:positiveInteger" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

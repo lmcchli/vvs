@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<throw event="myEvent"/>
+		</block>
+	</form>
+	<catch event="myEvent">
+		<if cond="_message == undefined">
+			<log label="error">TC 20103023 Passed (_message = <value expr="_message"/></log>
+				<else/>
+			<log label="error">TC 20103023 Failed (_message = <value expr="_message"/></log>
+		</if>
+		<exit/>
+	</catch>
+	<catch>
+		<log label="error">TC 20103023 Failed (event <value expr="_event"/> was thrown</log>
+		<exit/>
+	</catch>
+</vxml>

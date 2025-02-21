@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<disconnect/>
+			<!-- We shouldn't come here -->
+			<log label="error">TC 20103051 Failed</log>
+			<exit/>
+		</block>
+	</form>
+	<catch event="connection.disconnect.hangup">
+		<log label="error">TC 20103051 Passed"</log>
+		<exit/>
+	</catch>
+</vxml>

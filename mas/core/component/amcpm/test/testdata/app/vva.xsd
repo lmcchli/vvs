@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="trafficeventsender"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="trafficeventsender">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="event" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="emailconfig"/>
+                <xs:element ref="radiusconfig"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="emailconfig">
+        <xs:complexType>
+            <xs:attribute name="templatespath"/>
+		</xs:complexType>
+    </xs:element>
+
+    <xs:element name="event">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="emailqueue" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="name"/>
+            <xs:attribute name="enabled">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="true|false"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="true|false"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="radius">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="true|false"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="emailqueue">
+        <xs:complexType>
+            <xs:attribute name="sizelimit" type="xs:positiveInteger"/>
+            <xs:attribute name="timelimit" type="xs:positiveInteger"/>
+            <xs:attribute name="multievent">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="true|false"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="radiusconfig">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="servicename"/>
+            <xs:attribute name="instancename"/>
+            <xs:attribute name="queuesize" type="xs:positiveInteger"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="attribute">
+        <xs:complexType>
+            <xs:attribute name="name"/>
+            <xs:attribute name="number" type="xs:nonNegativeInteger"/>
+            <xs:attribute name="type" type="xs:boolean"/>
+            <xs:attribute name="datatype"/>
+            <xs:attribute name="defaultvalue"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

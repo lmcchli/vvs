@@ -1,0 +1,451 @@
+<?xml version="1.0"?>
+<!-- 
+
+authors of build.xml: Initial: Olivier Deruelle deruelle@nist.gov
+Revisions and fixes by:
+
+        M. Ranganathan 		 <mranga@nist.gov>
+
+        Gordon Ledgard 		 <gledgard@iperiea.com>
+
+        Steven Lass    		 <slass@wcomnet.com>
+
+        Sverker Abrahamsson	 <sverker@abrahamsson.com>
+
+        Majdi Abuelbassal 	 <majdi.abuelbassal@bbumail.com>
+
+        Jean Deruelle		 <jeand@nist.gov>
+
+        Dan Muresan		 <muresan@gmail.com>
+        
+        Jeroen van Bemmel <jbemmel@lucent.com>
+
+        Ivelin Ivanov <ivelin@mobicents.org>
+
+For using ANT:
+
+Ant is a platform independent build tool.
+Get the tool from www.apache.org and install. Set your path to the ant shell
+(batch) file.
+
+>From the command prompt, execute the following command:
+ant target
+
+
+
+
+Where avaliable targets are:
+
+    - all -> Builds everything: stack, tools, examples and docs.
+
+    - javadoc -> Builds java documentation.
+
+    - compiletools -> Compiles the tools directory.
+
+    - compileexamples -> Compiles the examples directory.
+
+    - compileri -> Compiles the reference implementation.
+
+    - compiletck -> Compiles the basic tests (TCK)
+
+    - clean   -> cleans everything: All the built stuff and temp files.
+
+    - init	-> create the classes directory
+
+    - runtck -> Cleans, compile and run the tck.
+
+On my machine I run this as follows:
+c:/jakarta-ant/bin/ant all
+-->
+
+<project name="NIST-SIP" default="all">
+
+
+  <!-- Allow user to override defaults -->
+  <property file="ant-build-config.properties"/>
+  <!-- set global properties for this build -->
+  <property name="root" value="."/>
+
+  <property name="href.nist.homepage" value="http://www-x.antd.nist.gov/"/>
+  <property name="href.uncopyright" value="../uncopyright.html"/>
+  <property name="href.copyright" value="../copyright.html"/>
+  <property name="href.mailto" value="mailto:nist-sip-dev@antd.nist.gov"/>
+  <property name="href.distribution" value="http://jain-sip.dev.java.net"/>
+
+  <property name='tck_jar' value='tck.jar'/>
+  <property name="classes" value="${root}/classes"/>
+  <property name="docdir" value="${root}/javadoc"/>
+  <property name="srcroot" value="${root}/src"/>
+  <property name="jain_api_jar" value="${root}/../jain-sip-api/JainSipApi1.2.jar"/>
+  <property name="sdp_api_jar" value="${root}/../sdp-api/sdp-api.jar"/>
+  <property name="ri_jar" value="${root}/JainSipRi1.2.jar"/>
+  <property name="sdp_jar" value="${root}/nist-sdp-1.0.jar"/>
+  <property name="junit_jar" value="${root}/../lib/${junit}"/>
+  <property name="unit_test_jar" value="${root}/nist-unit.jar" />
+  <property name="log4j_jar" value="${root}/../lib/log4j-1.2.8.jar"/>
+  <property name='j2se_api' value='http://java.sun.com/j2se/1.5/docs/api'/>
+
+  <property name="test.reports" value="./test-reports" />
+
+  <target name="all" depends="make,compileexamples,compiletools,javadoc"/>
+
+  <target name="make" depends="clean,compileri,compilesdp"/>
+
+  <target name="cleanlogs">
+    <delete failonerror="0">
+      <fileset file="*Log.txt"/>
+      <fileset file="*Log.txt"/>
+      <fileset file="*log.txt"/>
+      <fileset file="tckoutput.txt"/>
+      <fileset file="*debug.txt"/>
+      <fileset file="*Debug.txt"/>
+      <fileset dir="./src" includes="**/*log*.txt"/>
+      <fileset dir="./src" includes="**/*debug*.txt"/>
+      <fileset dir="./src" includes="**/*log*.txt"/>
+      <fileset dir="./src" includes="**/*debug*.txt"/>
+    </delete>
+    <delete dir="./logs"/>
+    <delete dir="./logs-parser"/>
+    <delete dir="${test.reports}"/>
+    <delete dir="test-reports-parser"/>
+  </target>
+
+  <target name="cleanri" depends="cleantck">
+    <delete dir="${classes}/gov/nist/core"/>
+    <delete dir="${classes}/gov/nist/javax"/>
+    <delete file="./${ri_jar}"/>
+  </target>
+
+  <target name="cleansdp" depends="cleantck">
+    <delete dir="${classes}/gov/nist/sdp"/>
+    <delete file="./${sdp_jar}"/>
+  </target>
+
+  <target name="cleantck" depends="cleanlogs">
+    <delete dir="${classes}/test"/>
+    <delete file="./${tck_jar}"/>
+    <fileset file="tckoutput.txt"/>
+    <fileset dir="${test.reports}"/>
+  </target>
+
+  <!-- Clean everything -->
+  <target name="clean" depends="cleantck,cleanri,cleansdp,cleandocs">
+    <delete dir="${classes}/examples"/>
+    <delete dir="${classes}/tools"/>
+    <delete dir="${classes}/gov"/>
+    <delete dir='${classes}'/>
+
+    <delete file="./tracesviewer.jar" />
+    <delete file="${unit_test_jar}" />
+
+    <!-- files created by running targets -->
+    <delete file="jain-sip-1.2.jar" failonerror="false"/>
+
+  </target>
+
+  <!-- Create ${classes} -->
+  <target name="init">
+    <mkdir dir="${classes}"/>
+
+    <!-- JvB: Check for Java 1.5 -->
+    <available classname="java.lang.ProcessBuilder" property="jdk15.available"/>
+  </target>
+
+  <target name="cleandocs">
+    <delete dir="${docdir}"/>
+  </target>
+
+  <target name="javadoc">
+    <mkdir dir="${docdir}"/>
+    <copy toDir="${docdir}">
+      <fileset dir="src/gov/nist" includes="**/*.html"/>
+    </copy>
+
+    <javadoc
+            packagenames="gov.nist.javax.sip.*,gov.nist.core.*,gov.nist.sdp.*"
+            sourcepath="${srcroot}"
+	    destdir="${docdir}" 
+	    use="true" 
+	    splitindex="true"
+            windowtitle="JAIN-SIP-1.2 Reference Implementation (RI)"
+            doctitle="JAIN-SIP-1.2 Reference Implementation (RI)" 
+	    public="true" 
+	    author="true"
+            version="true" 
+	    defaultexcludes="yes" 
+	    additionalparam="-breakiterator">
+      <classpath>
+        <pathelement location="${log4j_jar}"/>
+        <pathelement location="${jain_api_jar}"/>
+        <pathelement location="${sdp_api_jar}"/>
+      </classpath>
+      <link href="${j2se_api}"/>
+      <header>
+        <![CDATA[
+					<b> NIST-SIP: The Reference Implementation for JAIN-SIP 1.2 </b>
+				]]>
+      </header>
+      <bottom>
+        <![CDATA[
+					<font size="-1">
+			<a href="${href.nist.homepage}"> A product of the NIST/ITL Advanced Networking Technologies Division. </a>
+			<br>
+				<a href="${href.uncopyright}"> See conditions of use. </a>
+				<br>
+					<a href="${href.mailto}">Submit a bug report or feature request. </a>
+					<br>
+					</font>
+				]]>
+      </bottom>
+    </javadoc>
+  </target>
+
+
+  <target name="compileri" depends="cleanri,init">
+    <javac debug="${javac.debug}" debuglevel="${javac.debuglevel}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" optimize="${javac.optimize}" srcdir="${srcroot}" source="${javac.source}"
+           target="${javac.target}" includes="gov/nist/core/**/*.java, gov/nist/javax/sip/**/*.java"
+           destdir="${classes}">
+      <classpath>
+        <pathelement location="${log4j_jar}"/>
+        <pathelement location="${jain_api_jar}"/>
+      </classpath>
+    </javac>
+    <jar destfile="${ri_jar}" basedir="${classes}" includes="gov/nist/core/**/*.class, gov/nist/javax/sip/**/*.class"/>
+  </target>
+
+  <target name="compilesdp"  depends="cleansdp, init">
+    <javac debug="${javac.debug}" debuglevel="${javac.debuglevel}"
+           source="${javac.source}" target="${javac.target}"
+	   nowarn="${javac.nowarn}" deprecation="${javac.deprecation}"
+           optimize="${javac.optimize}" srcdir="${srcroot}" 
+           includes="gov/nist/sdp/**/*.java" destdir= "${classes}">
+      <classpath>
+        <pathelement location="${log4j_jar}"/>
+        <pathelement location="${sdp_api_jar}"/>
+      </classpath>
+    </javac>
+    <jar destfile="${sdp_jar}" basedir="${classes}" includes="gov/nist/sdp/**/*.class"/>
+  </target>
+
+  <!-- Compile the examples -->
+  <target name="compileexamples" depends="init">
+    <javac debug="${javac.debug}" debuglevel="${javac.debuglevel}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" optimize="${javac.optimize}" srcdir="${srcroot}"
+           includes="examples/**/*.java" destdir="${classes}">
+      <classpath>
+        <pathelement location="${log4j_jar}"/>
+        <pathelement location="${junit_jar}"/>
+        <pathelement location="${jain_api_jar}"/>
+        <pathelement location="${sdp_api_jar}"/>
+        <pathelement location="${jakarta_regexp_jar}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="compileunit" depends="clean, init, compileri">
+    <javac debug="${javac.debug}" debuglevel="${javac.debuglevel}" nowarn="${javac.nowarn}" deprecation="${javac.deprecation}" optimize="${javac.optimize}" srcdir="${srcroot}" includes="test/unit/**/*.java" destdir="${classes}">
+      <classpath>
+        <pathelement location="${jain_api_jar}"/>
+      </classpath>
+    </javac>
+    <jar destfile="${unit_test_jar}" basedir="${classes}" includes="test/unit/**/*.class" />
+  </target>
+
+
+  <!-- Compile the tck, always with debug on -->
+  <target name="compiletck" depends="clean,init,compileri">
+    <mkdir dir="${classes}"/>
+    <javac debug="on" debuglevel="${javac.debuglevel}" nowarn="${javac.nowarn}" deprecation="${javac.deprecation}"
+           optimize="${javac.optimize}" srcdir="${srcroot}" destdir="${classes}">
+      <include name="test/tck/**/*.java"/>
+      <include name="test/rihelper/**/*.java"/>
+      <classpath>
+        <pathelement location='${junit_jar}'/>
+        <pathelement location='${log4j_jar}'/>
+        <pathelement location='${jain_api_jar}'/>
+      </classpath>
+    </javac>
+    <jar destfile="${tck_jar}" basedir="${classes}">
+      <include name="test/tck/**/*.class"/>
+      <include name="test/rihelper/**/*.class"/>
+      <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Main-Class" value="test.tck.Tck"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- this uses the junit task of ant to run the tck in self test mode -->
+
+  <target name='runtck' depends="compiletck" description="Runs all TCK tests using the ant junit task.">
+    <mkdir dir="${test.reports}"/>
+    <mkdir dir="logs"/>
+
+    <junit fork="yes" showoutput="yes" failureproperty="testing.failed">
+      <classpath>
+        <pathelement location="${jain_api_jar}"/>
+        <pathelement location="${ri_jar}"/>
+        <pathelement location="${tck_jar}"/>
+        <pathelement location='${junit_jar}'/>
+        <pathelement location='${log4j_jar}'/>
+
+        <!-- add source path since this will pick up test.tck.gui.images -->
+        <pathelement location='src'/>
+
+        <!-- add project root to the classpath in order to make tck.properties accessible. -->
+        <pathelement location="${root}"/>
+      </classpath>
+      <formatter type="xml"/>
+
+      <batchtest fork="yes" todir="${test.reports}" haltonfailure="no">
+        <fileset dir="${srcroot}">
+          <include name="test/tck/**/*Test.java"/>
+          <!-- exclude name="**/AllTests.java"/ -->
+        </fileset>
+      </batchtest>
+    </junit>
+
+    <junitreport todir="${test.reports}">
+        <fileset dir="${test.reports}">
+           <include name="TEST-*.xml" />
+        </fileset>
+        <report todir="${test.reports}" />
+    </junitreport>
+
+
+    <echo>The test report can be found at ./${test.reports}/index.html</echo>
+    <fail if="testing.failed"/>
+  </target>
+
+  <!-- only the TCK call flows -->
+  <target name='runtckcallflows' depends="compiletck" description="Runs all TCK tests using the ant junit task.">
+    <mkdir dir="${test.reports}"/>
+    <mkdir dir="logs" />
+
+    <junit fork="yes" showoutput="yes" failureproperty="testing.failed">
+      <classpath>
+        <pathelement location="${jain_api_jar}" />
+        <pathelement location="${ri_jar}" />
+        <pathelement location="${tck_jar}" />
+        <pathelement location='${junit_jar}' />
+        <pathelement location='${log4j_jar}' />
+
+        <!-- add source path since this will pick up test.tck.gui.images -->
+        <pathelement location='src' />
+
+        <!-- add project root to the classpath in order to make tck.properties accessible. -->
+        <pathelement location="${root}" />
+      </classpath>
+      <formatter type="xml" />
+
+      <batchtest fork="yes" todir="${test.reports}" haltonfailure="no">
+        <fileset dir="${srcroot}">
+          <include name="test/tck/msgflow/callflows/**/*Test.java" />
+          <!-- exclude name="**/AllTests.java"/ -->
+        </fileset>
+      </batchtest>
+    </junit>
+
+    <junitreport todir="${test.reports}">
+        <fileset dir="${test.reports}">
+           <include name="TEST-*.xml" />
+        </fileset>
+        <report todir="${test.reports}" />
+    </junitreport>
+
+    <echo>The test report can be found at ./${test.reports}/html/index.html</echo>
+    <fail if="testing.failed" />
+  </target>
+
+  <!-- target for build automation. will add runtck later -->
+
+  <target name="cc-buildloop" depends="make,compiletck,javadoc">
+    <jar compress="true" destfile="jain-sip-1.2.jar">
+      <fileset dir="../">
+        <include name="jain-sip/**/*/"/>
+        <exclude name="jain-sip/classes/**/*/"/>
+        <exclude name="jain-sip/*.jar"/>
+      </fileset>
+    </jar>
+
+  </target>
+
+
+  <!-- compile to traces viewer jar -->
+  <target name="viewerjar">
+    <copy todir="${classes}/tools/tracesviewer/images">
+      <fileset dir="${srcroot}/tools/tracesviewer/images"/>
+    </copy>
+    <jar compress="false" destfile="tracesviewer.jar">
+      <fileset dir="${classes}">
+        <include name="tools/tracesviewer/**/*.*"/>
+      </fileset>
+      <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Main-Class" value="tools.tracesviewer.TracesViewer"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- Compile the tools -->
+  <target name="compiletools" depends="init">
+    <javac debug="${javac.debug}" debuglevel="${javac.debuglevel}" nowarn="${javac.nowarn}" deprecation="${javac.deprecation}" optimize="${javac.optimize}" srcdir="${srcroot}" includes="tools/tracesviewer/**/*.java" destdir="${classes}">
+      <classpath>
+        <pathelement location="${classes}" />
+      </classpath>
+    </javac>
+    <copy todir="${classes}/tools/tracesviewer/images">
+      <fileset dir="${srcroot}/tools/tracesviewer/images" />
+    </copy>
+    <javac debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" deprecation="${javac.deprecation}" optimize="${javac.optimize}" srcdir="${srcroot}" includes="tools/sniffer/**/*.java" destdir="${classes}">
+      <classpath>
+        <pathelement location="${classes}" />
+        <pathelement location="${jain_api_jar}"/>
+        <pathelement location='${log4j_jar}' />
+      </classpath>
+    </javac>
+  </target>
+
+  <!-- add target for running all the parser tests -->
+  <target name='unittest' depends="compileunit" description="Runs all unit tests using the ant junit task.">
+    <mkdir dir="test-reports-parser" />
+    <mkdir dir="logs-parser" />
+
+    <junit fork="yes" showoutput="yes" failureproperty="testing.failed">
+      <classpath>
+        <pathelement location="${jain_api_jar}"/>
+        <pathelement location="${sdp_jar}" />
+        <pathelement location="${ri_jar}" />
+        <pathelement location="${log4j_jar}" />
+        <pathelement location='${junit_jar}' />
+        <pathelement location='${unit_test_jar}' />
+
+        <!-- add source path since this will pick up test.tck.gui.images -->
+        <pathelement location='src' />
+
+        <!-- add project root to the classpath in order to make tck.properties accessible. -->
+        <pathelement location="${root}" />
+      </classpath>
+      <formatter type="xml" />
+
+      <batchtest fork="yes" todir="test-reports-parser" haltonfailure="no">
+        <fileset dir="${srcroot}">
+          <include name="test/unit/**/*ParserTest.java" />
+        </fileset>
+      </batchtest>
+    </junit>
+
+    <junitreport todir="test-reports-parser">
+        <fileset dir="test-reports-parser">
+           <include name="TEST-*.xml" />
+        </fileset>
+        <report todir="test-reports-parser" />
+    </junitreport>
+
+
+    <echo>The test report can be found at ./test-reports-parser/html/index.html</echo>
+    <fail if="testing.failed" />
+  </target>
+
+</project>

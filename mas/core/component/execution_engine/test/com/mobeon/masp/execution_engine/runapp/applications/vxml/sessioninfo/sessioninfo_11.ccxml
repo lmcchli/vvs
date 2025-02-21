@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+	<eventprocessor statevariable="myState">
+
+		<transition event="connection.alerting" name="evt">
+			<script>mas.systemSetEarlyMediaResource('en', 'male', '');</script>
+		</transition>
+
+		<transition event="com.mobeon.platform.earlymediaresourcefailed">
+            <log expr="'TCPASS'"/>
+            <exit/>
+		</transition>
+
+		<transition event="error.*" name="dlg">
+			<log expr="'TCFAIL CCXML: Error = ' + dlg.name + ', Reason = '+dlg.reason"/>
+			<exit/>
+		</transition>
+	</eventprocessor>
+</ccxml>

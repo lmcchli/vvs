@@ -1,0 +1,1036 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "jmail"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AD74F670359"
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class_Category "imap"
+	    quid       	"3AD74F7C0313"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "ImapClient"
+		    quid       	"3AD74FA10371"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    operations 	(list Operations
+			(object Operation "uidSearch"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Final"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Static"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Abstract"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Native"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Synchronized"
+				    value      	FALSE))
+			    quid       	"3AD74FC80042"
+			    parameters 	(list Parameters
+				(object Parameter "flags"
+				    quid       	"3AD7526F01F7"
+				    type       	"java.lang.String"))
+			    result     	"boolean"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "getNextUid"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Final"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Static"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Abstract"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Native"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Synchronized"
+				    value      	FALSE))
+			    quid       	"3AD74FD100D1"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "retrieveEmail"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Final"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Static"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Abstract"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Native"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"Java"
+				    name       	"Synchronized"
+				    value      	FALSE))
+			    quid       	"3AD75056028B"
+			    result     	"NotificationProcess.notificationInterfaces.NotificationEmail"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"Java")
+		(object Association "$UNNAMED$0"
+		    quid       	"3AD7582B01B1"
+		    roles      	(list role_list
+			(object Role "$UNNAMED$1"
+			    quid       	"3AD7582D025F"
+			    supplier   	"Logical View::NotificationProcess::ObjectQueue"
+			    quidu      	"3AC4DC440292"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$2"
+			    quid       	"3AD7582D0269"
+			    supplier   	"Logical View::NotificationProcess::jmail::imap::ImapClient"
+			    quidu      	"3AD74FA10371"
+			    is_navigable 	TRUE
+			    is_aggregate 	TRUE)))
+		(object Association "$UNNAMED$3"
+		    quid       	"3AD758CE017A"
+		    roles      	(list role_list
+			(object Role "UidQueue"
+			    quid       	"3AD758CF0077"
+			    label      	"UidQueue"
+			    supplier   	"Logical View::NotificationProcess::ObjectQueue"
+			    quidu      	"3AC4DC440292"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$4"
+			    quid       	"3AD758CF0081"
+			    supplier   	"Logical View::NotificationProcess::jmail::imap::ImapClient"
+			    quidu      	"3AD74FA10371")))
+		(object Mechanism @1
+		    logical_models 	(list unit_reference_list
+			(object Object "$UNNAMED$5"
+			    quid       	"3AD743EC01B9"
+			    collaborators 	(list link_list
+				(object Link
+				    quid       	"3AD7443E01C1"
+				    supplier   	"$UNNAMED$6"
+				    quidu      	"3AD74434004A"
+				    messages   	(list Messages
+					(object Message "uidSearch()"
+					    quid       	"3AD7443E01C2"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Asynchronous"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"1"
+					    ordinal    	0)
+					(object Message "processResponse()"
+					    quid       	"3AD7448C0371"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Asynchronous"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"2"
+					    ordinal    	1))))
+			    class      	"Logical View::NotificationProcess::nsIMAPconnection::IMAPConnectionMaintainer"
+			    quidu      	"3AC4DE3103DB"
+			    persistence 	"Transient"
+			    multi      	FALSE)
+			(object Object "$UNNAMED$6"
+			    quid       	"3AD74434004A"
+			    class      	"Logical View::netscape::messaging::imap4::IMAP4Client"
+			    quidu      	"3AC4DE320051"
+			    persistence 	"Transient"
+			    multi      	FALSE)
+			(object Object "$UNNAMED$7"
+			    quid       	"3AD747630254"
+			    collaborators 	(list link_list
+				(object Link
+				    quid       	"3AD747EE0359"
+				    supplier   	"$UNNAMED$8"
+				    quidu      	"3AD747C9035F"
+				    messages   	(list Messages
+					(object Message "getNextUID( )"
+					    quid       	"3AD747EE035A"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Simple"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"4"
+					    ordinal    	3
+					    quidu      	"3AC4DE3400DC")))
+				(object Link
+				    quid       	"3AD7488102E2"
+				    supplier   	"$UNNAMED$6"
+				    quidu      	"3AD74434004A"
+				    messages   	(list Messages
+					(object Message "uidfetch()"
+					    quid       	"3AD7488102E3"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Asynchronous"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"5"
+					    ordinal    	4)
+					(object Message "processResponse()"
+					    quid       	"3AD748A1014D"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Asynchronous"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"6"
+					    ordinal    	5)
+					(object Message "retrievEmail()"
+					    quid       	"3AD74CE50202"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Simple"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"7"
+					    ordinal    	6))))
+			    class      	"Logical View::NotificationProcess::nsIMAPconnection::NSSDKMailboxConnection"
+			    quidu      	"3AC4DE35012E"
+			    persistence 	"Transient"
+			    multi      	FALSE)
+			(object Object "$UNNAMED$8"
+			    quid       	"3AD747C9035F"
+			    class      	"Logical View::NotificationProcess::nsIMAPconnection::NotifResponseSink"
+			    quidu      	"3AC4DE320075"
+			    persistence 	"Transient"
+			    multi      	FALSE)
+			(object Object "$UNNAMED$9"
+			    quid       	"3AD74833038A"
+			    collaborators 	(list link_list
+				(object Link
+				    quid       	"3AD7483C03A1"
+				    supplier   	"$UNNAMED$7"
+				    quidu      	"3AD747630254"
+				    messages   	(list Messages
+					(object Message "getNextEmail( )"
+					    quid       	"3AD7483C03A2"
+					    frequency  	"Aperiodic"
+					    synchronization 	"Simple"
+					    dir        	"FromClientToSupplier"
+					    sequence   	"3"
+					    ordinal    	2
+					    quidu      	"3AC4DE350247"))))
+			    class      	"Logical View::NotificationProcess::MailboxManager"
+			    quidu      	"3AC4DC5A0063"
+			    persistence 	"Transient"
+			    multi      	FALSE))))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "main"
+		    quid       	"3AD74F99009E"
+		    title      	"main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::NotificationProcess::jmail::imap::ImapClient" @2
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(624, 416)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@2
+				location   	(473, 292)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	302
+				justify    	0
+				label      	"ImapClient")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AD74FA10371"
+			    compartment 	(object Compartment
+				Parent_View 	@2
+				location   	(473, 350)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				icon_style 	"Icon"
+				fill_color 	13434879
+				anchor     	2
+				nlines     	4
+				max_width  	309)
+			    width      	320
+			    height     	270
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::NotificationProcess::ObjectQueue" @3
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(624, 1168)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@3
+				location   	(432, 975)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	384
+				justify    	0
+				label      	"ObjectQueue")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AC4DC440292"
+			    compartment 	(object Compartment
+				Parent_View 	@3
+				location   	(432, 1077)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				icon_style 	"Icon"
+				fill_color 	13434879
+				anchor     	2
+				nlines     	6
+				max_width  	390)
+			    width      	402
+			    height     	408
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object AssociationViewNew "$UNNAMED$3" @4
+			    location   	(624, 757)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3AD758CE017A"
+			    roleview_list 	(list RoleViews
+				(object RoleView "UidQueue" @5
+				    Parent_View 	@4
+				    location   	(0, 341)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @6
+					Parent_View 	@5
+					location   	(583, 921)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor     	1
+					anchor_loc 	1
+					nlines     	1
+					max_width  	212
+					justify    	0
+					label      	"+UidQueue"
+					pctDist    	0.800000
+					height     	42
+					orientation 	1)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3AD758CF0077"
+				    client     	@4
+				    supplier   	@3
+				    line_style 	0)
+				(object RoleView "$UNNAMED$4" @7
+				    Parent_View 	@4
+				    location   	(0, 341)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @8
+					Parent_View 	@7
+					location   	(583, 593)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					hidden     	TRUE
+					anchor     	1
+					anchor_loc 	1
+					nlines     	1
+					max_width  	212
+					justify    	0
+					label      	""
+					pctDist    	0.800000
+					height     	42
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3AD758CF0081"
+				    client     	@4
+				    supplier   	@2
+				    line_style 	0)))))
+		(object InteractionDiagram "retrievalOrg"
+		    mechanism_ref 	@1
+		    quid       	"3AD743B70072"
+		    title      	"retrievalOrg"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object InterObjView "$UNNAMED$5" @9
+			    location   	(1264, 224)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	TRUE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@9
+				location   	(1264, 224)
+				fill_color 	13434879
+				anchor_loc 	1
+				nlines     	2
+				max_width  	476
+				justify    	0
+				label      	"")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AD743EC01B9"
+			    width      	494
+			    height     	1267
+			    icon_height 	0
+			    icon_width 	0
+			    icon_y_offset 	0
+			    annotation 	1
+			    Focus_Of_Control 	(object Focus_Of_Control "" @10
+				location   	(1088, 368)
+				line_color 	3342489
+				InterObjView 	@9
+				height     	120
+				y_coord    	60
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @11
+				location   	(1088, 560)
+				line_color 	3342489
+				InterObjView 	@9
+				height     	120
+				y_coord    	60
+				Nested     	FALSE))
+			(object InterObjView "$UNNAMED$6" @12
+			    location   	(816, 224)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	TRUE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@12
+				location   	(816, 224)
+				fill_color 	13434879
+				anchor_loc 	1
+				nlines     	2
+				max_width  	282
+				justify    	0
+				label      	"")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AD74434004A"
+			    width      	300
+			    height     	1267
+			    icon_height 	0
+			    icon_width 	0
+			    icon_y_offset 	0
+			    annotation 	1
+			    Focus_Of_Control 	(object Focus_Of_Control "" @13
+				location   	(352, 368)
+				line_color 	3342489
+				InterObjView 	@12
+				height     	60
+				y_coord    	0
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @14
+				location   	(352, 560)
+				line_color 	3342489
+				InterObjView 	@12
+				height     	60
+				y_coord    	0
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @15
+				location   	(816, 912)
+				line_color 	3342489
+				InterObjView 	@12
+				height     	60
+				y_coord    	0
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @16
+				location   	(816, 1088)
+				line_color 	3342489
+				InterObjView 	@12
+				height     	60
+				y_coord    	0
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @17
+				location   	(816, 1264)
+				line_color 	3342489
+				InterObjView 	@12
+				height     	60
+				y_coord    	0
+				Nested     	FALSE))
+			(object InterMessView "" @18
+			    location   	(16, 368)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @19
+				Parent_View 	@18
+				location   	(1040, 324)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD7443E01C2"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	210
+				justify    	0
+				label      	"uidSearch()"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@9
+			    supplier   	@12
+			    Focus_Src  	@10
+			    Focus_Entry 	@13
+			    origin     	(1248, 368)
+			    terminus   	(832, 368)
+			    ordinal    	0)
+			(object InterMessView "" @20
+			    location   	(720, 560)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @21
+				Parent_View 	@20
+				location   	(1040, 516)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD7448C0371"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	357
+				justify    	0
+				label      	"processResponse()"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@9
+			    supplier   	@12
+			    Focus_Src  	@11
+			    Focus_Entry 	@14
+			    origin     	(1248, 560)
+			    terminus   	(832, 560)
+			    ordinal    	1)
+			(object InterObjView "$UNNAMED$7" @22
+			    location   	(1808, 224)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	TRUE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@22
+				location   	(1808, 224)
+				fill_color 	13434879
+				anchor_loc 	1
+				nlines     	2
+				max_width  	468
+				justify    	0
+				label      	"")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AD747630254"
+			    width      	486
+			    height     	1267
+			    icon_height 	0
+			    icon_width 	0
+			    icon_y_offset 	0
+			    annotation 	1
+			    Focus_Of_Control 	(object Focus_Of_Control "" @23
+				location   	(1808, 608)
+				line_color 	3342489
+				InterObjView 	@22
+				height     	60
+				y_coord    	0
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @24
+				location   	(1808, 736)
+				line_color 	3342489
+				InterObjView 	@22
+				height     	120
+				y_coord    	60
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @25
+				location   	(1808, 912)
+				line_color 	3342489
+				InterObjView 	@22
+				height     	120
+				y_coord    	60
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @26
+				location   	(1808, 1088)
+				line_color 	3342489
+				InterObjView 	@22
+				height     	120
+				y_coord    	60
+				Nested     	FALSE)
+			    Focus_Of_Control 	(object Focus_Of_Control "" @27
+				location   	(1808, 1264)
+				line_color 	3342489
+				InterObjView 	@22
+				height     	120
+				y_coord    	60
+				Nested     	FALSE))
+			(object InterObjView "$UNNAMED$9" @28
+			    location   	(2256, 224)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	TRUE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@28
+				location   	(2256, 224)
+				fill_color 	13434879
+				anchor_loc 	1
+				nlines     	2
+				max_width  	290
+				justify    	0
+				label      	"")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AD74833038A"
+			    width      	308
+			    height     	1267
+			    icon_height 	0
+			    icon_width 	0
+			    icon_y_offset 	0
+			    annotation 	1
+			    Focus_Of_Control 	(object Focus_Of_Control "" @29
+				location   	(2256, 608)
+				line_color 	3342489
+				InterObjView 	@28
+				height     	794
+				y_coord    	734
+				Nested     	FALSE))
+			(object InterObjView "$UNNAMED$8" @30
+			    location   	(320, 224)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	TRUE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@30
+				location   	(320, 224)
+				fill_color 	13434879
+				anchor_loc 	1
+				nlines     	2
+				max_width  	352
+				justify    	0
+				label      	"")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3AD747C9035F"
+			    width      	370
+			    height     	1267
+			    icon_height 	0
+			    icon_width 	0
+			    icon_y_offset 	0
+			    annotation 	1
+			    Focus_Of_Control 	(object Focus_Of_Control "" @31
+				location   	(320, 736)
+				line_color 	3342489
+				InterObjView 	@30
+				height     	60
+				y_coord    	0
+				Nested     	FALSE))
+			(object NoteView @32
+			    location   	(560, 464)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@32
+				location   	(351, 333)
+				fill_color 	13434879
+				nlines     	5
+				max_width  	383
+				label      	"processResponse() reads all UIDs and saves them in a linked list in NotifiyResponseSink.")
+			    line_color 	3342489
+			    fill_color 	13434879
+			    width      	443
+			    height     	275)
+			(object AttachView "" @33
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    client     	@32
+			    supplier   	@20
+			    line_style 	0)
+			(object InterMessView "" @34
+			    location   	(1072, 736)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @35
+				Parent_View 	@34
+				location   	(1064, 692)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD747EE035A"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	238
+				justify    	0
+				label      	"getNextUID( )"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@22
+			    supplier   	@30
+			    Focus_Src  	@24
+			    Focus_Entry 	@31
+			    origin     	(1792, 736)
+			    terminus   	(336, 736)
+			    ordinal    	3)
+			(object InterMessView "" @36
+			    location   	(2032, 608)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @37
+				Parent_View 	@36
+				location   	(2032, 564)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD7483C03A2"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	273
+				justify    	0
+				label      	"getNextEmail( )"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@28
+			    supplier   	@22
+			    Focus_Src  	@29
+			    Focus_Entry 	@23
+			    origin     	(2240, 608)
+			    terminus   	(1824, 608)
+			    ordinal    	2)
+			(object InterMessView "" @38
+			    location   	(16, 912)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @39
+				Parent_View 	@38
+				location   	(1312, 868)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD7488102E3"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	169
+				justify    	0
+				label      	"uidfetch()"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@22
+			    supplier   	@12
+			    Focus_Src  	@25
+			    Focus_Entry 	@15
+			    origin     	(1792, 912)
+			    terminus   	(832, 912)
+			    ordinal    	4)
+			(object InterMessView "" @40
+			    location   	(1312, 1088)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @41
+				Parent_View 	@40
+				location   	(1312, 1044)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD748A1014D"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	357
+				justify    	0
+				label      	"processResponse()"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@22
+			    supplier   	@12
+			    Focus_Src  	@26
+			    Focus_Entry 	@16
+			    origin     	(1792, 1088)
+			    terminus   	(832, 1088)
+			    ordinal    	5)
+			(object NoteView @42
+			    location   	(544, 992)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@42
+				location   	(381, 836)
+				fill_color 	13434879
+				nlines     	6
+				max_width  	290
+				label      	"processResponse() reads the fetched message and saves it in an EmailData")
+			    line_color 	3342489
+			    fill_color 	13434879
+			    width      	350
+			    height     	325)
+			(object InterMessView "" @43
+			    location   	(1312, 1264)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @44
+				Parent_View 	@43
+				location   	(1312, 1220)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				quidu      	"3AD74CE50202"
+				anchor_loc 	1
+				nlines     	1
+				max_width  	238
+				justify    	0
+				label      	"retrievEmail()"
+				pctDist    	0.500000
+				height     	45
+				orientation 	1)
+			    line_color 	3342489
+			    client     	@22
+			    supplier   	@12
+			    Focus_Src  	@27
+			    Focus_Entry 	@17
+			    origin     	(1792, 1264)
+			    terminus   	(832, 1264)
+			    ordinal    	6)
+			(object AttachView "" @45
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    client     	@42
+			    supplier   	@40
+			    line_style 	0))))))
+    logical_presentations 	(list unit_reference_list))

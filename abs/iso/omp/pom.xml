@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>abcxyz.services.messaging.vvs</groupId>
+    <artifactId>iso-parent</artifactId>
+    <version>MIO.CP50-SNAPSHOT</version>
+  </parent>
+  <artifactId>MIO_VVSOMP-CXP9020566</artifactId>
+  <name>OMP VVS ISO Packaging</name>
+  <packaging>pom</packaging>
+  <description>OMP ISO distribution package for VVS on MIO</description>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>abcxyz.services.messaging.vmio.mavenplugins</groupId>
+        <artifactId>vmio-packaging-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-iso</id>
+            <goals>
+              <goal>generate-iso</goal>
+            </goals>
+            <configuration>
+              <productName>VVS</productName>
+              <targetPlatform>OMP</targetPlatform>
+              <componentlist>
+						VVS_BACK_CFG-CXC17288812=OM
+						VVS_BACKEND-CXC17288811=MOIP-TN,MOIP-VMP,DA
+						VVS_LIBSTDC-CXC1729199=MOIP-TN,MOIP-VMP 
+						VVS_MAS-CXC17288761=MOIP-TN,MOIP-VMP
+						VVS_MAS_CFG-CXC17288762=OM
+						VVS_NTF-CXC17288771=MOIP-TN
+						VVS_NTF_CFG-CXC17288772=OM
+						VVS_MGMT-CXC1731411R2C=OM
+						VVS_OAM-CXC17314202=OM
+						VVS_OAM_CFG-CXC17314201=OM
+						VVS_REPORTS-CXC1731548=OM
+						VVS_VMPA-CXC1731078=MOIP-VMP
+						VVS_VMPA_CFG-CXC1731079=OM
+						VVS_VVA-CXC1728878=MOIP-TN
+						VVS_VVA_CFG-CXC17288782=OM
+						VVS_VMP_CFG-CXC1731077=MOIP-VMP
+					 </componentlist>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

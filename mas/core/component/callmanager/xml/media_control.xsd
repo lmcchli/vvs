@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<xsd:schema id="TightMediaControl" targetNamespace="urn:ietf:params:xml:ns:media_control" elementFormDefault="qualified" xmlns="urn:ietf:params:xml:ns:media_control" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="media_control">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="vc_primitive" type="vc_primitive" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element name="general_error" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Video control primitive. Each primitive is directed either to a remote encode or to a remote decoder. -->
+    <xsd:complexType name="vc_primitive">
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:element name="to_encoder" type="to_encoder" />
+                <xsd:element name="to_decoder" type="to_decoder" />
+            </xsd:choice>
+            <xsd:element name="stream_id" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="primitive_type" use="optional" default="cmd" />
+        <xsd:attribute name="stream" type="stream_type" use="optional" default="all" />
+    </xsd:complexType>
+
+    <xsd:simpleType name="primitive_type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="cmd" />
+            <xsd:enumeration value="ind" />
+            <xsd:enumeration value="req" />
+            <xsd:enumeration value="rsp" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="stream_type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="mid" />
+            <xsd:enumeration value="all" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Decoder commands:
+             Currently only Picture Freeze is defined.
+        -->
+    <xsd:complexType name="to_decoder">
+        <xsd:sequence>
+            <xsd:element name="picture_freeze" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <!-- Encoder Commands:
+             Picture Fast Update
+             GOB Fast Update
+             MB Fast Update
+        -->
+    <xsd:complexType name="to_encoder">
+        <xsd:choice>
+            <xsd:element name="picture_fast_update" />
+            <xsd:element name="gob_fast_update">
+                <xsd:complexType>
+                    <xsd:attribute name="first_gob" type="xsd:nonNegativeInteger" use="optional" default="0" />
+                    <xsd:attribute name="no_of_gobs" type="xsd:nonNegativeInteger" use="optional" default="1" />
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="mb_fast_update">
+                <xsd:complexType>
+                    <xsd:attribute name="first_gob" type="xsd:nonNegativeInteger" use="optional" default="0" />
+                    <xsd:attribute name="first_mb"  type="xsd:nonNegativeInteger" use="optional" default="1" />
+                    <xsd:attribute name="no_of_mbs" type="xsd:nonNegativeInteger" use="optional" default="1" />
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+    </xsd:complexType>
+
+</xsd:schema>

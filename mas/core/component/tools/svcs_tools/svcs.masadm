@@ -1,0 +1,553 @@
+#!/bin/ksh
+###################################################################
+# File    : rc.masadm /masadm
+# Author  : Håkan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is is renamed to masadm if installed on a Solaris 10 system.
+#	This file is called by rc.mas and is always called to operate on mas.
+#	This file uses Solaris 10 specific function svcs.
+#
+# OS: 	Solaris 10
+#
+# History
+#	Date		Who	What
+#	2006-01-10  	MHATU	Created
+#
+#
+####################################################################
+
+
+#*********************************************
+# These parameters exsist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+HOSTNAME=`hostname`
+
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+
+mode=$1
+param=$2
+all_params=$@
+
+
+ENABLERESTART=$BASEDIR"/etc/enablerestart"
+REGULARSTART=$BASEDIR"/etc/regularstart"
+START_RESULT_FILE=$BASEDIR"/etc/startresult"
+
+# Load config values
+. $BASEDIR/etc/mas.conf
+
+
+#
+# Print something to a logfile.
+# Usage: log <filename> <your log text here>
+# Example: log $BASEDIR/log/process.log "Starting MAS"
+#
+log()
+{
+    WHERE=$1
+    shift
+    WHAT=$@
+    TIMESTAMP=`$BASEDIR/bin/getTimeZone`
+
+    echo "$TIMESTAMP $WHAT" >> $WHERE
+}
+
+
+setupEnv() {
+
+    MAS_INSTALL_PATH=$BASEDIR    
+    export MAS_INSTALL_PATH
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    #LD_LIBRARY_PATH=/usr/lib/lwp:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$JAVA_CLASSPATH
+    
+    
+    
+
+}
+
+
+chkSnmp()
+{
+    # is snmp installed and running
+    SNMPDM=`ps -e | grep snmpdm`
+    JSADKAGT=`ps -e | grep jsadkagt`
+    if [[ $SNMPDM = ""  ||  $JSADKAGT = "" ]]
+    then
+    	SNMP_ALIVE="NO"
+    else
+    	SNMP_ALIVE="YES"
+    fi
+
+}
+
+#
+#  Gets status 
+#
+doGetStatus()
+{
+
+	doStartStatus
+	
+	if [[ $START_STATUS = "started" ]]
+	then
+
+       		if [ -f $ENABLERESTART ]
+  		then
+  			restart="autostart"
+  		else
+  			restart="not autostart"
+  		fi
+	
+
+		# get enabled = 1 / disabled = 0
+	        #result=`$SNMP_DIR/getone -v2c bilbo.ipms.lab.mobeon.com public enterprises.24261.1.1.1.3.0 `
+	        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+	        result=`echo $result |awk -F= '{ print $2}'`
+		# remove white spaces
+	        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	        result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+		
+	        if [[ $result = "1" ]]
+	        then
+	        	opstate="enabled"
+		else
+	        	opstate="disabled"
+	        fi
+
+		# get unlocked = 1 / locked = 0
+	        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.4.0 `
+	        result=`echo $result |awk -F= '{ print $2}'`
+	        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	        result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+
+	        if [[ $result = "1" ]]
+	        then
+	        	admstate="unlocked"
+		elif [[ $result = "2" ]]
+	        then
+	        	admstate="locked"
+		else
+	        	admstate="shutdown"
+	        fi
+
+        	echo "mas:$HOSTNAME:status started ($restart) ($admstate) ($opstate)"
+
+	
+	elif [[ $START_STATUS = "starting" ]]
+	then
+        	echo "mas:$HOSTNAME:status starting"
+
+	elif [[ $START_STATUS = "stopped" ]]
+	then
+        	echo "mas:$HOSTNAME:status stopped"
+
+	elif [[ $START_STATUS = "unknown" ]]
+	then
+		echo "mas:$HOSTNAME:status $START_STATUS "
+	fi
+
+
+	
+}
+
+
+
+#
+# Waits until MAS is started.
+#
+doStarted()
+{
+        tick=0
+        a=0
+        result=""
+        char=0
+
+        while [ $continue="" ]
+        do
+
+                tick=`expr $tick + 1`
+
+                if [ $tick -gt 2 ]
+                then
+                        #result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+                        #result=`echo $result |awk -F= '{ print $2}'`
+                        #result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+                        #result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+                        doReadStartStatus
+                        result=$START_STATUS
+                        tick=0
+                else
+                        sleep 1
+                fi
+
+		# Check if enabled.
+                if [[ $result = "started"  ]]
+                then
+                        STARTED="YES"
+                        echo "\r\c"
+                        break
+                fi
+
+                if [[ $result = "stopped"  ]]
+                then
+                        STARTED="NO"
+                        echo "\r\c"
+                        break
+                fi
+
+#		status=`svcs -p MOBYmas:mas | grep MOBYmas:mas | awk '{ print $1}'`
+#		if [[ $status = "maintenance" ]]
+#		then
+#                       STARTED="NO"
+#                       echo "\r\c"
+#                       break
+#		fi
+
+
+
+                char=`expr $char + 1`
+                echo "\r\c"
+                case "$char" in
+                   "1") echo "mas:$HOSTNAME:starting [\\] \c" ;;
+                   "2") echo "mas:$HOSTNAME:starting [|] \c" ;;
+                   "3") echo "mas:$HOSTNAME:starting [/] \c" ;;
+                   "4") echo "mas:$HOSTNAME:starting [-] \c"
+                      char=0 ;;
+                esac
+
+		
+
+
+                #if [ $tick -gt 30 ]
+                #then
+                #        STARTED="NO"
+                #        break
+                #fi
+
+                #sleep 1
+        done
+        
+        doChkConfiguration
+}
+
+doChkConfiguration()
+{
+        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.20.0 `
+	result=`echo $result |awk -F= '{ print $2}'`  # keep value after "="
+	result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }') # remove white spaces
+	result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+
+	if [[ $result = "3" ]]
+	then
+		echo "mas:$HOSTNAME:status warning. Could not use one or more configfiles. Using backup configuration files. se logfile."
+	elif [[ $result = "4" ]]
+	then
+		echo "mas:$HOSTNAME:status error. Could not use one or more configfiles. No backup configuration found. se logfile."
+	fi
+
+}
+
+# waits until mas is stopped
+doStopped()
+{
+	stopped=""
+        while [ $stopped="" ]
+        do
+        	status=`svcs -p MOBYmas:mas | grep MOBYmas:mas | awk '{ print $1}'`
+		if [[ $status = "disabled" || $status = "maintenance"  ]]
+		then
+			break
+		fi
+        done
+        
+       	stopped=""
+        while [ $stopped="" ]
+        do
+        	status=`svcs -p MOBYmas:snmpagent | grep MOBYmas:snmpagent | awk '{ print $1}'`
+		if [[ $status = "disabled" || $status = "maintenance"  ]]
+		then
+			break
+		fi
+        done
+
+}
+
+doReadStartStatus()
+{
+	if [ -f $START_RESULT_FILE ] 
+	then
+		# The status file exists. Did it go well.?
+		status=`head $START_RESULT_FILE`
+		if [[ $status = "OK" ]]
+		then
+			START_STATUS="started"
+		else
+			START_STATUS="stopped"
+			SVCS_STATUS="maintenance"
+		fi
+	else
+		START_STATUS="no file"
+	fi
+}
+
+doStartStatus()
+{
+	START_STATUS=""
+	SVCS_STATUS=""
+	SNMP_ALIVE=""
+	
+	status=`svcs -p MOBYmas:mas | grep MOBYmas:mas | awk '{ print $1}'`
+	if [[ $status = "online" ]]
+	then
+		echo
+		SVCS_STATUS="online"
+		
+		# the mas process is online. But it can be in starting state.
+		doReadStartStatus
+		if [[ $START_STATUS = "no file" ]]
+		then
+			START_STATUS="starting"
+		fi
+		
+		## Check if snmp agent is running
+		#chkSnmp
+                #if [[ $SNMP_ALIVE = "YES" ]]
+                #then
+		#
+		#	# the mas process is online. But it can be in starting state.
+	        #        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+	        #        result=`echo $result |awk -F= '{ print $2}'`
+	        #        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	        #        result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+		#
+	        #        if [[ $result = "1"  ||  $result = "2" || $result = "enabled(1)"  ||  $result = "disabled(2)" ]]
+	        #        then
+		#		START_STATUS="started"
+		#	else
+		#		START_STATUS="starting"
+		#	fi
+		#else
+		#	START_STATUS="unknown (starting/started)"
+		#	#START_INFO="starting/started"
+		#fi
+		
+	elif [[ $status = "offline" || $status = "offline*" ]]
+	then
+		START_STATUS="starting"
+		SVCS_STATUS="offline"
+	
+	elif [[ $status = "disabled" ]]
+	then
+		START_STATUS="stopped"
+		SVCS_STATUS="disabled"
+	
+	elif [[ $status = "maintenance" ]]
+	then
+		START_STATUS="stopped"
+		SVCS_STATUS="maintenance"
+	fi
+
+}
+
+doTrap()
+{
+	echo "Wait....\c"
+	doStartStatus
+	echo "\r\c"
+	echo "mas:$HOSTNAME:result $START_STATUS "
+	exit 0
+}
+
+doStart()
+{
+		# Define trap
+		# Catch CTR-C and CTR-Z.
+		# if pressed. execute doTrap() funtion
+		trap 'doTrap' INT TSTP
+		
+	
+		# get start status stoped/starting/started
+		doStartStatus
+		
+		if [[ $START_STATUS = "stopped" ]]
+		then
+			# Remove startstatus file.
+			if [ -f $START_RESULT_FILE ] 
+			then
+				rm $START_RESULT_FILE
+			fi
+
+			echo "Flag file for regular start, This file will be removed when started" > $REGULARSTART
+			
+			# start mas
+			if [[ $SVCS_STATUS = "maintenance" ]]
+			then
+				svcadm clear MOBYmas:mas
+			fi
+	
+			status=`svcs -p MOBYmas:snmpagent | grep MOBYmas:snmpagent | awk '{ print $1}'`
+			if [[ $status = "maintenance" ]]
+			then
+				svcadm clear MOBYmas:snmpagent
+			fi
+			
+			
+	                svcadm enable MOBYmas:snmpagent
+	                svcadm enable MOBYmas:mas
+	
+			chkSnmp
+	                if [[ $SNMP_ALIVE = "YES" ]]
+			then
+				# Wait until started
+	                	doStarted
+	                	if [[ $STARTED = "YES" ]]
+	                	then
+	                        	echo "mas:$HOSTNAME:result ok started"
+	                        	log $BASEDIR/log/process.log "   start OK"	                        	
+	                	else
+	                        	echo "mas:$HOSTNAME:result error mas did not start"	                        	
+	                        	log $BASEDIR/log/process.log "   start FAILED"
+	                	fi
+			else
+				echo "mas:$HOSTNAME:result start status unknown (No SNMP running)"
+			fi
+		
+		
+		elif [[ $START_STATUS = "starting" ]]
+		then
+			echo "mas:$HOSTNAME:result ok starting"
+		elif [[ $START_STATUS = "started" ]]
+		then
+			echo "mas:$HOSTNAME:result ok already started"
+		elif [[ $START_STATUS = "starting/started" ]]
+		then
+			echo "mas:$HOSTNAME:result unknown starting/started"
+		fi
+
+}
+
+
+doStop()
+{
+		svcadm disable MOBYmas:mas
+		svcadm disable MOBYmas:snmpagent		
+		log $BASEDIR/log/process.log "   stopped by user"
+		
+
+}
+
+
+
+doGetVersion()
+{
+        patches=`pkgparam MOBYmas MOIP_PATCHLIST`
+        version=`pkgparam MOBYmas VERSION`
+       
+        if [[ $patches != "" ]]
+        then
+                          INSTALLED_VERSION=$version","$patches
+        else
+                          INSTALLED_VERSION=$version
+        fi
+
+        echo "version: $INSTALLED_VERSION"
+}
+
+
+case "$mode" in
+	'start')
+		doStart				
+		;;
+	'stop')
+		doStop
+		doStopped
+		echo "mas:$HOSTNAME:result ok stopped"
+		;;
+	'restart')
+		doStop
+		doStopped
+		doStart
+		;;
+	'status')
+		doGetStatus
+		;;
+	'enableautostart')
+		$BASEDIR/etc/mascommon enableautostart
+		;;
+	'disableautostart')
+		$BASEDIR/etc/mascommon disableautostart
+		;;
+	'lock')
+		$BASEDIR/etc/mascommon lock
+		;;
+	'unlock')
+		$BASEDIR/etc/mascommon unlock
+		;;
+	'shutdown')
+		$BASEDIR/etc/mascommon shutdown $param
+		;;
+	'monitor')
+		$BASEDIR/etc/mascommon monitor
+		;;
+	'viewmib')
+		$BASEDIR/etc/mascommon viewmib
+		;;
+	'installmcp')
+		$BASEDIR/etc/mascommon installmcp $param
+		;;
+	'uninstallmcp')
+		$BASEDIR/etc/mascommon uninstallmcp $param
+		;;
+	'viewmcp')
+		$BASEDIR/etc/mascommon viewmcp
+		;;
+	'installapp')
+		$BASEDIR/etc/mascommon installapp $param
+		;;
+	'uninstallapp')
+		$BASEDIR/etc/mascommon uninstallapp $param
+		;;
+	'viewapp')
+		$BASEDIR/etc/mascommon viewapp
+		;;
+	'reloadconfig')
+		$BASEDIR/etc/mascommon reloadconfig
+		;;
+	'register')
+		$BASEDIR/etc/mascommon register
+		;;
+	'unregister')
+		$BASEDIR/etc/mascommon unregister
+		;;
+	'version')
+		doGetVersion
+		;;
+	'testnumber')
+		$BASEDIR/etc/mascommon $all_params
+		;;
+		
+		
+	*)
+		echo "Usage: `basename $0` <start|stop|restart|enableautostart|disableautostart|lock|unlock|shutdown|monitor|version>"
+		exit 1
+		;;
+esac

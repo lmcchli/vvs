@@ -1,0 +1,26 @@
+Things to do
+================================================================
+Add "aliases" to outdial config file, i.e. names on a code or group of codes.
+
+Remove and hide extreme parameters.
+
+Replace NTF logging with java logging.
+
+Use symbols for time and size config parameter, i.e logsize=10M.
+
+Configuration control tool.
+
+Notification-Database.
+
+Find a better AMR-encoder.
+
+Better solution to differentiate between voice, video, fax, email.
+
+More flexible SMS-templates (more than s, h and c)
+
+More flexible SMS-template count handling (macro language)
+
+Hot-number - NTF logs a lot about messages to a special telephone number.
+
+Separate NTF into modules, each with its own version-controlled jar file.
+

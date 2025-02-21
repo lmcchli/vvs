@@ -1,0 +1,43 @@
+#!/bin/sh
+
+BASE=`pkgparam MOBYmas BASEDIR`
+
+version=`uname -r`
+CRONFILE="/tmp/mas.cron"
+
+remove_cron_entry()
+{
+
+	crontab -l root > $CRONFILE
+	CRONEXIST=`grep "mcrlib" $CRONFILE` 
+	if [ "$CRONEXIST" != "" ]; then
+		sed -e /"mcrlib"/d < $CRONFILE > $CRONFILE.tmp
+		crontab $CRONFILE.tmp
+	fi
+        
+}
+
+removeDir()
+{
+#	if [ "$REUSECONFIG" != "yes" ]; then
+		# check if BASEDIR contains 'mas'
+		BASENAME=`basename $BASEDIR`
+		if [ "$BASENAME" = "mas" ];then
+ 		    echo "Removing $BASEDIR"
+		    rm -r $BASEDIR
+		fi
+#	fi
+	rm -f /etc/init.d/rc.mas
+}
+
+
+#
+# MAIN
+#
+
+case $version in
+        5.8)    remove_cron_entry
+        	removeDir;;
+        *)      remove_cron_entry
+        	removeDir;;
+esac

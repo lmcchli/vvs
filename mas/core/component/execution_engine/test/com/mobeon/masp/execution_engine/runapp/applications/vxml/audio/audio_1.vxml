@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<form id="main_form">
+        <block>
+            <prompt>
+                <audio src="doesnotexist.wav"/>
+                <log>TCPASS VXML: Audio 1 OK</log>
+            </prompt>
+        </block>
+    </form>
+</vxml>

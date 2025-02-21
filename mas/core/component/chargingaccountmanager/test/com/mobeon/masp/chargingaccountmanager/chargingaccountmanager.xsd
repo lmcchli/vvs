@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="chargingaccountmanager"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chargingaccountmanager">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="airnodes" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="element" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="elementgroup" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+   <xs:element name="airnodes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="node" minOccurs="1" maxOccurs="5"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="node">
+        <xs:complexType>
+            <xs:attribute name="host"/>
+            <xs:attribute name="port" type="xs:positiveInteger"/>
+            <xs:attribute name="username"/>
+            <xs:attribute name="password"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="element">
+        <xs:complexType>
+            <xs:attribute name="name"/>
+            <xs:attribute name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="string|boolean|integer|date"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="elementgroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="member" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="parent"/>
+            <xs:attribute name="structtype">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="struct|array"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="member">
+        <xs:complexType>
+            <xs:attribute name="name"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

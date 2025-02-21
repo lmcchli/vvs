@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<var name="catchno" expr="0"/>
+	<form id="form2">
+		<property name="timeout" value="10s"/>
+		<field name="field1">
+			<grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+				<rule id="gd1_main_rule2">
+					<one-of>
+						<item>0</item>
+						<item>1</item>
+						<item>2</item>
+						<item>3</item>
+						<item>4</item>
+						<item>5</item>
+						<item>6</item>
+						<item>7</item>
+						<item>8</item>
+						<item>9</item>
+					</one-of>
+				</rule>
+				<rule id="gd1_main_rule" scope="public">
+					<one-of>
+						<item repeat="0-">
+							<ruleref uri="#gd1_main_rule2"/>
+						</item>
+						<item>
+							<item repeat="0-">
+								<ruleref uri="#gd1_main_rule2"/>
+							</item>
+							<one-of>
+								<item>*</item>
+								<item>*</item>
+								<item>* 0</item>
+								<item>* *</item>
+								<item>* 8</item>
+							</one-of>
+						</item>
+					</one-of>
+				</rule>
+			</grammar>
+			<filled>
+				<log label="error">TC 20103400 Passed</log>
+				<exit/>
+			</filled>
+			<catch event="noinput">
+				<log label="error">TC 20103400 Failed</log>
+				<exit/>
+			</catch>
+		</field>
+	</form>
+</vxml>

@@ -1,0 +1,21 @@
+#Request Script
+
+get_basedir(){
+BASEDIR=`pkgparam LMENtf BASEDIR`
+if [ $? != 0 ]; then
+    clear
+    echo "I cant find an NTF installation!"
+    echo "Aborting"
+    exit 1
+fi
+
+}
+
+
+
+#MAIN
+get_basedir
+
+cat > $1 <<!
+BASEDIR=$BASEDIR
+!

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="execution_engine.xsd">
+    <executionengine
+            enginestacksize="100"
+            callmanagerwaittime="60000"
+            accepttimeout="30000"
+            createcalladditionaltimeout="30000"
+            traceenabled="false"
+            alwayscompile="false"
+            generateops="false"
+            opspath="."
+            hostname="localhost"
+            />
+</configuration>
+
+
+

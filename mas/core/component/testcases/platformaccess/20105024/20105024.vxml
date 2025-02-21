@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+
+		<block>
+
+			<log>TEST 20105024 FAILED</log>
+
+		</block>
+
+	</form>
+
+
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

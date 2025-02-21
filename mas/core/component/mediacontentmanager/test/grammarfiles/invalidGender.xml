@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Partial grammar rule file -->
+<grammar>
+    <rule type="Number" gender="Invalid">
+        <condition divisor="1000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999" terminal="true" divide="true">
+            <action type="mediafile">1e3</action>
+        </condition>
+    </rule>
+</grammar>

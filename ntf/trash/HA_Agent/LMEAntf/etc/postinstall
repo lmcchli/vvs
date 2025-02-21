@@ -1,0 +1,19 @@
+#!/bin/sh
+# Sun Cluster Data Services Builder template version 1.0
+
+RT_NAME=ntf
+RT_VENDOR=LMEA
+RT_FULLNAME=$RT_VENDOR$RT_NAME
+
+RTRDIR=${PKG_INSTALL_ROOT}/usr/cluster/lib/rgm/rtreg
+# Add the link in the RT repository directory. This way
+# commands like scrgadm would be able to find this newly
+# added resource type.
+
+if [ ! -r $RTRDIR/$RT_VENDOR.$RT_NAME ]
+then
+	ln -s $BASEDIR/$RT_FULLNAME/etc/$RT_VENDOR.$RT_NAME \
+	$RTRDIR/$RT_VENDOR.$RT_NAME
+fi
+
+exit $?

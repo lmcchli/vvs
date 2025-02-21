@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml">
+
+    <script src="libMas.js"/>
+
+    <var name="platformAccessEvent" expr="false"/>
+    <var name="ANI"/>
+    <var name="DNIS"/>
+    <var name="RDNIS"/>	
+    <var name="outdialnotificationani"/>
+    <var name="aniequalsdepositid"/>
+    <var name="language"/>
+    <var name="variantVoice"/>
+    <var name="variantVideo"/>
+    <var name="tryDefaultLanguage" expr="false"/>
+    <var name="dialogId"/>
+    <var name="earlydlgid"/>
+    <var name="myState" expr="'init'"/>
+    <var name="vxmlMaxTime"/>
+    <var name="in_connectionid"/>
+    <var name="out_connectionid"/>
+    <var name="maxtimeSendid"/>
+    <var name="outgoingCallEndedReason"/>
+    <var name="in_calltype"/>
+    <var name="hints"/>
+    <var name="transferCaller"/>
+    <var name="transferCalled"/>
+    <var name="isSubscriber"/>
+
+    <!-- If an error occurs in PlatformAccess, the function will return undefined but the transition will continue to completion.  -->
+
+    <eventprocessor statevariable="myState">
+
+        <!-- Handle incoming call. -->
+        <transition state="init" event="connection.alerting" name="evt">
+            <assign name="in_connectionid" expr="evt.connectionid"/>
+            <!-- If VoiceSMS or VideoSMS, set early media and wait for earlymediaresourceavailable event -->
+            <if cond="Call_IsVoiceSMS(evt.connection.local.number) == true">
+                <script>System_SetEarlyMedia();</script>
+            <!-- No searches in MUR are allowed for MissedCallNotification -->
+            <elseif cond="PhoneNumber_IsMissedCallNotification(PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 
+                                                                                                         'callednumberrule'), 
+                                                                                        evt.connection.local.number, '')) == true"/>
+                <assign name="language" expr="System_GetConfig('vva.media', 'defaultlanguage')" />
+                <assign name="variantVoice" expr="System_GetConfig('vva.media', 'variantvoice')" />
+                <assign name="variantVideo" expr="System_GetConfig('vva.media', 'variantvideo')" />
+                <if cond="System_SetPromptLanguage(language, variantVoice, variantVideo) != undefined">
+                    <accept connectionid="in_connectionid" />
+                </if>
+            <else/>
+                <assign name="ANI" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callingnumberrule'), 
+                                                                       evt.connection.remote.number, '')"/>
+                <if cond="ANI != undefined">
+                    <!-- Prevent Outdial Notification Loopback. Reject calls where ANI equals config OutdialNotificationAni. -->
+                    <if cond="ANI != ''">
+                        <assign name="outdialnotificationani" expr="System_GetConfig('vva.outdial', 'outdialnotificationani')"/> 
+                        <if cond="outdialnotificationani != undefined">
+                            <if cond="ANI == outdialnotificationani">
+                                <log label="'info'" expr="'CCXML: Call rejected due to Outdial Notification Loopback prevention, ANI=OutdialNotificationAni. ANI=' + ANI"/> 
+                                <reject connectionid="in_connectionid" />
+                                <exit/>
+                            <else/>
+
+                                <!-- Prevent Outdial Notification Loopback. -->
+                                <!-- Reject calls with ANI equal to DepositId if config AniEqualsDeposiId equals NoAnswer. -->
+                                <assign name="aniequalsdepositid" expr="System_GetConfig('vva.incomingcall', 'aniequalsdepositid') == 'noanswer'"/> 
+                                <if cond="aniequalsdepositid != undefined">
+                                    <if cond="aniequalsdepositid == 'noanswer'">
+                                        <assign name="RDNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'redirectingnumberrule'), evt.connection.redirect[0].number, '')"/>
+                                        <if cond="RDNIS != undefined">
+                                            <if cond="ANI == RDNIS">
+                                                <log label="'info'" expr="'CCXML: Call rejected due to Outdial Notification Loopback prevention, ANI=RDNIS. ANI=' + ANI"/> 
+                                                <reject connectionid="in_connectionid" />
+                                                <exit/>
+                                            <else/>
+                                                <assign name="DNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callednumberrule'), evt.connection.local.number, '')"/>
+                                                <if cond="DNIS != undefined">
+                                                    <assign name="isSubscriber" expr="PhoneNumber_IsASubscriber(DNIS)"/> 
+                                                    <if cond="isSubscriber != undefined">
+                                                        <if cond="isSubscriber == true">
+                                                            <if cond="ANI == DNIS">
+                                                                <log label="'info'" expr="'CCXML: Call rejected due to Outdial Notification Loopback prevention, ANI=DNIS. ANI=' + ANI"/> 
+                                                                <reject connectionid="in_connectionid" />
+                                                                <exit/>
+                                                            </if>
+                                                        </if>
+                                                    <else/>  <!-- PhoneNumber_IsASubscriber(ANI) generated a platform access event -->
+                                                        <log label="'info'" expr="'CCXML: Call rejected since there was problems with accessing the subscriber database. ANI=' + ANI"/> 
+                                                        <reject connectionid="in_connectionid" />
+                                                        <exit/>
+                                                    </if>
+                                                <else/>
+                                                    <assign name="platformAccessEvent" expr="true"/> 
+                                                </if>
+                                            </if> 
+                                        <else/>
+                                            <assign name="platformAccessEvent" expr="true"/> 
+                                        </if>
+                                    </if>
+                                <else/>
+                                    <assign name="platformAccessEvent" expr="true"/> 
+                                </if>
+                            </if>
+                        <else/>
+                            <assign name="platformAccessEvent" expr="true"/> 
+                        </if>
+                    </if>
+                <else/>
+                    <assign name="platformAccessEvent" expr="true"/> 
+                </if>
+
+                <if cond="platformAccessEvent == false">
+                    <!-- Set Media Resource and Answer the call -->
+                    <assign name="isSubscriber" expr="PhoneNumber_IsASubscriber(ANI)"/> 
+                    <if cond="isSubscriber != undefined">
+                        <if cond="isSubscriber == true">
+                            <assign name="language" expr="Subscriber_GetSingleStringAttribute(ANI, 'preferredlanguage')" />
+                            <if cond="language != undefined">
+                                <if cond="language == ''">
+                                    <assign name="language" expr="System_GetConfig('vva.media', 'defaultlanguage')" />
+                                    <if cond="language == undefined">
+                                        <assign name="platformAccessEvent" expr="true"/> 
+                                    </if>
+                                <else/>   <!-- Try default language if System_SetPromptLanguage() fails. -->
+                                    <assign name="tryDefaultLanguage" expr="true"/>
+                                </if>
+                            <else/>
+                                <assign name="platformAccessEvent" expr="true"/> 
+                            </if>
+                            <assign name="variantVoice" expr="System_GetConfig('vva.media', 'variantvoice')" />
+                            <assign name="variantVideo" expr="System_GetConfig('vva.media', 'variantvideo')" /> 
+                            <if cond="(variantVoice == undefined) || (variantVideo == undefined)">
+                                <assign name="platformAccessEvent" expr="true"/> 
+                            </if>
+                        <else/>
+                            <assign name="language" expr="System_GetConfig('vva.media', 'defaultlanguage')" />
+                            <assign name="variantVoice" expr="System_GetConfig('vva.media', 'variantvoice')" />
+                            <assign name="variantVideo" expr="System_GetConfig('vva.media', 'variantvideo')" />
+                            <if cond="(language == undefined) || (variantVoice == undefined) || (variantVideo == undefined)">
+                                <assign name="platformAccessEvent" expr="true"/> 
+                            </if>
+                        </if>
+                        <if cond="platformAccessEvent == false">
+                            <if cond="System_SetPromptLanguage(language, variantVoice, variantVideo) != undefined">
+                                <accept connectionid="in_connectionid" />
+                            </if>
+                        </if>
+                    <else/>  <!-- PhoneNumber_IsASubscriber(ANI) generated a platform access event -->
+                        <log label="'info'" expr="'CCXML: Call rejected since there was problems with accessing the subscriber database. ANI=' + ANI"/> 
+                        <reject connectionid="in_connectionid" />
+                        <exit/>
+                    </if>
+                </if>
+            </if>
+        </transition>
+
+        <!-- On receiving the earlymediaresourceavailable event, start the application for early media-->
+        <transition state="init" event="com.mobeon.platform.earlymediaresourceavailable" name="evt">
+            <dialogstart src="'VoiceSmsEarlyMedia.vxml'" dialogid="earlydlgid" />
+            <assign name="myState" expr="'earlymediainbound'"/>
+        </transition>
+
+        <!-- On receiving the earlymediaresourcefailed event, start the application for early media anyway, but media can not be played (e.g video) -->
+        <transition state="init" event="com.mobeon.platform.earlymediaresourcefailed" name="evt">
+            <dialogstart src="'VoiceSmsEarlyMedia.vxml'" dialogid="earlydlgid" />
+            <assign name="myState" expr="'earlymediainbound'"/>
+        </transition>
+
+        <!-- The early media application exits. Accept the call. -->
+        <transition state="earlymediainbound" event="dialog.exit" name="evt">
+            <accept connectionid="in_connectionid" />
+            <assign name="myState" expr="'init'"/>
+        </transition>
+
+        <!-- The early media application disconnected. Reject the call. -->
+        <transition state="earlymediainbound" event="dialog.disconnect" name="evt">
+            <reject connectionid="in_connectionid" />
+            <assign name="myState" expr="'disconnecting'"/>
+            <send data="'connection.disconnect.hangup'" target="earlydlgid" targettype="'dialog'"/> 
+        </transition>
+
+        <!-- Handle disconnect from calling party during early media. -->
+        <transition state="earlymediainbound" event="connection.disconnected" name="evt">
+            <assign name="myState" expr="'userDisconnect'"/>
+            <send data="'connection.disconnect.hangup'" target="earlydlgid" targettype="'dialog'"/> 
+        </transition>
+
+        <!-- The call is fully connected. -->
+        <transition state="init" event="connection.connected" name="evt">
+            <dialogstart src="'OutdialNotification.vxml'" dialogid="dialogId" />
+            <assign name="myState" expr="'connected'" />
+            <assign name="in_calltype" expr="evt.connection._calltype" />
+        </transition>
+
+        <!-- The dialog has started. -->
+        <transition state="connected" event="dialog.started" name="evt">
+            <assign name="myState" expr="'dialogActive'" />
+        </transition>
+
+        <!-- Try the default language if the subscribers preferred language could not be set. -->
+        <transition state="init" event="error.com.mobeon.platform.system" name="evt">
+            <if cond="evt.reason.substring(0,22).toLowerCase() == 'systemsetmediaresource'">
+                <if cond="tryDefaultLanguage == true">
+                    <assign name="language" expr="System_GetConfig('vva.media', 'defaultlanguage')" />
+                    <assign name="variantVoice" expr="System_GetConfig('vva.media', 'variantvoice')" />
+                    <assign name="variantVideo" expr="System_GetConfig('vva.media', 'variantvideo')" />
+                    <assign name="tryDefaultLanguage" expr="false"/>
+                    <if cond="(language != undefined) &amp;&amp; (variantVoice != undefined) &amp;&amp; (variantVideo != undefined)">
+                        <if cond="System_SetPromptLanguage(language, variantVoice, variantVideo) != undefined">
+                            <accept connectionid="in_connectionid" />
+                        </if>
+                    </if>
+                <else/>
+                    <log label="'info'" expr="'CCXML: Call rejected due to ' + evt.name + ' with reason ' + evt.reason"/> 
+                    <reject connectionid="in_connectionid" />
+                    <exit/>
+                </if>
+            <else/>
+                <log label="'info'" expr="'CCXML: Call rejected due to ' + evt.name + ' with reason ' + evt.reason"/> 
+                <reject connectionid="in_connectionid" />
+                <exit/>
+            </if>
+        </transition>
+
+        <!-- Reject calls at other errors. 
+            (The tag reject can not be called since accept may have been executed. Exit is enough) -->
+        <transition state="init" event="error.*" name="evt">
+            <log label="'info'" expr="'CCXML: Call rejected due to ' + evt.name + ' with reason ' + evt.reason"/> 
+            <exit/>
+        </transition>
+
+        <!-- Handle disconnect from VoiceXML dialog -->
+        <transition state="dialogActive" event="dialog.disconnect" name="evt">
+            <disconnect connectionid="evt.connectionid"/> 
+            <assign name="myState" expr="'disconnecting'"/>
+        </transition>
+
+        <!-- We have disconnected the call. We need to inform the dialog. -->
+        <transition state="disconnecting" event="connection.disconnected" name="evt">
+            <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/> 
+        </transition>
+
+        <!-- Handle disconnect from calling party -->
+        <transition state="dialogActive" event="connection.disconnected" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/> 
+                <assign name="myState" expr="'userDisconnect'"/>
+            </if>
+        </transition>
+
+        <!-- Handle disconnect from VoiceXML dialog when calling party has already disconnected -->
+        <transition state="userDisconnect" event="dialog.disconnect" name="evt">
+            <exit/>
+        </transition>
+
+        <!-- Handle error on connection from calling party -->
+        <transition state="dialogActive" event="error.connection" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/> 
+                <assign name="myState" expr="'userDisconnect'"/>
+            </if>
+        </transition>
+
+        <!-- Handle a transfer request from VoiceXML -->
+        <transition state="dialogActive" event="dialog.transfer" name="evt">
+            <script>
+               hints= {pi : evt.values.transfer_local_pi, calltype : in_calltype}
+            </script>
+            <!-- Save maxtime -->
+            <assign name="vxmlMaxTime" expr="evt.maxtime"/>
+            <assign name="transferCaller" expr="evt.values.transfer_ani"/>
+            <assign name="transferCalled" expr="evt.URI"/>
+            <assign name="myState" expr="'calling'"/>
+            <createcall dest="evt.URI" callerid="evt.values.transfer_ani" connectionid="out_connectionid" timeout="evt.connecttimeout" hints="hints"/>
+        </transition>
+
+        <!-- Handle a failed transfer -->
+        <transition state="calling" event="connection.failed" name="evt">
+            <if cond="evt.reason == 603">
+               <assign name="outgoingCallEndedReason" expr="'busy'" />
+            <elseif cond="evt.reason == 610"/>
+                <assign name="outgoingCallEndedReason" expr="'noanswer'" />
+            <elseif cond="evt.reason == 620"/>
+                <assign name="outgoingCallEndedReason" expr="'network_busy'" />
+            <else/>
+                <assign name="outgoingCallEndedReason" expr="'unknown'"/>
+            </if>
+            <send data="'dialog.vxml.transfer.complete'"
+                  target="dialogId"
+                  targettype="'dialog'"
+                  namelist="outgoingCallEndedReason" />
+            <assign name="myState" expr="'dialogActive'"/>
+        </transition>
+
+        <!-- Handle disconnect during calling -->
+        <transition state="calling" event="connection.disconnected" name="evt">
+            <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/> 
+            <assign name="myState" expr="'userDisconnect'"/>
+        </transition>
+
+        <!-- Handle a failed transfer -->
+        <transition state="calling" event="error.connection" name="evt">
+            <send data="'error.connection'" target="dialogId" targettype="'dialog'"
+                  namelist="'error.connection'"/>
+            <assign name="myState" expr="'dialogActive'"/>
+        </transition>
+
+        <!-- Handle an aborted transfer -->
+        <transition state="calling" event="dialog.terminatetransfer" name="evt">
+            <disconnect connectionid="out_connectionid"/>
+            <send data="'dialog.vxml.transfer.complete'" target="dialogId" targettype="'dialog'"
+                  namelist="'near_end_disconnect'"/>
+            <assign name="myState" expr="'dialogActive'"/>
+        </transition>
+
+        <!-- Handle an answer to the transfer -->
+        <transition state="calling" event="connection.connected" name="evt">
+            <script>
+               System_SendTrafficEvent2('makecallconnect', 'description=MakeCallConnect,username=' + transferCaller + ',operation=15,objecttype=2,callednumber=' + transferCalled + ',callingnumber=' + transferCaller, in_calltype);
+            </script>
+            <assign name="myState" expr="'outgoingCallActive'"/>
+            <join id1="in_connectionid" id2="out_connectionid" duplex="'full'" />
+        </transition>
+
+        <!-- Handle joined complete for transfer -->
+        <transition state="outgoingCallActive" event="conference.joined" name="evt">
+            <!-- If maxtime has been set we setup a timer -->
+            <if cond="(vxmlMaxTime != undefined) &amp;&amp; (vxmlMaxTime != '0s') &amp;&amp; (vxmlMaxTime != '0ms')">
+                <send data="'maxtime'" target="session.id" delay="vxmlMaxTime" sendid="maxtimeSendid" />
+            </if>
+        </transition>
+
+        <!-- Deal with someone disconnecting in transfer call -->
+        <transition state="outgoingCallActive" event="connection.disconnected" name="evt">
+            <!-- Cancel any maxtime events -->
+            <if cond="maxtimeSendid != undefined">
+                <cancel sendid="maxtimeSendid" />
+                <assign name="maxtimeSendid" expr="undefined"/>
+            </if>
+            <!-- Handle called party disconnect -->
+            <if cond="evt.connectionid == out_connectionid">
+                <assign name="outgoingCallEndedReason" expr="'far_end_disconnect'"/>
+                <join id1="in_connectionid" id2="dialogId"/>
+                <assign name="myState" expr="'outgoingCallRejoining'"/>
+            <else/>
+                <!-- Handle calling party disconnect -->
+                <disconnect connectionid="out_connectionid"/>
+                <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/> 
+                <assign name="myState" expr="'userDisconnect'"/>
+            </if>
+        </transition>
+
+        <!-- Handle 'hotword' for transfer -->
+        <transition state="outgoingCallActive" event="dialog.terminatetransfer" name="evt">           
+            <!-- Cancel any maxtime events --> 
+            <if cond="maxtimeSendid != undefined">
+                <cancel sendid="maxtimeSendid" />
+                <assign name="maxtimeSendid" expr="undefined"/>
+            </if>            
+            <!-- disconnect the outgoing connections -->
+            <disconnect connectionid="out_connectionid"/>
+            <assign name="outgoingCallEndedReason" expr="'near_end_disconnect'"/>
+            <assign name="myState" expr="'outgoingCallDisconnecting'" />
+        </transition>
+        
+        <!-- Deal with the maxtime event during a call transfer.
+             Should this happen we just disconnect the outbound call let and get back to the 
+             dialogActive state. -->
+        <transition state="outgoingCallActive" event="maxtime" name="evt">
+            <assign name="maxtimeSendid" expr="undefined"/>
+            <disconnect connectionid="out_connectionid"/>
+            <assign name="outgoingCallEndedReason" expr="'max_time_disconnect'"/>
+            <assign name="myState" expr="'outgoingCallDisconnecting'" />
+        </transition>
+
+        <!-- Handle error in transfer call -->
+        <transition state="outgoingCallActive" event="error.connection" name="evt">
+            <!-- Cancel any maxtime events -->
+            <if cond="maxtimeSendid != undefined">
+                <cancel sendid="maxtimeSendid" />
+                <assign name="maxtimeSendid" expr="undefined"/>
+            </if>
+            <!-- Handle called party error -->
+            <if cond="evt.connectionid == out_connectionid">
+                <assign name="outgoingCallEndedReason" expr="'far_end_disconnect'"/>
+                <join id1="in_connectionid" id2="dialogId"/>
+                <assign name="myState" expr="'outgoingCallRejoining'"/>
+            <else/>
+                <!-- Handle calling party error -->
+                <disconnect connectionid="out_connectionid"/>
+                <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/> 
+                <assign name="myState" expr="'userDisconnect'"/>
+            </if>
+        </transition>
+
+        <!-- Send an event to the dialog once we are all back together again. -->
+        <transition state="outgoingCallRejoining" event="conference.joined" name="evt">
+            <!-- Build up our event -->
+            <send data="'dialog.vxml.transfer.complete'" target="dialogId" targettype="'dialog'" 
+                  namelist="outgoingCallEndedReason" />
+            <assign name="myState" expr="'dialogActive'" />
+        </transition>       
+
+        <!-- Deal with connection.disconnected events in the outgoingCallRejoining state.
+             We are only going to deal with stuff if it the event is for the incoming call. -->
+        <transition state="outgoingCallRejoining" event="connection.disconnected" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/>
+                <assign name="mystate" expr="'userDisconnect'" />
+            </if>
+        </transition>
+   
+        <!--  
+           - Once we have the disconnect event we verify that we 
+           - got it for the outbound call and rejoin the dialog to the 
+           - inbound call. If the inbound call disconnected
+           - we are going to go on and forward the event along 
+           - and wait for the dialog to exit.
+           -
+         -->
+        <transition state="outgoingCallDisconnecting" event="connection.disconnected" name="evt">
+            <if cond="evt.connectionid == out_connectionid">
+                <join id1="dialogId" id2="in_connectionid"/>
+                <assign name="myState" expr="'outgoingCallRejoining'" />
+            <else />
+                <send data="'connection.disconnect.hangup'" target="dialogId" targettype="'dialog'"/>
+                <assign name="myState" expr="'userDisconnect'" />
+            </if>
+        </transition>
+
+        <!-- Handle exit from dialog -->
+        <transition event="dialog.exit" name="evt">
+            <exit/> 
+        </transition>
+
+        <!-- Catch disconnnected events that made it past us. Do only exit for disconnect on incoming connection. -->
+        <transition event="connection.disconnected" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <exit/>
+            </if>
+        </transition>
+
+        <!-- Catch failed events that made it past us. Do only exit for errors on incoming connection. -->
+        <transition event="connection.failed" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <exit/>
+            </if>
+        </transition>
+
+        <transition event="error.connection" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <log label="'error'" expr="'CCXML: Connection error due to ' + evt.name + ' with reason ' + evt.reason"/>
+                <exit/>
+            </if>
+        </transition>
+    </eventprocessor>			
+</ccxml>

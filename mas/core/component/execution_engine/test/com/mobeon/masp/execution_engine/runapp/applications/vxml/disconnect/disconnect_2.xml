@@ -1,0 +1,9 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/disconnect/" type="application/xml+ccxml">
+        <document src="disconnect_2.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/disconnect/" type="application/xml+vxml">
+        <document src="disconnect_2.vxml"/>
+        <document src="disconnect_2_2.vxml"/>        
+    </documents>
+</application>

@@ -1,0 +1,694 @@
+#!/bin/sh
+###################################################################
+# File    : mas
+# Created : 2009-04-24
+#
+# Description:
+#	This file is used to start MAS
+#
+# OS:   LOTC (SUSE 10)
+# History
+#	Date		Who	What
+#	2006-01-10  	lmcjhut Updated for LOTC
+#	2006-05-28  	lmchuzh Updated for SAF
+#   2010-08-17      lmcmajo made stop more robust
+#   2011-09-26      lmcyvca Using msgcore ctrlScriptLib
+#   2012-06-05      lmcmajo Fixed shutdown and snmp functions.
+#
+####################################################################
+
+source /export/PLATFORM/ALL/read_miostartvars.sh
+. /opt/moip/mas/bin/ctrlScriptLib
+
+#*********************************************
+# These parameters exist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+mode=$1
+
+DIRNAME=`pwd`
+
+
+getConfig () {
+    param=$1
+    conf=$2
+    schema=$3
+    val=""
+
+    if [[ $conf == "" ]]; then
+        return -1
+    fi
+
+    if [[ $param == "" ]]; then
+        return -1
+    fi
+
+    if [ ! -f $conf  ]; then
+        if [ ! -f $schema ]; then
+            useSchema="true"
+        else
+            return -1
+        fi
+    fi
+
+    if [[ $useSchema != "true" ]]; then
+        val=`grep $param $conf | head -1`
+        if [[ $val == "" ]];then
+             useSchema="true"
+        else
+             val=`sed -n '/<'"${param}"'>/,/<\/'"${param}"'>/p' $conf | sed -e 's/^[ \t]*//' | tr -d '\n\r' | sed -e 's/<'"${param}"'>//'  -e 's/<\/'"${param}"'>.*//'`
+             if [[ $val == "" ]];then
+                 if [ ! -f $schema ]; then
+                      useSchema="true"
+                 else
+                      return 0
+                 fi
+             else
+                 return 0
+             fi
+        fi
+    fi
+
+    if [[ $useSchema == "true" ]];then
+        val=`grep $param $schema | head -1`
+        if [[ $val == "" ]];then
+           return 0
+        else
+           val=`sed -n '/<xs:element name=.*'"${param}"'/,/<\/xs:element>/p' $schema | sed -e 's/^[ \t]*//' | tr -d '\n\r' | awk -F'/>' '{print $1}'`   
+           if [[ $val == "" ]]; then
+              return 0 # no default defined
+           fi
+           test=`echo $val | grep default`
+           if [[ $test == "" ]];then
+                val=""
+                return 0 # no default value
+           fi
+           val=`echo $val | sed -e 's/.*default="//' -e 's/".*//'`
+           return 0
+        fi
+    fi
+}
+
+waitStatus() {
+    stat=$1
+    tries=$2
+    ok='n'
+    
+    log "Confirming SNMP state change.."
+    while [[ $tries != "0" ]]
+    do
+        result=`snmpget -Lo -v 2c -t 15 -r 0 -c $MAS_SNMP_SERVICE_READ localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.3.0 2>/dev/null`
+    
+    	if [ $? == 0 ]; then
+    	
+    	    result=`echo $result | awk '{print $4}'`
+    		
+    	    if [ "$result" == "$stat" ]; then
+    		    ok='y'
+    		    return
+    		else
+    		    log "Waiting for SNMP state change.."
+    		   	sleep 5
+                        tries=`expr $tries - 1`
+    		fi
+    	else
+    	    log "SNMP is not responding when checking current state, retrying.."
+                tries=`expr $tries - 1`
+    	fi
+	done
+}
+
+function startmas() {
+    pid=$(getPid)
+
+    if [ $pid ]; then
+        log "${COMPONENT_NAME} is already running (pid:$pid)"
+        return 2
+    else
+        # Return immediately if user is not the expected one
+        verifyUser || return 3;
+
+        echo "Starting ${COMPONENT_NAME}. Please wait..."
+
+        # Export the injected MiO Start variables that may be needed be the application.
+        if [ -e /export/PLATFORM/ALL/read_miostartvars.sh ]; then
+            source /export/PLATFORM/ALL/read_miostartvars.sh > /dev/null
+        fi
+
+        # Using bash to prevent nulls when rotating log files - see TR HH68130
+        bash -c "(${START_CMD} 2>&1) >> $LOGDIR/process.log &"
+
+        i=1 ; max=5
+        while [ $i -le $max ]
+        do
+            echo -n .
+            sleep 1
+            i=`expr $i + 1`;
+        done
+        echo .
+        showComponentStatus
+        return $?
+    fi
+}
+
+getShutdownGracePeriod()
+{
+
+ getConfig "Cm.shutdownGracePeriod" "/opt/moip/config/mas/masSpecific.conf" "/opt/moip/config/mas/masSpecific.xsd"
+
+        if [[ $? != "0" ]]; then
+                log "Error getting shutdownTime, assuming default of 120."
+                count=120
+        else
+                count=$val
+                count=`echo $count | awk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'`
+                if [[ $count == ""  ]]; then
+                        log "Error getting shutdownTime, assuming default of 120."
+                        count=120
+                else
+                        log "Shutdown time from config is $count"
+                fi
+        fi
+
+}
+
+showMASStatus()
+{
+    showComponentStatus
+    res=$?
+    if [[ $res != 0 ]]; then
+        return $res
+    fi
+    
+    log "Checking operational status via SNMP, please wait upto 30 seconds.."
+	result=`snmpget -Lo -v 2c -t 5 -r 1 -c $MAS_SNMP_SERVICE_READ localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.3.0 2>/dev/null`
+	if [ $? == 0 ]; then
+		result=`echo $result | awk '{print $4}'`				
+		if [[ $result == "1" ]]
+		then
+			log "MAS SNMP State: UP (Unlocked)"
+		elif [[ $result == "2" ]]
+		then
+			log "MAS SNMP State: Locked"
+		elif [[ $result == "3" ]]
+		then
+			log "MAS SNMP State: Degraded (Shutting down)"
+		elif [[ $result == "4" ]]
+		then
+			log "MAS SNMP State: Down"
+		else
+			log "MAS is in an unknown SNMP state: ($result)"
+		fi
+	else
+	    log "MAS is in an unknown state, SNMP is not responding"
+	fi 
+}
+
+#
+# Stop MAS
+#
+stopmas()
+{
+    verifyUser || return 3;
+    pid=$(getPid)
+    if [[ $pid == "" ]]; then
+      echo "MAS is not running"
+      return 1
+    fi
+
+   echo "Attempting to shutdown MAS via SNMP, could take upto 10 seconds..."
+   #this set command tries twice each with a timeout of 5 seconds.
+   snmpset -t 5 -r 1 -Lo -v 2c -c $MAS_SNMP_SERVICE_WRITE localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.4.0 i 3
+   if [[ $? != "0" ]]; then 
+      echo "ERROR Failed to send shutdown via SNMP, resorting to kill -TERM"
+      kill -TERM $pid
+   fi 
+    
+	getShutdownGracePeriod
+	let count+=10
+	let report=0
+	finished="false"
+	report=0
+	echo "Will wait a maximum of shutdownGracePeriod + 10 seconds = $count"
+	while [[ $finished == "false"  ]];
+	do
+		showComponentStatus > /dev/null 2>&1
+		isRunning=$?
+		if [[ $isRunning == "0" ]]; then
+			 if [[ $count != "0" ]]; then
+				 if [[ $report == "5" ]]; then 
+					  echo "Waiting $count seconds.."
+					  let report=0
+				 fi
+				 let count-=1
+				 let report+=1
+				 sleep 1
+			else
+				 echo "MAS did not shutdown cleanly, killing..."
+				 log "   MAS did not shutdown cleanly, killed...."
+				 killComponent
+				 finished=true
+			fi
+	   else
+			finished=true
+	   fi
+   done
+   echo "MAS Shutdown completed"	
+}
+
+unlock() {
+    showComponentStatus
+    res=$?
+    if [ $res -ne 0 ]; then
+        log "Cannot unlock MAS, rot running."
+        exit -1
+    fi	
+	
+    log "Checking MAS status, please wait upto 30 seconds..."
+    	     
+    result=`snmpget -Lo -v 2c -t 15 -r 1 -c $MAS_SNMP_SERVICE_READ localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.3.0 2>/dev/null`
+    stat=$?	
+       if [ $stat == 0 ]; then
+	    	result=`echo $result | awk '{print $4}'`		    	
+	    	if [[ $result == "1" ]]
+			then
+			    log "MAS already unlocked"
+			elif [[ $result == "2" ]]
+			then
+			    log "MAS SNMP State: locked, unlocking, please wait upto 15 seconds.."
+			    unlock="y"
+			elif [[ $result == "3" ]]
+			then
+			    log "MAS SNMP State: Degraded, unable to unlock."
+			elif [[ $result == "4" ]]
+			then
+			    log "MAS SNMP State: Down, unable to unlock."
+			else
+			   	log "MAS is in an unknown SNMP state: $result"
+			   	log "Attempting to unlock, please wait upto 15 seconds.."
+			   	unlock="y"				   	
+			fi
+	elif [ $stat == 1 ]; then
+	   log "SNMP is not responding.  Could be MAS is busy or not fully started, please try again.."
+        else
+           log "Unknown error: $result, when reading current state."
+           exit -1
+        fi
+    
+    if [[ $unlock == "y" ]]; then
+        count=2;
+        while [[ $count != "0" ]]
+        do
+              res=`snmpset -v 2c -t 15 -r 0 -c $MAS_SNMP_SERVICE_WRITE localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.4.0 i 1 2>/dev/null`
+              stat=$?
+              if [ $stat == 0 ]; then
+                #success
+                sleep 2
+                waitStatus 1 3
+                if [[ $ok == "y" ]]; then
+                    log "MAS unlocked.."
+                    count=0 # exit loop
+                else
+                    count=`expr $count-1`
+                    if [[ count != "0" ]]; then 
+                        log "Failed, retrying to unlock, please wait upto 15 seconds..."	
+                    else
+                        log "failed."
+                    fi
+                fi                
+              elif [ $stat == 1 ]; then
+                if [[ $count != "1" ]]; then
+                     log "Failed, retrying to unlock, please wait upto 15 seconds..."	                    
+                else
+                     log "Time out on response from SNMP set, during unlock. May still be unlocked, checking...." 
+                     waitStatus 1 3
+                     if [[ $ok == "y" ]]; then
+                        log "MAS unlocked.."
+                     else
+                        log "Failed to unlock."
+                        exit -1
+                     fi
+                                          
+                fi
+                count=`expr $count - 1`
+              else
+		log "Unknown response from snmpset, checking if unlocked"
+                waitStatus 1 3
+		if [[ $ok == "y" ]]; then
+                    log "MAS unlocked.."
+                    count=0 # exit loop
+                else
+                    (( count = $count - 1 ))
+                    if [[ count != "0" ]]; then 
+                        log "Failed, retrying to unlock, please wait upto 15 seconds..."	
+                    else
+                        log "failed."
+                    fi
+                fi 
+              fi	              
+        done
+    fi			  
+}
+
+lock() {
+    showComponentStatus
+    res=$?
+    if [ $res -ne 0 ]; then
+        log "Cannot lock MAS, rot running."
+        exit -1
+    fi
+    log "Checking MAS status, please wait upto 30 seconds..."
+
+    result=`snmpget -Lo -v 2c -t 15 -r 1 -c $MAS_SNMP_SERVICE_READ localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.3.0 2>/dev/null`
+    stat=$?
+       if [ $stat == 0 ]; then
+                result=`echo $result | awk '{print $4}'`
+                if [[ $result == "1" ]]
+                        then
+                            log "MAS SNMP State: unlocked, locking, please wait upto 15 seconds.."
+                            lock="y";
+                        elif [[ $result == "2" ]]
+                        then
+                            log "MAS already locked, no need to unlock"
+                            return
+                        elif [[ $result == "3" ]]
+                        then
+                            log "MAS SNMP State: Degraded, unable to lock."
+                        elif [[ $result == "4" ]]
+                        then
+                            log "MAS SNMP State: Down, unable to lock."
+                        else
+                                log "MAS is in an unknown SNMP state: $result"
+                                log "Attempting to lock, please wait upto 15 seconds.."
+                                lock="y"
+                        fi
+        elif [ $stat == 1 ]; then
+           log "SNMP is not responding.  Could be MAS is busy or not fully started, please try again.."
+        else
+           log "Unknown error: $result, when reading current state."
+           exit -1
+        fi
+
+    if [[ $lock == "y" ]]; then
+        count=2;
+        while [[ $count != "0" ]]
+        do
+              res=`snmpset -v 2c -t 15 -r 0 -c $MAS_SNMP_SERVICE_WRITE localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.4.0 i 2 2>/dev/null`
+              stat=$?
+              if [ $stat == 0 ]; then
+                #success
+                sleep 2
+                waitStatus 2 3
+                if [[ $ok == "y" ]]; then
+                    log "MAS locked."
+                    count=0 # exit loop
+                else
+                    count=`expr $count-1`
+                    if [[ count != "0" ]]; then
+                        log "Failed, retrying to lock, please wait upto 15 seconds..."
+                    else
+                        log "failed."
+                    fi
+                fi
+              elif [ $stat == 1 ]; then
+                if [[ $count != "1" ]]; then
+                     log "Failed, retrying to lock, please wait upto 15 seconds..."
+                else
+                     log "Time out on response from SNMP set, during lock. May still be locked, checking...."
+                     waitStatus 2 3
+                     if [[ $ok == "y" ]]; then
+                        log "MAS locked."
+                     else
+                        log "Failed to lock."
+                        exit -1
+                     fi
+
+                fi
+                count=`expr $count - 1`
+              else
+                log "Unknown response from snmpset, checking if locked"
+                waitStatus 1 3
+                if [[ $ok == "y" ]]; then
+                    log "MAS locked.."
+                    count=0 # exit loop
+                else
+                    (( count = $count - 1 ))
+                    if [[ count != "0" ]]; then
+                        log "Failed, retrying to lock, please wait upto 15 seconds..."
+                    else
+                        log "failed."
+                    fi
+                fi
+              fi
+        done
+    fi
+}
+
+refreshconfig()
+{
+    showComponentStatus
+    res=$?
+    if [ $res -ne 0 ]; then
+        log "Cannot refresh config MAS, rot running."
+        exit -1
+    fi
+	
+   log "Sending refresh config via SNMP, please wait upto 15 seconds." 
+   count=2
+    while [ $count -gt 0 ]
+    do
+      res=`snmpset -v 2c -t 15 -r 0 -c $MAS_SNMP_SERVICE_WRITE  localhost:$MAS_SNMP_PORT .1.3.6.1.4.1.193.91.4.19.1.2.6.0 i 1 2>/dev/null`
+      if [ $? == 0 ]; then
+            log "Succesfully sent refresh config.." 
+            exit 0           
+      else
+        if [ $count -ne 1 ]; then
+             log "Failed, retrying to refresh config, please wait upto 15 seconds..."	                    
+        else
+             log "Time out on response from SNMP set.." 
+             exit -1	                                          
+        fi
+        count=`expr $count - 1` 
+      fi	              
+    done     
+}
+
+
+
+###### VVA ###########
+# Find the id of the already installed application
+getinstalledapp(){
+	echo "Working dir: $WORKINGDIR"
+    INSTAPPID=`awk '
+      /WORKINGDIR\/applications/{
+          sub(/^.*WORKINGDIR\/applications/,"");
+          sub(/\/[A-Za-z_-]*.xml<\/value>$/,"");
+          gsub(/\//,"");
+          print $0;
+          exit 0;}' /opt/moip/config/mas/ComponentConfig.xml`
+	echo "Application ID: $INSTAPPID"
+}
+
+# Get this Application properties
+get_application_properties() {
+	NAME=`sed -n 's/name=//p' $PROPFILE `
+	NAME=`echo "$NAME" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	PRODUCTID=`sed -n 's/productid=//p' $PROPFILE`
+	PRODUCTID=`echo "$PRODUCTID" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+       	CUSTOMER=`sed -n 's/customer=//p' $PROPFILE `
+	CUSTOMER=`echo "$CUSTOMER" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	RSTATE=`sed -n 's/rstate=//p' $PROPFILE `
+	RSTATE=`echo "$RSTATE" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	MCRRSTATE=`echo "$RSTATE" | tr '[:lower:]' '[:upper:]'`
+	APPID=$PRODUCTID
+	APPDIR=$BASEDIR/applications/$APPID
+
+}
+
+# View the installed application
+viewapp(){
+    getinstalledapp
+    echo "The following Application is installed:"
+    echo "======================================"
+    if [ -z "$INSTAPPID" ]; then
+	echo "No Application found"
+	exit 1
+    fi
+    # The properties file describing the application
+    PROPFILE=$BASEDIR/applications/$INSTAPPID/properties.cfg
+    get_application_properties
+    echo "Id:        $INSTAPPID"
+    echo "Name:      $NAME"
+    echo "Customer:  $CUSTOMER"
+    echo "ProductId: $PRODUCTID"
+    echo "R-state:   $RSTATE"
+    echo "Services:"
+    awk 'BEGIN {FS="="};
+            /service=/{
+                 split($2,svcParams," ");
+                 printf(" - %s on %s:%s\n",svcParams[1],svcParams[3],svcParams[4]);
+        }' $PROPFILE
+}
+
+##### MCP #################
+# Get this Media Content Package properties
+get_mcp_properties() {
+	NAME=`sed -n 's/name=//p' $PROPFILE `
+	NAME=`echo "$NAME" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	TYPE=`sed -n 's/type=//p' $PROPFILE `
+	TYPE=`echo "$TYPE" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	PRODUCTID=`sed -n 's/productid=//p' $PROPFILE `
+	PRODUCTID=`echo "$PRODUCTID" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+       	CUSTOMER=`sed -n 's/customer=//p' $PROPFILE `
+	CUSTOMER=`echo "$CUSTOMER" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	RSTATE=`sed -n 's/rstate=//p' $PROPFILE `
+	RSTATE=`echo "$RSTATE" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	MCRRSTATE=`echo "$RSTATE" | tr '[:lower:]' '[:upper:]'`
+	LANGUAGE=`sed -n 's/lang=//p' $PROPFILE `
+	LANGUAGE=`echo "$LANGUAGE" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	VOICEVARIANT=`sed -n 's/voicevariant=//p' $PROPFILE `
+	VOICEVARIANT=`echo "$VOICEVARIANT" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	VIDEOVARIANT=`sed -n 's/videovariant=//p' $PROPFILE `
+	VIDEOVARIANT=`echo "$VIDEOVARIANT" | tr '/' '.' | tr -d ' '  | tr -c -d '[:alnum:]_.'`
+	AUDIOENCODING=`sed -n 's/audioencoding=//p' $PROPFILE | tr -d ' '`
+	VIDEOENCODING=`sed -n 's/videoencoding=//p' $PROPFILE | tr -d ' '`
+
+	if [ -n "$VOICEVARIANT" ]; then
+		if [ -z "$VIDEOVARIANT" ]; then
+			VARIANT=$VOICEVARIANT
+		else
+			echo "Illegal variant information, both voice and video variant specified for this package"
+			cleanup
+			abort
+		fi
+	else
+		VARIANT=$VIDEOVARIANT
+	fi
+	MCPID=$PRODUCTID
+	MEDIADIR=$BASEDIR/applications/mediacontentpackages/$MCPID
+
+}
+
+
+# View the installed MCP:s
+viewmcp(){
+    echo "The following Media Content Packages are installed:"
+    echo "==================================================="
+
+    for MCPID in $BASEDIR/applications/mediacontentpackages/* ;
+      do
+      if [ -f "$MCPID"/properties.cfg ]; then
+	  MCPFOUND="true"
+	  PROPFILE=$MCPID/properties.cfg
+	  get_mcp_properties
+	  echo "Id:        $MCPID"
+	  echo "Name:      $NAME"
+	  echo "Type:      $TYPE"
+	  echo "Language:  $LANGUAGE"
+	  echo "Customer:  $CUSTOMER"
+	  echo "Variant:   $VARIANT"
+	  echo "Audio :    $AUDIOENCODING"
+	  echo "Video:     $VIDEOENCODING"
+	  echo "ProductId: $PRODUCTID"
+	  echo "R-state:   $RSTATE"
+	  echo "---------------------------------------------------"
+      fi
+    done
+    if [ -z "$MCPFOUND" ];then
+	echo "No Media Content Package:s found"
+    fi
+}
+
+
+
+#####################
+
+
+
+showProcesses()
+{
+
+	for process in snmpdm jsadkagt $PROCESS_TO_MONITOR masagent ;do
+#		echo "$process   \t:" `ps auxwww |grep "$process" |grep -v grep  |awk '{print $1 " " $2 " " $3 " " $4 " "  $5 " " $6 " "  $7 " " $8 }'`
+		echo "$process   \t:" `ps auxwww |grep "$process" |grep -v grep  `
+		echo  " "
+    done
+
+}
+
+
+if [ "$mode" == "pidStatus" ]; then
+    # Only source the basic MAS environment, because a simple pidStatus only needs
+    # minimal variables to be set. Sourcing all variables may hang the status check
+    # if an OM or FS host is rebooting at the same time. Such hanging of the status
+    # check will cause Monit to restart MAS.
+    . /opt/moip/mas/bin/mas_basic.env
+else
+    . /opt/moip/mas/bin/mas.env
+fi
+
+cd $BASEDIR
+
+case "$mode" in
+        'status')
+                showMASStatus
+                exitcode=$?
+                ;;
+        'pidStatus')
+                showComponentStatus
+                exitcode=$?
+                ;;
+        'start')
+                startmas
+                exitcode=$?
+                ;;
+        'stop')
+                stopmas
+                exitcode=$?
+                ;;
+        'kill')
+                killComponent
+                exitcode=$?
+                ;;
+        'lock')
+                lock
+                exitcode=$?
+                ;;
+        'unlock')
+                unlock
+                exitcode=$?
+                ;;
+        'refreshconfig')
+                refreshconfig
+                exitcode=$?
+                ;;
+        'viewapp')
+                viewapp
+                exitcode=$?
+                ;;
+        'viewmcp')
+                viewmcp
+                exitcode=$?
+                ;;
+        'rotateLog')
+                rotateLog
+                ;;
+        #Undocumented private options
+        'showProcesses')
+                showProcesses
+                exitcode=$?
+                ;;
+
+        *)
+                echo "Usage: `basename $0` <start|stop|kill|status|pidStatus|lock|unlock|refreshconfig|viewapp|viewmcp|rotateLog>"
+                cd $DIRNAME 2>/dev/null
+                exit 1
+                ;;
+
+esac
+
+cd $DIRNAME
+
+exit ${exitcode}

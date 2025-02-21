@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="main_form">
+
+        <field name="test">
+             <grammar version="1.0" mode="dtmf" root="menu_rule">
+                <rule id="menu_rule">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <prompt bargein="true">
+                <audio src="beep.wav">Audio test</audio>
+            </prompt>
+
+            <catch event="nomatch">
+                <log>TCFAIL VXML: Field nok</log>
+                <exit/>
+            </catch>
+
+            <catch event="noinput">
+                <log>TCFAIL VXML: Field nok</log>
+                <exit/>
+            </catch>
+
+            <filled>
+                <if cond="test=='1'">
+                    <log>TCPASS VXML: Field ok 1</log>
+                <else/>
+                    <log>TCFAIL VXML: Field nok, utterance=<value expr="test"/></log>
+                    <exit/>
+                </if>
+            </filled>
+
+        </field>
+
+        <filled>
+            <if cond="test=='1'">
+                <log>TCPASS VXML: Field ok 2</log>
+            <else/>
+                <log>TCFAIL VXML: Field nok, utterance=<value expr="test"/></log>
+                <exit/>
+            </if>
+            <exit/>
+        </filled>
+
+        <catch event="error">
+            <log>TCFAIL VXML: Field nok</log>
+            <exit/>            
+        </catch>
+    </form>
+</vxml>

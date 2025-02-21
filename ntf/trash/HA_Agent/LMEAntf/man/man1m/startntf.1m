@@ -1,0 +1,209 @@
+.TH startntf 1M "August 3, 2001" "Sun Cluster 3.0"
+.SH NAME
+startntf \- configure and bring online the ntf server
+.SH SYNOPSIS
+For failover services:
+
+.B startntf
+[
+.B \-v
+]
+.ti +5n
+.B \-h
+.I hostname
+.ti +5n
+.B \-p
+.I port_list
+.ti +5n
+[
+.B \-n
+.I netiflist
+]
+
+For scalable services:
+
+.B startntf
+[
+.B \-v
+]
+.ti +5n
+.B \-h
+.I hostname
+.ti +5n
+.B \-p
+.I port_list
+.ti +5n
+[
+.B \-n
+.I netiflist
+]
+.ti +5n
+[
+.B \-l
+.I load_balancing_policy
+]
+.ti +5n
+[
+.B \-w
+.I load_balancing_weights
+]
+
+For non network-aware (client-less) applications:
+
+.B startntf
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B startntf
+is a customized command that 
+configures the ntf server and brings it online on a cluster.
+.B startntf
+executes a series of
+.BR scrgadm (1M)
+and
+.BR scswitch (1M)
+commands to do the following:
+.RS 5
+.TP 2
+\(bu
+Register the LMEA.ntf resource type.
+.TP
+\(bu
+Create a resource group to contain the ntf resource.
+.TP
+\(bu
+Add the ntf resource to the resource group.
+.TP
+\(bu
+Enable the resource, make the resource group managed, and bring the resource
+group online.
+.RS -5
+.LP
+.B Note:
+.B startntf
+registers the resource type and creates a resource group only as necessary.
+For example, if the resource type has already been registered, 
+.B startntf
+does not attempt to register it again. 
+Likewise, if the resource is being added to an existing resource 
+group, 
+.B startntf 
+does not attempt to create a new resource group but uses
+the existing group.
+.LP
+You can edit the ntf_config file, 
+before running
+.BR startntf ,
+to change the default names provided for the ntf resource and the
+containing resource group.
+See
+.BR ntf_config (1M)
+for details.
+.LP
+For network-aware applications,
+.B startntf
+also creates and brings online the appropriate logical hostname or shared address
+resource
+used for communication between clients and the server. See the
+.BI -h \0hostname
+option for more information.
+.LP
+Subsequently, you can use the 
+.BR stopntf (1M)
+command to disable and move offline resources and
+resource groups created by 
+.BR startntf .
+You can use the
+.BR removentf (1M)
+command to remove resources, resource types, and resource groups
+created by
+.BR startntf.
+.LP
+The
+.B startntf
+command is idempotent, that is,
+you can call it more than once without an intervening call to
+.B stopntf
+or
+.BR removentf .
+.SH OPTIONS
+.TP 12
+.BI \-h \0hostname
+The address that clients of the application use
+to communicate over the network with the server.
+For a failover ntf server,
+.B startntf
+creates a logical hostname resource and adds it to the resource group 
+containing the ntf server resource. 
+.IP
+For a scalable ntf server,
+.B startntf 
+creates a shared address resource and the
+resource group to contain it. 
+.IP
+You can edit the ntf_config file, before running
+.BR startntf ,
+to change the default name provided for the shared address
+resource group (see 
+.BR ntf_config (1M)).
+.TP
+.B \-v
+Turn on verbose output to print  
+all the
+.BR scrgadm (1M)
+and
+.BR scswitch (1M)
+commands that
+.B startntf
+executes.
+.TP
+.BI \-p \0port_list
+This mandatory argument specifies the port on which the
+network-aware application will listen
+and the protocol used for communication.
+See
+.BR r_properties (5)
+for the format of this argument and for more information.
+.TP
+.BI \-n \0netiflist
+This optional argument specifies either a list of network
+adapters or a list of NAFO groups 
+on all the nodes in the cluster
+(see
+.BR pnmd (1M)).
+If you omit this argument,
+.B startntf
+attempts to discover the appropriate network adapters and configure
+them into single-adapter NAFO groups.
+See
+.BR r_properties (5)
+for the format of this argument and for more information.
+.TP
+.BI \-l \0load_balancing_policy
+This optional argument specifies the load balancing policy.
+See
+.BR r_properties (5)
+for the format of this argument and for more information.
+.TP
+.BI \-w \0load_balancing_weights
+This optional argument specifies the load balancing weights.
+See
+.BR r_properties (5)
+for the format of this argument and for more information.
+.SH EXIT STATUS
+.TP 10
+.B 0
+Command completed successfully.
+.TP
+.B >0
+Command did not complete.
+.SH "SEE ALSO"
+.BR scdsbuilder (1HA),
+.BR pnmd (1M),
+.BR removentf (1M),
+.BR scrgadm (1M),
+.BR scswitch (1M),
+.BR stopntf (1M),
+.BR ntf_config (1M),
+.BR r_properties (5)

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--The spoken name for the subscriber-->
+   <var name="spokenName" />
+   <!--The ANI of the inbound call.-->
+   <var name="ani" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_ani" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="ani" expr="p_ani" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="Mailbox_IsFullDeposit(GlobalObject.Subscriber, ani) == false">
+            <var name="resultCode" />
+            <assign name="resultCode" expr="'ok'" />
+            <return namelist="resultCode" />
+            <else />
+            <if cond="Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName') &amp;&amp; (spokenName = Greeting_GetGreeting(GlobalObject.Subscriber,'SpokenName'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2201, new Array(System_GetMediaQualifier(spokenName)))" />
+               </prompt>
+               <goto next="#Return1" />
+               <elseif cond="PhoneNumber_IsASubscriber(GlobalObject.Subscriber) == true" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2202, new Array(System_GetMediaQualifier('String', GlobalObject.Subscriber)))" />
+               </prompt>
+               <goto next="#Return1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(403)" />
+               </prompt>
+               <goto next="#Return1" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'full'" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

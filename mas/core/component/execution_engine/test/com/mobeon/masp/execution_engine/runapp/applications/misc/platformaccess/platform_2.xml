@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/misc/platformaccess/" type="application/xml+ccxml">
+        <document src="platform_2.ccxml" root="true"/>
+    </documents>
+</application>

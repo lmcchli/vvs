@@ -1,0 +1,196 @@
+# comp_postinstall
+#
+# This script verifies the environment after installation
+
+run_health_check() {
+    if [ -f $SELF_DIAG ]; then
+        HCHECK_RESULT_FILE=`$SELF_DIAG | grep "Resultfile saved as:" | nawk ' { print $4; } '`
+        STATE=`cat $HCHECK_RESULT_FILE | grep "Overall test result: FAILED"`
+        if [ -n "$STATE" ]; then
+            HCHECK_FAILURES=`cat $HCHECK_RESULT_FILE | grep FAILED | grep -v "Overall test result" | sed 's%\(.*\):.*%\1%'`
+            return 1
+        fi
+        return 0
+    else
+        HCHECK_FAILURES="Missing file $SELF_DIAG"
+        return 1
+    fi
+
+}
+
+start() {
+    RC=/etc/init.d/rc.ntf
+    if [ -f $RC ]; then
+        /etc/init.d/rc.ntf start > /dev/null 2>&1
+        return 0
+    else
+        error "Failed to start NTF, cannot find script $RC"
+        return 1
+    fi
+}
+
+setAdmState() {
+    if [ "$ADMSTATE" != "0" ]; then
+	STATE=$1
+	SETANY=`/bin/find /apps/MOBYemanate -name setany | tail -1`
+	$SETANY -v2c localhost public ntfAdministrativeState.0 -i $STATE > /dev/null 2>&1
+    fi
+}
+
+checkMib() {
+    GETMANY=`/bin/find /apps/MOBYemanate -name getmany | tail -1`
+    CMD="$GETMANY -v2c localhost public ntf"
+    RESULT=`$CMD | grep  ntfAdministrativeState | sed 's%ntfAdministrativeState.*%YES%'`
+    if [ "$RESULT" = "YES" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+configure() {
+    if [ -f $BASEDIR/bin/upgradeinstance ]; then
+        $BASEDIR/bin/upgradeinstance -d $BASEDIR
+        if [ $? -eq 0 ]; then
+            if [ -f $BASEDIR/bin/rc.ntf ]; then
+               mv $BASEDIR/bin/rc.ntf /etc/init.d/
+            fi
+            return 0
+        fi
+    fi
+    return 1
+}
+
+update_version_file(){
+    if [ -f $BASEDIR/VERSION ]; then
+        OLD_VERSION_FILE=`grep VERSION $BASEDIR/VERSION`
+        echo "$OLD_VERSION_FILE, $SUNW_PATCHID" > $BASEDIR/VERSION
+        return 0
+    else
+        return 1
+    fi
+}
+
+add_install_path() {
+    # Update the NTF entry in MCR with the installation path
+    MCR_FILE=$BASEDIR/cfg/ntf_cmp.cfg
+    INSTALL_PATH=`cat $MCR_FILE | grep description`
+
+    if [ -f $MCR_FILE ] && [ -z "$INSTALL_PATH" ]; then
+        echo "emhomepath=$BASEDIR" >> $MCR_FILE
+        return 0
+    else
+        return 1
+    fi
+}
+
+link_selfdiag() {
+    if [ ! -d /apps/selfdiag/ntf ]; then
+	mkdir -p /apps/selfdiag/ntf  > /dev/null 2>&1
+    fi
+
+    if [ ! -f /apps/selfdiag/ntf/selfdiag ]; then
+	ln -s $SELF_DIAG /apps/selfdiag/ntf/selfdiag > /dev/null 2>&1
+    fi
+}
+
+
+########################################################
+# Read administrative and operational state from file
+# ADMSTATE 1=unlocked, 2=locked, 3=shutdown, 0=unknown
+# OPSTATE 0=down, 1=up
+DATADIR=/tmp/LMENtf
+DATA_FILE=$DATADIR/ntfstate
+if [ -f $DATA_FILE ]; then
+    ADMSTATE=`head -1 $DATA_FILE | sed 's%admState=\(.*\)%\1%'`
+    OPSTATE=`tail -1 $DATA_FILE | sed 's%opState=\(.*\)%\1%'`
+else
+    ADMSTATE=1
+    OPSTATE=1
+fi
+
+SELF_DIAG=$BASEDIR/selfdiag/selfdiag
+HCHECK_FAILURES=
+HCHECK_RESULT_FILE=
+
+if [ "$HAMODE" = "No" ]; then
+    # Update configuration
+    info "Update configuration"
+    configure
+    if [ $? -eq 1 ]; then
+        warning "Failed to upgrade configuration"
+    fi
+fi
+
+info "Linking selfdiag"
+link_selfdiag
+
+# Update the VERSION file for MCR registration
+info "Updating the VERSION file. The version is registered in MCR when NTF is started."
+update_version_file
+if [ $? -eq 1 ]; then
+    warning "Failed to updated the $BASEDIR/VERSION file, MCR registration will not be correct"
+fi
+
+if [ "$HAMODE" = "No" ]; then
+    # Update ../cfg/ntf_cmp.cfg with install path
+    add_install_path
+    if [ $? -eq 1 ]; then
+        warning "Failed to updated install path in MCR"
+    fi
+
+    # Should NTF be started?
+    if isoverride nostartafter; then
+        OPSTATE=0
+    elif isoverride dostartafter; then
+        OPSTATE=1
+    fi
+
+    if [ "$OPSTATE" = "1" ]; then
+        info "NTF is started"
+        start
+    else
+        info "NTF is NOT started"
+    fi
+
+    # Restore administrative state
+    if isoverride nounlockafter; then
+        ADMSTATE=0
+    elif isoverride dounlockafter; then
+        ADMSTATE=1
+    fi
+
+    # Wait for the SNMP agent to start
+    sleep 50
+
+    checkMib
+    if [ $? -eq 1 ]; then
+        warning "The MIB doesn't answer on request, cannot set administrative state"
+    else
+        info "The administrative state is restored"
+        setAdmState $ADMSTATE
+    fi
+
+
+    # Check environment
+    if isoverride noselfdiag; then
+        info "No health check is executed"
+    else
+        info "Run health check"
+        run_health_check
+        if [ $? -eq 1 ]; then
+            warning "The health check have failures\n$HCHECK_FAILURES"
+        fi
+
+        while read line; do
+            OK=`echo $line | grep -v "Overall test result:" | grep OK`
+            FAILED=`echo $line | grep -v "Overall test result:" | grep FAILED`
+            if [ -n "$OK" ]; then
+                info "$OK"
+            elif [ -n "$FAILED" ]; then
+                warning "$FAILED"
+            fi
+        done < $HCHECK_RESULT_FILE
+    fi
+fi #HAMODE
+

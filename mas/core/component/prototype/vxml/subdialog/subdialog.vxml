@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+    <var name="acctphone" expr="100"/>
+    <var name="acctnum" expr="250"/>
+    <form>
+      <filled>
+        <return namelist="acctnum acctphone"/>
+      </filled>
+    </form>
+</vxml>
+

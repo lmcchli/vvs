@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The follwing 2 rows are only used when XSL is used. The first row replaces the one above. -->
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> -->
+<!-- <?xml-stylesheet type="text/xsl" href="mer.xsl"?> -->
+
+<!DOCTYPE config SYSTEM "mer.dtd">
+
+<config>
+<!--
+	<attr>
+		<filter value="B 15 1"/>
+	</attr>
+-->
+</config>

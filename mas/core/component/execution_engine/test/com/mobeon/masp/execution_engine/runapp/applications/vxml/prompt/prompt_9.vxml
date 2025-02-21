@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <form id="form1">
+        <block name="b1">
+            <prompt>This is prompt 1</prompt>
+        </block>
+        <block>
+            <prompt>This is prompt 2</prompt>
+        </block>
+
+        <field name="test">
+              <grammar version="1.0" mode="dtmf" root="menu_rule">
+                 <rule id="menu_rule">
+                     <one-of>
+                         <item>1</item>
+                     </one-of>
+                 </rule>
+             </grammar>
+
+            <prompt>This is prompt 3</prompt>
+            <prompt>This is prompt 4</prompt>
+            <prompt>This is prompt 5</prompt>
+
+         </field>
+
+        <filled>
+            <log>TCPASS VXML: Prompt OK</log>
+        </filled>
+
+    </form>
+</vxml>

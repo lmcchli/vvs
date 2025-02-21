@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <var name="phoneNumber"/>
+
+    <var name="subscriberExist"/>
+
+    <block>
+
+		<!-- Get hold of the subscriber 99910002 -->
+		<script>
+			// Assume nothing exists in MUR
+			if (mas.subscriberExist("99999999")) {
+                subscriberExist = true;
+            } else {
+
+                subscriberExist = false;
+            }
+        </script>
+
+         <log>subscriberExist=<value expr="subscriberExist"/></log>
+        <if cond="!subscriberExist">
+			<log>TC 20105051 PASSED does not exist in MUR</log>
+
+        <else/>
+            <log>TC 20105051 FAILED </log>
+        </if>
+
+      </block>
+    </form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105050  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

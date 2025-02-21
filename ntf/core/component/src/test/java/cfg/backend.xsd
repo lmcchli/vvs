@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:sequence>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+	                <xs:annotation>
+		            <xs:documentation>
+		                Each config file must have configFileType element defined in schema as following.
+		                This element sholdn&apos;t apear in config file itself, so minOccurs and maxOccurs both must be 0
+		                Note: to see if a config file is hashable or not check its schem file (.xsd) for element &quot;isHash&quot;
+		                if value of it is &quot;true&quot; means that config file is hashable
+
+		                All hashable component config file i.e. relay.conf: 4
+		                All hashable componentSpecific config files i.e. relaySpecific.conf: 5
+		                All hashable subsystem specific files i.e. relayChargeHandlerSpecific.conf: 6
+		                Special files (not hashable):
+		                relayCharging: 3
+		                emgoe: 7
+		                faultList:8
+		                topology:9
+		                tasks: 10 this file is exception, it is hashable but as it has its own service in CLI don&apos;t use 4
+
+		                Important Notes:
+
+		                1) &quot;-1&quot; reserved for all component unit type, this type being used for configParser don&apos;t use it
+		                2) &quot;0&quot; reserved for all MISCELLANEOUS unit type, this type being used for configParser don&apos;t use it
+		                3) Befor adding new configFileType check ConfigurationConstants.java in emgoe/configuration package for its existance
+		                4) All new config file types should be defined in ConfigurationConstants.java in emgoe/configuration package i.e. COMPONENT_UNIT_TYPE.
+		            </xs:documentation>
+		            </xs:annotation>
+		        </xs:element>
+		        <xs:element name="Cm.radiusservicename" type="xs:string" default="eventreporting" minOccurs="0"/>
+		        <xs:element name="Cm.radiusqueuesize" type="xs:integer" default="2000" minOccurs="0"/>
+		        <xs:element name="Cm.radiusdelay" type="xs:integer" default="5000" minOccurs="0"/>		        
+		        <!-- Table -->
+		        <xs:element name="Radiusconfig.Table" type="radiusconfigTableType"/>
+		        <!-- -->
+		        <xs:element name="Cm.mfsRootPath" type="xs:string" default="/opt/mfs" minOccurs="0"/> 
+		        <xs:element name="Cm.mrd" type="xs:string" default="" minOccurs="0"/>
+		        <xs:element name="Cm.schedulerEventsDirPrecreation" type="xs:boolean" default="true" minOccurs="0"/>
+		        <xs:element name="Cm.mcdPoolSize" type="xs:integer" default="5" minOccurs="0"/>
+		        <xs:element name="Cm.mcdmaxRetries" type="xs:integer" default="3" minOccurs="0"/>
+		        <xs:element name="Cm.mcddelayBetweenRetries" type="xs:integer" default="1000" minOccurs="0"/>
+		        <xs:element name="Cm.mcdcaching" type="xs:boolean" default="true" minOccurs="0"/>
+		        <xs:element name="Cm.mcddefaultCacheSize" type="xs:integer" default="1000" minOccurs="0"/>
+		        <xs:element name="Cm.mcddefaultCacheTimeToLive" type="xs:integer" default="20" minOccurs="0"/>
+		        <xs:element name="Cm.ldapConnectionCreationTimeout" type="xs:integer" default="1000" minOccurs="0"/>
+		        
+		        <xs:element name="Cm.cdrgenloglevel" type="xs:string" default="warn" minOccurs="0"/>
+		        <xs:element name="Cm.cdrFormatFieldValue" type="xs:string" default="V1.0" minOccurs="0"/>
+		        <xs:element name="Cm.cdrDeleteRepositoryFiles" type="xs:integer" default="1" minOccurs="0"/>
+		        <xs:element name="Cm.repMaxTime" type="xs:integer" default="5" minOccurs="0"/>
+		        <xs:element name="Cm.cdrRepDeleteIntervalTime" type="xs:integer" default="3600" minOccurs="0"/>
+		        <xs:element name="Cm.maxFileSize" type="xs:integer" default="0" minOccurs="0"/>
+		        <xs:element name="Cm.fileInterval" type="xs:integer" default="60" minOccurs="0"/>
+		        <xs:element name="Cm.repMaxTimeUnits" type="xs:string" default="days" minOccurs="0"/>
+		        <xs:element name="Cm.cdrRepDeleteRenamed" type="xs:integer" default="0" minOccurs="0"/>
+		        <xs:element name="Cm.cdrRepSubDirs" type="xs:string" default="" minOccurs="0"/>
+		        <xs:element name="Cm.asn1WriterClass" type="xs:string" default="com.abcxyz.messaging.cdrgen.asn1.CommonAsn1Writer" minOccurs="0"/>
+		        <xs:element name="Cm.asn1AccountingWriterClass" type="xs:string" default="" minOccurs="0"/>
+		        <xs:element name="Cm.radiusAccountingPassword" type="xs:string" default="secret" minOccurs="0"/>
+		        <xs:element name="Cm.radiusAccountingHostAndPort" type="xs:string" default="" minOccurs="0"/>
+		        <xs:element name="Cm.radiusAccountingTimeout" type="xs:integer" default="1000" minOccurs="0"/>
+		        <xs:element name="Cm.radiusAccountingSendRetries" type="xs:integer" default="4" minOccurs="0"/>
+		        <xs:element name="Cm.radiusAccountingSleepTimeBetweenRetries" type="xs:integer" default="30000" minOccurs="0"/> 
+
+		        <!-- Local config MAS/NTF component name has to be unique per blade-->
+		        <xs:element name="Cm.masComponentName" type="xs:string" default="mas1@PL_2_4"  minOccurs="0"/> 
+		        <xs:element name="Cm.ntfComponentName" type="xs:string" default="ntf1@PL_2_4" minOccurs="0"/> 
+		        <xs:element name="Cm.mccComponentName" type="xs:string" default="mcc1@PL_2_3" minOccurs="0"/> 
+		        <xs:element name="Cm.masEventsRootPath" type="xs:string" default="/opt/moip/events/mas" minOccurs="0"/> 
+		        <xs:element name="Cm.masRetrySchema" type="xs:string" default="30 30 30 STOP" minOccurs="0"/> 
+		        <xs:element name="Cm.masExpireTimeInMinute" type="xs:integer" default="0" minOccurs="0"/> 
+		        <xs:element name="Cm.profilerEnabled" type="xs:boolean" default="false" minOccurs="0"/> 
+
+			<xs:element name="Cm.sipNotifyExpiryIntervalInMin"	     type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.sipNotifyExpiryRetries"	         type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.slamdownAggregExpiryIntervalInMin"	 type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.slamdownAggregExpiryRetries"	     type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.mcnAggrgExpiryIntervalInMin"	     type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.mcnAggregExpiryRetries"	         type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.messageDeletionExpiryIntervalInMin" type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.messageDeletionExpiryRetries"	     type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+
+	   </xs:sequence>		
+	</xs:complexType>
+
+	<xs:complexType name="radiusconfigTableType" mixed="true">
+           <xs:sequence>
+            <xs:element name="attribute" type="attributeType" minOccurs="0" maxOccurs="unbounded"/>
+           </xs:sequence>
+        </xs:complexType>
+        <xs:complexType name="attributeType" mixed="true">
+    	   <xs:all>
+	       <xs:element name="number" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+	       <xs:element name="type" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+	       <xs:element name="datatype" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+         </xs:complexType>
+
+</xs:schema>

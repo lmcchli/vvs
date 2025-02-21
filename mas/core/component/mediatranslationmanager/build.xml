@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="checkmate mediatranslationmanager" default="all">
+
+    <property name="module" value="mediatranslationmanager" />  
+
+   <!-- Import project generic properties -->
+  <property name="project.basedir" value=".." />
+  <import file="${project.basedir}/projdefs.xml"/>
+  
+  
+  <!-- Module definitions -->
+  <dirname property="module.basedir" file="${ant.file}"/>
+
+  <property name="module.jarname" value="mobeon_mediatranslationmanager.jar" />
+  <property name="module.output.dir" value="${module.basedir}/classes" />
+
+  <path id="module.sourcepath">
+    <dirset dir="${module.basedir}">
+      <include name="src"/>
+      <include name="interface"/>
+    </dirset>
+  </path>
+
+  <path id="module.dependencypath.test">
+  </path>
+
+    <path id="module.testpath">
+        <dirset dir="${module.basedir}">
+            <include name="test"/>
+            <include name="mtest"/>
+        </dirset>
+        <dirset dir="${project.basedir}">
+            <include name="stream/src" />
+            <include name="mediaobject/src" />
+            <include name="externalcomponentregister/src"/>
+            <include name="mediacontentmanager/src" />
+            <include name="configurationmanager/src" />
+            <include name="execution_engine/src" />
+            <include name="servicerequestmanager/src" />
+        </dirset>
+    </path>
+
+  <patternset id="excluded.from.module"/>
+
+  <path id="module.classpath">
+    <path refid="${module.jdk.classpath.checkmate}"/>
+  </path>
+
+  <!-- Add <include> directives for all modules
+       this modules depends on -->
+  <path id="module.dependencypath">
+     <dirset dir="${project.basedir}">
+	 <include name="util/interface" />
+	 <include name="eventnotifier/interface"/>
+         <include name="stream/interface" />
+         <include name="mediaobject/interface" />
+         <include name="mediacontentmanager/interface" />
+	     <include name="externalcomponentregister/interface"/>
+         <include name="logging/interface" />
+         <include name="servicerequestmanager/interface" />
+         <include name="configurationmanager/interface" />
+         <include name="operateandmaintainmanager/interface" />
+         <include name="execution_engine/interface" />
+     </dirset>
+  </path>
+
+
+  <!-- And similarly add  <exclude> directives for
+       all modules this modules depends on -->
+  <patternset id="module.jar.files">
+	<include name="**/com/mobeon/masp/mediatranslationmanager/**" /> 
+	<exclude name="**/com/mobeon/masp/mediatranslationmanager/*Test*" />
+    <exclude name="**/com/mobeon/masp/mediatranslationmanager/*Mock*" />
+  </patternset>
+
+  <patternset id="excluded.from.compilation">
+    <patternset refid="excluded.from.module"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+
+  <!-- Local and/or overridden targets -->
+     <!-- Build needed packages -->
+  <target name="builddepedencies">
+  </target>
+
+  <!-- Import generic targets -->
+  <import file="${project.basedir}/cobertura.xml"/>
+  <import file="${project.basedir}/targets.xml"/>
+</project>

@@ -1,0 +1,11 @@
+PKG=MOBYmas
+NAME=CompEdge Media Access Server/SNMP agent
+CATEGORY=application
+ARCH=sparc
+VENDOR=Abcxyz
+BASEDIR=/apps/mas
+PSTAMP=mobeon-20051206
+CLASSES=none
+VERSION=#_BUILD_VERSION_#
+BASE_VERSION=#_BASE_VERSION_#
+DEF_JAVA_HOME=/apps/jdk1.6.0_06

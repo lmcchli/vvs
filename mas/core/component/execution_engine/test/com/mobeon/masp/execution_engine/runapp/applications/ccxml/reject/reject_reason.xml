@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/reject/" type="application/xml+ccxml">
+        <document src="reject_reason.ccxml" root="true"/>
+    </documents>
+</application>

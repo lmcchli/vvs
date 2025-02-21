@@ -1,0 +1,298 @@
+PS1="\u@\h [\w]"
+export PERFDIR=/cluster/software/moip/perf
+alias a='alias'
+
+
+#general
+a logs='cd /opt/moip/logs/'
+a config='cd /opt/moip/config/'
+
+#Some MIO aliases
+a mmasdo='su -p mmas -c '
+a tailmas='su -p mmas -c "tail -f /opt/moip/logs/mas/mas.log"'
+a tailprocess='su -p mmas -c "tail -f /opt/moip/logs/mas/process.log"'
+a tailstream='tail -f /opt/moip/logs/mas/stream.log'
+a tailpa='tail -f /opt/sailfin/nodedata/nodeagents/PL-2-3/directoryaccess_instance_PL-2-3/logs/server.log'
+a tailntf='su -p mmas -c "tail -f /opt/moip/logs/ntf/notificationTraces.log"'
+a tailmcd=' tail -f /var/log/messages |grep mcdproxy'
+a tailsaf='tail -f /var/log/messages'
+a tailavn='tail -f `ls -atr /home/tspsaf/var/log/opensaf/Av* |tail -1`'
+a tailMonitor='cd /cluster/software/moip/perf; tail -f monitor.txt'
+a viavn='vi `ls -atr /home/tspsaf/var/log/opensaf/Av* |tail -1`'
+
+#MAS
+a mas='/apps/mas/bin/mas'
+a masbin='cd /apps/mas/bin'
+a maslib='cd /apps/mas/lib'
+a mascfg='cd /opt/moip/config/mas'
+a maslogs='cd /opt/moip/logs/mas'
+a cdmas='cd /apps/mas'
+a masDebug='cd /opt/moip/config/mas; su -p mmas -c "cp -f logmanager.xml.debug logmanager.xml"'
+a masWarn='cd /opt/moip/config/mas; su -p mmas -c "cp -f logmanager.xml.warn logmanager.xml"'
+a masStatus='echo ; su -p mmas -c "/apps/mas/bin/mas status"; echo'
+a masRestart='su -p mmas -c "/apps/mas/bin/mas stop; waitForMasShutdown; su -p mmas -c "/apps/mas/bin/mas start"'
+a masStop='su -p mmas -c "/apps/mas/bin/mas stop"'
+a masKill='su -p mmas -c "/apps/mas/bin/mas kill"'
+a masLock='su -p mmas -c "/apps/mas/bin/mas lock"'
+a masUnlock='su -p mmas -c "/apps/mas/bin/mas unlock"'
+a masStart='su -p mmas -c "/apps/mas/bin/mas start"'
+a masRefresh='su -p mmas -c "/apps/mas/bin/mas refreshconfig &"'
+a masps='ps auxwww | grep execution_engine | grep -v grep'
+a vimas='vi /opt/moip/logs/mas/mas.log'
+a masError='grep ERROR /opt/moip/logs/mas/mas.log'
+a masInfo='grep INFO /opt/moip/logs/mas/mas.log'
+a masWarn='grep WARN /opt/moip/logs/mas/mas.log'
+
+
+#VVA
+a cdvva='cd /apps/mas/applications/vva0001.1'
+a cdmcp='cd /apps/mas/applications/mediacontentpackages'
+a vva='cdvva'
+a mcp='cdmcp'
+
+#NTF
+a ntf='/apps/ntf/bin/ntf'
+a ntfcfg='cd /opt/moip/config/ntf/cfg'
+a ntfbin='cd /apps/ntf/bin'
+a cdntf='cd /apps/ntf'
+a ntflogs='cd /opt/moip/logs/ntf'
+a ntfStop='su -p mmas -c "/apps/ntf/bin/ntf stop &"'
+a ntfKill='su -p mmas -c "/apps/ntf/bin/ntf kill &"'
+a ntfStart='su -p mmas -c "/apps/ntf/bin/ntf start &"'
+a ntfRestart='su -p mmas -c "/apps/ntf/bin/ntf stop"; waitForNtfShutdown; su -p mmas -c "/apps/ntf/bin/ntf start &"'
+a ntfRefresh='su -p mmas -c "/apps/ntf/bin/ntf refreshconfig &"'
+a ntfps='ps auxwww | grep NtfMain | grep -v grep'
+a vintf='vi /opt/moip/logs/ntf/notificationTraces.log'
+a ntfLock='su -p mmas -c "/apps/ntf/bin/ntf lock &"'
+a ntfUnlock='su -p mmas -c "/apps/ntf/bin/ntf unlock &"'
+a ntfStatus='su -p mmas -c "/apps/ntf/bin/ntf status &"'
+a ntfError='grep ERROR /opt/moip/logs/ntf/notificationTraces.log'
+a ntfInfo='grep INFO /opt/moip/logs/ntf/notificationTraces.log'
+a ntfWarn='grep WARN /opt/moip/logs/ntf/notificationTraces.log'
+
+#PA
+a listCos='listProfiles "cos"'
+a listBA='listProfiles "ba"'
+a listSub='listProfiles "tel"'
+
+
+#Some variuos methods that can be used at the shell prompt:
+
+telNums(){
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   find /opt/mcd/profiles/ -name \*.ldif | xargs grep tel:
+}
+
+listProfiles(){
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   find /opt/mcd/profiles/ -name \*.ldif | xargs grep "${1}:"
+
+}
+
+
+msid() {
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   dirname `find /opt/mcd/profiles/ -name \*.ldif | xargs grep tel: |grep $1`
+}
+
+viewProfile(){
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   tmp=`find /opt/mcd/profiles/ -name \*.ldif | xargs grep tel: |grep $1 | awk -F':' '{print $1}'`
+   echo " "
+   echo "=============================================================================="
+   echo "Viewing Profile for subscriber telephone number $1 "
+   echo "($tmp)"
+   echo "=============================================================================="
+   echo " "
+   more $tmp
+}
+
+viewInbox(){
+
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   tmp=`find /opt/mcd/profiles/ -name \*.ldif | xargs grep tel: |grep $1 | awk -F':' '{print $1}'`
+   tmpdir=`dirname $tmp`
+
+   inbox=`echo $tmpdir|sed 's/mcd\/profiles/mfs\/internal/'`
+   echo "tmp=$tmp"
+   echo " "
+   echo "=============================================================================="
+   echo "Viewing mfs directory struture for subscriber telephone number $1 "
+   echo "($inbox)"
+   echo "=============================================================================="
+   echo " "
+   find $inbox
+
+}
+
+viewCos (){
+
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   if [ "$1" == "" ]; then
+      echo "Please provide subscriber telephone number"
+   fi
+   clear
+   currdir=`pwd`
+   cd /opt/msgcore/mcd/bin
+   /opt/msgcore/mcd/bin/lookupprofile.sh -c ClassOfService -i cos:$1 -x true
+   cd $currdir
+}
+
+viewSub(){
+
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   if [ "$1" == "" ]; then
+      echo "Please provide subscriber telephone number"
+   fi
+   clear
+   currdir=`pwd`
+   cd /opt/msgcore/mcd/bin
+   /opt/msgcore/mcd/bin/lookupprofile.sh -c Subscriber -i tel:$1 -x true
+   cd $currdir
+}
+
+sub2msid () {
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   if [[ "$1" == "" ]]; then
+      echo "Please provide subscriber telephone number"
+   fi
+   TMP=`viewSub $1 |grep msid: |sed 's/msid://'`
+   echo `expr substr $TMP 1 1 `/`expr substr $TMP 2 2 `/`expr substr $TMP 4 2 `/`expr substr $TMP 6 2 `/`expr substr $TMP 8 2 `/`expr substr $TMP 10 1000 `
+}
+
+sub2mfs() {
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   if [ "$1" == "" ]; then
+      echo "Please provide subscriber telephone number"
+   fi
+   TMP=`viewSub $1 |grep msid: |sed 's/msid://'`
+   msid=`expr substr $TMP 1 1 `/`expr substr $TMP 2 2 `/`expr substr $TMP 4 2 `/`expr substr $TMP 6 2 `/`expr substr $TMP 8 2 `/`expr substr $TMP 10 1000 `
+   echo "/opt/mfs/internal/${msid}"
+}
+
+editSub(){
+   if [ "$HOSTNAME" != "PL-2-3" ]; then
+      echo "This command must be run only on the PL-2-3 node"
+      return
+   fi
+
+   if [ "$1" == "" ]; then
+      echo "Please provide subscriber telephone number"
+   fi
+   TMP=`viewSub $1 |grep msid: |sed 's/msid://' |sed 's/ //g'`
+   TMP=`echo $TMP | sed 's/\s+//g'`
+
+   msid=`expr substr $TMP 1 1 `/`expr substr $TMP 2 2 `/`expr substr $TMP 4 2 `/`expr substr $TMP 6 2 `/`expr substr $TMP 8 2 `/`expr substr $TMP 10 1000 `
+
+   mmasdo "vi /opt/mcd/profiles/$msid/$TMP.ldif"
+
+}
+
+killMcd(){
+   mcdpid=`ps -ef |grep McdProxyMain |grep -v grep |awk '{print $2}'`
+   if [[ "$mcdpid" = "" ]];
+   then
+      echo "McdProxyMain is not running"
+   else
+      echo "Killing pid $mcdpid"
+      kill -9 $mcdpid
+      sleep 2
+      ps -ef |grep $mcdpid|grep -v grep
+   fi
+}
+
+waitForMas(){
+   StartedString="[SID:]  - MAS started"
+   finished=false
+   sleep 2
+   echo
+   echo "Waiting for MAS to be up and running.  "
+   while [[ $finished == "false"  ]] ;
+   do
+      out=`masStatus`
+      result=`su -p mmas -c 'tail -500 /opt/moip/logs/mas/mas.log' | grep "MAS started\!"`
+      #echo $result
+
+      if [[ "$result" == ""  ]] ; then
+         echo -n "."
+         sleep 2
+      else
+         echo "result=$result"
+         echo "Mas is up and running"
+         finished=true
+      fi
+   done
+}
+
+waitForNtfShutdown(){
+   finished=false
+   sleep 2
+   echo
+   echo "Waiting for NTF to Shutdown.  "
+   while [[ $finished == "false"  ]] ;
+   do
+      pid=`ps auxwww | grep NtfMain | grep -v grep | awk '{print $2}'`
+      if [ $pid ]; then
+         echo -n "."
+         sleep 2
+      else
+         echo "NTF Shutdown completed"
+         finished=true
+      fi
+   done
+}
+
+waitForMasShutdown(){
+   finished=false
+   sleep 2
+   echo
+   echo "Waiting for MAS to Shutdown.  "
+   while [[ $finished == "false"  ]] ;
+   do
+      pid=`ps auxwww | grep execution_engine | grep -v grep | awk '{print $2}'`
+      if [ $pid ]; then
+         echo -n "."
+         sleep 2
+      else
+         echo "MAS Shutdown completed"
+         finished=true
+      fi
+   done
+}
+

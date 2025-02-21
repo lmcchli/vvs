@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--A copy of the global variable ANI.-->
+   <var name="ani" />
+   <!--The language number that was entered.-->
+   <var name="languageNumber" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_ani" />
+      <var name="p_languageNumber" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="ani" expr="p_ani" />
+         <assign name="languageNumber" expr="p_languageNumber" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="((GlobalObject.LoggedIn == true))">
+            <goto next="#sub1" />
+            <else />
+            <if cond="((PhoneNumber_IsASubscriber (ani) == true))">
+               <goto next="#sub2" />
+               <else />
+               <var name="resultCode" />
+               <assign name="resultCode" expr="new Array(&quot;OK&quot;, System_GetLanguageCode(languageNumber))" />
+               <return namelist="resultCode" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Subscriber_SetSingleStringAttribute (GlobalObject.Subscriber, 'preferredlanguage', System_GetLanguageCode(languageNumber))</script>
+      <block>
+         <goto next="#prompt1" />
+      </block>
+      <catch event="error.mas.murread">
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(135)" />
+         </prompt>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(&quot;NotOK&quot;)" />
+         <return namelist="resultCode" />
+      </catch>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(134)" />
+         </prompt>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(&quot;OK&quot;)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="sub2">
+      <script>Subscriber_SetSingleStringAttribute (ani, 'preferredlanguage', System_GetLanguageCode(languageNumber))</script>
+      <block>
+         <goto next="#sub3" />
+      </block>
+   </form>
+   <form id="sub3">
+      <script>Subscriber_SetSingleStringAttribute (ani, 'userlevel', 5)</script>
+      <block>
+         <goto next="#prompt1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <if cond="(System_GetEventMessage().indexOf('userlevel' != -1))">
+         <goto next="#sub4" />
+         <else />
+         <goto next="#prompt2" />
+      </if>
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <goto next="#prompt2" />
+   </catch>
+   <form id="sub4">
+      <script>FTL_SetPartAsPerformed (ani, 'language')</script>
+      <block>
+         <goto next="#prompt1" />
+      </block>
+   </form>
+   <form id="prompt2">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(103)" />
+         </prompt>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(&quot;NotOK&quot;)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

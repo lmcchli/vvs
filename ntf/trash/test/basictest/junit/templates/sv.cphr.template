@@ -1,0 +1,32 @@
+C ={
+                        "Du har "
+        (0,0,0,0)       "inga nya meddelanden."
+        (1,*,*,*)       "ett"
+        (2-,*,*,*)      VCOUNT
+        (1,*,*,*)       " nytt röstmeddelande"
+        (2-,*,*,*)      " nya röstmeddelanden"
+        (1-,0,0,0)      "."
+        (1-,1-,0,0)     " och "
+        (1-,1-,1-,*)     ", " 
+        (*,1,*,*)       "ett"
+        (*,2-,*,*)      FCOUNT
+        (*,1,*,*)      " nytt fax" 
+        (*,2-,*,*)      " nya fax"
+        (*,1-,0,0)      "."
+        (*,1-,1-,1-)      ", "
+        (0,1-,1-,*)      " och "
+        (1-,0,1-,0)      " och "
+        (1-,1-,1-,0)      " och "
+        (*,*,1,*)      "ett"
+        (*,*,2-,*)      ECOUNT
+        (*,*,1,*)      " nytt epostmeddelande"
+        (*,*,2-,*)      " nya epostmeddelanden"
+        (*,*,1-,0)      "."
+        (*,*,*,1-)      " och "
+        (*,*,*,1)      "ett"
+        (*,*,*,2-)     MCOUNT 
+        (*,*,*,1)     " nytt videomeddelande"
+        (*,*,*,2-)     " nya videomeddelanden"
+        (*,*,*,8-)     "nnn"
+        (*,*,*,1-)     "."
+}

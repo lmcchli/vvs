@@ -1,0 +1,1481 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "ie"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3B0921700058"
+    physical_models 	(list unit_reference_list
+	(object SubSystem "ncl"
+	    quid       	"3B0921700116"
+	    physical_models 	(list unit_reference_list
+		(object SubSystem "util"
+		    quid       	"3B092170022F"
+		    physical_models 	(list unit_reference_list
+			(object module "Table" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"ie\\ncl\\util\\Table.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3B092170030B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Semaphore" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"ie\\ncl\\util\\Semaphore.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3B0921740393"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IntegerEnumeration" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"ie\\ncl\\util\\IntegerEnumeration.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3B0921790318"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IndexTable" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"ie\\ncl\\util\\IndexTable.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3B09217C02D6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Hashtable" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"ie\\ncl\\util\\Hashtable.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3B09217E02D9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Fifo" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"ie\\ncl\\util\\Fifo.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3B0921800029"
+			    stereotype 	""
+			    language   	"Java")
+			(object SubSystem "bin"
+			    quid       	"3B0921820112"
+			    physical_models 	(list unit_reference_list
+				(object module "Bytes" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\util\\bin\\Bytes.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921820158"
+				    stereotype 	""
+				    language   	"Java"))
+			    physical_presentations 	(list unit_reference_list)))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "sms"
+		    quid       	"3B0921870079"
+		    physical_models 	(list unit_reference_list
+			(object SubSystem "smpp"
+			    quid       	"3B09218700B5"
+			    physical_models 	(list unit_reference_list
+				(object module "Smpp" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Smpp.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A10316"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Message" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Message.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A30098"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Member" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Member.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A300C0"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Address" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Address.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A300FC"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Customer" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Customer.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A3012E"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "SMSException" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\SMSException.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A4008F"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Errors" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Errors.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A400CC"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "SmppSyncResponse" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\SmppSyncResponse.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A40248"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "SmppRequest" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\SmppRequest.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A50343"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "MessageSettings" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\MessageSettings.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A600B0"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "SmppDispatcher" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\SmppDispatcher.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921A60331"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Constants" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Constants.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921AA0160"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "DLModification" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\DLModification.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921B7003C"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Binding" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\sms\\smpp\\Binding.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921B7028B"
+				    stereotype 	""
+				    language   	"Java")
+				(object SubSystem "tvl"
+				    quid       	"3B0921870119"
+				    physical_models 	(list unit_reference_list
+					(object module "DeliveryFailureReason" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\DeliveryFailureReason.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921870142"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DCS" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\DCS.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B092189000E"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "PayloadType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\PayloadType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09218B0238"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Version" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\Version.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09218C0257"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "PrivacyLevel" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\PrivacyLevel.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09218D029F"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "SubAddress" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\SubAddress.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09218E035E"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "SubAddressType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\SubAddressType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09218F0099"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "TvlEncoder" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\TvlEncoder.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09218F03C4"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "TvlParameter" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\TvlParameter.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219200BB"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "TvlType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\TvlType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921920101"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "USSDOperation" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\USSDOperation.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219300C7"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "TvlDecoder" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\TvlDecoder.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921950322"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "TelematicsId" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\TelematicsId.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219700B8"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "SubUnit" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\SubUnit.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219702D5"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "NetworkTypeError" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\NetworkTypeError.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219803DB"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "NetworkType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\NetworkType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219901AC"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DisplayTime" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\DisplayTime.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219903C8"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ITSReplyType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\ITSReplyType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219A0185"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "NetworkErrorCode" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\NetworkErrorCode.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219A037A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "MSValidity" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\MSValidity.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219B0168"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "MSAvailabilityStatus" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\MSAvailabilityStatus.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219B0371"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ITSSessionInfo" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\ITSSessionInfo.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219C00D4"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Language" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\Language.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219C025A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "MessageState" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\MessageState.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219D00C1"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "MessageWaitFacilities" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\MessageWaitFacilities.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219D0310"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AdditionalBytes" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\AdditionalBytes.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219E00A4"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AdditionalText" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\AdditionalText.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219E01A9"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "CallbackNumberType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\CallbackNumberType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219E0361"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "CallbackNumberPresentation" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\CallbackNumberPresentation.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219F01A0"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "CallbackNumberAlphaTag" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\CallbackNumberAlphaTag.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B09219F0345"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "CallbackNumber" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\CallbackNumber.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A000ED"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "BearerType" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\tvl\\BearerType.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A002EC"
+					    stereotype 	""
+					    language   	"Java"))
+				    physical_presentations 	(list unit_reference_list))
+				(object SubSystem "prot"
+				    quid       	"3B0921A00147"
+				    physical_models 	(list unit_reference_list
+					(object module "Address" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Address.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A00148"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "CommandId" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\CommandId.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A5038A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Parameter" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Parameter.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AA0387"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "SmppEncoder" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\SmppEncoder.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AB0139"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "SmppDecoder" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\SmppDecoder.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AB0374"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "QueryAllResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\QueryAllResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AC01DB"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "MessageId" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\MessageId.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AC0203"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "QueryAllRequest" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\QueryAllRequest.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AC0311"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Binding" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Binding.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AD0178"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Message" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Message.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AE02BA"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AddressError" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\AddressError.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AF00D1"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Members" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Members.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AF0302"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Member" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Member.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921AF032A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "MemberId" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\MemberId.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B0003C"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Header" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Header.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B00349"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DLs" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\DLs.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B100A2"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DLId" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\DLId.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B100CA"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DLModification" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\DLModification.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B1020A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DL" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\DL.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B10232"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Customer" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\Customer.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B2036A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AlertNotificationRequest" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\prot\\AlertNotificationRequest.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B303DA"
+					    stereotype 	""
+					    language   	"Java"))
+				    physical_presentations 	(list unit_reference_list))
+				(object SubSystem "test"
+				    quid       	"3B0921A10081"
+				    physical_models 	(list unit_reference_list
+					(object module "ParseException" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\test\\ParseException.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A1008B"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ExtendedSendTest" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\test\\ExtendedSendTest.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A102A7"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ClientTest" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\test\\ClientTest.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A203B7"
+					    stereotype 	""
+					    language   	"Java"))
+				    physical_presentations 	(list unit_reference_list))
+				(object SubSystem "async"
+				    quid       	"3B0921A102EE"
+				    physical_models 	(list unit_reference_list
+					(object module "AlertNotification" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\AlertNotification.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A102F8"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "Receiver" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\Receiver.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921A30001"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ExtendedReceiver" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\ExtendedReceiver.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B70371"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "StatusResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\StatusResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B8002A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "SendResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\SendResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B800C0"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ReplaceResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\ReplaceResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B80160"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ParameterResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\ParameterResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B802AB"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ModCustomerResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\ModCustomerResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B80341"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ListResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\ListResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B803E1"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "GetMemberResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\GetMemberResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B9008F"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "ExtendedSendResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\ExtendedSendResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B9012F"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "GetCustomerResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\GetCustomerResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B901DA"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "GetDLResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\GetDLResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B90284"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DetailsResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\DetailsResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921B9039C"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DelMemberResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\DelMemberResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BA004B"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DelCustomerResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\DelCustomerResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BA00EB"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DelDLResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\DelDLResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BA0181"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "CancelResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\CancelResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BA0221"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "DataResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\DataResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BA02C1"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "BindResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\BindResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BA036C"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AddMemberResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\AddMemberResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BB00BA"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AddDLResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\AddDLResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BB015A"
+					    stereotype 	""
+					    language   	"Java")
+					(object module "AddCustomerResponse" "NotAModuleType" "NotAModulePart"
+					    attributes 	(list Attribute_Set
+						(object Attribute
+						    tool       	"Java"
+						    name       	"FileName"
+						    value      	"ie\\ncl\\sms\\smpp\\async\\AddCustomerResponse.class")
+						(object Attribute
+						    tool       	"Java"
+						    name       	"RootPath"
+						    value      	""))
+					    quid       	"3B0921BB01FB"
+					    stereotype 	""
+					    language   	"Java"))
+				    physical_presentations 	(list unit_reference_list)))
+			    physical_presentations 	(list unit_reference_list)))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "net"
+		    quid       	"3B0921900036"
+		    physical_models 	(list unit_reference_list
+			(object SubSystem "pdu"
+			    quid       	"3B0921900040"
+			    physical_models 	(list unit_reference_list
+				(object module "Encoder" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\pdu\\Encoder.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B092190004A"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Decoder" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\pdu\\Decoder.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B09219503AF"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "EncoderException" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\pdu\\EncoderException.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BE00E6"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "DecoderException" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\pdu\\DecoderException.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BF00A2"
+				    stereotype 	""
+				    language   	"Java"))
+			    physical_presentations 	(list unit_reference_list))
+			(object SubSystem "proxy"
+			    quid       	"3B0921BC0102"
+			    physical_models 	(list unit_reference_list
+				(object module "ProxyWriter" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\proxy\\ProxyWriter.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BC0103"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "ProxyReader" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\proxy\\ProxyReader.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BC036F"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Proxy" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\proxy\\Proxy.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BD010D"
+				    stereotype 	""
+				    language   	"Java"))
+			    physical_presentations 	(list unit_reference_list))
+			(object SubSystem "socks"
+			    quid       	"3B0921BD021C"
+			    physical_models 	(list unit_reference_list
+				(object module "SocksException" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\socks\\SocksException.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BD0226"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "Socks" "NotAModuleType" "NotAModulePart"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Java"
+					    name       	"FileName"
+					    value      	"ie\\ncl\\net\\socks\\Socks.class")
+					(object Attribute
+					    tool       	"Java"
+					    name       	"RootPath"
+					    value      	""))
+				    quid       	"3B0921BD0366"
+				    stereotype 	""
+				    language   	"Java"))
+			    physical_presentations 	(list unit_reference_list)))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list))

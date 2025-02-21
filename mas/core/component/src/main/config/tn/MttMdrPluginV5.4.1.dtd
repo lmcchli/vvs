@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!ELEMENT ltt (enabled, loglevel, controller, parser, postprocessor, storer)>
+        <!ATTLIST ltt version CDATA '4.0' revision CDATA 'R4A' name CDATA #REQUIRED>
+        <!--
+        <!ELEMENT logconfig (#PCDATA)>
+        <!ELEMENT process_agent EMPTY>
+        <!ATTLIST process_agent port NMTOKEN #REQUIRED>
+        -->
+
+        <!ELEMENT enabled (#PCDATA)>
+        <!ELEMENT loglevel (#PCDATA)>
+
+        <!--
+<!ENTITY % ThreadController.dtd SYSTEM "ThreadController.dtd">%ThreadController.dtd;
+-->
+        <!ELEMENT controller (config?)>
+        <!ELEMENT ThreadController (control, thread)>
+        <!ELEMENT control (wait)>
+        <!ELEMENT thread (wait)>
+        <!ELEMENT wait (time)>
+        <!ELEMENT time (#PCDATA)>
+
+        <!--<!ENTITY % MiOMDRParser.dtd SYSTEM "MiOMDRParser.dtd">%MiOMDRParser.dtd;-->
+        <!ELEMENT parser (class, config?)>
+        <!ELEMENT MiOMDRParser (dateformat, max_post_queue_size, thread)>
+        <!ELEMENT dateformat (#PCDATA)>
+
+        <!--<!ENTITY % CosPostProcessor.dtd SYSTEM "CosPostProcessor.dtd">%CosPostProcessor.dtd;-->
+        <!--
+        <!ELEMENT postprocessor (class, config?)>
+        <!ELEMENT CosPostProcessor (thread, cosfilter, config_dbconnection)>
+        <!ELEMENT cosfilter (cos)>
+        <!ELEMENT cos (#PCDATA)>
+        -->
+        <!ELEMENT postprocessor (config?)>
+        <!ELEMENT CosPostProcessor (cosfilter)>
+        <!ELEMENT cosfilter (cos)>
+        <!ELEMENT cos (#PCDATA)>
+
+
+        <!ELEMENT storer (class, config?)>
+
+        <!--<!ENTITY % MultiThreadParser.dtd SYSTEM "MultiThreadParser.dtd">%MultiThreadParser.dtd;
+        <!ENTITY % MultiThreadDBStorer.dtd SYSTEM "MultiThreadDBStorer.dtd">%MultiThreadDBStorer.dtd;-->
+
+        <!ELEMENT config (ThreadController?, MiOMDRParser?, MultiThreadParser?, CosPostProcessor?, MultiThreadDBStorer?)>
+
+        <!ELEMENT class (name, rootdir)>
+
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT rootdir (#PCDATA)>
+
+        <!ELEMENT max_post_queue_size (#PCDATA)>
+
+        <!ELEMENT max_preprocess_queue_size (#PCDATA)>
+
+
+        <!--///////////////////////////////////  MultiThreadParser ///////////////////////////////////////-->
+        <!ELEMENT MultiThreadParser (max_queue_size,parse_file,parsers_thread)>
+        <!ATTLIST MultiThreadParser revision NMTOKEN #REQUIRED version NMTOKEN #REQUIRED>
+        <!ELEMENT test (#PCDATA)>
+        <!ELEMENT test1 (#PCDATA)>
+        <!ELEMENT parse_file_config (thread, config_dbconnection)>
+        <!ELEMENT parse_file (parse_file_config)>
+        <!ATTLIST parse_file class NMTOKEN #REQUIRED>
+        <!ELEMENT parserprocessor (test)>
+        <!ATTLIST parserprocessor class CDATA #REQUIRED name NMTOKEN #REQUIRED>
+        <!ELEMENT parsers (parserprocessor+)>
+        <!ELEMENT parsers_thread (parsers)>
+        <!ATTLIST parsers_thread nr NMTOKEN #REQUIRED>
+        <!--///////////////////////////////////  MultiThreadParser ///////////////////////////////////////-->
+
+        <!--///////////////////////////////////  MultiThreadDbStorerr ///////////////////////////////////////-->
+        <!-- Legacy postgres one with JDBCTomcatConnectionManger: -->
+        <!ELEMENT MultiThreadDBStorer (max_queue_size,dbConnection,storers_thread)>
+        <!ATTLIST MultiThreadDBStorer revision NMTOKEN #REQUIRED version NMTOKEN #REQUIRED>
+        <!ELEMENT check_for_max_days_in_db (#PCDATA)>
+        <!ATTLIST check_for_max_days_in_db enabled NMTOKEN #REQUIRED maxday NMTOKEN #REQUIRED date_format  CDATA #IMPLIED>
+        <!ELEMENT column (#PCDATA)>
+        <!ATTLIST column max_length NMTOKEN #IMPLIED name NMTOKEN #IMPLIED type CDATA #REQUIRED>
+        <!ELEMENT columns (column+)>
+        <!ELEMENT config_dbconnection (dbcpapiv2, batch_size)>
+        <!ELEMENT batch_size (#PCDATA)>
+        <!ELEMENT dbConnection (config_dbconnection)>
+        <!ATTLIST dbConnection class NMTOKEN #REQUIRED>
+        <!ELEMENT insert_sql (#PCDATA)>
+        <!ELEMENT max_queue_size (#PCDATA)>
+        <!ELEMENT storerprocessor (check_for_max_days_in_db,insert_sql?,table?,columns)>
+        <!ATTLIST storerprocessor class CDATA #REQUIRED name NMTOKEN #REQUIRED>
+        <!ELEMENT storers (storerprocessor+)>
+        <!ELEMENT storers_thread (storers)>
+        <!ATTLIST storers_thread nr NMTOKEN #REQUIRED>
+        <!ELEMENT table (#PCDATA)>
+
+
+        <!--///////////////////////////////////  MultiThreadDbStorerr ///////////////////////////////////////-->
+        <!ATTLIST dbcpapi version CDATA '1.0' revision CDATA 'R1A'>
+        <!ELEMENT dbcpapi_dbname (#PCDATA)>
+        <!ELEMENT dbcpapi_username (#PCDATA)>
+        <!ELEMENT dbcpapi_password (#PCDATA)>
+        <!ELEMENT dbcpapi_dbscheme (#PCDATA)>
+        <!ELEMENT dbcpapi_driver (#PCDATA)>
+        <!ELEMENT dbcpapi_poolprovider (#PCDATA)>
+        <!ELEMENT dbcpapi_keepalive (#PCDATA)>
+        <!ELEMENT dbcpapi_poolsize (#PCDATA)>
+        <!ELEMENT dbcpapi_disableoob (#PCDATA)>
+        <!ELEMENT dbcpapi_dbhostlist (#PCDATA)>
+        <!ELEMENT dbcpapi_dbport (#PCDATA)>
+        <!ELEMENT dbcpapi_onretry (#PCDATA)>
+        <!ELEMENT dbcpapi_createconretry (#PCDATA)>
+        <!ELEMENT dbcpapi_URL (#PCDATA)>
+
+        <!-- New (v2) Yugabyte with JDBCYugabyteConnectionManger: -->
+        <!ELEMENT dbcpapiv2 (dbcpapi_dbname, dbcpapi_username, dbcpapi_password, dbcpapi_dbscheme, dbcpapi_driver,
+                dbcpapi_poolprovider, dbcpapi_poolsize?, dbcpapi_keepalive?, dbcpapi_disableoob,
+                dbcpapi_dbhostlist, dbcpapi_dbport, dbcpapi_createconretry?)>
+
+        <!-- Legacy postgres one with JDBCTomcatConnectionManger: -->
+        <!ELEMENT dbcpapi (dbcpapi_dbname, dbcpapi_username, dbcpapi_password, dbcpapi_driver, dbcpapi_URL, dbcpapi_poolsize?, dbcpapi_keepalive?, dbcpapi_createconretry?)>
+

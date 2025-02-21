@@ -1,0 +1,5 @@
+#!/usr/xpg4/bin/sh
+JAVA_HOME=/usr/local/j2sdk1.4.0
+JAVAC=$JAVA_HOME/bin/javac
+CLASSPATH=/proj/ipms/activemq/java/4.1.1/apache-activemq-4.1.1.jar:/proj/ipms/java/P1A_03_JAVA1_4/foundation.jar
+$JAVAC -d . -classpath $CLASSPATH *.java

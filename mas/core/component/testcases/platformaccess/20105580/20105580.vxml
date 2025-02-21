@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="main_form">
+        <var name="subscribers"/>
+        <var name="passed"/>
+        <block>
+
+            <script>
+                mas.systemLog(0, 'TC 20105580, FATAL');
+            </script>
+           <exit/>
+
+
+        </block>
+      </form>
+  <!-- <catch event="error.com.mobeon.platform.profileread">
+		<log>Error caught <value expr="_event"/></log>
+        <log>Error message <value expr="_message"/></log>
+        <log>TC 20105572  Passed</log>
+
+		<exit/>
+   </catch> -->
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105580 FAILED</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

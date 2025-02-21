@@ -1,0 +1,75 @@
+################################################################################
+#                       NTF - BASIC TEST SPECIFICATION                         #
+#                                                                              #
+# Author:      ermjnil                                                         #
+# Date:        2006-08-23                                                      #
+# Description: Test cases in this file will patch installation, uninstallation #
+#              , MCR registration and MCR unregistration.		       #
+# Test Tools:  LDAP browser						       #
+################################################################################
+
+TC0: Install patch on a new installed NTF
+     Action: Install patch according to the README file.
+     Result: No error message shall be printed during installation.
+     Patch shall be registered in MCR with the patch ID
+     appended to the version attribute in the NTF entry.
+
+TC1: Install patch when obsoleted patch(s) are already installed.
+     Preparation: Install obsoleted patches
+     Action: Install patch according to the README file.
+     Result: Obsoleted patches shall be uninstalled and the current
+     patch shall be installed without any printed error message.
+     Patch shall be registered in MCR with the patch ID
+     appended to the version attribute in the NTF entry. Obsoleted
+     patch ID shall be removed from the version attribute in the NTF entry.
+
+TC2: Uninstall patch on a new installed NTF
+     Preparation: Install the current patch.
+     Action: Patch shall be uninstalled according to the README file.
+     Result: Patch shall be uninstalled without any error message and
+     patch ID shall be removed from the NTF entry in MCR.
+
+TC3: Uinstall patch when obsoleted patch(s) are already installed
+     before installation.
+     Preparation: Install obsoleted patches and the current patch.
+     Action: Patch shall be uninstalled according to the README file.
+     Result: Patch shall be uninstalled without any error message and
+     patch ID shall be removed from the NTF entry in MCR. The
+     obsoleted patches shall be reinstalled. NTF entry in MCR shall be
+     updated with the obsoleted patch IDs.
+
+TC4: Install patch with the settings noselfdiag 
+     Preparation: Edit the file <NTF_HOME>/LMENtf_patchoverride with        
+     the parameter "noselfdiag=true"
+     Action: Install patch according to the README file.
+     Result: The following line "No health check is executed" is logged in
+     the install log.
+
+TC5: Install patch with the settings nostartafter
+     Preparation: Edit the file <NTF_HOME>/LMENtf_patchoverride with        
+     the parameter "nostartafter=true"
+     Action: Install patch according to the README file.
+     Result: The following line "NTF is NOT started" is logged in the
+     install log.
+
+TC6: Install patch with the settings noshutdownbefore
+     Preparation: Edit the file <NTF_HOME>/LMENtf_patchoverride with                
+     the parameter "noshutdownbefore=true".
+     Action: Install patch according to the README file.
+     Result: The following line "NTF is not shutdown before stop" is logged
+     in the install log.
+
+TC7: Install patch with the settings dostartafter
+     Preparation: Edit the file <NTF_HOME>/LMENtf_patchoverride with                
+     the parameter "dostartafter=true". Stop NTF.
+     Action: Install patch according to the README file.
+     Result: The following line "NTF is started" is logged in the
+     install log. Check that NTF is started with the command
+     /etc/init.d/rc.ntf status
+     
+TC8: Install patch with the settings nounlockafter
+     Preparation: Edit the file <NTF_HOME>/LMENtf_patchoverride with
+     the parameter "nounlockafter=true".
+     Action: Install patch according to the README file.
+     Result: Chech the NTF MIB after installation. Ntf shall be locked.
+

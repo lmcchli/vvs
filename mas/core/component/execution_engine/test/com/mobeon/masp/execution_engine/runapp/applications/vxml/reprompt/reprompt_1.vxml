@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="main_form">
+        <field name="testfield">
+            <property name="timeout" value="1s"/>
+            <prompt>Some prompt</prompt>
+
+            <filled>
+                <log>TCPASS VXML: Reprompt ok</log>
+            </filled>
+
+        </field>
+
+        <catch event="error">
+            <log>TCFAIL VXML: Reprompt nok</log>
+        </catch>
+    </form>
+</vxml>

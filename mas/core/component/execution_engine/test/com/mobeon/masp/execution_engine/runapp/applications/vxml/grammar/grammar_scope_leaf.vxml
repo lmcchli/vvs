@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="grammar_scope_root.vxml">
+    <grammar mode='dtmf' root='leaf_root'>
+        <rule id='leaf_root'>
+            <one-of>
+                <item>1</item>
+                <item>2</item>
+                <item>#</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1" scope="document"> 
+        <grammar mode='dtmf' root='leaf_form_rule1'>
+            <rule id='leaf_form_rule1'>
+                <one-of>
+                    <item>9</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+
+        <grammar mode='dtmf' root='leaf_form_rule1_doc_scope' scope="document">
+            <rule id='leaf_form_rule1_doc_scope'>
+                <one-of>
+                    <item>3 3</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <field name="field1">
+            <prompt>In leaf</prompt>
+
+            <filled>
+                <goto next="grammar_scope_leaf_nogrammar.vxml"/>
+            </filled>
+        </field>
+    </form>
+
+      <form id="form2">
+
+        <field name="field2">
+            <prompt>Field</prompt>
+        </field>
+    </form>
+
+</vxml>

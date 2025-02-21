@@ -1,0 +1,36 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "MgtMon"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DC59028A"
+    physical_models 	(list unit_reference_list
+	(object SubSystem "MgtClient"
+	    quid       	"3AC4DC59028B"
+	    physical_models 	(list unit_reference_list
+		(object module "IpmsIpcCli_intf" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4DC7100AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IpmsIpcClient_thr" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4DC7100CA"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "MgtNotif"
+	    quid       	"3AC4DC590294"
+	    physical_models 	(list unit_reference_list)
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "MgtLog"
+	    quid       	"3AC4DC59029E"
+	    physical_models 	(list unit_reference_list
+		(object module "IpmsLog" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4DC6C016D"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list))

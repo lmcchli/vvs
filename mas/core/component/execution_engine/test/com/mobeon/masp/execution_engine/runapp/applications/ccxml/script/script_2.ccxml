@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <script>
+                <![CDATA[
+                var test1 = 1234;
+                var test2;
+                ]]>
+            </script>
+            <assign name="test2" expr="5678"/>
+            <if cond="test1==1234">
+                <log expr="'TCPASS CCXML: Script ok 1'"/>
+            <else/>
+                <log expr="'TCPASS CCXML: Script nok, '+test1"/>
+            </if>
+            <if cond="test2==5678">
+                <log expr="'TCPASS CCXML: Script ok 2'"/>
+            <else/>
+                <log expr="'TCPASS CCXML: Script nok, '+test2"/>
+            </if>
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'script_empty.vxml'"/>
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+                <exit/>
+        </transition>
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

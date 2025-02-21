@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $LIMIT = 100; #Mbyte
+
+my $result = 0;
+
+my $d = "$NTF_HOME/data";
+unless (-d $d) {
+    print "The data directory \"$d\" does not exist yet. Can not check free space\n";
+    exit $result;
+}
+
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+my $CMD = "ls -lLR $d";
+my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_string($CMD);
+
+if ($cmdresult == 0) {
+    foreach $_ (split( /\n/, $$cmdoutput)) {
+    #-rw-r--r--   1 root     other          0 Nov 25 10:53 slamdown_journal.current
+        my ($mode, $count, $owner, $group, $size, $month, $day, $time, $name) = split(/\s+/);
+        if ($name eq "slamdown_journal.current") {
+            print "The slamdown journal contains $size bytes ($LIMIT Mbyte allowed)\n";
+            $result = 1 if $size > $LIMIT * 1000000;
+            last;
+        }
+    }
+} else {
+    print "Error executing command: $CMD\n";
+    print "Return code: $cmdresult\n";
+    if ( ref($cmdoutput) and $$cmdoutput ) {
+        print "Error output:\n$$cmdoutput\n";
+    }
+}
+
+exit $result;
+

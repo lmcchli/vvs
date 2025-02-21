@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch>
+        <log>TCFAIL catch</log>
+        <exit></exit>
+    </catch>
+
+    <form>
+
+        <record name="recording" dtmfterm="true" type="video/*">
+
+            <filled>
+                <log>TCFAIL filled</log>
+                <exit></exit>
+            </filled>
+        </record>
+
+        <noinput>
+            <log>TCPASS</log>
+            <exit></exit>
+        </noinput>
+
+        <!-- Should not be reached -->
+
+        <block>
+            <log>TCFAIL block</log>
+            <exit></exit>
+        </block>
+
+    </form>
+
+</vxml>

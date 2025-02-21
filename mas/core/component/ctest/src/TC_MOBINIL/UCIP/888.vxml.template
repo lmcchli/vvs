@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'55993322'" />
+		<var name="MAIL_HOST" expr="'uv.hurr16.lab.mobeon.com'" />
+		<var name="response" />
+		<var name="COS_NAME" expr="'general'" />
+		
+		<block>
+			<script>
+				<![CDATA[
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetBalanceAndDate');
+				response = mas.systemGetAccountRequestParameter( 'currency1');
+				if ( response = "EUR" ){
+						mas.systemLog( 3, "TC 20016008 PASSED" );
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016008 FAILED" );
+				}					
+
+				response = mas.systemGetAccountRequestParameter( 'accountValue1');
+				if ( response = "100" ){
+						mas.systemLog( 3, "TC 20016009 PASSED" );
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016009 FAILED" );
+				}					
+
+				response = mas.systemGetAccountRequestParameter( 'responseCode');
+				if ( response = "0" ){
+						mas.systemLog( 3, "TC 20016010 PASSED" );
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016010 FAILED" );
+				}					
+
+				]]>
+			</script>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 20016015 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

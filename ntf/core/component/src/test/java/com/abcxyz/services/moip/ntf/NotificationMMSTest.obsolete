@@ -1,0 +1,610 @@
+package com.abcxyz.services.moip.ntf;
+
+import static org.easymock.EasyMock.anyInt;
+import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.getCurrentArguments;
+import static org.easymock.classextension.EasyMock.createMock;
+import static org.easymock.classextension.EasyMock.createNiceMock;
+import static org.easymock.classextension.EasyMock.makeThreadSafe;
+import static org.easymock.classextension.EasyMock.replay;
+import static org.easymock.classextension.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.easymock.EasyMock.*; 
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Properties;
+
+import junitx.util.PrivateAccessor;
+
+import org.easymock.IAnswer;
+import org.easymock.MockControl;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.abcxyz.messaging.common.message.Container1;
+import com.abcxyz.messaging.common.message.Container2;
+import com.abcxyz.messaging.common.message.MsgBodyPart;
+import com.abcxyz.messaging.mfs.data.MessageInfo;
+import com.abcxyz.messaging.mfs.statefile.StateAttributes;
+import com.abcxyz.messaging.mrd.data.Reason;
+import com.abcxyz.messaging.mrd.operation.SendMessageReq;
+import com.abcxyz.messaging.mrd.operation.SendMessageResp;
+import com.abcxyz.services.moip.common.cmnaccess.DAConstants;
+import com.abcxyz.services.moip.ntf.coremgmt.EventSentListener;
+import com.abcxyz.services.moip.ntf.coremgmt.NtfEventHandlerRegistry;
+import com.abcxyz.services.moip.ntf.coremgmt.NtfMessageService;
+import com.abcxyz.services.moip.ntf.event.NtfEvent;
+import com.abcxyz.services.moip.ntf.event.NtfEventTypes;
+import com.mobeon.common.cmnaccess.CommonMessagingAccess;
+import com.mobeon.common.cmnaccess.CommonMessagingAccessTest;
+import com.mobeon.common.cmnaccess.McdStub;
+import com.mobeon.common.email.EmailClient;
+import com.mobeon.common.email.EmailClientFactory;
+import com.mobeon.common.email.EmailResultHandler;
+import com.mobeon.common.email.request.MimeContainer;
+import com.mobeon.common.externalcomponentregister.ExternalComponentRegister;
+import com.mobeon.common.externalcomponentregister.IServiceInstance;
+import com.mobeon.common.externalcomponentregister.IServiceName;
+import com.mobeon.common.mm7.FaultResponse;
+import com.mobeon.common.mm7.MM7Connection;
+import com.mobeon.common.mm7.MM7ConnectionFactory;
+import com.mobeon.common.mm7.Request;
+import com.mobeon.common.mm7.SubmitResponse;
+import com.mobeon.common.soap.SOAPBody;
+import com.mobeon.common.soap.SOAPEnvelope;
+import com.mobeon.common.soap.SOAPHeader;
+import com.mobeon.common.xmp.XmpAttachment;
+import com.mobeon.common.xmp.client.XmpResult;
+import com.mobeon.ntf.Config;
+import com.mobeon.ntf.NtfMain;
+import com.mobeon.ntf.mail.NotificationEmail;
+import com.mobeon.ntf.out.email.EmailConfigWrapper;
+import com.mobeon.ntf.out.mediaconversion.MCData;
+import com.mobeon.ntf.out.mediaconversion.MCResultHandler;
+import com.mobeon.ntf.out.mediaconversion.MCResultHandlerFactory;
+import com.mobeon.ntf.out.smtp.SMTPOut;
+import com.mobeon.ntf.util.Logger;
+
+public class NotificationMMSTest {
+	
+	private int responseReceived_OK = 0;
+    private int responseReceived_NORMAL_RETRY = 0;
+    private MessageInfo msgInfo = null;
+    private static NtfMain ntf;
+    private static McdStub dirAccess = new McdStub();
+    private static CommonMessagingAccess commonMessagingAccess = null;
+    private FaultResponse responseFailed;
+    private SubmitResponse responseOK;
+    
+    static String componentName = "mmscsim";
+    
+    @BeforeClass
+    static public void startup() throws Exception {
+
+    	String userDir = System.getProperty("user.dir");
+    	System.setProperty("componentservicesconfig", userDir + "/../ipms_sys2/backend/cfg/componentservices.cfg");
+    	System.setProperty("ntfHome", userDir + "/test/junit/" );        
+
+    	CommonMessagingAccessTest.setUp();
+
+    	dirAccess.addCosProfileAttribute(DAConstants.ATTR_FILTER, "Name=mms;Active=yes;Notify=yes;ValidTime=Always;Priority=1;CriteriaMsgHighPriority=no;MsgDepositType=Voice;NotifType=MMS;NotifContentMMS=Subject;CriteriaTelephoneFrom=");
+    	dirAccess.addCosProfileAttribute(DAConstants.ATTR_SERVICES, "msgtype_voice");
+    	dirAccess.addSubscriberProfileAttribute(DAConstants.ATTR_MSG_RETENTION_NEW_VOICE, "10");
+    	dirAccess.addSubscriberProfileAttribute(DAConstants.ATTR_NOTIF_NUMBER, "123456");
+    	dirAccess.addSubcriberProfileIdentity(URI.create("msid:111112462ffff"));
+    	ntf = new NtfMain();
+
+    	CommonMessagingAccess.setMcd(dirAccess); 
+    }
+
+    @AfterClass
+    static public void tearDown() {
+        CommonMessagingAccessTest.stop();
+    }
+    
+    @Test
+    public void testMMS7_OK() throws Exception {
+        ntf.getEventHandler().resetNumberOfNotification();
+        responseReceived_OK = 0;
+        
+        MM7ConnectionFactory mockConnFactory = getMM7ConnectionFactoryMock();
+        MM7Connection mockConn = getMM7ConnectionMock(mockConnFactory);        
+                
+        SOAPEnvelope soapEnv = createSoapEnvelope();
+        responseOK = new SubmitResponse(soapEnv);        
+        
+        expect(mockConn.sendRequest((Request)anyObject())).andStubAnswer(new IAnswer<SubmitResponse>(){
+        	public SubmitResponse answer() throws Throwable {
+                Request request = (Request) getCurrentArguments()[0];
+                 
+                responseOK.setTransactionId(request.getTransactionId());
+                return responseOK;
+            }
+        });
+        
+        replay(mockConnFactory);
+        replay(mockConn);
+        
+        storeMfsMessage();
+        
+        MyListener listener = new MyListener();
+
+        NtfEventHandlerRegistry.registerDefaultListener(listener);
+        NtfEventHandlerRegistry.registerDefaultEventReceiver(ntf.getEventHandler());
+        SendMessageReq req = getSendMessageReq();
+        NtfMessageService service = new NtfMessageService();
+        SendMessageResp resp = service.sendMessage(req);
+
+        Thread.sleep(2000);
+        
+        verify(mockConn);
+
+        // Receiving the response
+        assertTrue(resp.reason.value.equalsIgnoreCase(Reason.HAND_OFF_2000));
+        assertEquals(service.getNumOfSendMessageReceived(), 1);
+        assertEquals(responseReceived_OK, 1);
+        assertEquals(responseReceived_NORMAL_RETRY, 0);
+    }	
+    	
+    
+    @Test
+    public void testMMS7_FAILED() throws Exception {
+        ntf.getEventHandler().resetNumberOfNotification();
+        responseReceived_OK = 0;
+        responseReceived_NORMAL_RETRY = 0;
+        
+        MM7ConnectionFactory mockConnFactory = getMM7ConnectionFactoryMock();
+        MM7Connection mockConn = getMM7ConnectionMock(mockConnFactory);        
+        
+        
+        SOAPEnvelope soapEnv = createSoapEnvelope();
+        responseFailed = new FaultResponse(soapEnv);        
+        
+        expect(mockConn.sendRequest((Request)anyObject())).andStubAnswer(new IAnswer<FaultResponse>(){
+        	public FaultResponse answer() throws Throwable {
+                Request request = (Request) getCurrentArguments()[0];
+                 
+                responseFailed.setTransactionId(request.getTransactionId());
+                return responseFailed;
+            }
+        });
+        
+        replay(mockConnFactory);
+        replay(mockConn);
+        
+        storeMfsMessage();
+        
+        MyListener listener = new MyListener();
+
+        NtfEventHandlerRegistry.registerDefaultListener(listener);
+        NtfEventHandlerRegistry.registerDefaultEventReceiver(ntf.getEventHandler());
+        
+
+        SendMessageReq req = getSendMessageReq();
+        NtfMessageService service = new NtfMessageService();
+        SendMessageResp resp = service.sendMessage(req);
+
+        Thread.sleep(2000);
+        
+        verify(mockConn);
+
+        // Receiving the response
+        assertTrue(resp.reason.value.equalsIgnoreCase(Reason.HAND_OFF_2000));
+        assertEquals(service.getNumOfSendMessageReceived(), 1);
+        assertEquals(responseReceived_OK, 1);
+        assertEquals(responseReceived_NORMAL_RETRY, 0);
+    }
+    /*
+    @Test
+    public void testSMTP_OK() throws Exception {
+        ntf.getEventHandler().resetNumberOfNotification();
+        responseReceived_OK = 0;
+        responseReceived_NORMAL_RETRY = 0;
+       
+        EmailClientFactory mockEmailClientFactory = getEmailClientFactoryMock();        
+        EmailClient smtpClientMock = getEmailClientMock(mockEmailClientFactory);
+        
+        expect(smtpClientMock.sendEmailMessage((MimeContainer) anyObject(), 
+                 anyInt(), 
+                anyInt(), 
+                (EmailResultHandler)anyObject(), 
+                anyInt())).andStubReturn(EmailClient.SEND_OK);
+        
+        replay(mockEmailClientFactory);
+        replay(smtpClientMock);
+        
+        storeMfsMessage();
+        
+        IServiceInstance ntfService = ExternalComponentRegister.getInstance().locateServiceByComponentName(
+				IServiceName., componentName);
+    	ntfService.setProperty("protocol", "smtp");
+
+        // Inject the NtfEvent into NTF (simulating MRD calling NTF)
+        
+        MyListener listener = new MyListener();
+
+        NtfEventHandlerRegistry.registerDefaultListener(listener);
+        NtfEventHandlerRegistry.registerDefaultEventReceiver(ntf.getEventHandler());
+        
+
+        SendMessageReq req = getSendMessageReq();
+        NtfMessageService service = new NtfMessageService();
+        SendMessageResp resp = service.sendMessage(req);
+
+        Thread.sleep(2000);
+
+        verify(smtpClientMock);
+        
+        // Receiving the response
+        assertTrue(resp.reason.value.equalsIgnoreCase(Reason.HAND_OFF_2000));
+        assertEquals(service.getNumOfSendMessageReceived(), 1);
+        assertEquals(responseReceived_OK, 1);
+        assertEquals(responseReceived_NORMAL_RETRY, 0);
+    }
+   
+    @Test
+    public void testSMTP_OK_WITH_SMIL() throws Exception {
+        ntf.getEventHandler().resetNumberOfNotification();
+        responseReceived_OK = 0;
+        responseReceived_NORMAL_RETRY = 0;
+        //force the config to use smil template
+        Config.updateCfg();
+    	Config.setCfgVar("usesmil", "true");
+        
+        EmailClientFactory mockEmailClientFactory = getEmailClientFactoryMock();        
+        EmailClient smtpOutMock = getEmailClientMock(mockEmailClientFactory);
+        
+        expect(smtpOutMock.sendEmailMessage((MimeContainer) anyObject(), 
+                 anyInt(), 
+                anyInt(), 
+                (EmailResultHandler)anyObject(), 
+                anyInt())).andStubReturn(EmailClient.SEND_OK);
+        
+        //----start mocking the MCC component
+        MCResultHandlerFactory mockResultHandlerFactory = getMCResultHandlerFactoryMock();
+        MCResultHandler mockResultHandler = getMCResultHandler(mockResultHandlerFactory);
+        
+        mockResultHandler.waitForResult();
+        expectLastCall().times(2);
+        
+        mockResultHandler.handleResult((XmpResult)anyObject());
+        expectLastCall().times(2);
+        
+        MCData mcData = createMCData();
+        expect(mockResultHandler.getMCData()).andStubReturn(mcData);
+        
+        replay(mockResultHandlerFactory);
+        replay(mockResultHandler);
+        //---------end-----
+        
+        replay(mockEmailClientFactory);
+        replay(smtpOutMock);
+        
+        storeMfsMessage();
+        
+        IServiceInstance ntfService = ExternalComponentRegister.getInstance().locateServiceByComponentName(
+				IServiceName.MULTIMEDIA_MESSAGE, componentName);
+    	ntfService.setProperty("protocol", "smtp");
+    	
+
+        // Inject the NtfEvent into NTF (simulating MRD calling NTF)
+        
+        MyListener listener = new MyListener();
+
+        NtfEventHandlerRegistry.registerDefaultListener(listener);
+        NtfEventHandlerRegistry.registerDefaultEventReceiver(ntf.getEventHandler());
+        
+
+        SendMessageReq req = getSendMessageReq();
+        NtfMessageService service = new NtfMessageService();
+        SendMessageResp resp = service.sendMessage(req);
+
+        Thread.sleep(2000);
+
+        verify(smtpOutMock);
+        //verify(mockResultHandler);
+        
+        // Receiving the response
+        assertTrue(resp.reason.value.equalsIgnoreCase(Reason.HAND_OFF_2000));
+        assertEquals(service.getNumOfSendMessageReceived(), 1);
+        assertEquals(responseReceived_OK, 1);
+        assertEquals(responseReceived_NORMAL_RETRY, 0);
+    }
+    
+    
+    @Test
+    public void testSMTP_FAILED() throws Exception {
+        ntf.getEventHandler().resetNumberOfNotification();
+        responseReceived_OK = 0;
+        responseReceived_NORMAL_RETRY = 0;
+        
+        EmailClientFactory mockEmailClientFactory = getEmailClientFactoryMock();        
+        EmailClient smtpOutMock = getEmailClientMock(mockEmailClientFactory);
+        
+        expect(smtpOutMock.sendEmailMessage((MimeContainer) anyObject(), 
+                 anyInt(), 
+                anyInt(), 
+                (EmailResultHandler)anyObject(), 
+                anyInt())).andStubReturn(EmailClient.SEND_FAILED);
+        
+        replay(mockEmailClientFactory);
+        replay(smtpOutMock);
+        
+        storeMfsMessage();
+        
+        IServiceInstance ntfService = ExternalComponentRegister.getInstance().locateServiceByComponentName(
+				IServiceName.MULTIMEDIA_MESSAGE, componentName);
+    	ntfService.setProperty("protocol", "smtp");
+    	
+    	Config.setLogLevel(Logger.L_OFF);
+
+        // Inject the NtfEvent into NTF (simulating MRD calling NTF)
+        
+        MyListener listener = new MyListener();
+
+        NtfEventHandlerRegistry.registerDefaultListener(listener);
+        NtfEventHandlerRegistry.registerDefaultEventReceiver(ntf.getEventHandler());
+        
+
+        SendMessageReq req = getSendMessageReq();
+        NtfMessageService service = new NtfMessageService();
+        SendMessageResp resp = service.sendMessage(req);
+
+        Thread.sleep(2000);
+
+        verify(smtpOutMock);
+        // Receiving the response
+        assertTrue(resp.reason.value.equalsIgnoreCase(Reason.HAND_OFF_2000));
+        assertEquals(service.getNumOfSendMessageReceived(), 1);
+        assertEquals(responseReceived_OK, 1);
+        assertEquals(responseReceived_NORMAL_RETRY, 0);
+    }
+    */
+    
+    @Test
+    public void testMMS7_OK_WITH_SMIL() throws Exception {
+        ntf.getEventHandler().resetNumberOfNotification();
+    	Config.updateCfg();
+    	Config.setCfgVar("usesmil", "true");
+    	
+        responseReceived_OK = 0;
+        
+        MM7ConnectionFactory mockConnFactory = getMM7ConnectionFactoryMock();
+        MM7Connection mockConn = getMM7ConnectionMock(mockConnFactory);        
+                
+        SOAPEnvelope soapEnv = createSoapEnvelope();
+        responseOK = new SubmitResponse(soapEnv);        
+        
+        expect(mockConn.sendRequest((Request)anyObject())).andStubAnswer(new IAnswer<SubmitResponse>(){
+        	public SubmitResponse answer() throws Throwable {
+                Request request = (Request) getCurrentArguments()[0];
+                 
+                responseOK.setTransactionId(request.getTransactionId());
+                return responseOK;
+            }
+        });
+        
+        //---- start mocking MCC component
+        MCResultHandlerFactory mockResultHandlerFactory = getMCResultHandlerFactoryMock();
+        MCResultHandler mockResultHandler = getMCResultHandler(mockResultHandlerFactory);
+        
+        mockResultHandler.waitForResult();
+        mockResultHandler.handleResult((XmpResult)anyObject());
+        
+        MCData mcData = createMCData();
+        expect(mockResultHandler.getMCData()).andStubReturn(mcData);
+     
+        replay(mockResultHandlerFactory);
+        replay(mockResultHandler);
+        //---- end-----
+        
+        replay(mockConnFactory);
+        replay(mockConn);
+        
+        storeMfsMessage();
+        
+        MyListener listener = new MyListener();
+
+        NtfEventHandlerRegistry.registerDefaultListener(listener);
+        NtfEventHandlerRegistry.registerDefaultEventReceiver(ntf.getEventHandler());
+
+        SendMessageReq req = getSendMessageReq();
+        NtfMessageService service = new NtfMessageService();
+        SendMessageResp resp = service.sendMessage(req);
+
+        Thread.sleep(2000);
+        
+        verify(mockConn);
+        //verify(mockResultHandler);
+
+        // Receiving the response
+        assertTrue(resp.reason.value.equalsIgnoreCase(Reason.HAND_OFF_2000));
+        assertEquals(service.getNumOfSendMessageReceived(), 1);
+        assertEquals(responseReceived_OK, 1);
+        assertEquals(responseReceived_NORMAL_RETRY, 0);
+    }
+    
+    private MM7ConnectionFactory getMM7ConnectionFactoryMock()
+    throws NoSuchFieldException {
+    	MM7ConnectionFactory  mockConnFactory = createMock(MM7ConnectionFactory.class);
+    	makeThreadSafe(mockConnFactory, true);
+    	PrivateAccessor.setField(MM7ConnectionFactory.class,"instance",mockConnFactory);
+    	return mockConnFactory;
+    }
+
+
+
+	private MM7Connection getMM7ConnectionMock(
+			MM7ConnectionFactory mockConnFactory) throws MalformedURLException {
+		MM7Connection  mockConn = createNiceMock(MM7Connection.class);
+        makeThreadSafe(mockConn, true);
+        expect(mockConnFactory.requestSender((String)anyObject(), (String)anyObject(), (String)anyObject())).andStubReturn(mockConn);
+		return mockConn;
+	}
+
+	private SOAPEnvelope createSoapEnvelope() {
+		SOAPEnvelope soapEnv = new SOAPEnvelope();
+        soapEnv.setHeader(new SOAPHeader("", "", ""));
+        soapEnv.setBody(new SOAPBody("",""));
+		return soapEnv;
+	}
+
+	private MCResultHandler getMCResultHandler(
+			MCResultHandlerFactory mockResultHandlerFactory) {
+		MCResultHandler mockResultHandler = createMock(MCResultHandler.class);
+        makeThreadSafe(mockResultHandler, true);
+        expect(mockResultHandlerFactory.createMCResultHandler()).andStubReturn(mockResultHandler);
+		return mockResultHandler;
+	}
+
+    
+
+	private EmailClient getEmailClientMock(
+			EmailClientFactory mockEmailClientFactory) {
+		EmailClient smtpOutMock = createNiceMock(EmailClient.class);
+		makeThreadSafe(smtpOutMock, true);
+        expect(mockEmailClientFactory.createEmailClient((SMTPOut) anyObject(), (EmailConfigWrapper) anyObject())).andStubReturn(smtpOutMock);
+		return smtpOutMock;
+	}
+
+	private MCData createMCData() {
+		MCData mcData = new MCData();
+        mcData.setStatus(2);
+        mcData.setLength(8);
+        mcData.setAttachment(new XmpAttachment("Message".getBytes(), "audio/amr"));
+		return mcData;
+	}
+
+	private EmailClientFactory getEmailClientFactoryMock()
+			throws NoSuchFieldException {
+		EmailClientFactory mockEmailClientFactory = createMock(EmailClientFactory.class);
+		makeThreadSafe(mockEmailClientFactory, true);
+        PrivateAccessor.setField(EmailClientFactory.class, "instance", mockEmailClientFactory);
+		return mockEmailClientFactory;
+	}
+    
+	private MCResultHandlerFactory getMCResultHandlerFactoryMock()
+			throws NoSuchFieldException {
+		MCResultHandlerFactory  mockResultHandlerFactory = createMock(MCResultHandlerFactory.class);
+        makeThreadSafe(mockResultHandlerFactory, true);
+        PrivateAccessor.setField(MCResultHandlerFactory.class,"instance",mockResultHandlerFactory);
+		return mockResultHandlerFactory;
+	}
+
+	
+	
+    class MyListener implements EventSentListener {
+
+        @Override
+        public void sendStatus(NtfEvent event, SendStatus status)
+        {
+            if (status.equals(EventSentListener.SendStatus.OK)) {
+                responseReceived_OK++;
+            }
+            if (status.equals(EventSentListener.SendStatus.NORMAL_RETRY)) {
+                responseReceived_NORMAL_RETRY++;
+            }
+        }
+    }
+
+
+    private SendMessageReq getSendMessageReq() {
+        SendMessageReq req = new SendMessageReq();
+
+        req.version.value = "1.0";
+        req.operatorID.value = "rcpt12";
+        req.transID.value = "trans12";
+        req.destMsgClass.value = "im";
+        req.destRcptID.value = "123456";
+
+        req.rMsa.value = msgInfo.rmsa.toString();
+        req.rMsgID.value = msgInfo.rmsgid.toString();
+        req.oMsa.value = msgInfo.omsa.toString();
+        req.oMsgID.value = msgInfo.omsgid.toString();
+
+        req.eventType.value = NtfEventTypes.DEFAULT_NTF.getName();
+        req.eventID.value = "id";
+
+        HashMap<String, String> extra = new HashMap<String, String>();
+        extra.put("BarFoo", "bar");
+
+        req.extraValue = extra;
+        req.eventID.value = "myid";
+        return req;
+    }
+    
+    private void storeMfsMessage() throws Exception {
+
+        Calendar now = Calendar.getInstance();
+
+        CommonMessagingAccess.setMcd(new McdStub());
+        commonMessagingAccess = CommonMessagingAccess.getInstance();
+
+        // create and store messages for testing
+        final Container1 c1_1 = new Container1();
+        c1_1.setFrom("491721092600");
+        c1_1.setTo("491721092605");
+        c1_1.setSubject("Voice message from Mobeon Office");
+        c1_1.setMsgClass("voice");
+        c1_1.setDateTime(now.getTimeInMillis());
+        final Container2 c2_1 = new Container2();
+        
+        //String textMsg = header + voiceheader + voicebody;
+        String textMsg = "Base 64 encoded audio";
+        
+		/*MsgBodyPart part = new MsgBodyPart("AUDIO/wav; name=message.wav", textMsg.getBytes(), true);
+		part.addPartHeader("Content-Description", "Cisco voice Message   (20 seconds )");
+		part.addPartHeader("Content-Disposition", "inline; voice=Voice-Message; filename=\"message .wav\"");*/
+
+		MsgBodyPart[] c3Parts = new MsgBodyPart[1];
+		c3Parts[0] =  createBodyPart();
+        
+        msgInfo = commonMessagingAccess.storeMessageTest(c1_1, c2_1, c3Parts, new StateAttributes());
+    }
+    
+    /**
+     * This method will create a message body part in which the content is a voice file (.wav)
+     * @param messageContent
+     * @return
+     */
+    private MsgBodyPart createBodyPart() throws Exception{
+        
+        MsgBodyPart messageBodyPart = new MsgBodyPart();
+        // Content-Description
+        messageBodyPart.addPartHeader("Content-Description", "Cisco voice Message   (20 seconds )");
+
+        // Content-Disposition        
+        messageBodyPart.addPartHeader("Content-Disposition", "inline; voice=Voice-Message; filename=\"2549millisecondgoodfile\"");
+        String fileContent = readFile(System.getProperty("ntfHome") + "/data/test.wav");
+        messageBodyPart.setContent(fileContent.getBytes());        
+                
+        return messageBodyPart;
+    }
+    
+    private String readFile(String fileName) throws IOException{
+        File f = new File(fileName);
+        FileInputStream fis = new FileInputStream(f);
+        byte[] b = new byte[(int) f.length()];
+        int read = 0;
+        while (read < b.length) {
+          read += fis.read(b, read, b.length - read);
+        }
+        String text = new String(b);
+        return text;
+    }
+
+
+}
+	
+
+

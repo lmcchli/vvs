@@ -1,0 +1,18 @@
+# This file contains the files that shuld be delivered with the patch.
+# Syntax
+# <path>/<filename> <destination dir>[/<filename>]
+# Ex
+# operateandmaintainmanager/mobeon_operateandmaintainmanager.jar /lib
+# operateandmaintainmanager/mobeon_operateandmaintainmanager.jar@@/main/sus_r1a /lib
+# 
+# The <path> should be entered from mas basedir. basedir = /vobs/ipms/mas/
+# The destination dir uses MAS install dir (BASEDIR) as root.
+#
+
+# mascommon and svcs.masadm must be included in the patch since the ones included in 
+# R6A.004 has faults in them which mean that the MAS version in MCR etc is not 
+# handled correctly.
+tools/svcs_tools/mascommon /etc
+tools/svcs_tools/svcs.masadm /etc/masadm
+
+execution_engine/mobeon_execution_engine.jar /lib

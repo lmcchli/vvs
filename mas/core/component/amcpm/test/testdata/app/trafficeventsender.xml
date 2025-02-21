@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="trafficeventsender.xsd">
+    <trafficeventsender>
+        <event name="callended" enabled="true" radius="true"/>
+        <event name="depositcancelled" enabled="true" radius="true"/>
+        <event name="depositend" enabled="true" radius="true"/>
+        <event name="depositstart" enabled="true" radius="true"/>
+        <event name="emaildeleted" enabled="true" radius="true"/>
+        <event name="emailfwd" enabled="true" radius="true"/>
+        <event name="emailread" enabled="true" radius="true"/>
+        <event name="emailreply" enabled="true" radius="true"/>
+        <event name="emailreread" enabled="true" radius="true"/>
+        <event name="faxdeleted" enabled="true" radius="true"/>
+        <event name="faxfwd" enabled="true" radius="true"/>
+        <event name="faxread" enabled="true" radius="true"/>
+        <event name="faxreply" enabled="true" radius="true"/>
+        <event name="faxreread" enabled="true" radius="true"/>
+        <event name="lockout" enabled="true" radius="true"/>
+        <event name="login" enabled="true" radius="true"/>
+        <event name="logout" enabled="true" radius="true"/>
+        <event name="makecallconnect" enabled="true" radius="true"/>
+        <event name="makecallstart" enabled="true" radius="true"/>
+        <event name="makecallstartcaller" enabled="true" radius="true"/>
+        <event name="makecallstop" enabled="true" radius="true"/>
+        <event name="makecallstopcaller" enabled="true" radius="true"/>
+        <event name="notificationcall" enabled="true" radius="true"/>
+        <event name="printemailsent" enabled="true" radius="true"/>
+        <event name="printfaxsent" enabled="true" radius="true"/>
+        <event name="slamdown" enabled="true" radius="true"/>
+        <event name="videodeleted" enabled="true" radius="true"/>
+        <event name="videodeposit" enabled="true" radius="true"/>
+        <event name="videofungreeting" enabled="true" radius="true"/>
+        <event name="videofwd" enabled="true" radius="true"/>
+        <event name="videoread" enabled="true" radius="true"/>
+        <event name="videoreply" enabled="true" radius="true"/>
+        <event name="videoreread" enabled="true" radius="true"/>
+        <event name="videosent" enabled="true" radius="true"/>
+        <event name="voicedeleted" enabled="true" radius="true"/>
+        <event name="voicedeposit" enabled="true" radius="true"/>
+        <event name="voicefungreeting" enabled="true" radius="true"/>
+        <event name="voicefwd" enabled="true" radius="true"/>
+        <event name="voiceread" enabled="true" radius="true"/>
+        <event name="voicereply" enabled="true" radius="true"/>
+        <event name="voicereread" enabled="true" radius="true"/>
+        <event name="voicesent" enabled="true" radius="true"/>
+
+        <event name="cliinformationmessage" enabled="true" email="true">
+            <emailqueue sizelimit="100" timelimit="100"/>
+        </event>
+        <event name="mwioff" enabled="true" email="true">
+            <emailqueue sizelimit="100" timelimit="100"/>
+        </event>
+        <event name="slamdowninformation" enabled="true" email="true">
+            <emailqueue sizelimit="100" timelimit="100" multievent="true"/>
+        </event>
+
+        <emailconfig templatespath="lib"/>
+
+        <radiusconfig servicename="eventreporting" instancename="MAS@yourhost.com" queuesize="2000">
+            <attribute name="sessionid" number="50" type="0" datatype="S"/>
+            <attribute name="username" number="1" type="0" datatype="S"/>
+            <attribute name="callednumber" number="30" type="0" datatype="S"/>
+            <attribute name="callingnumber" number="31" type="0" datatype="S"/>
+            <attribute name="operation" number="1" type="1" datatype="E"/>
+            <attribute name="messagesize" number="2" type="1" datatype="I"/>
+            <attribute name="terminatecause" number="3" type="1" datatype="E"/>
+            <attribute name="accesstype" number="4" type="1" datatype="E"/>
+            <attribute name="objecttype" number="6" type="1" datatype="E"/>
+            <attribute name="objectid" number="7" type="1" datatype="S"/>
+            <attribute name="description" number="8" type="1" datatype="S"/>
+            <attribute name="messagetype" number="12" type="1" datatype="E"/>
+            <attribute name="messageencoding" number="13" type="1" datatype="E"/>
+        </radiusconfig>
+    </trafficeventsender>
+</configuration>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+		
+		<var name="mailboxId" />
+		<var name="folderId" />
+		<var name="success" />
+		<block>
+			<script>
+				<![CDATA[
+				success = false;
+				mailboxId = mas.subscriberGetMailbox(PHONE_NUMBER);
+				if (mailboxId != null) {
+					mas.mailboxAddFolder(mailboxId, 'A new folder2');
+					folderId = mas.mailboxGetFolder(mailboxId, 'A new folder2');
+					if (folderId != null) {
+						success = true;
+					}
+				}
+				]]>
+			</script>
+			<if cond="success">
+				<log>TC 10002001 PASSED</log>
+			<else />
+				<log>TC 10002001 FAILED - Unable to find folder 'A new folder'</log>
+			</if>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 10002001 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

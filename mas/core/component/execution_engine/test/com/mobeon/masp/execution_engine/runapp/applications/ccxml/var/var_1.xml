@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/var/" type="application/xml+ccxml">
+        <document src="var_1.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/var/" type="application/xml+vxml">
+        <document src="var_empty.vxml"/>
+    </documents>
+</application>

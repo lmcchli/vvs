@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="greeting1"/>
+            <var name="greeting2"/>
+
+            <!-- set greetings for all types-->
+            <script>
+                var mediaObjects = new Array();
+				<!-- CDG for 11111111-->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "one",null);
+                mas.subscriberSetGreeting("99910002", 'cdg', 'voice', '11111111', mediaObjects[0]);
+                <!-- CDG for 22222222 -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "two",null);
+                mas.subscriberSetGreeting("99910002", 'cdg', 'voice', '22222222', mediaObjects[0]);
+
+
+                greeting1 = mas.subscriberGetGreeting ("99910002", 'cdg', 'voice', '11111111');
+                greeting2 = mas.subscriberGetGreeting ("99910002", 'cdg', 'voice', '22222222');
+
+
+
+            </script>
+           	<prompt>
+                   <audio expr="greeting1"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting2"/>
+       		</prompt>
+        </block>
+    </form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105062  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+                <if cond="typeof(evt.connection.redirect) != 'undefined'">
+                    <log expr="evt.connection.redirect[0]"/>
+                    <if cond="evt.connection.redirect[0]=='sip:4660161086@mobeon.com;user=phone'">
+                        <log expr="'TCPASS CCXML: Redirect ok 1'"/>
+                    <else/>
+                        <log expr="'TCFAIL CCXML: Redirect nok 1, redirect is not what is expected.'"/>
+                        <log expr="'Redirect[0]='+evt.connection.redirect[0]"/>
+                    </if>
+                    <if cond="typeof(evt.connection.redirect[0].number) != 'undefined'">
+                        <if cond="evt.connection.redirect[0].number=='4660161086'">
+                            <log expr="'TCPASS CCXML: Redirect ok 2'"/>
+                        <else/>
+                            <log expr="'TCFAIL CCXML: Redirect nok 2, redirect number is not what is expected'"/>
+                        </if>
+                     <else/>
+                        <log expr="'TCFAIL CCXML: Remote nok 2, redirect number is undefined'"/>
+                     </if>
+
+                <else/>
+                    <log expr="'TCFAIL CCXML: Redirect nok 1, redirect is undefined'"/>
+                </if>
+                <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'event_empty.vxml'"/>            
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+                <exit/>
+        </transition>
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

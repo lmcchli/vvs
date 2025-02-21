@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <var name="playableObjectArrayPointer" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="MarkName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="MarkTime" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <var name="key" />
+   <var name="offset" />
+   <var name="messageId" />
+   <var name="playableObjectArray" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageId" />
+      <var name="p_playableObjectArray" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="messageId" expr="p_messageId" />
+         <assign name="playableObjectArray" expr="p_playableObjectArray" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <assign name="playableObjectArrayPointer" expr="0" />
+            <goto next="#pmess1" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(207)" />
+            </prompt>
+            <var name="resultCode" />
+            <assign name="resultCode" expr="''" />
+            <return namelist="resultCode" />
+         </if>
+      </block>
+   </form>
+   <form id="pmess1">
+      <!--block name="playTheMessage"-->                                  <!-- removed --> 
+      <property name="termchar" value="A" />                              <!-- added -->
+      <field name="playTheMessage">                                       <!-- added -->
+         <property name="timeout" value="0s" />                           <!-- added -->
+         <property name="interdigittimeout" value="0.5s" />               <!-- added -->
+         <prompt>
+            <mark name="start" />                                         <!-- added -->
+            <audio expr="Message_GetMediaObject(playableObjectArray[playableObjectArrayPointer])" />
+            <mark name="end" />                                           <!-- added -->
+         </prompt>
+         <grammar version="1.0" mode="dtmf" root="main_rule">             <!-- added -->
+            <rule id="rule2">                                             <!-- added -->
+               <one-of>                                                   <!-- added -->
+                  <item>0</item>                                          <!-- added -->
+                  <item>1</item>                                          <!-- added -->
+                  <item>2</item>                                          <!-- added -->
+                  <item>3</item>                                          <!-- added -->
+                  <item>4</item>                                          <!-- added -->
+                  <item>5</item>                                          <!-- added -->
+                  <item>6</item>                                          <!-- added -->
+                  <item>7</item>                                          <!-- added -->
+                  <item>8</item>                                          <!-- added -->
+                  <item>9</item>                                          <!-- added -->
+                  <item>*</item>                                          <!-- added -->
+                  <item>#</item>                                          <!-- added -->
+               </one-of>                                                  <!-- added -->
+            </rule>                                                       <!-- added -->
+            <rule id="main_rule">                                         <!-- added -->
+               <one-of>                                                   <!-- added -->
+                  <item repeat="1-3">                                     <!-- added -->
+                     <ruleref uri="#rule2" />                             <!-- added -->
+                  </item>                                                 <!-- added -->
+               </one-of>                                                  <!-- added -->
+            </rule>                                                       <!-- added -->
+         </grammar>                                                       <!-- added -->
+         <filled>                                                         <!-- added -->
+            <assign name="key" expr="application.lastresult$.utterance"/> <!-- added -->
+            <assign name="MarkName" expr="playTheMessage$.markname" />    <!-- added -->
+            <assign name="MarkTime" expr="playTheMessage$.marktime" />    <!-- added -->
+            <!-- if cond="((key != undefined))" -->                       <!-- removed -->
+            <goto next="#ccond1" />
+            <!-- else /-->                                                <!-- removed -->
+         </filled>                                                        <!-- added -->
+ 	     <catch event="noinput">                                          <!-- added -->
+            <goto next="#cond2" />
+ 	     </catch>                                                         <!-- added -->
+ 	   </field>                                                           <!-- added -->
+ 	   <!-- /if -->                                                       <!-- removed -->
+ 	 <!-- /block -->                                                      <!-- removed -->
+   </form>
+   <form id="ccond1">
+      <block>
+         <if cond="((key == '7'))">
+            <assign name="offset" expr="MarkTime - Utility_StringToInt(System_GetConfig('TimeSettings', 'RewindTime'))*1000" />
+            <if cond="((MarkTime &lt; 0))">
+               <if cond="((playableObjectArrayPointer == 0))">
+                  <assign name="offset" expr="0" />
+                  <goto next="#ptarget1" />
+                  <else />
+                  <assign name="playableObjectArrayPointer" expr="playableObjectArrayPointer - 1" />
+                  <goto next="#ptarget1" />
+               </if>
+               <else />
+               <goto next="#ptarget1" />
+            </if>
+            <elseif cond="((key == '* 0'))" />
+            <goto next="#proc1" />
+            <elseif cond="((key == '9'))" />
+            <assign name="offset" expr="MarkTime + Utility_StringToInt(System_GetConfig('TimeSettings', 'RewindTime'))*1000" />
+            <if cond="((MarkTime &gt; MessageContentLength(playableObjectArray[playableObjectArrayPointer],'milliseconds')))">
+               <if cond="((playableObjectArrayPointer == Utility_GetArrayLength(playableObjectArray)))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(209)" />
+                  </prompt>
+                  <var name="resultCode" />
+                  <return namelist="resultCode" />
+                  <else />
+                  <assign name="MarkTime" expr="playableObjectArrayPointer + 1" />
+                  <goto next="#ptarget1" />
+               </if>
+               <else />
+               <goto next="#ptarget1" />
+            </if>
+            <else />
+            <var name="resultCode" />
+            <assign name="resultCode" expr="key" />
+            <return namelist="resultCode" />
+         </if>
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#pmess1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <goto next="#ptarget1" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="(((playableObjectArrayPointer + 2) &lt;= Utility_GetArrayLength(playableObjectArray)))">
+            <assign name="playableObjectArrayPointer" expr="playableObjectArrayPointer + 1" />
+            <goto next="#ptarget1" />
+            <else />
+            <var name="resultCode" />
+            <return namelist="resultCode" />
+         </if>
+      </block>
+   </form>
+   <catch event="connection.disconnect.hangup">
+      <if cond="((Message_GetProperty (messageId, 'state') == 'new'))">
+         <if cond="((playableObjectArrayPointer == 0))">
+            <if cond="((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'emreadlevel') != -1) &amp;&amp; (Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'emreadlevel') &lt; MarkTime))">
+               <goto next="#sub1" />
+               <else />
+               <goto next="Goodbye.vxml" />
+            </if>
+            <else />
+            <goto next="#sub1" />
+         </if>
+         <else />
+         <goto next="Goodbye.vxml" />
+      </if>
+   </catch>
+   <form id="sub1">
+      <script>Message_SetProperty (messageId, 'state', 'read')</script>
+      <block>
+         <goto next="Goodbye.vxml" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

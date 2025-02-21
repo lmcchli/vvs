@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+    <description>
+        Cobertura - http://cobertura.sourceforge.net/
+        Copyright (C) 2003 jcoverage ltd.
+        Copyright (C) 2005 Mark Doliner &lt;thekingant@users.sourceforge.net&gt;
+        Cobertura is licensed under the GNU General Public License
+        Cobertura comes with ABSOLUTELY NO WARRANTY
+    </description>
+
+    <!-- Added variables so that output dirs can be made local from IntelliJ. 
+         These variables can be overridden in the IntelliJ ant build support. -->
+    <property name="coverage.dir" value="${module.basedir}/testreports/coverage/"/>
+    <property name="coverage.instrumented.dir" value="${module.basedir}/coverage_instrumented"/>
+    <property name="coverage.output.dir" value="${module.basedir}/testreports"/>
+
+    <fail unless="env.COBERTURA_HOME">
+        You need to point COBERTURA_HOME to a cobertura installation directory. Copy it from mas\tools\cobertura.
+    </fail>
+
+    <path id="cobertura_classpath">
+        <fileset dir="${env.COBERTURA_HOME}">
+            <include name="cobertura.jar"/>
+        </fileset>
+        <fileset dir="${env.COBERTURA_HOME}/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${project.basedir}/lib">
+            <include name="junit*.jar"/>
+            <include name="log4j*.jar"/>
+        </fileset>
+    </path>
+
+    <taskdef classpathref="cobertura_classpath" resource="tasks.properties"/>
+
+    <target name="instrument-coverage" depends="compile,compile.tests">
+        <!--
+              Remove the coverage data file and any old instrumentation.
+          -->
+        <delete file="${coverage.dir}/basic_coverage.ser"/>
+        <delete dir="${coverage.instrumented.dir}"/>
+        <mkdir dir="${coverage.instrumented.dir}"/>
+        <mkdir dir="${coverage.dir}"/>
+
+        <!--
+              Instrument the application classes, writing the
+              instrumented classes into ${build.instrumented.dir}.
+          -->
+        <cobertura-instrument datafile="${coverage.dir}/basic_coverage.ser" todir="${coverage.instrumented.dir}">
+            <!--
+                   The following line causes instrument to ignore any
+                   source line containing a reference to log4j, for the
+                   purposes of coverage reporting.
+               -->
+            <ignore regex="org.apache.log4j.*"/>
+
+            <fileset dir="${module.output.dir}">
+                <!--
+                        Instrument all the application classes, but
+                        don&apos;t instrument the test classes.
+                    -->
+                <include if="module" name="com/mobeon/masp/${module}/**/*.class"/>
+                <include unless="module" name="**/*.class"/>
+                <exclude name="**/*Case.class"/>
+                <exclude name="**/*Case$$*.class"/>
+                <exclude name="**/*Test.class"/>
+                <exclude name="**/*Test$$*.class"/>
+                <exclude name="**/*Stub.class"/>
+                <exclude name="**/*Stub$$*.class"/>
+                <exclude name="**/*Mock.class"/>
+                <exclude name="**/*Mock$$*.class"/>
+                <exclude name="**/*Simulator.class"/>
+                <exclude name="**/*Simulator$$*.class"/>
+                <exclude name="**/demo/**"/>
+            </fileset>
+        </cobertura-instrument>
+    </target>
+
+    <target name="runcoverage" depends="instrument-coverage">
+        <junit dir="${module.basedir}" printsummary="yes" haltonfailure="no" showoutput="true">
+            <!--
+                   Specify the name of the coverage data file to use.
+               -->
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.dir}/basic_coverage.ser"/>
+
+            <!--
+                   Note the classpath order: instrumented classes are before the
+                   original (uninstrumented) classes.  This is important.
+               -->
+            <classpath>
+                <pathelement location="${coverage.instrumented.dir}"/>
+                <pathelement location="${module.output.dir}"/>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${project.basedir}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${build.tests}"/>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${module.basedir}/lib"/>
+                <path refid="cobertura_classpath"/>
+            </classpath>
+
+            <!--
+                   The instrumented classes reference classes used by the
+                   Cobertura runtime, so Cobertura and its dependencies
+                   must be on your classpath.
+               -->
+
+            <formatter type="xml"/>
+
+            <batchtest fork="yes" todir="${coverage.output.dir}">
+                <fileset dir="${module.basedir}/test">
+                    <include name="**/*Test*.java" unless="test.name"/>
+                    <include name="**/${test.name}.java" if="test.name"/>
+                    <exclude name="**/*TestCase.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest fork="yes" todir="${coverage.output.dir}" if="mtest">
+                <fileset dir="${module.basedir}/mtest">
+                    <include name="**/*Test*.java" unless="test.name"/>
+                    <include name="**/${test.name}.java" if="test.name"/>
+                    <exclude name="**/*TestCase.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <junitreport todir="${coverage.output.dir}">
+            <fileset dir="${coverage.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${coverage.output.dir}/html"/>
+        </junitreport>
+
+        <cobertura-report datafile="${coverage.dir}/basic_coverage.ser" destdir="${coverage.dir}">
+            <fileset dir="${module.basedir}/src">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${module.basedir}/interface">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
+
+    </target>
+
+
+</project>

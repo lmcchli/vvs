@@ -1,0 +1,5 @@
+# Test script for SIPP perl compiler
+description "Set \"ownername\" event property"
+
+connect voicesms
+disconnect

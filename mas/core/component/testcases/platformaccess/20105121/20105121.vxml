@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="main_form">
+        <var name="phoneNumber"/>
+        <var name="origPhoneNumber"/>
+        <var name="unknown_sender"/>
+        <var name="unknown_receiver"/>
+        <var name="mediaObjects"/>
+        <block>
+
+            <!--get facs number attribute -->
+            <script>
+                // Check to see if the receiver exists in MUR
+                if (typeof(session.connection.redirect) != 'undefined') {
+                    mas.systemLog(3, 'TC 20105121 session.connection.redirect is defined');
+                    if (typeof(session.connection.redirect[0]) != 'undefined') {
+                        mas.systemLog(3, 'TC 20105121 session.connection.redirect[0] is defined');
+                        if (typeof(session.connection.redirect[0].number) != 'undefined') {
+                            phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+                            mas.systemLog(3, 'TC 20105121 phoneNumber=' + phoneNumber);
+                            if (mas.subscriberExist(phoneNumber)) {
+                                // The subscriber do not exists, we should play unknown.wav and hangup
+                                unknown_receiver = false;
+
+                                mas.systemLog(3, 'TC 20105121 receiver is known');
+                            }
+                        }
+                    }
+                }
+                if (unknown_receiver) {
+                    mas.systemLog(3, 'TC 20105121 Failed as receiver is unknown');
+                }
+                // Check to see if the sender exists in MUR
+                if (typeof(session.connection.remote.number) != "undefined") {
+                    origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+                    unknown_sender = !mas.subscriberExist(origPhoneNumber);
+                }
+                if (unknown_sender) {
+                    mas.systemLog(3, 'TC 20105121 Failed as sender is unknown in MUR');
+                }
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0936");
+                mas.systemLog(3, 'MediaObject=' + mediaObjects[0].toString());
+            </script>
+            <prompt>
+                <audio expr="mediaObjects[0]" />
+            </prompt>
+        </block>
+        <property name="termchar" value="A" />
+        <record name="recording" dtmfterm="false">
+            <grammar mode="dtmf" version="1.0" root="rec1_main_rule">
+                <rule id="rec1_main_rule">
+                   <one-of>
+                      <item>#</item>
+                   </one-of>
+                </rule>
+            </grammar>
+
+            <filled>
+                <prompt>
+                    <audio expr="recording" />
+                </prompt>
+
+                <script>
+
+                    if (!unknown_receiver) {
+                            var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+                        var storableMessageId_1 = mas.messageCreateNew();
+                        var storableMessageId_2 = mas.messageCreateNew();
+                        mas.systemLog(3, 'TC 20105121 storableMessageId_1=' + storableMessageId_1);
+                        mas.systemLog(3, 'TC 20105121 storableMessageId_2=' + storableMessageId_2);
+                        // Set properties on message 1
+                        if (!unknown_sender) {
+                                var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+                                var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+                                        var sender = callerEmailAddress[0];
+                            mas.messageSetStorableProperty(storableMessageId_1, 'sender', new Array(sender));
+                            var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+                            if (spokenName != null) {
+                                mas.messageSetSpokenNameOfSender(storableMessageId_1, spokenName, 'spoken name','spoken','en');
+                            }
+                        } else {
+                            var sender = 'Unknown()&lt;&gt;';
+                            mas.messageSetStorableProperty(storableMessageId_1, 'sender', new Array(sender));
+                        }
+                        mas.messageSetStorableProperty(storableMessageId_1, 'recipients', emailaddress);
+                        mas.messageSetStorableProperty(storableMessageId_1, 'subject', new Array('Hi there ' + storableMessageId_1));
+                        mas.messageSetStorableProperty(storableMessageId_1, 'type', new Array('video'));
+                        mas.messageAddMediaObject(storableMessageId_1, recording, 'voice message', 'message', 'en');
+                        mas.messageStore(storableMessageId_1);
+                        mas.systemLog(3, 'TC 20105121 stored message in store');
+
+                        // Set properties on message 2
+                        if (!unknown_sender) {
+                                var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+                                var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+                                        var sender = callerEmailAddress[0];
+                            mas.messageSetStorableProperty(storableMessageId_2, 'sender', new Array(sender));
+                            var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+                            if (spokenName != null) {
+                                mas.messageSetSpokenNameOfSender(storableMessageId_2, spokenName, 'spoken name','spoken','en');
+                            }
+                        } else {
+                            var sender = 'Unknown()&lt;&gt;';
+                            mas.messageSetStorableProperty(storableMessageId_2, 'sender', new Array(sender));
+                        }
+                        mas.messageSetStorableProperty(storableMessageId_2, 'recipients', emailaddress);
+                        mas.messageSetStorableProperty(storableMessageId_2, 'subject', new Array('Hi there ' + storableMessageId_2));
+                        mas.messageSetStorableProperty(storableMessageId_2, 'type', new Array('voice'));
+                        mas.messageAddMediaObject(storableMessageId_2, recording, 'voice message', 'message', 'en');
+                        mas.messageStore(storableMessageId_2);
+                        mas.systemLog(3, 'TC 20105121 stored message in store');
+                    }
+
+                </script>
+
+                <exit/>
+            </filled>
+    </record>
+
+    </form>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105121 Failed</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="20103025.vxml">
+	<catch event="evt">
+		<throw event="evt"/>
+	</catch>
+	<catch event="error.semantic">
+		<goto next="#f1"/>
+	</catch>
+	<!-- The next statement should throw an error.semantic in doc scope-->
+	<var name="myVar2" expr="nyNotDefinedVar2"/>
+	<form id="f1">
+		<property name="timeout" value="0s"/>
+		<catch event="evt">
+			<log label="error">Form catcher</log>
+			<throw event=""/>
+		</catch>
+		<field name="menu_input">
+			<grammar version="1.0" mode="dtmf" root="mainrule">
+				<rule id="mainrule">
+					<one-of>
+						<item>0</item>
+					</one-of>
+				</rule>
+			</grammar>
+			<noinput>
+				<throw event="evt"/>
+				<log label="error">TC 20103025 Failed (form item catch failed)"</log>
+				<exit/>
+			</noinput>
+			<catch event="evt">
+				<goto next="#f2"/>
+			</catch>
+		</field>
+		<block name="b3">
+			<log label="error">TC 20103025 Failed (form catch failed)"</log>
+			<exit/>
+		</block>
+	</form>
+	<form id="f2">
+		<!-- The next statement should throw an error.semantic in form scope-->
+		<var name="myVar" expr="myNotDefinedVar"/>
+		<catch event="error.semantic">
+			<goto next="#f3"/>
+		</catch>
+		<block>
+			<log label="error">TC 20103025 Failed</log>
+			<exit/>
+		</block>
+	</form>
+	<form id="f3">
+		<catch event="evt2">
+			<log label="error">TC 20103025 Failed</log>
+			<exit/>
+		</catch>
+		<block>
+			<throw event="evt3"/>
+			<log label="error">TC 20103025 Failed</log>
+			<exit/>
+		</block>
+	</form>
+</vxml>

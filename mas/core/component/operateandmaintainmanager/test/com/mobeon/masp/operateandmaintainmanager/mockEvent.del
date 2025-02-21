@@ -1,0 +1,10 @@
+package com.mobeon.masp.operateandmaintainmanager;
+
+import com.mobeon.masp.execution_engine.eventnotifier.events.Event;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+public class mockEvent implements Event {
+
+}

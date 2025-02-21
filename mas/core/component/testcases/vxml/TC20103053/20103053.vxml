@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="form1">
+		<var name="myVar" expr="'init'"/>
+		<block name="block1">
+			<assign name="myVar" expr="'block'"/>
+			<goto nextitem="block2"/>
+		</block>
+		<block name="block2">
+			<if cond="myVar!='block'">
+				<log label="error">TC 20103053 Failed (myVar=<value expr="myVar"/>)</log>
+			</if>
+			<goto next="#form2"/>
+		</block>
+	</form>
+	<form id="form2">
+		<property name="timeout" value="10s"/>
+		<var name="myVar2" expr="'init2'"/>
+		<script>myVar2='init2';</script>
+		<field name="field1">
+			<grammar version="1.0" mode="dtmf" root="myRoot">
+				<rule id="myRoot">
+					<one-of>
+						<item>0</item>
+						<item>1</item>
+					</one-of>
+				</rule>
+			</grammar>
+		</field>
+		<catch event="noinput">
+			<assign name="myVar2" expr="'noinput'"/>
+			<goto nextitem="block3"/>
+		</catch>
+		<block name="block3">
+			<if cond="myVar2=='noinput'">
+				<log label="error">TC 20103053 Passed</log>
+				<else/>
+				<log label="error">TC 20103053 Failed (myVar2=<value expr="myVar"/>)</log>
+			</if>
+			<exit/>
+		</block>
+	</form>
+</vxml>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit/>
+    </catch>
+
+
+    <form >
+        <transfer name="call" dest="121212" bridge="true" connecttimeout="3s">
+            <grammar mode="dtmf" root="root">
+                <rule id="root">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+            <filled>
+                <if cond="call == 'noanswer'">
+                    <log>TCPASS</log>
+                    <exit/>
+                </if>
+            </filled>
+        </transfer>
+        <block>
+            <log>ERROR</log>
+        </block>
+    </form>
+</vxml>

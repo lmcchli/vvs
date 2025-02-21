@@ -1,0 +1,267 @@
+#!/bin/ksh
+# Sun Cluster Data Services Builder template version 1.0
+
+PATH=/bin:/usr/bin:/usr/cluster/bin:/usr/sbin:$PATH
+
+VERBOSE=false
+
+NODES=`scha_cluster_get -O ALL_NODEIDS`
+if [[ $? != 0 ]]; then
+	printf "FAILED: scha_cluster_get -O ALL_NODEIDS\n"
+	exit 1
+fi
+NO_OF_NODES=`echo $NODES | wc -w | tr -d " "`
+
+function run_cmd
+{
+	if [[ $VERBOSE == true ]]; then
+		printf "\n%s\n" "$@"
+	fi
+
+	eval "$@"
+	if [[ $? != 0 ]]; then
+		printf "FAILED: %s\n" "$@"
+		exit 1
+	fi
+}
+
+#
+# Check the existence of RG, RT or RS
+# 	return 0 if exists
+#	return non-zero if not exist or scha call fails
+#
+function exists
+{
+	case "$1" in
+	RG)
+		scha_cluster_get -O ALL_RESOURCEGROUPS | \
+		    egrep -e '^'$2'$' > /dev/null 2>&1
+		;;
+
+	RT)
+		scha_cluster_get -O ALL_RESOURCETYPES | \
+		    egrep -e '^'$2'$' > /dev/null 2>&1
+		;;
+
+	RS)
+		scha_resource_get -O TYPE -R "$2" > /dev/null 2>&1
+		;;
+	esac
+}
+
+#
+# Validate configuration
+#
+function validate_rtconfig
+{
+	if [[ -z "$RG_NAME" ]]; then
+        	printf "RG_NAME is empty in %s_config file" $RT_NAME
+        	exit 1
+	fi
+
+	if [[ -z "$RS_NAME" ]]; then
+        	printf "RS_NAME is empty in %s_config file" $RT_NAME
+        	exit 1
+	fi
+
+	if [[ $STAND_ALONE == false ]] ; then
+		# $HOSTNAME is not required for stop and remove scripts
+		# therefore we don't validate it here.
+
+		if [[ $SCALABLE == true && -z "$SA_RG_NAME" ]]; then
+			printf "The name of resource group for SharedAddress \
+must be specified in %s_config file.\n" $RT_NAME
+		exit 1
+		fi
+	else
+		if [[ ! -z "$HOSTNAME" ]]; then
+			printf "Network resource should not be specified for \
+stand-alone service.\n"
+			exit 1
+		fi
+	fi
+}
+
+#
+# Return the number of resources in the given RG
+# 
+function count_rs_in_rg
+{
+	RS=`scha_resourcegroup_get -O RESOURCE_LIST -G $1`
+	echo $RS | wc -w | tr -d " "
+}
+
+#
+# Usage
+#
+function usage
+{
+	printf "Usage: %s [-h <hostname>] [-v] \n" `basename $0`	
+}
+
+#
+# Parse program arguments
+#
+function parse_args # [args ...]
+{
+	typeset opt
+
+	while getopts 'vh:' opt
+	do
+		case "$opt" in
+		v)
+			# Set verbose to true
+			VERBOSE=true
+			;;
+		h)
+			# Also stop the given Network resource and its
+			# containing RG
+			HOSTNAME=$OPTARG
+			;;
+		*)
+			usage
+			exit 1
+			;;
+		esac
+	done
+
+	shift $((OPTIND - 1))
+
+	# Make sure there are no remaining args
+	if [[ $# -ne 0 ]]; then
+		usage
+		exit 1
+	fi
+}
+
+#########################################
+#					#
+#		Main			#
+#					#
+#########################################
+
+parse_args "$@"
+
+# RT_NAME, RT_VENDOR, SCALABLE and STAND_ALONE are filled in at the time
+# of package creation.
+RT_NAME=ntf
+RT_VENDOR=LMEA
+SCALABLE=false
+STAND_ALONE=true
+
+. `dirname $0`/${RT_NAME}_config
+
+validate_rtconfig
+
+#
+# Disable the resource
+#
+exists RS $RS_NAME
+if [[ $? != 0 ]]; then
+	printf "ERROR: resource <%s> does not exist.\n" $RS_NAME
+	exit 1
+fi
+
+printf "Disabling resource <%s> ..." $RS_NAME
+run_cmd "scswitch -n -j $RS_NAME"
+printf "done.\n"
+
+#
+# Offline the resource group
+#
+exists RG $RG_NAME
+if [[ $? != 0 ]]; then
+	printf "ERROR: resource group <%s> does not exist.\n" $RG_NAME
+	exit 1
+fi
+
+#
+# Bring the RG offline if it contains only one resource (for application)
+# or two resources (one is for application and the other is a
+# LogicalHostname resource).
+#
+NO_RS=`count_rs_in_rg $RG_NAME`
+if [[ $STAND_ALONE == true ]]; then
+	if [[ $NO_RS == 1 ]]; then
+		printf "Offlining resource group <%s> on all nodes ..." $RG_NAME
+		run_cmd "scswitch -z -g $RG_NAME -h \"\""
+		printf "done.\n"
+	else
+		printf "Resource group <%s> contains other resources; \
+leaving it online...\n" $RG_NAME
+	fi
+
+	exit 0
+fi
+
+#
+# For network aware service
+# Disable the network resource and resource group if specified.
+# Otherwise leave it and its containing RG online.
+#
+if [[ ! -z "$HOSTNAME" ]]; then
+	# Disable the network resource
+	exists RS "$HOSTNAME"
+	if [[ $? != 0 ]]; then
+		printf "ERROR: resource <%s> does not exist.\n" $HOSTNAME
+		exit 1
+	fi
+
+	printf "Disabling the network resource <%s> ..." $HOSTNAME
+	run_cmd "scswitch -n -j $HOSTNAME"
+	printf "done.\n"
+
+	# Offline the resource group of service if it has only one resource
+	# for the service, or it has two resources, one for failover service
+	# and one for the LogicalHostname resource.
+	if [[ $NO_RS == 1 ]] || [[ $NO_RS == 2 && $SCALABLE == false ]]; then
+		printf "Offlining resource group <%s> on all nodes ..." \
+			$RG_NAME
+		run_cmd "scswitch -z -g $RG_NAME -h \"\""
+		printf "done.\n"
+		OFFLINE_RG=done
+	else
+		printf "Resource group <%s> contains other resources; \
+leaving it online...\n" $RG_NAME
+	fi
+
+	# For SCALABLE service, offline SA_RG_NAME
+	# if it contains only one SharedAddress resource
+	if [[ $SCALABLE == true && $OFFLINE_RG == done ]]; then
+		exists RG $SA_RG_NAME
+		if [[ $? != 0 ]]; then
+			printf "ERROR: resource group <%s> does not exist.\n" \
+				$SA_RG_NAME
+			exit 1
+		fi
+
+		if [[ $(echo `count_rs_in_rg ${SA_RG_NAME}`) == 1 ]]; then
+			printf "Offlining resource group <%s> on all nodes ..."\
+				$SA_RG_NAME
+			run_cmd "scswitch -z -g $SA_RG_NAME -h \"\""
+			printf "done.\n"
+		else
+			printf "Resource group <%s> contains other resources; \
+leaving it online...\n" $SA_RG_NAME
+		fi
+	fi
+else
+	# HOSTNAME is not specified for network aware service
+	# We still need to offline RG_NAME for scalable service since the
+	# SharedAddress resource is configured in SA_RG_NAME
+	if [[ $SCALABLE == true && $NO_RS == 1 ]]; then
+		printf "Offlining resource group <%s> on all nodes ..." \
+			$RG_NAME
+		run_cmd "scswitch -z -g $RG_NAME -h \"\""
+		printf "done.\n"
+	else
+		printf "Resource group <%s> contains other resources; \
+leaving it online...\n" $RG_NAME
+	fi
+
+	printf "\nNetwork Resources not disabled...\n\
+You may use %s again with the -h option to disable network resources.\n" \
+`basename $0`
+fi
+
+exit 0

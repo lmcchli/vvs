@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="root.vxml">
+	<var name="menuRowCount" epxr="1"/>
+	<var name="nofRowsToPlay" expr="getNofRowsToPlay()"/>
+	<var name="nofActiveRows" expr="0"/>
+	<var name="reverse" expr="false"/>
+	<form id="main_menu">
+		<var name="menuRowCount" epxr="1"/>
+		<var name="nofRowsToPlay" expr="getNofRowsToPlay()"/>
+		<var name="nofActiveRows" expr="0"/>
+		<var name="reverse" expr="false"/>
+		<!-- calc number of rows to be played" -->
+		<block>
+			<assign name="nofActiveRows" expr="newMessageExist() || savedMessageExist() || deletedMessageExist()? nofActiveRows  +  1 : nofActiveRows"/>
+			<assign name="nofActiveRows" expr="sendVoiceMessageAllowed() ||  sendVideoMessageAllowed() ? nofActiveRows  +  1 : nofActiveRows"/>
+			<assign name="nofActiveRows" expr="adminGreetingAllowed() ? nofActiveRows  +  1 : nofActiveRows"/>
+			<assign name="nofActiveRows" expr="adminMailboxSettingsAllowed() ? nofActiveRows  +  1 : nofActiveRows"/>
+			<!-- -Do not save just one menu row for repompt -->
+			<if cond="nofActiveRows &lt;= nofRowsToPlay +1">
+				<assign name="nofRowsToPlay" expr="nofActiveRows"/>
+			</if>
+		</block>
+		<!-- activeRow needs to be last condition in cond statement or menu_row_count might  be wrongly incremented -->
+		<field name="main_menu">
+			<prompt cond="newMessageExist() &amp;&amp; PlayRow(menuRowCount++, nofRowsToPlay, reverse)">
+				<audio expr="getPrompt('WANT_NEW_MESS')">
+					If you want your new messages now, press 1
+				</audio>
+			</prompt>
+			<prompt cond="newMessageExist() " count="2">
+				<audio expr="getPrompt('WANT_NEW_MESS')">
+					If you want your new messages now, press 1
+				</audio>
+			</prompt>
+			<prompt cond="savedMessageExist() &amp;&amp; !newMessageExist() &amp;&amp; PlayRow(menuRowCount++, nofRowsToPlay, reverse)">
+				<audio expr="getPrompt('WANT_SAVED_MESS')">
+					if you want your saved messages now press 1
+				</audio>
+			</prompt>
+			<prompt cond="savedMessageExist() &amp;&amp; !newMessageExist()" count="2">
+				<audio expr="getPrompt('WANT_SAVED_MESS')">
+					if you want your saved messages now press 1
+				</audio>
+			</prompt>
+			<prompt cond="deletedMessageExist() &amp;&amp; !savedMessageExist() &amp;&amp; !newMessageExist() &amp;&amp; PlayRow(menuRowCount++,nofRowsToPlay,reverse)">
+				<audio expr="getPrompt('WANT_DELETED_MESS')">
+					If you want your deleted messages now, press 1
+				</audio>
+			</prompt>
+			<prompt cond="deletedMessageExist() &amp;&amp; !savedMessageExist() &amp;&amp; !newMessageExist()" count="2">
+				<audio expr="getPrompt('WANT_DELETED_MESS')">
+					If you want your deleted messages now, press 1
+				</audio>
+			</prompt>
+			<prompt cond="sendVoiceMessageAllowed() &amp;&amp; PlayRow(menuRowCount++, nofRowsToPlay, reverse)">
+				<audio expr="getPrompt('SEND_VOICE_MESSAGE')">
+					To send a voice message, press 2
+				</audio>
+			</prompt>
+			<prompt cond="sendVoiceMessageAllowed()" count="2">
+				<audio expr="getPrompt('SEND_VOICE_MESSAGE')">
+					To send a voice message, press 2
+				</audio>
+			</prompt>
+			<prompt cond="sendVideoMessageAllowed() &amp;&amp; PlayRow(menuRowCount++, nofRowsToPlay, reverse)">
+				<audio expr="getPrompt('SEND_MESSAGE')">
+					To send a  message, press 2
+				</audio>
+			</prompt>
+			<prompt cond="sendVideoMessageAllowed()" count="2">
+				<audio expr="getPrompt('SEND_MESSAGE')">
+					To send a  message, press 2
+				</audio>
+			</prompt>
+			<prompt cond="adminGreetingAllowed() &amp;&amp; PlayRow(menuRowCount++, nofRowsToPlay, reverse)">
+				<audio expr="getPrompt('WORK_WITH_GREETING')">
+					To work with your greeting press 3
+				</audio>
+			</prompt>
+			<prompt cond="adminGreetingAllowed()" count="2">
+				<audio expr="getPrompt('WORK_WITH_GREETING_REPROMPT')">
+					To record or change the greeting heard by people who call you, press 3
+				</audio>
+			</prompt>
+			<prompt cond="adminMailboxSettingsAllowed() &amp;&amp; PlayRow(menuRowCount++, nofRowsToPlay, reverse) ">
+				<audio expr="getPrompt('ADMIN_MAILBOX_SETTING')">
+					To change your mailbox settings, press 4
+				</audio>
+			</prompt>
+			<prompt cond="adminMailboxSettingsAllowed()" count="2">
+				<audio expr="getPrompt('ADMIN_MAILBOX_SETTING_REPOMPT')">
+					To change your mailbox settings such as changing your pin, press 4
+				</audio>
+			</prompt>
+			<prompt cond="PlayRow(menuRowCount++, nofRowsToPlay, reverse) ">
+				<audio expr="getPrompt('NEED_MORE_TIME')">
+					Do you need more time, press 8
+				</audio>
+			</prompt>
+			<prompt count="2">
+				<audio expr="getPrompt('NEED_MORE_TIME')">
+					Do you need more time, press 8
+				</audio>
+			</prompt>
+			
+			<prompt cond="menuRoWCount &lt; nofRowsToPlay">
+				<audio expr="getPrompt('NEED_SOMETHING_ELSE')">
+					Do you need something else, press 0
+				</audio>
+			</prompt>
+			<!-- -Basic Commands -->
+			<prompt count="2">
+				<audio expr="getPrompt('USE_ANOTHER_MAILBOX')">
+					To use another mailbox, press * 1
+				</audio>
+			</prompt>
+			<prompt count="2">
+				<audio expr="getPrompt('CALL_ANOTHER_NUMBER')">
+						To call another number, press * 8
+				</audio>
+			</prompt>
+			<!-- handled by link in root.vxml -->
+			<prompt count="2">
+				<audio expr="getPrompt('TO_DISSCONNECT')">
+					To disconnect press * 9 or just hang up
+				</audio>
+			</prompt>
+			<!-- The mighty local grammar -->
+			<grammar mode="dtmf">
+				<rule id="main_rule">
+					<item>0</item>
+					<item>1</item>
+					<item>2</item>
+					<item>3</item>
+					<item>4</item>
+					<item>8</item>
+					<item>*1</item>
+					<item>*8</item>
+				</rule>
+			</grammar>
+			<catch event="nomatch">
+				<!-- Reset dynamic_count and set  nofRows to greater then number of menu rows to play them all-->
+				<assign name="menuRowCount" expr="0"/>
+				<assign name="nofRowsToPlay" expr="99"/>
+				<log>
+							In catch 
+					</log>
+				<reprompt/>
+			</catch>
+			<filled>
+				<if cond="main_menu == 1">
+					<goto next="message_menu_or_not.vxml"/>
+					<elseif cond="main_menu ==2 &amp;&amp; (sendVoiceMessageAllowed()  || sendVideoMessageAllowed())"/>
+					<goto next="address_message.vxml"/>
+					<elseif cond="main_menu == 3 &amp;&amp; adminGreetingAllowed()"/>
+					<goto next="admin_greeting.vxml"/>
+					<elseif cond="main_menu==4 &amp;&amp; adminMailboxSettingsAllowed() "/>
+					<goto next="admin_mailbox.vxml"/>
+					<elseif cond="main_menu==*8"/>
+						<goto next="#dialout" />
+					<elseif cond="main_menu==0"/>
+					<!-- play prompts with count = 1 that did not play the first time-->
+					<clear namelist="main_menu"/>
+					<assign name="reverse" expr="true"/>
+					<goto next="#main_menu"/>
+					<else/>
+					<!-- need to throw nomatch manually  if user input something that is valid according to the local grammar but not valid because of CoS conds -->
+					<throw event="nomatch"/>
+				</if>
+			</filled>
+		</field>
+	</form>
+	
+	<form id="dialout">
+		<subdialog name="dialoutSD" src="dial_out.vxml"/>
+		<block>
+			<goto next="#main_menu" />
+		</block>
+	</form>
+</vxml>

@@ -1,0 +1,48 @@
+package com.mobeon.masp.operateandmaintainmanager;
+
+import junit.framework.TestCase;
+import com.mobeon.masp.configuration.ConfigurationManagerImpl;
+import com.mobeon.masp.configuration.IConfiguration;
+//import com.mobeon.masp.execution_engine.eventnotifier.IEventDispatcher;
+//import com.mobeon.masp.execution_engine.eventnotifier.MulticastDispatcher;
+//import com.mobeon.masp.execution_engine.eventnotifier.Multicaster;
+import com.mobeon.masp.logging.ILoggerFactory;
+import com.mobeon.masp.logging.ILogger;
+import com.mobeon.masp.eventnotifier.IEventDispatcher;
+
+import java.util.ArrayList;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+public class testEvent extends TestCase{
+    IEventDispatcher eventDispatcher = new mockMulticastDispatcher();
+    mockEventHandler eventHandler = new mockEventHandler();
+    ILogger log;
+
+    public void testGlobalEvent(){
+        ILoggerFactory.configureAndWatch("logmanager.xml");
+        log = ILoggerFactory.getILogger(ProvidedServiceTest.class);
+
+        eventDispatcher.addEventReceiver(eventHandler);
+        ArrayList list = eventDispatcher.getEventReceivers();
+
+        assertTrue(list.get(0).getClass().isInstance(eventHandler));
+
+        eventDispatcher.fireGlobalEvent(new mockEvent());
+        eventDispatcher.fireEvent(new mockEvent());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        assertEquals(true,eventHandler.nonGlobalEvent);
+        assertEquals(true,eventHandler.globalEvent);
+    }
+
+
+
+
+}

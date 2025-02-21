@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="error.com.mobeon.platform.system">
+        <log>TCPASS3. message: <value expr="_message"></value></log>
+        <exit></exit>
+    </catch>
+
+    <form id="form2">
+
+        <block>
+            <script>
+                var parameterNames = ["param1"];
+                var parameterValues = ["value1"];
+                mas.systemSendServiceRequest( "anita",
+                                              "someService",
+                                              10,
+                                              true,
+                                              parameterNames,
+                                              parameterValues);
+            </script>
+        </block>
+        <block>
+            <script>
+                mas.systemGetServiceResponseParameter( "paramName");
+            </script>
+            <log>TCPASS1</log>
+        </block>
+        <block>
+            <script>
+                var parameterNames = ["param1"];
+                var parameterValues = ["value1"];
+                mas.systemSendServiceRequest( "anita",
+                                              "someService",
+                                              10,
+                                              false,
+                                              parameterNames,
+                                              parameterValues);
+            </script>
+            <log>TCPASS2</log>
+
+            <!-- Retrieving a header parameter now shall not be allowed -->
+
+            <script>
+                mas.systemGetServiceResponseHeaderParameter( "statuscode");
+            </script>
+        </block>
+
+        <block>
+            <log>TCFAIL should not get here</log>
+            <exit></exit>
+        </block>
+    </form>
+</vxml>

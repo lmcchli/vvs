@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+		<block>
+
+			<script>
+
+				var mediaContentIds = mas.systemGetMediaContentIds("Prompt", null );
+                var i = 0;
+
+                while (true) {
+                    if (i == mediaContentIds.length) {
+                        break;
+                    }
+                    mas.systemLog(3, "ID" + i +"=" + mediaContentIds[i]);
+                    i++;
+                }
+            </script>
+
+		</block>
+
+
+
+	</form>
+
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TEST 20105561  FAILED</log>
+
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

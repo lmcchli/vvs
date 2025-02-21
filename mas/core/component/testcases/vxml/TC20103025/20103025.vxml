@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<catch event="evt">
+		<log label="error">TC 20103025 Failed"</log>
+		<exit/>
+	</catch>
+	<catch event="evt2">
+		<log label="error">TC 20103025 Failed"</log>
+		<exit/>
+	</catch>
+	<catch event="evt3">
+		<log label="error">TC 20103025 Passed"</log>
+		<exit/>
+	</catch>
+	<catch event="error.semantic">
+			<log label="error">TC 20103025 Failed</log>
+			<exit/>
+	</catch>
+	<form id="id1">
+		<block name="b1">
+			<goto next="20103025a.vxml"/>
+		</block>
+		<block name="b2">
+			<log label="error">TC 20103025 Failed" (root document catch failed)</log>
+			<exit/>
+		</block>
+	</form>
+</vxml>

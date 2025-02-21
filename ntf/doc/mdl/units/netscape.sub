@@ -1,0 +1,68 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "netscape"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DC700227"
+    physical_models 	(list unit_reference_list
+	(object SubSystem "messaging"
+	    quid       	"3AC4DC700228"
+	    physical_models 	(list unit_reference_list
+		(object SubSystem "mime"
+		    quid       	"3AC4DC700231"
+		    physical_models 	(list unit_reference_list
+			(object module "MIMEMessage" "NotAModuleType" "NotAModulePart"
+			    quid       	"3AC4DE3300E5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MIMEException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3ADF271902BC"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "imap4"
+		    quid       	"3AC4DE320039"
+		    physical_models 	(list unit_reference_list
+			(object module "IMAP4Client" "NotAModuleType" "NotAModulePart"
+			    quid       	"3AC4DE32003A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IMAP4Sink" "NotAModuleType" "NotAModulePart"
+			    quid       	"3AC4DE3303D4"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "smtp"
+		    quid       	"3B016E6A0355"
+		    physical_models 	(list unit_reference_list
+			(object module "ISMTPSink" "NotAModuleType" "NotAModulePart"
+			    quid       	"3B016E6A0356"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SMTPClient" "NotAModuleType" "NotAModulePart"
+			    quid       	"3B016E6B016C"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "ldap"
+	    quid       	"3AC4DE2A0024"
+	    physical_models 	(list unit_reference_list
+		(object module "LDAPSearchConstraints" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4DE2A002E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LDAPConnection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4DE2A007E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LDAPSearchResults" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4E6CB0279"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list))

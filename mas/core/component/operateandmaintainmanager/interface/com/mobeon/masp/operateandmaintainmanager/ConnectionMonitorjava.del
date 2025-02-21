@@ -1,0 +1,26 @@
+package com.mobeon.masp.operateandmaintainmanager;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+/**
+ * This interface provides functionality for OMmanager to be able to start and stopp
+ * monitoring session data.
+ */
+
+public interface ConnectionMonitor {
+//    /**
+//     * When monitoring starts, this method will be called from OMManager
+//     * OMManager will then start reading data from monitorConnectionInfo.
+//     * <p>
+//     * @param monitorConnectionInfo  Object that will be filled with session data.
+//     */
+//    void startMonitor(ConnectionInfo monitorConnectionInfo);
+//
+//    /**
+//     * When monitoring stops, this method will be called from OMManager.
+//     * OMManager will then stop reading data from monitorConnectionInfo.
+//     */
+//    void stopMonitor();
+//
+}

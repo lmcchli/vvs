@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+
+    <form id="form2">
+
+        <property name="timeout" value="7s"/>
+
+        <field name="field1">
+            <filled>
+                <log label="info">TCPASS 1</log>
+            </filled>
+        </field>
+
+        <field name="field2">
+            <catch event="noinput">
+                <log label="info">TCPASS 2</log>
+                <exit/>
+            </catch>
+            <filled>
+                <log label="info">TCFAIL</log>
+            </filled>
+        </field>
+
+    </form>
+</vxml>

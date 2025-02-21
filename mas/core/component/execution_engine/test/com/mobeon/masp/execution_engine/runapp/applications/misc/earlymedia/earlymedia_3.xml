@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/misc/earlymedia/" type="application/xml+ccxml">
+        <document src="earlymedia_3.ccxml" root="true"/>
+    </documents>
+</application>

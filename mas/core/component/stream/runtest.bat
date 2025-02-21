@@ -1,0 +1,1 @@
+java -classpath y:/mas/stream/classes;y:/mas/lib/dom4j-1.6.1.jar;y:/mas/lib/commons-collections-3.1.jar;y:/mas/lib/activation.jar;y:/mas/lib/log4j-1.2.9.jar;c:/apache-ant-1.6.5/lib/junit.jar;y:/mas/lib/jmock-1.0.1.jar %1

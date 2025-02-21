@@ -1,0 +1,23 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "sms"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DE3A021B"
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class "Smpp"
+	    quid       	"3AC4DE3A0244"
+	    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+	    
+	    module     	"Component View::sms::\\\\smsjdk201\\\\src\\\\sms\\\\Smpp"
+	    quidu      	"3AC4DE3A0207"
+	    language   	"Java"))
+    logical_presentations 	(list unit_reference_list))

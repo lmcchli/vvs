@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode="dtmf" root="root">
+        <rule id="root">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form id="main_form">
+
+
+        <catch event="noinput">
+            <log>TCFAIL</log>
+            <exit/>
+        </catch>
+
+        <record name="recording">
+            <prompt timeout="3s">
+                just a prompt to get a noinput timeout started
+            </prompt>
+            <filled>
+                <log>In filled OK</log>
+            </filled>
+            <catch event="connection.disconnect.hangup">
+                <if cond="recording !=undefined">
+                    <log>In catch OK</log>
+                    <else>
+                        <log>ERROR recording was undefined</log>
+                    </else>
+                </if>
+                <exit/>
+            </catch>
+        </record>
+
+
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

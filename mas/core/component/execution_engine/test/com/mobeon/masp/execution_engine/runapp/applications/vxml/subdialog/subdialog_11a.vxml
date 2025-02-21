@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <var name="lab1"></var>
+    <catch event="connection.disconnect.hangup">
+
+        <script>
+            lab1 = new Packages.com.mobeon.masp.execution_engine.runapp.WaitASec();
+            lab1.waitASec();
+        </script>
+        <script>
+            lab1.waitASec();
+        </script>
+        <script>
+            lab1.waitASec();
+        </script>
+        <script>
+            lab1.waitASec();
+        </script>
+        <script>
+            lab1.waitASec();
+        </script>
+        <log>TCPASS</log>
+        <exit/>
+    </catch>
+
+    <form id="volvo">
+        <subdialog name="v40" src="subdialog_11b.vxml">
+            <filled>
+                <log>ERROR</log>
+            </filled>
+        </subdialog>
+    </form>
+
+</vxml>

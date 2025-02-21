@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="null" debug="null">
+
+  <appender name="console" class="org.apache.log4j.ConsoleAppender"> 
+    <param name="Target" value="System.out"/> 
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/> 
+    </layout> 
+  </appender> 
+
+  <appender name="FileAp" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="C:\\ntf\\logs\\NotificationTrace.log"/>
+    <param name="MaxFileSize" value="1MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="10"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p  %c - %m%n"/>
+    </layout>
+  </appender>
+  
+  <appender name="ErrorFileAp" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="c:\\ntf\\logs\\error.log"/>
+    <param name="MaxFileSize" value="1MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="5"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p  %c - %m%n"/>
+    </layout>
+  </appender>
+  
+  <appender name="MM7FileAp" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="c:\\ntf\\logs\\MM7Out.log"/>
+    <param name="MaxFileSize" value="1MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="5"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p  %c - %m%n"/>
+    </layout>
+  </appender>
+
+  <category name="com.mobeon.ntf.util" additivity="false">
+    <priority value="DEBUG" />
+    <appender-ref ref="FileAp" />        
+  </category>
+    
+  <category name="com.mobeon.ntf.util.DelayLoggerProxy" additivity="false">
+    <priority value="FATAL" />
+    <appender-ref ref="ErrorFileAp" />        
+  </category>
+    
+  <category name="com.mobeon" additivity="false">
+    <priority value="DEBUG" />
+    <appender-ref ref="FileAp" />        
+    <appender-ref ref="console" /> 
+  </category>
+    
+  <category name="com.abcxyz" additivity="false">
+    <priority value="DEBUG" />
+    <appender-ref ref="FileAp" />        
+    <appender-ref ref="console" /> 
+  </category>
+   
+  <category name="LoggerLogger" additivity="false">
+    <priority value="DEBUG" />
+    <appender-ref ref="FileAp" />        
+  </category>
+    
+  <category name="com.mobeon.ntf.out.mms" additivity="false">
+    <priority value="DEBUG" />
+    <appender-ref ref="MM7FileAp" />        
+  </category>
+
+  <root> 
+    <priority value ="info" /> 
+    <appender-ref ref="console" /> 
+  </root>
+
+</log4j:configuration> 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediacontents>
+   <mediacontent id="1">
+      <qualifiers />
+      <instance cond="true">
+         <displayname><![CDATA[Always]]></displayname>
+         <element type="mediafile" reference="enfile1.wav" />
+      </instance>
+   </mediacontent>
+   <mediacontent id="2">
+      <qualifiers />
+      <instance cond="true">
+         <displayname><![CDATA[Always]]></displayname>
+         <element type="mediafile" reference="enfile2.wav" />
+      </instance>
+   </mediacontent>
+   <mediacontent id="4">
+      <qualifiers />
+      <instance cond="true">
+         <displayname><![CDATA[Always]]></displayname>
+         <element type="mediafile" reference="enfile4.wav" />
+      </instance>
+   </mediacontent>
+</mediacontents>

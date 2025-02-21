@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+		<var name="EXPECTED_VALUE" expr="'2'" />
+
+		<var name="mailboxId" />
+		<var name="folderId" />
+		<var name="messageListId" />
+		<var name="messageCount" />
+		<var name="success" />
+		<block>
+			<script>
+				<![CDATA[
+				success = false;
+				mailboxId = mas.subscriberGetMailbox(PHONE_NUMBER);
+				folderId = mas.mailboxGetFolder(mailboxId, 'inbox');
+				messageListId = mas.mailboxGetMessageList(
+					folderId,
+					null,
+					null,
+					null,
+					null,
+					null);
+				messageCount = mas.mailboxGetNumberOfMessages(
+					messageListId,
+					null,
+					null,
+					null);
+				success = (messageCount == EXPECTED_VALUE);
+				]]>
+			</script>
+			<if cond="success">
+				<log>TC 10002004 PASSED</log>
+			<else />
+				<log>TC 10002004 FAILED - Expected [<value expr="EXPECTED_VALUE" />] messages but found [<value expr="messageCount" />]</log>
+			</if>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 10002004 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

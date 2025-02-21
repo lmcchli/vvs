@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+                <if cond="typeof(evt.connection._pHeader) != 'undefined'">
+                    <log expr="evt.connection._pHeader"/>
+                    <if cond="evt.connection._pHeader == 'inactive'">
+                        <log expr="'TCPASS CCXML: Pheader ok 1'"/>
+                    <else/>
+                        <log expr="'TCFAIL CCXML: Pheader nok 1, _pHeader is not what is expected, it was: '+evt.connection._pHeader"/>
+                    </if>
+                    <if cond="typeof(evt.connection._pHeader.pEarlyMedia) != 'undefined'">
+                        <if cond="evt.connection._pHeader.pEarlyMedia == 'inactive'">
+                            <log expr="'TCPASS CCXML: Pheader ok 2'"/>
+                        <else/>
+                            <log expr="'TCFAIL CCXML: Pheader nok 2, _pHeader.pEarlyMedia is not what is expected, it was: '+evt.connection._pHeader.pEarlyMedia"/>
+                        </if>
+                     <else/>
+                        <log expr="'TCFAIL CCXML: Pheader nok 2, _pHeader number is undefined'"/>
+                     </if>
+                <else/>
+                    <log expr="'TCFAIL CCXML: Pheader nok 1, _pHeader is undefined'"/>
+                </if>
+                <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'event_empty.vxml'"/>            
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+                <exit/>
+        </transition>
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

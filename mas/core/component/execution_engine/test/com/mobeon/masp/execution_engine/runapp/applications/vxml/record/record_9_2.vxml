@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" application="record_9.vxml">
+    <form id="main_form">
+        <record name="recording">
+        </record>
+
+        <filled>
+            <log>TCFAIL: Should end up in the catch handler</log>
+        </filled>
+        <catch event="connection.disconnect.hangup">
+            <if cond="recording !=undefined">
+                <log>TCPASS</log>
+                <else>
+                    <log>ERROR recording was undefined</log>
+                </else>
+            </if>
+        </catch>
+    </form>
+
+
+</vxml>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <var name="olle" expr="7"/>
+   <form id="form1">
+      <block>
+         <assign name="olle" expr="kalle"/>
+          <if cond="kalle == 10">
+              <log>passed</log>
+              <else><log>ERROR</log></else>
+          </if>
+      </block>
+   </form>
+
+    <form>
+       <block>
+           <log>ERROR</log>
+       </block>
+    </form>
+    <var name="kalle" expr="10"/>
+</vxml>

@@ -1,0 +1,131 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+my $CMD = "$Bin/showmib -n";
+
+sub getmibvar() {
+    my $name = pop;
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD);
+
+    if ($cmdresult == 0) {
+        while (chomp($_ = <$cmdoutput>)) {
+            if (/^\s*$name.*=\s*(.*)$/) {
+                return (0, $1);
+            }
+        }
+        return (1, "The MIB can not be accessed\n");
+    } else {
+        return (1, "Error executing command: $CMD\n" .
+                "Return code: $cmdresult\n" .
+                "Error output:" . <$cmdoutput>);
+    }
+}
+
+sub mibstate() {
+    my $type = pop;
+    my $result = 0;
+
+    $mibvar="ntf" . $type . "State";
+
+    ($mibresult, $mibtext) = &getmibvar($mibvar);
+    if ($mibresult == 0) {
+        $mibtext =~ /.*(\d+)/;
+        $state = $1;
+        print "The $type state is $mibtext\n";
+        $result = 1 if $state != 1;
+    } else {
+        print "$mibtext";
+        $result = 1;
+    }
+
+    return $result;
+}
+
+sub getconsumedserviceindex() {
+    my $servicename = pop;
+    my $result = 0;
+
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD);
+    if ($cmdresult == 0) {
+        my $someconsumedservice = 0;
+        while (chomp($_ = <$cmdoutput>)) {
+            if (/^ntfConsumedServiceName/) {
+                $someconsumedservice = 1;
+                if (/^ntfConsumedServiceName\.(\d+)\s*=\s*$servicename$/) {
+                    return (0, $1);
+                }
+            }
+        }
+        if ($someconsumedservice) {
+            return (2, "The consumed service \"$servicename\" is not used\n");
+        } else {
+            return (1, "The MIB can not be accessed\n");
+        }
+    } else {
+        return (1, "Error executing command: $CMD\n" .
+                "Return code: $cmdresult\n" .
+                "Error output:" . <$cmdoutput>);
+    }
+}
+
+sub consumedservicestatus() {
+    my $servicename = pop;
+    my $result = 0;
+
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD);
+    my ($mibresult, $mibtext) = &getconsumedserviceindex($servicename);
+    if ($mibresult == 0) {
+        $mibtext =~ /.*(\d+)/;
+        $index = $1;
+        ($mibresult, $mibtext) = &getmibvar("ntfConsumedServiceStatus.$index");
+        if ($mibresult == 0) {
+            $mibtext =~ /.*(\d+)/;
+            $status = $1;
+            print "The state of the consumed service $servicename is \"$mibtext\"\n";
+            return 1 if $status != 1;
+        } else {
+            print "$mibtext";
+            return 1;
+        }
+    } elsif ($mibresult == 2) {
+        print $mibtext;
+        return 0;
+    } else {
+        print "$mibtext";
+        return 1;
+    }
+}
+
+sub consumedservicefailure() {
+    my $servicename = pop;
+    my $result = 0;
+
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD);
+    my ($mibresult, $mibtext) = &getconsumedserviceindex($servicename);
+    if ($mibresult == 0) {
+        $mibtext =~ /.*(\d+)/;
+        $index = $1;
+        ($mibresult, $mibtext) = &getmibvar("ntfConsumedServiceNumNotifFailures.$index"); #R10
+        if ($mibresult != 0) {
+            ($mibresult, $mibtext) = &getmibvar("ntfConsumedServiceNumFailures.$index"); #R11 and later
+            if ($mibresult != 0) {
+                print "$mibtext";
+                return 1;
+            }
+        }
+        $mibtext =~ /.*(\d+)/;
+        $status = $1;
+        print "The number of failed requests for the consumed service $servicename is \"$mibtext\"\n";
+    } elsif ($mibresult == 2) {
+        print $mibtext;
+        return 0;
+    } else {
+        print "$mibtext";
+        return 1;
+    }
+    return 0;
+}

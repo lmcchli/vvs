@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="mobeon_demo" default="all">
+  
+  
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="compiler.excluded"/>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+  </patternset>
+  <!-- JDK definitions -->
+  
+  <property name="jdk.home.java_version_1.4.2_04" value="C:/j2sdk1.4.2_04"/>
+  <path id="jdk.classpath.java_version_1.4.2_04">
+    <fileset dir="${jdk.home.java_version_1.4.2_04}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/sunrsasign.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/ldapsec.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.java_version_1.4.2_04}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.java_version_1.4.2_04"/>
+  <!-- Project Libraries -->
+  <!-- Global Libraries -->
+  
+  
+  <dirname property="module.com.mobeon.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.com.mobeon" value="${project.jdk.home}"/>
+  <property name="module.jdk.classpath.com.mobeon" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.com.mobeon" value="${compiler.args}"/>
+  
+  <property name="com.mobeon.output.dir" value="${module.com.mobeon.basedir}/classes"/>
+  <property name="com.mobeon.testoutput.dir" value="${module.com.mobeon.basedir}/classes"/>
+  
+  <path id="com.mobeon.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="com.mobeon.module.classpath">
+    <path refid="${module.jdk.classpath.com.mobeon}"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/nist-sip-1.2.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/JainSipApi1.1.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/nist-sdp-1.0.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/log4j-1.2.9.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/jmf.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/js.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/jsr173_ri.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/vxml.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/jsr173_api.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/xbean_xpath.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/jsr173.jar"/>
+    <pathelement location="${module.com.mobeon.basedir}/lib/xbean.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.com.mobeon">
+    <exclude name=".svn/**"/>
+    <exclude name="com/.svn/**"/>
+    <exclude name="com/mobeon/.svn/**"/>
+    <exclude name="com/mobeon/application/.svn/**"/>
+    <exclude name="com/mobeon/application/graph/.svn/**"/>
+    <exclude name="com/mobeon/application/graph/util/.svn/**"/>
+    <exclude name="com/mobeon/application/util/.svn/**"/>
+    <exclude name="com/mobeon/application/vxml/.svn/**"/>
+    <exclude name="com/mobeon/application/vxml/attributes/.svn/**"/>
+    <exclude name="com/mobeon/application/vxml/datatypes/.svn/**"/>
+    <exclude name="com/mobeon/application/vxml/grammar/.svn/**"/>
+    <exclude name="com/mobeon/backend/.svn/**"/>
+    <exclude name="com/mobeon/backend/demo/.svn/**"/>
+    <exclude name="com/mobeon/backend/exception/.svn/**"/>
+    <exclude name="com/mobeon/backend/test/.svn/**"/>
+    <exclude name="com/mobeon/client/.svn/**"/>
+    <exclude name="com/mobeon/client/SIP/.svn/**"/>
+    <exclude name="com/mobeon/ecma/.svn/**"/>
+    <exclude name="com/mobeon/ecma/test/.svn/**"/>
+    <exclude name="com/mobeon/event/.svn/**"/>
+    <exclude name="com/mobeon/event/types/.svn/**"/>
+    <exclude name="com/mobeon/executor/.svn/**"/>
+    <exclude name="com/mobeon/executor/eventhandler/.svn/**"/>
+    <exclude name="com/mobeon/frontend/.svn/**"/>
+    <exclude name="com/mobeon/frontend/demo/.svn/**"/>
+    <exclude name="com/mobeon/frontend/rtp/.svn/**"/>
+    <exclude name="com/mobeon/frontend/rtp/c++/.svn/**"/>
+    <exclude name="com/mobeon/frontend/rtp/c++/pthread/.svn/**"/>
+    <exclude name="com/mobeon/frontend/rtp/c++/win32/.svn/**"/>
+    <exclude name="com/mobeon/frontend/rtp/util/.svn/**"/>
+    <exclude name="com/mobeon/session/.svn/**"/>
+    <exclude name="com/mobeon/session/DemoTextSocketSession/.svn/**"/>
+    <exclude name="com/mobeon/session/SIP/.svn/**"/>
+    <exclude name="com/mobeon/session/SIP/event/.svn/**"/>
+    <exclude name="com/mobeon/util/.svn/**"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.com.mobeon">
+    <patternset refid="excluded.from.module.com.mobeon"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+  
+  <path id="com.mobeon.module.sourcepath">
+    <dirset dir="${module.com.mobeon.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.com.mobeon" depends="compile.module.com.mobeon.production,compile.module.com.mobeon.tests" description="compile module com.mobeon"/>
+  
+  <target name="compile.module.com.mobeon.production" description="compile module com.mobeon production classes">
+    <mkdir dir="${com.mobeon.output.dir}"/>
+    <javac destdir="${com.mobeon.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memoryMaximumSize="${compiler.max.memory}" fork="true" executable="${module.jdk.home.com.mobeon}/bin/javac">
+      <compilerarg line="${compiler.args.com.mobeon}"/>
+      <bootclasspath refid="com.mobeon.module.bootclasspath"/>
+      <classpath refid="com.mobeon.module.classpath"/>
+      <src refid="com.mobeon.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.com.mobeon"/>
+    </javac>
+    <copy todir="${com.mobeon.output.dir}">
+      <fileset dir="${module.com.mobeon.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.com.mobeon"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.com.mobeon.tests" depends="compile.module.com.mobeon.production" description="compile module com.mobeon test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.com.mobeon" description="cleanup module">
+    <delete dir="${com.mobeon.output.dir}"/>
+    <delete dir="${com.mobeon.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.com.mobeon" description="cleanup all"/>
+  
+  <target name="all" depends="init, clean, compile.module.com.mobeon" description="build all"/>
+
+  <target name="jar" depends="init, clean, compile.module.com.mobeon" description="build all">
+      <jar jarfile="mobeon.jar" basedir="${com.mobeon.output.dir}"/>
+  </target>
+
+</project>

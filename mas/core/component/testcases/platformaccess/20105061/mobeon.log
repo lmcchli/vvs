@@ -1,0 +1,610 @@
+2006-03-28 10:48:14,826 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 58)
+2006-03-28 10:48:14,826 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_36')<#36,audio@<59,45>> { ... }
+2006-03-28 10:48:14,827 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting1"/> (line 59)')
+2006-03-28 10:48:14,827 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting1"/> (line 59)
+2006-03-28 10:48:14,827 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,827 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting1')
+2006-03-28 10:48:14,838 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting1' resulted in 'org.mozilla.javascript.NativeJavaObject@18c6982'
+2006-03-28 10:48:14,838 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,847 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,847 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,848 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,848 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,848 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 1
+2006-03-28 10:48:14,849 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,849 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_37')<#37,prompt@<61,21>> { ... }
+2006-03-28 10:48:14,849 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,849 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 61)')
+2006-03-28 10:48:14,849 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 61)
+2006-03-28 10:48:14,849 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_38')<#38,audio@<62,45>> { ... }
+2006-03-28 10:48:14,855 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting2"/> (line 62)')
+2006-03-28 10:48:14,856 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting2"/> (line 62)
+2006-03-28 10:48:14,856 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,856 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting2')
+2006-03-28 10:48:14,856 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting2' resulted in 'org.mozilla.javascript.NativeJavaObject@2c7ac5'
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 2
+2006-03-28 10:48:14,857 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_39')<#39,prompt@<64,21>> { ... }
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 64)')
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 64)
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_40')<#40,audio@<65,45>> { ... }
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting3"/> (line 65)')
+2006-03-28 10:48:14,858 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting3"/> (line 65)
+2006-03-28 10:48:14,859 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,859 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting3')
+2006-03-28 10:48:14,859 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting3' resulted in 'org.mozilla.javascript.NativeJavaObject@303a60'
+2006-03-28 10:48:14,859 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,859 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,859 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,865 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,865 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,865 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 3
+2006-03-28 10:48:14,866 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,866 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_41')<#41,prompt@<67,21>> { ... }
+2006-03-28 10:48:14,866 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,866 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 67)')
+2006-03-28 10:48:14,866 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 67)
+2006-03-28 10:48:14,867 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_42')<#42,audio@<68,45>> { ... }
+2006-03-28 10:48:14,867 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting4"/> (line 68)')
+2006-03-28 10:48:14,867 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting4"/> (line 68)
+2006-03-28 10:48:14,867 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,867 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting4')
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting4' resulted in 'org.mozilla.javascript.NativeJavaObject@487ae0'
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 4
+2006-03-28 10:48:14,868 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,869 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_43')<#43,prompt@<70,21>> { ... }
+2006-03-28 10:48:14,869 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,869 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 70)')
+2006-03-28 10:48:14,869 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 70)
+2006-03-28 10:48:14,869 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_44')<#44,audio@<71,45>> { ... }
+2006-03-28 10:48:14,869 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting5"/> (line 71)')
+2006-03-28 10:48:14,876 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting5"/> (line 71)
+2006-03-28 10:48:14,876 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,877 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting5')
+2006-03-28 10:48:14,877 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting5' resulted in 'org.mozilla.javascript.NativeJavaObject@7b21ea'
+2006-03-28 10:48:14,877 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,877 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,877 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 5
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_45')<#45,prompt@<73,21>> { ... }
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,878 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 73)')
+2006-03-28 10:48:14,879 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 73)
+2006-03-28 10:48:14,879 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_46')<#46,audio@<74,45>> { ... }
+2006-03-28 10:48:14,879 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting6"/> (line 74)')
+2006-03-28 10:48:14,879 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting6"/> (line 74)
+2006-03-28 10:48:14,879 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,879 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting6')
+2006-03-28 10:48:14,885 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting6' resulted in 'org.mozilla.javascript.NativeJavaObject@1efa490'
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 6
+2006-03-28 10:48:14,886 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,887 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_47')<#47,prompt@<76,22>> { ... }
+2006-03-28 10:48:14,887 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,887 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 76)')
+2006-03-28 10:48:14,887 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 76)
+2006-03-28 10:48:14,887 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_48')<#48,audio@<77,45>> { ... }
+2006-03-28 10:48:14,888 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting7"/> (line 77)')
+2006-03-28 10:48:14,888 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting7"/> (line 77)
+2006-03-28 10:48:14,888 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,888 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting7')
+2006-03-28 10:48:14,888 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting7' resulted in 'org.mozilla.javascript.NativeJavaObject@1d2b8e'
+2006-03-28 10:48:14,888 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 7
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_49')<#49,prompt@<79,22>> { ... }
+2006-03-28 10:48:14,889 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,895 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 79)')
+2006-03-28 10:48:14,895 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 79)
+2006-03-28 10:48:14,896 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_50')<#50,audio@<80,45>> { ... }
+2006-03-28 10:48:14,896 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting8"/> (line 80)')
+2006-03-28 10:48:14,896 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting8"/> (line 80)
+2006-03-28 10:48:14,896 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,896 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting8')
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting8' resulted in 'org.mozilla.javascript.NativeJavaObject@1169fb2'
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 8
+2006-03-28 10:48:14,897 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePrompt()
+2006-03-28 10:48:14,898 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Predicate(id='__internal_51')<#51,prompt@<82,21>> { ... }
+2006-03-28 10:48:14,898 com.mobeon.masp.execution_engine.voicexml.compiler.PromptImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - In PromptImpl. (Queueing prompt)
+2006-03-28 10:48:14,898 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 82)')
+2006-03-28 10:48:14,898 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <prompt xmlns="http://www.w3.org/2001/vxml"> (line 82)
+2006-03-28 10:48:14,898 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_52')<#52,audio@<83,45>> { ... }
+2006-03-28 10:48:14,899 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Log('Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting9"/> (line 83)')
+2006-03-28 10:48:14,899 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <audio xmlns="http://www.w3.org/2001/vxml" expr="greeting9"/> (line 83)
+2006-03-28 10:48:14,899 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Mark_P()
+2006-03-28 10:48:14,899 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> EvaluateECMA_P('greeting9')
+2006-03-28 10:48:14,899 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P  INFO [TID:pool-1-thread-2] [SID:1]  - Evaluation of 'greeting9' resulted in 'org.mozilla.javascript.NativeJavaObject@c54654'
+2006-03-28 10:48:14,899 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CreatePlayableObject_TM_P()
+2006-03-28 10:48:14,905 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CreatePlayableObject_TM_P DEBUG [TID:pool-1-thread-2] [SID:1]  - Source is of type class com.mobeon.masp.mediaobject.MediaObject
+2006-03-28 10:48:14,905 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> LeaveProperyScope()
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.voicexml.compiler.operations.LeaveProperyScope DEBUG [TID:pool-1-thread-2] [SID:1]  - Left property scope. Now at 3
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> QueuePlayavbleObjects_TM()
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding playable object to queue. Size of queue is now 9
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> CloseScope()
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Depth is 3
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> CollectDTMFUtterance()
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.voicexml.runtime.form_interpretation.FIAState DEBUG [TID:pool-1-thread-2] [SID:1]  - Entering collectDTMFUtterance
+2006-03-28 10:48:14,906 com.mobeon.masp.execution_engine.voicexml.runtime.form_interpretation.FIAState DEBUG [TID:pool-1-thread-2] [SID:1]  - Leaving collectDTMFUtterance. Found no DTMF tokens
+2006-03-28 10:48:14,907 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> ProcessPhaseFilledActionsFIA(main_form)
+2006-03-28 10:48:14,907 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetItemFinished()
+2006-03-28 10:48:14,908 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> RerunFIAIfUnfinishedItems(main_form)
+2006-03-28 10:48:14,908 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> PlayQueuedPrompts()
+2006-03-28 10:48:14,908 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing 9 playable objecs
+2006-03-28 10:48:14,919 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> AddEventHandler(internal.dtmfutterance, Predicate(id='__internal_62')<#62,@<>> { ... })
+2006-03-28 10:48:14,919 com.mobeon.masp.execution_engine.voicexml.compiler.operations.AddEventHandler DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for internal.dtmfutterance (Predicate(id='__internal_62')<#62,@<>> { ... })
+2006-03-28 10:48:14,919 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:14,919 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Product(id='__internal_73')<#73,@<>> { ... }
+2006-03-28 10:48:14,919 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:14,925 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:14,926 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:14,926 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:14,926 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:14,936 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting markname : null
+2006-03-28 10:48:14,936 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:14,937 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:14,937 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:14,937 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:14,937 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:14,937 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:14,937 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-2] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:14,946 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:14,946 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:14,949 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:14,949 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:14,949 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:14,949 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:14,949 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:14,950 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:14,950 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:14,950 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:14,965 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:14,965 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:15,665 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-13] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:15,665 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-13] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:15,665 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-13] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:15,665 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-13] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:15,665 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-13] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:15,716 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-13] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:15,717 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-13] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:15,685 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:15,717 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:15,717 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:15,718 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:15,718 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:15,718 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:15,718 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:15,718 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting markname : null
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:15,719 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:15,725 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:15,725 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:15,725 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:15,726 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-2] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:15,726 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:15,726 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:15,726 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:15,727 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:15,728 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:16,341 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-14] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:16,341 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-14] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:16,341 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-14] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:16,341 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-14] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:16,341 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-14] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:16,341 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-14] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:16,341 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-14] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:16,346 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:16,347 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:16,347 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:16,347 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:16,347 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:16,347 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:16,347 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting markname : null
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:16,348 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:16,349 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:16,349 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:16,349 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:16,349 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-2] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:16,349 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:16,349 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:16,349 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:16,349 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:16,349 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:16,349 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:16,349 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:16,349 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:16,350 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:16,350 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:16,357 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:16,357 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:17,041 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-15] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:17,041 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-15] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:17,041 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-15] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:17,041 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-15] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:17,041 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-15] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:17,042 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-15] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:17,042 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-15] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:17,047 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:17,047 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:17,047 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:17,047 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:17,048 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting markname : null
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-2] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:17,049 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:17,050 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:17,050 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:17,050 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:17,761 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-16] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:17,761 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-16] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:17,761 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-16] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:17,761 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-16] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:17,761 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-16] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:17,761 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-16] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:17,761 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-16] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:17,766 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:17,766 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-3] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:17,767 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting markname : null
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:17,768 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:17,769 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:17,769 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:17,769 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-3] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:17,769 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:17,769 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:17,769 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:17,769 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-2] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:17,769 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:17,769 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:17,769 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:17,769 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:17,769 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:17,770 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:17,770 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:17,770 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:18,601 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-17] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:18,601 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-17] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:18,601 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-17] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:18,601 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-17] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:18,601 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-17] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:18,601 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-17] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:18,601 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-17] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:18,606 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:18,607 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:18,607 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:18,607 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:18,607 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:18,607 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting markname : null
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:18,608 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-2] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:18,609 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:18,609 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:18,609 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:18,609 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:18,615 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:18,615 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:18,615 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:18,615 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:18,616 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:18,616 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:18,616 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:19,471 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-18] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:19,471 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-18] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:19,471 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-18] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:19,471 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-18] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:19,471 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-18] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:19,471 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-18] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:19,471 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-18] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:19,477 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:19,477 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:19,477 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:19,477 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-3] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:19,477 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:19,478 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:19,536 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:19,536 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:19,536 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:19,536 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting markname : null
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:19,537 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-3] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:19,538 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:19,538 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-2] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:19,538 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:19,539 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:19,539 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:20,231 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-19] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:20,231 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-19] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:20,231 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-19] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:20,231 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-19] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:20,231 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-19] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:20,231 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-19] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:20,231 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-19] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:20,237 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:20,237 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:20,237 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:20,237 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-3] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:20,238 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting markname : null
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-3] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:20,239 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-3] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:20,240 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:20,240 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:20,240 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:20,240 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-2] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:20,240 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:20,241 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:20,831 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-20] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:20,831 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-20] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:20,831 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-20] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:20,831 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-20] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:20,831 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-20] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:20,831 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-20] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:20,831 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-20] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:20,836 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:20,837 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:20,837 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:20,837 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:20,837 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:20,837 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-2] [SID:1]  - Assigning the property com.mobon.platform.audio_offset the value 0s
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting markname : null
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.finished (Predicate(id='__internal_74')<#74,@<>> { ... })
+2006-03-28 10:48:20,838 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:20,839 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding event handler for play.failed (Predicate(id='__internal_75')<#75,@<>> { ... })
+2006-03-28 10:48:20,839 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Adding handler at depth 3
+2006-03-28 10:48:20,839 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer DEBUG [TID:pool-1-thread-2] [SID:1]  - Playing media objects (1 items)
+2006-03-28 10:48:20,839 com.mobeon.masp.execution_engine.runtime.wrapper.Call DEBUG [TID:pool-1-thread-2] [SID:1]  - Starting play using callId 1
+2006-03-28 10:48:20,839 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - Setting engine state to EVENT_WAIT
+2006-03-28 10:48:20,839 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (VXML) Dying
+2006-03-28 10:48:20,839 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: PlayEvent
+2006-03-28 10:48:20,839 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Request to play media was received in Connected state.
+2006-03-28 10:48:20,839 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - MediaObjectPlaySequence::playNext: Playing next in sequence.
+2006-03-28 10:48:20,839 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Searching for content type audio/wav
+2006-03-28 10:48:20,840 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: video/quicktime
+2006-03-28 10:48:20,840 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Matching against type from configuration: audio/wav
+2006-03-28 10:48:20,840 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - About to play media object with content type audio/wav
+2006-03-28 10:48:20,840 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/telephone-event
+2006-03-28 10:48:20,840 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Supported content type (sent to create): audio/pcmu
+2006-03-28 10:48:20,840 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Length in milliseconds=5000
+2006-03-28 10:48:21,631 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-21] [SID:]  - (VXML) Event play.finished put on queue, calling runAsNeeded !
+2006-03-28 10:48:21,631 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-21] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:21,685 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-21] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-28 10:48:21,685 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:Thread-21] [SID:]  - (VXML) Notification released !
+2006-03-28 10:48:21,685 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:Thread-21] [SID:]  - Event is received and ignored: com.mobeon.masp.stream.PlayFinishedEvent@26b39c62
+2006-03-28 10:48:21,685 com.mobeon.masp.stream.StackEventNotifier DEBUG [TID:Thread-21] [SID:]  - PLAY FINISHED!
+2006-03-28 10:48:21,685 com.mobeon.masp.stream.OutboundMediaStreamImpl DEBUG [TID:Thread-21] [SID:]  - MediaObjectPlaySequence::playNext: Done.
+2006-03-28 10:48:21,685 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Alive !
+2006-03-28 10:48:21,686 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Prepared to execute: file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:21,686 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:21,686 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-3] [SID:1]  - Prepared : Entry{event=SimpleEventImpl{ event=play.finished, uri=<unknown>, from=null, priority=0 }, handler=EventHandler{predicate=Predicate(id='__internal_74')<#74,@<>> { ... }}}
+2006-03-28 10:48:21,686 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> Atomic(){  SetPlayStatus(), SetAndPlayPlayingObject(), ChangeExecutionResult(DEFAULT),  }
+2006-03-28 10:48:21,686 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetPlayStatus()
+2006-03-28 10:48:21,686 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> SetAndPlayPlayingObject()
+2006-03-28 10:48:21,687 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) ATOMIC >> ChangeExecutionResult(DEFAULT)
+2006-03-28 10:48:21,687 com.mobeon.masp.execution_engine.voicexml.compiler.operations.ChangeExecutionResult DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting state to DEFAULT
+2006-03-28 10:48:21,687 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Setting engine state to DEFAULT
+2006-03-28 10:48:21,687 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> SetAndPlayObject()
+2006-03-28 10:48:21,687 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting markname : null
+2006-03-28 10:48:21,687 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Getting marktime : 0
+2006-03-28 10:48:21,691 com.mobeon.masp.execution_engine.runtime.PlayableObjectPlayer  INFO [TID:pool-1-thread-3] [SID:1]  - Starting noinput timeout: Waiting for 5 SECONDS
+2006-03-28 10:48:21,692 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> SetPromptProperties()
+2006-03-28 10:48:21,692 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property xml:base the value 0s
+2006-03-28 10:48:21,692 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property timeout the value 5s
+2006-03-28 10:48:21,692 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargeintype the value speech
+2006-03-28 10:48:21,692 com.mobeon.masp.execution_engine.voicexml.runtime.PropertyStack DEBUG [TID:pool-1-thread-3] [SID:1]  - Assigning the property bargein the value true
+2006-03-28 10:48:21,692 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> SendDialogEvent(dialog.exit, End of FORM)
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-3] [SID:1]  - Received CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 }
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (CCXML) Event dialog.exit put on queue, calling runAsNeeded !
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (CCXML) Runner is dead or dying and will have to be reanimated
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (CCXML) Reanimate called, creating thread
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:1]  - (CCXML) Notification released !
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.voicexml.compiler.operations.SendDialogEvent DEBUG [TID:pool-1-thread-3] [SID:1]  - Event CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 } sent
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:1]  - (VXML) NORMAL >> EngineShutdown(true)
+2006-03-28 10:48:21,693 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Shutting down file:/apps/mas/applications/20105061.vxml
+2006-03-28 10:48:21,694 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-3] [SID:1]  - Removed old swap com.mobeon.masp.execution_engine.runtime.event.EventStream$Swap@1
+2006-03-28 10:48:21,695 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Alive !
+2006-03-28 10:48:21,695 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Prepared to execute: file:/apps/mas/applications/default.ccxml
+2006-03-28 10:48:21,696 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Offered : Entry{event=CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 }, handler=EventHandler{predicate=TruePredicate(id='__internal_13')<#13,transition@<22,52>> { ... }}}
+2006-03-28 10:48:21,696 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) ATOMIC >> SetEventsEnabled(false)
+2006-03-28 10:48:21,696 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Events disabled
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) ATOMIC >> NewScope([transition])
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:1]  - Depth is 3
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:1]  - Prepared : Entry{event=CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 }, handler=EventHandler{predicate=TruePredicate(id='__internal_13')<#13,transition@<22,52>> { ... }}}
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) NORMAL >> Log('Executing <transition xmlns="http://www.w3.org/2002/09/ccxml" event="dialog.exit" name="dlg"> (line 22)')
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <transition xmlns="http://www.w3.org/2002/09/ccxml" event="dialog.exit" name="dlg"> (line 22)
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,697 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) NORMAL >> SetEventVar('dlg')
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) NORMAL >> Log('Executing <exit xmlns="http://www.w3.org/2002/09/ccxml"/> (line 23)')
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.compiler.operations.Log  INFO [TID:pool-1-thread-2] [SID:1]  - Executing <exit xmlns="http://www.w3.org/2002/09/ccxml"/> (line 23)
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) NORMAL >> Atomic(){  EngineShutdown(true), SendCCXMLEvent('ccxml.exit', 'CCXML Exiting'),  }
+2006-03-28 10:48:21,698 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) ATOMIC >> EngineShutdown(true)
+2006-03-28 10:48:21,699 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-2] [SID:1]  - Removed old swap com.mobeon.masp.execution_engine.runtime.event.EventStream$Swap@1
+2006-03-28 10:48:21,701 com.mobeon.masp.execution_engine.platformaccess.SubscriberProfileManager DEBUG [TID:pool-1-thread-2] [SID:1]  - Closing IProfile with telephonenumber 99910002
+2006-03-28 10:48:21,701 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) ATOMIC >> SendCCXMLEvent('ccxml.exit', 'CCXML Exiting')
+2006-03-28 10:48:21,701 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:1]  - (CCXML) Poll: Events is disabled
+2006-03-28 10:48:21,715 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - DoCommand: DisconnectEvent
+2006-03-28 10:48:21,715 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - Disconnect received in Connected state. The call is disconnected.
+2006-03-28 10:48:21,716 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Fire event: DisconnectedEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@58213c>, <Reason=NEAR_END>, <AlreadyDisconnected=false>
+2006-03-28 10:48:21,716 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Event is received and ignored: DisconnectedEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@58213c>, <Reason=NEAR_END>, <AlreadyDisconnected=false>
+2006-03-28 10:48:21,750 com.mobeon.masp.callmanager.callhandling.OutboundHostPortUsage DEBUG [TID:pool-1-thread-3] [SID:1]  - Trying to remove host <10.16.2.129> and port <5104> from outbound communication.
+2006-03-28 10:48:21,750 com.mobeon.masp.callmanager.callhandling.OutboundHostPortUsage DEBUG [TID:pool-1-thread-3] [SID:1]  - Trying to remove host <null> and port <-1> from outbound communication.
+2006-03-28 10:48:21,751 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - State is set to Disconnected state (sub state LingeringBye).
+2006-03-28 10:48:21,763 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-3] [SID:1]  - SIP BYE request is sent.
+2006-03-28 10:48:22,030 com.mobeon.masp.callmanager.CallManagerImpl DEBUG [TID:EventScannerThread] [SID:]  - SIP response received.
+2006-03-28 10:48:22,034 com.mobeon.masp.callmanager.CallManagerImpl DEBUG [TID:EventScannerThread] [SID:]  - It is a SIP 200 response.
+2006-03-28 10:48:22,034 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Processing SIP response event: Sip Response Event: code=200
+2006-03-28 10:48:22,035 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-3] [SID:1]  - Looking for call with dialogId=4324175f-1a33-4287-3c89-55b9bbddf7f5@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:1441972362:username@10.16.2.129:5060:1143532099
+2006-03-28 10:48:22,035 com.mobeon.masp.callmanager.SipResponseDispatcher DEBUG [TID:pool-1-thread-3] [SID:1]  - Response is queued in call: com.mobeon.masp.callmanager.callhandling.InboundCallImpl@58213c
+2006-03-28 10:48:22,035 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - DoCommand: Sip Response Event: code=200
+2006-03-28 10:48:22,035 com.mobeon.masp.callmanager.callhandling.states.inbound.DisconnectedLingeringByeInboundState DEBUG [TID:pool-1-thread-2] [SID:1]  - SIP 200 response received for a BYE request in Disconnected state (sub state LingeringBye).
+2006-03-28 10:48:22,035 com.mobeon.masp.callmanager.sip.header.SipHeaderAccessImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - The following response was received (200) for BYE request.
+2006-03-28 10:48:22,035 com.mobeon.masp.callmanager.sip.header.SipHeaderAccessImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - The following response was received (200) for BYE request.
+2006-03-28 10:48:22,036 com.mobeon.masp.callmanager.callhandling.states.inbound.DisconnectedLingeringByeInboundState DEBUG [TID:pool-1-thread-2] [SID:1]  - Processing BYE response
+2006-03-28 10:48:22,036 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-2] [SID:1]  - Removing established call with dialogId=4324175f-1a33-4287-3c89-55b9bbddf7f5@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:1441972362:username@10.16.2.129:5060:1143532099
+2006-03-28 10:48:22,036 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-2] [SID:1]  - Removing early call with dialogId=4324175f-1a33-4287-3c89-55b9bbddf7f5@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:username@10.16.2.129:5060:1143532099
+2006-03-28 10:48:22,036 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:1]  - State is set to Disconnected state (sub state Completed).
+2006-03-28 10:48:22,036 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Processing a request to remove a call.
+2006-03-28 10:48:22,036 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-3] [SID:1]  - Removing a call. (State=Unlocked)
+2006-03-28 10:48:22,037 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:pool-1-thread-3] [SID:1]  - Removing call in state: NormalLoad
+2006-03-28 10:48:22,037 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:pool-1-thread-3] [SID:1]  - Removing call results in load regulation action: UNCHANGED_TRAFFIC

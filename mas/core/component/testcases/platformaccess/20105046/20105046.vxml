@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+		<var name="phoneNumber"/>
+		<var name="origPhoneNumber"/>
+		<var name="unknown_sender"/>
+		<var name="unknown_receiver"/>
+		<var name="redirNumber"/>
+		<var name="failed"/>
+		 
+		<block>
+		    
+			<!-- This part should result in audio prompt "sep.wav" -->
+			<script>
+			    var qualifiers = new Array();
+			    var qualifier = util.getMediaQualifier("CompleteDate", "1999-12-31 23:59:59 +0100");
+			    qualifiers.push(qualifier);
+			    
+			    var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "august_or_september_completedate", qualifiers );
+			</script>
+			<if cond="typeof(mediaObjects[0]) == 'undefined'">
+				<log>TC 20105046 Failed</log>
+				<exit/>
+			</if>	
+			<log>Returned MediaObject=<value expr="mediaObjects[0].toString()"/></log>
+		    <prompt>
+                   <audio expr="mediaObjects[0]"/>
+       		</prompt>
+       		
+       		<!-- This part should result in audio prompt "aug.wav" -->
+			<script>
+				mas.systemSetMediaResources("en", "male", null);
+				
+				var qualifiers = new Array();
+			    var qualifier = util.getMediaQualifier("CompleteDate", "2000-01-01 00:00:01 +0100");
+			    qualifiers.push(qualifier);
+			    
+			    var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "august_or_september_completedate", qualifiers );
+			</script>
+			<if cond="typeof(mediaObjects[0]) == 'undefined'">
+				<log>TC 20105046 Failed</log>
+				<exit/>
+			</if>	
+			<log>Returned MediaObject=<value expr="mediaObjects[0].toString()"/></log>
+		    <prompt>
+                   <audio expr="mediaObjects[0]"/>
+       		</prompt>
+       		<!-- This part should result in <nothing> -->
+			<script>
+				mas.systemSetMediaResources("en", "male", null);
+				
+				var qualifiers = new Array();
+			    var qualifier = util.getMediaQualifier("CompleteDate", "2000-01-01 00:00:00 +0100");
+			    qualifiers.push(qualifier);
+			    
+			    var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "august_or_september_completedate", qualifiers );
+				if (typeof(mediaObjects[0]) != 'undefined') {
+					failed = true;		
+				}  else {
+					failed = false;
+				}
+			</script>
+			 
+		    <if cond="failed">
+				<log>TC 20105046 Failed</log>
+				<exit/>
+			<else/>
+				<log>TC 20105046 Passed</log>
+				<exit/>	
+		    </if>
+		</block>
+	</form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105046  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

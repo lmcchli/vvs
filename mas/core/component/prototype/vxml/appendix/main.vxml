@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<vxml version="2.0" application="root.vxml" xmlns="http://www.w3.org/2001/vxml">
+	<form id="main_dialog">
+		<field name="input" >
+			<prompt>
+				This is the main dialog
+			</prompt>
+			<grammar mode="dtmf">
+				<rule id="main_rule">
+					<item>1</item>	
+				</rule>
+			</grammar>
+			<filled>
+				<log>input match </log>
+			</filled>
+		</field>
+	</form>
+</vxml>

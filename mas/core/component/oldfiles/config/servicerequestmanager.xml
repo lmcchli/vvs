@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="servicerequestmanager.xsd">
+    
+    <servicerequestmanager requesttimeout="30000"
+                           requestretries="3"
+                           clientid="mas1@undefinedhost">
+        
+        <diagnoseservice clientid="diagnoseservice@localhost"/>
+        
+    </servicerequestmanager>
+
+</configuration>

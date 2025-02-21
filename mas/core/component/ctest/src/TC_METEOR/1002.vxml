@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+ <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form id="uno">
+       <block>
+<log>This is the A-number: <value expr="session.connection.remote.uri"></value></log>
+<log>This is the B-number: <value expr="session.connection.local.uri"></value></log>
+<log>This is the C-number: <value expr="session.connection.redirect[0].number"></value></log>
+<log>This is the C-reason: <value expr="session.connection.redirect[0].reason"></value></log>
+<log>This is the C-pi: <value expr="session.connection.redirect[0].pi"></value></log>
+       </block>
+   </form>
+</vxml>

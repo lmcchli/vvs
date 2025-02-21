@@ -1,0 +1,19 @@
+<mediacontentpackage id="en_audio_2"
+                     language="en"
+                     type="prompt"
+                     priority="2">
+
+     
+    <voice variant="female" />
+
+    <codecs>
+        <codec mimetype="audio/pcmu" />
+    </codecs>
+
+    <grammarfile path="./grammar.xml" />
+    <contentfile path="./MediaContent.xml" />
+    <contentfile path="./SystemMediaContent.xml" />
+    <objectfile path="./MediaObjects.xml" />
+    <objectfile path="./SystemMediaObjects.xml" />
+
+</mediacontentpackage>

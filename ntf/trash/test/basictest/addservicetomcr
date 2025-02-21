@@ -1,0 +1,66 @@
+#! /usr/xpg4/bin/sh
+Usage ()
+{
+    echo
+    echo "$0 registers a component for a service in MCR."
+    echo "A component name is created automatically."
+    echo
+    echo "Usage:"
+    echo "    $0 [ -m mcrhost ][ -s addService ] servicename comphost compport"
+    echo 
+    echo "e.g. $0 -s yes ShortMessage sun118.su.erm.abcxyz.se 5016"
+    exit 1
+}
+
+MCR_HOST=polaris.ipms.su.erm.abcxyz.se        
+MCR_USER=IComponent
+MCR_PASS=abc123
+MCR_ADDSERVICE=no
+
+#Read command-line options
+while getopts m:s: o
+  do
+  case $o in
+      m) MCR_HOST=$OPTARG;;
+      h|\?) Usage;;
+      s) MCR_ADDSERVICE=yes;;
+  esac
+done
+shift `expr $OPTIND - 1`
+
+#ldapmodify -h $MCR_HOST -p 389 -D "uid=$MCR_USER,emRegisterName=MessagingComponentRegister,o=config" -w $MCR_PASS <<EOF        
+#dn: emRegisterName=MessagingComponentRegister,o=config
+#changetype: add
+#emregistername: MessagingComponentRegister
+#objectclass: emregister
+#creatorsname: uid=$MCR_USER,ou=Administrators,ou=TopologyManagement,o=NetscapeRoot
+#modifiersname: uid=$MCR_USER,ou=Administrators,ou=TopologyManagement,o=NetscapeRoot
+
+if [ $MCR_ADDSERVICE == "yes" ]
+then
+ldapmodify -h $MCR_HOST -p 389 -D "uid=$MCR_USER,emRegisterName=MessagingComponentRegister,o=config" -w $MCR_PASS <<EOF
+dn: emServiceName=$1, emRegisterName=MessagingComponentRegister, o=config
+changetype: add
+emServiceName: $1
+objectClass: emservice
+objectClass: top
+creatorsname: uid=$MCR_USER,ou=Administrators,ou=TopologyManagement,o=NetscapeRoot
+modifiersname: uid=$MCR_USER,ou=Administrators,ou=TopologyManagement,o=NetscapeRoot
+EOF
+fi
+
+#cat  <<EOF
+ldapmodify -h $MCR_HOST -p 389 -D "uid=$MCR_USER,emRegisterName=MessagingComponentRegister,o=config" -w $MCR_PASS <<EOF
+dn: emcomponentname=name_$$, emServiceName=$1, emRegisterName=MessagingComponentRegister, o=config
+changetype: add
+ipServiceProtocol: TCP-IP
+emlogicalzone: qlenras
+emcomponenttype: type_$$
+emhostnumber: 150.132.5.182
+emcomponentversion: X8A_08
+objectClass: emcomponent
+objectClass: top
+ipServicePort: $3
+emcomponentname: name_$$
+emhostname: $2
+EOF

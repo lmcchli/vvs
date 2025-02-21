@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="sub1">
+      <script>Utility_SetGlobalObject ('MainMenuValid', true)</script>
+      <block>
+         <if cond="((Greeting_IsActive (GlobalObject.Subscriber, 'Extended_Absence', '') == true))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(108)" />
+            </prompt>
+            <goto next="#cond2" />
+            <else />
+            <goto next="#cond2" />
+         </if>
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="Subscriber_HasService (GlobalObject.Subscriber, 'temporarygreeting') == true &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'Temporary') &amp;&amp; Greeting_HasTemporaryActivationTimePassed(GlobalObject.Subscriber)">
+            <if cond="((Greeting_HasTemporaryDeactivationTimePassed (GlobalObject.Subscriber) == true))">
+               <goto next="#sub2" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(109)" />
+               </prompt>
+               <goto next="#proc1" />
+            </if>
+            <else />
+            <goto next="#proc1" />
+         </if>
+      </block>
+   </form>
+   <form id="sub2">
+      <script>Subscriber_SetSingleStringAttribute (GlobalObject.Subscriber, 'emtmpgrt', '')</script>
+      <block>
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="QuotaCheckRetrieval.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <if cond="procedureResult == 'full'">
+               <goto next="Goodbye.vxml" />
+               <else />
+               <goto next="MessageInventory.vxml" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+</vxml>

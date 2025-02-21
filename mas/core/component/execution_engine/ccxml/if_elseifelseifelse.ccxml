@@ -1,0 +1,15 @@
+<ccxml version="1.0">
+   <var name="olle" expr="7"/>
+   <var name="kalle" expr="7"/>
+   <if cond="olle == 10"> 
+     <assign name="kalle" expr="11"/>
+   <elseif cond="kalle == 8"/>
+     <assign name="olle" expr="13"/>
+   <elseif cond="olle == 7">
+     <assign name="kalle" expr="20"/>
+     <assign name="olle" expr="30"/>
+   </elseif>
+   <else/>
+     <assign name="olle" expr="12"/>
+   </if>
+</ccxml>

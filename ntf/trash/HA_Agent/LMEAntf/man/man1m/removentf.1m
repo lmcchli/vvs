@@ -1,0 +1,118 @@
+.TH removentf 1M "August 3, 2001" "Sun Cluster 3.0"
+.SH NAME
+removentf \- remove the ntf server configuration
+.SH SYNOPSIS
+For network-aware (client-server model) applications:
+
+.B removentf
+[
+.B \-h
+.I hostname
+] [
+.B \-v
+]
+
+For non network-aware (client-less) applications:
+
+.B removentf
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B removentf
+is a customized command that removes 
+ntf server configurations from a cluster. Note that
+.B removentf 
+can only  remove ntf server configurations created with
+the
+.BR startntf (1M)
+command because
+.B removentf
+and
+.B startntf
+use particular internal conventions for naming resources and resource 
+groups.
+.B removentf
+executes a series of 
+.BR scrgadm (1M)
+and 
+.BR scswitch (1M) 
+commands that do the following:
+.RS 5
+.TP 2
+\(bu
+Disable the ntf resource (if not already disabled by the
+.BR stopntf (1M)
+command).
+.TP
+\(bu
+Move the resource group containing the ntf resource offline
+(if not already taken offline by the
+.B stopntf
+command).
+.TP
+\(bu
+Remove the ntf resource from the resource group.
+.TP
+\(bu
+Remove the resource group that contained the ntf resource from the cluster.
+.TP
+\(bu
+Remove the LMEA.ntf resource type from the cluster.
+.RS -5
+.LP
+.B removentf
+is idempotent, that is, you can call it
+more than once without an intervening call to
+.B startntf
+or
+.BR stopntf .
+You can call 
+.B removentf
+after calling 
+.B stopntf 
+(which disables the ntf resource and moves its
+resource group offline). However,
+you can also call
+.B removentf
+directly after
+.B startntf
+without calling
+.BR stopntf ,
+in which case,
+.B removentf
+disables the ntf resource and moves its resource group offline.
+.SH OPTIONS
+.TP 12
+.BI \-h \0hostname
+If specified, this optional parameter indicates the name of the
+logical hostname or shared address
+resource
+that is used by the ntf application to communicate with its
+clients over the network.
+.B removentf
+removes this network resource and the
+resource group in which it resides, along with the ntf application resource. 
+.TP
+.B \-v
+Turn on verbose output to print
+all the
+.BR scrgadm (1M)
+and
+.BR scswitch (1M)
+commands 
+.B removentf
+executes.
+.SH EXIT STATUS
+.TP 10
+.B 0
+Command completed successfully.
+.TP
+.B >0
+Command did not complete.
+.SH "SEE ALSO"
+.BR scdsbuilder (1HA),
+.BR scrgadm (1M),
+.BR scswitch (1M),
+.BR startntf (1M),
+.BR stopntf (1M)

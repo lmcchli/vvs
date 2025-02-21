@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="callmanager.xsd">
+    <callmanager
+			callnotacceptedtimer="32000"
+            registerbackofftimer="120000"
+            registerbeforeexpirationtime="5000"
+            blacklisttimer="60000"
+            inboundaudiomedia="pcmu"
+            inboundvideomedia="h263"
+            ptime="40"
+            registeredname=""
+            defaultcalltype="video"
+            outboundcallcallingparty="1234567890"
+            outboundcallconnecttimeout="30000"
+            disconnectonsiptimeout="true">
+
+            <requiredoutboundaudiomedia>
+				<mediatype encoding="pcmu"></mediatype>
+				<mediatype encoding="telephone-event"></mediatype>
+			</requiredoutboundaudiomedia> 
+
+            <requiredoutboundvideomedia>
+				<mediatype encoding="h263"></mediatype>
+			</requiredoutboundvideomedia> 
+
+			<responsecodemappings defaultnetworkstatuscode="621">
+				<mapping name="busy" networkstatuscode="603" sipresponsecodeintervals="486"/>
+				<mapping name="noreply" networkstatuscode="610" sipresponsecodeintervals="408,480"/>
+				<mapping name="notreachable" networkstatuscode="613" sipresponsecodeintervals="301,403-404,410,484,501-502,603" />
+				<mapping name="suppressed" networkstatuscode="614" sipresponsecodeintervals="600"/>
+				<mapping name="congestion" networkstatuscode="620" sipresponsecodeintervals="503"/>
+			</responsecodemappings>	
+
+			<remoteparty>
+				<ssplist>
+					<address host="" port="5060"/>
+				</ssplist>
+			</remoteparty>	
+
+			<siptimers t2="8" t4="10" timerb="6" timerc="360" timerd="64" timerf="18" timerh="64" timerj="64"/>
+
+	</callmanager>
+</configuration>
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+
+            <!-- we do nothing here to trigger the passiveness timer -->
+        </transition>
+
+        <transition event="connection.connected" name="evt">
+            <log>ERROR</log>
+            <exit/>
+        </transition>
+
+        <transition event="error.connection" name="evt">
+            <log expr="'TCPASS CCXML:'+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

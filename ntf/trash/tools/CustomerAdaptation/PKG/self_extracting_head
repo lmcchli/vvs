@@ -1,0 +1,12 @@
+#!/bin/sh 
+#Self Extracting Head
+DIR=`dirname $0`
+FILE=`basename $0`
+cd $DIR
+FILENAME=install.tar
+EXECUTABLE=install_ca.sh
+tail +13 $0 > $FILENAME 
+tar xf $FILENAME
+./$EXECUTABLE
+rm $FILENAME adminfile install_ca.sh LMENtf*.pkg
+exit 0

@@ -1,0 +1,176 @@
+#!/bin/sh
+# checkinstall script to control a patch installation.
+# directory format options.
+#
+# @(#)checkinstall 1.6 96/09/27 SMI
+#
+# Copyright (c) 1995 by Sun Microsystems, Inc.
+# All rights reserved
+#
+
+Patch_label=$PATCH
+
+PATH=/usr/sadm/bin:$PATH
+INFO_DIR=`dirname $0`
+INFO_DIR=`dirname $INFO_DIR` # one level up
+NOVERS_MSG="PaTcH_MsG 8 Version $VERSION of $PKG is not installed on this system."
+ALRDY_MSG="PaTcH_MsG 2 Patch number $Patch_label is already applied."
+TEMP_MSG="PaTcH_MsG 23 Patch number $Patch_label cannot be applied until all \
+restricted patches are backed out."
+
+echo "Patch label:["$Patch_label"]"
+# Read the provided environment from what may have been a request script
+. $1
+# Old systems can't deal with checkinstall scripts anyway
+if [ "$PATCH_PROGRESSIVE" = "true" ]; then
+exit 0
+fi
+#
+# Confirm that the intended version is installed on the system.
+#
+if [ "${UPDATE}" != "yes" ]; then
+echo "$NOVERS_MSG"
+exit 3
+fi
+#
+# Confirm that this patch hasn't already been applied and
+# that no other mix-ups have occurred involving patch versions and
+# the like.
+#
+Skip=0
+active_base=`echo $Patch_label | nawk '
+{ print substr($0, 1, match($0, "Patchvers_pfx")-1) } '`
+active_inst=`echo $Patch_label | nawk '
+{ print substr($0, match($0, "Patchvers_pfx")+Patchvers_pfx_lnth) } '`
+# Is this a restricted patch?
+if echo $active_base | egrep -s "Patchstrict_str"; then
+is_restricted="true"
+# All restricted patches are backoutable
+echo "PATCH_NO_UNDO=" >> $1
+else
+is_restricted="false"
+fi
+for patchappl in ${PATCHLIST}; do
+# Is this an ordinary patch applying over a restricted patch?
+if [ $is_restricted = "false" ]; then
+if echo $patchappl | egrep -s "Patchstrict_str"; then
+
+echo "$TEMP_MSG"
+exit 3;
+fi
+fi
+# Is there a newer version of this patch?
+appl_base=`echo $patchappl | nawk '
+{ print substr($0, 1, match($0, "Patchvers_pfx")-1) } '`
+if [ $appl_base = $active_base ]; then
+appl_inst=`echo $patchappl | nawk '
+{ print substr($0, match($0, "Patchvers_pfx")\
++Patchvers_pfx_lnth) } '`
+result=`expr $appl_inst \> $active_inst`
+if [ $result -eq 1 ]; then
+echo "PaTcH_MsG 1 Patch number $Patch_label is \
+superceded by the already applied $patchappl."
+exit 3
+elif [ $appl_inst = $active_inst ]; then
+# Not newer, it's the same
+if [ "$PATCH_UNCONDITIONAL" = "true" ]; then
+if [ -d $PKGSAV/$Patch_label ]; then
+echo "PATCH_NO_UNDO=true" >> $1
+fi
+else
+echo "$ALRDY_MSG"
+exit 3;
+fi
+fi
+fi
+done
+# Construct a list of applied patches in order
+echo "PATCHLIST=${PATCHLIST} $Patch_label" >> $1
+#
+# Construct the complete list of patches this one obsoletes
+#
+ACTIVE_OBSOLETES=$MOBY_OBSOLETES
+if [ -n "$MOBY_OBSOLETES" ]; then
+# Merge the two lists
+echo $MOBY_OBSOLETES | sed 'y/\ /\n/' | \
+nawk -v PatchObsList="$PATCH_OBSOLETES" '
+BEGIN {
+printf("PATCH_OBSOLETES=");
+PatchCount=split(PatchObsList, PatchObsComp, " ");
+for(PatchIndex in PatchObsComp) {
+Atisat=match(PatchObsComp[PatchIndex], "@");
+PatchObs[PatchIndex]=substr(PatchObsComp[PatchIndex], \
+0, Atisat-1);
+PatchObsCnt[PatchIndex]=substr(PatchObsComp\
+[PatchIndex], Atisat+1);
+}
+}
+
+{
+Inserted=0;
+for(PatchIndex in PatchObs) {
+if (PatchObs[PatchIndex] == $0) {
+if (Inserted == 0) {
+PatchObsCnt[PatchIndex]=PatchObsCnt\
+[PatchIndex]+1;
+Inserted=1;
+} else {
+PatchObsCnt[PatchIndex]=0;
+}
+}
+}
+if (Inserted == 0) {
+printf ("%s@1 ", $0);
+}
+next;
+}
+END {
+for(PatchIndex in PatchObs) {
+if ( PatchObsCnt[PatchIndex] != 0) {
+printf("%s@%d ", PatchObs[PatchIndex], \
+PatchObsCnt[PatchIndex]);
+}
+}
+printf("\n");
+} ' >> $1
+# Clear the parameter since it has already been used.
+echo "MOBY_OBSOLETES=" >> $1
+# Pass it's value on to the preinstall under another name
+echo "ACTIVE_OBSOLETES=$ACTIVE_OBSOLETES" >> $1
+fi
+#
+# Construct PATCH_INFO line for this package.
+#
+tmpRequire=`nawk -F= ' $1 ~ /REQUIR/ { print $2 } ' $INFO_DIR/pkginfo `
+tmpIncompat=`nawk -F= ' $1 ~ /INCOMPAT/ { print $2 } ' $INFO_DIR/pkginfo `
+if [ -n "$tmpRequire" ] && [ -n "$tmpIncompat" ]
+then
+echo "PATCH_INFO_$Patch_label=Installed: `date` From: `uname -n` \
+Obsoletes: $ACTIVE_OBSOLETES Requires: $tmpRequire \
+Incompatibles: $tmpIncompat" >> $1
+elif [ -n "$tmpRequire" ]
+then
+echo "PATCH_INFO_$Patch_label=Installed: `date` From: `uname -n` \
+Obsoletes: $ACTIVE_OBSOLETES Requires: $tmpRequire \
+Incompatibles: " >> $1
+elif [ -n "$tmpIncompat" ]
+then
+echo "PATCH_INFO_$Patch_label=Installed: `date` From: `uname -n` \
+Obsoletes: $ACTIVE_OBSOLETES Requires: Incompatibles: \
+
+$tmpIncompat" >> $1
+else
+echo "PATCH_INFO_$Patch_label=Installed: `date` From: `uname -n` \
+Obsoletes: $ACTIVE_OBSOLETES Requires: Incompatibles: " >> $1
+fi
+#
+# Since this script is called from the delivery medium and we may be using
+# dot extensions to distinguish the different patch packages, this is the
+# only place we can, with certainty, trace that source for our backout
+# scripts. (Usually $INST_DATADIR would get us there).
+#
+echo "SCRIPTS_DIR=`dirname $0`" >> $1
+# If additional operations are required for this package, place
+# those package-specific commands here.
+#XXXSpecial_CommandsXXX#
+exit 0

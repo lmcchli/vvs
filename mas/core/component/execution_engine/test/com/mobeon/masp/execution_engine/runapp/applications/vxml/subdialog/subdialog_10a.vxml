@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="subdialog.returned">
+        <if cond="_message == 'The message'">
+            <log>TCPASS VXML: subdialog_a-001</log>
+            <else/>
+            <log>TCFAIL VXML: subdialog_a-004</log>
+        </if>
+        <exit/>
+    </catch>
+
+    <catch event=".">
+        <log>TCFAIL VXML: subdialog_a-003</log>
+    </catch>
+
+    <form id="volvo">
+        <subdialog name="v40" src="subdialog_10b.vxml">
+            <filled>
+                <log>TCPASS VXML: subdialog_a-001</log>
+            </filled>
+        </subdialog>
+        <filled>
+            <log>TCPASS VXML: subdialog_a-002</log>
+            <exit/>
+        </filled>
+
+    </form>
+
+</vxml>

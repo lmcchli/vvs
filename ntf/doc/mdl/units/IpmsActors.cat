@@ -1,0 +1,1690 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "IPMS Actors"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    attributes 	(list Attribute_Set
+	(object Attribute
+	    tool       	"sc"
+	    name       	"SourceControlSpec"
+	    value      	"IPMS-FW"))
+    quid       	"36DAF0C3029E"
+    documentation 	"This package contains classdiagrams for general IPMS actors. The actors inherits the interfaces they need to use according to the sequence diagrams. "
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class_Category "End User Actors"
+	    quid       	"35B7776C0162"
+	    documentation 	"Contains End User actors that interacts with the messaging system."
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class_Category "End User : People"
+		    quid       	"35B7781A025C"
+		    documentation 	"Containes End User : People actors that interacts with the messaging system."
+		    visible_categories 	(list visibility_relationship_list
+			(object Visibility_Relationship
+			    quid       	"37794E5E01D7"
+			    supplier   	"Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors::Interacting Systems \\: Terminals"
+			    quidu      	"35B778FD00E6"))
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "Non-Subscriber"
+			    quid       	"35AA4A68011E"
+			    documentation 	"A Non-Subscriber actor does not have an account in the messaging system. A Non-Subscriber can for example leave a message to a Subscriber (e.g. in his mailbox) or access general available services that do not require an account e.g. send mobile originated SMS messages. "
+			    stereotype 	"Actor")
+			(object Class "Subscriber"
+			    quid       	"35AA4F3801AB"
+			    documentation 	
+|A Subscriber actor has an account, with a class of service, in the messaging system.
+|A Subscriber can for example have a mailbox as well as access to special services that requires an account, e.g. a personal news service. 
+			    
+			    stereotype 	"Actor")
+			(object Class "Hacker"
+			    quid       	"35B8F6C00000"
+			    documentation 	"A Hacker actor is an actor that tries to get unauthorized access to the messaging system and/or other neighbors in the IP network. Either as a User or an Operator. "
+			    stereotype 	"Actor"))
+		    logical_presentations 	(list unit_reference_list))
+		(object Class_Category "End User: Customer"
+		    quid       	"3762CBC0026D"
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "Customer"
+			    quid       	"3762CB88032A"
+			    documentation 	
+|This is our best friend.
+|In IPMS, we always do our best to serve the need of our valued customers.
+			    
+			    stereotype 	"Actor")
+			(object Class "Abcxyz"
+			    quid       	"3773ACA900DB"
+			    documentation 	
+|The actor represents Abcxyz (as a seller of IPMS products).
+|
+|The actor is used to indicate when Abcxyz has to do something that goes outside normal R&D activities.
+			    
+			    stereotype 	"Actor"))
+		    logical_presentations 	(list unit_reference_list)))
+	    logical_presentations 	(list unit_reference_list
+		(object UseCaseDiagram "Main"
+		    quid       	"373CC3A20073"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::End User Actors::End User \\: People" @1
+			    location   	(608, 592)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@1
+				location   	(464, 508)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"End User : People")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B7781A025C"
+			    width      	300
+			    height     	180)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::End User Actors::End User\\: Customer" @2
+			    location   	(1184, 496)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@2
+				location   	(1040, 412)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"End User: Customer")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3762CBC0026D"
+			    width      	300
+			    height     	180)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors::Interacting Systems \\: Terminals" @3
+			    location   	(544, 992)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@3
+				location   	(239, 908)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	610
+				justify    	0
+				label      	"Interacting Systems : Terminals")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B778FD00E6"
+			    width      	622
+			    height     	180)
+			(object ImportView "" @4
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"37794E5E01D7"
+			    client     	@1
+			    supplier   	@3
+			    line_style 	0)))
+		(object ClassDiagram "End User Relations"
+		    quid       	"3779427B02F4"
+		    title      	"End User Relations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::End User Actors::End User \\: People::Non-Subscriber" @5
+			    ShowCompartmentStereotypes 	TRUE
+			    location   	(432, 624)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@5
+				location   	(432, 784)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	327
+				justify    	0
+				label      	"Non-Subscriber")
+			    icon       	"Actor"
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    quidu      	"35AA4A68011E"
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::End User Actors::End User \\: People::Subscriber" @6
+			    ShowCompartmentStereotypes 	TRUE
+			    location   	(864, 608)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@6
+				location   	(864, 768)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	327
+				justify    	0
+				label      	"Subscriber")
+			    icon       	"Actor"
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    quidu      	"35AA4F3801AB"
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::End User Actors::End User \\: People::Hacker" @7
+			    ShowCompartmentStereotypes 	TRUE
+			    location   	(1376, 592)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@7
+				location   	(1376, 752)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	327
+				justify    	0
+				label      	"Hacker")
+			    icon       	"Actor"
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    quidu      	"35B8F6C00000"
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "Interacting Systems Actors"
+	    quid       	"35B779AE027B"
+	    documentation 	"Contains Interacting Systems actors that interacts with the messaging system."
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class_Category "Interacting Systems : Terminals"
+		    quid       	"35B778FD00E6"
+		    documentation 	"Contains Interacting Systems : Terminal actors that interacts with the messaging system."
+		    visible_categories 	(list visibility_relationship_list
+			(object Visibility_Relationship
+			    quid       	"377947C20293"
+			    supplier   	"Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors::Interacting Systems \\: Transport Networks"
+			    quidu      	"35B77A4200ED"))
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "Fixed Terminal"
+			    quid       	"3762A3AC020F"
+			    stereotype 	"Actor")
+			(object Class "Mobile Terminal"
+			    quid       	"3762A3B80022"
+			    stereotype 	"Actor")
+			(object Class "Browser"
+			    quid       	"39639BE60041"
+			    documentation 	
+|This actor represents a plain old browser. The browser supports either HTML, XML or WML.
+|
+|In the case of HTML and XML the browser could, for example, be a Netscape Navigator or Microsoft Internet Explorer browser.
+|
+|In the case of WML the browser is probably part of a mobile terminal.
+			    
+			    stereotype 	"Actor"))
+		    logical_presentations 	(list unit_reference_list))
+		(object Class_Category "Interacting Systems : Transport Networks"
+		    quid       	"35B77A4200ED"
+		    documentation 	"Containes Interacting Systems : Transport Networks actors that interacts with the messaging system."
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "IP Network"
+			    quid       	"35B75E3102D7"
+			    documentation 	"An IP Network actor represents the IP based networks, for example the Internet,  that may interact with the messaging system."
+			    stereotype 	"Actor")
+			(object Class "Wireless Network"
+			    quid       	"3762A3F30302"
+			    documentation 	
+|The Wireless Network actor represents mobile networks that may interact with the messaging system.
+|Examples of wireless networks are a GSM, TDMA, PDC, W-CDMA, CDMA, GPRS, CDPD, EDGE or Paging type network.
+|
+			    
+			    stereotype 	"Actor")
+			(object Class "Wired Network"
+			    quid       	"3762A3FE0358"
+			    documentation 	"A Wired Network actor represents the fixed network, for example a PSTN or ISDN network,  that may interact with the messaging system."
+			    stereotype 	"Actor"))
+		    logical_presentations 	(list unit_reference_list))
+		(object Class_Category "Interacting Systems : Messaging Systems"
+		    quid       	"35B77AD90203"
+		    documentation 	"Containes Interacting Systems : Messaging Systems actors that interacts with the messaging system."
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "Another Messaging System"
+			    quid       	"3762A54E024C"
+			    documentation 	
+|An External Messaging System actor is a messaging system that is not part of the system domain. It needs access to the system for message exchange, e.g. to deposit and retrieve messages to/from a subscriber's account. The exchange may be bi-directional, i.e. the messaging system can act as both client and server.
+|
+|A Remote Messaging System actor is a messaging system that is part of the system domain but are remotely connected via a WAN.
+|
+|A Local Messaging System actor is a messaging system that is part of the messaging system domain and are locally connected via a LAN.
+			    
+			    stereotype 	"Actor"))
+		    logical_presentations 	(list unit_reference_list)))
+	    logical_presentations 	(list unit_reference_list
+		(object UseCaseDiagram "Main"
+		    quid       	"373CC3B90062"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors::Interacting Systems \\: Terminals" @8
+			    location   	(288, 224)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@8
+				location   	(84, 140)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	408
+				justify    	0
+				label      	"Interacting Systems : Terminals")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B778FD00E6"
+			    width      	420
+			    height     	180)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors::Interacting Systems \\: Transport Networks" @9
+			    location   	(880, 224)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@9
+				location   	(654, 140)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	452
+				justify    	0
+				label      	"Interacting Systems : Transport Networks")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B77A4200ED"
+			    width      	464
+			    height     	180)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors::Interacting Systems \\: Messaging Systems" @10
+			    location   	(1472, 224)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@10
+				location   	(1270, 140)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	404
+				justify    	0
+				label      	"Interacting Systems : Messaging Systems")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B77AD90203"
+			    width      	416
+			    height     	180)
+			(object ImportView "" @11
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"377947C20293"
+			    client     	@8
+			    supplier   	@9
+			    line_style 	0)))))
+	(object Class_Category "Operator Actors"
+	    quid       	"35B77B7F0157"
+	    documentation 	"Contains Operator Actors that interacts with the messaging system."
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class_Category "Operator : People"
+		    quid       	"35B77B9E01FC"
+		    documentation 	"Containes Operator : People actors that interacts with the messaging system."
+		    visible_categories 	(list visibility_relationship_list
+			(object Visibility_Relationship
+			    quid       	"377948850026"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP"
+			    quidu      	"36DC3B110118")
+			(object Visibility_Relationship
+			    quid       	"3779489A00EF"
+			    supplier   	"Use Case View::UseCaseModel::IPMS Actors::Operator Actors::Operator \\: Support Systems"
+			    quidu      	"35B77BB502DC")
+			(object Visibility_Relationship
+			    quid       	"37794E410095"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SNMP"
+			    quidu      	"36DC3BC00355"))
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "System Administrator"
+			    quid       	"35AA5FA20258"
+			    documentation 	"A System Administrator actor has unlimited access to the whole messaging systems operator interface."
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DC5951013C"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SNMP::SNMPv3_cli"
+				    quidu      	"36DC34E402B0")
+				(object Inheritance_Relationship
+				    quid       	"36DC59540140"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393")))
+			(object Class "System Operator"
+			    quid       	"35AA60590002"
+			    documentation 	"A System Operator actor is responsible for the messaging systems daily operation."
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DC59AE0103"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393")))
+			(object Class "Subscriber Administrator"
+			    quid       	"35AA5EB20357"
+			    documentation 	"A Subscriber Administrator actor administrates the actor Subscriber's accounts."
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DC5B10013D"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393")))
+			(object Class "System Analyst"
+			    quid       	"35B75BF0031D"
+			    documentation 	"A System Analyst actor performs analysis on the usage data generated by the messaging system with the purpose of seeing trends. "
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DC5A980271"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393")))
+			(object Class "Trouble Shooter"
+			    quid       	"35B8F7DF028E"
+			    documentation 	"A Trouble Shooter actor is tracking down user and system problems by use of event logs, tracing and monitoring tools, etc."
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DC5AC80035"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393"))))
+		    logical_presentations 	(list unit_reference_list))
+		(object Class_Category "Operator : Support Systems"
+		    quid       	"35B77BB502DC"
+		    documentation 	"Containes Operator : Support Systems actors that interacts with the messaging system."
+		    visible_categories 	(list visibility_relationship_list
+			(object Visibility_Relationship
+			    quid       	"377946E60047"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::LDAP"
+			    quidu      	"36DC3AF70021")
+			(object Visibility_Relationship
+			    quid       	"3779475B00F0"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SNMP"
+			    quidu      	"36DC3BC00355")
+			(object Visibility_Relationship
+			    quid       	"3779476803A2"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SQL"
+			    quidu      	"36DC3C5E035C")
+			(object Visibility_Relationship
+			    quid       	"377948600240"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP"
+			    quidu      	"36DC3B110118")
+			(object Visibility_Relationship
+			    quid       	"37794E210392"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::FTP"
+			    quidu      	"36DC3B080382")
+			(object Visibility_Relationship
+			    quid       	"37794E8000BE"
+			    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::RADIUS-MA"
+			    quidu      	"36DC3B33003B"))
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "Customer Care System"
+			    quid       	"35B75AE70127"
+			    documentation 	"A Customer Care System actor provision subscriber data as well as feature data to the messaging system."
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DBD6E60275"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::LDAP::LDAPv3_cli"
+				    quidu      	"35ABA1020237")
+				(object Inheritance_Relationship
+				    quid       	"3779480102A7"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SQL::SQL_cli"
+				    quidu      	"376ECA650295")
+				(object Inheritance_Relationship
+				    quid       	"37794804008F"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393")))
+			(object Class "Data Processing Management System"
+			    quid       	"35B75AF60255"
+			    documentation 	"A Data Processing Management System actor receives usage data from the messaging system. This data may be used for accounting and statistics, e.g. a billing system."
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DAF44E017C"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::FTP::FTP_srv"
+				    quidu      	"36D5700B0166")
+				(object Inheritance_Relationship
+				    quid       	"36DC59770227"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::FTP::FTP_cli"
+				    quidu      	"36DBEC7001A1")
+				(object Inheritance_Relationship
+				    quid       	"373DE06A0344"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::RADIUS-MA::RADIUS_srv"
+				    quidu      	"36DBECA90167")))
+			(object Class "Network Management System"
+			    quid       	"35ABA8AE0267"
+			    documentation 	"A Network Management System actor queries the messaging system for network and component status/information. It also configures and control, e.g. start/restart, components and receives asynchronous 'alarm' events. "
+			    stereotype 	"Actor"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"36DC59960235"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SNMP::SNMPv3_cli"
+				    quidu      	"36DC34E402B0")
+				(object Inheritance_Relationship
+				    quid       	"36DBBC990151"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SNMP::SNMPv3_srv"
+				    quidu      	"35ABA0F20049")
+				(object Inheritance_Relationship
+				    quid       	"373DE119033C"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::LDAP::LDAPv3_cli"
+				    quidu      	"35ABA1020237")
+				(object Inheritance_Relationship
+				    quid       	"373DE11C01F6"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::FTP::FTP_cli"
+				    quidu      	"36DBEC7001A1")
+				(object Inheritance_Relationship
+				    quid       	"373DE1210012"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli"
+				    quidu      	"36DBEC440393")
+				(object Inheritance_Relationship
+				    quid       	"373DE12C0177"
+				    supplier   	"Use Case View::UseCaseModel::IPMS iM-Bus::SQL::SQL_cli"
+				    quidu      	"376ECA650295")))
+			(object Class "Pre-Paid Management System"
+			    quid       	"35B7718F0290"
+			    documentation 	"A Pre-Paid Management System actor manage pre-paid accounts."
+			    stereotype 	"Actor"))
+		    logical_presentations 	(list unit_reference_list
+			(object ClassDiagram "Data Processing Management System"
+			    quid       	"36DAF364029E"
+			    title      	"Data Processing Management System"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::FTP::FTP_srv" @12
+				    ShowCompartmentStereotypes 	TRUE
+				    location   	(640, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@12
+					location   	(498, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	284
+					justify    	0
+					label      	"FTP_srv")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@12
+					location   	(498, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	282
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36D5700B0166"
+				    width      	302
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::Operator Actors::Operator \\: Support Systems::Data Processing Management System" @13
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(640, 1120)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@13
+					location   	(640, 1280)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"Data Processing Management System")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"35B75AF60255"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @14
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"36DAF44E017C"
+				    client     	@13
+				    supplier   	@12
+				    line_style 	0)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::RADIUS-MA::RADIUS_srv" @15
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1040, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@15
+					location   	(904, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	272
+					justify    	0
+					label      	"RADIUS_srv")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@15
+					location   	(904, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	269
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36DBECA90167"
+				    width      	290
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @16
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"373DE06A0344"
+				    client     	@13
+				    supplier   	@15
+				    line_style 	0)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::FTP::FTP_cli" @17
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(256, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@17
+					location   	(116, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	280
+					justify    	0
+					label      	"FTP_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@17
+					location   	(116, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	278
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36DBEC7001A1"
+				    width      	298
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @18
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"36DC59770227"
+				    client     	@13
+				    supplier   	@17
+				    line_style 	0)))
+			(object ClassDiagram "Network Management System"
+			    quid       	"36DBBC6201DE"
+			    title      	"Network Management System"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::Operator Actors::Operator \\: Support Systems::Network Management System" @19
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1168, 1152)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@19
+					location   	(1168, 1312)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"Network Management System")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"35ABA8AE0267"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::LDAP::LDAPv3_cli" @20
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(288, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@20
+					location   	(152, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	272
+					justify    	0
+					label      	"LDAPv3_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@20
+					location   	(152, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	269
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"35ABA1020237"
+				    width      	290
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::FTP::FTP_cli" @21
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(736, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@21
+					location   	(596, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	280
+					justify    	0
+					label      	"FTP_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@21
+					location   	(596, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	278
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36DBEC7001A1"
+				    width      	298
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli" @22
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1168, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@22
+					location   	(1032, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	272
+					justify    	0
+					label      	"HTTP_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@22
+					location   	(1032, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	269
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36DBEC440393"
+				    width      	290
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::SNMP::SNMPv3_cli" @23
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1584, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@23
+					location   	(1448, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	272
+					justify    	0
+					label      	"SNMPv3_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@23
+					location   	(1448, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	269
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36DC34E402B0"
+				    width      	290
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @24
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"36DC59960235"
+				    client     	@19
+				    supplier   	@23
+				    line_style 	0)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::SQL::SQL_cli" @25
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1984, 304)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@25
+					location   	(1844, 251)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	280
+					justify    	0
+					label      	"SQL_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@25
+					location   	(1844, 201)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	278
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"376ECA650295"
+				    width      	298
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @26
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"373DE119033C"
+				    client     	@19
+				    supplier   	@20
+				    line_style 	0)
+				(object InheritView "" @27
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"373DE11C01F6"
+				    client     	@19
+				    supplier   	@21
+				    line_style 	0)
+				(object InheritView "" @28
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"373DE1210012"
+				    client     	@19
+				    supplier   	@22
+				    line_style 	0)
+				(object InheritView "" @29
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"373DE12C0177"
+				    client     	@19
+				    supplier   	@25
+				    line_style 	0)))
+			(object ClassDiagram "Customer Care System"
+			    quid       	"36DBC9CE02E3"
+			    title      	"Customer Care System"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::Operator Actors::Operator \\: Support Systems::Customer Care System" @30
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1008, 960)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@30
+					location   	(1008, 1120)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"Customer Care System")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"35B75AE70127"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::SQL::SQL_cli" @31
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(496, 208)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@31
+					location   	(356, 155)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	280
+					justify    	0
+					label      	"SQL_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@31
+					location   	(356, 105)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	278
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"376ECA650295"
+				    width      	298
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::LDAP::LDAPv3_cli" @32
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1008, 208)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@32
+					location   	(872, 155)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	272
+					justify    	0
+					label      	"LDAPv3_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@32
+					location   	(872, 105)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	269
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"35ABA1020237"
+				    width      	290
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @33
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"36DBD6E60275"
+				    client     	@30
+				    supplier   	@32
+				    line_style 	0)
+				(object ClassView "Class" "Use Case View::UseCaseModel::IPMS iM-Bus::HTTP::HTTP_cli" @34
+				    ShowCompartmentStereotypes 	TRUE
+				    ShowOperationSignature 	TRUE
+				    location   	(1504, 208)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@34
+					location   	(1368, 155)
+					fill_color 	13434879
+					nlines     	2
+					max_width  	272
+					justify    	0
+					label      	"HTTP_cli")
+				    stereotype 	(object ItemLabel
+					Parent_View 	@34
+					location   	(1368, 105)
+					fill_color 	13434879
+					anchor     	10
+					nlines     	1
+					max_width  	269
+					justify    	0
+					label      	"<<Interface>>")
+				    icon       	"Interface"
+				    icon_style 	"Label"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"36DBEC440393"
+				    width      	290
+				    height     	230
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object InheritView "" @35
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3779480102A7"
+				    client     	@30
+				    supplier   	@31
+				    line_style 	0)
+				(object InheritView "" @36
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"37794804008F"
+				    client     	@30
+				    supplier   	@34
+				    line_style 	0))))))
+	    logical_presentations 	(list unit_reference_list
+		(object UseCaseDiagram "Main"
+		    quid       	"373CC38A01FF"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Operator Actors::Operator \\: People" @37
+			    location   	(656, 720)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@37
+				location   	(512, 636)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"Operator : People")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B77B9E01FC"
+			    width      	300
+			    height     	180)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Operator Actors::Operator \\: Support Systems" @38
+			    location   	(1648, 736)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@38
+				location   	(1464, 652)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	368
+				justify    	0
+				label      	"Operator : Support Systems")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35B77BB502DC"
+			    width      	380
+			    height     	180)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS iM-Bus::LDAP" @39
+			    location   	(1632, 208)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@39
+				location   	(1488, 173)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"LDAP")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@39
+				location   	(1488, 123)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	288
+				justify    	0
+				label      	"<<iM-Bus>>")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC3AF70021"
+			    width      	300
+			    height     	182)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS iM-Bus::SNMP" @40
+			    location   	(1072, 208)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@40
+				location   	(928, 173)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"SNMP")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@40
+				location   	(928, 123)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	288
+				justify    	0
+				label      	"<<iM-Bus>>")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC3BC00355"
+			    width      	300
+			    height     	182)
+			(object ImportView "" @41
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"377946E60047"
+			    client     	@38
+			    supplier   	@39
+			    line_style 	0)
+			(object ImportView "" @42
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3779475B00F0"
+			    client     	@38
+			    supplier   	@40
+			    line_style 	0)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS iM-Bus::SQL" @43
+			    location   	(2096, 224)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@43
+				location   	(1952, 189)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"SQL")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@43
+				location   	(1952, 139)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	288
+				justify    	0
+				label      	"<<iM-Bus>>")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC3C5E035C"
+			    width      	300
+			    height     	182)
+			(object ImportView "" @44
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3779476803A2"
+			    client     	@38
+			    supplier   	@43
+			    line_style 	0)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS iM-Bus::HTTP" @45
+			    location   	(1120, 1104)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@45
+				location   	(976, 1069)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"HTTP")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@45
+				location   	(976, 1019)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	288
+				justify    	0
+				label      	"<<iM-Bus>>")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC3B110118"
+			    width      	300
+			    height     	182)
+			(object ImportView "" @46
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"377948600240"
+			    client     	@38
+			    supplier   	@45
+			    line_style 	0)
+			(object ImportView "" @47
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"377948850026"
+			    client     	@37
+			    supplier   	@45
+			    line_style 	0)
+			(object ImportView "" @48
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3779489A00EF"
+			    client     	@37
+			    supplier   	@38
+			    line_style 	0)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS iM-Bus::FTP" @49
+			    location   	(2544, 224)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@49
+				location   	(2400, 189)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"FTP")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@49
+				location   	(2400, 139)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	288
+				justify    	0
+				label      	"<<iM-Bus>>")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC3B080382"
+			    width      	300
+			    height     	182)
+			(object ImportView "" @50
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"37794E210392"
+			    client     	@38
+			    supplier   	@49
+			    line_style 	0)
+			(object ImportView "" @51
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"37794E410095"
+			    client     	@37
+			    supplier   	@40
+			    line_style 	0)
+			(object CategoryView "Use Case View::UseCaseModel::IPMS iM-Bus::RADIUS-MA" @52
+			    location   	(2560, 560)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@52
+				location   	(2416, 525)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"RADIUS-MA")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@52
+				location   	(2416, 475)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	288
+				justify    	0
+				label      	"<<iM-Bus>>")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC3B33003B"
+			    width      	300
+			    height     	182)
+			(object ImportView "" @53
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"37794E8000BE"
+			    client     	@38
+			    supplier   	@52
+			    line_style 	0)))))
+	(object Class_Category "Laws and regulations"
+	    quid       	"36D1B8F80127"
+	    documentation 	"Contains Laws and regulations actors that interacts with the messaging system."
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "Regulator"
+		    quid       	"35C8CFD10024"
+		    documentation 	
+|The Regulator actor is entity that regulates various legal requirements.
+|
+|For example, an operator might be required to offer a certain level of service in order to keep his right to offer service.
+		    
+		    stereotype 	"Actor"))
+	    logical_presentations 	(list unit_reference_list
+		(object UseCaseDiagram "Main"
+		    quid       	"373CC3E002A3"
+		    title      	"Main"
+		    zoom       	95
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Use Case View::UseCaseModel::IPMS Actors::Laws and regulations::Regulator" @54
+			    ShowCompartmentStereotypes 	TRUE
+			    location   	(832, 896)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@54
+				location   	(832, 1056)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	327
+				justify    	0
+				label      	"Regulator")
+			    icon       	"Actor"
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    quidu      	"35C8CFD10024"
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "Software"
+	    quid       	"3762B4A50181"
+	    documentation 	"Contains software actors that interacts with the messaging system, internally or externally."
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "Components"
+		    quid       	"3762B4B2027A"
+		    documentation 	"Components represent software  installed and used within the messaging system."
+		    stereotype 	"Actor"))
+	    logical_presentations 	(list unit_reference_list)))
+    logical_presentations 	(list unit_reference_list
+	(object UseCaseDiagram "Main"
+	    quid       	"3730E4B000A4"
+	    title      	"Main"
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list
+		(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::End User Actors" @55
+		    location   	(224, 224)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@55
+			location   	(80, 140)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"End User Actors")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35B7776C0162"
+		    width      	300
+		    height     	180)
+		(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Interacting Systems Actors" @56
+		    location   	(688, 224)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@56
+			location   	(527, 140)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	322
+			justify    	0
+			label      	"Interacting Systems Actors")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35B779AE027B"
+		    width      	334
+		    height     	180)
+		(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Operator Actors" @57
+		    location   	(1152, 224)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@57
+			location   	(1008, 140)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"Operator Actors")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35B77B7F0157"
+		    width      	300
+		    height     	180)
+		(object CategoryView "Use Case View::UseCaseModel::IPMS Actors::Laws and regulations" @58
+		    location   	(1616, 224)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@58
+			location   	(1472, 140)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"Laws and regulations")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"36D1B8F80127"
+		    width      	300
+		    height     	180)))))

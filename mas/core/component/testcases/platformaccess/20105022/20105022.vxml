@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+		<var name="phoneNumber"/>
+		<var name="origPhoneNumber"/>
+		<var name="unknown_sender"/>
+		<var name="unknown_receiver"/>
+		<var name="redirNumber"/>
+		 
+		<block>
+			<script>
+				mas.systemSetMediaResources("en", null, null);
+				var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "august");
+			</script>
+			<log>Returned MediaObject=<value expr="mediaObjects[0].toString()"/></log>
+		    <prompt>
+                   <audio expr="mediaObjects[0]"/>
+       		</prompt>
+		</block>
+		<block>
+			<script>
+				mas.systemSetMediaResources("sv", null, null);
+				var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "august");
+			</script>
+			<log>Returned MediaObject=<value expr="mediaObjects[0].toString()"/></log>
+		    <prompt>
+                   <audio expr="mediaObjects[0]"/>
+       		</prompt>
+		</block>
+		
+	</form>
+	
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		 
+		<log>TEST 20105021 FAILED</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

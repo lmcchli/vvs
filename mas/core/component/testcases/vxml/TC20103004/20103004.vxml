@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<!-- use the transfer with an unknown dest uri-->
+		<transfer name="myTransfer" bridge="true" dest="kalle: 1234567">
+			<filled>
+				<!-- we shouldn't come here -->
+				<log label="error">TC 20103004 Failed</log>
+				<exit/>
+			</filled>
+		</transfer>
+	</form>
+	<catch event="error.unsupported.uri">
+		<if cond="_message != undefined">
+			<log label="error">TC 20103004 Passed</log>
+		<else/>
+			<log label="error">TC 20103004 Failed (_message was undefined)</log>
+		</if>
+		<exit/>
+	</catch>
+	<catch>
+		<log label="error">TC 20103004 Failed (event <value expr="_event"/> was thrown)</log>		
+		<exit/>
+	</catch>
+</vxml>

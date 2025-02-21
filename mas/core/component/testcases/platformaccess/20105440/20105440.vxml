@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.w3.org/2001/vxml
+  http://www.w3.org/TR/voicexml21/vxml.xsd">
+
+
+    <form id="main_form">
+        <var name="phoneNumber"/>
+        <var name="origPhoneNumber"/>
+        <var name="unknown_sender"/>
+        <var name="unknown_receiver"/>
+        <var name="mediaObjects"/>
+
+        <var name="passed"/>
+        <block>
+
+            <!--get facs number attribute -->
+            <script>
+                // Check to see if the receiver exists in MUR
+                unknown_receiver = true;
+                if (typeof(session.connection.redirect) != 'undefined') {
+                    mas.systemLog(3, 'TC 20105440 session.connection.redirect is defined');
+                    if (typeof(session.connection.redirect[0]) != 'undefined') {
+                        mas.systemLog(3, 'TC 20105440 session.connection.redirect[0] is defined');
+                        if (typeof(session.connection.redirect[0].number) != 'undefined') {
+                            phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+                            mas.systemLog(3, 'TC 20105440 phoneNumber=' + phoneNumber);
+                            if (mas.subscriberExist(phoneNumber)) {
+                                // The subscriber do not exists, we should play unknown.wav and hangup
+                                unknown_receiver = false;
+
+                                mas.systemLog(3, 'TC 20105440 receiver is known');
+                            }
+                        }
+                    }
+                }
+                if (unknown_receiver) {
+                    mas.systemLog(3, 'TC 20105440 Failed as receiver is unknown');
+                }
+                // Check to see if the sender exists in MUR
+                if (typeof(session.connection.remote.number) != "undefined") {
+                    origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+                    unknown_sender = !mas.subscriberExist(origPhoneNumber);
+                }
+                if (unknown_sender) {
+                    mas.systemLog(3, 'TC 20105440 Failed as sender is unknown in MUR');
+                }
+
+            </script>
+
+
+            <script>
+                <![CDATA[
+                var storableMessageId = mas.messageCreateNew();
+
+                var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+                var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+
+                var sender = new Array('apan apan ' + '<' + callerEmailAddress[0] + '>');
+                var recipients = new Array(emailaddress[0], '99910003@hurr9.lab.mobeon.com');
+                var secondaryrecipients = new Array('99910001@hurr9.lab.mobeon.com');
+                var subject = new Array('TC 20105440');
+                var replytoaddr = new Array('99910001@vpim.hurr9.lab.mobeon.com');
+                var type = new Array('email');
+                var state = new Array('new');
+                var language = new Array('en');
+                var deliverydate = new Array('2999-12-31 11:59:59');
+                var urgent = new Array('true');
+                var confidential = new Array('true');
+                var forwarded = new Array('false');
+                var deliveryreport = new Array('false');
+                var deliverystatus = new Array('false');
+
+
+                mas.messageSetStorableProperty(storableMessageId, 'sender', sender);
+                mas.messageSetStorableProperty(storableMessageId, 'recipients', recipients);
+                mas.messageSetStorableProperty(storableMessageId, 'secondaryrecipients', secondaryrecipients);
+                mas.messageSetStorableProperty(storableMessageId, 'subject', subject);
+                mas.messageSetStorableProperty(storableMessageId, 'replytoaddr', replytoaddr);
+                mas.messageSetStorableProperty(storableMessageId, 'type', type);
+                mas.messageSetStorableProperty(storableMessageId, 'language', language);
+                mas.messageSetStorableProperty(storableMessageId, 'deliverydate', deliverydate);
+                mas.messageSetStorableProperty(storableMessageId, 'urgent', urgent);
+                mas.messageSetStorableProperty(storableMessageId, 'confidential', confidential);
+
+                var reSender = mas.messageGetStorableProperty(storableMessageId, 'sender');
+                mas.systemLog(3, 'Property sender=' + reSender[0]);
+                var reRecipients = mas.messageGetStorableProperty(storableMessageId, 'recipients');
+                mas.systemLog(3, 'Property recipients=' + reRecipients[0] + ',' +  reRecipients[1]);
+                var reSubject = mas.messageGetStorableProperty(storableMessageId, 'subject');
+                mas.systemLog(3, 'Property subject=' + reSubject[0]);
+                var reSecondaryRecipients = mas.messageGetStorableProperty(storableMessageId, 'secondaryrecipients');
+                mas.systemLog(3, 'Property secondaryrecipients=' + reSecondaryRecipients[0]);
+                var reReplyToAddr = mas.messageGetStorableProperty(storableMessageId, 'replytoaddr');
+                mas.systemLog(3, 'Property replytoaddr=' + reReplyToAddr[0]);
+                var reType = mas.messageGetStorableProperty(storableMessageId, 'type');
+                mas.systemLog(3, 'Property type=' + reType[0]);
+                var reLanguage = mas.messageGetStorableProperty(storableMessageId, 'language');
+                mas.systemLog(3, 'Property language=' + reLanguage[0]);
+                var reDeliveryDate = mas.messageGetStorableProperty(storableMessageId, 'deliverydate');
+                mas.systemLog(3, 'Property deliverydate=' + reDeliveryDate[0]);
+                var reUrgent = mas.messageGetStorableProperty(storableMessageId, 'urgent');
+                mas.systemLog(3, 'Property urgent=' + reUrgent[0]);
+                var reConfidential = mas.messageGetStorableProperty(storableMessageId, 'confidential');
+                mas.systemLog(3, 'Property confidential=' + reConfidential[0]);
+
+                passed = false;
+                if (sender[0] == reSender[0]
+                    && recipients[0] == reRecipients[0]
+                    && recipients[1] == reRecipients[1]
+                    && subject[0] == reSubject[0]
+                    && secondaryrecipients[0] == reSecondaryRecipients[0]
+                    && replytoaddr[0] == reReplyToAddr[0]
+                    && type[0] == reType[0]
+                    && language[0] == reLanguage[0]
+                    && deliverydate[0] == reDeliveryDate[0]
+                    && urgent[0] == reUrgent[0]
+                    && confidential[0] == reConfidential[0]) {
+                    passed = true;
+                }
+                if (passed) {
+                    mas.systemLog(3, 'TC 20105440 PASSED');
+                } else {
+                    mas.systemLog(3, 'TC 20105440 FAILED ' );
+                }
+                ]]>
+                <!--if (sender[0] == reSender[0] && recipients[0] == reRecipients[0] && recipients[1] == reRecipients[1] && secondaryrecipients[0] == reSecondaryRecipients[0] && subject[0] == reSubject[0] && replytoaddr[0] == reReplyToAddr[0] && type[0] == reType[0] && state[0] == reState[0] && language[0] == reLanguage[0] && deliverydate[0] = reDeliveryDate[0] && urgent[0] == reUrgent[0] && confidential[0] == reConfidential[0] && forwarded[0] == reForwarded[0] && deliveryreport[0] == reDeliveryReport[0] && deliverystatus[0] == reDeliveryStatus[0]) {
+                    passed = true;
+                }
+                if (passed) {
+                    mas.systemLog(3, 'TC 20105440 PASSED');
+                } else {
+                    mas.systemLog(3, 'TC 20105440 FAILED ' );
+                }
+                    -->
+            </script>
+            <exit/>
+        </block>
+
+     </form>
+
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105440 Failed</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

@@ -1,0 +1,62 @@
+#This file contains useful bourne shell functions.
+#Include it in your scripts with . shbasics
+
+checkparam ()
+{
+    if [ -z $2 ] ; then
+        echo "There is no $1 parameter. Can not continue."
+        exit 1;
+    else
+        return 0;
+    fi
+}
+
+#Extracts values for a parameter in a file with lines like
+#   <paramname><delim><value>
+# e.g.   hostname=host.domain
+# handling blanks at some places in the line
+#Usage Param paramname [ delim ] <file
+param()
+{
+    delim=${2:-=}
+    echo `grep "$1[ 	]*$delim" | sort |sed -e "s/[ 	]*$1[ 	]*$delim[ 	]*\([^ 	]*\).*/\1/"`
+}
+
+#prints a range of integers
+#Usage count first howmany
+count() {
+    if [ -z $2 ]
+        then
+        start=0
+        end=$1
+    else 
+        start=$1
+        end=$2
+    fi
+    i=0
+    while [ $i -lt $end ]
+    do
+      echo `expr $i + $start`
+      i=`expr $i + 1`
+    done
+}
+
+#Returns true iff a list of words contains certain word
+#Usage contains "list" word
+contains() {
+    for elem in $1
+      do
+      if [ "$elem" = "$2" ]
+          then
+          return 0
+      fi
+    done
+    return 1
+}
+
+verbose ()
+{
+    if [ $verbose ] ; then
+        echo $1
+    fi
+}

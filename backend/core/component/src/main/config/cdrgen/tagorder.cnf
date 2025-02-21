@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The follwing 2 rows are only used when XSL is used. The first row replaces the one above. -->
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> -->
+<!-- <?xml-stylesheet type="text/xsl" href="mer.xsl"?> -->
+
+<!DOCTYPE config SYSTEM "mer.dtd">
+
+<config>
+	<!-- Attributes should go here. See example below
+	
+	<attr>
+		<tagorder number="1" type="0" order="999"/>
+	</attr>
+
+	-->
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form id="uno">
+       <block>
+           <script src="script_4.js"/>
+           <if cond="mult(2,9)==18">
+               <log>TCPASS VXML: Script ok</log>
+           <else/>
+               <log>TCPASS VXML: Script nok</log>
+           </if>
+           <exit/>
+       </block>
+   </form>
+</vxml>

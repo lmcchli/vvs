@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediacontents>
+   <mediacontent id="3">
+      <qualifiers />
+      <instance cond="true">
+         <displayname><![CDATA[Always]]></displayname>
+         <element type="mediafile" reference="svfile3.wav" />
+      </instance>
+   </mediacontent>
+</mediacontents>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="callmanager.xsd">
+    <callmanager
+            callnotacceptedtimer="5000"
+            registerbackofftimer="120000"
+            registerbeforeexpirationtime="5000"
+            blacklisttimer="1000"
+            inboundaudiomedia="amr"
+            inboundvideomedia="h263"
+            ptime="40"
+            registeredname="mas"
+            defaultcalltype="voice"
+            outboundcallcallingparty=""
+            contacturioverride=""
+            outboundcallconnecttimeout="30000"
+            disconnectonsiptimeout="true"
+            sendprovisionalresponsesreliable="sdponly"
+            supporttestinput="false">
+
+
+        <requiredoutboundaudiomedia>
+            <mediatype encoding="amr"></mediatype>
+            <mediatype encoding="telephone-event"></mediatype>
+        </requiredoutboundaudiomedia>
+
+        <requiredoutboundvideomedia>
+            <mediatype encoding="h263"></mediatype>
+        </requiredoutboundvideomedia>
+
+			<releasecausemappings defaultnetworkstatuscode="622">
+				<mapping name="suppressed" networkstatuscode="614" sipresponsecodeintervals="600" q850causeintervals="17" q850locationintervals="0,1"/>
+				<mapping name="busy" networkstatuscode="603" sipresponsecodeintervals="499" q850causeintervals="0,17" q850locationintervals="1-15"/>
+				<mapping name="noreply" networkstatuscode="610" sipresponsecodeintervals="599,699" q850causeintervals="18-19"/>
+				<mapping name="notreachable" networkstatuscode="613" sipresponsecodeintervals="301,403-404" q850causeintervals="1-9,20-23,25-31" q850locationintervals="1-2,5-6"/>
+				<mapping name="test" networkstatuscode="620" sipresponsecodeintervals="503" q850causeintervals="39-44,46"/>
+			</releasecausemappings>
+
+        <remoteparty>
+            <sipproxy>
+                <address host="localhost" port="5090"/>
+            </sipproxy>
+        </remoteparty>
+
+        <siptimers t2="8" t4="4" timerb="4" timerc="400" timerd="4" timerf="4" timerh="4" timerj="4"/>
+
+        <diagnoseservice host="localhost" port="5080"/>
+
+        <loadregulation
+                initialramphwm="0"
+                channelstoincrease="1"
+                numberofincrements="1"/>
+
+        <restrictedoutboundheaders>
+        </restrictedoutboundheaders>
+
+    </callmanager>
+</configuration>
+

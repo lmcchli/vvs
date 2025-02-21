@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+  <catch event="testevent">
+    <log>TCFAIL VXML: Event caught, should not happen!</log>
+    <exit/>
+  </catch>
+   <form id="uno">
+       <block>
+           <script>
+                var exist = mas.subscriberExist('1');
+                var val = mas.subscriberGetStringAttribute('1', 'dummy');
+           </script>
+           <if cond="val[0]=='dummy'">
+                <log>TCPASS VXML: mas.subscriberGetStringAttribute ok</log>
+           <else/>
+                <log>TCFAIL VXML: mas.subscriberGetStringAttribute nok</log>
+           </if>
+            <exit/>
+       </block>
+   </form>
+</vxml>

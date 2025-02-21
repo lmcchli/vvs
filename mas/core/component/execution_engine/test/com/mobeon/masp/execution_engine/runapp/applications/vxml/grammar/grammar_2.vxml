@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit></exit>
+    </catch>
+
+    <form id="pmess1">
+        <var name="key"/>
+        <var name="MarkName"/>
+        <var name="MarkTime"/>
+
+        <!--block name="playTheMessage"--> <!-- removed -->
+
+        <property name="termchar" value="A" /> <!-- added -->
+
+        <field name="playTheMessage"> <!-- added -->
+
+            <property name="interdigittimeout" value="0.5s" /> <!-- added -->
+
+            <prompt>
+
+                <mark name="start" /> <!-- added -->
+
+                <audio src="beep.wav"></audio>
+
+                <mark name="end" /> <!-- added -->
+
+            </prompt>
+
+            <grammar version="1.0" mode="dtmf" root="main_rule"> <!-- added -->
+
+                <rule id="rule2"> <!-- added -->
+
+                    <one-of> <!-- added -->
+
+                        <item>0</item> <!-- added -->
+
+                        <item>1</item> <!-- added -->
+
+                        <item>2</item> <!-- added -->
+
+                        <item>3</item> <!-- added -->
+
+                        <item>4</item> <!-- added -->
+
+                        <item>5</item> <!-- added -->
+
+                        <item>6</item> <!-- added -->
+
+                        <item>7</item> <!-- added -->
+
+                        <item>8</item> <!-- added -->
+
+                        <item>9</item> <!-- added -->
+
+                        <item>*</item> <!-- added -->
+
+                        <item>#</item> <!-- added -->
+
+                    </one-of> <!-- added -->
+
+                </rule> <!-- added -->
+
+                <rule id="main_rule"> <!-- added -->
+
+                    <one-of> <!-- added -->
+
+                        <item repeat="1-3"> <!-- added -->
+
+                            <ruleref uri="#rule2" /> <!-- added -->
+
+                        </item> <!-- added -->
+
+                    </one-of> <!-- added -->
+
+                </rule> <!-- added -->
+
+            </grammar> <!-- added -->
+
+            <filled> <!-- added -->
+
+                <assign name="key" expr="application.lastresult$.utterance"/> <!-- added -->
+
+                <assign name="MarkName" expr="playTheMessage$.markname" /> <!-- added -->
+
+                <assign name="MarkTime" expr="playTheMessage$.marktime" /> <!-- added -->
+
+                <!-- if cond="((key != undefined))" --> <!-- removed -->
+
+                <log>In Filled with value <value expr="playTheMessage" /> </log>
+                <if cond="key == '**'">
+                    <log>PASS</log>
+                    <exit></exit>
+                    <else>
+                        <log>key was: <value expr="key"></value></log>
+                    </else>
+                </if>
+
+                <!-- else /--> <!-- removed -->
+
+            </filled> <!-- added -->
+
+            <catch event="noinput"> <!-- added -->
+                <log>ERROR</log>
+                <exit></exit>
+            </catch> <!-- added -->
+
+        </field> <!-- added -->
+
+        <!-- /if --> <!-- removed -->
+
+        <!-- /block --> <!-- removed -->
+
+    </form>
+
+</vxml>

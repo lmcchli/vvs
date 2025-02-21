@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+require "$Bin/mib";
+
+my $result = 0;
+
+($mibresult, $mibtext) = &getmibvar("ntfNotifInQueue");
+if ($mibresult == 0) {
+    print "The number of messages waiting in NTFs external queue is $mibtext\n";
+} else {
+    print $mibtext;
+    $result = 1;
+}
+
+if ($mibtext > 10000) {
+    print "This may indicate a very high load or problems with some of the services consumed by NTF\n";
+    $result = 1;
+}
+
+exit $result;

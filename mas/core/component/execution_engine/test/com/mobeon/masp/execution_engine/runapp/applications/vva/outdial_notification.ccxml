@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml">
+    <script src="libMas.js"/>
+    <var name="mailBoxId"/>
+    <var name="numberToCall"/>
+    <var name="tryDefaultLanguage" expr="false"/>
+    <var name="myState" expr="'init'"/>
+    <var name="dialogId"/>
+    <var name="vxmlMaxTime"/>
+
+    <eventprocessor statevariable="myState">
+        <transition state="'init'" event="ccxml.loaded">
+		<!-- Fetch parameters from the service request. Send response and exit if the parameters are not correct -->
+            <assign name="mailBoxId" expr="System_GetServiceRequestParameter('mailbox-id')"/>
+            <assign name="numberToCall" expr="System_GetServiceRequestParameter('number')"/>
+            <if cond="(mailBoxId == '') || (numberToCall== '')">
+                <script>System_SendServiceResponse('501', 'Syntax error in parameters or arguments');</script>              
+                <exit/>
+            </if>
+            <if cond="!PhoneNumber_IsASubscriber(mailBoxId)">
+                <script>System_SendServiceResponse('514', 'mailbox does not exist');</script>              
+                <exit/>
+            </if>
+            
+		<!-- Analyze the number to call, send MER events and set prompt language. -->
+            <!-- The event error.com.mobeon.platform.numberanalysis is sent if an error occurs during number analysis. -->
+            <!-- The event error.com.mobeon.platform.systemerror with systemsetmediaresources is sent if an error occurs when the language is set. -->
+	      <assign name="numberToCall" expr="PhoneNumber_GetAnalyzedNumber(Subscriber_GetSingleStringAttribute(mailboxId, 'PhoneNumberDialingSection'), numberToCall, '')"/>
+	      <assign name="tryDefaultLanguage" expr="true"/>
+            <script>
+                System_SendTrafficEvent('NotificationCall', 'Description=NotificationCall,Operation=7,ObjectType=3,CalledNumber=' + numberToCall + ',CallingNumber=' + mailBoxId);
+                System_SetPromptLanguage(Subscriber_GetSingleAttribute(mailboxId, 'PreferredLanguage'), System_GetConfig('VVA.Media', 'VoiceVariant'), System_GetConfig('VVA.Media', 'VideoVariant'));
+                System_SendTrafficEvent('MakeCallStart', 'Description=MakeCallStart,Operation=14,ObjectType=2,CalledNumber=' + numberToCall + ',CallingNumber=' + mailBoxId);
+            </script>
+            <createcall dest="'tel:' + numberToCall" callerid="'tel:' + mailBoxId"/>
+        </transition>
+
+        <!-- The call has been answered. Start the VXML application. -->
+        <transition state="'init'" event="connection.connected">
+            <script>
+                System_SendTrafficEvent('MakeCallConnect', 'Description=MakeCallConnect,Operation=15,ObjectType=2,CalledNumber=' + numberToCall + ',CallingNumber=' + mailBoxId);
+                System_SendServiceResponse('200', 'Service successfully completed');
+            </script>
+            <dialogstart src="'Main.vxml'" namelist="outdial_notification" />
+            <assign name="myState" expr="'dialogActive'" />
+        </transition>
+        
+        <!-- Handle other events that occurs during call setup. Send response and exit. -->
+        <transition event="connection.failed">
+            <script>System_SendTrafficEvent('MakeCallStop', 'Description=MakeCallStop,Operation=16,ObjectType=2,CalledNumber=' + numberToCall + ',CallingNumber=' + mailBoxId);</script>
+            <if cond="_message.indexOf('busy') == -1">
+                <script>System_SendServiceResponse('603', 'End user is busy in a call');</script>
+            <elseif cond="_message.indexOf('noanswer') == -1" />
+                <script>System_SendServiceResponse('610', 'End user does not answer');</script>
+            <else/>
+                <script>System_SendServiceResponse('513', 'Call attempt failed');</script>
+            </if>
+            <exit/>
+        </transition>
+        
+        <!-- Send response and exit if the numberanalysis fails -->
+        <transition event="error.com.mobeon.platform.numberanalysis" name="evt">
+            <if cond="_message.substring(0,7) == 'BLOCKED'">
+                <script>System_SendServiceResponse('614', 'End user suppressed');</script>              
+                <exit/>
+            <else/>
+                <script>System_SendServiceResponse('512', 'Non-valid phonenumber');</script>              
+                <exit/>
+            </if>
+        </transition>
+
+        <!-- Try the default language if the subscribers preferred language could not be set. -->
+        <transition event="error.com.mobeon.platform.systemerror" name="evt">
+            <if cond="_message.substring(0,23).toLowerCase() == 'systemsetmediaresources'">
+                <if cond="tryDefaultLanguage == true">
+                    <assign name="tryDefaultLanguage" expr="false"/>
+                    <script>
+                        System_SetPromptLanguage(System_GetConfig('VVA.Media', 'DefaultLanguage'), System_GetConfig('VVA.Media', 'VoiceVariant'),System_GetConfig('VVA.Media', 'VideoVariant'));
+                        System_SendTrafficEvent('MakeCallStart', 'Description=MakeCallStart,Operation=14,ObjectType=2,CalledNumber=' + numberToCall + ',CallingNumber=' + mailBoxId);
+                    </script>
+                    <createcall dest="'tel:' + numberToCall" callerid="'tel:' + mailBoxId"/>
+                </if>
+            <else/>
+                <script>System_SendServiceResponse('421', 'Service not available');</script>              
+                <exit/>
+            </if>
+        </transition>
+
+        <!-- Send response and exit at other errors. -->
+        <transition event="error.*" name="evt">
+            <script>System_SendServiceResponse('421', 'Service not available');</script>              
+            <exit/>
+        </transition>
+
+        <!-- Handle disconnect from VoiceXML dialog -->
+        <transition state="'dialogActive'" event="dialog.disconnect" name="evt">
+            <disconnect connectionid="evt.connectionid"/> 
+            <assign name="myState" expr="'disconnected'"/>
+            <exit/>
+        </transition>
+
+        <!-- Handle disconnect from calling party -->
+        <transition state="'dialogActive'" event="connection.disconnect" name="evt">
+            <send data="connection.disconnect.hangup" target="dialogId" targettype="'dialog'"/> 
+            <assign name="myState" expr="'disconnected'"/>
+            <exit/>
+        </transition>
+
+
+        <!-- Handle a transfer request from VoiceXML -->
+        <transition state="'dialogActive'" event="dialog.transfer" name="evt">
+            <!-- Save maxtime -->
+            <assign name="vxmlMaxTime" expr="evt.maxtime"/>
+            <assign name="myState" expr="'calling'"/>
+            <createcall dest="evt.URI" connectionid="out_connectionid" timeout="evt.connecttimeout"/>
+        </transition>
+
+        <!-- Handle a failed transfer -->
+        <transition state="'calling'" event="connection.failed" name="evt">
+            <send data="dialog.vxml.transfer.complete" target="dialogId" targettype="'dialog'" 
+                  namelist="evt.reason"/> 
+            <assign name="myState" expr="'dialogActive'"/>
+        </transition>
+
+        <!-- Handle an answer to the transfer -->
+        <transition state="'calling'" event="connection.connected" name="evt">
+            <assign name="myState" expr="'outgoingCallActive'"/>
+            <join id1="in_connectionid" id2="in_connectionid" duplex="full" />
+        </transition>
+
+        <!-- Handle joined complete for transfer -->
+        <transition state="'outgoingCallActive'" event="conference.joined" name="evt">
+            <!-- If maxtime has been set we setup a timer -->
+            <if cond="vxmlMaxTime != null">
+                <send data="maxtime" target="session.id" delay="vxmlMaxTime" sendid="maxtimeSendid" />
+            </if>
+        </transition>
+
+        <!-- Deal with someone disconnecting in transfer call -->
+        <transition state="'outgoingCallActive'" event="connection.disconnected" name="evt">
+            <!-- Cancel any maxtime events -->
+            <if cond="maxtimeSendid != null">
+                <cancel sendid="maxtimeSendid" />
+                <assign name="maxtimeSendid" expr="null"/>
+            </if>
+            <!-- Handle called party disconnect -->
+            <if cond="evt.connectionid == out_connectionid">
+                <send data="dialog.vxml.transfer.complete" target="dialogId" targettype="'dialog'" 
+                      namelist="far_end_disconnect"/> 
+                <assign name="myState" expr="'dialogActive'"/>
+            <else/>
+                <!-- Handle calling party disconnect -->
+                <send data="connection.disconnect.hangup" target="dialogId" targettype="'dialog'"/> 
+                <assign name="myState" expr="'disconnected'"/>
+                <exit/>
+            </if>
+        </transition>
+
+        <!-- Handle 'hotword' for transfer -->
+        <transition state="'outgoingCallActive'" event="dialog.terminatetransfer" name="evt">
+            <assign name="myState" expr="'hotword'" />
+            <!-- Cancel any maxtime events --> 
+            <if cond="maxtimeSendid != null">
+                <cancel sendid="maxtimeSendid" />
+                <assign name="maxtimeSendid" expr="null"/>
+            </if>            
+            <!-- unjoin our connections -->
+            <unjoin id1="in_connectionid" id2="out_connectionid"/>
+        </transition>
+
+        <!-- Calls have been unjoined. -->
+        <transition state="hotword" event="conference.unjoined" name="evt">
+            <!-- Rejoin the first connection to the dialog --> 
+            <join id1="in_connectionid" id2="dialogid"/>           
+            <!-- Disconnect the outbound call -->
+            <disconnect connectionid="out_connectionid"/>
+        </transition>
+        
+        <!-- Send an event to the dialog once we are all back together again. -->
+        <transition state="hotword" event="conference.joined" name="evt">
+            <!-- Build up our event -->
+            <send data="dialog.vxml.transfer.complete" target="dialogid" targettype="'dialog'" 
+                  namelist="near_end_disconnect" />
+            <assign name="myState" expr="'dialogActive'" />
+        </transition>       
+
+        <!-- Deal with connection.disconnect events in the hotword state.
+             We are only going to deal with stuff if it the event is for the incoming call. -->
+        <transition state="hotword" event="connection.disconnect" name="evt">
+            <if cond="evt.connectionid == in_connectionid">
+                <dialogterminate dialogid="dialogId"/>
+                <assign name="mystate" expr="'userDisconnect'" />
+            </if>
+        </transition>
+
+        
+        <!-- Deal with the maxtime event during a call transfer.
+             Should this happen we just disconnect the outbound call let and get back to the 
+             dialogActive state. -->
+        <transition state="outgoing_call_active" event="maxtime" name="evt">
+            <assign name="maxtimeSendid" expr="null"/>
+            <assign name="myState" expr="'maxtime'" />
+            <disconnect connectionid="out_connectionid"/>
+        </transition>
+
+        <!--  
+           - Once we have the disconnect event we verify that we 
+           - got it for the outbound call and rejoin the dialog to the 
+           - inbound call. If the inbound call disconnected
+           - we are going to go on and forward the event along 
+           - and wait for the dialog to exit.
+           -
+         -->
+        <transition state="maxtime" event="connection.disconnected" name="evt">
+            <if cond="evt.connectionid == out_connectionid">
+                <join id1="dialogId" id2="in_connectionid"/>
+            <else />
+                <dialogterminate dialogid="dialogId"/>
+            </if>
+        </transition>
+
+        <!--  
+           -
+           - We are rejoined. Update our state and send the transfer
+           - event back to the dialog.
+           -
+         -->
+        <transition state="maxtime" event="conference.joined" name="evt">
+            <!-- Update our state var back to the dialogActive state -->
+            <assign name="myState" expr="'dialogActive'" />
+            <send data="dialog.vxml.transfer.complete" target="dialogid" targettype="'dialog'" 
+                  namelist="maxtime_disconnect" />
+        </transition>
+
+        <!--
+           - Dialog has exited while we were in a hotword state. 
+           - We just are going to exit from this CCXML session...
+          -->
+        <transition state="maxtime" event="dialog.exit" name="evt">
+            <exit/>
+        </transition>
+
+        <!-- Catch any connection.disconnect events that made it past us. -->
+        <transition event="connection.disconnect" name="evt">
+            <exit/>
+        </transition>
+
+    </eventprocessor>			
+</ccxml>

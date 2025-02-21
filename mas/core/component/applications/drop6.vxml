@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- The form -->
+    <form id="main_form">
+
+        <!-- Variable definitions used in this form -->
+        <var name="phoneNumber"/>
+        <var name="origPhoneNumber"/>
+        <var name="unknown_sender"/>
+        <var name="unknown_receiver"/>
+
+        <!-- Locate the phonenumbers in MUR -->
+        <block>
+            <script>
+
+                // Assume nothing exists in MUR
+                unknown_sender = true;
+                unknown_receiver = true;
+
+                // Check to see if the receiver exists in MUR
+                if (typeof(session.connection.redirect) != 'undefined') {
+                if (typeof(session.connection.redirect[0]) != 'undefined') {
+                if (typeof(session.connection.redirect[0].number) != 'undefined') {
+                    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+                    if (mas.subscriberExist(phoneNumber)) {
+                    // The subscriber do not exists, we should play unknown.wav and hangup
+                    unknown_receiver = false;
+                    }
+                } } }
+
+                // Check to see if the sender exists in MUR
+                if (typeof(session.connection.remote.number) != "undefined") {
+                    origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+                    unknown_sender = !mas.subscriberExist(origPhoneNumber);
+                }
+            </script>
+        </block>
+
+        <!-- Get hold of the greeting, or play an unknown greeting -->
+        <block>
+            <var name="greeting"/>
+            <log>PhoneNumber=<value expr="phoneNumber"/></log>
+            <script>
+
+                // Get the greeting if the receiver exists in MUR, otherwise set
+                // it to unknown
+                if (!unknown_receiver) {
+                    greeting = mas.subscriberGetGreeting (phoneNumber, 'allcalls', 'voice', null);
+                    if (greeting == null) {
+                        greeting = "welcome.wav";
+                    }
+                } else {
+                    greeting = "unknown.wav";
+                }
+
+            </script>
+           	<prompt>
+                   <audio expr="greeting"/>
+       		</prompt>
+        </block>
+
+        <!-- The record field, to record the deposit -->
+        <record name="recording">
+            <prompt>
+                <audio src="beep.wav" />
+            </prompt>
+            <filled>
+                <script>
+                    // Create the message if the receiver exists, otherwise just
+                    // forget about the recording
+                    if (!unknown_receiver) {
+                            var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+                        var storableMessageId = mas.messageCreateNew();
+                        if (!unknown_sender) {
+                                var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+                                var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+                                        var sender = callerEmailAddress[0];
+                            mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+                                        var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+                            if (spokenName != null) {
+                                mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+                            }
+                        } else {
+                                        var sender = 'Unknown()&lt;&gt;';
+                            mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+                        }
+                        mas.messageSetStorableProperty(storableMessageId, 'recipients', emailaddress);
+                        mas.messageSetStorableProperty(storableMessageId, 'subject', new Array('Hello everybody!'));
+                        mas.messageSetStorableProperty(storableMessageId, 'type', new Array('voice'));
+                        if (typeof(recording) != 'undefined') {
+                            mas.messageAddMediaObject(storableMessageId, recording, 'voice message', 'message', 'en');
+                        }
+                        mas.messageStore(storableMessageId);
+                    }
+
+                </script>
+            </filled>
+        </record>
+
+	</form>
+
+    <!-- Catch any errors -->
+    <catch event="error">
+        <log>Error caught <value expr="_event"/></log>
+        <exit/>
+    </catch>
+
+    <!-- Catch the hangup, and see if we were in the record -->
+    <catch event="connection.disconnect.hangup">
+        <script>
+            // Create the message if the receiver exists, otherwise just
+            // forget about the recording
+            if (!unknown_receiver) {
+                    var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+                var storableMessageId = mas.messageCreateNew();
+                if (!unknown_sender) {
+                        var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+                        var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+                                var sender = callerEmailAddress[0];
+                    mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+                                var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+                    if (spokenName != null) {
+                        mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+                    }
+                } else {
+                                var sender = 'Unknown()&lt;&gt;';
+                    mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+                }
+                mas.messageSetStorableProperty(storableMessageId, 'recipients', emailaddress);
+                mas.messageSetStorableProperty(storableMessageId, 'subject', new Array('Hello everybody!'));
+                mas.messageSetStorableProperty(storableMessageId, 'type', new Array('voice'));
+                if (typeof(recording) != 'undefined') {
+                    mas.messageAddMediaObject(storableMessageId, recording, 'voice message', 'message', 'en');
+                }
+                mas.messageStore(storableMessageId);
+            }
+        </script>
+		<exit/>
+	</catch>
+
+</vxml>
+
+
+
+
+
+
+
+
+
+
+

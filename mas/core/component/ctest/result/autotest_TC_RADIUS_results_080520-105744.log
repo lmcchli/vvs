@@ -1,0 +1,11 @@
+# Test on MAS DP5.006 in lab w/o iMux.
+MAS: MAS_DP5.006: 08-05-20 10:57:47
+Result from test: Passed: Set "ownername" event property: 20007070
+Result from test: Passed: Set "sssporttype" event property: 20007071
+Result from test: Passed: Set "operation" event property: 20007072
+Result from test: Passed: Verify that it's possible to change mapping for "ownername" and "sssportype" to other attributes in RADIUS-MA: 20007073
+Result from test: Passed: Verify that the events "accountingdebit" and "accountingrefund" can be disabled: 20007074
+Result from test: Passed: Verify that MAS uses the backup solution configured if MCR lookup fails: 20007075
+Result from test: Passed: Verify that MAS uses the backup solution configured if MCR is not to be used: 20007076
+Result from test: Passed: Verify that MAS uses MCR for accounting service: 20007077
+Result from test: Passed: Verify that MAS switches between available service instances: 20007078

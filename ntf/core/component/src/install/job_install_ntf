@@ -1,0 +1,126 @@
+#!/bin/sh
+#
+# job_install_ntf
+#
+# Mount /mnt on Client to /apps/LMEAdmin/install/dist on JumpStart Manager
+# Copy the ntf_container_file from JumpStart Manager to Client
+# Extract the installation files from the ntf_container_file at the Client
+# Execute the ntf installation script at the Client
+# Unmount /mnt on Client
+#
+
+
+if [ $# -ne 2 ]; then
+   echo "usage: $0 ntf_container_file jumpstart_host"
+   echo "Example: $0 ntf_<rel>.crh109176.solaris10.tar jumpstarthost.yourdomain.com"
+   exit
+else
+   FILE="$1"
+   NFS_SERVER="$2"
+   NFS_SHARE="/apps/LMEAadmin/install"
+fi
+
+Exit() {
+   umount $MOUNTPOINT
+   exit
+}
+
+MOUNTPOINT=/mnt
+
+echo "job_install_ntf: Started `date`"
+ACTIONNFSMOUNT="$NFS_SERVER:$NFS_SHARE"
+
+if mount $ACTIONNFSMOUNT $MOUNTPOINT; then
+
+   SOURCEDIR=$MOUNTPOINT/dist
+   DESTDIR=/apps/dist/ntf
+
+   if [ -d $SOURCEDIR ]; then
+      sleep 0
+   else
+      echo "ERROR: Source directory ($SOURCEDIR) do not exist"
+      Exit
+   fi
+
+   if [ -d $DESTDIR ]; then
+      sleep 0
+   else
+      echo "Destination directory ($DESTDIR) do not exist"
+      echo "   Creating directory: $DESTDIR ..."
+      mkdir $DESTDIR
+      if [ $? != 0 ]; then
+         echo "ERROR: Could not create $DESTDIR"
+         Exit
+      fi
+   fi
+
+   if [ -f $SOURCEDIR/$FILE ]; then
+      cd $DESTDIR
+      tar xvf $SOURCEDIR/$FILE
+      if [ $? != 0 ]; then
+         echo "ERROR: Failure at command: tar xvf $SOURCEDIR/$FILE"
+         Exit
+      fi
+   else
+      echo "ERROR: No such file exist in directory: $SOURCEDIR"
+      Exit
+   fi
+
+   if [ -f $SOURCEDIR/LMENtf.response ]; then
+	rm -f /tmp/LMENtf_tmp.response >> /dev/null 2>&1
+	while read line
+	  do
+	  NEW_LINE=`echo $line | sed -e s%"[ 	]*="%"="%`
+	  echo "$NEW_LINE" >> /tmp/LMENtf_tmp.response
+	done < $SOURCEDIR/LMENtf.response
+
+	UPGRADE=`pkginfo | grep LMENtf`
+	if [ -n "$UPGRADE" ];then
+	    NEW_CFG="/tmp/LMENtf_tmp.response"
+	    MERGED_CFG="/tmp/merged_notification.cfg"
+	    BASEDIR=`pkgparam LMENtf BASEDIR` >> /dev/null 2>&1
+	    OLD_CFG="$BASEDIR/cfg/notification.cfg"
+
+	    cp $NEW_CFG $MERGED_CFG
+
+	    while read line
+	      do
+	      PARAM=`echo $line | cut -f1 -d=`
+	      if [ -n "$PARAM" ];then
+		  EXIST_IN_NEW=`grep "$PARAM" $NEW_CFG`
+	      else
+		  EXIST_IN_NEW=""
+	      fi
+	      if [ -z "$EXIST_IN_NEW" ];then
+		  echo "$line" >> $MERGED_CFG
+	      fi
+	    done < $OLD_CFG
+	    mv $MERGED_CFG $NEW_CFG
+	fi
+
+	mkdir -p /tmp/ntf_files/templates
+	mkdir /tmp/ntf_files/cfg
+	cp $SOURCEDIR/ntf_files/templates/*  /tmp/ntf_files/templates/
+	cp $SOURCEDIR/ntf_files/cfg/* /tmp/ntf_files/cfg/
+	pkgadd -a $DESTDIR/ntf_files/adminfile -r /tmp/LMENtf_tmp.response -n -d $DESTDIR/ntf_files/LMENtf.pkg LMENtf
+      
+      if [ $? != 0 ]; then
+         echo "ERROR: Failure at command: $DESTDIR/pkgadd"
+	 rm -f /tmp/LMENtf_tmp.response >> /dev/null 2>&1
+	 rm -f /tmp/ntf_files
+         Exit
+      fi
+      rm -f /tmp/LMENtf_tmp.response >> /dev/null 2>&1
+   else
+      echo "ERROR: No such file: $SOURCEDIR/LMENtf.response"
+      Exit
+   fi
+
+   cd /
+   umount $MOUNTPOINT
+   echo "job_install_ntf: Completed at `date`"
+else
+   echo "job_install_ntf: ERROR, Unable to NFS mount jumpstart directory."
+   echo "job_install_ntf: Completed at `date`"
+fi
+

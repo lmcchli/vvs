@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<subdialog name="myName" src="20103016a.vxml"/>
+			<filled>
+				<log label="error">TC 20103016 Failed (filled was executed)</log>
+				<exit/>
+			</filled>
+	</form>
+	<catch event="myEvent">
+			<if cond="_message == 'myMessage'">
+				<log label="error">TC 20103016 Passed"</log>
+			<else/>
+				<log label="error">TC 20103016 Failed" (_message has wrong value <value expr="_message"/>)</log>
+			</if>
+			<exit/>
+	</catch>
+</vxml>

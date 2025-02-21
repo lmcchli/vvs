@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ Copyright (c) 2005 Mobeon AB. All Rights Reserved.
+  -->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="../../../../cfg/mediatranslationmanager.xsd">
+    <mediatranslationmanager tts="mrcp" asr="disabled">
+        <mrcptexttospeech host="10.16.2.98" port="4900"/>
+    </mediatranslationmanager>
+</configuration>

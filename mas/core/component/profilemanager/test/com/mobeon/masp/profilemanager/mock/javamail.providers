@@ -1,0 +1,1 @@
+protocol=imap; type=store; class=com.mobeon.masp.profilemanager.mock.StoreMock; vendor=Mobeon, Inc.;

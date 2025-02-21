@@ -1,0 +1,20 @@
+/* Sun Cluster Data Services Builder template version 1.0 */
+This is the README file for LMEAntf package.
+
+Following are the contents of this package:
+
+1) bin: this subdirectory contains the binaries for various methods used
+	the RGM to drive various events in the evolution of the resources
+	of the ntf resource type.
+
+2) etc: this subdirectory contains the RTR (Resource Type Registration) file
+	for the ntf resource type. See rt_reg(4) for more info.
+
+3) util: this subdirectory contains customized scripts for starting, stopping
+	and removing instances (also known as resources) of the ntf resource
+	type. These scripts are startntf, stopntf and removentf respectively.
+
+4) docs: this subdirectory contains pseudo text man pages for the three
+	utility scripts -- startntf, stopntf and removentf.
+
+5) README.ntf: this file.

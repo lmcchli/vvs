@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<vxml version="2.0" application="start.vxml" xmlns="http://www.w3.org/2001/vxml">
+<form id="deposit">
+	
+	<record name="R_1" beep="true">
+		
+	</record>
+	<field name="user_respons">
+		<prompt>   
+			<audio src="user_respons.wav">
+				To send the message, press 1
+				to listen press 2,
+				to re-record press 3,
+				to continue the message press 4
+			</audio>
+		</prompt>
+	</field>	
+		<grammar mode="dtmf">
+			<rule id="main_rule">
+				<one-of>
+					<item>1</item>
+					<item>2</item>
+					<item>3</item>
+					<item>4</item>
+				</one-of>
+			</rule>
+		</grammar>
+	
+</form>
+</vxml>

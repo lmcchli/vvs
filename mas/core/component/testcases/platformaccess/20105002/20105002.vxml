@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<block>
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    
+			} } }
+
+		 
+		</script>
+	</block>
+
+        <block>
+			<log>PhoneNumber=<value expr="phoneNumber"/></log>
+			<log>TEST 20105002 FAILED</log>
+		</block>
+
+	
+
+	</form>
+
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<if cond="_event =='error.com.mobeon.platform.numberanalysis'">
+		    <if cond="_message.indexOf('MAX') >= 0">
+				<log>TEST 20105002 PASSED</log>
+				<exit/>
+		    </if>
+			
+		</if>
+		<log>TEST 20105002 FAILED</log>
+	 
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

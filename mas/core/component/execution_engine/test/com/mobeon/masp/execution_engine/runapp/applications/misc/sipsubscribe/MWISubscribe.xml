@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/misc/sipsubscribe/" type="application/xml+ccxml">
+        <document src="mwi_subscribe.ccxml" root="true"/>
+    </documents>
+</application>

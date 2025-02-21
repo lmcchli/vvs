@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+    <mediaobject type="MediaFile" src="dec.wav">
+        <lengths>
+            <length unit="Milliseconds" value="3000"/>
+        </lengths>
+
+        <spokentext><![CDATA[Previous message.]]></spokentext>
+        <sourcetext><![CDATA[Previous message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="playedGreeting">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="prebeep.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Sorry, you can't leave a message for this mailbox.]]></spokentext>
+        <sourcetext><![CDATA[Ledsen, men du kan inte lämna.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="UM_0936.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[hej hej]]></spokentext>
+        <sourcetext><![CDATA[hej hej]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0001.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Good morning.]]></spokentext>
+        <sourcetext><![CDATA[Good morning.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0002.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Good afternoon.]]></spokentext>
+        <sourcetext><![CDATA[Good afternoon.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0003.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Good evening.]]></spokentext>
+        <sourcetext><![CDATA[Good evening.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0004.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Goodbye]]></spokentext>
+        <sourcetext><![CDATA[Goodbye]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0005.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[Please enter your phone number and then press the pound key or just press the pound key if you're using your own phone.]]></spokentext>
+        <sourcetext>
+            <![CDATA[Please enter your phone number and then press the pound key or just press the pound key if you're using your own phone.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0006.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[You're signing in to your mailbox. Enter your phone number and then press the pound key or just press the pound key if you're using your own phone.]]></spokentext>
+        <sourcetext>
+            <![CDATA[You're signing in to your mailbox. Enter your phone number and then press the pound key or just press the pound key if you're using your own phone.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0007.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You must use exactly ...]]></spokentext>
+        <sourcetext><![CDATA[You must use exactly ...]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0008.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You can't use more than ...]]></spokentext>
+        <sourcetext><![CDATA[You can't use more than ...]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0009.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You must use at least ...]]></spokentext>
+        <sourcetext><![CDATA[You must use at least ...]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0010.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[... digits]]></spokentext>
+        <sourcetext><![CDATA[... digits]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0011.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but the phone number is not valid.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but the phone number is not valid.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0012.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To return to the previous menu, press *.]]></spokentext>
+        <sourcetext><![CDATA[To return to the previous menu, press <PreviousMenu>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0013.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To return to the previous menu, press *.]]></spokentext>
+        <sourcetext><![CDATA[To return to the previous menu, press <PreviousMenu>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0014.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you need more time, press *0.]]></spokentext>
+        <sourcetext><![CDATA[If you need more time, press <Pause>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0015.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To return to the main menu, press **.]]></spokentext>
+        <sourcetext><![CDATA[To return to the main menu, press <MainMenu>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0016.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To call another number, press *8.]]></spokentext>
+        <sourcetext><![CDATA[To call another number, press <Transfer>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0017.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you want to erase digits that you have entered, press *]]></spokentext>
+        <sourcetext><![CDATA[If you want to erase digits that you have entered, press <Erase>]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0018.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To return to the previous menu, just press *.]]></spokentext>
+        <sourcetext><![CDATA[To return to the previous menu, just press <PreviousMenu>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0019.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Erased.]]></spokentext>
+        <sourcetext><![CDATA[Erased.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0020.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Sorry. I don't know what you want to do. You have a few choices.]]></spokentext>
+        <sourcetext><![CDATA[Sorry. I don't know what you want to do. You have a few choices.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0021.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To leave a message for someone, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To leave a message for someone, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0022.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To leave a message for someone, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To leave a message for someone, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0023.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To get to your own mailbox, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To get to your own mailbox, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0024.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To get to your own mailbox, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To get to your own mailbox, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0025.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but zero is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but zero is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0026.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but one is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but one is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0027.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but two is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but two is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0028.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but three is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but three is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0029.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but four is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but four is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0030.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but five is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but five is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0031.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but six is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but six is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0032.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but seven is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but seven is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0033.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but eight is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but eight is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0034.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but nine is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but nine is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0035.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but pound is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but pound is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0036.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but star is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but star is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0037.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star zero is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star zero is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0038.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star one is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star one is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0039.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star two is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star two is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0040.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star three is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star three is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0041.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star four is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star four is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0042.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star five is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star five is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0043.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star six is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star six is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0044.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star seven is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star seven is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0045.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star eight is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star eight is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0046.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star nine is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star nine is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0047.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star pound is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star pound is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0048.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but star star is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but star star is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0049.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but the key combination you presses is not a valid option in this menu. Please try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but the key combination you presses is not a valid option in this menu. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0050.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Paused. When you're ready to continue, press #.]]></spokentext>
+        <sourcetext><![CDATA[Paused. When you're ready to continue, press <Unpause>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0051.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Paused. When you're ready to continue, press any key.]]></spokentext>
+        <sourcetext><![CDATA[Paused. When you're ready to continue, press any key.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0052.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry but you must first press # to continue. Please try again.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry but you must first press <Unpause> to continue. Please try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0053.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[[35 seconds silence]]]></spokentext>
+        <sourcetext><![CDATA[[35 seconds silence]]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0054.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[You've entered an invalid mailbox number.  Please check the phone number and try again.]]></spokentext>
+        <sourcetext>
+            <![CDATA[You've entered an invalid mailbox number.  Please check the phone number and try again.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0055.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[Sorry you're having trouble accessing your mailbox.  Please hang-up and try again or contact customer service for assistance.  Thank you.]]></spokentext>
+        <sourcetext>
+            <![CDATA[Sorry you're having trouble accessing your mailbox.  Please hang-up and try again or contact customer service for assistance.  Thank you.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0056.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry.  Login to this mailbox is not permitted. Please contact customer service to find out more about your account status.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry.  Login to this mailbox is not permitted. Please contact customer service to find out more about your account status.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0057.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[Sorry. For your protection, access to your mailbox has been restricted due to multiple invalid attempts to access your mailbox. Please contact customer service to re-establish access to your services.  Thank you.]]></spokentext>
+        <sourcetext>
+            <![CDATA[Sorry. For your protection, access to your mailbox has been restricted due to multiple invalid attempts to access your mailbox. Please contact customer service to re-establish access to your services.  Thank you.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0059.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but this phone number does not have telephony access to the system.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but this phone number does not have telephony access to the system.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0060.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I'm sorry but you must use your own phone to be able to initialize your account.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I'm sorry but you must use your own phone to be able to initialize your account.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0061.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Please enter your PIN followed by the pound key.]]></spokentext>
+        <sourcetext><![CDATA[Please enter your PIN followed by the pound key.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0062.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[You are signing in to your mailbox. Enter your mailbox PIN and then press the pound key.]]></spokentext>
+        <sourcetext>
+            <![CDATA[You are signing in to your mailbox. Enter your mailbox PIN and then press the pound key.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0063.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry. That's not a correct PIN.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry. That's not a correct PIN.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0064.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Sorry, lets start from the beginning.]]></spokentext>
+        <sourcetext><![CDATA[Sorry, lets start from the beginning.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0200.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I can't backup. this is the first message.]]></spokentext>
+        <sourcetext><![CDATA[I can't backup. this is the first message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="beep.wav">
+        <lengths>
+            <length unit="Milliseconds" value="6000"/>
+        </lengths>
+
+        <spokentext><![CDATA[Previous message.]]></spokentext>
+        <sourcetext><![CDATA[Previous message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0202.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Next message.]]></spokentext>
+        <sourcetext><![CDATA[Next message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0203.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[That's the last new message.]]></spokentext>
+        <sourcetext><![CDATA[That's the last new message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0204.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[That's the last message.]]></spokentext>
+        <sourcetext><![CDATA[That's the last message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0205.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[Your old messages will now automatically be played. If you want to go to main menu instead, press star star.]]></spokentext>
+        <sourcetext>
+            <![CDATA[Your old messages will now automatically be played. If you want to go to main menu instead, press star star.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0206.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have deleted this message, but I can play it for you. Here it is.]]></spokentext>
+        <sourcetext><![CDATA[You have deleted this message, but I can play it for you. Here it is.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0207.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry. I'm unable to play the current message.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry. I'm unable to play the current message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0208.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the message again, press 1.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the message again, press 1.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0209.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To call the sender, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To call the sender, press 2.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0210.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To recover it and go to next, press the #.]]></spokentext>
+        <sourcetext><![CDATA[To recover it and go to next, press the <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0211.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To recover it and go to next, press the #.]]></spokentext>
+        <sourcetext><![CDATA[To recover it and go to next, press the <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0212.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To go to next, press the #.]]></spokentext>
+        <sourcetext><![CDATA[To go to next, press the <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0213.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To go to next, press the #.]]></spokentext>
+        <sourcetext><![CDATA[To go to next, press the <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0214.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the message again, press 1.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the message again, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0215.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the message, press 1.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0216.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To call the sender, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To call the sender, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0217.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To call the sender of the message, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To call the sender of the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0218.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To delete the message, press 3.]]></spokentext>
+        <sourcetext><![CDATA[To delete the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0219.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To delete the message, press 3.]]></spokentext>
+        <sourcetext><![CDATA[To delete the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0220.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you still want to delete it, press 3.]]></spokentext>
+        <sourcetext><![CDATA[If you still want to delete it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0221.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you still want to delete it, press 3.]]></spokentext>
+        <sourcetext><![CDATA[If you still want to delete it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0222.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To respond or forward the message, press 4.]]></spokentext>
+        <sourcetext><![CDATA[To respond or forward the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0223.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To respond or send the message to someone else, press 4.]]></spokentext>
+        <sourcetext><![CDATA[To respond or send the message to someone else, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0224.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the header, press 5.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the header, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0225.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the header, press 5.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the header, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0226.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To make the message new, press 6.]]></spokentext>
+        <sourcetext><![CDATA[To make the message new, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0227.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To make the message new, press 6.]]></spokentext>
+        <sourcetext><![CDATA[To make the message new, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0228.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[When listening to the message, to backup  a few seconds, press 7.]]></spokentext>
+        <sourcetext><![CDATA[When listening to the message, to backup  a few seconds, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0229.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[When listening to the message, to backup  a few seconds, press 7.]]></spokentext>
+        <sourcetext><![CDATA[When listening to the message, to backup  a few seconds, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0230.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To move forward a few seconds, press 9.]]></spokentext>
+        <sourcetext><![CDATA[To move forward a few seconds, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0231.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To move forward a few seconds, press 9.]]></spokentext>
+        <sourcetext><![CDATA[To move forward a few seconds, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0232.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send the callers phone number as an SMS to you, press 10.]]></spokentext>
+        <sourcetext><![CDATA[To send the callers phone number as an SMS to you, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0233.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send the callers phone number as an SMS to you, press 10.]]></spokentext>
+        <sourcetext><![CDATA[To send the callers phone number as an SMS to you, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0234.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To print it, press 11.]]></spokentext>
+        <sourcetext><![CDATA[To print it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0235.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To print it, press 11.]]></spokentext>
+        <sourcetext><![CDATA[To print it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0236.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the previous message even if you have deleted it, press *.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the previous message even if you have deleted it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0237.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the previous message even if you have deleted it, press *.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the previous message even if you have deleted it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0239.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have messages.]]></spokentext>
+        <sourcetext><![CDATA[You have messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0240.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You've deleted this message.]]></spokentext>
+        <sourcetext><![CDATA[You've deleted this message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0241.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You're listening to a message you have deleted.]]></spokentext>
+        <sourcetext><![CDATA[You're listening to a message you have deleted.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0243.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have messages.]]></spokentext>
+        <sourcetext><![CDATA[You have messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0244.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You've deleted this message.]]></spokentext>
+        <sourcetext><![CDATA[You've deleted this message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0245.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You're listening to a message you have deleted.]]></spokentext>
+        <sourcetext><![CDATA[You're listening to a message you have deleted.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0247.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You've  recievd a fax.]]></spokentext>
+        <sourcetext><![CDATA[You've  recievd a fax.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0248.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have deleted this fax message.]]></spokentext>
+        <sourcetext><![CDATA[You have deleted this fax message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0249.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You're listening to a fax message you have deleted.]]></spokentext>
+        <sourcetext><![CDATA[You're listening to a fax message you have deleted.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0251.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have email messages.]]></spokentext>
+        <sourcetext><![CDATA[You have email messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0252.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have deleted this email message.]]></spokentext>
+        <sourcetext><![CDATA[You have deleted this email message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0253.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You're listening to an email message you have deleted.]]></spokentext>
+        <sourcetext><![CDATA[You're listening to an email message you have deleted.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0254.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Main menu.]]></spokentext>
+        <sourcetext><![CDATA[Main menu.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0255.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You're listening to the main menu.]]></spokentext>
+        <sourcetext><![CDATA[You're listening to the main menu.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0256.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you want your messages now, press 1.]]></spokentext>
+        <sourcetext><![CDATA[If you want your messages now, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0257.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To get your messages now, press 1.]]></spokentext>
+        <sourcetext><![CDATA[To get your messages now, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0258.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you want your old messages now, press 1.]]></spokentext>
+        <sourcetext><![CDATA[If you want your old messages now, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0259.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To get your old messages now, press 1.]]></spokentext>
+        <sourcetext><![CDATA[To get your old messages now, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0260.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you want your deleted messages now, press 1.]]></spokentext>
+        <sourcetext><![CDATA[If you want your deleted messages now, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0261.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To get your deleted messages now, press 1.]]></spokentext>
+        <sourcetext><![CDATA[To get your deleted messages now, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0262.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send a voice message, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To send a voice message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0263.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send a voice message, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To send a voice message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0264.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send a message, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To send a message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0265.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send a message, press 2.]]></spokentext>
+        <sourcetext><![CDATA[To send a message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0266.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To work with your greetings, press 3.]]></spokentext>
+        <sourcetext><![CDATA[To work with your greetings, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0267.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To record or change the greetings heard by people who call you, press 3.]]></spokentext>
+        <sourcetext>
+            <![CDATA[To record or change the greetings heard by people who call you, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0268.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To change your mailbox settings, press 4.]]></spokentext>
+        <sourcetext><![CDATA[To change your mailbox settings, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0269.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To change your mailbox settings, press 4.]]></spokentext>
+        <sourcetext><![CDATA[To change your mailbox settings, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0270.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the basic commands, press 5.]]></spokentext>
+        <sourcetext><![CDATA[To listen to the basic commands, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0271.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to the basic commands that are available in the system, press 5.]]></spokentext>
+        <sourcetext>
+            <![CDATA[To listen to the basic commands that are available in the system, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0272.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[Throughout the system when you want to get to the previouis menu or backing up to the previous message, press star.]]></spokentext>
+        <sourcetext>
+            <![CDATA[Throughout the system when you want to get to the previouis menu or backing up to the previous message, press star.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0273.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To get to the main menu, press **.]]></spokentext>
+        <sourcetext><![CDATA[To get to the main menu, press <MainMenu>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0274.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[For more detailed information about the menu that you are listening to, press 0.]]></spokentext>
+        <sourcetext>
+            <![CDATA[For more detailed information about the menu that you are listening to, press <Help>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0275.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To pause, press star *0.]]></spokentext>
+        <sourcetext><![CDATA[To pause, press star <Pause>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0276.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[New message.]]></spokentext>
+        <sourcetext><![CDATA[New message.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0277.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[New messages]]></spokentext>
+        <sourcetext><![CDATA[New messages]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0278.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[That was the first message. Back to the previous menu.]]></spokentext>
+        <sourcetext><![CDATA[That was the first message. Back to the previous menu.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0279.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Previous message.]]></spokentext>
+        <sourcetext><![CDATA[Previous message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0280.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Next message.]]></spokentext>
+        <sourcetext><![CDATA[Next message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0281.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[That's the last new message.]]></spokentext>
+        <sourcetext><![CDATA[That's the last new message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0282.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[That's the last voice message.]]></spokentext>
+        <sourcetext><![CDATA[That's the last voice message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0283.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have no voice messages.]]></spokentext>
+        <sourcetext><![CDATA[You have no voice messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0284.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have no messages.]]></spokentext>
+        <sourcetext><![CDATA[You have no messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0285.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Old message.]]></spokentext>
+        <sourcetext><![CDATA[Old message.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0286.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Old messages.]]></spokentext>
+        <sourcetext><![CDATA[Old messages.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0287.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[[One tenth of a second silence.]]]></spokentext>
+        <sourcetext><![CDATA[[One tenth of a second silence.]]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0288.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Deleted.]]></spokentext>
+        <sourcetext><![CDATA[Deleted.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0289.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[[1 second silence]]]></spokentext>
+        <sourcetext><![CDATA[[1 second silence]]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0290.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[I'm sorry the phone number is not available.]]></spokentext>
+        <sourcetext><![CDATA[I'm sorry the phone number is not available.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0292.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You have...]]></spokentext>
+        <sourcetext><![CDATA[You have...]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0293.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[No new messages.]]></spokentext>
+        <sourcetext><![CDATA[No new messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0294.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[and...]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0295.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[No old messages.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0296.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[One old message.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0297.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[Old messages.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0298.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[One new voice message.]]></spokentext>
+        <sourcetext><![CDATA[One new voice message.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0299.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[...wich is urgent]]></spokentext>
+        <sourcetext><![CDATA[...wich is urgent]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0300.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[New voice messages.]]></spokentext>
+        <sourcetext><![CDATA[New voice messages.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0301.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[one of them is urgent]]></spokentext>
+        <sourcetext><![CDATA[one of them is urgent]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0302.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[...of them are urgent]]></spokentext>
+        <sourcetext><![CDATA[...of them are urgent]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0303.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[One new video message.]]></spokentext>
+        <sourcetext><![CDATA[One new video message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0304.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[New video messages.]]></spokentext>
+        <sourcetext><![CDATA[New video messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0305.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[New fax messages.]]></spokentext>
+        <sourcetext><![CDATA[New fax messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0306.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[One new fax message.]]></spokentext>
+        <sourcetext><![CDATA[One new fax message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0307.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[One new email.]]></spokentext>
+        <sourcetext><![CDATA[One new email.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0308.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[New emails.]]></spokentext>
+        <sourcetext><![CDATA[New emails.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0400.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Sorry, you can't leave a message for this mailbox.]]></spokentext>
+        <sourcetext><![CDATA[Sorry, you can't leave a message for this mailbox.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0403.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Beep]]></spokentext>
+        <sourcetext><![CDATA[Beep]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0404.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Sorry, the message is not recorded.]]></spokentext>
+        <sourcetext><![CDATA[Sorry, the message is not recorded.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0405.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[You can leave a message after the tone. When you have finished, press the pound key or just hang up.]]></spokentext>
+        <sourcetext>
+            <![CDATA[You can leave a message after the tone. When you have finished, press the pound key or just hang up.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_1000.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Voice]]></spokentext>
+        <sourcetext><![CDATA[Voice]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0406.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I see that your mailbox is full. You can't receive any new messages until you erase some.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I see that your mailbox is full. You can't receive any new messages until you erase some.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0407.mov">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[I see that your mailbox is getting full. Please erase any unneeded messages.]]></spokentext>
+        <sourcetext>
+            <![CDATA[I see that your mailbox is getting full. Please erase any unneeded messages.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0408.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Sorry. You can't leave a message for...]]></spokentext>
+        <sourcetext><![CDATA[Sorry. You can't leave a message for...]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0409.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[This mailbox is full.]]></spokentext>
+        <sourcetext><![CDATA[This mailbox is full.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0411.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[You've recorded a message.]]></spokentext>
+        <sourcetext><![CDATA[You've recorded a message.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0412.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To send the message, press .]]></spokentext>
+        <sourcetext><![CDATA[To send the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0413.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If I should send the message, press .]]></spokentext>
+        <sourcetext><![CDATA[If I should send the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0414.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To listen to it, press .]]></spokentext>
+        <sourcetext><![CDATA[To listen to it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0415.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Otherwise to listen to it, press .]]></spokentext>
+        <sourcetext><![CDATA[Otherwise to listen to it, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0416.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you don't want to send the message after all, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[If you don't want to send the message after all, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0417.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[If you don't want to send the message after all, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[If you don't want to send the message after all, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0418.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To re-record the message, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To re-record the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0419.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To re-record the message, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To re-record the message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0420.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To continue your message, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To continue your message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0421.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[To continue your message, press <key>.]]></spokentext>
+        <sourcetext><![CDATA[To continue your message, press <key>.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0422.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Message cancelled.]]></spokentext>
+        <sourcetext><![CDATA[Message cancelled.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0425.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[Message cancelled.]]></spokentext>
+        <sourcetext><![CDATA[Message cancelled.]]></sourcetext>
+        <comment><![CDATA[]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0426.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext>
+            <![CDATA[You can leave a message after the tone. When you have finished, press the pound key or just hang up.]]></spokentext>
+        <sourcetext>
+            <![CDATA[You can leave a message after the tone. When you have finished, press the pound key or just hang up.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="VVA_0427.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[...is busy.]]></spokentext>
+        <sourcetext><![CDATA[�r upptagen.]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="Text" src="subject">
+        <lengths>
+            <length unit="pages" value="1" />
+        </lengths>
+        <sourcetext><![CDATA[Röstmeddelande från nisse]]></sourcetext>
+    </mediaobject>
+</mediaobjects>

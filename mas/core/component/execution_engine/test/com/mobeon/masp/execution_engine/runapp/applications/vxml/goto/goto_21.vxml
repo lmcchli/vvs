@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.badfetch">
+        <log>TCPASS</log>
+        <exit></exit>
+    </catch>
+   <form>
+       <var name="target" expr=""></var>
+       <block>
+           <goto expr="target"/>
+       </block>
+       <block>
+           <log>ERROR</log>
+       </block>
+   </form>
+</vxml>

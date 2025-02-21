@@ -1,0 +1,7 @@
+d none bin 0775 root other
+f none bin/ntf.jar=/vobs/ipms/ntf/bin/ntf.jar 0644 root other
+f none VERSION=/vobs/ipms/ntf/patches/BuildPatchFiles/VERSION 0544 root other
+d none templates 0775 root other
+f none bin/phr2cphr.pl=/vobs/ipms/ntf/tools/phr2cphr.pl 0755 root other
+f none bin/upgradeinstance=/vobs/ipms/ntf/bin/upgradeinstance 0755 root other
+f none bin/ntfagent=/vobs/ipms/ntf/bin/ntfagent 0755 root other

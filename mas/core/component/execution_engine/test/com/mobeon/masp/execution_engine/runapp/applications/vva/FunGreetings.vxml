@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <var name="funGreetingArray" />
+   <var name="arrayPointer" />
+   <var name="promptCount" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime" />
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName2" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime2" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName3" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime3" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName4" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime4" />
+   <!--Boolaean that indicates if you are at the first greeting. Used mainly in the timeout.-->
+   <var name="atFirstGreeting" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="Call_IsVideo() == true">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(548)" />
+            </prompt>
+            <goto next="#assign1" />
+            <else />
+            <goto next="#assign1" />
+         </if>
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="funGreetingArray" expr="Greeting_GetFunGreetingList()" />
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2204, new Array(System_GetMediaQualifier('Number', Utility_GetArrayLength(funGreetingArray))))" />
+         </prompt>
+         <if cond="Utility_GetArrayLength(funGreetingArray) &gt; 0">
+            <assign name="arrayPointer" expr="0" />
+            <assign name="atFirstGreeting" expr="true" />
+            <goto next="#cmnu1" />
+            <else />
+            <var name="resultCode" />
+            <assign name="resultCode" expr="new Array(false)" />
+            <return namelist="resultCode" />
+         </if>
+      </block>
+   </form>
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('FunGreetings.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(526)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(527)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(528)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(529)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; menuInput == '0'">
+            <audio expr="System_GetPrompt(531)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; menuInput == '0'">
+            <audio expr="System_GetPrompt(537)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; menuInput == '0'">
+            <audio expr="System_GetPrompt(534)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; menuInput == '0'">
+            <audio expr="System_GetPrompt(538)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; menuInput == '0' &amp;&amp; !(arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1)">
+            <audio expr="System_GetPrompt(539)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; (arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 &amp;&amp; menuInput != '0')">
+            <audio expr="System_GetPrompt(532)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; (arrayPointer ==  0 &amp;&amp; menuInput != '0' &amp;&amp; atFirstGreeting == true)">
+            <audio expr="System_GetPrompt(535)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; (arrayPointer ==  0 &amp;&amp; menuInput != '0' &amp;&amp; atFirstGreeting == true)">
+            <audio expr="System_GetPrompt(549)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; (arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 &amp;&amp; menuInput != '0')">
+            <audio expr="System_GetPrompt(534)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; (arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 &amp;&amp; menuInput != '0')">
+            <audio expr="System_GetPrompt(538)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; (arrayPointer ==  0 &amp;&amp; menuInput != '0' &amp;&amp; atFirstGreeting == true)">
+            <audio expr="System_GetPrompt(498)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <!-- removed lines -->
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; GlobalObject.MainMenuValid == true &amp;&amp; (arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 || arrayPointer == 0 || menuInput == '0')"> <!-- changed lines -->
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>#</item>
+                  <item>7</item>
+                  <item>9</item>
+                  <item>0</item>
+                  <item>1</item>
+                  <item>*</item>
+                  <item>* 0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#proc2004" />
+         </catch>
+         <catch event="noinput">
+         <!-- removed line -->
+               <if cond="promptCount &gt; 3">
+                  <if cond="System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes'">
+<throw event="com.mobeon.vva.mainmenu" />
+                     <else />
+                     <goto next="Goodbye.vxml" />
+                  </if>
+                  <else />
+                  <assign name="menuInput" expr="''" />
+                  <if cond="arrayPointer &lt; Utility_GetArrayLength(funGreetingArray) - 1">
+                     <if cond="atFirstGreeting == true">
+                        <assign name="atFirstGreeting" expr="false" />
+                        <goto next="#pmess3" />
+                        <else />
+                        <assign name="arrayPointer" expr="arrayPointer + 1" />
+                        <goto next="#pmess3" />
+                     </if>
+                     <else />
+                     <assign name="promptCount" expr="promptCount + 1" />
+                     <goto next="#cmnu1_menu" />  <!-- changed line -->
+                  </if>
+               </if>
+         <!-- removed line -->
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '#'">
+               <goto next="#sub1" />
+            </if>
+            <if cond="menu_input == '7'">
+               <goto next="#cond4" />
+            </if>
+            <if cond="menu_input == '9'">
+               <goto next="#cond3" />
+            </if>
+            <if cond="menu_input == '0'">
+               <if cond="menuInput == '0'">
+                  <goto next="#ptarget1" />
+               </if>
+            </if>
+            <if cond="menu_input == '#'">
+               <if cond="menuInput == '0'">
+                  <goto next="#ptarget3" />
+               </if>
+            </if>
+            <if cond="menu_input == '1'">
+         <!-- removed line -->
+                  <goto next="#pmess4" />
+         <!-- removed line -->
+            </if>
+            <if cond="menu_input == '7'">
+               <if cond="menuInput == '0'">
+                  <goto next="#ptarget4" />
+               </if>
+            </if>
+            <if cond="menu_input == '9'">
+               <if cond="menuInput == '0' &amp;&amp; !(arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1)">
+                  <goto next="#ptarget5" />
+               </if>
+            </if>
+            <if cond="menu_input == '#'">
+               <if cond="(arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 &amp;&amp; menuInput != '0')">
+                  <goto next="#ptarget3" />
+               </if>
+            </if>
+            <if cond="menu_input == '#'">
+               <if cond="(arrayPointer ==  0 &amp;&amp; menuInput != '0' &amp;&amp; atFirstGreeting == true)">
+                  <goto next="#ptarget3" />
+               </if>
+            </if>
+            <if cond="menu_input == '1'">
+               <if cond="(arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 &amp;&amp; menuInput != '0')">
+                  <goto next="#ptarget2" />
+               </if>
+            </if>
+            <if cond="menu_input == '7'">
+               <if cond="(arrayPointer == Utility_GetArrayLength(funGreetingArray) - 1 &amp;&amp; menuInput != '0')">
+                  <goto next="#ptarget4" />
+               </if>
+            </if>
+            <if cond="menu_input == '9'">
+               <if cond="(arrayPointer ==  0 &amp;&amp; menuInput != '0' &amp;&amp; atFirstGreeting == true)">
+                  <goto next="#ptarget4" />
+               </if>
+            </if>
+            <if cond="menu_input == '*'">
+               <if cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="new Array(false)" />
+                  <return namelist="resultCode" />
+               </if>
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*0'">
+               <goto next="#proc2007" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2005" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2003" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="proc2004">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastMenuInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult" expr="sub.resultCode" />
+            <goto next="#ptarget2001" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2001">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="pmess3">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="Greeting_GetFunGreeting(funGreetingArray[arrayPointer])" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#cmnu1_reprompt" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SendTrafficEvent ('FunGreeting', 'FunGreeting')</script>
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(true,Greeting_GetFunGreeting(funGreetingArray[arrayPointer]))" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="cond4">
+      <block>
+         <if cond="arrayPointer &gt; 0">
+            <goto next="#pmess2" />
+            <else />
+            <assign name="atFirstGreeting" expr="true" />
+            <goto next="#ptarget1" />
+         </if>
+      </block>
+   </form>
+   <form id="pmess2">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="Greeting_GetFunGreeting(funGreetingArray[arrayPointer-1])" />
+         </prompt>
+         <assign name="arrayPointer" expr="arrayPointer - 1" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="cond3">
+      <block>
+         <if cond="arrayPointer &lt; Utility_GetArrayLength(funGreetingArray) - 1">
+            <goto next="#pmess1" />
+            <else />
+            <goto next="#ptarget1" />
+         </if>
+      </block>
+   </form>
+   <form id="pmess1">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="Greeting_GetFunGreeting(funGreetingArray[arrayPointer+1])" />
+         </prompt>
+         <assign name="arrayPointer" expr="arrayPointer + 1" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget3">
+      <block>
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="pmess4">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="Greeting_GetFunGreeting(funGreetingArray[0])" />
+         </prompt>
+         <assign name="atFirstGreeting" expr="true" />
+         <assign name="arrayPointer" expr="0" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget4">
+      <block>
+         <goto next="#cond4" />
+      </block>
+   </form>
+   <form id="ptarget5">
+      <block>
+         <goto next="#cond3" />
+      </block>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#pmess4" />
+      </block>
+   </form>
+   <form id="proc2007">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2002">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2005">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult" expr="sub.resultCode" />
+<throw event="com.mobeon.vva.mainmenu" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2003">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

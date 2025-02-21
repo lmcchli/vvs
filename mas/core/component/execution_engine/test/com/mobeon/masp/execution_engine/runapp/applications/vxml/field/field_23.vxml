@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>*</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <catch event="error">
+        <log>TCFAIL caught an error</log>
+        <exit></exit>
+    </catch>
+
+    <form id="form1">
+
+        <noinput>
+            <log>TCFAIL noinput</log>
+            <exit></exit>
+        </noinput>
+
+        <block>
+            <prompt><audio src="beep.wav"></audio></prompt>
+        </block>
+
+        <field name="f1">
+        </field>
+
+        <filled>
+            <log>TCPASS</log>
+            <exit></exit>
+        </filled>
+    </form>
+
+</vxml>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="ComponentManager" class="com.mobeon.masp.util.component.SpringComponentManager" depends-on="ExecutorServiceManager"/>
+
+    <bean id="ExecutorServiceManager" class="com.mobeon.masp.util.executor.ExecutorServiceManager" factory-method="getInstance" singleton="true">
+        <property name="executors">
+            <map>
+                <entry>
+                    <key>
+                        <value>com.mobeon.masp</value>
+                    </key>
+                    <bean class="com.mobeon.masp.util.executor.ThreadPoolExecutorService" singleton="false">
+                        <constructor-arg index="0">
+                            <value>30</value>   <!-- Initial pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="1">
+                            <value>30</value>   <!-- Max pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="2">
+                            <value>com.mobeon.masp</value>
+                        </constructor-arg>
+                    </bean>
+                </entry>
+                <entry>
+                    <key>
+                        <value>com.mobeon.masp.mediatranslationmanager</value>
+                    </key>
+                    <bean class="com.mobeon.masp.util.executor.ThreadPoolExecutorService" singleton="false">
+                        <constructor-arg index="0">
+                            <value>1</value>   <!-- Initial pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="1">
+                            <value>20</value>   <!-- Max pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="2">
+                            <value>com.mobeon.masp.mediatranslationmanager</value>
+                        </constructor-arg>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

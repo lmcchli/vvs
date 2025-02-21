@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<catch event="telephone.disconnect.hangup">
+		<log>user hangup</log>
+	</catch>
+	<form>
+        <field name="field1">
+            In field1
+        </field>
+		<block name="block1">
+			Enter block
+			<goto next="sub2.vxml"/>
+			Leaving block1
+		</block>
+	</form>
+</vxml>

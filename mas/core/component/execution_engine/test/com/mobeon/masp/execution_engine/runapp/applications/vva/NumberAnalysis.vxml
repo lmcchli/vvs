@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--The message string included in a thrown event.  This is a standard VoiceXML variable that is visible within a catch statement.
+(Must be declared in SCE for the time being, which means that the declaration must be removed in the generated VoiceXML)-->
+   <var name="_message" />
+   <!--The number of digits that has been returned from the number analysis.-->
+   <var name="numberOfDigits" />
+   <!--The analyzed number.-->
+   <var name="analyzedNumber" />
+   <!--An array that is returned from this procedure. returnArray[0] is true if the analysis is OK (otherwise false) and returnArray[1] is the analyzed number.-->
+   <var name="returnArray" />
+   <!--The phone number to analyze.-->
+   <var name="phoneNumber" />
+   <!--The rule that shall be used for the analysis.-->
+   <var name="rule" />
+   <!--An additional phone number that is used during the analysis.-->
+   <var name="additionalPhoneNumber" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_phoneNumber" />
+      <var name="p_rule" />
+      <var name="p_additionalPhoneNumber" />
+      <block>
+         <assign name="phoneNumber" expr="p_phoneNumber" />
+         <assign name="rule" expr="p_rule" />
+         <assign name="additionalPhoneNumber" expr="p_additionalPhoneNumber" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="analyzedNumber" expr="PhoneNumber_GetAnalyzedNumber(rule, phoneNumber, additionalPhoneNumber)" />
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(true, analyzedNumber)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <if cond="_message.substring(0,3) == 'MIN'">
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2000, new Array(System_GetMediaQualifier('Number', _message.substring(4, _message.indexOf('%')))))" />
+         </prompt>
+         <goto next="#Return2" />
+         <elseif cond="_message.substring(0,3) == 'MAX'" />
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2001, new Array(System_GetMediaQualifier('Number', _message.substring(4, _message.indexOf('%')))))" />
+         </prompt>
+         <goto next="#Return2" />
+         <elseif cond="_message.substring(0,7) == 'EXACTLY'" />
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2002, new Array(System_GetMediaQualifier('Number', _message.substring(8, _message.indexOf('%')))))" />
+         </prompt>
+         <goto next="#Return2" />
+         <elseif cond="_message.substring(0,7) == 'BLOCKED'" />
+         <goto next="#prompt1" />
+         <else />
+         <goto next="#prompt1" />
+      </if>
+   </catch>
+   <form id="Return2">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(false)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(11)" />
+         </prompt>
+         <goto next="#Return2" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

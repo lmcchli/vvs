@@ -1,0 +1,6 @@
+# Test script for SIPP perl compiler
+description "Verify that MAS uses the backup solution configured if MCR is not to be used"
+
+connect voicesms
+#sleep 16000
+disconnect

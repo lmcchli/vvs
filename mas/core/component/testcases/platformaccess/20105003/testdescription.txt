@@ -1,0 +1,30 @@
+public String systemAnalyzeNumber(String rule, String phoneNumber, String informationContainingRegionCode)
+
+Action: Test that input passes rule. 
+
+Sent:
+Rule="INBOUNDCALL"
+phoneNumber=123456789
+
+Return: 123456789
+
+Rule is:
+<rule name="INBOUNDCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+	    <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+            	
+
+Expected result: 123456789
+
+
+
+
+
+
+ 

@@ -1,0 +1,29 @@
+#! /usr/xpg4/bin/sh
+# Preremove script
+BASEDIR=`pkgparam LMENtf BASEDIR`
+LOG="/apps/logs/ntf/uninstall/log"
+export BASEDIR LOG
+
+. $BASEDIR/bin/common.sh
+
+remove_backup_files(){
+    if [ -f /apps/moipbackup/bckntfconfig.sh ];then
+        rm /apps/moipbackup/bckntfconfig.sh
+    fi
+    if [ -f $BASEDIR/moipbackup/bckntfconfig.sh ];then
+        rm $BASEDIR/moipbackup/bckntfconfig.sh
+    fi
+}
+
+remove_log_link(){
+    if [ -d /apps/logs/ntf/ntf.logdir ];then
+        rm /apps/logs/ntf/ntf.logdir
+    fi
+}
+
+#############
+#MAIN
+############
+remove_backup_files        
+remove_log_link           
+echo "Removing files......."

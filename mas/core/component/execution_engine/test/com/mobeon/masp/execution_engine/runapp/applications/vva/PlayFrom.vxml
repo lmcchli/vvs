@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="sendersPhoneNumber" />
+   <var name="messageId" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageId" />
+      <block>
+         <assign name="messageId" expr="p_messageId" />
+         <goto next="#prompt2" />
+      </block>
+   </form>
+   <form id="prompt2">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2120, new Array(System_GetMediaQualifier(Message_GetSpokenNameOfSender(messageId))))" />
+         </prompt>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="''" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <assign name="sendersPhoneNumber" expr="Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender'))" />
+      <if cond="((sendersPhoneNumber != ''))">
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2119, new Array(System_GetMediaQualifier('String', Message_GetSendersPhoneNumber(sendersPhoneNumber))))" />
+         </prompt>
+         <goto next="#Return1" />
+         <else />
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2121)" />
+         </prompt>
+         <goto next="#Return1" />
+      </if>
+   </catch>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

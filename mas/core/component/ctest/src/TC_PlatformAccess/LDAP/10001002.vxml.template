@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+		<var name="ATTR_NAME" expr="'passwordskipenabled'" />
+
+		<var name="attr" />
+		<var name="changed" />
+		<block>
+			<script>
+				<![CDATA[
+				attr = mas.subscriberGetBooleanAttribute(
+					PHONE_NUMBER,
+					ATTR_NAME);
+				if (attr[0] == true) {
+					mas.subscriberSetBooleanAttribute(
+						PHONE_NUMBER,
+						ATTR_NAME,
+						[ false ]);
+					attr = mas.subscriberGetBooleanAttribute(
+						PHONE_NUMBER,
+						ATTR_NAME);
+					changed = (attr[0] == false ? true : false);
+				} else {
+					mas.subscriberSetBooleanAttribute(
+						PHONE_NUMBER,
+						ATTR_NAME,
+						[ true ]);
+					attr = mas.subscriberGetBooleanAttribute(
+						PHONE_NUMBER,
+						ATTR_NAME);
+					changed = (attr[0] == true ? true : false);
+				}
+				]]>
+			</script>
+			<if cond="changed">
+				<log>TC 10001002 PASSED</log>
+			<else />
+				<log>TC 10001002 FAILED - The '<expr value="ATTR_NAME" />' boolean attribute was NOT changed</log>
+			</if>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 10001002 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+
+</vxml>
+

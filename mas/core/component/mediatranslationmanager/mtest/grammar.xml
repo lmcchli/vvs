@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<grammar xml:lang="en-GB" version="1.0" root="ROOT">
+    <rule id="ROOT" scope="public">
+        <item>
+            <ruleref uri="#words"/>
+        </item>
+    </rule>
+    <rule id="words">
+        <one-of>
+            <item> one </item>
+            <item> two </item>
+            <item> three </item>
+            <item> four </item>
+            <item> five </item>
+            <item> six </item>
+            <item> seven </item>
+            <item> eight </item>
+            <item> nine </item>
+            <item> ten </item>
+            <item> yes </item>
+            <item> no </item>
+            <item> quit </item>
+        </one-of>
+    </rule>
+</grammar>

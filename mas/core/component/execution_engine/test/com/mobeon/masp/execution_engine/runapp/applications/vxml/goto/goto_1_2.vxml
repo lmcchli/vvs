@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="goto_1.vxml">
+    <var name="bebben" expr="5"></var>
+    <form id="form1737">
+        <block name="tedsss">
+            <log>In the other doc</log>
+            <if cond="bebben != 5">
+                <log>ERROR</log>
+            </if>
+            <if cond="olle != 44">
+                <log>ERROR</log>
+                <else/>
+                    <log>TCPASS</log>
+            </if>
+        </block>
+    </form>
+</vxml>

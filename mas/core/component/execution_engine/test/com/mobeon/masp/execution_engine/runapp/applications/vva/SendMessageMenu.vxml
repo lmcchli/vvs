@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime" />
+   <var name="GlobalObject" />
+   <var name="message" />
+   <!--True if max recoring was reached. Continue not allowed.-->
+   <var name="maxTimeReached" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_GlobalObject" />
+      <var name="p_message" />
+      <var name="p_maxTimeReached" />
+      <block>
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <assign name="message" expr="p_message" />
+         <assign name="maxTimeReached" expr="p_maxTimeReached" />
+         <goto next="#cmnu1" />
+      </block>
+   </form>
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('SendMessageMenu.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(570)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(571)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(572)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(573)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(574)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((maxTimeReached == false))">
+            <audio expr="System_GetPrompt(575)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((maxTimeReached == false))">
+            <audio expr="System_GetPrompt(576)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(577)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(578)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(579)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(580)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(12)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(13)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(14)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>#</item>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>*</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#proc2004" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes') &amp;&amp; (GlobalObject.MainMenuValid == true))">
+<throw event="com.mobeon.vva.mainmenu" />
+                  <else />
+                  <goto next="Goodbye.vxml" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '#'">
+               <var name="resultCode" />
+               <assign name="resultCode" expr="'send'" />
+               <return namelist="resultCode" />
+            </if>
+            <if cond="menu_input == '1'">
+               <goto next="#pmess1" />
+            </if>
+            <if cond="menu_input == '2'">
+               <if cond="((maxTimeReached == false))">
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="'continue'" />
+                  <return namelist="resultCode" />
+               </if>
+            </if>
+            <if cond="menu_input == '3'">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(425)" />
+               </prompt>
+               <var name="resultCode" />
+               <assign name="resultCode" expr="'cancel'" />
+               <return namelist="resultCode" />
+            </if>
+            <if cond="menu_input == '4'">
+               <var name="resultCode" />
+               <assign name="resultCode" expr="'re-record'" />
+               <return namelist="resultCode" />
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*'">
+               <if cond="((GlobalObject.PreviousMenuValid == true))">
+<throw event="com.mobeon.vva.previousmenu" />
+               </if>
+            </if>
+            <if cond="menu_input == '*0'">
+               <goto next="#proc2007" />
+            </if>
+            <if cond="menu_input == '0'">
+               <goto next="#ptarget2002" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2005" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2003" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="proc2004">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastMenuInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult" expr="sub.resultCode" />
+            <goto next="#ptarget2001" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2001">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="pmess1">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="message" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#cmnu1" />
+      </block>
+   </form>
+   <form id="proc2007">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2002">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2005">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult" expr="sub.resultCode" />
+<throw event="com.mobeon.vva.mainmenu" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2003">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

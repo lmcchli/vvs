@@ -1,0 +1,43 @@
+#!/bin/sh
+cmd=$1
+if [ -z "$JAVA_HOME" ]; then
+    if pkginfo SUNWj3rt >/dev/null 2>&1 ; then 
+        JAVA_HOME=`pkgparam SUNWj3rt BASEDIR`/j2se
+    fi
+fi
+
+if [ -z "$JAVA_HOME" ]; then
+    echo "No java package (SUNWj3rt) installed, please set JAVA_HOME" 1>&2
+    exit 1
+fi
+
+if [ ! -x "$JAVA_HOME/bin/java" ]; then
+    echo "Can not find java in $JAVA_HOME/bin" 1>&2
+    exit 1
+fi
+
+VERSION=`$JAVA_HOME/bin/java -version 2>&1 | grep java\ version | cut -f 2 -d \" | sed -e 's/\./ /g'`
+
+set $VERSION
+
+if [ "$1" -gt 1 -o "$2" -gt 3 ]; then 
+
+    case $cmd in
+'start') 
+            $JAVA_HOME/bin/java -cp `dirname $0`/smsc.jar:`dirname $0`/xmlParserAPIs.jar:`dirname $0`/xercesImpl.jar -Xmx128m com/mobeon/smsc/Main > ../logs/SMSCProcess.log 2>&1 &
+            echo $! > ../logs/smsc.pid
+            ;;
+'stop') 
+            kill -9 `cat ../logs/smsc.pid`
+            rm ../logs/smsc.pid
+            ;;
+*)
+	    echo "Usage: rc.smsc {start|stop}"
+	    exit 1
+	    ;;
+    esac
+else
+    echo "Java version must be 1.4 or newer" 1>&2
+    exit 1
+fi
+

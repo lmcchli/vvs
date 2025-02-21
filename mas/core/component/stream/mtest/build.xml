@@ -1,0 +1,70 @@
+<project name="StreamTest" basedir="." default="info">
+
+	<property name="build.dir" value="build"/>
+	<property name="run.dir" value=".."/>	
+	<property name="src.dir" value="."/>
+	<property name="mas.lib" value="../../lib"/>
+	<property name="stream.lib" value="../lib"/>
+	
+	<!-- load environment variables, to get LD_LIBRARY_PATH -->
+	<property environment="env"/>
+
+
+	<!--========================================
+	     Clean
+	    ========================================-->
+	<target name="clean" description="Removes generated files">
+		<delete dir="${build.dir}" />
+	</target>
+
+
+	<!--========================================
+	    Compilation
+	    ========================================-->
+	<target name="compile">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="true">
+			<include name="**/StreamTest.java"/>
+			<classpath>
+				<fileset dir="${mas.lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+	<!--========================================
+	    Information
+	    ========================================-->
+	<target name="info" description="Information">
+		<echo>
+Use "ant StreamTest" to execute the StreamTest test cases.
+Make sure that mas/lib contains libccrtpadapter.so first.
+		</echo>	
+	</target>
+
+		
+	<!--========================================
+	    run StreamTest
+	    ========================================-->
+	<target name="StreamTest" depends="compile" description="Run StreamTest">
+<!--		<echo message="java.library.path = ${java.library.path}" />   -->
+		<java classname="com.mobeon.masp.stream.StreamTest" fork="true" dir="${run.dir}">
+			<classpath>
+				<pathelement path="${build.dir}"/>
+				<pathelement path="${stream.lib}"/>
+				<fileset dir="${mas.lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+			<!-- override LD_LIBRARY_PATH -->
+		    <env key="LD_LIBRARY_PATH" path="${env.LD_LIBRARY_PATH}:${mas.lib}:${stream.lib}"/>
+			
+			<!-- setup libumem -->
+		    <env key="UMEM_DEBUG" value="default"/>
+		    <env key="UMEM_LOGGING" value="transaction"/>
+		    <env key="LD_PRELOAD" value="libumem.so.1"/>
+		</java>
+	</target>
+	
+</project>

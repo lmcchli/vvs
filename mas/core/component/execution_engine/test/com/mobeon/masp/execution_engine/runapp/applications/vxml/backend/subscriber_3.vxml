@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+  <catch event=".">
+    <log>TCPASS VXML: Unknown nok</log>
+    <exit/>
+  </catch>
+   <form id="uno">
+       <catch event=".">
+         <log>TCPASS VXML: Unknown ok <value expr="_event+_message"></value></log>
+         <exit/>
+       </catch>
+       <block>
+           <script>
+                var exist = mas.subscriberExist('1');
+                var val = mas.subscriberGetStringAttribute('1', 'unknown');
+           </script>
+           <exit/>
+       </block>
+   </form>
+</vxml>

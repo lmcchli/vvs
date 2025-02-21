@@ -1,0 +1,390 @@
+#! /usr/xpg4/bin/sh
+
+. shbasics
+
+#Set default values
+file="testsetup"
+murport=389
+murpass="admin"
+
+Usage ()
+{
+    echo
+    echo "$0 inserts the users into MUR which NTF needs for unit test."
+    echo "Prerequisities for running this script:"
+    echo "    - there is a community for unit test"
+    echo "    - the file \"testsetup\" in the current directory contains the"
+    echo "    - ldapsearch and ldapmodify is in the path."
+    echo "      data for the test community, e.g."
+    echo "             MURHost=vespa.ipms.su.erm.abcxyz.se"
+    echo "             ou=C2"
+    echo "             o=abcxyz.se"
+    echo
+    echo "Usage"
+    echo "    $0 [ -p passwd ]"
+    echo "    -p set the admin password for the user register"
+    echo 
+    exit 1
+}
+
+
+
+#Read command-line options
+while getopts hf:p: o
+  do
+  case $o in
+      f) file=$OPTARG;;
+      p) murpass=$OPTARG;;
+      h|\?) Usage;;
+  esac
+done
+
+#Read configuration data and check the variables
+if [ -r $file ] ; then
+    :
+else
+    echo "Can not read $file"
+    exit 1
+fi
+
+murhost=`param MURHost <$file`
+o=`param o <$file`
+ou=`param ou <$file`
+
+checkparam "MURHost" $murhost
+checkparam "o" $o
+checkparam "ou" $ou
+
+adminuniq=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "emAdministratorType=user" uniqueIdentifier|grep -v o=|tail -1|param uniqueIdentifier`
+authorityname=`ldapsearch -h $murhost -p $murport -b "ou=Directory Administrators,o=$o" "authorityname=*" authorityname uniqueidentifiercounter|grep -v o=|param authorityname`
+uidc=`ldapsearch -h $murhost -p $murport -b "ou=Directory Administrators,o=$o" "authorityname=*" authorityname uniqueidentifiercounter|grep -v o=|param uniqueidentifiercounter`
+
+#./ldapmodify -a -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$passwd" <<EOD
+#dn: cos=1, ou=$ou, o=$o
+#welcomegrt: LOG_WELCOME_CISCO
+#MsgLenMaxVoice: 180
+#MaxLoginLockout: 6
+#GreetingSecMax: 60
+#phonenumberexpansionsection: DialPlan
+#faxenabled: yes
+#COS: 1
+#MWIAvailable: no
+#emNotRetrievedVoiceMsg: no
+#MessageInventory: yes
+#PhoneNumberCallerAccessSection: CALLERACCESS
+#maxsnrnototry: 3
+#MWIEnable: yes
+#outboundfaxsectionname: GWHOSTS
+#passwordMaxLength: 8
+#maxmultiline: 5
+#emServiceDn: emservicename=webmail, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=wapmail, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=msgtype_email, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=msgtype_voice, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=sms_notification, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=mms_notification, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=wappush_notification, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=notification_filters, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=tui, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=send_sms, ou=services, o=abcxyz.se
+#emServiceDn: emservicename=outdial_notification, ou=services, o=abcxyz.se
+#SubSearchBase: ou=$ou,o=$o
+#GroupMailBoxAllowed: no
+#emWAPStart: main
+#objectClass: top
+#objectClass: confcos
+#objectClass: emservicecollection
+#UrgentMsgPlay: yes
+#SNAUMiniFileName: uOne.ini
+#PasswdLenMin: 4
+#COSname: cosQL
+#emServiceCollectionName: 1
+#mailQuota: 20971520
+#emOutdialNotification: yes
+#InHoursDOW: 135
+#DLMax: 10
+#emRetentionTime: v;0;0
+#emRetentionTime: f;0;0
+#emRetentionTime: e;0;0
+#maxsecphone: 9
+#uOneConfigSection: UM
+#3DLEntriesMax: 65
+#streaming: no
+#messageplayemail: both
+#OutdialNotificationAvailable: no
+#IncludeSpokenName: yes
+#ttsemailenabled: yes
+#RadiusEnabled: no
+#faxheaderservicename: MoIP FaxServices
+#passwordskipavailable: no
+#reinventory: no
+#passwordsyncavailable: no
+#EOMsgWarning: 30
+#InHoursStart: 0900
+#passwordMinLength: 4
+#snrservice: NONE
+#messageplayvoice: both
+#emFilter: 1;y;b;evf;SMS;c;1;;;;;costest;;
+#InHoursEnd: 1730
+#broadcastexpire: no
+#diskspaceremainingwarninglevel: .3
+#PasswdLenMax: 4
+#emProductType: um
+#multilineallowed: no
+#intermediatefaxMTA: smtpout
+#version: 6.1
+#AutoPlay: yes
+#AnsweringServiceList: LM
+#PhoneNumberDialingSection: USDOMESTIC
+#fastloginavailable: no
+#emNotifExpTime: 1
+#EOD
+
+#objectClass: mailrecipient
+commonAttributes="mailquota: 20971520
+mailhost: jawa.ipms.su.erm.abcxyz.se
+emservicedn: cos=1,ou=$ou,o=$o
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+userPassword: abcd
+gender: M
+l: 0
+preferredLanguage: en
+emMessagecharencoding: ISO-8859-1
+mailDeliveryOption: mailbox
+emSMPPcenterid: smppQL
+emMMScenterid: mmscQL
+emWGPid: wapQL
+emPreferredDateFormat: yyyy/mm/dd
+emPreferredTimeFormat: 24
+objectClass: emNotification"
+
+commonBilling="password: 3Z191R240A0L472u
+umpassword: 6X1S0a273H3i1E75
+answeringservice: LM
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+cosdn: cos=2,ou=$ou,o=$o
+userlevel: 0
+subscribertimezone: Europe/Stockholm
+badlogincount: 0
+InHoursDOW: 12345
+InHoursEnd: 1630
+InHoursStart: 800"
+
+makeuserattr() {
+    echo "dn: uniqueidentifier=um$2,ou=$ou,o=$o"
+    echo "uniqueidentifier: $authorityname$2"
+    echo "uid: ql$1"
+    echo "telephonenumber: 99999$1"
+    echo "givenname: qlen$1"
+    echo "sn: ras$1"
+    echo "cn: qlen$1 ras$1"
+    echo "emNotifNumber: 99998$1"
+    echo "mail: ql$1@ipms.su.erm.abcxyz.se"
+    echo "mailalternateaddress: FAX=99997$1@ipms.su.erm.abcxyz.se"
+}
+
+makeuserbillingattr() {
+    echo "dn: billingnumber=99999$1,uniqueIdentifier=um$2,ou=$ou,o=$o"
+    echo "billingnumber: 99999$1"
+    echo "noforfirstname: 7536$1727$1"
+    echo "noforlastname: 727$17536$1"
+    echo "inboundfaxno: 99997$1"
+}
+
+echo "Creating users"
+for userno in 01 02 03 04 05 06
+do
+  userattr=`makeuserattr $userno $uidc`
+  userbillingattr=`makeuserbillingattr $userno $uidc`
+  dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql$userno" dn`
+  if [ -z $dn ]; then
+      until ldapmodify -a -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+$userattr
+$commonAttributes
+
+$userbillingattr
+$commonBilling
+EOD
+        do
+        sleep 100
+      done
+  else 
+      echo "$dn already exists"
+  fi
+
+  uidc=`expr $uidc + 1`
+done
+
+echo "Updating unique identifier counter"
+ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: authorityname=$authorityname,ou=Directory Administrators,o=$o
+changetype: modify
+replace: uniqueidentifiercounter
+uniqueidentifiercounter: $uidc
+EOD
+
+#01
+dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql01" dn`
+if [ -z $dn ]; then
+    :
+else
+    echo "Modifying $dn"
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: $dn
+changetype: modify
+replace: preferredLanguage
+preferredLanguage: sv
+-
+add: emFilter
+emFilter: 1;n;nb;evf;SMS;s;2;;;;;hemma;;
+-
+add: emFilter
+emFilter: 1;y;b;evf;SMS;c;1;;;;;jobbet;;
+EOD
+fi
+
+#02
+dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql02" dn`
+if [ -z $dn ]; then
+    :
+else
+    echo "Modifying $dn"
+    ldapmodify -a -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: $dn
+changetype: modify
+replace: emPreferredDateFormat
+emPreferredDateFormat: mm/dd/yyyy
+-
+replace: emPreferredTimeFormat
+emPreferredTimeFormat: 12
+-
+add: mailAlternateAddress
+mailAlternateAddress: alternativeForQl02@ipms.su.erm.abcxyz.se
+-
+add: emNotifDisabled
+emNotifDisabled: yes
+-
+add: emNTD
+emNTD: SMS,MWI
+EOD
+
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: billingnumber=9999902,$dn
+changetype: modify
+replace: InHoursDOW
+InHoursDOW: 1234
+-
+replace: InHoursStart
+InHoursStart: 0601
+-
+replace: InHoursEnd
+InHoursEnd: 1431
+EOD
+fi
+
+#03
+dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql03" dn`
+if [ -z $dn ]; then
+    :
+else
+    echo "Modifying $dn"
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: $dn
+changetype: modify
+replace: mailDeliveryOption
+mailDeliveryOption: forward
+-
+replace:emNotifExpTime
+emNotifExpTime: 24
+-
+replace: mailForwardingAddress
+mailForwardingAddress: ql02@ipms.su.erm.abcxyz.se
+-
+add: emNTD
+emNTD: MMS,WAP,ODL
+EOD
+
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: billingnumber=9999903,$dn
+changetype: modify
+delete: InHoursDOW
+-
+delete: InHoursStart
+-
+delete: InHoursEnd
+EOD
+fi
+
+#04
+dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql04" dn`
+if [ -z $dn ]; then
+    :
+else
+    echo "Modifying $dn"
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: $dn
+changetype: modify
+add: emFilter
+emFilter: 1;y;b;evf;SMS;c;2;;;;;costest;ro;
+-
+add: emFilter
+emFilter: 1;y;b;evf;SMS;s;1;;;;;filter04;;
+EOD
+
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: billingnumber=9999904,$dn
+changetype: modify
+replace: InHoursStart
+InHoursStart: 100
+-
+replace: InHoursEnd
+InHoursEnd: 2330
+EOD
+fi
+
+#05
+dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql05" dn`
+if [ -z $dn ]; then
+    :
+else
+    echo "Modifying $dn"
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: $dn
+changetype: modify
+replace: emPreferredDateFormat
+emPreferredDateFormat: mm/dd/yyyy
+-
+replace: emPreferredTimeFormat
+emPreferredTimeFormat: 12
+-
+add: emFilter
+emFilter: 1;y;b;evf;SMS;c;2;;;;;costest;ro;
+-
+add: emFilter
+emFilter: 1;y;a;evf;SMS;s;1;;;;;always;;
+EOD
+fi
+
+#06
+dn=`ldapsearch -h $murhost -p $murport -b "ou=$ou,o=$o" "uid=ql06" dn`
+if [ -z $dn ]; then
+    :
+else
+    echo "Modifying $dn"
+    ldapmodify -h $murhost -p $murport -D "uid=admin,ou=Directory Administrators,o=$o" -w "$murpass" <<EOD
+dn: $dn
+changetype: modify
+add: emFilter
+emFilter: 1;y;b;evf;SMS;c;1;;;;;costest;ro;
+EOD
+fi

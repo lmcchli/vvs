@@ -1,0 +1,40 @@
+package com.mobeon.masp.operateandmaintainmanager;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+public class testServiceEnabler implements ServiceEnablerOperate {
+
+    String name;
+    String state;
+    Integer threshold;
+    String protocol;
+
+    public synchronized void unlock() {
+        state = "Unlocked";
+    }
+
+    public void lock() {
+        state="Locked";
+    }
+
+    public void shutdown() {
+        state="Shutdown";
+    }
+
+    public void updateThreshold(int highWaterMark, int lowWaterMark, int threshold) {
+        this.threshold=threshold;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getProtocol() {
+        return this.protocol;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+}

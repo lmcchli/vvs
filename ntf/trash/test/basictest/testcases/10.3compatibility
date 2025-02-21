@@ -1,0 +1,48 @@
+qlenras
+2005-12-20
+================================================================
+PREPARATION
+Set the schema version for 10.3.x: MURSchema=4_1_2
+Set up a non-multiline user with filter with SMS and ODL notification.
+Make sure the users have the service notification_filters
+Set the notification number to 7777
+Add numbers 1111 and 2222 to the filter
+Add numbers 3333 and 4444 to a delivery profile for SMS + ODL
+Set up a multiline user with filter with SMS and ODL notification and secondary billing numbers 5555 and 6666
+Set the notification number to 7777
+Add numbers 5555 and 6666 to the filter
+Add numbers 3333 and 4444 to a delivery profile for SMS + ODL
+
+
+TESTCASES
+With a normal user, with a filter with SMS and ODL notification:
+1    Verify that SMS notification can be disabled by changing the billing number entry.
+2    Verify that ODL notification can be disabled by changing the billing number entry.
+3    Verify that there is no notification when both ODL and SMS are disabled
+4    Verify that the delivery profile is ignored.
+5    Verify that notifications go the notification number.
+
+With a multiline user, with a filter with SMS and ODL notification:
+6    Verify that SMS and ODL go to all numbers selected in the filter, and no others.
+7    Then with ODL disabled for one number, verify that that number gets no outdial.
+8    Verify that SMS and ODL go to the notification number and all secondary billing numbers
+     when no numbers in filter.
+9    Verify that disabling works also in this case.
+
+
+PREPARATION
+Set the schema version for 12.1.x: MURSchema=12_1_0
+
+TESTCASES
+With a normal user, with a filter with SMS and ODL notification:
+10   Verify that SMS notification can NOT be disabled by changing the billing number entry.
+11   Verify that SMS notification can be disabled by changing the user entry.
+12   Verify that the numbers in the delivery profile are used for SMS and ODL notification.
+13   Verify that notifications go the notification number when there is no delivery profile.
+
+With a multiline user, with a filter with SMS and ODL notification:
+14   Verify that SMS notification can NOT be disabled by changing the billing number entry.
+15   Verify that SMS notification can be disabled by changing the user entry.
+16   Verify that numbers selected in the filter are ignored.
+17   Verify that the numbers in the delivery profile are used for SMS and ODL notification.
+18   Verify that notifications go the notification number when there is no delivery profile.

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+                <if cond="typeof(evt.connection.local) != 'undefined'">
+                    <log expr="evt.connection.local"/>
+                    <if cond="evt.connection.local=='sip:4660161085@mobeon.com;user=phone'">
+                        <log expr="'TCPASS CCXML: Local ok 1'"/>
+                    <else/>
+                        <log expr="'TCFAIL CCXML: Local nok 1, local is not what is expected, it was: '+evt.connection.local"/>
+                    </if>
+                    <if cond="typeof(evt.connection.local.number) != 'undefined'">
+                        <if cond="evt.connection.local.number=='4660161085'">
+                            <log expr="'TCPASS CCXML: Local ok 2'"/>
+                        <else/>
+                            <log expr="'TCFAIL CCXML: Local nok 2, local is not what is expected'"/>
+                        </if>
+                     <else/>
+                        <log expr="'TCFAIL CCXML: Local nok 2, local number is undefined'"/>
+                     </if>
+                <else/>
+                    <log expr="'TCFAIL CCXML: Local nok 1, local is undefined'"/>
+                </if>
+                <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'event_empty.vxml'"/>            
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+                <exit/>
+        </transition>
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

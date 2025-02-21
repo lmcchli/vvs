@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+require "$Bin/ntfbase";
+
+system("cp $NTF_HOME/logs/NotificationTrace.log $COLLECTDIR >/dev/null 2>&1");
+system("cp $NTF_HOME/logs/NotificationTrace.log.sav $COLLECTDIR >/dev/null 2>&1");
+system("cp $NTF_HOME/logs/NotificationProcess.log $COLLECTDIR >/dev/null 2>&1");
+system("cp $NTF_HOME/logs/ntfagent.log $COLLECTDIR >/dev/null 2>&1");
+system("cp $NTF_HOME/logs/ntfagent.log.sav $COLLECTDIR >/dev/null 2>&1");
+
+exit 0;

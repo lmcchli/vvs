@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+    <xs:complexType name="Abcxyz.configType">
+        <xs:all>
+            <xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+            <xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Ntf configuration
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="ComponentSpecificType" mixed="true">
+        <xs:all>
+            <xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType" minOccurs="0"/>
+            <xs:element name="AllowedSmsc.List" type="allowedSmscListType" minOccurs="0"/>
+            <xs:element name="ReplaceNotifications.List" type="replaceNotificationsListType" minOccurs="0"/>
+            <xs:element name="SmppErrorCodesIgnored.List" type="smppErrorCodesIgnoredListType" minOccurs="0"/>
+            <xs:element name="SourceAddress.Table" type="sourceAddressTableType" minOccurs="0"/>
+            <xs:element name="Validity.Table" type="validityTableType" minOccurs="0"/>
+            <xs:element name="MwiServers.Table" type="mwiServersTableType" minOccurs="0"/>
+            <xs:element name="SmscBackup.Table" type="smscBackupTableType" minOccurs="0"/>
+            <xs:element name="ShortMessage.Table" type="serviceTableType" minOccurs="0"/>
+            <xs:element name="MailTransferAgent.Table" type="serviceTableType" minOccurs="0"/>
+            <xs:element name="MultiMediaMessage.Table" type="serviceTableType" minOccurs="0"/>
+            <xs:element name="FaxServer.Table" type="serviceTableSingleEntryType" minOccurs="0"/>
+            <xs:element name="LanguagetoMime-EmailTextCharSet.Table" type="LanguagetoMime-EmailTextCharSetTableType" minOccurs="0"/>
+            <xs:element name="NotifierPlugin.Table" type="NotifierPluginTableType" minOccurs="0" />
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+        <xs:all>
+
+            <xs:element name="Cm.autoForwardedMessages" type="onOffEnumType" default="off" minOccurs="0"/>
+            <xs:element name="Cm.bearingNetwork" type="xs:string" default="GSM" minOccurs="0"/>
+            <xs:element name="Cm.callMwiCaller" type="xs:string" default="system" minOccurs="0"/>
+            <xs:element name="Cm.cancelSmsAtRetrieval" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.checkQuota" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.checkRoaming" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.checkBusyBeforeOutdialNotification" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.getSubscriberChargingModel" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.checkTerminalCapability" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.defaultDateFormat" type="xs:string" default="yyyy/mm/dd" minOccurs="0"/>
+            <xs:element name="Cm.defaultLanguage" type="xs:string" default="en" minOccurs="0"/>
+            <xs:element name="Cm.defaultNotificationFilter" type="xs:string" default="1;n;a;evfm;;;997;;;;;OFF;;" minOccurs="0"/>
+            <xs:element name="Cm.defaultNotificationFilter2" type="xs:string" default="1;y;a;s;SMS,EML;slamdown,slamdown;998;;;;;SLAMDOWN;;" minOccurs="0"/>
+            <xs:element name="Cm.defaultTerminalCapabilityForMwi" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.defaultTerminalCapabilityForFlash" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.defaultTerminalCapabilityForReplace" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.defaultTimeFormat" type="xs:string" default="24" minOccurs="0"/>
+            <xs:element name="Cm.disableSmscReplace" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.discardSmsWhenCountIs0" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.alertSCRegistrationNumOfRetry" type="xs:nonNegativeInteger" default="30" minOccurs="0"/>
+            <xs:element name="Cm.alertSCRegistrationTimeInSecBetweenRetry" type="xs:nonNegativeInteger" default="2" minOccurs="0"/>
+
+            <xs:element name="Cm.doOutdial" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.outdialQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.outdialWorkers" type="xs:int" default="30" minOccurs="0"/>
+            <xs:element name="Cm.outdialStartRetrySchema" type="xs:string" default="1:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.outdialStartExpireTimeInMin" type="xs:int" default="4" minOccurs="0"/>
+            <xs:element name="Cm.outdialLoginRetrySchema" type="xs:string" default="1:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.outdialLoginExpireTimeInMin" type="xs:int" default="4" minOccurs="0"/>
+            <xs:element name="Cm.outdialCallRetrySchema" type="xs:string" default="1:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.outdialCallExpireTimeInMin" type="xs:int" default="4" minOccurs="0"/>
+            <xs:element name="Cm.outdialExpiryIntInMin" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.outdialExpiryRetries" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.outdialReminderEnabled" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.outdialReminderIntervalInMin" type="xs:int" default="120" minOccurs="0"/>
+            <xs:element name="Cm.outdialReminderExpireInMin" type="xs:int" default="20160" minOccurs="0"/>
+            <xs:element name="Cm.outdialPhoneOnLockValInSecs" type="xs:nonNegativeInteger" default="10" minOccurs="0"/>
+            <xs:element name="Cm.outdialStatusValInMin" type="xs:nonNegativeInteger" default="10100" minOccurs="0"/>
+            <xs:element name="Cm.outdialWhenInWaitState" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.outdialWhenInWaitOnState" type="yesNoEnumType" default="no" minOccurs="0"/>
+
+            <xs:element name="Cm.slamdownQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.slamdownWorkers" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSenderWorkers" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSenderQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSmsUnitRetrySchema" type="xs:string" default="1:try=4 5:try=2 15:try=3 60:try=5 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSmsUnitExpireTimeInMin" type="xs:int" default="361" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSmsType0RetrySchema" type="xs:string" default="1440:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSmsType0ExpireTimeInMin" type="xs:int" default="4321" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSmsInfoRetrySchema" type="xs:string" default="1:try=4 5:try=2 15:try=3 60:try=5 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnSmsInfoExpireTimeInMin" type="xs:int" default="361" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnExpiryIntInMin" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnExpiryRetries" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnPhoneOnLockValInSecs" type="xs:nonNegativeInteger" default="10" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnStatusValInMin" type="xs:nonNegativeInteger" default="4400" minOccurs="0"/>
+
+            <xs:element name="Cm.faxEnabled" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.faxWorkersQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.faxPrintQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.faxWorkers" type="xs:int" default="20" minOccurs="0"/>
+            <xs:element name="Cm.faxPrintNotifRetrySchema" type="xs:string" default="20:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.faxPrintExpireTimeInMin" type="xs:int" default="1440" minOccurs="0"/>
+            <xs:element name="Cm.faxPrintMaxConn" type="faxPrintMaxConnType" default="20" minOccurs="0"/>
+            <xs:element name="Cm.faxPrintSipGateway" type="xs:string" default="fax" minOccurs="0"/>
+            <xs:element name="Cm.faxSuccessNotification" type="xs:boolean" default="false" minOccurs="0"/>
+
+            <xs:element name="Cm.emailRetrySchema" type="xs:string" default="1:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.emailForwardMaximumSize" type="xs:int" default="10000" minOccurs="0"/>
+            <xs:element name="Cm.emailForwardTranscodeAudio" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.emailForwardTranscodeVideo" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.emailForwardOutputAudioMimeType" type="emailForwardAllowedOutputAudioMimeType" default="audio/mp3" minOccurs="0"/>
+            <xs:element name="Cm.emailForwardOutputVideoMimeType" type="emailForwardAllowedOutputVideoMimeType" default="video/quicktime" minOccurs="0"/>
+
+            <!-- The default MIME character set for text in email notifications taken from the
+             .cphr templates. i.e. text/plain; charset=utf-8 -->
+            <xs:element name="Cm.defaultEmailMimeTextCharset" type="xs:string" default="us-ascii" minOccurs="0"/>
+
+            <xs:element name="Cm.doSmsType0Slamdown" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.doSmsType0Mcn" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.doSmsType0Outdial" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.doSipMwi" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiWorkers" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.hlrRoamFailureAction" type="hlrRoamFailureActionEnum" default="home" minOccurs="0">
+            <xs:annotation>
+                    <xs:documentation>
+                    	  Failure action if failure to check HLR when roaming check is enabled and needed.
+                    	  Assume not roaming is default to emulate legacy behaviour.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            
+
+                      
+            <xs:element name="Cm.esiFailureActionTypes" type="xs:string" default="retry" minOccurs="0">
+            <xs:annotation>
+                    <xs:documentation>
+                     @Deprecated, use Cm.hlrRoamFailureAction configuration instead.
+                     </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cm.esiSystem" type="xs:boolean" default="false" minOccurs="0">
+			<xs:annotation>
+                    <xs:documentation>
+                     @Deprecated,ESI system only exists in MoIP Solaris - use Cm.enableHlrAccess in backend and checkRoaming. 
+                     </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            
+            <xs:element name="Cm.imapTimeout" type="xs:int" default="5000" minOccurs="0"/>
+            <xs:element name="Cm.appleImapServerAddress" type="xs:string" default="" minOccurs="0"/>
+            <xs:element name="Cm.appleImapServerPort" type="xs:string" default="10145" minOccurs="0"/>
+
+            <xs:element name="Cm.internalQueueSize" type="xs:int" default="256" minOccurs="0"/>
+            <xs:element name="Cm.keepSmscConnections" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.logicalZone" type="xs:string" default="unspecified" minOccurs="0"/>
+            <xs:element name="Cm.logLevel" type="logLevelType" default="1" minOccurs="0"/>
+            <xs:element name="Cm.logSize" type="xs:int" default="10000000" minOccurs="0"/>
+            <xs:element name="Cm.maxTimeBeforeExpunge" type="xs:int" default="300" minOccurs="0"/>
+            <xs:element name="Cm.maxXmpConnections" type="xs:int" default="3" minOccurs="0"/>
+
+            <xs:element name="Cm.mmscPassword" type="xs:string" default="NoDefault" minOccurs="0"/>
+            <xs:element name="Cm.mmsVersion" type="xs:string" default=" " minOccurs="0"/>
+            <xs:element name="Cm.mmsSystemDomain" type="xs:string" default="abcxyz.com" minOccurs="0"/>
+            <xs:element name="Cm.mmscVasId" type="xs:string" minOccurs="0"/>
+            <xs:element name="Cm.mmscVaspId" type="xs:string" default="NTF" minOccurs="0"/>
+            <xs:element name="Cm.mmsMaxConnection" type="mmsMaxConnectionType" default="10" minOccurs="0"/>
+            <xs:element name="Cm.mmsMaxVideoLength" type="xs:int" default="-1" minOccurs="0"/>
+            <xs:element name="Cm.mmsMaxMsgSize" type="xs:int" default="10000" minOccurs="0"/>
+            <xs:element name="Cm.mmsPostmaster" type="xs:string" default="" minOccurs="0"/>
+            <xs:element name="Cm.mmsUsername" type="xs:string" default="NoDefault" minOccurs="0"/>
+            <xs:element name="Cm.mmsPreferedAudioCodec" type="allowedMmsAudioCodecType" default="native" minOccurs="0"/>
+
+            <xs:element name="Cm.mwiStoreMessageAfterUpdating" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.mwiOffCheckCount" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.netmask" type="xs:string" default="255.255.255.0" minOccurs="0"/>
+            <xs:element name="Cm.notifThreads" type="notifThreadsType" default="10" minOccurs="0"/>
+            <xs:element name="Cm.numberOfSms" type="numberOfSmsType" default="5" minOccurs="0"/>
+            <xs:element name="Cm.numberToMessagingSystem" type="xs:string" default="133" minOccurs="0"/>
+            <xs:element name="Cm.numberToMessagingSystemForCallMwi" type="xs:string" default="133" minOccurs="0"/>
+            <xs:element name="Cm.journalRefresh" type="xs:int" default="1800" minOccurs="0"/>
+            <xs:element name="Cm.pagerPauseTime" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.pathToSnmpScripts" type="xs:string" default="/opt/moip/snmp/scripts" minOccurs="0"/>
+            <xs:element name="Cm.phoneOnMethod" type="phoneOnMethodType" default="SMSType0" minOccurs="0"/>
+            <xs:element name="Cm.quotaAction" type="quotaActionType" default="warn" minOccurs="0"/>
+            <xs:element name="Cm.quotaTemplate" type="xs:string" default="mailquotaexceeded" minOccurs="0"/>
+            <xs:element name="Cm.quotaPerTypeTemplate" type="xs:string" default="mailquotatypeexceeded" minOccurs="0"/>
+            <xs:element name="Cm.highQuotaTemplate" type="xs:string" default="mailquotahighlevelexceeded" minOccurs="0"/>
+            <xs:element name="Cm.highQuotaPerTypeTemplate" type="xs:string" default="mailquotatypehighlevelexceeded" minOccurs="0"/>
+            <xs:element name="Cm.vvmSystemDeactivatedTemplate" type="xs:string" default="vvmsystemdeactivated" minOccurs="0"/>
+            <xs:element name="Cm.vvmImapFirstDetectedTemplate" type="xs:string" default="vvmimapfirstdetected" minOccurs="0"/>
+            <xs:element name="Cm.sendVvmSystemDeactivatedSMS" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.sendVvmImapFirstDetectedSMS" type="xs:boolean" default="true" minOccurs="0"/>
+
+            <xs:element name="Cm.sendUpdateAfterRetrieval" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.sendUpdateAfterTerminalChange" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.setReplyPath" type="xs:boolean" default="false" minOccurs="0"/>
+
+            <xs:element name="Cm.slamdownMaxCallers" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMaxCallsPerCaller" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMaxDigitsInNumber" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.slamdownOldestFirst" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.slamdownTimeOfLastCall" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.slamdownTruncatedNumberIndication" type="xs:string" default="*" minOccurs="0"/>
+            <xs:element name="Cm.slamdownNotificationWhenPhoneOnFailed" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.slamdownMcnNotificationWhenPhoneOnExpiry" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.slamdownRetentionDuration" type="xs:unsignedInt" default="0" minOccurs="0"/>
+            <xs:element name="Cm.slamdownRetentionNumberOfCallers" type="xs:unsignedInt" default="0" minOccurs="0"/>
+
+            <xs:element name="Cm.mcnMaxDigitsInNumber" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.mcnOldestFirst" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.mcnTimeOfLastCall" type="yesNoEnumType" default="yes" minOccurs="0"/>
+            <xs:element name="Cm.mcnTruncatedNumberIndication" type="xs:string" default="*" minOccurs="0"/>
+            <xs:element name="Cm.mcnMaxCallers" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.mcnMaxCallsPerCaller" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.mcnLanguage" type="xs:string" default="en" minOccurs="0"/>
+            <xs:element name="Cm.mcnRetentionDuration" type="xs:unsignedInt" default="0" minOccurs="0"/>
+            <xs:element name="Cm.mcnRetentionNumberOfCallers" type="xs:unsignedInt" default="0" minOccurs="0"/>
+
+            <xs:element name="Cm.mcnSubscribedEnabled" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.mcnSubscribedRetentionDuration" type="xs:unsignedInt" default="0" minOccurs="0"/>
+            <xs:element name="Cm.mcnSubscribedRetentionNumberOfCallers" type="xs:unsignedInt" default="0" minOccurs="0"/>
+
+            <xs:element name="Cm.smeServiceType" type="xs:string" default="VMN" minOccurs="0"/>
+            <xs:element name="Cm.vvmServiceType" type="xs:string" default="VMN" minOccurs="0"/>
+            <xs:element name="Cm.smeServiceTypeForMwi" type="xs:string" minOccurs="0"/>
+            <xs:element name="Cm.smeSourceAddress" type="xs:string" default="" minOccurs="0"/>
+            <xs:element name="Cm.smeSourceNpi" type="smeSourceNpiTonType" default="0" minOccurs="0"/>
+            <xs:element name="Cm.smeSourceTon" type="smeSourceNpiTonType" default="0" minOccurs="0"/>
+            <xs:element name="Cm.smppVersion" type="xs:int" default="52" minOccurs="0"/>
+
+            <xs:element name="Cm.smsClientAsynchronous" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.smscErrorAction" type="smscErrorActionType" default="handle" minOccurs="0"/>
+            <xs:element name="Cm.smscPollInterval" type="xs:int" default="60" minOccurs="0"/>
+            <xs:element name="Cm.smscShutdownPeriod" type="xs:int" default="120" minOccurs="0"/>
+            <xs:element name="Cm.smscTimeout" type="smscTimeoutType" default="30" minOccurs="0"/>
+            <xs:element name="Cm.smscTimeoutSubmitSm" type="smscTimeoutType" default="30" minOccurs="0"/>
+            <xs:element name="Cm.smscTimeoutDataSm" type="smscTimeoutType" default="30" minOccurs="0"/>
+            <xs:element name="Cm.smppBinding" type="smppBindingType" default="transceiver" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsMinConn" type="smsMinConnType" default="1" minOccurs="0"/>
+            <xs:element name="Cm.smsMaxConn" type="smsMaxConnType" default="20" minOccurs="0"/>
+            <xs:element name="Cm.smsNumReceiverConn" type="smsMinConnType" default="1" minOccurs="0"/>
+            <xs:element name="Cm.smsMinTimeBetweenConn" type="smsMinTimeBetweenConnType" default="0" minOccurs="0"/>
+            <xs:element name="Cm.smsMinTimeBetweenReConn" type="smsMinTimeBetweenReConnType" default="0" minOccurs="0"/>
+            <xs:element name="Cm.smsNumberingPlanIndicator" type="xs:int" default="1" minOccurs="0"/>
+            <xs:element name="Cm.smsStringLength" type="xs:int" default="140" minOccurs="0"/>
+            <xs:element name="Cm.smsTypeOfNumber" type="xs:int" default="1" minOccurs="0"/>
+            <xs:element name="Cm.smscBackup" type="xs:string" default="" minOccurs="0"/>
+            <xs:element name="Cm.smsPriority" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.smsQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.smsHandlerLoadBalancing" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.smsReminderEnabled" type="yesNoEnumType" default="no" minOccurs="0"/>
+            <xs:element name="Cm.smsReminderIntervalInMin" type="xs:int" default="1440" minOccurs="0"/>
+            <xs:element name="Cm.smsReminderExpireInMin" type="xs:int" default="20160" minOccurs="0"/>
+
+            <xs:element name="Cm.snmpAgentPort" type="portType" default="18001" minOccurs="0"/>
+            <xs:element name="Cm.snmpAgentTimeout" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.snmpAgentAddress" type="xs:string" default="127.0.0.1" minOccurs="0"/>
+            <xs:element name="Cm.splitMwiAndSms" type="xs:boolean" default="false" minOccurs="0"/>
+
+            <!-- the default value for unreadmessagereminderinterval is one day using the second as measure unit -->
+            <xs:element name="Cm.unreadMessageReminderInterval" type="unreadMessageReminderIntervalType" default="86400" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                     @Deprecated, use Cm.smsReminder configuration instead
+                     </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cm.unreadMessageReminderMaxTimes" type="xs:int" default="3" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                     @Deprecated, use Cm.smsReminder configuration instead
+                     </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cm.unreadMessageReminderType" type="unreadMessageReminderTypeType" default="none" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                     @Deprecated, use Cm.smsReminder configuration instead
+                     </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Cm.useAlternativeFlashDcs" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.useMmsPostmaster" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.useSmil" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.useCallerInEventDescription" type="xs:boolean" default="false" minOccurs="0"/>
+
+            <xs:element name="Cm.wapPushPasswd" type="xs:string" default="NoDefault" minOccurs="0"/>
+            <xs:element name="Cm.wapPushRetrievalHost" type="xs:string" default="" minOccurs="0"/>
+            <xs:element name="Cm.wapPushUrlSuffix" type="xs:string" default="/wap_push_dir/wap_push_appl" minOccurs="0"/>
+            <xs:element name="Cm.wapPushUserName" type="xs:string" default="NoDefault" minOccurs="0"/>
+
+            <xs:element name="Cm.xmpPollInterval" type="xmpPollIntervalType" default="90" minOccurs="0"/>
+            <xs:element name="Cm.xmpTimeout" type="xmpTimeoutType" default="30" minOccurs="0"/>
+            <xs:element name="Cm.xmpValidity" type="xmpValidityType" default="90" minOccurs="0"/>
+            <xs:element name="Cm.xmpRefreshTime" type="xs:int" default="30" minOccurs="0"/>
+            <xs:element name="Cm.ntfEventsRootPath" type="xs:string" default="/opt/moip/events/ntf" minOccurs="0"/>
+            <xs:element name="Cm.notifRetrySchema" type="xs:string" default="5 5 60 240 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.notifExpireTimeInMin" type="xs:long" default="4320" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiNotifRetrySchema" type="xs:string" default="20:try=100 5 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiExpireTimeInMin" type="xs:long" default="4320" minOccurs="0"/>
+            <xs:element name="Cm.serviceListenerCorePoolSize" type="xs:int" default="100" minOccurs="0"/>
+            <xs:element name="Cm.serviceListenerMaxPoolSize" type="xs:int" default="300" minOccurs="0"/>
+            <xs:element name="Cm.loginFileValidityPeriodInMin" type="xs:int" default="30" minOccurs="0"/>
+
+            <xs:element name="Cm.vvmQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.vvmWorkers" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.vvmSourcePort" type="xs:int" default="0" minOccurs="0"/>
+            <xs:element name="Cm.vvmDestinationPort" type="xs:int" default="5709" minOccurs="0"/>
+            <xs:element name="Cm.vvmSmsUnitRetrySchema" type="xs:string" default="1:try=4 5:try=2 15:try=3 60:try=5 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.vvmSmsUnitExpireTimeInMin" type="xs:int" default="361" minOccurs="0"/>
+            <xs:element name="Cm.simSwapSendingUnitPhoneOnRetrySchema" type="xs:string" default="1:try=4 5:try=2 15:try=3 60:try=5 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.simSwapSendingUnitPhoneOnExpireTimeInMin" type="xs:int" default="361" minOccurs="0"/>
+            <xs:element name="Cm.simSwapWaitingPhoneOnRetrySchema" type="xs:string" default="1440:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.simSwapWaitingPhoneOnExpireTimeInMin" type="xs:int" default="4321" minOccurs="0"/>
+            <xs:element name="Cm.vvmExpiryIntInMin" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.vvmExpiryRetries" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.vvmStatusValInMin" type="xs:nonNegativeInteger" default="5110" minOccurs="0"/>
+            <xs:element name="Cm.vvmPhoneOnLockValInSecs" type="xs:nonNegativeInteger" default="10" minOccurs="0"/>
+
+            <xs:element name="Cm.roamingTemplatePosition" type="roamingTemplatePositionType" default="begin" minOccurs="0"/>
+
+            <xs:element name="Cm.fallbackQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+            <xs:element name="Cm.fallbackWorkers" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.fallbackRetrySchema" type="xs:string" default="1:try=3 CONTINUE" minOccurs="0"/>
+            <xs:element name="Cm.fallbackExpireTimeInMin" type="xs:int" default="4" minOccurs="0"/>
+            <xs:element name="Cm.fallbackWhenRoaming" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.fallbackUseMoipUserNTD" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.fallbackFlsUrgentOnly" type="xs:boolean" default="true" minOccurs="0"/>
+            <xs:element name="Cm.getFallbackSmsOnUrgentFlsSent" type="xs:boolean" default="false" minOccurs="0"/>
+            <xs:element name="Cm.fallbackSms" type="fallbackSmsType" default="none" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackMms" type="fallbackMmsType" default="sms" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackSipMwi" type="fallbackSipMwiType" default="none" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackOutdial" type="fallbackOutdialType" default="none" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackVvm" type="fallbackVvmType" default="sms" minOccurs="0" maxOccurs="1"/>
+
+	    <!-- the content types indicate the phrase to use in the .cphr files when falling back to an sms type.-->
+            <xs:element name="Cm.fallbackOutdialToSmsContent" type="xs:string" default="outdialtosms" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackOutdialToFlsContent" type="xs:string" default="outdialtofls" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackSipMwiToSmsContent" type="xs:string" default="sipmwitosms" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.fallbackVvmToSmsContent" type="xs:string" default="c" minOccurs="0" maxOccurs="1"/>
+	    <!-- This is a special content when the fallback is from a reminder, set to count(c) for backward comaptibility 
+		  as default but you might want to try unreadmessagereminder.                 
+             -->
+	    <xs:element name="Cm.fallbackReminderToSmsContent" type="xs:string" default="c" minOccurs="0" maxOccurs="1"/>
+            
+
+            <xs:element name="Cm.sipMwiOkXmpCode" type="xs:int" default="200" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiRetryXmpCode" type="xs:int" default="450" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiNotSubscribedXmpCode" type="xs:int" default="552" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiExpiryIntInMin" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiExpiryRetries" type="xs:int" default="10" minOccurs="0"/>
+            <xs:element name="Cm.sipMwiReminderEnabled" type="yesNoEnumType" default="no" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                    Indicates if the SIPMwi Notification Reminder Feature is enabled or not.  The value is either yes or no.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cm.sipMwiReminderIntervalInMin" type="xs:int" default="1440" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                    Defines the interval that the subscriber will receive a SIPMwi reminder notification.  The value is in minutes.  The value 0 will disable the SIPMwi reminder notification feature.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cm.sipMwiReminderExpireInMin" type="xs:int" default="20160" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                    Defines the number of minutes after which the SIPMwi reminder notification will expire.  The value is in minutes.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Cm.simSwapTimeout" type="xs:string" default="0" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                    Timeout value to determine that the SIM card was swapped by the subscriber to a non VVM phone. The value is a retry schema where the first timer-token represent the timeout. 0 means the SIM Swap detection feature is OFF.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cm.simSwapTimeoutExpireTimeInMin" type="xs:int" default="61" minOccurs="0"/>
+            <xs:element name="Cm.simSwapPhoneOnMode" type="simSwapPhoneOnMethodType" default="HLR_SRI" minOccurs="0">
+		<!-- deprecated configuration, use Cm.phoneOnMethod instead -->
+                <xs:annotation>
+                    <xs:documentation>
+                    Selects which means NTF uses to determine if the user phone is on (SMS-0/HLR lookup) for SIM Swap feature
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Cm.shutdownTime" default="30"
+                minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Maximum time to wait for NTF to shutdown ( 10-120 seconds ).
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="10"></xs:minInclusive>
+                        <xs:maxInclusive value="120"></xs:maxInclusive>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="Cm.smsType0MessageStateEnRoute" type="smsType0MessageStateType" default="discard" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateDelivered" type="smsType0MessageStateType" default="ok" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateExpired" type="smsType0MessageStateType" default="discard" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateDeleted" type="smsType0MessageStateType" default="discard" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateUndeliverable" type="smsType0MessageStateType" default="failedtemporarily" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateAccepted" type="smsType0MessageStateType" default="discard" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateUnknown" type="smsType0MessageStateType" default="discard" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateRejected" type="smsType0MessageStateType" default="failedpermanently" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateInvalid" type="smsType0MessageStateType" default="failedpermanently" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.smsType0MessageStateNotProvided" type="smsType0MessageStateType" default="ok" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.charsetEncoding" type="xs:string" default="" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Cm.lookupNetworkErrorCodeWhenCommandStatusIs" type="xs:string" default="" minOccurs="0" maxOccurs="1"/>
+
+        </xs:all>
+    </xs:complexType>
+
+    <xs:simpleType name="range0to60">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="60"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="simSwapPhoneOnMethodType">
+	<!-- deprecated configuration type, use phoneOnMethodType instead -->
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="HLR_SRI"/>
+            <xs:enumeration value="SMSType0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="onOffEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="on"/>
+            <xs:enumeration value="off"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="yesNoEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="yes"/>
+            <xs:enumeration value="no"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="phoneOnMethodType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SMSType0"/>
+            <xs:enumeration value="AlertServiceCentre"/>
+            <xs:enumeration value="None"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="roamingTemplatePositionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="begin"/>
+            <xs:enumeration value="end"/>
+            <xs:enumeration value="none"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="unreadMessageReminderIntervalType">
+        <!-- deprecated configuration, use Cm.smsReminder configuration instead -->
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="60"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="unreadMessageReminderTypeType">
+        <!-- deprecated configuration, use Cm.smsReminder configuration instead -->
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="sms"/>
+            <xs:enumeration value="flash"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="quotaActionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="warn"/>
+            <xs:enumeration value="notify"/>
+            <xs:enumeration value="discard"/>
+            <xs:enumeration value="notifyAndWarn"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="logLevelType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="portType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="notifThreadsType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="3"/>
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="mmsMaxConnectionType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smscTimeoutType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="10"/>
+            <xs:maxInclusive value="3004"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="numberOfSmsType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smeSourceNpiTonType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smppBindingType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="transmitter"/>
+            <xs:enumeration value="transmitter_receiver"/>
+            <xs:enumeration value="transceiver"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smsMaxConnType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smsMinConnType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+        <xs:simpleType name="smsMinTimeBetweenConnType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="60"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smsMinTimeBetweenReConnType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="300"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="faxPrintMaxConnType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="200"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smscErrorActionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="handle"/>
+            <xs:enumeration value="log"/>
+            <xs:enumeration value="ignore"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="xmpTimeoutType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="5"/>
+            <xs:maxInclusive value="120"/>
+        </xs:restriction>
+    </xs:simpleType>
+        <xs:simpleType name="xmpValidityType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="30"/>
+            <xs:maxInclusive value="3600"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="xmpPollIntervalType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="5"/>
+            <xs:maxInclusive value="180"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="smppErrorCodeIgnoredType">
+        <xs:restriction base="xs:string">
+            <!-- The elements allowed are positive integers or hexadecimals -->
+            <xs:pattern value="(0x)?[0-9]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="emailForwardAllowedOutputAudioMimeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="audio/wav"/>
+            <xs:enumeration value="audio/mp3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="emailForwardAllowedOutputVideoMimeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="video/quicktime"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="allowedMmsAudioCodecType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="native"/>
+            <xs:enumeration value="amr"/>
+            <xs:enumeration value="pcm"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="allowedSmscListType" mixed="true">
+        <xs:sequence>
+            <xs:element name="allowedSmsc" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="replaceNotificationsListType" mixed="true">
+        <xs:sequence>
+            <xs:element name="replaceNotification" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="smppErrorCodesIgnoredListType" mixed="true">
+        <xs:sequence>
+            <xs:element name="smppErrorCodeIgnored" type="smppErrorCodeIgnoredType" minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!-- Definition of validity table type -->
+    <xs:complexType name="validityTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="validity" type="validityType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="validityType" mixed="true">
+        <xs:all>
+            <xs:element name="validityValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+        <!-- Definition of source address table type -->
+    <xs:complexType name="sourceAddressTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="sourceAddress" type="sourceAddressType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sourceAddressType" mixed="true">
+        <xs:all>
+            <xs:element name="sourceAddressValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <!-- Definition of mwi servers table type -->
+    <xs:complexType name="mwiServersTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="smsc" type="mwiServersType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="mwiServersType" mixed="true">
+    <xs:all>
+            <xs:element name="mwiServers" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+<!-- Definition of source address table type -->
+    <xs:complexType name="smscBackupTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="smsc" type="smscBackupType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="smscBackupType" mixed="true">
+        <xs:all>
+            <xs:element name="smscBackupValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="serviceTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="componentName" type="componentContent" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="serviceTableSingleEntryType" mixed="true">
+        <xs:sequence>
+            <xs:element name="componentName" type="componentContent" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+   <!-- Definition of notfier plugin loader table the name should specify the name of the plugin,
+   		which will be printed in the log when loaded-->
+    <xs:complexType name="NotifierPluginTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="notifierPlugIn" type="plugInClass" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="componentContent" mixed="true">
+        <xs:all>
+            <xs:element name="componentType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="hostName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="port" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="userName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="password" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="systemType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="protocol" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="logicalZone" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="uri" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="availability" type="componentAvailabilityType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="instanceNo" type="xs:int" default="0" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+    
+        <xs:complexType name="plugInClass" mixed="true">
+        <xs:all>
+        	<xs:annotation>
+                    <xs:documentation>
+                   		Defines the class to load for plug-in, the full class Path should be written i.e com.abcxyz.messaging.vvs.ntf.notifier.plugin.custom.NotifierPlugin
+                    </xs:documentation>
+            </xs:annotation>
+            <xs:element name="class" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:simpleType name="componentAvailabilityType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="available"/>
+            <xs:enumeration value="unavailable"/>
+            <xs:enumeration value="forcedUnavailable"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="fallbackSmsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="outdial"/>
+            <xs:enumeration value="sipmwi"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fallbackMmsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="sms"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fallbackSipMwiType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="sms"/>
+            <xs:enumeration value="outdial"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fallbackOutdialType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="sms"/>
+            <xs:enumeration value="fls"/>
+            <xs:enumeration value="flssms"/>
+            <xs:enumeration value="sipmwi"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fallbackVvmType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="sms"/>
+            <xs:enumeration value="sipmwi"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="smsType0MessageStateType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ok"/>
+            <xs:enumeration value="failedtemporarily"/>
+            <xs:enumeration value="failedpermanently"/>
+            <xs:enumeration value="discard"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="hlrRoamFailureActionEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="retry"/>
+            <xs:enumeration value="fail"/>
+            <xs:enumeration value="home"/>
+            <xs:enumeration value="roam"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- Definition of Language to MIME encoding type.
+    Used to map language codes such as "en" to there mime character set type such as "utf-8"
+    for email notifications. Allows for encoding the templates .cphr to there approriate
+    language encoding when sending an email. Defaults to Cm.defaultEmailMimeTextCharset, if
+    not in the table.
+    -->
+    <xs:complexType name="languageToMimeTextCharSetType" mixed="true">
+        <xs:all>
+            <xs:element name="charSetValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="LanguagetoMime-EmailTextCharSetTableType" mixed="true">
+        <xs:sequence>
+            <xs:element name="language" type="languageToMimeTextCharSetType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

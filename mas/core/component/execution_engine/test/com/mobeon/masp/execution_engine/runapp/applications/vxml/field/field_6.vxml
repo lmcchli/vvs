@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="noinput">
+        <log>TCPASS</log>
+        <exit/>
+    </catch>
+
+    <form>
+        <property name="timeout" value="2s"></property>
+        <field name="f0">
+            <grammar version="1.0" mode="dtmf" root="menu_rule">
+                <rule id="menu_rule">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <log>TCFAIL</log>
+            </filled>
+        </field>
+    </form>
+</vxml>

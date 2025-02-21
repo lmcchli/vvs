@@ -1,0 +1,534 @@
+#!/usr/bin/perl
+
+=pod
+  Descr.  : Performs various tests on configuration files:
+            - type and range for configuration values
+            - consistency between configuration values
+    Exit code: 0    OK
+               1    Some problem found
+=cut
+
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+use Socket;
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+
+foreach $d ("cfg", "templates") {
+    -d "$COLLECTDIR/$d" || system("mkdir $COLLECTDIR/$d >/dev/null 2>&1");
+    system("cp $NTF_HOME/$d/* $COLLECTDIR/$d >/dev/null 2>&1");
+}
+
+my $checkedfile = "$NTF_HOME/cfg/notification.cfg";
+my $CMD = "$NTFBIN/checkconfig -a $checkedfile";
+my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD);
+if ($cmdresult == 0) {
+    while (chomp($_ = <$cmdoutput>)) {
+        if (/^.OBSOLETE or ILLEGAL: (.+)$/) {
+            $_ = $1;
+            if (/sourceaddress/i || /validity/i) {
+                ($key, $value) = split(/=/);
+                $values{$key} = $value;
+                push(@nondefaults, $key);
+            } else {
+                unless (/version=/) {
+                    print "$checkedfile: unknown parameter \"$_\"\n";
+                    $result = 1;
+                }
+            }
+        } elsif (/^.DEFAULT VALUE      : (.+)$/)  {
+            ($key, $value) = split(/=/, $1);
+            $values{$key} = $value;
+        } else {
+            s/^\s*//;
+            ($key, $value) = split(/=/);
+            $values{$key} = $value;
+            push(@nondefaults, $key);
+        }
+    }
+} else {
+    print "Error executing command: $CMD\n";
+    print "Return code: $cmdresult\n";
+    if ( ref($cmdoutput) and $$cmdoutput ) {
+        print "Error output:\n$$cmdoutput\n";
+    }
+    $result = 1;
+}
+
+&checkvalues();
+&checkconsistency();
+&checksystemnotif();
+#&checkoutdialsequence(); #Disabled since this takes too long time to run - program must be improved
+
+exit $result;
+
+sub checkvalues() {
+    foreach $key (sort @nondefaults) {
+        $_ = $values{$key};
+        if ($key eq "allowedsmsc") {
+            ; #Check in MCR not implemented
+        } elsif ($key eq "bearingnetwork") {
+            /GSM/i or /CDMA2000/i or /PSTN/i or &badvalue($key, $_);
+        } elsif ($key eq "callmwicaller") {
+            &isenum($key, $_, "SYSTEM", "CALLER", "SUBSCRIBER");
+        } elsif ($key eq "checkquota") {
+            &isboolean($key, $_);
+        } elsif ($key eq "checkuserhasmessage") {
+            &isboolean($key, $_);
+        } elsif ($key eq "checkuserhasmessageretrycount") {
+            &isintegerrange($key, $_, -1, 99);
+        } elsif ($key eq "defaultdateformat") {
+            ; #Too complex format to check
+        } elsif ($key eq "defaultnotificationfilter") {
+            &isfilter($key, $_);
+        } elsif ($key eq "defaultnotificationfilter2") {
+            &isfilter($key, $_);
+        } elsif ($key eq "defaulttimeformat") {
+            &isintegerrange($key, $_, 12, 12) or &isintegerrange($key, $_, 24, 24);
+        } elsif ($key eq "deletesbeforeexpunge") {
+            &isinteger($key, $_, 0, 10000);
+        } elsif ($key eq "disablesmscreplace") {
+            &isboolean($key, $_);
+        } elsif ($key eq "discardsmswhencountis0") {
+            &isboolean($key, $_);
+        } elsif ($key eq "dooutdial") {
+            &isboolean($key, $_);
+        } elsif ($key eq "esifailureaction") {
+            unless (/RETRY/i or
+                    /HOME/i or
+                    /ROAM/i or
+                    /BOTH/i or
+                    /NONE/i or
+                    /ALLOWNOTIFICATIONTYPES=\w+/) {
+                print "$checkedfile: invalid value \"$key=$_\"\n";
+                $result = 2;
+            }
+        } elsif ($key eq "esisystem") {
+            &isboolean($key, $_);
+        } elsif ($key eq "flushlog") {
+            &isboolean($key, $_);
+        } elsif ($key eq "imapbatchsize") {
+            &isintegerrange($key, $_, 10, 10000);
+        } elsif ($key eq "imaphost") {
+            &ishost($key, $_);
+        } elsif ($key eq "imappassword") {
+            ;
+        } elsif ($key eq "imappollinterval") {
+            &isintegerrange($key, $_, 1, 60);
+        } elsif ($key eq "imapport") {
+            &isintegerrange($key, $_, 1, 65535);
+        } elsif ($key eq "imappostmaster") {
+            ;
+        } elsif ($key eq "imapretryinterval") {
+            &isintegerrange($key, $_, 1, 600);
+        } elsif ($key eq "imaprootpassword") {
+            ;
+        } elsif ($key eq "imaprootusername") {
+            ;
+        } elsif ($key eq "imapthreads") {
+            &isintegerrange($key, $_, 1, 60);
+        } elsif ($key eq "imaptimeout") {
+            &isintegerrange($key, $_, 1000, 30000);
+        } elsif ($key eq "imapusername") {
+            ;
+        } elsif ($key eq "internalqueuesize") {
+            &isintegerrange($key, $_, 1, 100);
+        } elsif ($key eq "logfile") {
+            &isset($key, $_);
+        } elsif ($key eq "logicalzone") {
+            &isset($key, $_);
+        } elsif ($key eq "loglevel") {
+            &isintegerrange($key, $_, 1, 3);
+        } elsif ($key eq "logsize") {
+            &isintegerrange($key, $_, 1000000, 100000000);
+        } elsif ($key eq "mailmemorymegabyte") {
+            &isintegerrange($key, $_, 1, 100);
+        } elsif ($key eq "maxmmssize") {
+            &isintegerrange($key, $_, 30000, 10000000);
+        } elsif ($key eq "maxtimebeforeexpunge") {
+            &isintegerrange($key, $_, 1, 600);
+        } elsif ($key eq "maxxmpconnections") {
+            &isintegerrange($key, $_, 1, 100);
+        } elsif ($key eq "mcr_instance_name") {
+            ;
+        } elsif ($key eq "mcrexpirytime") {
+            &isintegerrange($key, $_, 10, 3600 * 24);
+        } elsif ($key eq "mcrhost") {
+            &ishost($key, $_);
+        } elsif ($key eq "mcrorg") {
+            ; #check by using
+        } elsif ($key eq "mcrport") {
+            &isintegerrange($key, $_, 0, 65535);
+        } elsif ($key eq "mcrusername") {
+            ; #check by using
+        } elsif ($key eq "mcrpassword") {
+            ; #check by using
+        } elsif ($key eq "messagecount") {
+            &isboolean($key, $_);
+        } elsif ($key eq "mmscpassword") {
+            ;
+        } elsif ($key eq "mmscvasid") {
+            ;
+        } elsif ($key eq "mmscvaspid") {
+            ;
+        } elsif ($key eq "mmsmaxconnection") {
+            &isintegerrange($key, $_, 1, 100);
+        } elsif ($key eq "mmspostmaster") {
+            ;
+        } elsif ($key eq "mmsusername") {
+            ;
+        } elsif ($key eq "mmsversion") {
+            ;
+        } elsif ($key eq "mmswhitelist") {
+            ;
+        } elsif ($key eq "msgcntbytype") {
+            &isboolean($key, $_);
+        } elsif ($key eq "murhost") {
+            &ishost($key, $_);
+        } elsif ($key eq "murmaxconn") {
+            &isintegerrange($key, $_, 1, 100);
+        } elsif ($key eq "murport") {
+            &isintegerrange($key, $_, 1, 65535);
+        } elsif ($key eq "murusername") {
+            ; # test by using
+        } elsif ($key eq "murpassword") {
+            ; # test by using
+        } elsif ($key eq "murretryinterval") {
+            &isintegerrange($key, $_, 1, 60);
+        } elsif ($key eq "murschema") {
+            ;
+        } elsif ($key eq "mwioffcheckcount") {
+            &isboolean($key, $_);
+        } elsif ($key eq "netmask") {
+            ;
+        } elsif ($key eq "newmailfolders") {
+            &isenum($key, $_, "SINGLE", "MULTIPLE", "UNKNOWN");
+        } elsif ($key eq "notifthreads") {
+            &isintegerrange($key, $_, 3, 30);
+        } elsif ($key eq "numberofmailquotalevel") {
+            &isintegerrange($key, $_, -1, 99);
+        } elsif ($key eq "numberofsms") {
+            &isintegerrange($key, $_, 1, 10);
+        } elsif ($key eq "numbertomessagingsystem") {
+            ;
+        } elsif ($key eq "numbertomessagingsystemforcallmwi") {
+            ;
+        } elsif ($key eq "journalrefresh") {
+            &isintegerrange($key, $_, 5, 7200);
+        } elsif ($key eq "pagerpausetime") {
+            &isintegerrange($key, $_, 100, 10000);
+        } elsif ($key eq "pathtosnmpscripts") {
+            unless (-e $_) {
+                print "checkedfile: file does not exist: \"$key=$_\"\n";
+                $result = 2;
+            }
+        } elsif ($key eq "phrasetablelocale") {
+            unless (-e $_) {
+                print "checkedfile: file does not exist: \"$key=$_\"\n";
+                $result = 2;
+            }
+        } elsif ($key eq "quotaaction") {
+            &isenum($key, $_, "NOTIFY", "DISCARD", "WARN", "NOTIFYANDWARN");
+        } elsif ($key eq "quotatemplate") {
+            ; #Consistency check with template files
+        } elsif ($key eq "replacenotifications") {
+            ; #Consistency check with template files
+        } elsif ($key eq "retryinterval") {
+            &isintegerrange($key, $_, 60, 3000);
+        } elsif ($key eq "searchbase") {
+            ; #Check by using
+        } elsif ($key eq "setreplypath") {
+            &isboolean($key, $_);
+        } elsif ($key eq "slamdownlist") {
+            &isboolean($key, $_);
+        } elsif ($key eq "slamdownmaxcallers") {
+            &isinteger($key, $_, 0, 20);
+        } elsif ($key eq "slamdownmaxcallspercaller") {
+            &isintegerrange($key, $_, 0, 999);
+        } elsif ($key eq "slamdownmaxdigitsinnumber") {
+            &isintegerrange($key, $_, 0, 25);
+        } elsif ($key eq "slamdownnumberofretries") {
+            &isintegerrange($key, $_, 0, 100);
+        } elsif ($key eq "slamdownoldestfirst") {
+            &isboolean($key, $_);
+        } elsif ($key eq "slamdownretryinterval") {
+            &isintegerrange($key, $_, 10, 36000);
+        } elsif ($key eq "slamdowntimeoflastcall") {
+            &isboolean($key, $_);
+        } elsif ($key eq "slamdowntruncatednumberindication") {
+            ;
+        } elsif ($key eq "smepassword") {
+            ;
+        } elsif ($key eq "smeservicetype") {
+            ;
+        } elsif ($key eq "smesourceaddress") {
+            ;
+        } elsif ($key eq "smesourcenpi") {
+            &isintegerrange($key, $_, 0, 255);
+        } elsif ($key eq "smesourceton") {
+            &isintegerrange($key, $_, 0, 255);
+        } elsif ($key eq "smesystemid") {
+            ;
+        } elsif ($key eq "smesystemtype") {
+            ;
+        } elsif ($key eq "smscerroraction") {
+            &isenum($key, $_, "HANDLE", "IGNORE", "LOG");
+        } elsif ($key eq "smscpollinterval") {
+            &isintegerrange($key, $_, 5, 3600);
+        } elsif ($key eq "smsctimeout") {
+            &isintegerrange($key, $_, 5, 60);
+        } elsif ($key eq "smsmaxconn") {
+            &isintegerrange($key, $_, 1, 100);
+        } elsif ($key eq "smsnumberingplanindicator") {
+            &isintegerrange($key, $_, 0, 255);
+        } elsif ($key eq "smsstringlength") {
+            &isintegerrange($key, $_, 20, 16000);
+        } elsif ($key eq "smstypeofnumber") {
+            &isintegerrange($key, $_, 0, 255);
+        } elsif ($key eq "smscbackup") {
+            ;
+        } elsif ($key eq "smspriority") {
+            &isintegerrange($key, $_, 0, 9);
+        } elsif ($key eq "smshandlerloadbalancing") {
+            &isboolean($key, $_);
+        } elsif ($key eq "smppbindtype") {
+            &isenum($key, $_, "TRANSMITTER", "TRANSCEIVER");
+        } elsif ($key eq "smpperrorcodesignored") {
+            ;
+        } elsif ($key eq "snmpagentport") {
+            ;
+        } elsif ($key eq "snmpagenttimeout") {
+            &isintegerrange($key, $_, 1, 20000);
+        } elsif ($key eq "statinterval") {
+            &isinteger($key, $_);
+        } elsif ($key eq "tempdir") {
+            unless (-w $_) {
+                print "$checkedfile: file is not writeable: \"$key=$_\"\n";
+                $result = 2;
+            }
+        } elsif ($key eq "usemmspostmaster") {
+            &isboolean($key, $_);
+        } elsif ($key eq "usesmil") {
+            &isboolean($key, $_);
+        } elsif ($key eq "usecallerineventdescription") {
+            &isboolean($key, $_);
+        } elsif ($key eq "veryoldmessage") {
+            &isintegerrange($key, $_, 3600, 14 * 24 * 3600);
+        } elsif ($key eq "wappushpasswd") {
+            ;
+        } elsif ($key eq "wappushretrievalhost") {
+            ;
+        } elsif ($key eq "wappushurlsuffix") {
+            ;
+        } elsif ($key eq "wappushusername") {
+            ;
+        } elsif ($key eq "watchdogloglevel") {
+            &isintegerrange($key, $_, 1, 3);
+        } elsif ($key eq "xmpbantime") {
+            &isintegerrange($key, $_, 10, 3600);
+        } elsif ($key eq "xmppollinterval") {
+            &isintegerrange($key, $_, 5, 300);
+        } elsif ($key eq "xmptimeout") {
+            &isintegerrange($key, $_, 5, 300);
+        } elsif ($key eq "xmpvalidity") {
+            &isinteger($key, $_, 10, 300);
+        } elsif ($key =~ /sourceaddress/i) {
+            issourceaddress($key, $_);
+        }
+    }
+}
+
+sub checkconsistency() {
+    if (booleanvalue('slamdownlist') &&
+        $values{'smppbindtype'} !~ /^TRANSCEIVER$/i) {
+        print "$checkedfile inconsistent: Slamdown information list requires smppbindtype set to transceiver\n";
+        return 3;
+    }
+    if (&booleanvalue('discardsmswhencountis0') &&
+        !&booleanvalue('messagecount')) {
+        print "$checkedfile inconsistent: DiscardSmsWhenCountIs0 requires MessageCount set to true\n";
+        return 3;
+    }
+    if (&booleanvalue('messagecountbytype') &&
+        !&booleanvalue('messagecount')) {
+        print "$checkedfile inconsistent: MessageCountByType requires MessageCount set to true\n";
+        return 3;
+    }
+    if (&booleanvalue('mwioffcheckcount') &&
+        !&booleanvalue('messagecount')) {
+        print "$checkedfile inconsistent: MwiOffCheckCount requires MessageCount set to true\n";
+        return 3;
+    }
+}
+
+sub checksystemnotif() {
+    open (F, "<$NTF_HOME/cfg/systemnotification.cfg") or
+        print "No systemnotifications to check\n" and return 1;
+    while ($_ = <F>) {
+        chomp;
+        if (/^\s*\[\s*([^\s\]]+)\s*\]\s*$/) {
+            push(@sysnotifs, $1);
+        }
+    }
+    close(F);
+
+    @phrasefiles = <$NTF_HOME/templates/*.phr>;
+    foreach $sysnotif (@sysnotifs) {
+        foreach $phrasefile (@phrasefiles) {
+            unless (system("grep $sysnotif $phrasefile >/dev/null 2>&1") == 0) {
+                print "inconsistent: $phrasefile has no template for the system notification \"$sysnotif\"\n";
+                $result = 4;
+            }
+        }
+    }
+}
+
+sub checkoutdialsequence() {
+    $checkedfile = "$NTF_HOME/cfg/outdial-default.cfg";
+    my $CMD = "cd $NTF_HOME/cfg && $NTFBIN/verify-outdial $checkedfile";
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD);
+    if ($cmdresult == 0) {
+        while (chomp($_ = <$cmdoutput>)) {
+            if (/ERROR:/) {
+                print "$checkedfile: errors in outdial sequence: $_\n";
+                $result = 5;
+            } elsif (/Warning\/High:/) {
+                print "$checkedfile: important warning in outdial sequence: \"$_\"\n";
+                $result = 5;
+            }
+        }
+    } else {
+        print "Error executing command: $CMD\n";
+        print "Return code: $cmdresult\n";
+        if (ref($cmdoutput) and $$cmdoutput ) {
+            print "Error output:\n$$cmdoutput\n";
+        }
+        $result = 1;
+    }
+}
+
+sub isset() {
+    my $k = shift;
+    my $v = shift;
+    if ($v =~ /^\s*$/) {
+        print "$checkedfile: $k must have a value\n";
+        $result = 2;
+        return 0;
+    }
+
+    return 1;
+}
+
+sub isboolean() {
+    my $k = shift;
+    my $v = shift;
+    unless ($v =~ /^(yes|no|true|false|on|off|1|0)$/i) {
+        print "$checkedfile: non-boolean value: \"$k=$v\"\n";
+        $result = 2;
+        return 0;
+    }
+
+    return 1;
+}
+
+sub booleanvalue() {
+    return $values{shift} =~ /^(yes|true|on|1)$/i;
+}
+
+sub isinteger() {
+    my $k = shift;
+    my $v = shift;
+    unless ($v =~ /^-?\d+$/) {
+        print "$checkedfile: non-integer value: \"$k=$v\"\n";
+        $result = 2;
+        return 0;
+    }
+
+    return 1;
+}
+
+sub isintegerrange() {
+    my $k = shift;
+    my $v = shift;
+    my $min = shift;
+    my $max = shift;
+    if (&isinteger($k, $v)) {
+        if ($v < $min ||
+            $v > $max) {
+            print "$checkedfile: outside range $min-$max: \"$k=$v\"\n";
+            $result = 2;
+        } else {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub issourceaddress() {
+    my $k = shift;
+    my $v = shift;
+    my @parts = split(/,/, $v);
+    unless ($#parts == 0 or
+            $#parts == 2 and
+            &isintegerrange("$k.ton", $parts[0], 0, 255) &
+            &isintegerrange("$k.npi", $parts[1], 0, 255)) {
+        print "$checkedfile: not a source address: \"$k=$v\"\n";
+        $result = 2;
+        return 0;
+    }
+    return 1;
+}
+
+sub isenum() {
+    my $k = shift;
+    my $v = shift;
+    foreach $e (@_) {
+        return 1 if ($e =~ /^$v$/i);
+    }
+    print "$checkedfile: value not in [";
+    foreach $e (@_) {
+        print " $e";
+    }
+    print " ]: \"$k=$v\"\n";
+    $result = 2;
+    return 0;
+}
+
+sub ishost() {
+    my $k = shift;
+    my $v = shift;
+
+    if ($v eq "") {
+        print "$checkedfile: host not defined for $k";
+        return 1;
+    }
+
+    open (F, "nslookup $v 2>/dev/null|");
+    while ($_ = <F>) {
+        if (/Name:/) {
+            if (($_ = <F>) =~ /Address/) {
+                close F;
+                return 0;
+            }
+        }
+    }
+
+    close F;
+    print "$checkedfile: host not found: \"$k=$v\"\n";
+    return 1;
+}
+
+sub isfilter() {
+    my $k = shift;
+    my $v = shift;
+    unless ($v =~ /^(0|1);(y|n);(b|nb|a);[evfms]*;[^;]*;[^;]*;\d+;/) {
+        print "$checkedfile: not a filter: \"$k=$v\"\n";
+        $result = 2;
+        return 0;
+    }
+}

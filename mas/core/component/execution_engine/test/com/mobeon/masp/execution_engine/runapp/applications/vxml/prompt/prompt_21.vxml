@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit></exit>
+    </catch>
+    <form id="form1">
+        <script>
+            function make(){
+              var objectArray = [];
+              objectArray.push(util.getMediaObject("length"));
+              objectArray.push(util.getMediaObject("2"));
+              objectArray.push(util.getMediaObject("seconds"));
+              return objectArray;
+            }
+        </script>
+        <block>
+            <prompt>
+                <audio expr="make()"></audio>
+            </prompt>
+        </block>
+    </form>
+</vxml>

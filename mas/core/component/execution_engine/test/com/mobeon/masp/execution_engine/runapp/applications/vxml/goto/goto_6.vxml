@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <var name="olle" expr="7"/>
+   <form>
+      <block>
+          <assign name="olle" expr="100"></assign>
+          <goto next="goto_6.vxml#form2"/>
+      </block>
+       <block>
+          <log>ERROR</log>
+       </block>
+   </form>
+
+   <form id="form2">
+      <block>
+          <if cond="olle == 7">
+              <log>TCPASS</log>
+              <else>
+                  <log>
+                      ERROR
+                  </log>
+              </else>
+          </if>
+      </block>
+   </form>
+</vxml>

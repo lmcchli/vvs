@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="tc1">
+
+        <var name="tprop"/>
+
+        <script>
+            tprop= {outboundcallserverhost : "108.109.11.12"};
+            mas.systemSetProperty('com.mobeon.platform.transfer_properties', 'tprop');
+
+        </script>
+
+        <transfer name="call" destexpr="'121212'" bridge="true" connecttimeout="3s" maxtime="5s">
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+            <filled>
+                <log>ERROR</log>
+                <exit/>
+            </filled>
+        </transfer>
+
+    </form>
+</vxml>

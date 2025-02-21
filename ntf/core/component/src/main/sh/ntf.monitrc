@@ -1,0 +1,15 @@
+check program ntf with path "/bin/sh /opt/moip/ntf/bin/ntf pidStatus" as uid mmas and gid mmas with timeout 20 seconds
+    group apps
+    # If healtcheck fails - restart NTF & raise alarm   
+    if status != 0 then restart
+    if status != 0 then exec "/opt/monit/bin/monit_trap.sh moip 91 20 0 0 0"
+    # If healthcheck success - send clear alarm
+    else if succeeded then exec "/opt/monit/bin/monit_trap.sh moip 91 20 1 1 1"
+    start program = "/bin/sh /opt/moip/ntf/bin/ntf start"
+        as uid mmas and gid mmas with timeout 40 seconds
+    stop program = "/bin/sh /opt/moip/ntf/bin/ntf stop"
+	#120 is the maximum shutdown time + 10 seconds in the ntf script plus a grace of 10 gives 140
+	#"Cm.shutdownTime in notifcation.xsd
+        as uid mmas and gid mmas with timeout 140 seconds
+
+    depends on fsmounted, topologyExists

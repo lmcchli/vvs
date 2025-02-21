@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode="dtmf" root="root">
+        <rule id="root">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form id="main_form">
+        <record name="recording" >
+            <filled>
+                <if cond="recording$.termchar==&apos;1&apos;">
+                    <log>TCPASS: record ok 1</log>
+                </if>
+                <log>TCPASS: record ok 2</log>
+            </filled>
+        </record>
+        <filled>
+            <if cond="recording$.termchar==&apos;1&apos;">
+                <log>TCPASS: record ok 3</log>
+            </if>
+            <log>TCPASS: record ok 4</log>
+            <exit/>
+        </filled>
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

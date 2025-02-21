@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <!-- This catch shall not be used -->
+    <catch event="connection.disconnect.hangup">
+        <log>ERROR root document catch</log>
+        <exit></exit>
+    </catch>
+    <form>
+        <block>
+            <goto next="record_9_2.vxml"></goto>
+        </block>
+    </form>
+</vxml>

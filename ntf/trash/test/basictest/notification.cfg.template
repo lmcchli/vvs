@@ -1,0 +1,17 @@
+PhraseTableLocale=/vobs/ipms/ntf/test/basictest
+LogLevel=3
+#SMSCErrorAction=log
+SMSMaxConn=5
+BearingNetwork=GSM
+MCRHost=polaris.ipms.su.erm.abcxyz.se
+MURHost=polaris.ipms.su.erm.abcxyz.se
+IMAPHost=vespa.ipms.su.erm.abcxyz.se
+ImapRootUserName=ServiceAdmin
+ImapRootPassWord=admin
+SearchBase=o=abcxyz.se
+MessageCount=on
+MessageCntByType=on
+IMAPBatchSize=100
+RetryInterval=20
+IMAPThreads=30
+IMAPUserName=gnotification2

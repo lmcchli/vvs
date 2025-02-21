@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="goto_19.vxml">
+    <form>
+        <var name="result" expr="1"></var>
+        <block>
+            <assign name="result" expr="f(1)"></assign>
+            <if cond="result == 2">
+                <log>TCPASS</log>
+                <else>
+                    <log>ERROR</log>
+                </else>
+            </if>
+        </block>
+    </form>
+</vxml>

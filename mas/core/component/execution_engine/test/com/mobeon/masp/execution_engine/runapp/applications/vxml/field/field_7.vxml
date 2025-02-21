@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+        <form id="form2">
+                <property name="timeout" value="0s"/>
+                <field name="field1">
+                        <grammar version="1.0" mode="dtmf" root="myRoot">
+                                <rule id="myRoot">
+                                        <one-of>
+                                                <item>0</item>
+                                                <item>1</item>
+                                        </one-of>
+                                </rule>
+                        </grammar>
+                </field>
+                <catch event="noinput">
+                        <log label="info">TCPASS: Bailing out.</log>
+                        <exit/>
+                </catch>
+        </form>
+</vxml>

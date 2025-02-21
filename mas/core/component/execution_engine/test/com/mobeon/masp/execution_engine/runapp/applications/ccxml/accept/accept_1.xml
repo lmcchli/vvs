@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/accept/" type="application/xml+ccxml">
+        <document src="accept_1.ccxml" root="true"/>
+    </documents>
+</application>

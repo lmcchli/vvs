@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<stringAttribute key="bad_container_name" value="\ntf\tools\eclipse"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/vm_ntf/src/com/mobeon/ntf/NtfMain.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.mobeon.ntf.NtfMain"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="vm_ntf"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-DntfHome=/opt/moip/config/ntf/&#13;&#10;-Dabcxyz.messaging.mrd.vvmRespondAlwaysOk=false&#13;&#10;-Dabcxyz.services.messaging.productPrefix=voicemail&#13;&#10;-Dforcephoneon=true&#13;&#10;-Dmms_runlog_root=/opt/moip/logs/oe&#13;&#10;-Dabcxyz.system.out.print=true"/>
+</launchConfiguration>

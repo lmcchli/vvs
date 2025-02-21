@@ -1,0 +1,16 @@
+General basic-testcases for NTF.
+
+
+G.1.1
+Verify that NTF doesn't run out of memory when ESI is down.
+Action: Have one or more user that has notifications turned off when roaming. Add one ESI or ESI-simulator. 
+Send one message to the user, control that a call to ESI is made. Turn off the ESI. Send additional requests
+to the user/users.
+Result: NTF should not create new threads for every message sent to ESI. It could require 100 calls or more to be suer of this. 
+Verify by looking at he number of threads or memory in top.
+
+G.1.2
+Verify that NTF can handle messages with empty from field.
+Action: Set the parameter useCallerInEventDescription to true. 
+Send a message to a user with empty from field. 
+Result: NTF should not loop forever and take all available CPU.

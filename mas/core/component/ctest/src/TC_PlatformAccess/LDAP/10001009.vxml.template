@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+		<var name="ATTR_NAME" expr="'eomsgwarning'" />
+		
+		<var name="attr" />
+		<var name="success" />
+		<block>
+			<script>
+				<![CDATA[
+				attr = mas.subscriberGetCommunityIntegerAttribute(
+					PHONE_NUMBER,
+					ATTR_NAME)[0];
+				// Since the allowed values are 15, 30, 45 and 60, the check can
+				// be performed by ensuring that the value is greater than 0,
+				// less than or equal to 60 and that the value modulo 15 is 0
+				success = ((attr > 0) && (attr <= 60) && (attr % 15 == 0));
+				]]>
+			</script>
+			<if cond="success">
+				<log>TC 10001009 PASSED</log>
+			<else />
+				<log>TC 10001009 FAILED - The '<expr value="ATTR_NAME" />' community integer attribute was supposed to be 15, 30, 45 or 60 but was '<expr value="attr" />'</log>
+			</if>
+			<exit />
+		</block>
+	</form>
+	
+	<catch event="error">
+		<log>TC 10001009 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

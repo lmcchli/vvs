@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+	<var name="dlgid"/>
+	<var name="earlydlgid"/>
+	<var name="inboundcall"/>
+	<var name="outboundcall"/>
+	<var name="myState" expr="'init'"/>
+	<eventprocessor statevariable="myState">
+		<!-- On receiving the alerting event, start set media resources-->
+		<transition state="init" event="connection.alerting" name="evt">
+			<script>mas.systemSetEarlyMediaResource('en', 'male', '');</script>
+			<assign name="inboundcall" expr="evt.connectionid"/>
+		</transition>
+		<!-- On receiving the earlymediaresourceavailable event, start the application for early media-->
+		<transition state="init" event="com.mobeon.platform.earlymediaresourceavailable">
+			<dialogstart src="'earlymedia.vxml'" dialogid="earlydlgid"/>
+			<assign name="myState" expr="'earlymediainbound'"/>
+		</transition>
+		<!-- The early media application exits. Accept the call. -->
+		<transition state="earlymediainbound" event="dialog.exit" name="evt">
+			<accept/>
+			<assign name="myState" expr="'inboundconnecting'"/>
+		</transition>
+		<!-- When the inboundcall is connected, start the main dialog-->
+		<transition state="inboundconnecting" event="connection.connected">
+			<dialogstart dialogid="dlgid" src="'main.vxml'"/>
+			<assign name="myState" expr="'maindialog'"/>
+		</transition>
+		<!-- The main dialog made a transfer request-->
+		<transition event="dialog.transfer" name="evt">
+			<createcall dest="'112'" connectionid="outboundcall" timeout="'30s'"/>
+			<assign name="myState" expr="'outboundcalling'"/>
+		</transition>
+		<!-- On receiving the progressing event, examine if it has early media, and if so join them-->
+		<transition state="outboundcalling" event="connection.progressing" name="evt">
+			<if cond="evt.info._earlymedia == true">
+				<join id1="inboundcall" id2="outboundcall" duplex="'full'"/>
+				<assign name="myState" expr="'outboundmediajoined'"/>
+			</if>
+		</transition>
+		<!--call connected in the outboundcalling state (there was no early media), then we must join -->
+		<transition state="outboundcalling" event="connection.connected" name="evt">
+			<join id1="inboundcall" id2="outboundcall" duplex="'full'"/>
+		</transition>
+		<!--call connected in the joiningEarlyMedia state, then we do not have to join (calls are already joined)-->
+		<transition state="outboundmediajoined" event="connection.connected" name="evt">
+		</transition>
+		<!-- The main dialog exits so just disconnect the call and do an exit-->
+		<transition state="maindialog" event="dialog.exit" name="evt">
+			<disconnect connectionid="evt.connectionid"/>
+			<exit/>
+		</transition>
+		<transition event="dialog.disconnect" name="dlg">
+			<disconnect connectionid="dlg.connectionid"/>
+		</transition>
+		<!-- We got a disconnect check which one and send proper event to dialog-->
+		<transition event="connection.disconnected" name="dlg">
+			<if cond="evt.connectionid == outboundcall">
+				<assign name="outgoingCallEndedReason" expr="'far_end_disconnect'"/>
+				<join id1="inboundcall" id2="dlgid"/>
+				<assign name="myState" expr="'joiningdialog'"/>
+				<else/>
+				<!-- Handle calling party disconnect -->
+				<send data="'connection.disconnect.hangup'" target="dlgid" targettype="'dialog'"/>
+				<assign name="myState" expr="'userDisconnect'"/>
+			</if>
+		</transition>
+		<!-- Send an event to the dialog once we are all back together again. -->
+		<transition state="joiningdialog" event="conference.joined" name="evt">
+			<!-- Build up our event -->
+			<send data="'dialog.vxml.transfer.complete'" target="dlgid" targettype="'dialog'"/>
+			<assign name="myState" expr="'maindialog'"/>
+		</transition>
+		<!-- Something failed-->
+		<transition event="connection.failed" name="evt">
+			<log expr="'Connection failed: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+			<exit/>
+		</transition>
+		<transition event="error.*" name="dlg">
+			<log expr="'TCFAIL CCXML: Error = ' + dlg.name + ', Reason = '+dlg.reason"/>
+			<exit/>
+		</transition>
+	</eventprocessor>
+</ccxml>

@@ -1,0 +1,18 @@
+<mediacontentpackage id="en_video_1"
+                     language="en"
+                     type="prompt"
+                     priority="1">
+
+
+    <video variant="blue" />
+
+    <codecs>
+        <codec mimetype="video/h263" />
+        <codec mimetype="audio/pcmu" />
+    </codecs>
+
+    <grammarfile path="./grammar.xml" />
+    <contentfile path="./MediaContent.xml"/>
+    <objectfile path="./MediaObjects.xml" />
+
+</mediacontentpackage>

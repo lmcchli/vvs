@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <grammar mode='dtmf' root='root'>
+        <rule id='root'>
+            <one-of>
+                <item>6</item>
+                <item>7</item>
+                <item>*</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1" scope="document">
+        <grammar mode='dtmf' root='root_form_rule1' >
+            <rule id='root_form_rule1'>
+                <one-of>
+                    <item>8</item>
+                </one-of>
+            </rule>
+        </grammar>
+        <field name="root_field">
+            <prompt><audio src="../prompt/beep.wav"/> </prompt>
+            <filled>
+                <goto next="grammar_scope_leaf.vxml" />
+            </filled>
+        </field>
+    </form>
+</vxml>

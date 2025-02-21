@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Traffic events configuration
+					</xs:documentation>
+				</xs:annotation>			
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType"/>
+			<xs:element name="TrafficEvents.Table" type="trafficEventsTableType"/>		
+		</xs:all>
+	</xs:complexType> 	
+
+	<xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+		<xs:all>
+			<xs:element name="Cm.slamdownQueueSize"	type="xs:integer" default="1000" minOccurs="0"/>
+			<xs:element name="Cm.slamdownThreshold"	type="xs:integer" default="1" minOccurs="0"/>
+			<xs:element name="Cm.slamdownTimeout"   type="xs:integer" default="100" minOccurs="0"/>
+			<xs:element name="Cm.slamdownWorkers"   type="xs:integer" default="10" minOccurs="0"/>
+			<xs:element name="Cm.missedCallNotificationQueueSize"	type="xs:integer" default="1000" minOccurs="0"/>
+			<xs:element name="Cm.missedCallNotificationThreshold"	type="xs:integer" default="1" minOccurs="0"/>
+			<xs:element name="Cm.missedCallNotificationTimeout"	type="xs:integer" default="100" minOccurs="0"/>
+			<xs:element name="Cm.missedCallNotificationWorkers"   type="xs:integer" default="10" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="trafficEventsTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="trafficEvent" type="trafficEventType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+    	<xs:complexType name="trafficEventType" mixed="true">
+    		<xs:all>
+	       		<xs:element name="enabled" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+	       		<xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:all>
+    	</xs:complexType>
+
+</xs:schema>
+
+

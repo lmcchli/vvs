@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="main_form">
+        <property name="com.mobeon.platform.record_maxtime" value="10s"/>
+        <record name="recording">
+        </record>
+        <filled>
+            <log>TCPASS: record ok</log>
+            <log>recording duration: <value expr="recording$.duration"></value></log>
+            <log>recording size: <value expr="recording$.size"></value></log>
+            <exit/>
+        </filled>        
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

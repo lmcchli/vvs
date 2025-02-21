@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<var name="global_variable" expr="4711" />
+	<form id="main_dialog" >
+		<var name="main_dialog_variable" expr="10" />
+		<block>
+			This is the main dialog
+		</block>
+		<subdialog name="result"  src="subdialog.vxml" >
+			<param name="a" expr="main_dialog_variable" />
+			<param name="b" expr="global_variable" />
+			<filled>
+				The subdialog returned <value expr="result.ret" />
+			</filled>
+		</subdialog>
+	</form>
+</vxml>

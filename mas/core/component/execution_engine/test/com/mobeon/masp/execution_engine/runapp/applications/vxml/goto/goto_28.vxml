@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form>
+
+       <!-- test that it is possible to go from the third item to the first-->
+       <var name="targetItem" expr="'recordit'"></var>
+
+       <record name="recordit" cond="false">
+               <log>TCPASS</log>
+       </record>
+
+       <block>
+           <log>second block</log>
+       </block>
+
+       <block name="block3">
+           <goto expritem="targetItem"></goto>
+       </block>
+       </form>
+</vxml>

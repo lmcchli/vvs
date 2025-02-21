@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+    <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form>
+        <catch event="testevent">
+            <!-- this catch shall never be triggered -->
+            <log>TCPASS: catch 14</log>
+            <exit/>
+        </catch>
+        <field name="f1">
+            <goto nextitem="f2"/>
+            <catch>
+                <!-- this catch shall never be triggered -->
+                <log>ERROR</log>
+                <exit/>
+            </catch>
+        </field>
+
+        <field name="f2">
+            <filled>
+                <throw event="testevent"/>
+            </filled>
+        </field>
+    </form>
+</vxml>

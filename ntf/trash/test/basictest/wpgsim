@@ -1,0 +1,122 @@
+#!/usr/local/bin/perl
+require "flush.pl";
+use IO::Socket;
+
+
+($port) = shift;
+if ($port eq "-h" || $port eq "-help") {
+    &doc;
+    exit;
+}
+	
+$port = 5019 unless $port;
+
+&readprops("wpgsim.rc");
+open(LOG, ">>test.log") ||die "Could not write mmssim.log";
+local($oldfh) = select(LOG);
+$|= 1;
+select($oldfh);
+print LOG "\n\n================================================================\n";
+
+&startserver;
+
+
+sub startserver {
+    $server = IO::Socket::INET->new( Proto     => 'tcp',
+				     LocalPort => $port,
+				     Listen    => 1,
+				     Reuse     => 1);
+    die "can't setup server" unless $server;
+    
+    ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)= localtime(time);
+    $now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+    &log("Waiting for HTTP connection\n");
+    while ($client= $server->accept()) {
+	if (($child= fork()) == 0) {
+	    &handleHttpConnection;
+	    close($client);
+	    exit;
+	} else {
+            close($client);
+        }
+    }
+}
+
+
+sub client {
+    $msg= pop(@_);
+    print $client $msg;
+    &flush($client);
+    &log("\t\t$msg");
+}
+
+
+sub handleHttpConnection {
+    $data= 0; #True when reading data part
+    srand(time|$$);
+    $reqseq= 0;
+    ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)= localtime(time);
+    $now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+    &log("New connection\n");
+    $length= 0;
+    while ($buf= <$client>) {
+        &log($buf);
+        if ($buf=~ /^Content-length:\s*(\d+)/) {
+            $length= $1;
+        }
+        if ($buf eq "\r\n") {
+            last if ($length == 0);
+	    $len= read($client, $buf, $length);
+            &log($buf);
+            last;
+        }            
+    }
+
+    print $client "HTTP/1.1 200 OK\r\n";
+    print $client "Server: wpgsim\r\n";
+    print $client "Date: Thu, 12 Dec 2002 15:30:39 GMT\r\n";
+    print $client "Content-type: text/html;charset=utf-8\r\n";
+    print $client "Connection: close\r\n";
+    print $client "\r\n";
+    print $client "<H1><BLINK>W</BLINK>E<BLINK>L</BLINK>C<BLINK>O</BLINK>M<BLINK>E</BLINK> <BLINK>T</BLINK>O<BLINK> </BLINK>w<BLINK>g</BLINK>p<BLINK>s</BLINK>i<BLINK>m</BLINK></H1>";
+    
+    close($client);
+    exit(0);
+}
+
+
+sub readprops {
+    local($filename)= pop(@_);
+
+    open (PROPS, "<$filename") || print "WARNING: could not open $filename\n";
+    while($_= <PROPS>) {
+	s/#.*$//;
+	next if (/^$/);
+	s/^\s+//;
+	s/\s+$//;
+	($key, $val)= split(/=/);
+	$props{$key}= $val;
+    }
+    close PROPS
+}
+
+
+sub log {
+    print LOG "$now     [$$] :  " . pop(@_);
+    &flush(LOG);
+}
+sub doc {
+    print "WPGSIM\n================================================================
+wpgsim is a simple simulator of an WAP push gateway using the HTTP protocol. It 
+reads and parses requests from NTF, and responds to them. All operations
+are logged to the file \"test.log\". 
+
+You start wpgsim with     wpgsim <port number>
+
+It is possible to control the operation of wpgsim by editing the file
+\"wpgsim.rc\".
+
+wpgsim was designed to handle the following type of dialogue:
+
+";
+}

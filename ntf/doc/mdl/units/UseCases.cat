@@ -1,0 +1,914 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "UseCases"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"34E37E430280"
+    documentation 	
+|All Use Cases in the system are contained in this package.   This is done strictly as a way to organize the model and make it easier to understand.
+|
+|See Rational UnifiedProcess:
+|Activity " Describe the Use Case Model".
+|
+|In order to version control use cases it is recommended to specify use case packages within this package.
+|
+|Use Cases are often documented in a separate text file, use the  Rational Unified Process template or use the use case template  in Rational Requsite Pro.
+|
+|The "Use Case Realizations" that correspond to these use cases  are created in the Design Model..
+    
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class_Category "WAPNotificationUC"
+	    quid       	"35C0EC150366"
+	    documentation 	" A separate package is recommended for each Use Case to facilitate access and version control of related use case artifacts."
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object UseCase "PI: Push Initiator"
+		    quid       	"34E37FB203D4"
+		    documentation 	
+|Brief Description:
+|---------------------------
+|Notification via wap push works as a Push Initiator (PI) server and submitts a wap push message to the Push Proxy Gateway (PPG).
+|
+|preconditions:
+|----------------------
+|A message is deposited for a user, whose profile indicates that the user has requested WAP push nofitication.
+|
+|Main Flow:
+|------------------
+|The use case starts when the notification managersends a WAP push notfication request to Notify via WAP Push. The reqest must contain the following data:
+|1. The protocol used to tunnel the push message through. e.g. HTTP or SMTP.
+|2. PPG host name
+|3. PPG port number.
+|4. A unique identifire for the push message
+|5. The client WAP device address ( is used by PPG to forward the message to the client).
+|6. Message contents to be sent to the client:
+|    For e-mail and fax-mail, the address to the client's inbox.
+|    For voice mail, the retrieval number for the UM system
+|    and optionally the CLI for the persion who has left the 
+|    message.
+|
+|The use case assembles an xml document for push submission, sets up an HTTP session to the PPG and POSTs the push message to the PPG.
+|
+|The use case ends when the PPG replies with the response message and Notify via WAP push returns the status code back to the Notificaiton Manager.
+|
+|Subflows:
+|---------------
+|S1. The WAP client is off.
+|
+|
+|Alternative flows:
+|--------------------------
+|A1. PPG does not recognize the WAP client device address.
+|
+|Exceptional flows:
+|----------------------------
+|E1. The PPG server is down or unreachable.
+|E2. Network or bearer is not available.
+|E3. Service not available.
+|
+		    
+		    logical_presentations 	(list unit_reference_list
+			(object UseCaseDiagram "Local View - <Use Case Name>"
+			    quid       	"34E3E970019A"
+			    title      	"Local View - <Use Case Name>"
+			    documentation 	"This diagram presents the Local View of Use Case <Use Case Name>.  The diagram depicts all actors which interact with <Use Case Name>, and any Use Cases which are associated with <Use Case Name>."
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object ClassView "Class" "Use Case View::UseCaseModel::Actors::Filter Manager" @1
+				    ShowCompartmentStereotypes 	TRUE
+				    IncludeAttribute 	TRUE
+				    IncludeOperation 	TRUE
+				    location   	(1824, 656)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@1
+					location   	(1824, 816)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"Filter Manager")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"3A5A3BF90321"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object ClassView "Class" "Use Case View::UseCaseModel::Actors::PPG\\: Push Proxy Gateway" @2
+				    ShowCompartmentStereotypes 	TRUE
+				    IncludeAttribute 	TRUE
+				    IncludeOperation 	TRUE
+				    location   	(336, 656)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@2
+					location   	(336, 816)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"PPG: Push Proxy Gateway")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"353D5816026C"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object UseCaseView "Use Case View::UseCaseModel::UseCases::WAPNotificationUC::PI\\: Push Initiator" @3
+				    location   	(1072, 656)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@3
+					location   	(1072, 794)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	631
+					justify    	0
+					label      	"PI: Push Initiator")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"34E37FB203D4"
+				    height     	118
+				    autoResize 	TRUE)
+				(object AssociationViewNew "" @4
+				    location   	(1472, 656)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    stereotype 	(object SegLabel @5
+					Parent_View 	@4
+					location   	(1472, 549)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor     	10
+					anchor_loc 	1
+					nlines     	1
+					max_width  	450
+					justify    	0
+					label      	"<<communicate>>"
+					pctDist    	0.500000
+					height     	108
+					orientation 	0)
+				    line_color 	3342489
+				    quidu      	"3A5A3C1D00FC"
+				    roleview_list 	(list RoleViews
+					(object RoleView "" @6
+					    Parent_View 	@4
+					    location   	(-544, -288)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3A5A3C1E034C"
+					    client     	@4
+					    supplier   	@3
+					    line_style 	0)
+					(object RoleView "" @7
+					    Parent_View 	@4
+					    location   	(-544, -288)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3A5A3C1E034D"
+					    client     	@4
+					    supplier   	@1
+					    line_style 	0)))
+				(object AssociationViewNew "" @8
+				    location   	(676, 656)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    stereotype 	(object SegLabel @9
+					Parent_View 	@8
+					location   	(676, 549)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor     	10
+					anchor_loc 	1
+					nlines     	1
+					max_width  	450
+					justify    	0
+					label      	"<<communicate>>"
+					pctDist    	0.500000
+					height     	108
+					orientation 	0)
+				    line_color 	3342489
+				    quidu      	"3A5A3C2A0155"
+				    roleview_list 	(list RoleViews
+					(object RoleView "" @10
+					    Parent_View 	@8
+					    location   	(-588, -320)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3A5A3C2C013A"
+					    client     	@8
+					    supplier   	@2
+					    line_style 	0)
+					(object RoleView "" @11
+					    Parent_View 	@8
+					    location   	(-588, -320)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3A5A3C2C0144"
+					    client     	@8
+					    supplier   	@3
+					    line_style 	0)))
+				(object NoteView @12
+				    location   	(1120, 144)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@12
+					location   	(45, 22)
+					fill_color 	13434879
+					nlines     	6
+					max_width  	2115
+					label      	
+|Version:   Created/Modified by:	                         Created/Modified Date:          Approved by:               Date:
+|00:             Ahmad Mahmoudi:                            200-01-09
+					)
+				    line_color 	3342489
+				    fill_color 	13434879
+				    width      	2175
+				    height     	256)))))
+		(object Association "$UNNAMED$0"
+		    quid       	"35C0ED3A00F0"
+		    stereotype 	"communicate"
+		    roles      	(list role_list
+			(object Role "$UNNAMED$1"
+			    quid       	"35C0ED3B0118"
+			    supplier   	"Use Case View::UseCaseModel::UseCases::WAPNotificationUC::PI\\: Push Initiator"
+			    quidu      	"34E37FB203D4"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$2"
+			    quid       	"35C0ED3B0119"
+			    supplier   	"Use Case View::UseCaseModel::Actors::PPG\\: Push Proxy Gateway"
+			    quidu      	"353D5816026C")))
+		(object Association "$UNNAMED$3"
+		    quid       	"3B1D3F39025C"
+		    roles      	(list role_list
+			(object Role "$UNNAMED$4"
+			    quid       	"3B1D3F3B0038"
+			    supplier   	"Use Case View::UseCaseModel::Actors::IMAP Server"
+			    quidu      	"3ADB14420352"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$5"
+			    quid       	"3B1D3F3B0042"
+			    supplier   	"Use Case View::UseCaseModel::UseCases::NotificationProcessUC::Retrieval"
+			    quidu      	"3B1D3E220020"))))
+	    logical_presentations 	(list unit_reference_list
+		(object UseCaseDiagram "Main"
+		    quid       	"3A64B2E703D0"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object UseCaseView "Use Case View::UseCaseModel::UseCases::WAPNotificationUC::PI\\: Push Initiator" @13
+			    location   	(560, 624)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@13
+				location   	(560, 762)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	630
+				justify    	0
+				label      	"PI: Push Initiator")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"34E37FB203D4")))))
+	(object Class_Category "NotificationProcessUC"
+	    quid       	"3B1D3F5A0303"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object UseCase "GsmMwiOn"
+		    quid       	"3B1D3E4A01FE"
+		    documentation 	
+|This scenario starts, when a message is deposited for a user and MWI notification is requested by the receipient's profile in MUR.
+|
+|Baisc Flow:
+|------------------
+|Step 1-
+|FilterManager controls the flow of events for this use case. For each receipient in the email TO, CC or BCC list the FilterManager looks up the subscriber's profile to find out what type of notification is requested (done by WirelessEmailPersonFatory upon creation of the person object).
+|
+|Step 2-
+|Then the FilterManager retrieves information about the SMS-C host sets up an SMS containting the message count and message type information to be sent to user's MS.
+|
+|Step 3-
+|Together with the message contents, FilterManger also sets the PID octet to indicate "Return Message Call". Furthurmore, FilterManager sets the Data Coding Scheme octet to indicate "Voice Message Waiting".
+|
+|Alternative Flows:
+|----------------------------
+|
+|Exceptional Flows:
+|-----------------------------
+|E1.
+|In step 3, the SMS-C responds with an error code. This is detected by SMPPSMSCConnection as SMSException.
+|If SMSException is caught, the error message will be logged as
+|and error log in the notification trace file.
+|
+|E2.
+|In step 3, the connection with the SMS-C or SMPP center  is lost. This is detected by SMPPSMSCConnection as IOException.
+|If IOException is caught, an error message will be logged and the connection to the SMS-C will be set to null. This connection will be restored upon sending the next SMS.
+		    
+		    logical_presentations 	(list unit_reference_list
+			(object UseCaseDiagram "Main"
+			    quid       	"3B1D3E820172"
+			    title      	"Main"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object UseCaseView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC::GsmMwiOn" @14
+				    location   	(1392, 944)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@14
+					location   	(1392, 1082)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	630
+					justify    	0
+					label      	"GsmMwiOn")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3B1D3E4A01FE")
+				(object ClassView "Class" "Use Case View::UseCaseModel::Actors::ShortMessageSeviceCenter" @15
+				    ShowCompartmentStereotypes 	TRUE
+				    IncludeAttribute 	TRUE
+				    IncludeOperation 	TRUE
+				    location   	(576, 944)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@15
+					location   	(576, 1104)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"ShortMessageSeviceCenter")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"3B1D407C0039"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object AssociationViewNew "" @16
+				    location   	(956, 944)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3B1D40EB007F"
+				    roleview_list 	(list RoleViews
+					(object RoleView "" @17
+					    Parent_View 	@16
+					    location   	(-436, 0)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3B1D40EC0167"
+					    client     	@16
+					    supplier   	@15
+					    line_style 	0)
+					(object RoleView "" @18
+					    Parent_View 	@16
+					    location   	(-436, 0)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3B1D40EC0171"
+					    client     	@16
+					    supplier   	@14
+					    line_style 	0)))))))
+		(object UseCase "GsmMwiOff"
+		    quid       	"3B1D3E5902D2"
+		    documentation 	
+|This scenario starts, when an email is received from MVAS MWI agent. The email indicates that a user has logged in to his/her account.
+|
+|Baisc Flow:
+|------------------
+|Step 1-
+|FilterManager controls the flow of events for this use case. FilterManager looks up the subscriber's profile to find out what type of notification is requested (done by WirelessEmailPersonFatory upon creation of the person object).
+|
+|Step 2-
+|Then the FilterManager retrieves information about the SMS-C host sets up an SMS containting the message count and message type information to be sent to user's MS.
+|
+|Step 3-
+|An empty SMS message is sent to the supscriber's MS. The PID octet is set to 0 and number of messages is set to zero to clear the MWI indication on the MS.
+|
+|Alternative Flows:
+|----------------------------
+|
+|Exceptional Flows:
+|-----------------------------
+|E1.
+|In step 3, the SMS-C responds with an error code. This is detected by SMPPSMSCConnection as SMSException.
+|If SMSException is caught, the error message will be logged as
+|and error log in the notification trace file.
+|
+|E2.
+|In step 3, the connection with the SMS-C or SMPP center  is lost. This is detected by SMPPSMSCConnection as IOException.
+|If IOException is caught, an error message will be logged and the connection to the SMS-C will be set to null. This connection will be restored upon sending the next SMS.
+		    
+		    logical_presentations 	(list unit_reference_list
+			(object UseCaseDiagram "Main"
+			    quid       	"3B1D3EA401DF"
+			    title      	"Main"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object UseCaseView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC::GsmMwiOff" @19
+				    location   	(1472, 832)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@19
+					location   	(1472, 970)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	630
+					justify    	0
+					label      	"GsmMwiOff")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3B1D3E5902D2")
+				(object ClassView "Class" "Use Case View::UseCaseModel::Actors::ShortMessageSeviceCenter" @20
+				    ShowCompartmentStereotypes 	TRUE
+				    IncludeAttribute 	TRUE
+				    IncludeOperation 	TRUE
+				    location   	(624, 832)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@20
+					location   	(624, 992)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"ShortMessageSeviceCenter")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"3B1D407C0039"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object AssociationViewNew "" @21
+				    location   	(1021, 832)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3B1D40D7006C"
+				    roleview_list 	(list RoleViews
+					(object RoleView "" @22
+					    Parent_View 	@21
+					    location   	(-451, 0)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3B1D40D8015E"
+					    client     	@21
+					    supplier   	@20
+					    line_style 	0)
+					(object RoleView "" @23
+					    Parent_View 	@21
+					    location   	(-451, 0)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3B1D40D80168"
+					    client     	@21
+					    supplier   	@19
+					    line_style 	0)))))))
+		(object UseCase "Retrieval"
+		    quid       	"3B1D3E220020"
+		    documentation 	
+|This use case describes the process, by which the notification process retrieves messages deposited in the notification mailbox on the IMAP server.
+|
+|Following Control objects are the main parties envolved in this use case: FilterManager, MailboxManager, IMAPConnectionMaintainer, DeleteThread and ExpungeThread. Besides the above objects there are three entity objects (used as queues) are heavily envolved: uidQueue, deleteQueue and emailQueue.
+|
+|Basic Flow:
+|------------------
+|Step 1
+|IMAPConnectionMaintainer retrieves the UIDs for all UNSEEN messages and saves them in the uidQueue. This is done periodically with a conficureable sleep time.
+|
+|Step 2
+|MailboxManager reads the UIDs from the uidQueue, one by one, fetches the message contents from the notification mailbox and stores the Email message in the emailQueue.
+|
+|Step 3
+|FilterManager fetches on email at a time  from the emailQueue, sends the required notification messages for the receipient of the messae and saves the message UID in the deleteQueue.
+|
+|Step 4
+|DeleteThread reads the UIDs from the deleteQueue and sets the corresponding message's DELETED flag.
+|
+|Step 5
+|The ExpungeThread periodically calls expunge to physically remove the DELETED messages from the notification mailbox.
+|
+|Alternative Flows:
+|---------------------------
+|A1.
+|In step 1, If the uidQueue is not empty, the IMAPConnectionMaintainer will wait on a synchronization lock on the queue.
+|
+|A2.
+|In step 2, if the uidQueue is Empty, the MailBoxManager will wait on a synchornization lock on the uidQueue. This lock is  signalled by IMAPConnectionMaintainer, when it populates the uidQueue.
+|
+|A3.
+|In step 3, if the emailQueue is full, the MailboxManager waits on a synchronization lock on the emailQueue, which is signalled by FilterManager upon emptying the emailQueue.
+|
+|A4.
+|In step 4, if the emailQueue is empty, FilterManager will wait on a snychronization lock to be signalled by MailboxManager upon populating the queue.
+|
+|A5.
+|In step 4, if the deleteQueue is full, FilterManger will wait on a synchronization lock to be set by DeleteThread upon emptying the queue.
+|
+|A6.
+|In step 5, if the deleteQueue is empty, the DeleteThread will wait on a snychornization lock to be set by FilterManger upon populating the queue.
+|
+|Exceptional Flows:
+|-----------------------------
+|In any step during the basic flow or alternative flows if the connection to the IMAP server is broken, the IMAPClient which handels all interaction with the server, will restore the connection. An error will be logged for each time the connection is lost.
+|
+		    
+		    logical_presentations 	(list unit_reference_list
+			(object UseCaseDiagram "Main"
+			    quid       	"3B1D3E8F008B"
+			    title      	"Main"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object UseCaseView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC::Retrieval" @24
+				    location   	(1248, 912)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@24
+					location   	(1248, 1050)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	630
+					justify    	0
+					label      	"Retrieval")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3B1D3E220020")
+				(object ClassView "Class" "Use Case View::UseCaseModel::Actors::IMAP Server" @25
+				    ShowCompartmentStereotypes 	TRUE
+				    IncludeAttribute 	TRUE
+				    IncludeOperation 	TRUE
+				    location   	(448, 912)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@25
+					location   	(448, 1072)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	327
+					justify    	0
+					label      	"IMAP Server")
+				    icon       	"Actor"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    quidu      	"3ADB14420352"
+				    annotation 	8
+				    autoResize 	TRUE)
+				(object AssociationViewNew "$UNNAMED$3" @26
+				    location   	(821, 912)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3B1D3F39025C"
+				    roleview_list 	(list RoleViews
+					(object RoleView "$UNNAMED$4" @27
+					    Parent_View 	@26
+					    location   	(-427, -48)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3B1D3F3B0038"
+					    client     	@26
+					    supplier   	@25
+					    line_style 	0)
+					(object RoleView "$UNNAMED$5" @28
+					    Parent_View 	@26
+					    location   	(-427, -48)
+					    stereotype 	TRUE
+					    line_color 	3342489
+					    quidu      	"3B1D3F3B0042"
+					    client     	@26
+					    supplier   	@24
+					    line_style 	0)))))))
+		(object Association "$UNNAMED$6"
+		    quid       	"3B1D40D7006C"
+		    roles      	(list role_list
+			(object Role "$UNNAMED$7"
+			    quid       	"3B1D40D8015E"
+			    supplier   	"Use Case View::UseCaseModel::Actors::ShortMessageSeviceCenter"
+			    quidu      	"3B1D407C0039"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$8"
+			    quid       	"3B1D40D80168"
+			    supplier   	"Use Case View::UseCaseModel::UseCases::NotificationProcessUC::GsmMwiOff"
+			    quidu      	"3B1D3E5902D2")))
+		(object Association "$UNNAMED$9"
+		    quid       	"3B1D40EB007F"
+		    roles      	(list role_list
+			(object Role "$UNNAMED$10"
+			    quid       	"3B1D40EC0167"
+			    supplier   	"Use Case View::UseCaseModel::Actors::ShortMessageSeviceCenter"
+			    quidu      	"3B1D407C0039"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$11"
+			    quid       	"3B1D40EC0171"
+			    supplier   	"Use Case View::UseCaseModel::UseCases::NotificationProcessUC::GsmMwiOn"
+			    quidu      	"3B1D3E4A01FE"))))
+	    logical_presentations 	(list unit_reference_list
+		(object UseCaseDiagram "Main"
+		    quid       	"3B1D410E0134"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object UseCaseView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC::GsmMwiOff" @29
+			    location   	(560, 528)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@29
+				location   	(560, 666)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	630
+				justify    	0
+				label      	"GsmMwiOff")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3B1D3E5902D2")
+			(object UseCaseView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC::GsmMwiOn" @30
+			    location   	(1088, 544)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@30
+				location   	(1088, 682)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	630
+				justify    	0
+				label      	"GsmMwiOn")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3B1D3E4A01FE")
+			(object UseCaseView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC::Retrieval" @31
+			    location   	(1552, 544)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@31
+				location   	(1552, 682)
+				anchor_loc 	1
+				nlines     	2
+				max_width  	630
+				justify    	0
+				label      	"Retrieval")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3B1D3E220020"))))))
+    logical_presentations 	(list unit_reference_list
+	(object UseCaseDiagram "Architecturally Significant Use-Cases"
+	    quid       	"34E36CFC03D4"
+	    title      	"Architecturally Significant Use-Cases"
+	    documentation 	"This diagram contains all architecturally significant use cases.  <Annotations may be added to the diagram to explain why particular use cases are architecturally significant.>"
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list
+		(object CategoryView "Use Case View::UseCaseModel::UseCases::WAPNotificationUC" @32
+		    location   	(480, 688)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@32
+			location   	(336, 604)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"WAPNotificationUC")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35C0EC150366"
+		    width      	300
+		    height     	180)
+		(object CategoryView "Use Case View::UseCaseModel::UseCases::NotificationProcessUC" @33
+		    location   	(1040, 688)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@33
+			location   	(896, 604)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"NotificationProcessUC")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"3B1D3F5A0303"
+		    width      	300
+		    height     	180)))))

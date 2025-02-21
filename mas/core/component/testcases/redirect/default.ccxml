@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <log expr="'Redirect Test Cases'"/>
+    
+    <!-- VALID redirect reasons -->
+    <var name="REDIRECT_REASON_300" expr="'_300_MULTIPLE_CHOICE'"/>
+    <var name="REDIRECT_REASON_301" expr="'_301_MOVED_PERMANENTLY'"/>
+    <var name="REDIRECT_REASON_302" expr="'_302_MOVED_TEMPORARILY'"/>
+    <var name="REDIRECT_REASON_305" expr="'_305_USE_PROXY'"/>
+    <var name="REDIRECT_REASON_380" expr="'_380_ALTERNATIVE_SERVICE'"/>
+    
+    <!-- INVALID redirect reasons -->
+    <var name="REDIRECT_REASON_INVALID_0" expr="'toto'"/>
+    <var name="REDIRECT_REASON_INVALID_1" expr="'_348_moved'"/>
+    <var name="REDIRECT_REASON_INVALID_2" expr="''"/>
+    
+    <!-- VALID redirect destinations -->
+    <!-- Sample SIP URI -->
+    <var name="redirectDestinationSIPURI_0" expr="'sip:+12414441002@64.215.212.70:5060;user=phone'"/>
+    <var name="redirectDestinationSIPURI_1" expr="'sip:+1-212-555-1212:1234@gateway.com;user=phone'"/>
+    <var name="redirectDestinationSIPURI_2" expr="'sip:alice@atlanta.com'"/>
+    
+    <!-- Sample tel URI -->
+    <var name="redirectDestinationTelURI_0" expr="'tel:+1-201-555-0123'"/>
+    <var name="redirectDestinationTelURI_1" expr="'tel:7042;phone-context=example.com'"/>
+    <var name="redirectDestinationTelURI_2" expr="'tel:863-1234;phone-context=+1-914-555'"/>
+    
+    <!-- INVALID redirect destinations -->
+    <var name="redirectDestinationInvalid_0" expr="'+1-212-555-1212:1234@gateway.com;user=phone'"/>
+    <var name="redirectDestinationInvalid_1" expr="1"/>
+    <var name="redirectDestinationInvalid_2" expr=""/>
+    <var name="redirectDestinationInvalid_3" expr="'toto'"/>
+    <var name="redirectDestinationInvalid_4" expr="'toto@tata.com'"/>
+    <var name="redirectDestinationInvalid_5" expr="'sip:'"/>
+    <var name="redirectDestinationInvalid_6" expr="'sip:t'"/>
+    
+    <!-- Tests variables -->
+    
+    <var name="redirectDestination" expr="redirectDestinationTelURI_2" />
+    <var name="redirectReason" expr="REDIRECT_REASON_302" />
+    
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_302" /> -->
+  <!-- <var name="redirectReason" expr="REDIRECT_REASON_300" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_301" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_302" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_305" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_380" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_INVALID_0" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_INVALID_1" /> -->
+  <!--  <var name="redirectReason" expr="REDIRECT_REASON_INVALID_2" /> -->
+    
+    
+    
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt"> 
+         	
+        	<redirect connectionid="evt.connectionid" dest="redirectDestination" reason="redirectReason"  hints="'blabla'"/>
+        	<!-- Valid : dest and reason specified      
+                <redirect connectionid="evt.connectionid" dest="redirectDestination" 
+                	reason="redirectReason" />
+                 Valid : No redirect reason specified should use default reason 302
+                    <redirect connectionid="evt.connectionid" dest="redirectDestination" />
+                Valid : Only dest specified  should use default reason 302 and current connection
+                    <redirect  dest="redirectDestination" />
+                Invalid : reason specified but empty
+                <redirect connectionid="evt.connectionid" dest="redirectDestination" 
+                	reason="" />
+                Invalid : reason specified but empty
+                <redirect connectionid="evt.connectionid" dest="redirectDestination" 
+                	reason="''" />                	
+ 		Invalid : reason specified but invalid
+                <redirect connectionid="evt.connectionid" dest="redirectDestination" 
+                	reason="'toto'" />                	
+                Invalid : No destination specified     
+                    <redirect connectionid="evt.connectionid" reason="redirectReason" /> 
+                Valid : hints igniored
+                <redirect connectionid="evt.connectionid" dest="redirectDestination" reason="redirectReason"  hints="'blabla'"/>
+                    -->
+        </transition>        
+        <transition event="connection.redirected" name="evt">
+        	<log label="'info'" expr="'CCXML: Call successfully redirected to ' + redirectDestination"/>
+        	<exit/>               
+        </transition>
+        <transition event="connection.failed" name="evt">
+        	<!-- The connection was terminated -->
+                <log label="'info'" expr="'CCXML: Call redirect to destination failed ' + redirectDestination"/>
+        	<exit/>                       
+        </transition>
+         <transition event="error.semantic" name="evt">
+         	<log label="'error'" expr="'CCXML: Semantic error event occured ' + evt.reason "/>
+        	<exit/>               
+        </transition>
+        <transition event="error.*" name="evt">
+         	<log label="'error'" expr="'CCXML: Call unexpected error' + evt.name + ' with reason ' + evt.reason"/>
+        	<exit/>               
+        </transition>
+        
+    </eventprocessor>
+</ccxml>

@@ -1,0 +1,9 @@
+set systemid ntf1
+set password AMPCLIENT
+set systemtype Lennart
+set host sun114
+set port 5016
+set phone 987654
+set srcphone 123456
+set log on
+set spy on

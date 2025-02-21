@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:sequence>
+			<xs:element name="ComponentSpecificURL" type="stringRefreshable" default="/opt/moip/config/mas/masSpecific.conf">
+				<xs:annotation>
+					<xs:documentation>MAS specific configuration URI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Abcxyz.componentType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+			<xs:element name="configFileType" type="xs:int" fixed="4" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Each config file must have configFileType element defined in schema as following.
+						This element shouldn't appear in config file itself, so minOccurs and maxOccurs both must be 0
+						Note: to see if a config file is hashable or not check its schem file (.xsd) for element "isHash"
+						if value of it is "true" means that config file is hashable
+
+						All hashable component config file i.e. relay.conf: 4
+						All hashable componentSpecific config files i.e. relaySpecific.conf: 5
+						All hashable subsystem specific files i.e. relaySMTPHandlerSpecific.conf: 6
+						Special files (not hashable):
+						Mm4SlaTable.xml: 1
+						NumberAnalysisTable.xml: 2
+						relayCharging: 3
+						oe: 7
+						faultList:8
+						topology:9
+						tasks: 10 this file is exception, it is hashable but as it has its own service in CLI don't use 4
+
+						Important Notes:
+
+						1) "-1" reserved for all component unit type, this type being used for configParser don't use it
+						2) "0" reserved for all MISCELLANEOUS unit type, this type being used for configParser don't use it
+						3) Before adding new configFileType check ConfigurationConstants.java in oe/configuration package for its existence
+						4) All new config file types should be defined in ConfigurationConstants.java in oe/configuration package i.e. COMPONENT_UNIT_TYPE.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ComponentType" type="xs:string" fixed="mas" minOccurs="0"/>
+			<xs:element name="CmComponentIdentity" type="xs:string" minOccurs="0"/>
+			<xs:element name="Abcxyz.component-common" type="Abcxyz.component-commonType"/>
+			<xs:element name="Abcxyz.CmComponentSpecific" type="ComponentSpecificType"/>
+			<xs:element name="Abcxyz.performance-thresholds" type="Abcxyz.performance-thresholdsType"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="Abcxyz.commonType">
+		<xs:sequence>
+			<xs:element name="Abcxyz.item" type="ComponentItemType"/>
+			<xs:element name="Abcxyz.LogTable-item" type="ComponentLogType"/>
+			<xs:element name="Abcxyz.pm" type="PmType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PmType">
+		<xs:sequence>
+			<xs:element name="PmComponentLocationURI" type="xs:string" default="Not Implemented In R1" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Abcxyz.component-commonType">
+		<xs:sequence>
+			<xs:element name="Abcxyz.common" type="Abcxyz.commonType"/>
+			<xs:element name="Abcxyz.subsystem" type="SubsystemType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:sequence>
+			<xs:element name="CmConfigDocumentURL" type="xs:string"/>
+			<xs:element name="Abcxyz.component" type="Abcxyz.componentType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComponentLogType" mixed="true">
+		<xs:all>
+			<xs:element name="CmComponent.LogType.Alarm.LogLevel" type="AlarmLogLevelEnum" default="undetermined" minOccurs="0"/>
+			<xs:element name="CmComponent.LogType.Traffic.LogLevel" type="LogLevelEnum" default="fatal" minOccurs="0"/>
+			<xs:element name="CmComponent.LogType.Subscriber.LogLevel" type="LogLevelEnum" default="fatal" minOccurs="0"/>
+			<xs:element name="CmComponent.LogType.Event.LogLevel" type="LogLevelEnum" default="fatal" minOccurs="0"/>
+			<xs:element name="CmComponent.LogType.Operator.LogLevel" type="LogLevelEnum" default="fatal" minOccurs="0"/>
+			<xs:element name="PmComponent.LogType.LogLevel" type="LogLevelEnum" default="fatal" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:simpleType name="LogLevelEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="info"/>
+			<xs:enumeration value="warning"/>
+			<xs:enumeration value="debug"/>
+			<xs:enumeration value="error"/>
+			<xs:enumeration value="fatal"/>
+			<xs:enumeration value="undetermined"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AlarmLogLevelEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="undetermined"/>
+			<xs:enumeration value="cleared"/>
+			<xs:enumeration value="warning"/>
+			<xs:enumeration value="minor"/>
+			<xs:enumeration value="major"/>
+			<xs:enumeration value="critical"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ComponentItemType">
+		<xs:all>
+			<xs:element name="CmComponentLocationURI" type="xs:string" default="N/A" minOccurs="0"/>
+			<xs:element name="CmComponentContactInfo" type="xs:string" default="N/A" minOccurs="0"/>
+			<xs:element name="CmComponentLicenseInfoURI" type="xs:string" default="N/A" minOccurs="0"/>
+			<xs:element name="CmComponentAdministrativeState" type="AdministrativeStateEnum" default="unlocked" minOccurs="0"/>
+			<xs:element name="CmComponentConfigurationURI" type="xs:string" default="http://localhost:4400/mas.conf" minOccurs="0"/>
+			<xs:element name="CmComponentLastConfigurationDate" type="xs:string" default="N/A" minOccurs="0"/>
+			<xs:element name="CmComponentObjectInfoURI" type="xs:string" default="N/A" minOccurs="0"/>
+			<xs:element name="CmComponentSnmpManagementPort" type="xs:integer" default="8041" minOccurs="0"/>
+			<xs:element name="CmComponentSnmpFaultPort" type="xs:integer" default="162" minOccurs="0"/>
+			<xs:element name="CmComponentSubsystemManagementPort" type="xs:integer" default="14058" minOccurs="0"/>
+			<xs:element name="CmComponentLicenseUpdateTime" type="xs:integer" default="260" minOccurs="0"/>
+			<xs:element name="CmComponentLogConsoleOut" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="CmComponentLogNetwork" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="CmComponentLog4j" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="CmComponentLogTable" type="xs:string" default="mas-logtable" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:simpleType name="AdministrativeStateEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="locked"/>
+			<xs:enumeration value="unlocked"/>
+			<xs:enumeration value="shutdown"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SubsystemType">
+		<xs:sequence>
+			<xs:element name="CmSubsystem.mas.Identity" type="CmMasSubsystemIdentityType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CmMasSubsystemIdentityType" mixed="true">
+		<xs:sequence>
+			<xs:element name="Abcxyz.item" type="masSubsystemItemType"/>
+			<xs:element name="Abcxyz.LogTable-item" type="masSubsystemLogType"/>
+			<xs:element name="Abcxyz.SubsystemSpecific" type="masSubsystemSpecificType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Abcxyz.performance-thresholdsType" mixed="true">
+		<xs:all>
+			<xs:element name="PerformanceThresholdsState" type="PerformanceThresholdsStateType" default="enabled" minOccurs="0"/>
+			<xs:element name="Defaults" type="PerformanceThresholdsDefaultsType" minOccurs="0"/>
+			<xs:element name="TBA-CountersTable" type="TBA-CountersTableType"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="TBA-CountersTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="TBA-Counter" type="TBA-CounterType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TBA-CounterType" mixed="true">
+		<xs:all>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="type" type="xs:string"/>
+			<xs:element name="level-warning-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-warning-threshold" type="xs:string"/>
+			<xs:element name="level-warning-clear-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-warning-clear-threshold" type="xs:string"/>
+			<xs:element name="level-minor-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-minor-threshold" type="xs:string"/>
+			<xs:element name="level-minor-clear-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-minor-clear-threshold" type="xs:string"/>
+			<xs:element name="level-major-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-major-threshold" type="xs:string"/>
+			<xs:element name="level-major-clear-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-major-clear-threshold" type="xs:string"/>
+			<xs:element name="level-critical-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-critical-threshold" type="xs:string"/>
+			<xs:element name="level-critical-clear-alarm-id" type="alarmIDBaseType"/>
+			<xs:element name="level-critical-clear-threshold" type="xs:string"/>
+			<xs:element name="units" type="xs:string" default="%" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="PerformanceThresholdsDefaultsType">
+		<xs:all>
+			<xs:element name="CmRaiseAlarmIfNotDefined" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="CmTbaDefaultsRisingWarning" type="xs:string" default="80"/>
+			<xs:element name="CmTbaDefaultsRisingMinor" type="xs:string" default="90"/>
+			<xs:element name="CmTbaDefaultsRisingMajor" type="xs:string" default="95"/>
+			<xs:element name="CmTbaDefaultsRisingCritical" type="xs:string" default="100"/>
+			<xs:element name="CmTbaDefaultsRisingClearWarning" type="xs:string" default="75"/>
+			<xs:element name="CmTbaDefaultsRisingClearMinor" type="xs:string" default="85"/>
+			<xs:element name="CmTbaDefaultsRisingClearMajor" type="xs:string" default="90"/>
+			<xs:element name="CmTbaDefaultsRisingClearCritical" type="xs:string" default="95"/>
+			<xs:element name="CmTbaDefaultsFallingWarning" type="xs:string" default="15"/>
+			<xs:element name="CmTbaDefaultsFallingMinor" type="xs:string" default="10"/>
+			<xs:element name="CmTbaDefaultsFallingMajor" type="xs:string" default="5"/>
+			<xs:element name="CmTbaDefaultsFallingCritical" type="xs:string" default="0"/>
+			<xs:element name="CmTbaDefaultsFallingClearWarning" type="xs:string" default="20"/>
+			<xs:element name="CmTbaDefaultsFallingClearMinor" type="xs:string" default="15"/>
+			<xs:element name="CmTbaDefaultsFallingClearMajor" type="xs:string" default="10"/>
+			<xs:element name="CmTbaDefaultsFallingClearCritical" type="xs:string" default="5"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="masSubsystemItemType" mixed="true">
+		<xs:sequence>
+			<xs:element name="CmSubsystemLocationURI" type="xs:string" default="N/A" minOccurs="0"/>
+			<xs:element name="CmSubsystemAdministrativeState" type="AdministrativeStateEnum" default="unlocked" minOccurs="0"/>
+			<xs:element name="CmSubsystemLogConsoleOut" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="CmSubsystemLogNetwork" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="CmSubsystemLog4j" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="CmSubsystemLogTable" type="xs:string" default="dummy-logtable" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="masSubsystemLogType" mixed="true">
+		<xs:all>
+			<xs:element name="CmSubsystem.LogType.Alarm.LogLevel" type="AlarmLogLevelEnum" default="undetermined" minOccurs="0"/>
+			<xs:element name="CmSubsystem.LogType.Operator.LogLevel" type="LogLevelEnum" default="warning" minOccurs="0"/>
+			<xs:element name="CmSubsystem.LogType.Subscriber.LogLevel" type="LogLevelEnum" default="warning" minOccurs="0"/>
+			<xs:element name="CmSubsystem.LogType.Traffic.LogLevel" type="LogLevelEnum" default="fatal" minOccurs="0"/>
+			<xs:element name="CmSubsystem.LogType.Event.LogLevel" type="LogLevelEnum" default="warning" minOccurs="0"/>
+			<xs:element name="PmSubsystem.LogType.LogLevel" type="LogLevelEnum" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="masSubsystemSpecificType" mixed="true">
+		<xs:sequence>
+			<xs:element name="CmSubsystemSpecificURL" type="xs:string" default="">
+				<xs:annotation>
+					<xs:documentation>mas subsystem specific configuration URI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+	                             <xs:element name="CmSubsystemSpecificURL" type="xs:string" default="">
+				<xs:annotation>
+					<xs:documentation>call manager specific configuration URI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CmSubsystemSpecificURL" type="xs:string" default="">
+				<xs:annotation>
+					<xs:documentation>stream specific configuration URI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CmSubsystemSpecificURL" type="xs:string" default="">
+				<xs:annotation>
+					<xs:documentation>vva specific configuration URI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CmSubsystemSpecificURL" type="xs:string" default="">
+				<xs:annotation>
+					<xs:documentation>number analyzer specific configuration URI</xs:documentation>
+				</xs:annotation>
+	                        </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PerformanceThresholdsStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="disabled"/>
+			<xs:enumeration value="enabled"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="alarmIDBaseType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="0[x][0-9a-fA-F]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="stringRefreshable">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="isRefreshable" type="xs:boolean" use="prohibited" fixed="false"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

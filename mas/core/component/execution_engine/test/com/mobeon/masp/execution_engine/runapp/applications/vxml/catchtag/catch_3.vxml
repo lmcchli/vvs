@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+  <catch event="error">
+    <log>TCFAIL VXML: Catch 3 Wrong handler</log>
+    <exit/>
+  </catch>
+  <form>
+    <catch event="error">
+        <if cond="_event =='error.badfetch'">
+            <log>TCPASS VXML: Catch 3</log>
+        <else/>
+            <log>TCFAIL VXML: Catch 3</log>
+        </if>
+        <exit/>
+    </catch>
+    <block>
+      <throw event="error.badfetch"/>
+       <log>TCFAIL VXML: Catch 3 Should not be able to get here</log>
+    </block>
+  </form>
+</vxml>

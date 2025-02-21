@@ -1,0 +1,14 @@
+#!/bin/sh
+rm *.class
+javac -classpath .:../../../../ntf_oem/xerces/xerces-2_2_1/xmlParserAPIs.jar:../../../../ntf_oem/xerces/xerces-2_2_1/xercesImpl.jar Xmp_Client.java
+host=buell.mvas.su.erm.abcxyz.se
+port=8080
+numberOfRequests=1
+phonenumber=0703609218
+mailboxid=1022
+paging_digits=++1111++
+hang_up=true
+pause_time=1000
+xmp_service=outdialnotification            
+rm Xmp_Client.class 
+javac -classpath .:../../../../ntf_oem/xerces/xerces-2_2_1/xmlParserAPIs.jar:../../../../ntf_oem/xerces/xerces-2_2_1/xercesImpl.jar Xmp_Client.java && java -cp .:../../../../ntf_oem/xerces/xerces-2_2_1/xmlParserAPIs.jar:../../../../ntf_oem/xerces/xerces-2_2_1/xercesImpl.jar Xmp_Client $host $port $numberOfRequests $phonenumber $mailboxid $paging_digits $hang_up $pause_time $xmp_service

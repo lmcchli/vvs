@@ -1,0 +1,29 @@
+#! /bin/sh
+
+##
+## setuserattr <cfg-file> <attr> [value]
+##
+
+top=`pwd`
+toolsd=`dirname $0`
+
+die() {
+    echo "ERROR: $*" >&2
+    exit 1
+}
+
+help() {
+    grep '^##' $0 | cut -c3-
+    exit 0
+}
+
+test -n "$1" || help
+test -n "$2" || die "Attribute missing"
+attr=$2
+value=''
+test -n $3 && value=$3
+test -r $1 || die "Not readable [$1]"
+. $1
+
+test -n "$uid" || die 'No uniqueidentifier specified [$uid]'
+$toolsd/setattr $1 "uniqueidentifier=$uid,$community" $attr $value

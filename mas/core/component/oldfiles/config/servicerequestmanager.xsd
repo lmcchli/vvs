@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="servicerequestmanager"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="servicerequestmanager">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="diagnoseservice" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="requesttimeout" type="xs:integer"/>
+            <xs:attribute name="requestretries" type="xs:integer"/>
+            <xs:attribute name="clientid" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="diagnoseservice">
+        <xs:complexType>
+            <xs:attribute name="clientid" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

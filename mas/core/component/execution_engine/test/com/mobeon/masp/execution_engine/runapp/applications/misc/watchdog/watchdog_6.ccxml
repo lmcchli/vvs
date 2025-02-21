@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="myState" expr="'init'"/>
+    <var name="out_connectionid" />
+
+    <eventprocessor statevariable="myState">
+
+        <transition event="connection.alerting" name="evt">
+            <reject/>
+            <createcall dest="1234" connectionid="out_connectionid"/>
+            <send data="'test.exit'" target="session.id" delay="'5s'"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt">
+            <if cond="out_connectionid != 0">
+                <log expr="'TCPASS1'"/>
+            </if>
+        </transition>
+
+        <transition event="test.exit" name="evt">
+            <log expr="'TCPASS2'"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+
+    </eventprocessor>
+</ccxml>

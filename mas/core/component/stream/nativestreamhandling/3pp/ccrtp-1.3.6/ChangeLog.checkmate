@@ -1,0 +1,25 @@
+To make ccrtp compile a number of files must be modified. When upgrading to a newer version of ccrtp, it is probably a good idea to take a look at these changes.
+
+
+--------------------------------
+src/private.h
+src/ccrtp/rtppkt.h
+src/ccrtp/iqueue.h
+src/ccrtp/sources.h
+src/ccrtp/queuebase.h
+
+src/ccrtp/oqueue.h
+Added new dispatch method that sends packets in time
+
+src/ccrtp/pool.h    
+*BUGFIX*
+
+src/control.cpp
+src/outqueue.cpp
+*BUGFIX*
+Also added new dispatch method that sends packets in time
+
+src/rtppkt.cpp
+src/pool.cpp        // *BUGFIX*
+
+--------------------------------

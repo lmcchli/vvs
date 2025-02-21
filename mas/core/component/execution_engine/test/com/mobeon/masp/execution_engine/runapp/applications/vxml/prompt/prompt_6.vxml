@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+      <block name="b1">
+        <prompt>In block 1</prompt>
+      </block>
+      <block name="b2">
+        <prompt>In block 2</prompt>
+      </block>
+        <block><log>Soon exiting</log></block>
+      <field name="field1">
+        <prompt>In field 1</prompt>
+        <prompt>In field 2</prompt>
+
+         <exit/>
+      </field>
+   </form>
+</vxml>

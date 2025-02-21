@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="error">
+        <log>TCFAIL caught an error event</log>
+        <exit></exit>
+    </catch>
+
+    <form>
+        <block>
+            <script>
+                var parameterNames = ["param1"];
+                var parameterValues = ["value1"];
+                mas.systemSendServiceRequest( "anita",
+                                              "someService",
+                                              10,
+                                              true,
+                                              parameterNames,
+                                              parameterValues);
+            </script>
+            <goto next="#form2"></goto>
+        </block>
+    </form>
+
+    <form id="form2">
+
+        <!-- Log all parameter values.-->
+
+        <var name="numIterations" expr="100"></var>
+        <var name="currIteration" expr="0"></var>
+
+        <block name="block1">
+            <var name="currParam"></var>
+            <if cond="currIteration &lt; numIterations">
+                <script>
+                    currParam = mas.systemGetServiceResponseParameter('paramName'+currIteration);
+                </script>
+                <log>TC: Param:<value expr="currParam"></value></log>
+                <assign name="currIteration" expr="currIteration+1"></assign>
+                <goto nextitem="block1"></goto>
+            </if>
+        </block>
+    </form>
+</vxml>

@@ -1,0 +1,10 @@
+ANNOUNCE rtsp://localhost.mobeon.com:4712/media/speechsynthesizer RTSP/1.0
+CSeq: 1
+Content-Type: application/mrcp
+Content-Length: 106
+
+SPEAK 1 MRCP/1.0
+Content-Type: application/text+ssml
+Content-Length: 30
+
+<speak>Hello World!</speak>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+
+    <form id="main_form">
+    <var name="origPhoneNumber"/>
+    <var name="phoneNumber"/>
+    <var name="unknown_sender"/>
+    <var name="unknown_receiver"/>
+    <var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+    <var name="sublistid"/>
+
+    <block>
+
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+            unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+            // Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+        <script>
+            <!-- Fetch the receivers mailbox -->
+            mailboxid = mas.subscriberGetMailbox (phoneNumber);
+            mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+            mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, null);
+            sublistid = mas.mailboxGetMessageSubList (9, null, null, null, null, null);
+
+
+        </script>
+        <log>TC 20105200 FAILED, error event should have been thrown</log>
+        </block>
+    </form>
+     <catch event="error.com.mobeon.platform.system">
+        <log>TC 20105200  PASSED</log>
+        <log>Error caught <value expr="_event"/></log>
+        <log>Message: <value expr="_message"/></log>
+    <exit/>
+   </catch>
+    <catch event="error">
+        <log>TC 20105200  FAILED, wrong error was thrown.</log>
+        <log>Error caught <value expr="_event"/></log>
+        <exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

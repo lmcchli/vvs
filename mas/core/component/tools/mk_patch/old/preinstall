@@ -1,0 +1,190 @@
+#!/bin/sh
+# This script initializes the backout data for a patch package
+# directory format options.
+#
+# @(#)preinstall 1.5 96/05/10 SMI
+#
+# Copyright (c) 1995 by Sun Microsystems, Inc.
+# All rights reserved
+#
+PATH=/usr/sadm/bin:$PATH
+Patch_label=$PATCH
+
+recovery="no"
+if [ "$PKG_INSTALL_ROOT" = "/" ]; then
+
+PKG_INSTALL_ROOT=""
+fi
+# Check to see if this is a patch installation retry.
+if [ "$INTERRUPTION" = "yes" ]; then
+if [ -d "$PKG_INSTALL_ROOT/var/tmp/$Patch_label.$PKGINST" ] || [ -d \
+"$PATCH_BUILD_DIR/$Patch_label.$PKGINST" ]; then
+recovery="yes"
+fi
+fi
+if [ -n "$PATCH_BUILD_DIR" -a -d "$PATCH_BUILD_DIR" ]; then
+BUILD_DIR="$PATCH_BUILD_DIR/$Patch_label.$PKGINST"
+else
+BUILD_DIR="$PKG_INSTALL_ROOT/var/tmp/$Patch_label.$PKGINST"
+fi
+FILE_DIR=$BUILD_DIR/files
+RELOC_DIR=$BUILD_DIR/files/reloc
+ROOT_DIR=$BUILD_DIR/files/root
+PROTO_FILE=$BUILD_DIR/prototype
+PKGINFO_FILE=$BUILD_DIR/pkginfo
+THIS_DIR=`dirname $0`
+if [ "$PATCH_PROGRESSIVE" = "true" ]; then
+# If this is being used in an old-style patch, insert
+# the old-style script commands here.
+#XXXOld_CommandsXXX#
+exit 0
+fi
+#
+# Unless specifically denied, initialize the backout patch data by
+# creating the build directory and copying over the original pkginfo
+# which pkgadd saved in case it had to be restored.
+#
+if [ "$PATCH_NO_UNDO" != "true" ] && [ "$recovery" = "no" ]; then
+if [ -d $BUILD_DIR ]; then
+rm -r $BUILD_DIR
+fi
+# If this is a retry of the same patch then recovery is set to
+# yes. Which means there is a build directory already in
+# place with the correct backout data.
+if [ "$recovery" = "no" ]; then
+mkdir $BUILD_DIR
+mkdir -p $RELOC_DIR
+mkdir $ROOT_DIR
+fi
+#
+# Here we initialize the backout pkginfo file by first
+
+# copying over the old pkginfo file and themn adding the
+# ACTIVE_PATCH parameter so the backout will know what patch
+# it's backing out.
+#
+# NOTE : Within the installation, pkgparam returns the
+# original data.
+#
+pkgparam -v $PKGINST | nawk '
+$1 ~ /PATCHLIST/ { next; }
+$1 ~ /PATCH_OBSOLETES/ { next; }
+$1 ~ /ACTIVE_OBSOLETES/ { next; }
+$1 ~ /MOBY_OBSOLETES/ { next; }
+$1 ~ /ACTIVE_PATCH/ { next; }
+$1 ~ /Patch_label/ { next; }
+$1 ~ /UPDATE/ { next; }
+$1 ~ /SCRIPTS_DIR/ { next; }
+$1 ~ /PATCH_NO_UNDO/ { next; }
+$1 ~ /INSTDATE/ { next; }
+$1 ~ /PKGINST/ { next; }
+$1 ~ /OAMBASE/ { next; }
+$1 ~ /PATH/ { next; }
+{ print; } ' > $PKGINFO_FILE
+echo "ACTIVE_PATCH=$Patch_label" >> $PKGINFO_FILE
+echo "ACTIVE_OBSOLETES=$ACTIVE_OBSOLETES" >> $PKGINFO_FILE
+# And now initialize the backout prototype file with the
+# pkginfo file just formulated.
+echo "i pkginfo" > $PROTO_FILE
+# Copy over the backout scripts including the undo class
+# action scripts
+for script in $SCRIPTS_DIR/*; do
+srcscript=`basename $script`
+targscript=`echo $srcscript | nawk '
+{ script=$0; }
+/u\./ {
+sub("u.", "i.", script);
+print script;
+next;
+}
+/patch_/ {
+sub("patch_", "", script);
+print script;
+next;
+}
+{ print "dont_use" } '`
+if [ "$targscript" = "dont_use" ]; then
+continue
+fi
+echo "i $targscript=$FILE_DIR/$targscript" >> $PROTO_FILE
+cp $SCRIPTS_DIR/$srcscript $FILE_DIR/$targscript
+done
+#
+# Now add entries to the prototype file that won't be passed to
+
+# class action scripts. If the entry is brand new, add it to the
+# deletes file for the backout package.
+#
+Our_Pkgmap=`dirname $SCRIPTS_DIR`/pkgmap
+BO_Deletes=$FILE_DIR/deletes
+nawk -v basedir=${BASEDIR:-/} '
+BEGIN { count=0; }
+{
+token = $2;
+ftype = $1;
+}
+$1 ~ /[#\!:]/ { next; }
+$1 ~ /[0123456789]/ {
+if ( NF >= 3) {
+token = $3;
+ftype = $2;
+} else {
+next;
+}
+}
+{ if (ftype == "i" || ftype == "e" || ftype == "f" || ftype == \
+"v" || ftype == "d") { next; } }
+{
+equals=match($4, "=")-1;
+if ( equals == -1 ) { print $3, $4; }
+else { print $3, substr($4, 0, equals); }
+}
+' < $Our_Pkgmap | while read class path; do
+#
+# NOTE: If pkgproto is passed a file that is
+# actually a hard link to another file, it
+# will return ftype "f" because the first link
+# in the list (consisting of only one file) is
+# viewed by pkgproto as the source and always
+# gets ftype "f".
+#
+# If this isn't replacing something, then it
+# just goes to the deletes list.
+#
+if valpath -l $path; then
+Chk_Path="$BASEDIR/$path"
+Build_Path="$RELOC_DIR/$path"
+Proto_From="$BASEDIR"
+else # It's an absolute path
+Chk_Path="$PKG_INSTALL_ROOT$path"
+Build_Path="$ROOT_DIR$path"
+Proto_From="$PKG_INSTALL_ROOT"
+fi
+#
+# Hard links have to be restored as regular files.
+# Unlike the others in this group, an actual
+# object will be required for the pkgmk.
+#
+if [ -f "$Chk_Path" ]; then
+
+mkdir -p `dirname $Build_Path`
+cp $Chk_Path $Build_Path
+cd $Proto_From
+pkgproto -c $class "$Build_Path=$path" 1>> \
+$PROTO_FILE 2> /dev/null
+cd $THIS_DIR
+elif [ -h "$Chk_Path" -o \
+-c "$Chk_Path" -o \
+-b "$Chk_Path" -o \
+-p "$Chk_Path" ]; then
+pkgproto -c $class "$Chk_Path=$path" 1>> \
+$PROTO_FILE 2> /dev/null
+else
+echo $path >> $BO_Deletes
+fi
+done
+fi
+# If additional operations are required for this package, place
+# those package-specific commands here.
+#XXXSpecial_CommandsXXX#
+exit 0

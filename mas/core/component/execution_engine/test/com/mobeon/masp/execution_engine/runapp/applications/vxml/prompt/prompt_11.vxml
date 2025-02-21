@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+        <block>
+            <prompt>Prompt from form1</prompt>
+            <goto next="#form2"></goto>
+        </block>
+    </form>
+
+
+    <form id="form2">
+        <block>
+            <prompt>Prompt from form2</prompt>
+            <goto next="#form3"></goto>
+        </block>
+    </form>
+
+
+    <form id="form3">
+        <block>
+            <prompt>Prompt from form3</prompt>
+        </block>
+        <block>
+            <log>About to play</log>
+        </block>
+        <field name="input">
+        </field>
+        <catch event="noinput">
+            <exit></exit>
+        </catch>
+    </form>
+
+</vxml>

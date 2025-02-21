@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+   <mediaobject type="MediaFile" src="UM_0010.mov">
+      <spokentext><![CDATA[Good morning.]]></spokentext>
+      <sourcetext><![CDATA[Good morning.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+    <mediaobject type="MediaFile" src="UM_0186.mov">
+      <spokentext><![CDATA[Good morning.]]></spokentext>
+      <sourcetext><![CDATA[Good morning.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+    <mediaobject type="MediaFile" src="UM_0329.mov">
+      <spokentext><![CDATA[Good morning.]]></spokentext>
+      <sourcetext><![CDATA[Good morning.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+    <mediaobject type="MediaFile" src="UM_0936.mov">
+      <spokentext><![CDATA[Good morning.]]></spokentext>
+      <sourcetext><![CDATA[Good morning.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0001.mov">
+      <spokentext><![CDATA[Good morning.]]></spokentext>
+      <sourcetext><![CDATA[Good morning.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0002.mov">
+      <spokentext><![CDATA[Good afternoon.]]></spokentext>
+      <sourcetext><![CDATA[Good afternoon.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0003.mov">
+      <spokentext><![CDATA[Good evening.]]></spokentext>
+      <sourcetext><![CDATA[Good evening.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0004.mov">
+      <spokentext><![CDATA[Goodbye]]></spokentext>
+      <sourcetext><![CDATA[Goodbye]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0007.mov">
+      <spokentext><![CDATA[You must use exactly ...]]></spokentext>
+      <sourcetext><![CDATA[You must use exactly ...]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0008.mov">
+      <spokentext><![CDATA[You can't use more than ...]]></spokentext>
+      <sourcetext><![CDATA[You can't use more than ...]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0009.mov">
+      <spokentext><![CDATA[You must use at least ...]]></spokentext>
+      <sourcetext><![CDATA[You must use at least ...]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0010.mov">
+      <spokentext><![CDATA[... digits.]]></spokentext>
+      <sourcetext><![CDATA[... digits.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0011.mov">
+      <spokentext><![CDATA[I'm sorry but the phone number is not valid.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but the phone number is not valid.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0012.mov">
+      <spokentext><![CDATA[To return to the previous menu, press *.]]></spokentext>
+      <sourcetext><![CDATA[To return to the previous menu, press <PreviousMenu>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0013.mov">
+      <spokentext><![CDATA[To return to the previous menu, press *.]]></spokentext>
+      <sourcetext><![CDATA[To return to the previous menu, press <PreviousMenu>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0014.mov">
+      <spokentext><![CDATA[If you need more time, press *0.]]></spokentext>
+      <sourcetext><![CDATA[If you need more time, press <Pause>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0015.mov">
+      <spokentext><![CDATA[To return to the main menu, press **.]]></spokentext>
+      <sourcetext><![CDATA[To return to the main menu, press <MainMenu>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0016.mov">
+      <spokentext><![CDATA[To call another number, press *8.]]></spokentext>
+      <sourcetext><![CDATA[To call another number, press <Transfer>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0017.mov">
+      <spokentext><![CDATA[If you want to erase digits that you have entered, press *]]></spokentext>
+      <sourcetext><![CDATA[If you want to erase digits that you have entered, press <Erase>]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0018.mov">
+      <spokentext><![CDATA[To return to the previous menu, just press *.]]></spokentext>
+      <sourcetext><![CDATA[To return to the previous menu, just press <PreviousMenu>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0019.mov">
+      <spokentext><![CDATA[Erased.]]></spokentext>
+      <sourcetext><![CDATA[Erased.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0025.mov">
+      <spokentext><![CDATA[I'm sorry but zero is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but zero is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0026.mov">
+      <spokentext><![CDATA[I'm sorry but one is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but one is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0027.mov">
+      <spokentext><![CDATA[I'm sorry but two is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but two is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0028.mov">
+      <spokentext><![CDATA[I'm sorry but three is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but three is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0029.mov">
+      <spokentext><![CDATA[I'm sorry but four is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but four is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0030.mov">
+      <spokentext><![CDATA[I'm sorry but five is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but five is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0031.mov">
+      <spokentext><![CDATA[I'm sorry but six is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but six is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0032.mov">
+      <spokentext><![CDATA[I'm sorry but seven is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but seven is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0033.mov">
+      <spokentext><![CDATA[I'm sorry but eight is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but eight is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0034.mov">
+      <spokentext><![CDATA[I'm sorry but nine is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but nine is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0035.mov">
+      <spokentext><![CDATA[I'm sorry but pound is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but pound is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0036.mov">
+      <spokentext><![CDATA[I'm sorry but star is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0037.mov">
+      <spokentext><![CDATA[I'm sorry but star zero is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star zero is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0038.mov">
+      <spokentext><![CDATA[I'm sorry but star one is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star one is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0039.mov">
+      <spokentext><![CDATA[I'm sorry but star two is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star two is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0040.mov">
+      <spokentext><![CDATA[I'm sorry but star three is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star three is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0041.mov">
+      <spokentext><![CDATA[I'm sorry but star four is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star four is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0042.mov">
+      <spokentext><![CDATA[I'm sorry but star five is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star five is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0043.mov">
+      <spokentext><![CDATA[I'm sorry but star six is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star six is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0044.mov">
+      <spokentext><![CDATA[I'm sorry but star seven is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star seven is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0045.mov">
+      <spokentext><![CDATA[I'm sorry but star eight is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star eight is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0046.mov">
+      <spokentext><![CDATA[I'm sorry but star nine is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star nine is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0047.mov">
+      <spokentext><![CDATA[I'm sorry but star pound is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star pound is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0048.mov">
+      <spokentext><![CDATA[I'm sorry but star star is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but star star is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0049.mov">
+      <spokentext><![CDATA[I'm sorry but the key combination you presses is not a valid option in this menu. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but the key combination you presses is not a valid option in this menu. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0050.mov">
+      <spokentext><![CDATA[Paused. When you're ready to continue, press #.]]></spokentext>
+      <sourcetext><![CDATA[Paused. When you're ready to continue, press <Unpause>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0051.mov">
+      <spokentext><![CDATA[Paused. When you're ready to continue, press any key.]]></spokentext>
+      <sourcetext><![CDATA[Paused. When you're ready to continue, press any key.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0052.mov">
+      <spokentext><![CDATA[I'm sorry but you must first press # to continue. Please try again.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but you must first press <Unpause> to continue. Please try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0053.mov">
+      <spokentext><![CDATA[[35 seconds silence]]]></spokentext>
+      <sourcetext><![CDATA[[35 seconds silence]]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0054.mov">
+      <spokentext><![CDATA[You've entered an invalid mailbox number.  Please check the phone number and try again.]]></spokentext>
+      <sourcetext><![CDATA[You've entered an invalid mailbox number.  Please check the phone number and try again.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0055.mov">
+      <spokentext><![CDATA[Sorry you're having trouble accessing your mailbox.  Please hang-up and try again or contact customer service for assistance.  Thank you.]]></spokentext>
+      <sourcetext><![CDATA[Sorry you're having trouble accessing your mailbox.  Please hang-up and try again or contact customer service for assistance.  Thank you.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0056.mov">
+      <spokentext><![CDATA[I'm sorry.  Login to this mailbox is not permitted. Please contact customer service to find out more about your account status.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry.  Login to this mailbox is not permitted. Please contact customer service to find out more about your account status.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0057.mov">
+      <spokentext><![CDATA[Sorry. For your protection, access to your mailbox has been restricted due to multiple invalid attempts to access your mailbox. Please contact customer service to re-establish access to your services.  Thank you.]]></spokentext>
+      <sourcetext><![CDATA[Sorry. For your protection, access to your mailbox has been restricted due to multiple invalid attempts to access your mailbox. Please contact customer service to re-establish access to your services.  Thank you.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0058.mov">
+      <spokentext><![CDATA[I'm sorry but this phone number does not have video access to the system.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but this phone number does not have video access to the system.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0060.mov">
+      <spokentext><![CDATA[I'm sorry but you must use your own phone to be able to initialize your account.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry but you must use your own phone to be able to initialize your account.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0061.mov">
+      <spokentext><![CDATA[Please enter your PIN followed by the pound key.]]></spokentext>
+      <sourcetext><![CDATA[Please enter your PIN followed by the pound key.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0062.mov">
+      <spokentext><![CDATA[You’re signing in to your mailbox. Enter your mailbox PIN and then press the pound key.]]></spokentext>
+      <sourcetext><![CDATA[You’re signing in to your mailbox. Enter your mailbox PIN and then press the pound key.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0063.mov">
+      <spokentext><![CDATA[I'm sorry. That's not a correct PIN.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry. That's not a correct PIN.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0064.mov">
+      <spokentext><![CDATA[Sorry, let’s start from the beginning.]]></spokentext>
+      <sourcetext><![CDATA[Sorry, let’s start from the beginning.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0207.mov">
+      <spokentext><![CDATA[I'm sorry. I'm unable to play the current message.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry. I'm unable to play the current message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0210.mov">
+      <spokentext><![CDATA[To recover it and go to next, press the #.]]></spokentext>
+      <sourcetext><![CDATA[To recover it and go to next, press the <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0211.mov">
+      <spokentext><![CDATA[To recover it and go to next, press the #.]]></spokentext>
+      <sourcetext><![CDATA[To recover it and go to next, press the <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0212.mov">
+      <spokentext><![CDATA[To go to next, press the #.]]></spokentext>
+      <sourcetext><![CDATA[To go to next, press the <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0213.mov">
+      <spokentext><![CDATA[To go to next, press the #.]]></spokentext>
+      <sourcetext><![CDATA[To go to next, press the <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0214.mov">
+      <spokentext><![CDATA[To listen to the message again, press 1.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the message again, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0215.mov">
+      <spokentext><![CDATA[To listen to the message, press 1.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0216.mov">
+      <spokentext><![CDATA[To call the sender, press 2.]]></spokentext>
+      <sourcetext><![CDATA[To call the sender, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0217.mov">
+      <spokentext><![CDATA[To call the sender of the message, press 2.]]></spokentext>
+      <sourcetext><![CDATA[To call the sender of the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0218.mov">
+      <spokentext><![CDATA[To delete the message, press 3.]]></spokentext>
+      <sourcetext><![CDATA[To delete the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0219.mov">
+      <spokentext><![CDATA[To delete the message, press 3.]]></spokentext>
+      <sourcetext><![CDATA[To delete the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0220.mov">
+      <spokentext><![CDATA[If you still want to delete it, press 3.]]></spokentext>
+      <sourcetext><![CDATA[If you still want to delete it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0221.mov">
+      <spokentext><![CDATA[If you still want to delete it, press 3.]]></spokentext>
+      <sourcetext><![CDATA[If you still want to delete it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0222.mov">
+      <spokentext><![CDATA[To respond or forward the message, press 4.]]></spokentext>
+      <sourcetext><![CDATA[To respond or forward the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0223.mov">
+      <spokentext><![CDATA[To respond or send the message to someone else, press 4.]]></spokentext>
+      <sourcetext><![CDATA[To respond or send the message to someone else, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0224.mov">
+      <spokentext><![CDATA[To listen to the header, press 5.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the header, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0225.mov">
+      <spokentext><![CDATA[To listen to the header, press 5.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the header, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0226.mov">
+      <spokentext><![CDATA[To make the message new, press 6.]]></spokentext>
+      <sourcetext><![CDATA[To make the message new, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0227.mov">
+      <spokentext><![CDATA[To make the message new, press 6.]]></spokentext>
+      <sourcetext><![CDATA[To make the message new, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0228.mov">
+      <spokentext><![CDATA[When listening to the message, to backup  a few seconds, press 7.]]></spokentext>
+      <sourcetext><![CDATA[When listening to the message, to backup  a few seconds, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0229.mov">
+      <spokentext><![CDATA[When listening to the message, to backup  a few seconds, press 7.]]></spokentext>
+      <sourcetext><![CDATA[When listening to the message, to backup  a few seconds, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0230.mov">
+      <spokentext><![CDATA[To move forward a few seconds, press 9.]]></spokentext>
+      <sourcetext><![CDATA[To move forward a few seconds, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0231.mov">
+      <spokentext><![CDATA[To move forward a few seconds, press 9.]]></spokentext>
+      <sourcetext><![CDATA[To move forward a few seconds, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0232.mov">
+      <spokentext><![CDATA[To send the callers phone number as an SMS to you, press 10.]]></spokentext>
+      <sourcetext><![CDATA[To send the callers phone number as an SMS to you, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0233.mov">
+      <spokentext><![CDATA[To send the callers phone number as an SMS to you, press 10.]]></spokentext>
+      <sourcetext><![CDATA[To send the callers phone number as an SMS to you, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0234.mov">
+      <spokentext><![CDATA[To print it, press 11.]]></spokentext>
+      <sourcetext><![CDATA[To print it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0235.mov">
+      <spokentext><![CDATA[To print it, press 11.]]></spokentext>
+      <sourcetext><![CDATA[To print it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0236.mov">
+      <spokentext><![CDATA[To listen to the previous message even if you have deleted it, press *.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the previous message even if you have deleted it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0237.mov">
+      <spokentext><![CDATA[To listen to the previous message even if you have deleted it, press *.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the previous message even if you have deleted it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0238.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0239.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0240.mov">
+      <spokentext><![CDATA[You've deleted this message.]]></spokentext>
+      <sourcetext><![CDATA[You've deleted this message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0241.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0243.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0244.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0245.mov">
+      <spokentext><![CDATA[You're listening to a message you have deleted.]]></spokentext>
+      <sourcetext><![CDATA[You're listening to a message you have deleted.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0246.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0247.mov">
+      <spokentext><![CDATA[You've  recievd a fax.]]></spokentext>
+      <sourcetext><![CDATA[You've  recievd a fax.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0248.mov">
+      <spokentext><![CDATA[You have deleted this fax message.]]></spokentext>
+      <sourcetext><![CDATA[You have deleted this fax message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0249.mov">
+      <spokentext><![CDATA[You're listening to a fax message you have deleted.]]></spokentext>
+      <sourcetext><![CDATA[You're listening to a fax message you have deleted.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0250.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0251.mov">
+      <spokentext><![CDATA[You have email messages.]]></spokentext>
+      <sourcetext><![CDATA[You have email messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0252.mov">
+      <spokentext><![CDATA[You have deleted this email message.]]></spokentext>
+      <sourcetext><![CDATA[You have deleted this email message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0253.wav">
+      <spokentext><![CDATA[You're listening to an email message you have deleted.]]></spokentext>
+      <sourcetext><![CDATA[You're listening to an email message you have deleted.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0254.mov">
+      <spokentext><![CDATA[Main menu.
+Erika holding a menu. Bubbletext "Main Menu".]]></spokentext>
+      <sourcetext><![CDATA[Main menu.
+Erika holding a menu. Bubbletext "Main Menu".]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0255.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0256.mov">
+      <spokentext><![CDATA[If you want your messages now, press 1.]]></spokentext>
+      <sourcetext><![CDATA[If you want your messages now, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0257.mov">
+      <spokentext><![CDATA[To get your messages now, press 1.]]></spokentext>
+      <sourcetext><![CDATA[To get your messages now, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0258.mov">
+      <spokentext><![CDATA[If you want your old messages now, press 1.]]></spokentext>
+      <sourcetext><![CDATA[If you want your old messages now, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0259.mov">
+      <spokentext><![CDATA[To get your old messages now, press 1.]]></spokentext>
+      <sourcetext><![CDATA[To get your old messages now, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0260.mov">
+      <spokentext><![CDATA[If you want your deleted messages now, press 1.]]></spokentext>
+      <sourcetext><![CDATA[If you want your deleted messages now, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0261.mov">
+      <spokentext><![CDATA[To get your deleted messages now, press 1.]]></spokentext>
+      <sourcetext><![CDATA[To get your deleted messages now, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0262.mov">
+      <spokentext><![CDATA[To send a voice message, press 2.]]></spokentext>
+      <sourcetext><![CDATA[To send a voice message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0263.mov">
+      <spokentext><![CDATA[To send a  message, press 2.]]></spokentext>
+      <sourcetext><![CDATA[To send a  message, press 2.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0264.mov">
+      <spokentext><![CDATA[To send a message, press 2.]]></spokentext>
+      <sourcetext><![CDATA[To send a message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0265.mov">
+      <spokentext><![CDATA[To send a message, press 2.]]></spokentext>
+      <sourcetext><![CDATA[To send a message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0266.mov">
+      <spokentext><![CDATA[To work with your greetings, press 3.]]></spokentext>
+      <sourcetext><![CDATA[To work with your greetings, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0267.mov">
+      <spokentext><![CDATA[To record or change the greetings heard by people who call you, press 3.]]></spokentext>
+      <sourcetext><![CDATA[To record or change the greetings heard by people who call you, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0268.mov">
+      <spokentext><![CDATA[To change your mailbox settings, press 4.]]></spokentext>
+      <sourcetext><![CDATA[To change your mailbox settings, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0269.mov">
+      <spokentext><![CDATA[To change your mailbox settings, press 4.]]></spokentext>
+      <sourcetext><![CDATA[To change your mailbox settings, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0270.mov">
+      <spokentext><![CDATA[To listen to the basic commands, press 5.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the basic commands, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0271.mov">
+      <spokentext><![CDATA[To listen to the basic commands that are available in the system, press 5.]]></spokentext>
+      <sourcetext><![CDATA[To listen to the basic commands that are available in the system, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0272.wav">
+      <spokentext><![CDATA[Throughout the system when you want to get to the previouis menu or backing up to the previous message, press star.]]></spokentext>
+      <sourcetext><![CDATA[Throughout the system when you want to get to the previouis menu or backing up to the previous message, press star.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0273.wav">
+      <spokentext><![CDATA[To get to the main menu, press star star.]]></spokentext>
+      <sourcetext><![CDATA[To get to the main menu, press star star.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0274.mov">
+      <spokentext><![CDATA[For more detailed information about the menu that you are listening to, press 0.]]></spokentext>
+      <sourcetext><![CDATA[For more detailed information about the menu that you are listening to, press <Help>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0275.mov">
+      <spokentext><![CDATA[To pause, press star *0.]]></spokentext>
+      <sourcetext><![CDATA[To pause, press star <Pause>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0276.mov">
+      <spokentext><![CDATA[You have no messages.]]></spokentext>
+      <sourcetext><![CDATA[You have no messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0278.mov">
+      <spokentext><![CDATA[That was the first message. Back to the previous menu.]]></spokentext>
+      <sourcetext><![CDATA[That was the first message. Back to the previous menu.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0279.mov">
+      <spokentext><![CDATA[Previous message.]]></spokentext>
+      <sourcetext><![CDATA[Previous message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0280.mov">
+      <spokentext><![CDATA[Next message.]]></spokentext>
+      <sourcetext><![CDATA[Next message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0281.wav">
+      <spokentext><![CDATA[That's the last new message.]]></spokentext>
+      <sourcetext><![CDATA[That's the last new message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0282.mov">
+      <spokentext><![CDATA[That's the last voice message.]]></spokentext>
+      <sourcetext><![CDATA[That's the last voice message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0283.mov">
+      <spokentext><![CDATA[You have no voice messages.]]></spokentext>
+      <sourcetext><![CDATA[You have no voice messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0284.mov">
+      <spokentext><![CDATA[You have no messages.]]></spokentext>
+      <sourcetext><![CDATA[You have no messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0287.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0288.mov">
+      <spokentext><![CDATA[Deleted.]]></spokentext>
+      <sourcetext><![CDATA[Deleted.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0289.mov">
+      <spokentext><![CDATA[[1 second silence]]]></spokentext>
+      <sourcetext><![CDATA[[1 second silence]]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0290.mov">
+      <spokentext><![CDATA[I'm sorry the phone number is not available.]]></spokentext>
+      <sourcetext><![CDATA[I'm sorry the phone number is not available.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0292.mov">
+      <spokentext><![CDATA[You have...]]></spokentext>
+      <sourcetext><![CDATA[You have...]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0293.mov">
+      <spokentext><![CDATA[No new messages.]]></spokentext>
+      <sourcetext><![CDATA[No new messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0294.mov">
+      <spokentext><![CDATA[and...]]></spokentext>
+      <sourcetext><![CDATA[and...]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0295.mov">
+      <spokentext><![CDATA[No old messages.]]></spokentext>
+      <sourcetext><![CDATA[No old messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0296.mov">
+      <spokentext><![CDATA[One old message.]]></spokentext>
+      <sourcetext><![CDATA[One old message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0297.mov">
+      <spokentext><![CDATA[Old messages.]]></spokentext>
+      <sourcetext><![CDATA[Old messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0298.mov">
+      <spokentext><![CDATA[One new voice message.]]></spokentext>
+      <sourcetext><![CDATA[One new voice message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0299.mov">
+      <spokentext><![CDATA[...wich is urgent]]></spokentext>
+      <sourcetext><![CDATA[...wich is urgent]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0300.mov">
+      <spokentext><![CDATA[New voice messages.]]></spokentext>
+      <sourcetext><![CDATA[New voice messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0301.mov">
+      <spokentext><![CDATA[one of them is urgent]]></spokentext>
+      <sourcetext><![CDATA[one of them is urgent]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0302.mov">
+      <spokentext><![CDATA[...of them are urgent]]></spokentext>
+      <sourcetext><![CDATA[...of them are urgent]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0303.mov">
+      <spokentext><![CDATA[One new video message.]]></spokentext>
+      <sourcetext><![CDATA[One new video message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0304.mov">
+      <spokentext><![CDATA[New video messages.]]></spokentext>
+      <sourcetext><![CDATA[New video messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0305.mov">
+      <spokentext><![CDATA[New fax messages.]]></spokentext>
+      <sourcetext><![CDATA[New fax messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0306.mov">
+      <spokentext><![CDATA[One new fax message.]]></spokentext>
+      <sourcetext><![CDATA[One new fax message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0307.mov">
+      <spokentext><![CDATA[One new email.]]></spokentext>
+      <sourcetext><![CDATA[One new email.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0308.mov">
+      <spokentext><![CDATA[New emails.]]></spokentext>
+      <sourcetext><![CDATA[New emails.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0400.mov">
+      <spokentext><![CDATA[Sorry, you can't leave a message for this mailbox.]]></spokentext>
+      <sourcetext><![CDATA[Sorry, you can't leave a message for this mailbox.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0403.mov">
+      <spokentext><![CDATA[Sorry, you can’t leave a message.]]></spokentext>
+      <sourcetext><![CDATA[Sorry, you can’t leave a message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0405.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[... can't take your call now.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0405.wav">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0406.mov">
+      <spokentext><![CDATA[I see that your mailbox is full. You can’t receive any new messages until you erase some.]]></spokentext>
+      <sourcetext><![CDATA[I see that your mailbox is full. You can’t receive any new messages until you erase some.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0408.mov">
+      <spokentext><![CDATA[Sorry. You can't leave a message for...]]></spokentext>
+      <sourcetext><![CDATA[Sorry. You can't leave a message for...]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0409.mov">
+      <spokentext><![CDATA[This mailbox is full.]]></spokentext>
+      <sourcetext><![CDATA[This mailbox is full.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0411.mov">
+      <spokentext><![CDATA[You've recorded a message.]]></spokentext>
+      <sourcetext><![CDATA[You've recorded a message.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0412.mov">
+      <spokentext><![CDATA[To send the message, press .]]></spokentext>
+      <sourcetext><![CDATA[To send the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0413.mov">
+      <spokentext><![CDATA[If I should send the message, press .]]></spokentext>
+      <sourcetext><![CDATA[If I should send the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0414.mov">
+      <spokentext><![CDATA[To listen to it, press .]]></spokentext>
+      <sourcetext><![CDATA[To listen to it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0415.mov">
+      <spokentext><![CDATA[Otherwise to listen to it, press .]]></spokentext>
+      <sourcetext><![CDATA[Otherwise to listen to it, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0416.mov">
+      <spokentext><![CDATA[If you don't want to send the message after all, press <key>.]]></spokentext>
+      <sourcetext><![CDATA[If you don't want to send the message after all, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0417.mov">
+      <spokentext><![CDATA[If you don't want to send the message after all, press <key>.]]></spokentext>
+      <sourcetext><![CDATA[If you don't want to send the message after all, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0418.mov">
+      <spokentext><![CDATA[To re-record the message, press <key>.]]></spokentext>
+      <sourcetext><![CDATA[To re-record the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0419.mov">
+      <spokentext><![CDATA[To re-record the message, press <key>.]]></spokentext>
+      <sourcetext><![CDATA[To re-record the message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0420.mov">
+      <spokentext><![CDATA[To continue your message, press <key>.]]></spokentext>
+      <sourcetext><![CDATA[To continue your message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0421.mov">
+      <spokentext><![CDATA[To continue your message, press <key>.]]></spokentext>
+      <sourcetext><![CDATA[To continue your message, press <key>.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0422.mov">
+      <spokentext><![CDATA[Message cancelled.]]></spokentext>
+      <sourcetext><![CDATA[Message cancelled.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0425.mov">
+      <spokentext><![CDATA[Message cancelled.]]></spokentext>
+      <sourcetext><![CDATA[Message cancelled.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0426.mov">
+      <spokentext><![CDATA[]]></spokentext>
+      <sourcetext><![CDATA[You can leave a message after the tone. When you have finished, press the pound key or just hang up.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0427.mov">
+      <spokentext><![CDATA[...is busy.]]></spokentext>
+      <sourcetext><![CDATA[...is busy.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_407.mov">
+      <spokentext><![CDATA[I see that your mailbox is getting full. Please erase any unneeded messages.]]></spokentext>
+      <sourcetext><![CDATA[I see that your mailbox is getting full. Please erase any unneeded messages.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+</mediaobjects>

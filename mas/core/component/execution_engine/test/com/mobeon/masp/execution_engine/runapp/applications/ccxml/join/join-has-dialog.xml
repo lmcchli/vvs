@@ -1,0 +1,8 @@
+<application>
+    <documents type="application/xml+ccxml">
+        <document src="join-has-dialog.ccxml" root="true"/>
+    </documents>
+    <documents type="application/xml+vxml">
+        <document src="simple.vxml"/>
+    </documents>    
+</application>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<catch event="telephone.disconnect.hangup">
+		<log>user hangup</log>
+	</catch>
+    <script src="../MAS.js"/>
+    <form>
+        <subdialog name="result" src="subdialog.vxml">
+          <filled>
+            Your account number is <value expr="result.acctnum"/>.
+            Your phone number is <value expr="result.acctphone"/>.
+          </filled>
+        </subdialog>
+      </form>	
+</vxml>

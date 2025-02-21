@@ -1,0 +1,7 @@
+<ccxml version="1.0">
+   <var name="kalle"/>
+   <var name="olle" expr="7"/>
+   <if cond="olle == 7"> 
+     <assign name="olle" expr="8"/>
+   </if>
+</ccxml>

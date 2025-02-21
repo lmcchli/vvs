@@ -1,0 +1,1887 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE doc PUBLIC "-//ABCXYZ//DTD XSEIF 1/FAD 110 05 R5//EN"
+ "XSEIF_R5.dtd">
+<doc new-page-level="npl1" version="XSEIF R5" xmlns="urn:x-abcxyz:r2:reg-doc:1551-fad.110.05:en:*">
+<meta-data>
+<confidentiality class="abcxyz-confidential"/>
+<doc-name>Installation Instructions</doc-name>
+<doc-id>
+<doc-no type="reference">1/IG-MAS0001</doc-no><language code="en"/><rev>K</rev>
+<date><y>2008</y><m>08</m><d>05</d></date>
+</doc-id>
+<company-id>
+<business-unit>SDC</business-unit>
+<company-name>Mobeon AB</company-name>
+<company-symbol logotype="abcxyz"></company-symbol>
+</company-id>
+<title>Installation Guide MAS</title>
+<drafted-by>
+<person>
+<name>Torsten Eriksson</name><signature>EERITOR</signature>
+<location>SU</location><company>Abcxyz</company><department></department>
+</person>
+</drafted-by>
+<approved-by approved="yes">
+<person>
+<name>Per Berggren</name><signature>EBERGPE</signature>
+<location>SU</location><company>Abcxyz</company><department></department>
+</person>
+</approved-by>
+<revision-history suppress="yes">
+<rev-info>
+<rev>K</rev>
+<date><y>2008</y><m>08</m><d>05</d></date>
+<signature>EERITOR</signature>
+<description></description>
+</rev-info>
+</revision-history>
+</meta-data>
+<front>
+<title-page>
+<copyright><p>&copy; Abcxyz AB 2000-2008 - All Rights Reserved</p>
+</copyright>
+<disclaimer>
+<p>The information in this document is subject to change without notice.</p>
+<p>Abcxyz makes no warranty of any kind with regard to this material, including,
+but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose. Abcxyz shall not be liable for errors contained
+herein nor for incidental or consequential damages in connection with the
+furnishing, performance or use of this material.</p>
+</disclaimer>
+</title-page>
+</front>
+<body xml:id="body">
+<chl1><title>Introduction</title>
+<chl2><title>Scope</title>
+<p>This document provides step by step instructions for installation, upgrade
+and uninstallation of the software for the MAS component.</p>
+</chl2>
+<chl2><title>Audience</title>
+<p>This document is primarily written for software installation technicians.</p>
+<chl3><title>Prerequisite Knowledge</title>
+<p>The readers of this document should have a good understanding of Messaging-over-IP
+and good knowledge and experience of:</p>
+<list type="unordered">
+<list-item><p>IP based networks</p>
+</list-item>
+<list-item><p>UNIX</p>
+</list-item>
+</list>
+<note><p>Installation of the software is only to be performed by personnel
+authorized by having attended the corresponding courses.</p>
+</note>
+</chl3>
+</chl2>
+<chl2><title>Related Documents</title>
+<p>The following documents also contain information related to the component,
+or are referred to from this document:</p>
+<list type="unordered">
+<list-item><p>Operation and Maintenance MAS</p>
+</list-item>
+<list-item><p>Solaris Documentation (http://docs.sun.com) <emph type="low">System
+Administration Guide, Solaris 10</emph></p>
+</list-item>
+</list>
+</chl2>
+<chl2><title>Document Conventions</title>
+<chl3><title>Notational Conventions</title>
+<p>This document uses the following notational conventions:</p>
+<p> <emph>Bold font</emph> style is used for emphasis, to indicate keywords
+and buttons.</p>
+<p> <emph type="low">Italic font</emph> style is used for references, window/page/menu
+titles and specific terms.</p>
+<p> <input>Bold Monospace font</input> is used to describe user input.</p>
+<p> <output>Monospace font</output> is used for code, paths and on-screen
+computer output.</p>
+<p>Square brackets <quote>[]</quote> are used to enclose parameters that are
+optional.</p>
+<p>Curly brackets <quote>{}</quote> are used to enclose parameter values given
+as examples.</p>
+<p>Less than and greater than characters <quote>&lt;></quote> are used to
+enclose variable names.</p>
+<p>Backslash <quote>\</quote> at the end of a line means that this line is
+continued onto the next line.</p>
+<p>The dollar sign <quote>$</quote> is the UNIX Korn (and Bourne) shell prompt.</p>
+<p>The percent sign <quote>%</quote> is the UNIX C shell prompt.</p>
+<p>The number sign <quote>#</quote> is the superuser prompt.</p>
+<p>The number sign <quote>#</quote> is also used for comments.</p>
+<p>A star <quote>*</quote> matches zero or more characters.</p>
+<p>A question mark <quote>?</quote> matches one character.</p>
+<p>A tilde <quote>~</quote> means the home directory of the current user.</p>
+<p> <quote>&lt;MAS_HOME></quote> is the installation directory for MAS, for
+example <quote>/apps/mas</quote>.</p>
+<p> <quote>&lt;DS_HOME></quote> is the installation directory for the Deployment
+Server, e.g. <quote>/apps/MOBYdsadm</quote></p>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title xml:id="installation">Installation</title>
+<chl2><title>General</title>
+<chl3><title>Container File</title>
+<p>The MAS software is delivered in a container file named <emph type="medium">mas_&lt;rel>.mas0001.solaris10.tar.gz</emph>,
+where <quote>&lt;rel></quote> indicates the release number of the software.</p>
+<p>The container file contains the following file:</p>
+<def-list><dl-item>
+<term>MOBYmas.pkg</term><def><p>Solaris package that contains the main MAS
+software, including the installation program.</p>
+</def>
+</dl-item>
+</def-list>
+<p>In this document, the container file is called <input>&lt;mas_container_file></input></p>
+<p>The MAS is a platform for executing applications written in VoiceXML/CCXML/ECMAScript,
+and in order to accomplish a service useful to and end user, an application
+package needs to be installed. The application package normally needs one
+or several media content packages (MCPs), containing prompts in various codecs
+and languages. All this implies that the following normally should be installed:</p>
+<list type="numeric">
+<list-item><p>The MAS itself.</p>
+</list-item>
+<list-item><p>An application package.</p>
+</list-item>
+<list-item><p>One or several media content packages.</p>
+</list-item>
+</list>
+</chl3>
+<chl3><title xml:id="installworkflow">Installation Workflow</title>
+<p>The installation of the MAS component includes the procedures described
+in:</p>
+<list type="numeric">
+<list-item><p>Section 2.2 Prerequisites on page 5.</p>
+</list-item>
+<list-item><p>Section 2.3 Prepare Installation on page 6.</p>
+</list-item>
+<list-item><p>Section 2.4 Install MAS on page 6.</p>
+</list-item>
+<list-item><p>Section 2.5 Verify Installation on page 13.</p>
+</list-item>
+<list-item><p>Section 2.6 Backup on page 13.</p>
+</list-item>
+</list>
+</chl3>
+</chl2>
+<chl2><title xml:id="prerequisites">Prerequisites</title>
+<chl3><title>Hardware</title>
+<p>The MAS component requires a minimum of 1 GB RAM.</p>
+</chl3>
+<chl3><title xml:id="reqsw">Software</title>
+<p> Also, the MAS component requires that the following software have been
+installed:</p>
+<list type="unordered">
+<list-item><p>Correct version of OS, as installed from the Deployment server.</p>
+</list-item>
+</list>
+</chl3>
+<chl3><title xml:id="diskspc">Disk Space</title>
+<p>The MAS installation disk space requirements for the different partitions
+are described in the table below.</p>
+<table indent="left-margin">
+<caption></caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.78*"/><colspec colname="col2" colwidth="0.62*"/><colspec colname="col3"
+colwidth="1.6*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Partition</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Required disk space (minimum)</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Comments</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>&lt;tempdir></tp>
+<tp>e.g. /apps/dist/mas</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>100 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Temporary directory for the MAS installation.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>&lt;MAS_HOME></tp>
+<tp>e.g /apps/mas</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>100 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Installation directory for the MAS.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>/apps/logs/mas</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>200 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Log files for the MAS.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>/apps/backup/mas</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>10 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Configuration backup files</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>To check disk space, use for example the <input>df -k </input> command. </p>
+</chl3>
+<chl3><title xml:id="depend">Component Dependencies</title>
+<p>The MAS component requires that the following components have been installed:</p>
+<table indent="left-margin">
+<caption></caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.78*"/><colspec colname="col2" colwidth="0.63*"/><colspec colname="col3"
+colwidth="1.6*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Part</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Component (service)</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Comments</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>EMANATE master agent </tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>MEMA </tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Required for the SNMP agent and the MAS start up and stop
+script (rc.mas).</tp>
+<tp>Note: EMANATE master agent is automatically installed on the host when
+the host is jumpstarted via the Deployment Server.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chl3>
+</chl2>
+<chl2><title xml:id="prepareinstallationofmvas">Prepare Installation</title>
+<p>The following steps must be performed before starting the installation
+of the MAS component.</p>
+<step-list>
+<sl-item><p>Make sure that the alias <emph type="low">mcrhost</emph>, which
+shall point out the host where the MCR is located, is known by the system
+(use the <input>nslookup </input> command to find out).</p>
+</sl-item>
+<sl-item><p>If previous, unsuccessful, installation attempts have taken place,
+uninstall such earlier installations.</p>
+</sl-item>
+<sl-item><p>If silent installation is preferred, create a response file. See <xref
+linkend="responsefile"/>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="install">Install MAS</title>
+<p>There are three ways to install the MAS component:</p>
+<list type="unordered">
+<list-item><p>Interactive installation, see <xref linkend="interactiveinstallation"/>.</p>
+</list-item>
+<list-item><p>Silent installation, see <xref linkend="silentinstallation"/>.</p>
+</list-item>
+<list-item><p>Deployment Server installation, see <xref linkend="deploymentserverinstallation"/>.</p>
+</list-item>
+</list>
+<p>After a successful installation the MAS component will be set in the administrative
+state locked, which means that no traffic will be accepted. For instructions
+on how to unlock the component, see <emph type="low">Operations and Maintenance
+MAS</emph>, section <emph type="low">Unlock</emph>. </p>
+<chl3><title xml:id="interactiveinstallation">Interactive installation</title>
+<step-list>
+<sl-item><p>Make sure that you have superuser (root) privileges.</p>
+</sl-item>
+<sl-item><p>Insert the CD that contains the software into the CD-ROM drive
+on the host.</p>
+</sl-item>
+<sl-item><p>Change to CD-ROM directory.</p>
+<p> <input># cd /cdrom/cdrom0</input></p>
+<p>(or type: <input> cd /cdrom/&lt;CD-ROM name></input>)</p>
+</sl-item>
+<sl-item><p>Copy the container file for the MAS component to a temporary directory
+on the host.</p>
+<p> <input># cp &lt;mas_container_file> &lt;tempdir></input> 				 		</p>
+</sl-item>
+<sl-item><p>Change to the temporary directory.</p>
+<p> <input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Unzip and extract the &lt;mas_container_file>, e.g.:</p>
+<p> <input># gunzip mas_&lt;rel>.mas0001.solaris10.tar.gz</input></p>
+<p> <input># tar xf mas_&lt;rel>.mas0001.solaris10.tar</input></p>
+<p>This file will be extracted:</p>
+<p> <resource-id type="file-path">MOBYmas.pkg</resource-id></p>
+<p>Afterwards, remove the container file.</p>
+<p> <input># rm &lt;mas_tar_file></input></p>
+</sl-item>
+<sl-item><p>Install the solaris package.</p>
+<p> <input># pkgadd -d MOBYmas.pkg</input></p>
+</sl-item>
+<sl-item><p>Answer the questions asked during installation. See <xref linkend="installationparameters"/></p>
+<note><p>At the end of the installation, the installation program tries to
+verify that the parameters entered are valid according to the XML schema validator.
+If bad parameters are entered, error messages telling the wrong parameter
+value are logged.</p>
+</note>
+</sl-item>
+<sl-item><p>If the installation script detects that a previous installation
+has been performed, it will ask if any prevous configuration shall be restored.</p>
+<p>Select <emph>y</emph> if reuse of an existing configuration is desired.</p>
+</sl-item>
+<sl-item><p>Verify the installation. See <xref linkend="verinstall"/></p>
+</sl-item>
+<sl-item><p>Backup the installation. See <xref linkend="backup"/></p>
+</sl-item>
+<sl-item><p>If the installation is done on a SunFire T2000 (Niagara), you
+must do the following changes to the "M3 customizations" section of /etc/system:</p>
+<p>Change the line "rlim_fd_max=4096" to "rlim_fd_max=16384".</p>
+<p>Add the line "set ip:dohwcksum=0". </p>
+<p>After modifying /etc/system, reboot the host.</p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title xml:id="silentinstallation">Silent installation</title>
+<step-list>
+<sl-item><p>Make sure that you have superuser (root) privileges.</p>
+</sl-item>
+<sl-item><p>Insert the CD that contains the MAS software into CD-ROM drive
+on the host.</p>
+</sl-item>
+<sl-item><p>Change to the CD-ROM directory.</p>
+<p> <input># cd /cdrom/cdrom0</input></p>
+<p>(or type: <input> cd /cdrom/&lt;CD-ROM name></input>)</p>
+</sl-item>
+<sl-item><p>Copy the container file for the MAS component to a temporary directory
+on the host.</p>
+<p> <input># cp &lt;mas_container_file> &lt;tempdir></input> 				 </p>
+</sl-item>
+<sl-item><p>Change to the temporary directory.</p>
+<p> <input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Unzip and extract the &lt;mas_container_file>, e.g.:</p>
+<p> <input># gunzip mas_&lt;rel>.mas0001.solaris10.tar.gz</input></p>
+<p> <input># tar xf mas_&lt;rel>.mas0001.solaris10.tar</input> 		 </p>
+<p>This file will be extracted:</p>
+<p> <resource-id type="file-path">MOBYmas.pkg</resource-id> </p>
+<p>Afterwards, remove the container file.</p>
+<p> <input># rm &lt;mas_container_file></input></p>
+</sl-item>
+<sl-item><p>Create the response file, <resource-id type="file-path">MOBYmas.response</resource-id>.
+See <xref linkend="responsefile"/>.</p>
+</sl-item>
+<sl-item><p>Install the package</p>
+<p> <input># pkgadd -r MOBYmas.response -d MOBYmas.pkg</input> 		 </p>
+</sl-item>
+<sl-item><p>Verify the installation. See <xref linkend="verinstall"/></p>
+</sl-item>
+<sl-item><p>Backup the installation. See <xref linkend="backup"/></p>
+</sl-item>
+<sl-item><p>If the installation is done on a SunFire T2000 (Niagara), you
+must do the following changes to the "M3 customizations" section of /etc/system:</p>
+<p>Change the line "rlim_fd_max=4096" to "rlim_fd_max=16384".</p>
+<p>Add the line "set ip:dohwcksum=0". </p>
+<p>After modifying /etc/system, reboot the host.</p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title xml:id="deploymentserverinstallation">Deployment Server installation</title>
+<p>The MAS can either be installed when installing the operating system, using
+an action script; or at a later time, using a job script.</p>
+<chl4><title>Using an action script</title>
+<list type="numeric">
+<list-item><p>Copy the &lt;mas_container_file> to the package directory for
+the action (described in <emph type="low">the O&amp;M Deployment Server </emph> document)
+and move to this directory.</p>
+</list-item>
+<list-item><p>Unzip and extract the &lt;mas_container_file>:</p>
+<p> <input># gunzip mas_&lt;rel>.mas0001.solaris10.tar.gz</input></p>
+<p> <input># tar xf mas_&lt;rel>.mas0001.solaris10.tar</input> 	 </p>
+<p>This file will be extracted:</p>
+<p> <resource-id type="file-path">MOBYmas.pkg</resource-id> 				 </p>
+<p>Afterwards, remove the &lt;mas_container_file>:</p>
+<p> <input># rm &lt;mas_tar_file></input></p>
+</list-item>
+<list-item><p>Create the response file, <resource-id type="file-path">MOBYmas.response</resource-id> 
+in the same directory as the package file. See <xref linkend="responsefile"/> for
+how to create a response file.</p>
+</list-item>
+<list-item><p>Configure an action object for the MOBYmas package installation.
+How to add and configure an action object for a Solaris package installation
+is described in the <emph type="low">O&amp;M Deployment Server</emph> document.</p>
+</list-item>
+<list-item><p>When installing the operating system on the host, the MOBYmas
+package will be installed.</p>
+</list-item>
+<list-item><p>If the installation is done on a SunFire T2000 (Niagara), you
+must do the following changes to the "M3 customizations" section of /etc/system:</p>
+<p>Change the line "rlim_fd_max=4096" to "rlim_fd_max=16384".</p>
+<p>Add the line "set ip:dohwcksum=0". </p>
+<p>After modifying /etc/system, reboot the host.</p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>Using a job script</title>
+<list type="numeric">
+<list-item><p>Copy the &lt;mas_container_file> to the package directory for
+the job (described in the <emph type="low">O&amp;M Deployment Server</emph> document)
+and move to this directory.</p>
+</list-item>
+<list-item><p>Unzip and extract the &lt;mas_container_file>:</p>
+<p> <input># gunzip mas_&lt;rel>.mas0001.solaris10.tar.gz</input></p>
+<p> <input># tar xf mas_&lt;rel>.mas0001.solaris10.tar</input> 	 </p>
+<p>This file will be extracted:</p>
+<p> <resource-id type="file-path">MOBYmas.pkg</resource-id> 				 </p>
+<p>Afterwards, remove the &lt;mas_container_file>:</p>
+<p> <input># rm &lt;mas_tar_file></input></p>
+</list-item>
+<list-item><p>Create the response file, <resource-id type="file-path">MOBYmas.response</resource-id> 
+in the same directory as the package file. See <xref linkend="responsefile"/> for
+how to create a response file.</p>
+</list-item>
+<list-item><p>Configure a job object for the MOBYmas package installation.
+How to add and configure a job object for a Solaris package installation is
+described in the <emph type="low">O&amp;M Deployment Server</emph> document.</p>
+</list-item>
+<list-item><p>Execute the job object.</p>
+</list-item>
+<list-item><p>If the installation is done on a SunFire T2000 (Niagara), you
+must do the following changes to the "M3 customizations" section of /etc/system:</p>
+<p>Change the line "rlim_fd_max=4096" to "rlim_fd_max=16384".</p>
+<p>Add the line "set ip:dohwcksum=0". </p>
+<p>After modifying /etc/system, reboot the host.</p>
+</list-item>
+</list>
+</chl4>
+</chl3>
+<chl3><title xml:id="responsefile">Response file</title>
+<p>Create a response file using pkgask. This command extracts the questions
+asked in the package file and creates a response file.</p>
+<p>This command does not install the package.</p>
+<list type="unordered">
+<list-item><p>Create response file</p>
+<p> <input># pkgask -r MOBYmas.response -d MOBYmas.pkg</input> 		 </p>
+<p>Answer the questions asked during the creation of the response file. See <xref
+linkend="installationparameters"/></p>
+<p>If the the response file exists, an error message is displayed. </p>
+<p>Remove the response file and try again.</p>
+<note><p>It is important that pkgask is run on the same hardware type as you
+will later install the MAS on</p>
+</note>
+<note><p>If you are about to upgrade, run pkgask on the host where the MAS
+to be upgraded is installed.</p>
+</note>
+</list-item>
+<list-item><p>Modify the response file</p>
+<p>Each row should start with the parameter name, followed by an equal sign
+and should end with the desired parameter value.</p>
+<p>Example: {ParameterName=Value}</p>
+</list-item>
+</list>
+<table indent="left-margin">
+<caption>Parameters</caption>
+<tgroup cols="4" char="" charoff="50"><colspec colname="col1" colwidth="0.22*"/>
+<colspec colname="col2" colwidth="0.2*"/><colspec colname="col3" colwidth="0.15*"/>
+<colspec colname="col4" colwidth="0.3*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Name</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Default value</tp></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Range</tp></entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Desription</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>REGISTERED_NAME</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>mas</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+string</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The name
+of the installed MAS.</tp>
+<tp> <emph>This must not be changed</emph>.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>UPGRADE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>NA</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>"", yes,no</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp> <emph
+type="low">This parameter is currently not used, and is reserved for future
+use.</emph></tp>
+<tp>The parameter is set when install software detects a previous installation.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>REUSECONFIG</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>NA</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>yes,no</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Specifies
+wether the current configuration should be reused.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MY_JAVA_HOME</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>/apps/jdk1.6.0_06
+(for T2000 hosts)</tp>
+<tp>/apps/java (for non T2000 hosts)</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+path</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The path
+to the java runtime environment base directory.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>LOGICALZONE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>unspecified</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+string</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The name
+of the logical zone this software in installed in.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SSP_HOST_LIST</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>host=ssphost,
+port=5060</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+hostname and port in range 0 - 65535.</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>SSP hostname
+and port. This parameter should be left empty if a SIP Proxy has been defined
+(parameter SIP_PROXY_HOST).</tp>
+</entry>
+</row>
+<row>
+<entry rotate="0"><tp>SIP_PROXY_HOST</tp>
+</entry>
+<entry rotate="0"><tp>host=sipproxyhost, port=5060</tp>
+</entry>
+<entry rotate="0"><tp>Any valid hostname and port in range 0 - 65535.</tp>
+</entry>
+<entry rotate="0"><tp>SIP Proxy hostname and port. This parameter should be
+left empty if an SSP has been defined (parameter SSP_HOST_LIST).</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ASR_PROTOCOL</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>none</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>mrcp, xmp</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Speech
+recognition engine protocol.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ASR_HOST</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>NA</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+hostname</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Speech
+recognition engine host.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ASR_PORT</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>NA</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+integer 0 - 65535</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Speech
+recognition engine port.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>TTS_PROTOCOL</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>none</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>mrcp,xmp</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Text to
+speech engine protocol.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>TTS_HOST</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>NA</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+hostname</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Text to
+speech engine host.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>TTS_PORT</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>NA</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+integer 0 - 65535</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Text to
+speech engine port.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SIP_CHANNELS</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>60</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+integer 0 - 65535</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>Number
+of SIP channels. Sets the HighWaterMark to the specified number of SIP channels.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>INIT_HEAP_SIZE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>207M</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+string</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>JVM parameter.
+Calculated depending on number of SIP channels.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MAX_HEAP_SIZE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>207M</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+string</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>JVM parameter.
+Calculated depending on number of SIP channels.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>NEW_GEN_HEAP_SIZE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>24M</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+string</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>JVM parameter.
+Calculated depending on number of SIP channels.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>THREADPOOLSIZE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>150</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+integer 30-1000</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>JVM parameter.
+Calculated depending on number of SIP channels.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SEARCHBASE</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>o=userdb</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Any valid
+string</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The default
+LDAP searchbase.</tp>
+</entry>
+</row>
+<row>
+<entry rotate="0"><tp>SIP_HOSTNAME</tp>
+</entry>
+<entry rotate="0"><tp>NA</tp>
+</entry>
+<entry rotate="0"><tp>A hostname found on the machine.</tp>
+</entry>
+<entry rotate="0"><tp>The host name for the network interface on which MAS
+will open its listening port for SIP.</tp>
+<tp> Note: When MAS registers with an SSP it will register with the following
+address of record: &ldquo;sip:mas@&lt;SIP_HOSTNAME>&rdquo;. It is therefore
+important that the hostname given here is also used when configuring the routing
+in the SSP component. Eg. if SIP_HOSTNAME is the fully qualified domain name
+for MAS, that must also be used in the SSP routing configuration, if SIP_HOSTNAME
+is the IP-address of the MAS, that IP-address must also be used in the SSP
+routing configuration.</tp>
+</entry>
+</row>
+<row>
+<entry rotate="0"><tp>XMP_HOSTNAME</tp>
+</entry>
+<entry rotate="0"><tp>NA</tp>
+</entry>
+<entry rotate="0"><tp>A hostname found on the machine.</tp>
+</entry>
+<entry rotate="0"><tp>The host name for the network interface on which MAS
+will open its listening port for XMP.</tp>
+</entry>
+</row>
+<row>
+<entry rotate="0"><tp>RTP_HOSTNAME</tp>
+</entry>
+<entry rotate="0"><tp>NA</tp>
+</entry>
+<entry rotate="0"><tp>A hostname found on the machine.</tp>
+</entry>
+<entry rotate="0"><tp>The host name for the network interface on which MAS
+will open its RTP ports. The value entered is used as is and if a hostname
+is given instead of an IP address the calling party, gateway, SIP phone or
+what ever used, must be able to resolve the hostname.</tp>
+</entry>
+</row>
+<row>
+<entry rotate="0"><tp>HOSTNAME_TO_REGISTER_IN_MCR</tp>
+</entry>
+<entry rotate="0"><tp>NA</tp>
+</entry>
+<entry rotate="0"><tp>A hostname found on the machine.</tp>
+</entry>
+<entry rotate="0"><tp>The host name under which MAS will register itself in
+MCR.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chl3>
+<chl3><title xml:id="correctionofwrongparameters">Correction of wrong parameters </title>
+<p>If invalid parameters are provided during the installation, it is recommended
+that the package is removed, and then reinstalled with the correct parameters.</p>
+</chl3>
+</chl2>
+<chl2><title xml:id="verinstall">Verify Installation</title>
+<p>Verify the installation of the MAS component by performing the following
+steps:</p>
+<step-list>
+<sl-item><p>Check the result in the installation log file.</p>
+<p>The installation log file will be found under /apps/logs/mas/ and have
+the syntax mas@&lt;hostname>.&lt;date and time>.installlog.</p>
+</sl-item>
+<sl-item><p>Start the MAS. See the description in <emph type="low">, section </emph>.</p>
+<p> <input>#/etc/init.d/rc.mas start</input></p>
+</sl-item>
+<sl-item><p>Verify that the MIB can be accessed and that the MIB contains
+the correct information. See the description in:</p>
+<p> <emph type="low"> Operation &amp; Maintenance MAS</emph>, section <emph
+type="low">View Static Data in MIB</emph></p>
+<p> <emph type="low">Operation &amp; Maintenance MAS</emph>, section <emph
+type="low">View Dynamic Data in MIB</emph></p>
+</sl-item>
+<sl-item><p>Unlock the component, see <emph type="low">Operations and Maintenance
+MAS</emph>, section <emph type="low">Unlock</emph>. </p>
+</sl-item>
+<sl-item><p>If possible, perform a test phone call to the MAS.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="backup">Back Up</title>
+<p>After the installation and configuration of the MAS component is completed,
+it is recommended to back up the files and directories as described in <emph
+type="low">Operation &amp; Maintenance MAS</emph>, section <emph type="low">Back
+Up</emph>.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="startstop">Start and Stop</title>
+<p>For instructions on how to manually start the MAS component, see <emph
+type="low">Operation &amp; Maintenance MAS</emph>, section <emph type="low">Start
+Component</emph>.</p>
+<p>For instructions on how to manually stop the MAS component, see <emph type="low">Operation
+&amp; Maintenance MAS</emph>, section <emph type="low">Stop Component</emph>.</p>
+</chl1>
+<chl1><title xml:id="mcrreg">Registration and Unregistration in MCR </title>
+<p>Registration is usually performed automatically by the MAS installation
+program, however, you can register or unregister without re-installing from
+scratch.</p>
+<chl2><title>MCR registration (or update)</title>
+<p>The registration program will register the MAS, the application and the
+media content packages in the MCR.</p>
+<chl3><title></title>
+<p>Make sure that the mcr values in <quote>&lt;MAS_HOME>/cfg/mas.xml</quote> are
+correct, then type the following command:</p>
+<p> <input># /etc/init.d/rc.mas register</input></p>
+<p>Note: If the registration fails for any reason, for example if the MCR
+host isn't reachable, the MAS component will keep on trying to register every
+five minutes.</p>
+</chl3>
+</chl2>
+<chl2><title>MCR unregistration</title>
+<p>The unregistration program will unregister the MAS, the application and
+the media content packages from the MCR.</p>
+<p>To unregister the MAS component from the MCR, just type the following command:</p>
+<p> <input># /etc/init.d/rc.mas unregister</input></p>
+<p>Note: If the unregistration fails for any reason, for example if the MCR
+host isn't reachable, the MAS component will keep on trying to unregister
+itself and installed applications in the MCR every five minutes.</p>
+</chl2>
+</chl1>
+<chl1><title>Patch installation</title>
+<p>A MAS patch contains corrections for the MAS.</p>
+<p>This patch will not overwrite media content packages and application packages.</p>
+<p>A MAS patch is delivered as two files:</p>
+<p>&bull; Package file</p>
+<p>&bull; README file</p>
+<p>The README file contains instructions on how perform an installation of
+the patch.</p>
+</chl1>
+<chl1><title>Upgrade</title>
+<chl2><title>Upgrade to the latest MAS version from a previous version</title>
+<p>In a system where there are more than one MAS instance, it is recommended
+to upgrade one MAS instance first and verify its functionality, before the
+other instances are upgraded.</p>
+<p>During the uninstallation, configuration files, application and media content
+packages are backed up to be possible to reuse when upgrading to a new MAS
+version.</p>
+<chl3><title>Upgrading the OS while upgrading MAS</title>
+<p>In the case where an OS upgrade/reinstallation is required, see <emph type="low">Operation
+&amp; Maintenance MAS</emph>, section <emph type="low">Backup Restore</emph>. </p>
+<p>This procedure will ensure that all configuration files that are needed
+for the upgrade are saved.</p>
+</chl3>
+<chl3><title>Procedure for Solaris 10 Live Upgrade</title>
+<p>Installation of the MAS adds some files located outside the /apps file
+system on the operating system disk. When an upgrade of the operating system
+(Solaris</p>
+<p>10) is performed, all MAS related files residing outside of /apps will
+no longer be visible. The files affected are:</p>
+<list type="unordered">
+<list-item><p>/etc/init.d/rc.mas</p>
+</list-item>
+<list-item><p>/var/svc/manifest/application/mobeon/MOBYmas/MOBYmas.xml</p>
+</list-item>
+<list-item><p>/etc/sfw/mobeon/MOBYmas/mas</p>
+</list-item>
+<list-item><p>/etc/sfw/mobeon/MOBYmas/snmpagent</p>
+</list-item>
+<list-item><p>/etc/system</p>
+</list-item>
+</list>
+<p>These files will normally be backed up and restored into the new upgraded
+operating system by the LiveUpgrade framework. Should the framework fail the
+files can be retrieved from the old Operating System version using the <emph
+type="medium">lumount</emph> command.</p>
+</chl3>
+</chl2>
+<chl2><title xml:id="interactiveupgrade">Interactive upgrade</title>
+<p>Perform the following actions to upgrade from the older MAS to the new
+version:</p>
+<step-list>
+<sl-item><p>Stop the current traffic gracefully.</p>
+<p> <input># /etc/init.d/rc.mas shutdown</input></p>
+<p>This command waits until the number of current calls is 0. Then the MAS
+will enter the locked state and will return to the prompt. The number of current
+calls is shown in the mib attribute masConnectionStatisticsConnections, which
+can be checked using the following command.</p>
+<p> <input># /etc/init.d/rc.mas viewmib</input></p>
+</sl-item>
+<sl-item><p>Remove the currently installed package as described in <xref linkend="uninstall"/>. </p>
+</sl-item>
+<sl-item><p>Start the installation of the new version of the MAS as described
+in steps in <xref linkend="interactiveinstallation"/>. </p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Silent upgrade</title>
+<p>Perform the following actions to silently upgrade from an older MAS version
+to the new version:</p>
+<step-list>
+<sl-item><p>Stop the current traffic gracefully.</p>
+<p> <input># /etc/init.d/rc.mas shutdown</input></p>
+<p>This commad waits until the number of current calls is 0. Then the MAS
+will enter the locked state and returns to the prompt. The number of current
+calls is shown in the mib attribute masConnectionStatisticsConnections, which
+can be checked using the following command.</p>
+<p> <input># /etc/init.d/rc.mas viewmib</input></p>
+</sl-item>
+<sl-item><p>Remove currently installed package as described in <xref linkend="uninstall"/>.</p>
+</sl-item>
+<sl-item><p>Start the installation of the new version of the MAS as described
+in steps in <xref linkend="silentinstallation"/>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>MAS Deployment Server upgrade</title>
+<p>The MAS Deployment Server upgrade works similary to the MAS Deployment
+Server installation. See <xref linkend="deploymentserverinstallation"/> for
+further details.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="rollback">Rollback</title>
+<p>Currently there is no standard procedure to perform software version rollback
+for the MAS component.</p>
+<p>If the MAS should be rolled back to a previous version, the only way to
+do it is to uninstall the current MAS component, and then reinstall the previous
+version.</p>
+</chl1>
+<chl1><title xml:id="uninstall">Uninstallation</title>
+<p>There are three ways to uninstall the MAS component:</p>
+<list type="unordered">
+<list-item><p>Interactive uninstallation, see <xref linkend="interactiveuninstallation"/></p>
+</list-item>
+<list-item><p>Silent uninstallation, see <xref linkend="silentuninstallation"/></p>
+</list-item>
+<list-item><p>Deployment Server uninstallation, see <xref linkend="deploymentserveruninstallation"/></p>
+</list-item>
+</list>
+<chl2><title xml:id="interactiveuninstallation">Interactive uninstallation</title>
+<p>This procedure will uninstall the complete MAS software that has been installed
+by the procedure given in this guide.</p>
+<p>To uninstall the MAS component:</p>
+<step-list>
+<sl-item><p>Stop the MAS component. </p>
+<p>See <emph type="low">Operations &amp; Maintenance MAS</emph>, section <emph
+type="low">Stop Component</emph>.</p>
+</sl-item>
+<sl-item><p>Back up the configuration files.</p>
+<p>If the backup procedure is followed (backup after installation, upgrade
+and re-configuration), there is no need for backing up prior to the uninstallation.
+For information, see <emph type="low">Operation &amp; Maintenance MAS</emph>,
+section <emph type="low">Back Up</emph>.</p>
+</sl-item>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>$ su -</input></p>
+</sl-item>
+<sl-item><p>Run the Solaris package remove command.</p>
+<p> <input># pkgrm MOBYmas</input></p>
+</sl-item>
+<sl-item><p>Answer yes to all questions for the package to be uninstalled.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="silentuninstallation">Silent uninstallation</title>
+<step-list>
+<sl-item><p>Stop the MAS component. </p>
+<p>See <emph type="low">Operations &amp; Maintenance MAS</emph>, section <emph
+type="low">Stop Component</emph>.</p>
+</sl-item>
+<sl-item><p>Back up the configuration files.</p>
+<p>If the backup procedure is followed (backup after installation, upgrade
+and re-configuration), there is no need for backing up prior to the uninstallation.
+For information, see <emph type="low">Operation &amp; Maintenance MAS</emph>,
+section <emph type="low">Back Up</emph>.</p>
+</sl-item>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>$ su -</input></p>
+</sl-item>
+<sl-item><p>Run the Solaris package removal command.</p>
+<p> <input># pkgrm -n MOBYmas</input></p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="deploymentserveruninstallation">Deployment Server uninstallation</title>
+<p>Uninstallation of MAS from a Deployment Server is not supported.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="installationparameters">Installation parameters</title>
+<p>The MAS installation script requires information to be input during the
+installation. If silent installation is used, the input is read from the MOBYmas.response
+file.</p>
+<p>These questions are asked.</p>
+<list type="unordered">
+<list-item><p> <emph>Do you want to reuse previous installed configuration
+and Application? [y,n,?]</emph></p>
+<p> <emph type="low">This question will only be shown if there has been a
+previous installation of MAS on the host.</emph></p>
+<p>If upgrade is desired, select 'y'. Then no further questions will be asked
+and all configuration, application and media content packages will be restored.</p>
+<p>If upgrade is not desired, select 'n'. Then a new installation of MAS will
+be performed.</p>
+</list-item>
+<list-item><p> <emph>Java home directory [/apps/java]: </emph></p>
+<p>The path to the java runtime environment base directory.</p>
+<p>If left blank, the install program will use default values. The default
+value will depend on the type of hardware.</p>
+</list-item>
+<list-item><p> <emph type="medium">SIP host name [host name found on the machine]:</emph></p>
+<p>The host name for the network interface on which MAS will open its listening
+port for SIP. (See the list of host names found by the installation program
+above).</p>
+</list-item>
+<list-item><p> <emph type="medium">XMP host name [host name found on the machine]:</emph></p>
+<p>The host name for the network interface on which MAS will open its listening
+port for XMP. (See the list of host names found by the installation program
+above).</p>
+</list-item>
+<list-item><p> <emph type="medium">RTP host name [host name found on the machine]:</emph></p>
+<p>The host name for the network interface on which MAS will open its RTP
+ports.</p>
+</list-item>
+<list-item><p> <emph type="medium">Host name, under which the component will
+register in MCR [host name found on the machine]:</emph></p>
+<p>The host name under which MAS will register itself in MCR.</p>
+</list-item>
+<list-item><p> <emph>Provide the logicalzone [unspecified]: </emph>  </p>
+<p>The name of the logical zone this software is installed on.</p>
+<p>The installation tries to connect to MCR and retrieve logical zones and
+present the values to the installer.</p>
+<p>The first value in the list is set as default.</p>
+<p>If MCR is not reachable the default value will be "unspecified".</p>
+</list-item>
+<list-item><p> <emph>Select remote party to be used:</emph></p>
+<p>Select one of SSP or SIP proxy.  </p>
+<list type="unordered">
+<list-item><p>SSP</p>
+<p>A list of SSP hosts can be given by entering new values. When "SSP Host"
+is left blank, the list is finished.</p>
+<list type="unordered">
+<list-item><p> <emph>SSP host name [ssphost:5060]: </emph> 				 </p>
+<p>For details on this parameter, see the remote party group in <emph type="low">Operations
+&amp; Maintenance MAS, </emph> section <emph type="low"> Change Configuration
+Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+<list-item><p> <emph>SSP port number [5060]: </emph></p>
+<p>For details on this parameter, see the remote party group in <emph type="low">Operations
+&amp; Maintenance MAS, </emph> section <emph type="low"> Change Configuration
+Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>SIP proxy</p>
+<list type="unordered">
+<list-item><p> <emph>SIP proxy host name [sipproxy:5060]:</emph></p>
+<p>For details on this parameter, see the remote party group in <emph type="low">Operations
+&amp; Maintenance MAS, </emph> section <emph type="low"> Change Configuration
+Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+<list-item><p> <emph>SIP proxy port number [5060]:</emph> </p>
+<p>For details on this parameter, see the remote party group in <emph type="low">Operations
+&amp; Maintenance MAS, </emph> section <emph type="low"> Change Configuration
+Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+</list>
+</list-item>
+</list>
+</list-item>
+<list-item><p> <emph>Speech recognition engine protocol [not used]: </emph></p>
+<p>For details on this parameter, see the speechrecognition service group <emph
+type="low">in Operations &amp; Maintenance MAS, </emph> section <emph type="low"> Change
+Configuration Parameters</emph> <emph type="low"> in File</emph> .</p>
+<list type="unordered">
+<list-item><p> <emph>Speech recognition engine host name: </emph></p>
+<p>This is not displayed if "speech recognition engine protocol" was left
+blank.</p>
+<p>For details on this parameter, see the speechrecognition service group
+in <emph type="low">Operations &amp; Maintenance MAS, </emph> section <emph
+type="low"> Change Configuration Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+<list-item><p> <emph>Speech recognition engine port number: </emph></p>
+<p>This is not displayed if "speech recognition engine protocol" was left
+blank.</p>
+<p>For details on this parameter, see the speechrecognition service group
+in <emph type="low">Operations &amp; Maintenance MAS, </emph> section <emph
+type="low"> Change Configuration Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p> <emph>Text to speech engine protocol [not used]:  </emph> </p>
+<p>For details on this parameter, see the texttospeech service group in <emph
+type="low">Operations &amp; Maintenance MAS, </emph> section <emph type="low"> Change
+Configuration Parameters</emph> <emph type="low"> in File</emph>.</p>
+<list type="unordered">
+<list-item><p> <emph>Text to speech engine host name: </emph></p>
+<p>This is not displayed if "text to speech engine protocol" was left blank.</p>
+<p>For details on this parameter, see the texttospeech service group in <emph
+type="low">Operations &amp; Maintenance MAS, </emph> section <emph type="low"> Change
+Configuration Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+<list-item><p> <emph>Text to speech engine port number: </emph></p>
+<p>This is not displayed if "text to speech engine protocol" was left blank.</p>
+<p>For details on this parameter, see the texttospeech service group in <emph
+type="low">Operations &amp; Maintenance MAS, </emph> section <emph type="low"> Change
+Configuration Parameters</emph> <emph type="low"> in File</emph>.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p> <emph>Default LDAP search base [o=userdb]:</emph></p>
+<p>The default searchbase for searches in the user directory.</p>
+</list-item>
+<list-item><p> <emph>Maximum number of SIP channels [60]:</emph></p>
+<p>The number of simultaneous SIP calls this host can handle.</p>
+<p>This sets the HighWaterMark to the specified value. When MAS reaches this
+value, MAS unregisters from the SSP (if an SSP is used in the deployment),</p>
+<p>This sets the InitThreshold to a value slightly higher than the specified
+value. When MAS reaches this value, the MAS starts to redirect calls back
+to SSP (if an SSP is used in the deployment).</p>
+<p>This also sets the LowWaterMark to a percentage value of HighWaterMark.</p>
+</list-item>
+<list-item><p> <emph>Please provide threadpoolsize: [blank=default (150)]</emph></p>
+<p>This is a JVM parameter used for tuning performance. </p>
+<p>The default value is based on the maximum number of simultaneous channels.</p>
+</list-item>
+</list>
+<chl2><title xml:id="recommendedhw">Recommended hardware</title>
+<p>The table below shows the maximum number of concurrent SIP channels that
+may be allowed on selected hardware setups.</p>
+<table indent="left-margin">
+<caption></caption>
+<tgroup cols="3" char="" charoff="50"><colspec colname="col1" colwidth="0.01*"/>
+<colspec colname="col2" colwidth="0.01*"/><colspec colname="col3" colwidth="0.01*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0" valign="top">
+<tp>Max number of SIP Voice channels</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0" valign="top">
+<tp>Max number of SIP Video channels</tp></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0" valign="top">
+<tp>Recommended hardware</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>-</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>-</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Sun Fire
+V210, 1.3 GHz 1GB</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>-</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>-</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>SunFire
+T2000 (Niagara),</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chl2>
+</chl1>
+<chl1><title>Log files</title>
+<chl2><title xml:id="installationlogfile">Installation Log File</title>
+<p>The installation log file will be located in <resource-id type="file-path">/apps/logs/mas/</resource-id> and
+will be named according to the following convention: </p>
+<p> <resource-id type="file-path">mas@&lt;Host name>.&lt;YYYY_MM_DD_HHMM>.installog</resource-id></p>
+<p>Example:</p>
+<p> <resource-id type="file-path">mas@bilbo.2006_01_27_1606.installog</resource-id></p>
+<p>This log file is not removed when the component is uninstalled.</p>
+</chl2>
+<chl2><title xml:id="uninstallationlogfile">Uninstallation Log File</title>
+<p>The uninstallation log file will be located at <resource-id type="file-path">/apps/logs/mas/</resource-id> and
+will be named according to the following convention: </p>
+<p> <resource-id type="file-path">mas@&lt;Host name>.&lt;YYYY_MM_DD_HHMM>.uninstallog</resource-id></p>
+<p>Example:</p>
+<p> <resource-id type="file-path">mas@bilbo.2006_01_27_1606.uninstallog</resource-id></p>
+<p>These log files are not removed when the component is uninstalled.</p>
+</chl2>
+<chl2><title>Patch Log Files</title>
+<p>For patch installation, an additional log file is created by patch installation.
+The output will end up in a file whose name is reported after the installation
+is complete. </p>
+<p></p>
+<p>For patch removal, the additional log file will be discarded if everything
+is OK.</p>
+<p>If something goes wrong, the output will end up in a file whose name is
+reported after the removal attempt is complete.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="installaddlang">Install Media Content Packages</title>
+<p>The media content package is delivered in a container file which is named:</p>
+<p> &lt;name>.&lt;type>.&lt;language_code>.&lt;variant>.&lt;customer>.&lt;rev>.&lt;prodnum>.tar</p>
+<p><quote>&lt;language_code></quote> is in the same format as preferredLanguage
+in MUR. <quote>&lt;variant></quote> specifies the media content package variant,
+i.e. voice1 or video1; <quote>&lt;name></quote> may indicate that this file
+is a customer adaptation and &lt;customer> the name of the customer.</p>
+<p>In this document, the media content package delivery file is called <input>&lt;mcp_file></input></p>
+<note><p>Multiple media content packages can be installed on a MAS instance.</p>
+</note>
+<chl2><title xml:id="prereqmcpinstall">Prerequisites</title>
+<chl3><title xml:id="discspacelang">Disk Space</title>
+<p>The media content package disk space requirements for the different partitions
+are described in the table below.</p>
+<table indent="left-margin">
+<caption></caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.74*"/><colspec colname="col2" colwidth="1.41*"/><colspec colname="col3"
+colwidth="0.85*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Partition</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Required disk space (minimum)</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Comments</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>&lt;tempdir> </tp>
+<tp>e.g /apps/dist</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Install package size</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Temporary directory for the MAS installation.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>&lt;MAS_HOME></tp>
+<tp>e.g /apps/mas</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Install package size</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Installation directory for the MAS.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>To check disk space, use for example the <input>df -k </input> command. </p>
+</chl3>
+</chl2>
+<chl2><title xml:id="interactivemcpinstall">Interactive Media Content Package
+Installation</title>
+<step-list>
+<sl-item><p>Log in to the host where the media content package should be installed.</p>
+</sl-item>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>$ su -</input></p>
+</sl-item>
+<sl-item><p>Copy the media content package delivery file to a temporary directory
+on the host.</p>
+<p> <input># cp &lt;mcp_file> &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Change to &lt;tempdir></p>
+<p> <input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>If the MAS component is running in a live system, the MAS must
+be stopped before a media content package is updated. This is because the
+media content package installation may possibly replace an active media content
+package.</p>
+<p>To manually stop the MAS component, see section <emph type="low">Stop Component </emph> in
+the document <emph type="low">Operation and Maintenance MAS</emph>.</p>
+</sl-item>
+<sl-item><p>Install the package by issuing the following command :</p>
+<p> <input># /etc/init.d/rc.mas installmcp &lt;mcp_file></input></p>
+</sl-item>
+<sl-item><p>Wait for the installation to complete with the following output:</p>
+<p> <output>Installation of &lt;mcp_file> was successful</output></p>
+</sl-item>
+<sl-item><p>Restart the MAS component in order to make the newly installed
+media content package available. Refer to section <emph type="low">Restart
+Component </emph> in the document <emph type="low">Operation and Maintenance
+MAS</emph>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="deploymentservermcpinstall">Media Content Package Deployment
+Server installation</title>
+<p>The media content package can either be installed using an action script
+when installing the operating system, or at a later time using a job script.</p>
+<chl3 xml:id="mcpactionscript"><title>Using an action script</title>
+<list type="numeric">
+<list-item><p>Copy the &lt;mcp_file> to the &lt;DS_HOME>/install/dist directory
+on the deployment server.</p>
+</list-item>
+<list-item><p>Extract the action_mas_package script from &lt;mcp_file>:</p>
+<p> <input># tar xf &lt;mcp_file> ./mediatmp/action_mas_package</input></p>
+<note><p>The action_mas_package file in the &lt;mcp_file> is identical to
+the action_mas_package file in the &lt;app_file>. If you already have extracted
+the action_mas_package file from the &lt;app_file> (refer to <xref linkend="appactionscript"/>)
+this step and the next can be ignored.</p>
+</note>
+</list-item>
+<list-item><p>Copy the action_mas_package file from the mediatmp directory
+to the deployment server action scripts directory (described in the <emph
+type="low">O&amp;M Deployment Server</emph> document).</p>
+</list-item>
+<list-item><p>Make sure that the action_mas_package has the same permissions
+as other action scripts in the directory.</p>
+<p> <input># chmod 755 action_mas_package</input></p>
+</list-item>
+<list-item><p>Configure an action object for the media content package installation
+that runs the script action_mas_package from the action scripts directory
+with the following parameters:</p>
+<p> <output>installmcp &lt;mcp_file></output></p>
+<p>How to add and configure an action object is described in the <emph type="low">O&amp;M
+Deployment Server</emph> document.</p>
+<note><p>Make sure that the MAS package installation action will be executed
+before the media content package installation action object. See the <emph
+type="low">O&amp;M Deployment Server</emph> document for the execution order
+of action objects.</p>
+</note>
+</list-item>
+<list-item><p>When installing the operating system on the host, the media
+content package will be installed.</p>
+</list-item>
+</list>
+<note><p>The action does not include a restart of the MAS component. A restart
+is needed before the new media content package can be used.</p>
+</note>
+</chl3>
+<chl3 xml:id="mcpjobscript"><title>Using a job script</title>
+<list type="numeric">
+<list-item><p>Copy the &lt;mcp_file> to the &lt;DS_HOME>/install/dist directory
+on the deployment server.</p>
+</list-item>
+<list-item><p>Extract the job_mas_package script from &lt;mcp_file>:</p>
+<p> <input># tar xf &lt;mcp_file> ./mediatmp/job_mas_package</input></p>
+<note><p>The job_mas_package file in the &lt;mcp_file> is identical to the
+job_mas_package file in the &lt;app_file>. If you already have extracted the
+job_mas_package file from the &lt;app_file> (refer to <xref linkend="appjobscript"/>),
+this step and the next can be ignored.</p>
+</note>
+</list-item>
+<list-item><p>Copy the job_mas_package file from the mediatmp directory to
+the deployment server job scripts directory (described in the <emph type="low">O&amp;M
+Deployment Server</emph> document).</p>
+</list-item>
+<list-item><p>Make sure that the job_mas_package has the same permissions
+as other job scripts in the directory.</p>
+<p> <input># chmod 755 job_mas_package</input></p>
+</list-item>
+<list-item><p>Configure a job object for the media content package installation
+that runs the script job_mas_package from the job scripts directory with the
+following parameters:</p>
+<p> <output>installmcp &lt;mcp_file></output></p>
+<p>How to add and configure a job object is described in the <emph type="low">O&amp;M
+Deployment Server</emph> document.</p>
+</list-item>
+<list-item><p>Execute the job object.</p>
+</list-item>
+</list>
+<note><p>The job does not include a restart of the MAS component. A restart
+is needed before the new media content package can be used.</p>
+</note>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title>View Installed Media Content Packages</title>
+<p>To show what media content packages are installed on a MAS component, use
+the following command:</p>
+<p><input>#/etc/init.d/rc.mas viewmcp</input></p>
+<p>An example of a typical output is shown below.</p>
+<p><preform>The following Media Content Packages are installed:
+===================================================
+Id:        mcp0001.1
+Name:      vvamcp
+Type:      prompt
+Language:  en
+Customer:  mobeon
+Variant:   voice1
+Audio :    audio/pcmu
+Video:     
+ProductId: mcp0001.1
+R-state:   p2a.007</preform></p>
+</chl1>
+<chl1><title>Uninstall Media Content Packages</title>
+<chl2><title>Interactive Media Content Package Uninstallation</title>
+<p>To uninstall a media content package first retrieve the identity of the
+installed package by use of the <emph type="medium">viewmcp</emph> command.
+Check the id property of the media content package and provide this id as
+a parameter to the <emph type="medium">uninstallmcp</emph> command.</p>
+<step-list>
+<sl-item><p>Retrieve the id of the media content package to uninstall:</p>
+<p> <input>#/etc/init.d/rc.mas viewmcp</input></p>
+</sl-item>
+<sl-item><p>If the MAS component is running in a live system, the MAS must
+be stopped before a media content package is uninstalled. This is because
+the uninstallation may possibly remove an active media content package.</p>
+<p>To manually stop the MAS component, see section <emph type="low">Stop Component </emph> in
+the document <emph type="low">Operation and Maintenance MAS</emph>.</p>
+</sl-item>
+<sl-item><p>Uninstall the media content package.</p>
+<p> <input>#/etc/init.d/rc.mas uninstallmcp &lt;id></input></p>
+</sl-item>
+<sl-item><p>Restart the MAS component according to section <emph type="low">Restart
+Component </emph> in the document <emph type="low">Operation and Maintenance
+MAS</emph>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Media Content Package Deployment Server Uninstallation</title>
+<p>To uninstall a media content package, configure a job object for the uninstallation
+that runs the script <input>/etc/init.d/rc.mas</input> on the remote host
+with the following parameters:</p>
+<p> <output>uninstallmcp &lt;id></output></p>
+<p>The id for a media content package can be retrieved using the <emph>/etc/init.d/rc.mas
+viewmcp</emph> command.</p>
+<note><p>A restart is also needed after uninstalling an application package.</p>
+</note>
+</chl2>
+</chl1>
+<chl1><title xml:id="installapp">Install Application Package</title>
+<p>The application package is delivered in a container file which is named:</p>
+<p> <resource-id type="file-path">&lt;name>.&lt;customer>.&lt;rev>.&lt;prodnum>.solaris10.tar</resource-id></p>
+<p> <quote>&lt;name></quote> may indicate that this file is a customer adaptation
+and &lt;customer> the name of the customer.</p>
+<p>In this document, the application container file is called <input>&lt;app_file></input></p>
+<note><p>Only one application package can be installed at a time in a MAS.</p>
+</note>
+<chl2><title xml:id="prereqappinstall">Prerequisites</title>
+<chl3><title>Disk Space</title>
+<p>An application package installation requires the disk space indicated in
+the table below for the different partitions.</p>
+<table indent="left-margin">
+<caption></caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.74*"/><colspec colname="col2" colwidth="1.41*"/><colspec colname="col3"
+colwidth="0.85*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Partition</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Required disk space (minimum)</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top">
+<tp>Comments</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>&lt;tempdir> </tp>
+<tp>e.g /apps/home</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Install package size</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Temporary directory for the application package installation.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>&lt;MAS_HOME></tp>
+<tp>e.g /apps/mas</tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Install package size</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" char="" rotate="0"
+valign="top"><tp>Installation directory for the application package.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>To check disk space, use for example the <input>df -k </input> command. </p>
+</chl3>
+</chl2>
+<chl2><title xml:id="interactiveappinstall">Interactive Application Installation</title>
+<step-list>
+<sl-item><p>Log in to the host where the application package should be installed.</p>
+</sl-item>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>$ su -</input></p>
+</sl-item>
+<sl-item><p>Copy the application package delivery file to a temporary directory
+on the host.</p>
+<p> <input># cp &lt;app_file> &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Change to &lt;tempdir></p>
+<p> <input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>If the MAS component is running in a live system, the MAS must
+be stopped before an application package installation is performed. This is
+because the installation may possibly replace an active part of an already
+installed application.</p>
+<p>To manually stop the MAS component, see section <emph type="low">Stop Component </emph> in
+the <emph type="low">Operations and Maintenance MAS</emph>.</p>
+</sl-item>
+<sl-item><p xml:id="installarguments">Install the package by issuing the following
+command:</p>
+<p> <input># /etc/init.d/rc.mas installapp &lt;app_file></input> 	 </p>
+</sl-item>
+<sl-item><p>Wait for the installation to complete with the following output:</p>
+<p> <output>Installation of /apps/dist/&lt;app_file> was successful</output></p>
+</sl-item>
+<sl-item><p>Restart the MAS component in order to make the newly installed
+application package available. Refer to section <emph type="low">Restart Component </emph> in
+the document <emph type="low">Operations and Maintenance MAS</emph>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="deploymentserverappinstall">Application Deployment Server
+installation</title>
+<p>The application package can either be installed using an action script
+when installing the operating system, or at a later time using a job script.</p>
+<chl3 xml:id="appactionscript"><title>Using an action script</title>
+<list type="numeric">
+<list-item><p>Copy the &lt;app_file> to the &lt;DS_HOME>/install/dist directory
+on the deployment server.</p>
+</list-item>
+<list-item><p>Extract the action_mas_package script from &lt;app_file>:</p>
+<p> <input># tar xf &lt;app_file> ./apptmp/action_mas_package</input></p>
+<note><p>The action_mas_package file in the &lt;app_file> is identical to
+the action_mas_package file in the &lt;mcp_file>. If you already have extracted
+the action_mas_package file from the &lt;mcp_file> (refer to <xref linkend="mcpactionscript"/>),
+this step and step 3 can be ignored.</p>
+</note>
+</list-item>
+<list-item><p>Copy the action_mas_package file from the apptmp directory to
+the deployment server action scripts directory (described in the <emph type="low">O&amp;M
+Deployment Server</emph> document).</p>
+</list-item>
+<list-item><p>Make sure that the action_mas_package has the same permissions
+as the other action scripts in the directory.</p>
+<p> <input># chmod 755 action_mas_package</input></p>
+</list-item>
+<list-item><p>Configure an action object for the application package installation
+that runs the script action_mas_package from the action scripts directory
+with the following parameters:</p>
+<p> <output>installapp &lt;app_file></output></p>
+<p>How to add and configure an action object is described in the <emph type="low">O&amp;M
+Deployment Server</emph> document.</p>
+<note><p>Make sure that the MAS package installation action will be executed
+before the application package installation action object. See the <emph type="low">O&amp;M
+Deployment Server</emph> document for the execution order of action objects.</p>
+</note>
+</list-item>
+<list-item><p>When installing the operating system on the host, the media
+content package will be installed.</p>
+</list-item>
+</list>
+<note><p>The action does not include a restart of the MAS component. A restart
+is needed before the new media content package can be used.</p>
+</note>
+</chl3>
+<chl3 xml:id="appjobscript"><title>Using a job script</title>
+<list type="numeric">
+<list-item><p>Copy the &lt;app_file> to the &lt;DS_HOME>/install/dist directory
+on the deployment server.</p>
+</list-item>
+<list-item><p>Extract the job_mas_package script from &lt;app_file>:</p>
+<p> <input># tar xf &lt;app_file> ./apptmp/job_mas_package</input></p>
+<note><p>The job_mas_package file in the &lt;app_file> is identical to the
+job_mas_package file in the &lt;mcp_file>. If you already have extracted the
+job_mas_package file from the &lt;mcp_file> (refer to <xref linkend="mcpjobscript"/>),
+this step and step 3 can be ignored.</p>
+</note>
+</list-item>
+<list-item><p>Copy the job_mas_package file from the apptmp directory to the
+deployment server job scripts directory (described in the <emph type="low">O&amp;M
+Deployment Server</emph> document).</p>
+</list-item>
+<list-item><p>Make sure that the job_mas_package has the same permissions
+as the other job scripts in the directory.</p>
+<p> <input># chmod 755 job_mas_package</input></p>
+</list-item>
+<list-item><p>Configure a job object for the application package installation
+that runs the script job_mas_package from the job scripts directory with the
+following parameters:</p>
+<p> <output>installapp &lt;app_file></output></p>
+<p>How to add and configure a job object is described in the <emph type="low">O&amp;M
+Deployment Server</emph> document.</p>
+</list-item>
+<list-item><p>Execute the job object.</p>
+</list-item>
+</list>
+<note><p>The job does not include a restart of the MAS component. A restart
+is needed before the new media content package can be used.</p>
+</note>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title xml:id="viewapp">View Installed Application Packages</title>
+<p>To show which application package is installed on a MAS component, use
+the following command:</p>
+<p><input>#/etc/init.d/rc.mas viewapp</input></p>
+<p>An example of a typical output is shown below.</p>
+<p><preform>The following Application is installed:
+======================================
+Id:        vva0001.1
+Name:      vva
+Customer:  mobeon
+ProductId: vva0001.1
+R-state:   p2a.008
+Services:
+ - Default on sip:5060
+ - OutdialNotification on xmp:8080</preform></p>
+</chl1>
+<chl1><title xml:id="uninstallapp">Uninstall Application Package</title>
+<chl2><title>Interactive Application Package Uninstallation</title>
+<p>To uninstall an application package, first retrieve the identity of the
+installed Application by use of the <emph type="medium">viewapp</emph> command.
+Check the id property of the application and provide this id as a parameter
+to the <emph type="medium">uninstallapp</emph> command.</p>
+<step-list>
+<sl-item><p>Retrieve the id of the application package to uninstall:</p>
+<p> <input>#/etc/init.d/rc.mas viewapp</input></p>
+</sl-item>
+<sl-item><p>If the MAS component is running in a live system, the MAS must
+be stopped before an application package is uninstalled. This is because the
+uninstallation may possibly remove an active application package.</p>
+<p>To manually stop the MAS component, see section <emph type="low">Stop Component </emph> in
+the document <emph type="low">Operation and Maintenance MAS</emph>.</p>
+</sl-item>
+<sl-item><p>Uninstall the application package.</p>
+<p> <input>#/etc/init.d/rc.mas uninstallapp &lt;id></input></p>
+</sl-item>
+<sl-item><p>Restart the MAS component according to section <emph type="low">Restart
+Component </emph> in the document <emph type="low">Operation and Maintenance
+MAS</emph>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Application Package Deployment Server Uninstallation</title>
+<p>To uninstall an application package, configure a job object for the uninstallation
+that runs the script <input>/etc/init.d/rc.mas</input> on the remote host
+with the following parameters:</p>
+<p> <output>uninstallapp &lt;id></output></p>
+<p>The id for an application package can be retrieved using the <emph type="medium">/etc/init.d/rc.mas
+viewapp</emph> command.</p>
+<note><p>A restart of the MAS component is also needed after uninstalling
+an application package.</p>
+</note>
+</chl2>
+</chl1>
+<chl1><title>Upgrade Application Package</title>
+<p>To upgrade an application package, follow the steps below. </p>
+<list type="numeric">
+<list-item><p>Become super-user (root)</p>
+<p> <input># su -</input></p>
+</list-item>
+<list-item><p>Open "configfiles.txt" to find the names of all configuration
+files used by the application package you are about to upgrade:</p>
+<p> <input># cat &lt;MAS_HOME>/applications/&lt;application id>/configfiles.txt</input>  </p>
+</list-item>
+<list-item><p>For every configuration file in "configfiles.txt", copy the
+file to a temporary directory:</p>
+<p> <input># cp &lt;MAS_HOME>/cfg/&lt;config file> &lt;tempdir></input>  </p>
+</list-item>
+<list-item><p>Uninstall the old version of the application package:</p>
+<p> <input># /etc/init.d/rc.mas uninstallapp &lt;application id></input>  </p>
+</list-item>
+<list-item><p>Install the new version of the application package:</p>
+<p> <input># /etc/init.d/rc.mas installapp &lt;app_file></input> 		 </p>
+</list-item>
+<list-item><p>Copy all backed-up configuration files to the cfg directory:</p>
+<p> <input># cp &lt;tempdir>/&lt;config file> &lt;MAS_HOME>/cfg/</input>  </p>
+</list-item>
+<list-item><p>Restart the MAS component according to section <emph type="low">Restart
+Component</emph> in the document <emph type="low">Operation and Maintenance
+MAS</emph>.</p>
+</list-item>
+</list>
+</chl1>
+<chl1><title>Installed Packages</title>
+<p>To see which MAS packages are installed on a host, follow the procedure
+described below:</p>
+<step-list>
+<sl-item><p>Login to the host.</p>
+</sl-item>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>$ su -</input></p>
+</sl-item>
+<sl-item><p>Check the <resource-id type="file-path">VERSION</resource-id> file.</p>
+<p> <input># pkginfo -l MOBYmas</input></p>
+<p><preform>   PKGINST:  MOBYmas
+      NAME:  CompEdge Media Access Server/SNMP agent
+  CATEGORY:  application
+      ARCH:  sparc
+   VERSION:  MAS_R2A.026
+   BASEDIR:  /apps/mas
+    VENDOR:  Mobeon
+    PSTAMP:  mobeon-20051206
+  INSTDATE:  Sep 26 2006 15:18
+    STATUS:  completely installed
+     FILES:      127 installed pathnames
+                   9 directories
+                  21 executables
+              124844 blocks used (approx)</preform></p>
+<p>In this example the R2A.026 version of MAS is installed.</p>
+</sl-item>
+</step-list>
+</chl1>
+<chl1 xml:id="installswa"><title>Install System Wide Announcement</title>
+<p>System wide announcement (SWA) and the contents of this chapter is only
+applicable if SWA is also supported by the application installed on MAS.</p>
+<p>The system wide announcement files are media files that can be replaced
+in the Media Content Packages without restarting MAS. These media files are
+prefixed with SWA_ followed by the filename identifying the file to be replaced,
+i.e. <input>SWA_&lt;filename></input>. Default these files contains 0.1ms
+silent audio and are added to specific locations in the application call flow.
+These announcements can easily be replaced by non silent audio content using
+the <input>swaadmin</input> tool.</p>
+<note><p>Multiple system wide announcements can be installed on a MAS instance.
+One for each media content package</p>
+</note>
+<p>To change the announcement follow the procedure below:</p>
+<step-list>
+<sl-item><p>Record new audio in same format as the installed media content
+package.</p>
+</sl-item>
+<sl-item><p>Name the new files as the corresponding SWA file in the default
+call flow. Example:</p>
+<p>SWA_001.wav</p>
+<p>SWA_002.wav</p>
+<p>SWA_003.wav</p>
+</sl-item>
+<sl-item><p>Add these file in to a tar file. Example.</p>
+<p> <input># tar -cvf &lt;swa_tar_file> &lt;swa_file1> &lt;swa_file2> ...</input></p>
+</sl-item>
+<sl-item><p>Install the <input>&lt;swa_tar_file></input> using the <input>swaadmin</input> tool
+according to the descriptions in the subsections below. There are two different
+ways to run the tool, manually or using the deployment server.</p>
+</sl-item>
+</step-list>
+<chl2><title>System Wide Announcement Installation</title>
+<step-list>
+<sl-item><p>Log in to the host where the system wide announcement should be
+installed.</p>
+</sl-item>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>$ su -</input></p>
+</sl-item>
+<sl-item><p>Copy the system wide announcement tar file to a temporary directory
+on the host.</p>
+<p> <input># cp &lt;swa_tar_file> &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Change to &lt;tempdir></p>
+<p> <input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Install the tar file by issuing the following command :</p>
+<p> <input># /apps/mas/bin/swaadmin.sh install &lt;mcpid> &lt;swa_tar_file></input></p>
+</sl-item>
+<sl-item><p>Call in and listen to the new system announcements.</p>
+</sl-item>
+</step-list>
+<p></p>
+<note><p>The <input>swaadmin</input> tool will only replace media files prefixed
+with SWA_. Other files included in the <input>&lt;swa_tar_file></input> will
+be left out by the tool. If for some reason a non SWA media file needs to
+be replaced the <input>swaadmin</input> tool can be forced to replace any
+file included in the <input>&lt;swa_tar_file></input> by usage of a force
+flag <input>-f</input>. </p>
+<p>Example: <input>/apps/mas/bin/swaadmin.sh install &lt;mcpid> &lt;swa_tar_file>
+-f</input></p>
+<p>MAS must also be restarted before these new media files can be played.</p>
+</note>
+</chl2>
+<chl2><title>System Wide Announcement Deployment Server installation</title>
+<p>The System Wide Announcement package can be installed via a job script.</p>
+<chl3><title>Using a job script</title>
+<list type="numeric">
+<list-item><p>Copy the <input>&lt;swa_tar_file></input> to the &lt;DS_HOME>/install/dist
+directory on the deployment server.</p>
+</list-item>
+<list-item><p>Configure a job object for the System Wide Announcement installation
+that copies the <input>&lt;swa_tar_file></input> to all MAS machines:</p>
+<p> How to add and configure a job object is described in the <emph type="low">O&amp;M
+Deployment Server</emph> document.</p>
+<p>As destination use /apps/dist directory</p>
+</list-item>
+<list-item><p>Execute the job object.</p>
+</list-item>
+<list-item><p>Configure another job object for the System Wide Announcement
+installation that runs the <input>/apps/mas/bin/swaadmin.sh</input> script
+on all MAS machines with the following parameters: install &lt;mcpid> /apps/dist/&lt;swa_tar_file></p>
+<p> How to add and configure a job object is described in the <emph type="low">O&amp;M
+Deployment Server</emph> document.</p>
+</list-item>
+<list-item><p>Execute the job object</p>
+</list-item>
+<list-item><p>Call in and listen to the new system announcements.</p>
+</list-item>
+</list>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title>Uninstall System Wide Announcement</title>
+<chl2><title>System Wide Announcement Uninstallation</title>
+<p>To uninstall a system wide announcement package first retrieve the identity
+of the installed package by use of the <emph type="medium">viewmcp</emph> command.
+Check the id property of the media content package and provide this id as
+a parameter to the <emph type="medium">uninstall</emph> command.</p>
+<step-list>
+<sl-item><p>Retrieve the id of the media content package to uninstall the
+SWA from:</p>
+<p> <input># /etc/init.d/rc.mas viewmcp</input></p>
+</sl-item>
+<sl-item><p>Uninstall the system wide announcement package.</p>
+<p> <input># /apps/mas/bin/swaadmin.sh uninstall &lt;mcpid></input></p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>System Wide Announcement Deployment Server Uninstallation</title>
+<p>To uninstall a system wide announcement package, configure a job object
+for the uninstallation that runs the script <input>/apps/mas/bin/swaadmin.sh</input> on
+the remote host with the following parameters:</p>
+<p> <output>uninstall &lt;mcpid></output></p>
+<p>The id for a media content package can be retrieved using the <emph>/etc/init.d/rc.mas
+viewmcp</emph> command.</p>
+</chl2>
+</chl1>
+</body>
+</doc>
+<?Pub *0000082360 0?>

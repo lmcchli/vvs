@@ -1,0 +1,27 @@
+f = {
+ "from " FROM
+}
+
+i = {
+ "This is a phone number " QUOTE "+" PHONE QUOTE 
+}
+
+fromnumberprefix = { 
+ "number +"
+}
+
+d = {
+ "Date " TIME  "/" DATE
+}
+
+dd = {
+ "Date " DATE=ggg
+}
+
+ddd = {
+ "Date " DATE=yyyy-MM-dd_HH:mm
+}
+
+dddd = {
+ "$T" DATE=HH:mm " $D" DATE=dd:MM:yy " $U1"
+}

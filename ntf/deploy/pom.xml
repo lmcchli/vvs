@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>abcxyz.services.messaging.vvs.ntf</groupId>
+    <artifactId>ntf-parent</artifactId>
+    <version>MIO.CP50-SNAPSHOT</version>
+    <relativePath>../</relativePath>
+  </parent>
+  <groupId>abcxyz.services.messaging.vvs.ntf</groupId>
+  <artifactId>ntf-deploy-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>NTF Deploy Parent</name>
+  <modules>
+    <module>cfg/sdp</module>
+    <module>component/sdp</module>
+  </modules>
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="goodbye">
+        <log>TCPASS</log>
+        <exit></exit>
+    </catch>
+
+    <form id="rec1">
+        <record name="recording" dtmfterm="false">
+            <catch event="connection.disconnect.hangup">
+                <if cond="recording != undefined">
+                    <throw event="goodbye"></throw>
+                </if>
+            </catch>
+        </record>
+    </form>
+</vxml>

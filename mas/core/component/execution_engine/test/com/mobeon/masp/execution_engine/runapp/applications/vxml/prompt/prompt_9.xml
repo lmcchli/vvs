@@ -1,0 +1,8 @@
+<application>
+    <documents base="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/prompt/" type="application/xml+ccxml">
+        <document src="prompt_9.ccxml" root="true"/>
+    </documents>
+    <documents base="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/prompt/" type="application/xml+vxml">
+        <document src="prompt_9.vxml"/>
+    </documents>
+</application>

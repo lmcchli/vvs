@@ -1,0 +1,15 @@
+#!/bin/sh
+
+dtrace='
+BEGIN {
+	printf("Tracing '$2' in pid '$1'\n");
+}
+
+
+pid'$1'::malloc:return 
+/uregs[R_R0] == -1 || uregs[R_R0] == 0/{
+	ustack();
+}
+'
+
+/usr/sbin/dtrace -n "$dtrace"

@@ -1,0 +1,102 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+my @MDAYS=     ( 31,    28,    31,    30,    31,    30,    31,    31,    30,    31,    30,    31);
+my @MONTHNAMES=("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+my $KEYLENGTH = 40;
+my $MESSAGESTOREPORT = 5;
+
+$checkedfile="$NTF_HOME/logs/NotificationTrace.log";
+unless (-f $checkedfile) {
+    print "The log file \"$checkedfile\" does not exist yet.\n";
+    exit $result;
+}
+
+my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) =
+  localtime(time);
+$year += 1900;
+my $today = sprintf("%s %02d %04d", $MONTHNAMES[$mon], $mday, $year);
+--$mday;
+if ($mday == 0) {
+    --$mon;
+    if ($mon < 0) {
+        $mon = 0;
+        --$year;
+    }
+    $mday = $MDAYS{$mon};
+    $mday = 29 if $mday == 28 && ($year % 4 == 0); #Fails 2100
+}
+my $yesterday = sprintf("%s %02d %04d", $MONTHNAMES[$mon], $mday, $year);
+
+unless (open (F, "<$checkedfile")) {
+    print "$checkedfile: No log file to check\n";
+    exit "$result";
+}
+
+my $start = 0;
+my $uniquemessages = 0;
+while (chomp($_ = <F>)) {
+    unless ($start) {
+        if (/$yesterday (\d\d)/) {
+            $start = 1 if ($1 >= $hour);
+        } else {
+            $start = 1 if /$today/;
+        }
+    }
+#                   Nov 29 2005 10:41:10:774 [ Debug ] [XmpClient] Updating service OutdialNotification
+    if ($start && /^... .. .... ..:..:..:... \[ Error ] \[[^]]*] (.*)/) {
+        $msg = $1;
+        $key = substr($msg, 0, $KEYLENGTH);
+        if (0 == $errcount{$key}++) {
+            $errors{$key} = $msg;
+            if ($uniquemessages++ > 1000) {
+                print "Too many different error messages, processing only the first 1000\n";
+                last;
+            }
+        }
+    }
+}
+
+if ($uniquemessages == 0) {
+    print "No error messages found\n";
+    exit $result;
+} else {
+    $result = 1;
+}
+
+for ($i = 0; $i < $MESSAGESTOREPORT; $i++) {
+    $max[$i] = 0;
+}
+
+foreach $key (keys %errcount) {
+    if ($errcount{$key} > $max[0]) {
+        $max[0] = $errcount{$key};
+        $keys[0] = $key;
+        for ($i = 1; $i < $MESSAGESTOREPORT; $i++) {
+            if ($max[$i] < $max[$i-1]) {
+                my $tmp = $max[$i];
+                $max[$i] = $max[$i-1];
+                $max[$i-1] = $tmp;
+                $tmp = $keys[$i];
+                $keys[$i] = $keys[$i-1];
+                $keys[$i-1] = $tmp;
+            } else {
+                last;
+            }
+        }
+    }
+}
+
+print "The most frequent error messages the last day are:\n";
+for ($i = 0; $i < $MESSAGESTOREPORT; $i++) {
+    if ($max[$i] != 0) {
+        print "\"$errors{$keys[$i]}\": $errcount{$keys[$i]} " . ($max[$i] > 1? "occurences": "occurence") . "\n";
+    }
+}
+
+exit $result;
+

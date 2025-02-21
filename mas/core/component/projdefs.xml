@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+    <echo message="ant.project.name: ${ant.project.name}"/>
+    <echo message="basedir: ${basedir}"/>
+    <echo message="ant.file: ${ant.file}"/>
+    <echo message="ant.version: ${ant.version}"/>
+    <echo message="ant.java.version: ${ant.java.version}"/>
+    <echo message="user.name: ${user.name}"/>
+    <echo message="java.version: ${java.version}"/>
+    <echo message="java.vendor: ${java.vendor}"/>
+    <echo message="os.name: ${os.name}"/>
+    <echo message="os.arch: ${os.arch}"/>
+    <echo message="os.version: ${os.version}"/>
+
+    <!-- Ant options -->
+    <echo message="Using (if exists) ${project.basedir}/${user.name}_build.properties"/>
+    <property file="${project.basedir}/${user.name}_build.properties"/>
+    <property name="project.basedir" value="."/>
+    <property name="build.failoncomponenterror" value="false"/>
+
+    <!-- Compiler options -->
+    <property name="build.compiler" value="modern"/>
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value="-encoding ISO-8859-1"/>
+    <echo message="compiler.args: ${compiler.args}"/>
+    <property name="compiler.max.memory" value="128m"/>
+    <patternset id="compiler.excluded"/>
+    <patternset id="compiler.resources">
+        <include name="**/?*.properties"/>
+        <include name="**/?*.xml"/>
+        <include name="**/?*.gif"/>
+        <include name="**/?*.png"/>
+        <include name="**/?*.jpeg"/>
+        <include name="**/?*.jpg"/>
+        <include name="**/?*.html"/>
+        <include name="**/?*.dtd"/>
+        <include name="**/?*.tld"/>
+    </patternset>
+
+
+    <!-- JDK definitions -->
+    <property environment="env"/>
+    <property name="jdk.home.java_version_1.5.0_03" value="${env.JAVA_HOME}"/>
+    <path id="jdk.classpath.java_version_1.5.0_03">
+        <fileset dir="${jdk.home.java_version_1.5.0_03}">
+            <include name="jre/lib/charsets.jar"/>
+            <include name="jre/lib/deploy.jar"/>
+            <include name="jre/lib/javaws.jar"/>
+            <include name="jre/lib/jce.jar"/>
+            <include name="jre/lib/jsse.jar"/>
+            <include name="jre/lib/plugin.jar"/>
+            <include name="jre/lib/rt.jar"/>
+            <include name="jre/lib/ext/dnsns.jar"/>
+            <include name="jre/lib/ext/localedata.jar"/>
+            <include name="jre/lib/ext/sunjce_provider.jar"/>
+            <include name="jre/lib/ext/sunpkcs11.jar"/>
+        </fileset>
+        <fileset dir="lib">
+            <include name="${project.basedir}/*.jar"/>
+        </fileset>
+    </path>
+
+    <property name="project.jdk.home" value="${jdk.home.java_version_1.5.0_03}"/>
+    <property name="project.jdk.classpath" value="jdk.classpath.java_version_1.5.0_03"/>
+
+
+    <dirname property="checkmate.basedir" file="${ant.file}"/>
+
+    <property name="module.jdk.home.checkmate" value="${project.jdk.home}"/>
+    <property name="module.jdk.classpath.checkmate" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.checkmate" value="${compiler.args}"/>
+
+    <property name="checkmate.output.dir" value="${checkmate.basedir}/classes"/>
+    <property name="checkmate.testoutput.dir" value="${checkmate.basedir}/classes"/>
+    <property name="com.mobeon.junit.runapp.test" value=""/>
+    <property name="com.mobeon.junit.runapp.timeout" value=""/>
+
+
+    <property name="env.JCSC_HOME" value="${project.basedir}/tools/jcsc"/>
+
+    <path id="checkmate.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+</project>

@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/event/" type="application/xml+ccxml">
+        <document src="event_numbercomplete_true.ccxml" root="true"/>
+    </documents>
+</application>

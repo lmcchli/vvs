@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="configuration" nillable="false">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="trafficeventsender"/>
+				<xs:element ref="callmanager"/>
+				<xs:element ref="contenttypemapper"/>
+				<xs:element ref="executionengine"/>
+				<xs:element ref="externalcomponentregister"/>
+				<xs:element ref="mediacontentmanager"/>
+				<xs:element ref="mediatranslationmanager"/>
+				<xs:element ref="mailbox"/>
+				<xs:element ref="messagesender"/>
+				<xs:element ref="operateandmaintainmanager"/>
+				<xs:element ref="profilemanager"/>
+				<xs:element ref="servicerequestmanager"/>
+				<xs:element ref="stream"/>
+				<xs:element ref="provisionmanager"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="trafficeventsender">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="emailconfig"/>
+				<xs:element ref="radiusconfig"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="emailconfig">
+		<xs:complexType>
+			<xs:attribute name="templatespath"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="radiusconfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="servicename"/>
+			<xs:attribute name="queuesize" type="xs:positiveInteger"/>
+			<xs:attribute name="delay" type="xs:nonNegativeInteger"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="attribute">
+		<xs:complexType>
+			<xs:attribute name="name"/>
+			<xs:attribute name="number" type="xs:nonNegativeInteger"/>
+			<xs:attribute name="type" type="xs:boolean"/>
+			<xs:attribute name="datatype">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="I|E|S"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="callmanager">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="requiredoutboundaudiomedia"/>
+				<xs:element ref="requiredoutboundvideomedia"/>
+				<xs:element ref="releasecausemappings" minOccurs="0"/>
+				<xs:element ref="remoteparty"/>
+				<xs:element ref="siptimers" minOccurs="0"/>
+				<xs:element ref="diagnoseservice" minOccurs="0"/>
+				<xs:element ref="loadregulation" minOccurs="0"/>
+				<xs:element ref="restrictedoutboundheaders" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="callnotacceptedtimer" type="callnotacceptedtimer" use="optional"/>
+			<xs:attribute name="registerbackofftimer" type="registerbackofftimer" use="optional"/>
+			<xs:attribute name="registerbeforeexpirationtime" type="registerbeforeexpirationtime" use="optional"/>
+			<xs:attribute name="blacklisttimer" type="blacklisttimer" use="optional"/>
+			<xs:attribute name="inboundaudiomedia" type="xs:string" use="required"/>
+			<xs:attribute name="inboundvideomedia" type="xs:string" use="required"/>
+			<xs:attribute name="ptime" type="xs:int" use="optional"/>
+			<xs:attribute name="registeredname" type="letterdigitonlystring" use="optional"/>
+			<xs:attribute name="defaultcalltype" type="calltype" use="optional"/>
+			<xs:attribute name="outboundcallcallingparty" type="xs:string" use="required"/>
+			<xs:attribute name="outboundcallconnecttimeout" type="callnotacceptedtimer" use="optional"/>
+			<xs:attribute name="disconnectonsiptimeout" type="xs:boolean" use="optional"/>
+			<xs:attribute name="sendprovisionalresponsesreliable" type="reliableresponses" use="optional"/>
+			<xs:attribute name="supporttestinput" type="xs:boolean" use="optional"/>
+            <xs:attribute name="outboundcallserverport" type="xs:positiveInteger" use="optional"/>
+            <xs:attribute name="useragentwithphoneinsipuributnouserparameter" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="restrictedoutboundheaders">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="header" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="header">
+		<xs:complexType>
+			<xs:attribute name="name" type="restrictedheader" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="restrictedheader">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="remote-party-id"/>
+			<xs:enumeration value="p-asserted-identity"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="reliableresponses">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="yes"/>
+			<xs:enumeration value="no"/>
+			<xs:enumeration value="sdponly"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="calltype">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="voice"/>
+			<xs:enumeration value="video"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="callnotacceptedtimer">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="32000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="registerbackofftimer">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="5000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="registerbeforeexpirationtime">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="30000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="blacklisttimer">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="diagnoseservice">
+		<xs:complexType>
+			<xs:attribute name="host" type="xs:string" use="optional"/>
+			<xs:attribute name="port" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="clientid" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="loadregulation">
+		<xs:complexType>
+			<xs:attribute name="initialramphwm" type="xs:int" use="optional"/>
+			<xs:attribute name="channelstoincrease" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="numberofincrements" type="xs:positiveInteger" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="siptimers">
+		<xs:complexType>
+			<xs:attribute name="t2" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="t4" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerb" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerc" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerd" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerf" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerh" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerj" type="xs:positiveInteger" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="requiredoutboundaudiomedia">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mediatype" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="requiredoutboundvideomedia">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mediatype" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mediatype">
+		<xs:complexType>
+			<xs:attribute name="encoding" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="releasecausemappings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mapping" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="defaultnetworkstatuscode" type="networkstatuscode" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mapping">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="networkstatuscode" type="networkstatuscode" use="required"/>
+			<xs:attribute name="sipresponsecodeintervals" type="sipresponsecodeintervals" use="required"/>
+			<xs:attribute name="q850causeintervals" type="q850causeintervals" use="required"/>
+			<xs:attribute name="q850locationintervals" type="q850locationintervals" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="letterdigitonlystring">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sipresponsecodeintervals">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[3-6][0-9][0-9](-[3-6][0-9][0-9])?(,[3-6][0-9][0-9](-[3-6][0-9][0-9])?)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="q850causeintervals">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7]))(-(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7])))?(,(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7]))(-(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7])))?)*"/>
+			<!-- Valid range is 0-127 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="q850locationintervals">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(([0-9])|([1][0-5]))(-(([0-9])|([1][0-5])))?(,(([0-9])|([1][0-5]))(-(([0-9])|([1][0-5])))?)*"/>
+			<!-- Valid range is 0-15 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="networkstatuscode">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="601"/>
+			<xs:maxInclusive value="634"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="remoteparty">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ssplist"/>
+				<xs:element ref="sipproxy"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ssplist">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="address" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="sipproxy">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="address"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="address">
+		<xs:complexType>
+			<xs:attribute name="host" type="xs:string" use="required"/>
+			<xs:attribute name="port" type="xs:positiveInteger" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="codec">
+		<xs:complexType>
+			<xs:attribute name="mimetype" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contenttype">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="codec" maxOccurs="unbounded"/>
+				<xs:element ref="fileext"/>
+			</xs:sequence>
+			<xs:attribute name="mimetype" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contenttypemapper">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="contenttype" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="fileext">
+		<xs:complexType>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="executionengine">
+		<xs:complexType mixed="true">
+			<xs:attribute name="enginestacksize" type="enginestacksize" use="required"/>
+			<xs:attribute name="callmanagerwaittime" type="callmanagerwaittime" use="required"/>
+			<xs:attribute name="accepttimeout" type="accepttimeout" use="required"/>
+			<xs:attribute name="createcalladditionaltimeout" type="createcalladditionaltimeout" use="required"/>
+			<xs:attribute name="traceenabled" type="xs:boolean" use="required"/>
+			<xs:attribute name="alwayscompile" type="xs:boolean" use="required"/>
+			<xs:attribute name="generateops" type="xs:boolean" use="required"/>
+			<xs:attribute name="opspath" type="xs:string" use="required"/>
+			<xs:attribute name="hostname" type="xs:string" use="required"/>
+			<xs:attribute name="watchdogtimeout" type="watchdogtimeout" use="required"/>
+                        <xs:attribute name="enginevxmlpoolsize" type="enginevxmlpoolsize" use="required"/>
+                        <xs:attribute name="engineccxmlpoolsize" type="engineccxmlpoolsize" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="enginestacksize">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="100"/>
+			<xs:maxInclusive value="10000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="watchdogtimeout">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="60000"/>
+			<xs:maxInclusive value="600000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="callmanagerwaittime">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="3000"/>
+			<xs:maxInclusive value="100000"/>
+		</xs:restriction>
+	</xs:simpleType>
+        <xs:simpleType name="enginevxmlpoolsize">
+                <xs:restriction base="xs:nonNegativeInteger">
+                        <xs:minInclusive value="0"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="engineccxmlpoolsize">
+                <xs:restriction base="xs:nonNegativeInteger">
+                        <xs:minInclusive value="0"/>
+                </xs:restriction>
+        </xs:simpleType>
+	<xs:simpleType name="accepttimeout">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="3000"/>
+			<xs:maxInclusive value="100000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="createcalladditionaltimeout">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="10000"/>
+			<xs:maxInclusive value="30000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="externalcomponentregister">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="mcr"/>
+				<xs:element ref="propertymap"/>
+				<xs:element ref="services"/>
+				<xs:element ref="algorithms"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mcr">
+		<xs:complexType>
+			<xs:attribute name="hostname" type="xs:string"/>
+			<xs:attribute name="port" type="xs:integer"/>
+			<xs:attribute name="timeout" type="xs:integer"/>
+			<xs:attribute name="userid" type="xs:string"/>
+			<xs:attribute name="password" type="xs:string"/>
+			<xs:attribute name="suffix" type="xs:string"/>
+			<xs:attribute name="periodicity" type="xs:integer"/>
+			<xs:attribute name="lookupdelay" type="xs:integer"/>
+			<xs:attribute name="trylimit" type="xs:integer" use="required"/>
+			<xs:attribute name="trytimelimit" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="value">
+		<xs:attribute name="value" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="propertymap">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="port" type="mcrproperty"/>
+				<xs:element name="protocol" type="mcrproperty"/>
+				<xs:element name="version" type="mcrproperty"/>
+				<xs:element name="hostname" type="mcrproperty"/>
+				<xs:element name="logicalzone" type="mcrproperty"/>
+				<xs:element name="component" type="mcrproperty"/>
+				<xs:element name="type" type="mcrproperty"/>
+				<xs:element name="rootoid" type="mcrproperty"/>
+				<xs:element name="language" type="mcrproperty"/>
+				<xs:element name="replicationid" type="mcrproperty"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="mcrproperty">
+		<xs:attribute name="mcrname" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="services">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="storage" type="service"/>
+				<xs:element name="smtpstorage" type="service"/>
+				<xs:element name="userregister" type="service"/>
+				<xs:element name="userregisterwrite" type="service" minOccurs="0"/>
+				<xs:element name="eventreporting" type="service"/>
+				<xs:element name="texttospeech" type="service"/>
+				<xs:element name="speechrecognition" type="service"/>
+				<xs:element name="provisioning" type="service"/>
+				<xs:element name="Accounting" type="service"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="service">
+		<xs:sequence>
+			<xs:element name="default" type="instanceproperties" minOccurs="0"/>
+			<xs:element name="instance" type="instanceproperties" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="overridemcr" type="xs:boolean" use="required"/>
+		<xs:attribute name="servicename" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="instanceproperties">
+		<xs:attribute name="port" type="xs:string"/>
+		<xs:attribute name="hostname" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="protocol" type="xs:string"/>
+		<xs:attribute name="component" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="algorithms">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="localrandomchooser"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="localrandomchooser">
+		<xs:complexType>
+			<xs:attribute name="logicalzone" type="xs:string"/>
+			<xs:attribute name="netmask" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mailbox">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="additionalproperty" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" use="required"/>
+									<xs:attribute name="field" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="imap"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="imap">
+		<xs:complexType>
+			<xs:attribute name="connectiontimeout" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="commandtimeout" type="xs:positiveInteger" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:annotation>
+		<xs:documentation>
+             Configuration for the MediaContentManager.
+         </xs:documentation>
+	</xs:annotation>
+	<xs:element name="mediacontentmanager">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>
+                        Cache is optional. If none given, no cache is used by the MediaContentManager.
+                     </xs:documentation>
+				</xs:annotation>
+				<xs:element ref="mediaobjectcache" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="resourcepath" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mediaobjectcache">
+		<xs:annotation>
+			<xs:documentation>
+                 Configuration for the MediaObject cache.
+                 Policy is the caching policy that is used. See type policyType
+                 maxSize is the max number of MediaObjects in the cache.
+                 elementTimeout is the timeout in seconds for an element.
+                 memorySensitive If set to true the elements in the cache is available for garbage collection
+             </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="policy" type="policyType" use="required"/>
+			<xs:attribute name="maxsize" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="elementtimeout" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="memorysensitive" type="xs:boolean" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="policyType">
+		<xs:annotation>
+			<xs:documentation>
+                        Enumeration of policy policies.
+                        lfu=  Least frequently used
+                        fifo= First in first out
+                        lru=  Least recently used)
+                 </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fifo"/>
+			<xs:enumeration value="lfu"/>
+			<xs:enumeration value="lru"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="mediatranslationmanager">
+		<xs:complexType>
+			<xs:attribute name="texttospeechlanguages" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="messagesender">
+		<xs:complexType>
+			<xs:attribute name="smtpservicename" type="xs:string" use="required"/>
+			<xs:attribute name="smtpretries" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="smtpconnectiontimeout" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="smtpcommandtimeout" type="xs:positiveInteger" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="omm">
+		<xs:complexType>
+			<xs:attribute name="hostname" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="port" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:short"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="rpcmaxnoofretries" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="rpcretrydelaysec" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:byte"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="countersavetimeout" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:byte"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="countersavefilenamesufix" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="countersavefilenamepath" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="masnoresponsetimeoutlimituntildown" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="logicalzone" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="serviceinitthreshold" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="serviceenablerlowwatermark" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="serviceenablerhighwatermark" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="serviceenablers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="serviceenabler" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="serviceenabler">
+		<xs:complexType>
+			<xs:attribute name="protocol" type="xs:string" use="required"/>
+			<xs:attribute name="initthreshold" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="lowwatermark" type="xs:nonNegativeInteger" use="required"/>
+			<xs:attribute name="highwatermark" type="xs:positiveInteger" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="operateandmaintainmanager">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="omm"/>
+				<xs:element ref="serviceenablers"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="profilemanager">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="userregister"/>
+				<xs:element ref="connectionpool"/>
+				<xs:element ref="provisioning"/>
+				<xs:element ref="attributemap"/>
+			</xs:sequence>
+			<xs:attribute name="limitscope" type="xs:boolean" use="required"/>
+			<xs:attribute name="coscachetimeout" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="userregister">
+		<xs:complexType>
+			<xs:attribute name="readtimeout" type="xs:integer" use="required"/>
+			<xs:attribute name="writetimeout" type="xs:integer" use="required"/>
+			<xs:attribute name="admin" type="xs:string" use="required"/>
+			<xs:attribute name="password" type="xs:string" use="required"/>
+			<xs:attribute name="defaultsearchbase" type="xs:string" use="required"/>
+			<xs:attribute name="trylimit" type="xs:integer" use="required"/>
+			<xs:attribute name="trytimelimit" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="connectionpool">
+		<xs:complexType>
+			<xs:attribute name="maxsize" type="xs:integer" use="required"/>
+			<xs:attribute name="connectionlifetime" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="provisioning">
+		<xs:complexType>
+			<xs:attribute name="password" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="attributemap">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="activegreetingid" type="stringmetadata"/>
+				<xs:element name="addressbookserver" type="provisioning"/>
+				<xs:element name="autoplay" type="booleanmetadata"/>
+				<xs:element name="badlogincount" type="integermetadata"/>
+				<xs:element name="billingnumber" type="stringmetadatareadonly"/>
+				<xs:element name="caattr" type="stringmetadatareadonly"/>
+				<xs:element name="callerxfer" type="booleanmetadatareadonly"/>
+				<xs:element name="callerxfertocoverage" type="booleanmetadatareadonly"/>
+				<xs:element name="cdgmax" type="integermetadatareadonly"/>
+				<xs:element name="cn" type="stringmetadatareadonly"/>
+				<xs:element name="cosdn" type="stringmetadatareadonly"/>
+				<xs:element name="cosname" type="stringmetadatareadonly"/>
+				<xs:element name="coverphonenumber" type="stringmetadata"/>
+				<xs:element name="diskspaceremainingwarninglevel" type="stringmetadatareadonly"/>
+				<xs:element name="dlentriesmax" type="integermetadatareadonly"/>
+				<xs:element name="dlmax" type="integermetadatareadonly"/>
+				<xs:element name="emactivecdg" type="stringmetadata"/>
+				<xs:element name="emautoprintfax" type="booleanmetadata"/>
+				<xs:element name="emca" type="stringmetadata"/>
+				<xs:element name="emcnl" type="booleanmetadatareadonly"/>
+				<xs:element name="emcustomerid" type="stringmetadatareadonly"/>
+				<xs:element name="emdeliveryprofile" type="stringmetadata"/>
+				<xs:element name="emfilter" type="stringmetadata"/>
+				<xs:element name="emftl" type="stringmetadata"/>
+				<xs:element name="emftlfunctions" type="stringmetadatareadonly"/>
+				<xs:element name="emgroupmember" type="stringmetadatareadonly"/>
+				<xs:element name="emlogindate" type="stringmetadata"/>
+				<xs:element name="emmaxgroupmember" type="integermetadatareadonly"/>
+				<xs:element name="emmin" type="stringmetadatareadonly"/>
+				<xs:element name="emmmscenterid" type="stringmetadatareadonly"/>
+				<xs:element name="emmsglenmaxvideo" type="integermetadatareadonly"/>
+				<xs:element name="emmsgplayorder" type="stringmetadata"/>
+				<xs:element name="emnoofmailquota" type="integermetadatareadonly"/>
+				<xs:element name="emnotifnumber" type="stringmetadata"/>
+				<xs:element name="emntd" type="stringmetadata"/>
+				<xs:element name="emodlpinskip" type="booleanmetadata"/>
+				<xs:element name="emoutboundcalltl" type="integermetadatareadonly"/>
+				<xs:element name="empnc" type="stringmetadatareadonly"/>
+				<xs:element name="empreferreddateformat" type="stringmetadatareadonly"/>
+				<xs:element name="empreferredtimeformat" type="stringmetadata"/>
+				<xs:element name="emreadlevel" type="integermetadatareadonly"/>
+				<xs:element name="emsecnb" type="stringmetadatareadonly"/>
+				<xs:element name="emservicedn" type="stringmetadatareadonly"/>
+				<xs:element name="emsmppcenterid" type="stringmetadatareadonly"/>
+				<xs:element name="emtmpgrt" type="stringmetadata"/>
+				<xs:element name="emtmpgrtavailable" type="booleanmetadatareadonly"/>
+				<xs:element name="emtuiaccess" type="stringmetadatareadonly"/>
+				<xs:element name="emtuiblockedmenu" type="stringmetadatareadonly"/>
+				<xs:element name="emuserntd" type="stringmetadata"/>
+				<xs:element name="emusersd" type="stringmetadata"/>
+				<xs:element name="emvuiaccess" type="stringmetadatareadonly"/>
+				<xs:element name="eomsgwarning" type="integermetadatareadonly"/>
+				<xs:element name="facsimiletelephonenumber" type="stringmetadata"/>
+				<xs:element name="familymembers" type="provisioning"/>
+				<xs:element name="fastloginavailable" type="booleanmetadatareadonly"/>
+				<xs:element name="fastloginenabled" type="booleanmetadata"/>
+				<xs:element name="faxenabled" type="booleanmetadatareadonly"/>
+				<xs:element name="gender" type="stringmetadatareadonly"/>
+				<xs:element name="greetingsecmax" type="integermetadatareadonly"/>
+				<xs:element name="inboundfaxno" type="stringmetadatareadonly"/>
+				<xs:element name="includespokenname" type="booleanmetadatareadonly"/>
+				<xs:element name="inhoursdow" type="stringmetadata"/>
+				<xs:element name="inhoursend" type="stringmetadata"/>
+				<xs:element name="inhoursstart" type="stringmetadata"/>
+				<xs:element name="mail" type="stringmetadatareadonly"/>
+				<xs:element name="mailalternateaddress" type="stringmetadatareadonly"/>
+				<xs:element name="mailhost" type="stringmetadatareadonly"/>
+				<xs:element name="mailquota" type="integermetadatareadonly"/>
+				<xs:element name="mailuserstatus" type="stringmetadatareadonly"/>
+				<xs:element name="maxloginlockout" type="integermetadatareadonly"/>
+				<xs:element name="messageinventory" type="booleanmetadatareadonly"/>
+				<xs:element name="messageplayemail" type="stringmetadata"/>
+				<xs:element name="messageplayvideo" type="stringmetadata"/>
+				<xs:element name="messageplayvoice" type="stringmetadata"/>
+				
+                <xs:element name="emoutcallserv" type="stringmetadatareadonly"/>
+                <xs:element name="msglenmaxvoice" type="integermetadatareadonly"/>
+				<xs:element name="mslocation" type="provisioning"/>
+				<xs:element name="noforfirstname" type="stringmetadatareadonly"/>
+				<xs:element name="noforlastname" type="stringmetadatareadonly"/>
+				<xs:element name="passwdlenmax" type="integermetadatareadonly"/>
+				<xs:element name="passwdlenmin" type="integermetadatareadonly"/>
+				<xs:element name="password" type="stringmetadatareadonly"/>
+				<xs:element name="passwordskipavailable" type="booleanmetadatareadonly"/>
+				<xs:element name="passwordskipenabled" type="booleanmetadata"/>
+				<xs:element name="preferredlanguage" type="stringmetadata"/>
+				<xs:element name="phonenumbercalleraccesssection" type="stringmetadatareadonly"/>
+				<xs:element name="phonenumberdialingsection" type="stringmetadatareadonly"/>
+				<xs:element name="reinventory" type="booleanmetadatareadonly"/>
+				<xs:element name="sn" type="stringmetadatareadonly"/>
+				<xs:element name="subscribertimezone" type="stringmetadatareadonly"/>
+				<xs:element name="subscriberxfer" type="booleanmetadatareadonly"/>
+				<xs:element name="subsearchbase" type="stringmetadatareadonly"/>
+				<xs:element name="telephonenumber" type="stringmetadatareadonly"/>
+				<xs:element name="ttsemailenabled" type="booleanmetadatareadonly"/>
+				<xs:element name="uid" type="stringmetadatareadonly"/>
+				<xs:element name="umpassword" type="stringmetadata"/>
+				<xs:element name="urgentmsgplay" type="booleanmetadata"/>
+				<xs:element name="userlevel" type="integermetadata"/>
+				<xs:element name="welcomegrt" type="stringmetadatareadonly"/>
+				<xs:element name="xamtevatitle" type="stringmetadatareadonly"/>
+				<!-- Elements not in attribute document -->
+				<xs:element name="admininfo" type="stringmetadatareadonly"/>
+				<xs:element name="emallowedmaildomains" type="stringmetadatareadonly"/><xs:element name="uniqueidentifier" type="stringmetadatareadonly"/>
+			</xs:all>
+			<xs:attribute name="searchorder" type="searchorder" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="datatype">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="string"/>
+			<xs:enumeration value="xstring"/><xs:enumeration value="integer"/>
+			
+			<xs:enumeration value="boolean"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="writelevel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="billing"/>
+			<xs:enumeration value="user"/><xs:enumeration value="cos"/>
+			
+			<xs:enumeration value="community"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Type used for pure provisioning attributes -->
+	<xs:complexType name="provisioning">
+		<xs:attribute name="provisioningname" type="xs:string" use="required"/>
+	</xs:complexType>
+	<!-- Base type for all user register attributes -->
+	<xs:complexType name="metadatareadonly">
+		<xs:attribute name="userregistername" type="xs:string" use="required"/>
+		<xs:attribute name="provisioningname" type="xs:string"/>
+		<xs:attribute name="searchorder" type="searchorder"/>
+	</xs:complexType>
+	<!-- Todo: Add more complicated searchorders -->
+	<xs:simpleType name="searchorder">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="community"/>
+			<xs:enumeration value="community,cos"/><xs:enumeration value="community,cos,user"/>
+			<xs:enumeration value="community,cos,user,billing"/><xs:enumeration value="community,cos,billing,user"/>
+			<xs:enumeration value="cos"/><xs:enumeration value="cos,user"/>
+			<xs:enumeration value="cos,user,billing"/><xs:enumeration value="cos,billing,user"/>
+			<xs:enumeration value="user"/><xs:enumeration value="user,billing"/>
+			<xs:enumeration value="billing"/>
+			
+			
+			
+			
+			
+			<xs:enumeration value="billing,user"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="stringmetadatareadonly">
+		<xs:complexContent>
+			<xs:extension base="metadatareadonly">
+				<xs:attribute name="default" type="xs:string"/>
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="string"/>
+							<xs:enumeration value="xstring"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="stringmetadata">
+		<xs:complexContent>
+			<xs:extension base="stringmetadatareadonly">
+				<xs:attribute name="writelevel" type="writelevel" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="integermetadatareadonly">
+		<xs:complexContent>
+			<xs:extension base="metadatareadonly">
+				<xs:attribute name="default" type="xs:integer"/>
+				<xs:attribute name="min" type="xs:integer"/>
+				<xs:attribute name="max" type="xs:integer"/>
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="integer"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="integermetadata">
+		<xs:complexContent>
+			<xs:extension base="integermetadatareadonly">
+				<xs:attribute name="writelevel" type="writelevel" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="booleanmetadatareadonly">
+		<xs:complexContent>
+			<xs:extension base="metadatareadonly">
+				<xs:attribute name="default" type="xs:string"/>
+				<xs:attribute name="true" type="xs:string" use="required"/>
+				<xs:attribute name="false" type="xs:string" use="required"/>
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="boolean"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="booleanmetadata">
+		<xs:complexContent>
+			<xs:extension base="booleanmetadatareadonly">
+				<xs:attribute name="writelevel" type="writelevel" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="servicerequestmanager">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="diagnoseservice"/>
+			</xs:sequence>
+			<xs:attribute name="requesttimeout" type="xs:integer"/>
+			<xs:attribute name="requestretries" type="xs:integer"/>
+			<xs:attribute name="clientid" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<!--   Look under section callmanager for diagnoseservice -->
+	<xs:element name="stream">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="supportedcontenttype" maxOccurs="unbounded"/>
+				<xs:element ref="rtppayloaddef" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="portpoolsize" type="xs:positiveInteger" use="optional" default="300"/>
+			<xs:attribute name="portpoolbase" type="xs:positiveInteger" use="optional" default="23000"/>
+			<xs:attribute name="movfileversion" type="xs:nonNegativeInteger" use="optional" default="1"/>
+			<xs:attribute name="synccallmaxwaittimesec" type="xs:positiveInteger" use="optional" default="120"/>
+			<xs:attribute name="sendpacketsaheadms" type="xs:nonNegativeInteger" use="optional" default="40"/>
+			<xs:attribute name="expiretimeoutms" type="xs:positiveInteger" use="optional" default="100000000"/>
+			<xs:attribute name="streamabandonedms" type="xs:positiveInteger" use="optional" default="32000"/>
+			<xs:attribute name="senderscontrolfraction" type="xs:decimal" use="optional" default="0.5"/>
+			<xs:attribute name="audioreplacewithsilencems" type="xs:nonNegativeInteger" use="optional" default="0"/>
+			<xs:attribute name="localhostname" type="xs:string" use="optional" default="0.0.0.0"/>
+			<xs:attribute name="dispatchdtmfonkeydown" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="maximumtransmissionunit" type="xs:positiveInteger" use="optional" default="1500"/>
+			<xs:attribute name="skew" type="xs:integer" use="optional" default="0"/>
+			<xs:attribute name="skewmethod" type="xs:string" use="optional" default="LOCAL_AND_RTCP"/>
+			<xs:attribute name="audioskipms" type="xs:nonNegativeInteger" use="optional" default="0"/>
+			<xs:attribute name="maxwaitforiframems" type="xs:nonNegativeInteger" use="optional" default="2000"/>
+			<xs:attribute name="defaultinboundptime" type="xs:positiveInteger" use="optional" default="40"/>
+			<xs:attribute name="defaultinboundmaxptime" type="xs:positiveInteger" use="optional" default="40"/>
+			<xs:attribute name="outputprocessors" type="xs:positiveInteger" use="optional" default="1"/>
+			<xs:attribute name="inputprocessors" type="xs:positiveInteger" use="optional" default="1"/>
+			<!-- sendpacketsaheadms: If &gt; 0, packets will be dispatched this amount of ms ahead of their timestamp. -->
+			<!-- maximumtransmissionunit: The IP layer can accept packets up to 65535 octets. The largest
+                   packet an Ethernet can deliver is 1500 octets. 1500 is a typical value because virtually
+                   all backbone network links hava an MTU of 1500 or more. -->
+			<!-- skew: Number of milliseconds the audio should be sent ahead of the video. If the video
+                  should be sent ahead of the audio, this should be a negative value. -->
+			<!-- skewmethod: &quot;LOCAL&quot; / &quot;LOCAL_AND_RTCP&quot; / &quot;RTCP&quot; -->
+			<!-- maxwaitforiframems: Maximum time in milliseconds a record-operation will wait for an I-frame
+                  before the recording starts. -->
+			<!-- defaultinboundptime: Default pTime for inbound sessions. Note that this value is only applicable
+                  for uncompressed encodings like PCMU. -->
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="supportedcontenttype">
+		<!-- All supported content-types, for example &quot;audio/wav&quot;, &quot;video/quicktime&quot;-->
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rtppayloaddef">
+		<!-- Definitions for all supported rtppayloads -->
+		<xs:complexType>
+			<xs:attribute name="primarytype" type="xs:string" use="required"/>
+			<xs:attribute name="subtype" type="xs:string" use="required"/>
+			<xs:attribute name="rtppayload" type="xs:nonNegativeInteger" use="required"/>
+			<xs:attribute name="encoding" type="xs:string" use="required"/>
+			<xs:attribute name="clockrate" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="bitrate" type="xs:nonNegativeInteger" use="required"/>
+ 			<xs:attribute name="mediaformatparameters" type="xs:string" use="optional"/>
+			<xs:attribute name="minrs" type="xs:nonNegativeInteger" use="optional"/>
+			<xs:attribute name="maxrs" type="xs:nonNegativeInteger" use="optional"/>
+			<xs:attribute name="minrr" type="xs:nonNegativeInteger" use="optional"/>
+                        <xs:attribute name="maxrr" type="xs:nonNegativeInteger" use="optional"/>
+                        <xs:attribute name="rr" type="xs:nonNegativeInteger" use="optional"/>
+                        <xs:attribute name="rs" type="xs:nonNegativeInteger" use="optional"/>
+			<!-- Primary type in lower-case, for example &quot;audio&quot;, &quot;video&quot;, &quot;text&quot;  -->
+			<!-- Sub-type in lower-case, for example &quot;pcmu&quot;, &quot;h263&quot;, &quot;telephone-event&quot;  -->
+			<!-- RTP payload (as defined in RFC3551 for static types).  -->
+			<!-- Encoding as defined by IANA (case-sensitive). -->
+			<!-- Clockrate in Hz. -->
+			<!-- bitrate in bit/s -->
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="provisionmanager">
+		<xs:complexType>
+			<xs:attribute name="connectionpoolsize" type="xs:positiveInteger"/>
+			<xs:attribute name="connectiontimeout" type="xs:positiveInteger"/>
+			<xs:attribute name="connectionidletimeout" type="xs:positiveInteger"/>
+			<xs:attribute name="commandsendretries" type="xs:positiveInteger"/>
+			<xs:attribute name="defaultmailhost"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

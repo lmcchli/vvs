@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult2" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult3" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="cond1">
+      <block>
+         <if cond="((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel') &gt;= 5) || (NewLanguageChosen == ''))">
+            <goto next="#cond3" />
+            <else />
+            <goto next="#sub1" />
+         </if>
+      </block>
+   </form>
+   <form id="cond3">
+      <block>
+         <if cond="(Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel') &gt;= 10)">
+            <goto next="#cond4" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(102)" />
+            </prompt>
+            <goto next="#proc1" />
+         </if>
+      </block>
+   </form>
+   <form id="cond4">
+      <block>
+         <if cond="(Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel') &gt;= 30)">
+            <goto next="#cond5" />
+            <else />
+            <goto next="#proc2" />
+         </if>
+      </block>
+   </form>
+   <form id="cond5">
+      <block>
+         <if cond="(Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel') &gt;= 70)">
+            <goto next="LoginActions.vxml" />
+            <else />
+            <goto next="#proc3" />
+         </if>
+      </block>
+   </form>
+   <form id="proc3">
+      <subdialog name="sub" src="FirstTimeLoginGreeting.vxml">
+         <param name="p_mandatory" expr="true" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult3" expr="sub.resultCode" />
+            <goto next="#sub5" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub5">
+      <script>Subscriber_SetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel', 70)</script>
+      <block>
+         <goto next="LoginActions.vxml" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#prompt2" />
+      </catch>
+   </form>
+   <form id="prompt2">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(103)" />
+         </prompt>
+         <goto next="Goodbye.vxml" />
+      </block>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="FirstTimeLoginSpokenName.vxml">
+         <param name="p_mandatory" expr="true" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult2" expr="sub.resultCode" />
+            <goto next="#sub3" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub3">
+      <script>Subscriber_SetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel', 30)</script>
+      <block>
+         <goto next="#cond5" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#prompt2" />
+      </catch>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="FirstTimeLoginPin.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <goto next="#sub4" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub4">
+      <script>Subscriber_SetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel', 10)</script>
+      <block>
+         <goto next="#cond4" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#prompt2" />
+      </catch>
+   </form>
+   <form id="sub1">
+      <script>Subscriber_SetSingleStringAttribute (GlobalObject.Subscriber, 'preferredlanguage', NewLanguageChosen)</script>
+      <block>
+         <goto next="#sub2" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#prompt2" />
+      </catch>
+   </form>
+   <form id="sub2">
+      <script>Subscriber_SetSingleIntegerAttribute (GlobalObject.Subscriber, 'userlevel', 5)</script>
+      <block>
+         <goto next="#cond3" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#prompt2" />
+      </catch>
+   </form>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <if cond="(System_GetEventMessage().indexOf('userlevel' != -1))">
+         <goto next="FirstTimeLoginDynamic.vxml" />
+         <else />
+         <goto next="#prompt2" />
+      </if>
+   </catch>
+</vxml>

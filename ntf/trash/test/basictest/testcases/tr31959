@@ -1,0 +1,76 @@
+BTS TR31959
+2008-06-25
+Lennart Rasmusson
+-------------------------------------------------------------------------
+
+CONFIGURATION
+=============
+Unreadmessage reminder set to flash
+User with terminal that does not support flash
+Filter with SMS for voice and flash for urgent messages
+
+VERIFY CORRECTION
+=================
+SET
+Empty inbox.
+
+VERIFY the existance of the error
+Send an urgent voice mail.
+Verify that a single SMS is sent and that the urgent text is not sent.
+Wait for "24 hours".
+Verify that an unread message reminder is not sent.
+
+SET
+Apply the patch.
+Empty inbox.
+
+VERIFY that the error is removed
+Send an urgent voice mail.
+Verify that a single SMS is sent and that the urgent text is not sent.
+Wait for "24 hours".
+Verify that an unread message reminder is sent, as an SMS.
+
+
+REGRESSION TEST
+===============
+SET
+User with terminal that does not support flash
+Filter with flash and SMS for voice messages.
+Empty inbox
+
+VERIFY that non-urgent messages are unaffected
+Send a non-urgent voice mail.
+Verify that a single SMS is sent, with the flash text.
+Wait for "24 hours".
+Verify that an unread message reminder is sent, as an SMS.
+
+SET
+Empty inbox
+
+VERIFY that reminder with several unread are not affected
+Send an urgent voice mail.
+Send another urgent voice mail.
+Wait for "24 hours".
+Verify that an unread message reminder is sent, as an SMS.
+
+SET
+User with terminal that supports flash
+Filter with SMS for voice and flash for urgent messages
+Empty inbox.
+
+VERIFY that terminals with flash are unaffected
+Send an urgent voice mail.
+Verify that one SMS and one flash is sent.
+Wait for "24 hours".
+Verify that an unread message reminder is sent, as flash.
+
+SET
+Unreadmessage reminder set to SMS
+Filter with flash for voice messages.
+Empty inbox.
+
+VERIFY that primary flash notifications are unaffected
+Send a non-urgent voice mail.
+Verify that a single flash is sent.
+#No reminder for flash notifications
+

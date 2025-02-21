@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.w3.org/2001/vxml
+  http://www.w3.org/TR/voicexml21/vxml.xsd">
+
+	<form id="main_form">
+	<var name="attrs" />
+	<var name="setAttr" />
+    <block>
+            <script>
+            <![CDATA[
+
+                setAttr = new Array(false);
+                attrs = mas.subscriberGetBooleanAttribute('99910002','emodlpinskip');
+                mas.systemLog(3, 'Attribute emodlpinskip=' + attrs[0]);
+                mas.subscriberSetBooleanAttribute('99910002', 'emodlpinskip', setAttr);
+                attrs = mas.subscriberGetBooleanAttribute('99910002','emodlpinskip');
+                mas.systemLog(3, 'Attribute emodlpinskip=' + attrs[0]);
+				]]>
+            </script>
+            <if cond="attrs.length == 1 &amp;&amp; attrs[0] == setAttr[0]">
+					<log>TC 20105473  PASSED</log>
+				<else/>
+					<log>TC 20105473  FAILED</log>
+			</if>
+            
+            <exit/>
+
+        </block>
+    </form>
+
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105473  FAILED</log>
+
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- this is the catch we expect to be triggered. Now start the series of goto -->
+
+    <catch>
+        <log>VXMLTCpass</log>
+    </catch>
+
+  <form>
+    <block>
+        <goto next="catch_12_2.vxml"></goto>
+    </block>
+  </form>
+</vxml>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+     <catch event="error.com.mobeon.platform.datanotfound">
+        <log>TCPASS VXML: subdialog_main-001</log>
+        <exit/>
+    </catch>
+    <form id="main">
+        <subdialog name="a" src="subdialog_9a.vxml">
+            <filled>
+                <log>TCFAIL VXML: subdialog_main-002</log>
+            </filled>
+        </subdialog>
+    </form>
+
+</vxml>

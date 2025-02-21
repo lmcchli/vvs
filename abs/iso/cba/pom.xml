@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>abcxyz.services.messaging.vvs</groupId>
+    <artifactId>iso-parent</artifactId>
+    <version>MIO.CP50-SNAPSHOT</version>
+  </parent>
+  <artifactId>MIO_VVSCBA-CXP9020566</artifactId>
+  <name>VVS CBA ISO Packaging</name>
+  <packaging>pom</packaging>
+  <description>CBA ISO distribution package for VVS on MIO</description>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>abcxyz.services.messaging.vmio.mavenplugins</groupId>
+        <artifactId>vmio-packaging-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-iso</id>
+            <goals>
+              <goal>generate-iso</goal>
+            </goals>
+            <configuration>
+              <productName>VVS</productName>
+              <targetPlatform>CBA</targetPlatform>
+              <wrapperlist>
+                                VVS_MAS-CXC17288761=MOIP-TN,MOIP-VMP
+                                VVS_NTF-CXC17288771=MOIP-TN
+				VVS_OAM-CXC17314202=OM HOSTING
+</wrapperlist>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

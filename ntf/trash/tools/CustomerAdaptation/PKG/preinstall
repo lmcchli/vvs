@@ -1,0 +1,11 @@
+#Preinstall script
+backup_files(){
+for file in $BACKUP_FILES
+do
+if [ -f "$BASEDIR/templates/$file" ];then
+cp $BASEDIR/templates/$file $PKGSAV/
+fi
+done
+}
+
+backup_files

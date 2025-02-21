@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+    <mediaobject type="MediaFile" src="fun1.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="fun2.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+    <mediaobject type="MediaFile" src="fun3.wav">
+        <lengths>
+            <length unit="Milliseconds" value="5000"/>
+        </lengths>
+        <spokentext><![CDATA[]]></spokentext>
+        <sourcetext><![CDATA[]]></sourcetext>
+        <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2009;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+    </mediaobject>
+</mediaobjects>

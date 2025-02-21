@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="profilemanager.xsd">
+    <profilemanager limitscope="false" coscachetimeout="300000">
+        <userregister readtimeout="5000" writetimeout="5000" admin="cn=directory manager" password="emmanager"
+                defaultsearchbase="o=mobeon.com" trylimit="3" trytimelimit="500"/>
+        <connectionpool maxsize="25" connectionlifetime="300000"/>
+        <provisioning password=""/>
+        <attributemap searchorder="community,cos,user,billing">
+            <activegreetingid userregistername="activegreetingid" type="string" writelevel="billing" default=""/>
+            <addressbookserver provisioningname="ADDRESSBOOK_SERVER"/>
+            <autoplay userregistername="autoplay" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+            <badlogincount userregistername="badlogincount" type="integer" writelevel="user" default="0"/>
+            <billingnumber userregistername="billingnumber" type="string" provisioningname="TELEPHONENUMBER"/>
+            <caattr userregistername="caattr" type="string" default=""/>
+            <callerxfer userregistername="callerxfer" type="boolean" true="yes" false="no" default="no"/>
+            <callerxfertocoverage userregistername="callerxfertocoverage" type="boolean" true="yes" false="no" default="no"/>
+            <cdgmax userregistername="cdgmax" type="integer" default="10"/>
+            <cn userregistername="cn" type="string"/>
+            <cosdn userregistername="cosdn" type="string" provisioningname="COSDN"/>
+            <cosname userregistername="cosname" type="string"/>
+            <coverphonenumber userregistername="coverphonenumber" type="string" writelevel="billing" default=""/>
+            <diskspaceremainingwarninglevel userregistername="diskspaceremainingwarninglevel" type="string" default="0.15"/>
+            <dlentriesmax userregistername="dlentriesmax" type="integer" default="15"/>
+            <dlmax userregistername="dlmax" type="integer" default="10"/>
+            <emactivecdg userregistername="emactivecdg" type="string" writelevel="user" default=""/>
+            <emautoprintfax userregistername="emautoprintfax" type="boolean" writelevel="user" true="yes" false="no" default="no"/>
+            <emca userregistername="emca" type="string" writelevel="user" default=""/>
+            <emcnl userregistername="emcnl" type="boolean" true="yes" false="no" default="no"/>
+            <emcustomerid userregistername="emcustomerid" type="string" default="" provisioningname="CUSTOMERID"/>
+            <emdeliveryprofile userregistername="emdeliveryprofile" type="string" writelevel="user" default="" provisioningname="DELIVERY_PROFILE"/>
+            <emfilter userregistername="emfilter" type="string" writelevel="user" default=""/>
+            <emftl userregistername="emftl" type="string" writelevel="user"/>
+            <emftlfunctions userregistername="emftlfunctions" type="string" default="00,F,PIN:M,SPO:M,ACG:M"/>
+            <emgroupmember userregistername="emgroupmember" type="string" default=""/>
+            <emlogindate userregistername="emlogindate" type="string" writelevel="billing" default=""/>
+            <emmaxgroupmember userregistername="emmaxgroupmember" type="integer" default="10"/>
+            <emmin userregistername="emmin" type="string" default="" provisioningname="MIN"/>
+            <emmmscenterid userregistername="emmmscenterid" type="string" default="" provisioningname="MMSCENTER"/>
+            <emmsglenmaxvideo userregistername="emmsglenmaxvideo" type="integer" default="180"/>
+            <emmsgplayorder userregistername="emmsgplayorder" type="string" writelevel="user" default="FIFO,LIFO"/>
+            <emnoofmailquota userregistername="emnoofmailquota" type="integer" default="-1"/>
+            <emnotifnumber userregistername="emnotifnumber" type="string" writelevel="user" default="" provisioningname="NOTIFICATION_NUMBER"/>
+            <emntd userregistername="emntd" type="string" writelevel="billing" default="" provisioningname="DISABLE_NOTIFICATION_TYPES"/>
+            <emodlpinskip userregistername="emodlpinskip" type="boolean" writelevel="user" true="yes" false="no" default="no"/>
+            <emoutboundcalltl userregistername="emoutboundcalltl" type="integer" default="0"/>
+            <empnc userregistername="empnc" type="string" default="" provisioningname="PAGER_NOTIFICATION_STRING"/>
+            <empreferreddateformat userregistername="empreferreddateformat" type="string" default="" provisioningname="DATEFORMAT"/>
+            <empreferredtimeformat userregistername="empreferredtimeformat" type="string" writelevel="user" default="12" provisioningname="TIMEFORMAT"/>
+            <emreadlevel userregistername="emreadlevel" type="integer" default="-1"/>
+            <emsecnb userregistername="emsecnb" type="string" default=""/>
+            <emservicedn userregistername="emservicedn" type="string" searchorder="cos" default=""/>
+            <emsmppcenterid userregistername="emsmppcenterid" type="string" default="" provisioningname="SMPPCENTER"/>
+            <emtmpgrt userregistername="emtmpgrt" type="string" writelevel="user" default=""/>
+            <emtmpgrtavailable userregistername="emtmpgrtavailable" type="boolean" true="yes" false="no" default="no"/>
+            <emtuiaccess userregistername="emtuiaccess" type="string" default="std"/>
+            <emtuiblockedmenu userregistername="emtuiblockedmenu" type="string" default=""/>
+            <emuserntd userregistername="emuserntd" type="string" writelevel="user" default=""/>
+            <emusersd userregistername="emusersd" type="string" default=""/>
+            <emvuiaccess userregistername="emvuiaccess" type="string" default="none"/>
+            <eomsgwarning userregistername="eomsgwarning" type="integer" default="30"/>
+            <facsimiletelephonenumber userregistername="facsimiletelephonenumber" type="string" writelevel="user" default="" provisioningname="FAX_NUMBER"/>
+            <familymembers provisioningname="FAMILY_MEMBERS"/>
+            <fastloginavailable userregistername="fastloginavailable" type="boolean" true="yes" false="no" default="no"/>
+            <fastloginenabled userregistername="fastloginenabled" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+            <faxenabled userregistername="faxenabled" type="boolean" true="yes" false="no" default="no"/>
+            <gender userregistername="gender" type="string" default="F" provisioningname="GENDER"/>
+            <greetingsecmax userregistername="greetingsecmax" type="integer" default="60"/>
+            <includespokenname userregistername="includespokenname" type="boolean" true="yes" false="no" default="yes"/>
+            <inboundfaxno userregistername="inboundfaxno" type="string" default=""/>
+            <inhoursdow userregistername="inhoursdow" type="string" writelevel="billing" default="12345"/>
+            <inhoursend userregistername="inhoursend" type="string" writelevel="billing" default="1700"/>
+            <inhoursstart userregistername="inhoursstart" type="string" writelevel="billing" default="0800"/>
+            <mail userregistername="mail" type="string" default="" provisioningname="MAILADDRESS"/>
+            <mailalternateaddress userregistername="mailalternateaddress" type="string" default=""/>
+            <mailhost userregistername="mailhost" type="string" default="" provisioningname="MAILHOST"/>
+            <mailquota userregistername="mailquota" type="integer"/>
+            <mailuserstatus userregistername="mailuserstatus" type="string" default="active"/>
+            <maxloginlockout userregistername="maxloginlockout" type="integer" default="6"/>
+            <messageinventory userregistername="messageinventory" type="boolean" true="yes" false="no" default="yes"/>
+            <messageplayemail userregistername="messageplayemail" type="string" writelevel="billing" default="both"/>
+            <messageplayvideo userregistername="messageplayvideo" type="string" writelevel="billing" default="both"/>
+            <messageplayvoice userregistername="messageplayvoice" type="string" writelevel="billing" default="both"/>
+            <mslocation provisioningname="MSLOCATION"/>
+            <msglenmaxvoice userregistername="msglenmaxvoice" type="integer" default="180"/>
+            <noforfirstname userregistername="noforfirstname" type="string" default=""/>
+            <noforlastname userregistername="noforlastname" type="string" default=""/>
+            <passwdlenmax userregistername="passwdlenmax" type="integer" default="4"/>
+            <passwdlenmin userregistername="passwdlenmin" type="integer" default="4"/>
+            <password userregistername="password" type="xstring" provisioningname="MAILBOX_PW"/>
+            <passwordskipavailable userregistername="passwordskipavailable" type="boolean" true="yes" false="no" default="no"/>
+            <passwordskipenabled userregistername="passwordskipenabled" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+            <preferredlanguage userregistername="preferredlanguage" type="string" writelevel="user" default="" provisioningname="LANGUAGE"/>
+            <phonenumbercalleraccesssection userregistername="phonenumbercalleraccesssection" type="string" default="CALLEROUTDIAL"/>
+            <phonenumberdialingsection userregistername="phonenumberdialingsection" type="string" default="SUBSCRIBEROUTDIAL"/>
+            <reinventory userregistername="reinventory" type="boolean" true="yes" false="no" default="no"/>
+            <sn userregistername="sn" type="string" default="" provisioningname="SN"/>
+            <subscribertimezone userregistername="subscribertimezone" type="string" default="" provisioningname="TIMEZONE"/>
+            <subscriberxfer userregistername="subscriberxfer" type="boolean" true="yes" false="no" default="no"/>
+            <subsearchbase userregistername="subsearchbase" type="string"/>
+            <telephonenumber userregistername="telephonenumber" type="string" provisioningname="TELEPHONENUMBER"/>
+            <ttsemailenabled userregistername="ttsemailenabled" type="boolean" true="yes" false="no" default="no"/>
+            <uid userregistername="uid" type="string" provisioningname="UID"/>
+            <umpassword userregistername="umpassword" type="xstring" writelevel="user" provisioningname="PIN"/>
+            <urgentmsgplay userregistername="urgentmsgplay" type="boolean" writelevel="billing" true="yes" false="no" default="yes"/>
+            <userlevel userregistername="userlevel" type="integer" writelevel="user"/>
+            <welcomegrt userregistername="welcomegrt" type="string" default=""/>
+            <xamtevatitle userregistername="xamtevatitle" type="string" default=""/>
+
+            <!-- Elements not in attribute document -->
+            <emallowedmaildomains userregistername="emallowedmaildomains" type="string"/>
+            <admininfo userregistername="admininfo" type="string"/>
+            <uniqueidentifier userregistername="uniqueidentifier" type="string"/>
+
+        </attributemap>
+    </profilemanager>
+</configuration>

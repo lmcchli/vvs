@@ -1,0 +1,26 @@
+for file in `find . -name '*.java'` ; do
+    err=1
+    if grep ' $' $file >/dev/null ; then
+        err=0
+        m="W"
+    else
+        m=" "
+    fi
+    if grep '	' $file >/dev/null ; then
+        err=0
+        m="$m T"
+    else
+        m="$m  "
+    fi
+    if [ "$err" = "0" ] ; then
+        echo "$m $file"
+    fi
+done
+
+
+
+####
+# This script checks java source files for whitespace errors
+# All offending files are reported.
+#  W means the file contains trailing whitespace
+#  T means the file contains tab characters

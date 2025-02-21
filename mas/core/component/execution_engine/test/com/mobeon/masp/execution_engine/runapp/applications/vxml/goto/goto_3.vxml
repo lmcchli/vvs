@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <var name="olle" expr="7"/>
+
+   <form id="form1">
+      <block name="te">
+         <assign name="olle" expr="44"/>
+      </block>
+      <block name="t2">
+         <goto next="#form3"/>
+      </block>
+   </form>
+
+   <form id="form2">
+      <block name="ueyu">
+          <log>ERROR</log>
+      </block>
+   </form>
+
+    <form id="form3">
+       <block>
+           <if cond="olle == 44">
+               <log>TCPASS</log>
+               <else>
+                   <log>ERROR</log>
+               </else>
+           </if>
+       </block>
+    </form>
+
+</vxml>

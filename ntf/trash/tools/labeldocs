@@ -1,0 +1,105 @@
+#!/bin/sh
+DOCS="\
+NTF_CCI.19047.CRH109127.pdf              
+NTF_CD.1.1551.CRH109127.pdf
+NTF_GI.19006.CRH109127.pdf
+NTF_IWD_CMP.6.15519.CRH109127.pdf
+RequestingNTFServices.5.15519.CRH109127.pdf
+NTF_CI_MMS.1.19047.CRH109127.pdf
+NTF_PRI.10921.CRH109127.18.pdf
+NTF_TR_MMS.3.15283.CRH109127.pdf
+NTF_TS_MMS.6.15241.CRH109127.pdf
+CPI \
+CPI/NTF_OM.1.1543.CRH109127.pdf \
+CPI/NTF_IG.1.1531.CRH109127.pdf"
+
+Usage()
+{
+    echo "Usage: $0 [-test] version"
+    echo
+    echo "-test    Just print what is done, but do not do it."
+    echo
+    echo "The current directory must be in the VOB you want to label."
+    echo "The version name is specified as e.g. r6a. The label is created"
+    echo "by taking the component name, adding the version and making it uppercase"
+    echo "The doc directory (e.g. /vobs/ipms/ntf/doc) is labeled automatically."
+    exit 1
+}
+
+if [ $# -lt 1 ] ; then
+    echo "Please supply the version to label"
+    echo
+    Usage
+fi
+
+if [ $1 = '-help' ] ; then
+    Usage
+fi
+
+if [ $1 = '-test' ] ; then
+    shift
+    echo "Just testing, the VOB will not be changed"
+    test="1"
+fi
+
+if [ $# -lt 1 ] ; then
+    echo "Please supply the version to label"
+    echo
+    Usage
+fi
+
+VER=`echo $1|tr [:lower:] [:upper:]`
+
+#Check that the current directory is in a VOB
+DIR=`pwd`
+if expr "$DIR" : "/vobs/ipms/.*" > /dev/null ; then
+    :
+else
+    echo "Please go to the VOB you want to label"
+    exit 1
+fi
+
+#Find the top directory in the VOB
+while expr "$DIR" : "/vobs/ipms/.*/.*" > /dev/null ; do
+    DIR=`dirname "$DIR"`
+done
+VOB=$DIR
+
+#Find the component name
+COMP=`basename $VOB | tr [:lower:] [:upper:]`
+comp=`basename $VOB | tr [:upper:] [:lower:]`
+
+#Add the component name to the version if it is not already there
+if expr "$VER" : "$COMP.*" >/dev/null ; then
+    :
+else
+    VER=${COMP}_$VER
+fi
+
+DOCVER=${VER}_DOC
+
+#Check that the document label exists, otherwise create it
+if cleartool lstype -short -kind lbtype|grep $DOCVER >/dev/null ; then
+    :
+else 
+    echo "Label type $DOCVER does not exist, creating it..."
+    if [ "$test" != "1" ] ; then
+        cleartool mklbtype -nc $DOCVER
+    fi
+fi
+
+#Find and label the documents
+for doc in "." $DOCS ; do
+    verdoc=""
+    while [ "$doc" != "." ] ; do
+        verdoc="/`basename $doc`/${VER}$verdoc"
+        doc=`dirname $doc`
+    done
+    verdoc="$VOB/doc@@/${VER}${verdoc}"
+    if [ -r $verdoc ] ; then 
+        echo "Labeling $verdoc with $DOCVER"
+        if [ "$test" != "1" ] ; then
+            cleartool mklabel -replace $DOCVER $verdoc
+        fi
+    fi
+done

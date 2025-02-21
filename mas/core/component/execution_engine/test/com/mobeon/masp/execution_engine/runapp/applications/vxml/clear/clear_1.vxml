@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+  <var name="counter" expr="1"/>
+   <form id="form1">
+      <block name="b1">
+          <log>TCPASS VXML: Clear 1a</log>
+      </block>
+      <block name="b2">
+          <if cond="counter=='1'">
+               <log>TCPASS VXML: Clear 1b</log>
+               <assign name="counter" expr="counter+1"></assign>
+               <clear/>
+           <else/>
+               <log>TCPASS VXML: Clear 1c</log>
+           </if>
+      </block>
+   </form>
+</vxml>

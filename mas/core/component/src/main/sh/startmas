@@ -1,0 +1,30 @@
+#!/bin/ksh
+###################################################################
+# File    : startmas
+# Created : 2009-04-24
+#
+# Description:
+#	This file is used to start MAS and supporting processes 
+#   This script is to be used when SAF is not available to start
+#   the MAS processes automatically.
+#
+# OS:   LOTC (SUSE 10)
+# History
+#	Date		Who	What
+#	2006-01-10  	lmcjhut: Initial Version
+#
+####################################################################
+
+mmasRun(){
+	su -p mmas -c "$1"
+	
+}
+
+. /opt/moip/mas/bin/mas.env
+
+# start mas
+cd ${INSTALL_DIR}
+mmasRun "./mas start"
+
+
+

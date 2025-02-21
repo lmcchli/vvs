@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						smppErrorCodes.xsd
+					</xs:documentation>
+				</xs:annotation>			
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType"/>
+			<xs:element name="SmppErrorCodes.Table" type="smppErrorCodesTableType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SmppNetworkErrorCodes.Table" type="smppNetworkErrorCodesTableType" minOccurs="0" maxOccurs="1"/>	
+		</xs:all>
+	</xs:complexType> 	
+	
+	<xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+		<xs:all>
+			<xs:element name="Cm.default" type="smppErrorCodeActionType" default="failed" minOccurs="0" />
+			<xs:element name="Cm.smppNetworkErrorCodeDefault" type="smppErrorCodeActionType" default="retry" minOccurs="0" />
+			<xs:element name="Cm.smscTemporaryUnavailablePeriodInSecs" type="xs:int" default="60" minOccurs="0"/> 
+  		</xs:all>
+	</xs:complexType>
+
+	<!-- Definition of the smpp error codes table type -->
+	<xs:complexType name="smppErrorCodesTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="smppErrorCode" type="smppErrorCodeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="smppErrorCodeType" mixed="true">
+		<xs:all>
+			<xs:element name="smppErrorCodeAction" type="smppErrorCodeActionType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="smppErrorCodeClientAction" type="smppClientActionType" minOccurs="0" maxOccurs="1"/>
+		</xs:all>
+	</xs:complexType>
+
+	<!-- Definition of the smpp network error codes table type -->
+	<xs:complexType name="smppNetworkErrorCodesTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="smppNetworkErrorCode" type="smppNetworkErrorCodeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="smppNetworkErrorCodeType" mixed="true">
+		<xs:all>
+			<xs:element name="smppNetworkErrorCodeAction" type="smppErrorCodeActionType" minOccurs="1" maxOccurs="1"/>
+		</xs:all>
+	</xs:complexType>
+    
+	<xs:simpleType name="smppClientActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="temporaryUnavailable"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="smppErrorCodeActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ok"/>
+			<xs:enumeration value="retry"/>
+			<xs:enumeration value="failed"/>
+			<xs:enumeration value="waitphoneon"/>
+			<xs:enumeration value="disconnect"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

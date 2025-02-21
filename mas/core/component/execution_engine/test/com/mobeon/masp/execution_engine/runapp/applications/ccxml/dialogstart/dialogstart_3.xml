@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/dialogstart/" type="application/xml+ccxml">
+        <document src="dialogstart_3.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/dialogstart/" type="application/xml+vxml">
+        <document src="dialogstart_empty.vxml"/>
+    </documents>
+</application>

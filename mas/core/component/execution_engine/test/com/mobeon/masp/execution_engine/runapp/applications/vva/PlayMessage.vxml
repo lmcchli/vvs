@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <!--This variable indicates if the header or the body shall be played. Valid values: "header", "body" or "both".-->
+   <var name="headerOrBody" />
+   <var name="playOrderArray" />
+   <var name="playOrderArrayPointer" />
+   <var name="autoPlayDelaySeconds" />
+   <var name="playableObjectArray" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult2" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult1" />
+   <!--This variable is used to detect if pressing any DTMF during AutoPlay-->
+   <var name="key" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult3" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="playHeaderAndBodyResult" />
+   <var name="messageId" />
+   <!--Only for interest when comming from AutoPlay. Used to determine if the first 4 alternatives shall be spoken or not.-->
+   <var name="messageCounter" />
+   <!--Is set to 1 if in AutoPlay, otherwise 0.-->
+   <var name="inAutoPlay" />
+   <var name="ani" />
+   <!--A local copy of GlobalObject.-->
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageId" />
+      <var name="p_messageCounter" />
+      <var name="p_inAutoPlay" />
+      <var name="p_ani" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="messageId" expr="p_messageId" />
+         <assign name="messageCounter" expr="p_messageCounter" />
+         <assign name="inAutoPlay" expr="p_inAutoPlay" />
+         <assign name="ani" expr="p_ani" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#ccond1" />
+      </block>
+   </form>
+   <form id="ccond1">
+      <block>
+         <if cond="((Message_GetProperty (messageId, 'type')[0] == 'voice'))">
+            <assign name="headerOrBody" expr="Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'messageplayvoice')" />
+            <goto next="#cond3" />
+            <elseif cond="((Message_GetProperty (messageId, 'type')[0] == 'video'))" />
+            <assign name="headerOrBody" expr="Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'messageplayvideo')" />
+            <goto next="#cond3" />
+            <elseif cond="((Message_GetProperty (messageId, 'type')[0] == 'fax'))" />
+            <assign name="headerOrBody" expr="'both'" />
+            <goto next="#cond3" />
+            <else />
+            <assign name="headerOrBody" expr="Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'messageplayemail')" />
+            <goto next="#cond3" />
+         </if>
+      </block>
+   </form>
+   <form id="cond3">
+      <block>
+         <if cond="((Message_GetProperty (messageId, 'state')[0] == 'deleted'))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(206)" />
+            </prompt>
+            <goto next="#assign7" />
+            <else />
+            <goto next="#assign7" />
+         </if>
+      </block>
+   </form>
+   <form id="assign7">
+      <block>
+         <assign name="playableObjectArray" expr="Message_GetPlayableParts(GlobalObject.Subscriber, messageId)" />
+         <goto next="#proc2" />
+      </block>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="PlayHeaderAndBody.vxml">
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_headerOrBody" expr="headerOrBody" />
+         <param name="p_playableObjectArray" expr="playableObjectArray" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="playHeaderAndBodyResult" expr="sub.resultCode" />
+            <if cond="((Message_GetProperty (messageId, 'type') == true))">
+               <goto next="#sub3" />
+               <else />
+               <goto next="#sub2" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub3">
+      <script>System_SendTrafficEvent ('messageread', 'username=' + GlobalObject.Subscriber + ',operation=3,objecttype=1,messagetype=' + Event_GetMessageType(messageId) + ',messageencoding=' + Event_GetMessageEncoding(messageId) + ',messagesize=' + Event_GetMessageSize(messageId) + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Message_SetProperty (messageId, 'state', 'read')</script>
+      <block>
+         <goto next="#cond9" />
+      </block>
+   </form>
+   <form id="cond9">
+      <block>
+         <if cond="((playHeaderAndBodyResult != undefined))">
+            <assign name="key" expr="playHeaderAndBodyResult" />
+            <goto next="#proc1" />
+            <else />
+            <if cond="((inAutoPlay == 1))">
+               <if cond="((messageCounter == 0))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(212)" />
+                  </prompt>
+                  <if cond="((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+                     <prompt bargein="true">
+                        <audio expr="System_GetPrompt(214)" />
+                     </prompt>
+                     <goto next="#cond7" />
+                     <else />
+                     <goto next="#cond7" />
+                  </if>
+                  <else />
+                  <goto next="#assign5" />
+               </if>
+               <else />
+               <goto next="#proc1" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="GetMessageMenu.vxml">
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_playableObjectArray" expr="playableObjectArray" />
+         <param name="p_key" expr="key" />
+         <param name="p_ani" expr="ani" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult3" expr="sub.resultCode" />
+            <if cond="procedureResult3 == 'nextMsg'">
+               <goto next="#Return1" />
+               <elseif cond="procedureResult3 == 'prevMsg'" />
+               <goto next="#Return2" />
+               <else />
+               <goto next="#Return2" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'nextMsg'" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="Return2">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'prevMsg'" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="cond7">
+      <block>
+         <if cond="(Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true)">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(216)" />
+            </prompt>
+            <goto next="#prompt2" />
+            <else />
+            <goto next="#prompt2" />
+         </if>
+      </block>
+   </form>
+   <form id="prompt2">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(218)" />
+         </prompt>
+         <goto next="#assign5" />
+      </block>
+   </form>
+   <form id="assign5">
+      <block>
+         <assign name="autoPlayDelaySeconds" expr="Utility_StringToInt(System_GetConfig('vva.dialogbehaviour', 'autoplaydelay'))" />
+         <goto next="#cond4" />
+      </block>
+   </form>
+   <form id="cond4">
+      <block>
+         <if cond="((autoPlayDelaySeconds &gt; 0))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(289)" />
+            </prompt>
+            <assign name="autoPlayDelaySeconds" expr="autoPlayDelaySeconds - 1" />
+            <goto next="#cond4" />
+            <else />
+            <goto next="#cond5" />
+         </if>
+      </block>
+   </form>
+   <form id="cond5">
+      <block>
+
+      </block>                                                            <!-- added -->
+      <property name="termchar" value="A" />                              <!-- added -->
+      <field name="playTheMessage">                                       <!-- added -->
+         <property name="timeout" value="0s" />                           <!-- added -->
+         <property name="interdigittimeout" value="0.5s" />               <!-- added -->
+         <grammar version="1.0" mode="dtmf" root="main_rule">             <!-- added -->
+            <rule id="rule2">                                             <!-- added -->
+               <one-of>                                                   <!-- added -->
+                  <item>0</item>                                          <!-- added -->
+                  <item>1</item>                                          <!-- added -->
+                  <item>2</item>                                          <!-- added -->
+                  <item>3</item>                                          <!-- added -->
+                  <item>4</item>                                          <!-- added -->
+                  <item>5</item>                                          <!-- added -->
+                  <item>6</item>                                          <!-- added -->
+                  <item>7</item>                                          <!-- added -->
+                  <item>8</item>                                          <!-- added -->
+                  <item>9</item>                                          <!-- added -->
+                  <item>*</item>                                          <!-- added -->
+                  <item>#</item>                                          <!-- added -->
+               </one-of>                                                  <!-- added -->
+            </rule>                                                       <!-- added -->
+            <rule id="main_rule">                                         <!-- added -->
+               <one-of>                                                   <!-- added -->
+                  <item repeat="1-3">                                     <!-- added -->
+                     <ruleref uri="#rule2" />                             <!-- added -->
+                  </item>                                                 <!-- added -->
+               </one-of>                                                  <!-- added -->
+            </rule>                                                       <!-- added -->
+         </grammar>                                                       <!-- added -->
+         <filled>                                                         <!-- added -->
+            <assign name="key" expr="application.lastresult$.utterance"/> <!-- added -->
+            <!-- if cond="((key != undefined))" -->                       <!-- removed -->
+
+            <goto next="#proc1" />
+
+            <!-- else /-->                                                <!-- removed -->
+         </filled>                                                        <!-- added -->
+ 	     <catch event="noinput">                                          <!-- added -->
+
+            <goto next="#Return1" />
+
+ 	     </catch>                                                         <!-- added -->
+ 	   </field>                                                           <!-- added -->
+ 	   <!-- /if -->                                                       <!-- removed -->
+ 	   <!-- /block -->                                                    <!-- removed -->
+
+   </form>
+   <form id="sub2">
+      <script>System_SendTrafficEvent ('MessageReRead', 'username=' + GlobalObject.Subscriber + ',operation=3,objecttype=1,messagetype=' + Event_GetMessageType(messageId) + ',messageencoding=' + Event_GetMessageEncoding(messageId) + ',messagesize=' + Event_GetMessageSize(messageId) + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#cond9" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

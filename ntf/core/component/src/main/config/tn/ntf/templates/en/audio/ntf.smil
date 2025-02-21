@@ -1,0 +1,24 @@
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
+<head>
+   <layout>
+      <root-layout width="60" height="60" background-color="#CEF6F0"/>
+      <region id="From" top="0" left="0" height="15" width="60"/>
+      <region id="Image" top="15" left="0" height="30" width="60"/>
+      <region id="Date" top="45" left="0" height="15" width="60"/>
+   </layout>
+</head>
+<body>
+   <par dur="__LENGTH__">
+      <text src="__FROM__" region="From">
+         <param name="foreground-color" value="#0000ff"/>
+         <param name="textsize" value="small"/>
+      </text>  
+      <img src="image.gif" region="Image"/>
+      <text src="__DATE__" region="Date">
+         <param name="foreground-color" value="#0000ff"/>
+         <param name="textsize" value="small"/>
+      </text>
+      <audio src="__MESSAGE__"/>
+   </par>
+</body>
+</smil>

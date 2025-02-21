@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="connection.disconnect.hangup">
+        <log>TCPASS5</log>
+        <exit></exit>
+    </catch>
+
+    <form id="rec1">
+        <record name="recording" dtmfterm="true" type="video/*">
+
+            <filled>
+                <log>TCPASS1</log>
+                <script>Packages.java.lang.Thread.sleep(3000);</script>
+                <log>TCPASS2</log>
+
+            </filled>
+
+        </record>
+
+        <!-- after the recording we shall be able to do a lot of stuff -->
+        <block>
+            <log>TCPASS3</log>
+            <goto next="#form2"></goto>
+        </block>
+
+    </form>
+
+    <form id="form2">
+        <block>
+            <log>TCPASS4</log>
+        </block>
+
+        <!-- At this field however the hangup event shall be triggered-->
+        <field>
+            <filled>
+                <log>TCFAIL</log>
+                <exit></exit>
+            </filled>
+        </field>
+        <noinput>
+            <log>TCFAIL noinput</log>
+            <exit></exit>
+        </noinput>
+
+        <block>
+            <log>TCFAIL</log>
+            <exit></exit>
+        </block>
+
+
+    </form>
+</vxml>

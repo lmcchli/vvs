@@ -1,0 +1,39 @@
+#!/usr/local/bin/perl
+
+require "flush.pl";
+
+print "This program counts how many times each parameter in Config.java is used in java files.\n";
+print "BEFORE REMOVING UNUSED PARAMETERS, YOU MUST MANUALLY CHECK C AND C++ FILES!\n\n";
+
+print "Collecting all lines with \"get\" in from all java files...\n";
+system ("find /vobs/ipms/ntf/src -name '*.java' -exec grep get {} \\; > /vobs/ipms/ntf/tools/paramusage.allgets");
+
+print "Looking for parameter usage\n";
+open(CONF, "grep 'public.*get' /vobs/ipms/ntf/src/com/mobeon/ntf/Config.java|");
+while ($line = <CONF>) {
+    ($name) = $line =~ /.*(get[^(]+)\(.*/;
+    open(USE, "grep $name /vobs/ipms/ntf/tools/paramusage.allgets|");
+    @use = <USE>;
+    $useCount = $#use;
+    @result = (@result, "$useCount\t$name");                           
+    close USE;
+    print ".";  
+    &flush(STDOUT);  
+    $dot++;
+    if ($dot eq 40) {
+        $dot = 0;
+        print "\n";
+    }
+}
+close CONF;
+print "\n\n";
+
+print "Count\tParameter\n";
+open O, ">/vobs/ipms/ntf/tools/paramusage.result";    
+foreach $result (sort numerically @result) {
+    print O "$result\n";
+}
+close O;
+system("cat /vobs/ipms/ntf/tools/paramusage.result");
+
+sub numerically { $a <=> $b; }

@@ -1,0 +1,271 @@
+#!/bin/ksh
+###################################################################
+# File    : mas
+# Author  : Håkan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is used in when using svcs in Solaris 10.
+#
+# OS: 	Solaris 10
+#
+# History
+#	Date		Who	What
+#	2006-01-10  	MHATU	Created
+#
+#
+####################################################################
+
+
+
+#*********************************************
+# These parameters exist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+
+
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+mode=$1
+
+
+
+REGULARSTART=$BASEDIR"/etc/regularstart"
+ENABLERESTART=$BASEDIR"/etc/enablerestart"
+START_RESULT_FILE=$BASEDIR"/etc/startresult"
+
+# Load config values
+. $BASEDIR/etc/mas.conf
+
+# Source platform dependent functions file.
+PLATFORM_DEPENDENT_FUNCTIONS=`$BASEDIR/etc/getPlatformDependentParameter PLATFORM_DEPENDENT_FUNCTIONS`
+. $BASEDIR/etc/$PLATFORM_DEPENDENT_FUNCTIONS
+
+DIRNAME=`pwd`
+
+cd $BASEDIR
+
+#
+# Print something to a logfile.
+# Usage: log <filename> <your log text here>
+# Example: log $BASEDIR/log/process.log "Starting MAS"
+#
+log()
+{
+    WHERE=$1
+    shift
+    WHAT=$@
+    TIMESTAMP=`$BASEDIR/bin/getTimeZone`
+
+    echo "$TIMESTAMP $WHAT" >> $WHERE
+}
+
+
+setupEnv() {
+
+    MAS_VERSION=$BASE_VERSION
+    export MAS_VERSION
+
+    MAS_INSTALL_DATE=$INSTALL_DATE
+    export MAS_INSTALL_DATE
+    
+    #MAS_HOST=$HOSTNAME"."$DOMAIN
+    MAS_HOST=$MASInstanceName
+    export MAS_HOST
+    
+    MAS_INSTALL_PATH=$BASEDIR
+    export MAS_INSTALL_PATH    
+
+    MAS_LOGICALZONE=$LOGICALZONE
+    export MAS_LOGICALZONE    
+    
+    
+    
+    # Must be set. LOGNAME is not available when using svcs.
+    LOGNAME=ipms
+    export LOGNAME
+
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    #LD_LIBRARY_PATH=/usr/lib/lwp:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:$BASDIR/cfg:$JAVA_CLASSPATH
+
+    # Setup preload of shared objects
+    # The reason to preload ccrtpadapter is to make it easier to debug and set
+    # breakpoints in ccrtpadapter during startup.
+    export LD_PRELOAD_32="libumem.so.1 libccrtpadapter.so"
+    export LD_PRELOAD="lib/librtsafe.so"
+
+    # set softlimit on file descriptors (platform dependent function).
+    set_FD_SoftLimit
+
+}
+
+#
+#  Using MIB to determine if MAS is started
+#
+doStarted()
+{		
+	result=""
+	
+	while [ $continue="" ]
+	do	        
+	        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+	        result=`echo $result |awk -F= '{ print $2}'`
+	        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')	
+	
+	        if [[ $result = "1"  ||  $result = "2" ]]
+	        then
+	                STARTED="YES"
+	
+	                break
+	        fi
+	        
+	        sleep 1
+	done
+}
+
+
+chkSnmp()
+{
+    # is snmp installed and running
+    SNMPDM=`ps -e | grep snmpdm`
+    JSADKAGT=`ps -e | grep jsadkagt`
+    if [[ $SNMPDM = ""  ||  $JSADKAGT = "" ]]
+    then
+    	SNMP_ALIVE="NO"
+    else
+    	SNMP_ALIVE="YES"
+    fi
+
+}
+
+
+doReadStartStatus()
+{
+	if [ -f $START_RESULT_FILE ] 
+	then
+		# The status file exists. Did it go well.?
+		status=`head $START_RESULT_FILE`
+		if [[ $status = "OK" ]]
+		then
+			START_STATUS="started"
+		else
+			START_STATUS="failed"
+		fi
+	else
+		START_STATUS="no file"
+	fi
+}
+
+
+#
+# Start mas
+#	
+#
+start()
+{
+        echo "" >> $BASEDIR/log/process.log
+        log $BASEDIR/log/process.log "Starting..."
+
+	#If regular start: then start.
+	#If a restart: Then restart must be enabled
+	if [ -f $REGULARSTART ] 
+	then
+		if [ -f $START_RESULT_FILE ] 
+		then
+  			rm $START_RESULT_FILE
+  		fi
+
+	        log $BASEDIR/log/process.log "   regular start"
+		
+		setupEnv
+
+		# call platform dependent function to setup JVM_FLAGS.
+		setup_JVM_FLAGS
+				
+  		$JAVA_HOME/bin/java -server $JVM_FLAGS -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main | $BASEDIR/bin/logger.sh $BASEDIR/log/process.log 2>&1&
+                  
+  		sleep 3
+  		rm $BASEDIR/etc/regularstart	
+  		
+  		
+  	else
+
+  		log $BASEDIR/log/process.log "   process died"
+  		# it is not a start issued from the script. The process died. 
+  		# and now svcs is trying to restart the process.
+
+  		
+		# Check if restart is enabled and alowed
+		# read startup status. 
+		# If previus startup died during init, no restart is alowed.
+		doReadStartStatus
+		
+  		if [[ -f $ENABLERESTART && $START_STATUS = "started" ]]
+  		then
+  			rm $START_RESULT_FILE
+  			log $BASEDIR/log/process.log "   restarting..."
+  			# svcs is alowed to restart.
+			setupEnv
+
+			# call platform dependent function to setup JVM_FLAGS.
+			setup_JVM_FLAGS
+			
+  			$JAVA_HOME/bin/java -server $JVM_FLAGS -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main | $BASEDIR/bin/logger.sh $BASEDIR/log/process.log 2>&1& 
+  			
+  			sleep 3	
+  		else
+  			log $BASEDIR/log/process.log "   restart not allowed"
+  			#svcs is NOT alowed to restart.
+  			#set mas in maintenance state to prevent svcs from running this script over and over.
+                        svcadm mark maintenance MOBYmas:mas
+
+  		fi
+  	fi
+
+	exit 0
+}
+
+case "$mode" in
+	'start')	
+		start
+		;;
+
+	'status')
+		;;
+
+	'stop')
+		;;
+
+	'restart')
+
+		;;
+
+	'enableautostart')
+		;;
+
+	'disableautostart')
+		;;
+
+	*)
+		echo "Usage: `basename $0` <start|stop|restart|enableautostart|disableautostart>"
+		cd $DIRNAME
+		exit 1
+		;;
+esac
+
+cd $DIRNAME

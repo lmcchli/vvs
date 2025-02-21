@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+
+&findcore($BASEDIR);
+if ($BASEDIR ne $NTF_HOME) {
+    &findcore($NTF_HOME);
+}
+
+sub findcore() {
+    my $dir = pop;
+    my $CMD = "find $dir -name core";
+
+    my ($cmdresult, $output) = CommandHandler::get_cmdoutput_file($CMD);
+    if ($cmdresult == 0) {
+        while (chomp($_ = <$output>)) {
+            $result = 1;
+            print "Found core file $_\n";
+            my ($pstackresult, $pstackoutput) = CommandHandler::get_cmdoutput_file("pstack $_");
+        }
+    }
+}
+
+exit $result;
+

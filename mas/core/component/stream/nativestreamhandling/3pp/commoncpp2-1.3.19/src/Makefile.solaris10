@@ -1,0 +1,63 @@
+SUNWSPRO=/usr/local/SUNWspro
+CC=$(SUNWSPRO)/bin/cc
+CXX=$(SUNWSPRO)/bin/CC
+LD=$(CXX)
+DEFS=-DHAVE_CONFIG_H -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT -D_GNU_SOURCE 
+CFLAGS=$(DEFS) -O3 -mt -KPIC -DPIC
+CXXFLAGS=$(DEFS) -O3 -mt -KPIC -DPIC -DCCXX_EXPORT_LIBRARY
+INCL=-I. -I. -I../include -I../src
+
+libccext2_SOURCES = numbers.cpp zstream.cpp socketport.cpp \
+	url.cpp xml.cpp persist.cpp engine.cpp digest.cpp cmdoptns.cpp \
+	date.cpp md5.cpp unix.cpp network.cpp serial.cpp urlstring.cpp \
+	mime.cpp tokenizer.cpp getopt.c getopt1.c
+
+libccgnu2_SOURCES = thread.cpp mutex.cpp semaphore.cpp threadkey.cpp \
+	friends.cpp event.cpp slog.cpp dir.cpp file.cpp inaddr.cpp \
+	peer.cpp timer.cpp socket.cpp strchar.cpp simplesocket.cpp \
+	mempager.cpp keydata.cpp dso.cpp exception.cpp missing.cpp \
+	process.cpp string.cpp in6addr.cpp buffer.cpp lockfile.cpp \
+	nat.cpp runlist.cpp assoc.cpp
+
+LIBDIR=../../../lib
+OBJDIR=obj_sol_10
+
+libccext2_OBJS := $(notdir $(libccext2_SOURCES))
+libccext2_OBJS := ${libccext2_OBJS:%.cpp=%.o}
+libccext2_OBJS := ${libccext2_OBJS:%.c=%.o}
+libccext2_PATHOBJS := $(addprefix $(OBJDIR)/,$(libccext2_OBJS))
+
+libccgnu2_OBJS := $(notdir $(libccgnu2_SOURCES))
+libccgnu2_OBJS := ${libccgnu2_OBJS:%.cpp=%.o}
+libccgnu2_OBJS := ${libccgnu2_OBJS:%.c=%.o}
+libccgnu2_PATHOBJS := $(addprefix $(OBJDIR)/,$(libccgnu2_OBJS))
+
+VPATH+=$(OBJDIR)
+
+.SUFFIXES: .c .cpp .o
+
+.c.o:
+	$(CC) $(TEMPLATEFLAGS) $(CFLAGS) $(INCL) -c $< -o $(OBJDIR)/$(@F)
+
+.cpp.o:
+	$(CXX) $(TEMPLATEFLAGS) $(CXXFLAGS) $(INCL) -c $< -o $(OBJDIR)/$(@F)
+
+all: dirs $(LIBDIR)/libccext2.so $(LIBDIR)/libccgnu2.so
+
+clean:
+	-rm -f $(LIBDIR)/libccext2.so $(LIBDIR)/libccgnu2.so
+	-rm -rf $(OBJDIR) $(LIBDIR)/SunWS_cache
+
+rebuild: clean all
+
+$(LIBDIR)/libccext2.so : $(libccext2_OBJS) 
+	$(CXX) $(CXXFLAGS) $(TEMPLATEFLAGS) $(LDFLAGS) -G -PIC \
+		-o $@ $(libccext2_PATHOBJS) $(LIBS)
+
+$(LIBDIR)/libccgnu2.so : $(libccgnu2_OBJS) 
+	$(CXX) $(CXXFLAGS) $(TEMPLATEFLAGS) $(LDFLAGS) -G -PIC \
+		-o $@ $(libccgnu2_PATHOBJS) $(LIBS)
+
+dirs:
+	@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	@test -d $(LIBDIR) || mkdir $(LIBDIR)

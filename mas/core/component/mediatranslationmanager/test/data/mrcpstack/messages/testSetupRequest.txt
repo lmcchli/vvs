@@ -1,0 +1,21 @@
+SETUP rtsp://localhost.mobeon.com:4712/media/speechsynthesizer RTSP/1.0
+CSeq: 1
+Transport: RTP/AVP;client_port=4714-4715
+
+SETUP rtsp://localhost.mobeon.com:4712/media/speechrecognizer RTSP/1.0
+CSeq: 2
+Transport: RTP/AVP;client_port=5554-5555
+
+SETUP rtsp://localhost.mobeon.com:4712/media/speechsynthesizer RTSP/1.0
+CSeq: 3
+Transport: RTP/AVP;client_port=4714-4715
+Content-Type: application/sdp
+Content-Length: 67
+
+v=0
+s=Nisses SDP
+m=audio 4712 RTP/AVP 0
+m=video 4714 RTP/AVP 31
+
+
+

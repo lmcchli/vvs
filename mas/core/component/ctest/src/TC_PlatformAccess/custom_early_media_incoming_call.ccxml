@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+	<script src="libMas.js"/>
+
+	<var name="myState" expr="'init'"></var>
+	<var name="in_connectionID"></var>
+	<var name="ANI"/>
+	<var name="errorFound"/>
+
+	<eventprocessor statevariable="myState">
+		<!-- On receiving the alerting event, start set media resources-->
+		<transition event="connection.alerting" name="evt">
+			<assign name="in_connectionID" expr="evt.connectionid"></assign>
+			<script>System_SetPartitionRestriction (true);</script>
+			
+			<assign name="ANI" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callingnumberrule'), evt.connection.remote.number, '')"/>
+			<assign name="errorFound" expr="false"/>
+			
+			<if cond="ANI != undefined &amp;&amp; ANI != ''">
+				<if cond="ANI == '1111111111'">
+					<script>
+						var headername = ["P-Early-Media", "x-123"];
+						var headervalue = ["sendrecv", "foo=test;fooo,test"];
+						mas.systemSetEarlyMediaResource('en', 'voice.pcmu', 'video', headername, headervalue);
+					</script>
+				<elseif cond="ANI == '2222222222'"/>
+					<script>
+						var headername = ["P-Early-Media"];
+						var headervalue = ["foo-bar"];
+						try {
+						mas.systemSetEarlyMediaResource('en', 'voice.pcmu', 'video', headername, headervalue);
+						} catch (err) {
+							System_Log(1,"VVA: error occurred in systemSetEarlyMediaResource: "+err);
+							errorFound=true;
+						}
+					</script>
+					<if cond="errorFound==true">
+						<exit/>
+					</if>
+				<elseif cond="ANI == '3333333333'"/>
+					<script>
+						var headername = ["P-Charging-Vector"];
+						var headervalue = ["foo-bar"];
+						try {
+						mas.systemSetEarlyMediaResource('en', 'voice.pcmu', 'video', headername, headervalue);
+						} catch (err) {
+							System_Log(1,"VVA: error occurred in systemSetEarlyMediaResource: "+err);
+							errorFound=true;
+						}
+					</script>
+					<if cond="errorFound==true">
+						<exit/>
+					</if>
+				<elseif cond="ANI == '4444444444'"/>
+					<script>
+						var headername = ["To"];
+						var headervalue = ["this should fail"];
+						try {
+						mas.systemSetEarlyMediaResource('en', 'voice.pcmu', 'video', headername, headervalue);
+						} catch (err) {
+							System_Log(1,"VVA: error occurred in systemSetEarlyMediaResource: "+err);
+							errorFound=true;
+						}
+					</script>
+					<if cond="errorFound==true">
+						<exit/>
+					</if>
+
+				</if>
+			<else/>
+				<log expr="'ANI undefined or empty exiting'"></log>
+				<exit/>
+			</if>
+        </transition>
+
+        <!-- On receiving the earlymediaresourceavailable event, start the application for early media-->
+        <transition event="com.mobeon.platform.earlymediaresourceavailable">
+            <log expr="'Early Media 183 response successfully sent'"></log>
+            <reject connectionid="in_connectionID" />
+        </transition>
+
+        <!-- On receiving the earlymediaresourcefailed event, log error and exit-->
+        <transition event="com.mobeon.platform.earlymediaresourcefailed">
+            <log expr="'Early Media 183 response Not successfully sent'"></log>
+            <exit/>
+        </transition>
+
+        <!-- Assume that the early media application exits. Then you accept the call.-->
+        <transition event="dialog.exit" state="earlyMediaDialogActive">
+            <accept/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+
+		<var name="subscriberExists" />
+		<block>
+			<script>
+				<![CDATA[
+				subscriberExists = mas.subscriberExist(PHONE_NUMBER);
+				]]>
+			</script>
+			<if cond="subscriberExists">
+				<log>TC 10001011 PASSED</log>
+			<else />
+				<log>TC 10001011 FAILED - The subscriber with the phone number <expr value="PHONE_NUMBER" /> does NOT exist</log>
+			</if>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 10001011 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

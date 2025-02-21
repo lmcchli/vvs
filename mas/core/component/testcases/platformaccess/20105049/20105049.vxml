@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+		<var name="phoneNumber"/>
+		<var name="origPhoneNumber"/>
+		<var name="unknown_sender"/>
+		<var name="unknown_receiver"/>
+		<var name="redirNumber"/>
+		<var name="passed"/>
+        <var name="message"/>
+        <block>
+		    <!-- This part should result in audio prompt "september" -->
+			<script>
+
+				var qualifiers = new Array();
+			    var qualifier = util.getMediaQualifier("Number", 10);
+			    qualifiers.push(qualifier);
+			    
+			    var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "augustorseptember",qualifiers );
+			    if (typeof(mediaObjects) != 'undefined') {
+                    if (typeof(mediaObjects[0]) == 'undefined') {
+                        passed = true;
+                    } else {
+                        passed = false;
+                        message = 'Failed as mediaObjects[0] is defined';
+                    }
+                } else {
+                    passed = false;
+                    message = 'Failed as mediaObjects array is undefined';
+                }
+            </script>
+			<if cond="passed">
+               <log>TC 20105049 PASSED</log>
+            <else/>
+               <log>TC 20104049 FAILED <value expr=" message"/></log>
+            </if>
+       		
+		</block>
+		
+		
+	 	
+	</form>
+	 
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TEST 20105049  FAILED</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

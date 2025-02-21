@@ -1,0 +1,3608 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "java"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3A880BBC0117"
+    physical_models 	(list unit_reference_list
+	(object SubSystem "applet"
+	    quid       	"3A880BBC0118"
+	    physical_models 	(list unit_reference_list
+		(object module "Applet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BBC0121"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AppletContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BBC038E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AppletStub" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BBD0209"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AudioClip" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BBE008D"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "awt"
+	    quid       	"3A880BBE02F0"
+	    physical_models 	(list unit_reference_list
+		(object module "AWTError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BBE02FA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AWTEvent" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BBF0392"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AWTEventMulticaster" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC00271"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AWTException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC100EC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AWTPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC1034F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ActiveEvent" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC201C0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Adjustable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC30063"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlphaComposite" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC3032A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlphaCompositeContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC401C3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BasicStroke" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC50098"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BorderLayout" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC5035F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Button" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC601EE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Canvas" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC70072"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CardLayout" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC702FD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Checkbox" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC801A0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CheckboxGroup" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC90025"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CheckboxMenuItem" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BC90292"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Choice" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCA013F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Color" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCB003C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ColorPaintContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCB02A9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Component" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCD0374"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ComponentOrientation" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCE01EF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Composite" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCF0060"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CompositeContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BCF02AF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Container" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD001B6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Cursor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD1009F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Dialog" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD1032A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Dimension" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD201AF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Event" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD301EC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventDispatchThread" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD4005D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventQueue" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD402C0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileDialog" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD503A8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FlowLayout" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD60255"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FocusManager" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD700DA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Font" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD703BF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FontMetrics" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD8024E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Frame" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD9015F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GradientPaint" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BD903CC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GradientPaintContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDA025A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Graphics" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDB0111"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Graphics2D" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDB039C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GraphicsConfigTemplate" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDC020D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GraphicsConfiguration" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDD0074"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GraphicsDevice" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDD02CD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GraphicsEnvironment" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDE013E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GridBagConstraints" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDF00BD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GridBagLayout" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BDF035C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GridLayout" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE1003E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalComponentStateException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE10283"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Image" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE2012F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ImageMediaEntry" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE20392"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Insets" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE30203"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ItemSelectable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE40060"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Label" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE402CD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LayoutManager" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE5012A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LayoutManager2" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE5036F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LightweightPeer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE70046"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "List" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE70303"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MediaEntry" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE801C4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MediaTracker" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE9005D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Menu" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BE902D4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MenuBar" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEA014F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MenuComponent" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEA03D0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MenuContainer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEB0223"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MenuItem" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEC00C6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MenuShortcut" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEC0315"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Paint" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BED015D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PaintContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BED0398"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Panel" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEE01EB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PeerFixer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEF003E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Point" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BEF0297"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Polygon" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF00112"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PopupMenu" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF00356"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrintGraphics" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF101A9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrintJob" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF103E4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Rectangle" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF20287"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RenderingHints" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF30170"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ScrollPane" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF303D3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Scrollbar" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF500C9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Shape" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF50303"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Stroke" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF6014C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SystemColor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF700A3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TextArea" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF7031A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TextComponent" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF8019F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TextField" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF90024"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TexturePaint" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BF90269"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TexturePaintContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BFA0166"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Toolkit" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BFB0027"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Transparency" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BFB0294"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Window" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880BFC0137"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "color"
+		    quid       	"3A880BFC035E"
+		    physical_models 	(list unit_reference_list
+			(object module "CMMException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880BFC035F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ColorSpace" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880BFD02A1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ICC_ColorSpace" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880BFE00EA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ICC_Profile" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880BFF02EA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ICC_ProfileGray" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C000133"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ICC_ProfileRGB" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C000377"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ProfileDataException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0101AC"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "datatransfer"
+		    quid       	"3A880C0103E7"
+		    physical_models 	(list unit_reference_list
+			(object module "Clipboard" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0103E8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ClipboardOwner" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C02021C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataFlavor" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0300C9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FlavorMap" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0303C2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeType" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C04030F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeTypeParameterList" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C050176"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeTypeParseException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C060091"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "StringSelection" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0602D6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SystemFlavorMap" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C07011F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Transferable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C07034F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UnsupportedFlavorException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C080184"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "dnd"
+		    quid       	"3A880C0803C9"
+		    physical_models 	(list unit_reference_list
+			(object module "Autoscroll" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0803CA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DnDConstants" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C09029E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragGestureEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0A010F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragGestureListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0B000C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragGestureRecognizer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0B0283"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragSource" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0C011C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragSourceContext" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0D007D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragSourceDragEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0D02C2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragSourceDropEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0E0129"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragSourceEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0F004E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DragSourceListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C0F0293"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DropTarget" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C100140"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DropTargetContext" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C10037A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DropTargetDragEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1101B9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DropTargetDropEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C120002"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DropTargetEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C120233"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DropTargetListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1300D6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InvalidDnDOperationException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C130307"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MouseDragGestureRecognizer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C140177"
+			    stereotype 	""
+			    language   	"Java")
+			(object SubSystem "peer"
+			    quid       	"3A880C1403A8"
+			    physical_models 	(list unit_reference_list
+				(object module "DragSourceContextPeer" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C1403A9"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "DropTargetContextPeer" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C1501F1"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "DropTargetPeer" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C160026"
+				    stereotype 	""
+				    language   	"Java"))
+			    physical_presentations 	(list unit_reference_list)))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "event"
+		    quid       	"3A880C160239"
+		    physical_models 	(list unit_reference_list
+			(object module "AWTEventListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C16023A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActionEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C17009F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActionListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1702B2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AdjustmentEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C180173"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AdjustmentListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1803A4"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ComponentAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C190201"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ComponentEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1A00A4"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ComponentListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1A02B7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ContainerAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1B00EB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ContainerEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1B031C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ContainerListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1C0147"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FocusAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1C0364"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FocusEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1D01F3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FocusListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1E003B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InputEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1E02EE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InputMethodEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1F0137"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InputMethodListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C1F034A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InvocationEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C200193"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ItemEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2003CE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ItemListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2101EE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "KeyAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C220019"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "KeyEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2303B4"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "KeyListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2401D5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MouseAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2403E7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MouseEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C250262"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MouseListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2600A1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MouseMotionAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2602DC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MouseMotionListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C270125"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "NativeLibLoader" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C270356"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PaintEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C28018A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2803B1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2901C8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WindowAdapter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2903D1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WindowEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2A022D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WindowListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2B004E"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "font"
+		    quid       	"3A880C2B0257"
+		    physical_models 	(list unit_reference_list
+			(object module "FontRenderContext" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2B0258"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GlyphJustificationInfo" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2C00C8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GlyphMetrics" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2C0303"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GlyphVector" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2D0141"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GraphicAttribute" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2E0085"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ImageGraphicAttribute" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2E0283"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LineBreakMeasurer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2F00A4"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LineMetrics" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C2F02AD"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MultipleMaster" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3000C3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "OpenType" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C31002F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ShapeGraphicAttribute" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C310314"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextAttribute" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3201D5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextHitInfo" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3203DE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextJustifier" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3301FE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextLayout" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C34006F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextLine" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3403AE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TextMeasurer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C35028D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TransformAttribute" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3600A4"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "geom"
+		    quid       	"3A880C360393"
+		    physical_models 	(list unit_reference_list
+			(object module "AffineTransform" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C360394"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Arc2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3701E6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ArcIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C38002F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Area" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C38024C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CubicCurve2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C390094"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CubicIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C390293"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Dimension2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3A00A0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Ellipse2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3A0295"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "EllipseIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3B00BF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FlatteningPathIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3B0318"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GeneralPath" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3C017F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GeneralPathIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3C0388"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IllegalPathStateException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3D018A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Line2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3D03B1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LineIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3E01BE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "NoninvertibleTransformException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3E039F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PathIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C3F0288"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Point2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C40009E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "QuadCurve2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4002B1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "QuadIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4100C8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RectIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4102C7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Rectangle2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C42011A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RectangularShape" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C42032C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RoundRectIterator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C430157"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RoundRectangle2D" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C430338"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "im"
+		    quid       	"3A880C440144"
+		    physical_models 	(list unit_reference_list
+			(object module "InputContext" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C440145"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InputMethodHighlight" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C440339"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InputMethodRequests" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C450132"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InputSubset" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C450327"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "image"
+		    quid       	"3A880C46013D"
+		    physical_models 	(list unit_reference_list
+			(object module "AffineTransformOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C460147"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AreaAveragingScaleFilter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C46031E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BandCombineOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C47012B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BandedSampleModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C470315"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BufferedImage" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4801CC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BufferedImageFilter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4803CB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BufferedImageOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4901BA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ByteLookupTable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C49039A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ColorConvertOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4A01B1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ColorModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4B0072"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ComponentColorModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4B0267"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ComponentSampleModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4C00A6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ConvolveOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4C02A4"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CropImageFilter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4D00C5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataBuffer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4D033C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataBufferByte" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4E0149"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataBufferInt" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4E033E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataBufferShort" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4F014A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataBufferUShort" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C4F033F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DirectColorModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C500156"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FilteredImageSource" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C50032C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ImageConsumer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C510201"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ImageFilter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5103E2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ImageObserver" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C53006A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ImageProducer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C530240"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ImagingOpException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C540025"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IndexColorModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C54022E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Kernel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C55001C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LookupOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5501F3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LookupTable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5503DE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MemoryImageSource" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C56021D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MultiPixelPackedSampleModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C570033"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PackedColorModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C570228"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PixelGrabber" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C580053"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PixelInterleavedSampleModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C58025C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RGBImageFilter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C59004A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Raster" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5902CB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RasterFormatException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5A00A6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RasterOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5A02A5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RenderedImage" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5B009D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ReplicateScaleFilter" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5B029C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RescaleOp" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5C00C7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SampleModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5C02EE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ShortLookupTable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5D00D2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SinglePixelPackedSampleModel" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5D02B3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TileObserver" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5E008E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WritableRaster" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5E026E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WritableRenderedImage" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C5F0049"
+			    stereotype 	""
+			    language   	"Java")
+			(object SubSystem "renderable"
+			    quid       	"3A880C5F0216"
+			    physical_models 	(list unit_reference_list
+				(object module "ContextualRenderedImageFactory" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C5F0217"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "ParameterBlock" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C600036"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "RenderContext" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C600221"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "RenderableImage" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C610006"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "RenderableImageOp" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C6101E6"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "RenderableImageProducer" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C6103B3"
+				    stereotype 	""
+				    language   	"Java")
+				(object module "RenderedImageFactory" "NotAModuleType" "NotAModulePart"
+				    quid       	"3A880C620184"
+				    stereotype 	""
+				    language   	"Java"))
+			    physical_presentations 	(list unit_reference_list)))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "peer"
+		    quid       	"3A880C62033C"
+		    physical_models 	(list unit_reference_list
+			(object module "ComponentPeer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C62033D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FontPeer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C63010D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LightweightPeer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C6302C6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MenuComponentPeer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C640096"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "print"
+		    quid       	"3A880C64024F"
+		    physical_models 	(list unit_reference_list
+			(object module "Book" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C640250"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PageFormat" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C65003E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Pageable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C650200"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Paper" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C6503C3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Printable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C66019D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PrinterAbortException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C66034C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PrinterException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C67011D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PrinterGraphics" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C6702C1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PrinterIOException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C680088"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PrinterJob" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C680255"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "beans"
+	    quid       	"3A880C69001B"
+	    physical_models 	(list unit_reference_list
+		(object module "AppletInitializer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C690025"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BeanDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6901D4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BeanInfo" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6903BF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Beans" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6A018F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Customizer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6B0281"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DesignMode" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6C0048"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventSetDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6C020A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FeatureDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6C03CD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GenericBeanInfo" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6D0194"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IndexedPropertyDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6D034C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IntrospectionException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6E0109"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Introspector" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6E02DF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MethodDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6F00A6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ParameterDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C6F03DB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyChangeEvent" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7001A2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyChangeListener" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C700346"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyChangeSupport" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C710117"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7102D0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyEditor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C720096"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyEditorManager" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C720245"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyEditorSupport" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C73000C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyVetoException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7301B0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SimpleBeanInfo" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C730355"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "VetoableChangeListener" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C740107"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "VetoableChangeSupport" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7402B6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Visibility" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C750069"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "beancontext"
+		    quid       	"3A880C750217"
+		    physical_models 	(list unit_reference_list
+			(object module "BeanContext" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C750221"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextChild" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7503BC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextChildComponentProxy" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C760178"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextChildSupport" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C76034F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextContainerProxy" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C770102"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7702A6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextMembershipEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C780063"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextMembershipListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7801FD"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextProxy" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C78038E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServiceAvailableEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C79014B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServiceProvider" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7902E5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServiceProviderBeanInfo" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7A008E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServiceRevokedEvent" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7A0232"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServiceRevokedListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7A03C3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServices" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7B0180"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServicesListener" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7B0310"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextServicesSupport" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7C0109"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BeanContextSupport" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880C7C0312"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "io"
+	    quid       	"3A880C7D00EC"
+	    physical_models 	(list unit_reference_list
+		(object module "BufferedInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7D00ED"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BufferedOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7D0287"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BufferedReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7E0039"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BufferedWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7E01D4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ByteArrayInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7E0383"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ByteArrayOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7F013F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CharArrayReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C7F02EE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CharArrayWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8000AA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CharConversionException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C800231"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataInput" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8003CC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C810188"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataOutput" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C810323"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8200DF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EOFException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C82025C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Externalizable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8203E3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "File" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8301D1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileDescriptor" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C830362"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileFilter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8400F6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C840287"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileNotFoundException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C85001B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8501AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FilePermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C85033D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C860244"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileSystem" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C87001E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8701A5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FilenameFilter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C870321"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FilterInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8800C0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FilterOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C880247"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FilterReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8803CD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FilterWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C89016C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IOException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8902E8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8A0087"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InputStreamReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8A020D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InterruptedIOException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8A0394"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InvalidClassException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8B0133"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InvalidObjectException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8B02A5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LineNumberInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8C0062"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LineNumberReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8C01E8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NotActiveException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8C035B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NotSerializableException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8D00EF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectInput" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8D0262"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8E003C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectInputValidation" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8E01AF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectOutput" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8E032C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8F00FC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectStreamClass" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C8F02F1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectStreamConstants" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C900202"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectStreamException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C90036B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectStreamField" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C910113"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "OptionalDataException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C910286"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "OutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C920006"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "OutputStreamWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C920183"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PipedInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C920327"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PipedOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9300A8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PipedReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C930256"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PipedWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9303BF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrintStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C940168"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrintWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9402F8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PushbackInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C95008D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PushbackReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C950209"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RandomAccessFile" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9503A4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Reader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C960138"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SequenceInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9602A1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Serializable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C980177"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SerializablePermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9802CC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StreamCorruptedException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C990042"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StreamTokenizer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9901E7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringBufferInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C990359"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringReader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9A00DA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringWriter" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9A0242"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SyncFailedException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9A0397"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UTFDataFormatException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9B010D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnsupportedEncodingException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9B026C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Win32FileSystem" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9C014B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "WriteAbortedException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9C02A9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Writer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9D002A"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "lang"
+	    quid       	"3A880C9D0189"
+	    physical_models 	(list unit_reference_list
+		(object module "AbstractMethodError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9D018A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ArithmeticException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9D02DD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ArrayIndexOutOfBoundsException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9E0049"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ArrayStoreException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9E019E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Boolean" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9E0307"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Byte" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9F009B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Character" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880C9F02FE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Class" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA000BB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ClassCastException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA0020F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ClassCircularityError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA00359"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ClassFormatError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA100C6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ClassLoader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA10261"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ClassNotFoundException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA103B5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CloneNotSupportedException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA20118"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Cloneable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA20262"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Comparable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA203AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Compiler" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA30119"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Double" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA302AA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Error" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA4000C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Exception" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA40157"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ExceptionInInitializerError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA402AB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FDBigInt" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA5002C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Float" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA501C6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FloatingDecimal" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA6000F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalAccessError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA60159"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalAccessException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA602A4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalArgumentException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA603E4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalMonitorStateException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA70147"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalStateException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA70287"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalThreadStateException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA703D2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IncompatibleClassChangeError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA8012A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IndexOutOfBoundsException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA80275"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InheritableThreadLocal" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA803B5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InstantiationError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA9010E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InstantiationException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA9024E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Integer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CA903CB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InternalError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAA0123"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InterruptedException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAA0264"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LinkageError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAB008E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Long" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAB020B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Math" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAB0391"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NegativeArraySizeException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAC00E0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoClassDefFoundError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAC022A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchFieldError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAC0361"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchFieldException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAD00AF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchMethodError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAD01F0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchMethodException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAD0330"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NullPointerException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAE007F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Number" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAE01BF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NumberFormatException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAE02FF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Object" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAF006C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "OutOfMemoryError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAF01A2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Package" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CAF02F7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Process" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB00045"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Runnable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB0017C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Runtime" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB002D0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RuntimeException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB10015"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RuntimePermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB10141"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SecurityException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB10278"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SecurityManager" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB2000C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Short" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB2016B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StackOverflowError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB20297"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "String" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB30054"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringBuffer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB301C6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringIndexOutOfBoundsException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB302F3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "System" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB40069"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Thread" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB40204"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ThreadDeath" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB40326"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ThreadGroup" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB500CF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ThreadLocal" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB50205"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Throwable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB50332"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnknownError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB6006C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnsatisfiedLinkError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB60198"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnsupportedClassVersionError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB602BB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnsupportedOperationException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB603DD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "VerifyError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB70122"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "VirtualMachineError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB70244"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Void" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB70367"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Win32Process" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CB800BF"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "ref"
+		    quid       	"3A880CB801E1"
+		    physical_models 	(list unit_reference_list
+			(object module "FinalReference" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CB801E2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Finalizer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CB80322"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PhantomReference" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CB9005C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Reference" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CB9019D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ReferenceQueue" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CB902D3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SoftReference" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBA0004"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WeakReference" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBA0126"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "reflect"
+		    quid       	"3A880CBA0248"
+		    physical_models 	(list unit_reference_list
+			(object module "AccessibleObject" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBA0253"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Array" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBA0393"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Constructor" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBB00CD"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Field" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBB0218"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InvocationTargetException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBB033A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Member" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBC0089"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Method" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBC01BF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Modifier" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBC0332"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ReflectPermission" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CBD0062"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "math"
+	    quid       	"3A880CBD01E9"
+	    physical_models 	(list unit_reference_list
+		(object module "BigDecimal" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBD01EA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BigInteger" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBD0365"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "net"
+	    quid       	"3A880CBE00AA"
+	    physical_models 	(list unit_reference_list
+		(object module "Authenticator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBE00AB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BindException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBE01C2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ConnectException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBE02D0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ContentHandler" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBE03DF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ContentHandlerFactory" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBF010F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DatagramPacket" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBF0250"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DatagramSocket" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CBF039A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DatagramSocketImpl" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC000DF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FactoryURLClassLoader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC001F7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileNameMap" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC00305"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "HttpURLConnection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC10126"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InetAddress" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC10285"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "JarURLConnection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC200B9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MalformedURLException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC201C8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MulticastSocket" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC202E0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NetPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC30007"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoRouteToHostException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC3010B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PasswordAuthentication" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC30223"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PlainDatagramSocketImpl" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC30346"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PlainSocketImpl" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC4008A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ProtocolException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC40199"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ServerSocket" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC402B1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Socket" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC403DD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC500FA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketImpl" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC50244"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketImplFactory" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC5033F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC60065"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketOptions" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC601EC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC602FA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SocketPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC70020"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URL" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC70251"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLClassLoader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC7036A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLConnection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC80112"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLDecoder" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC80217"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLEncoder" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC8031B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLStreamHandler" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC90037"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLStreamHandlerFactory" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC90132"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnknownHostException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CC90326"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnknownServiceException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCA0039"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "rmi"
+	    quid       	"3A880CCA013D"
+	    physical_models 	(list unit_reference_list
+		(object module "AccessException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCA013E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlreadyBoundException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCA0237"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ConnectException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCA0332"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ConnectIOException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCB0044"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MarshalException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCB013F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MarshalledObject" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCB0239"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Naming" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCB0333"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchObjectException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCC003C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NotBoundException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCC0136"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RMISecurityException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCC0230"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RMISecurityManager" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCC0321"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Remote" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCD0029"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RemoteException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCD012D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ServerError" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCD021E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ServerException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCD030E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ServerRuntimeException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCE0016"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StubNotFoundException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCE0107"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnexpectedException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCE01F7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnknownHostException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCE02E7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnmarshalException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CCE03D8"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "activation"
+		    quid       	"3A880CCF00FE"
+		    physical_models 	(list unit_reference_list
+			(object module "Activatable" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CCF0108"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivateFailedException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CCF01F9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationDesc" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CCF02FD"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD0000F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationGroup" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD001F0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationGroupDesc" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD002EA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationGroupID" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD003DB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationGroup_Stub" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD10101"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationID" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD101FB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationInstantiator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD102EC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationMonitor" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD103DC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ActivationSystem" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD200EF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Activator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD201E9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UnknownGroupException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD202CF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UnknownObjectException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD203C0"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "dgc"
+		    quid       	"3A880CD300BE"
+		    physical_models 	(list unit_reference_list
+			(object module "DGC" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD300C8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Lease" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD301B8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "VMID" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD3029F"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "registry"
+		    quid       	"3A880CD30399"
+		    physical_models 	(list unit_reference_list
+			(object module "LocateRegistry" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD3039A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Registry" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD400A1"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RegistryHandler" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD40192"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "server"
+		    quid       	"3A880CD40282"
+		    physical_models 	(list unit_reference_list
+			(object module "ExportException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD40283"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LoaderHandler" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD40368"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LogStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD50085"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ObjID" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD50189"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Operation" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD50279"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RMIClassLoader" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD50360"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RMIClientSocketFactory" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD6005E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RMIFailureHandler" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD60144"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RMIServerSocketFactory" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD60221"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RMISocketFactory" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD60311"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RemoteCall" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD70019"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RemoteObject" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD70100"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RemoteRef" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD701FA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RemoteServer" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD702E0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RemoteStub" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD703C7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ServerCloneException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD800C5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ServerNotActiveException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD801AB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ServerRef" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD80292"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Skeleton" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD8036E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SkeletonMismatchException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD90058"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SkeletonNotFoundException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD9013F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SocketSecurityException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD9021B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UID" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CD90384"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UnicastRemoteObject" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CDA008C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Unreferenced" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CDA0168"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "security"
+	    quid       	"3A880CDA024F"
+	    physical_models 	(list unit_reference_list
+		(object module "AccessControlContext" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDA0250"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AccessControlException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDA032B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AccessController" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDB0015"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlgorithmParameterGenerator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDB00FB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlgorithmParameterGeneratorSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDB01D8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlgorithmParameters" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDB02BE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AlgorithmParametersSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDB039A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AllPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDC0085"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BasicPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDC0229"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Certificate" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDC03C4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CodeSource" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDD00AE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DigestException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDD0181"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DigestInputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDD025D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DigestOutputStream" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDD032F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GeneralSecurityException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDE0019"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Guard" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDE00E2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GuardedObject" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDE01AA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Identity" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDE02A4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IdentityScope" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDE0381"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InvalidAlgorithmParameterException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDF0061"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InvalidKeyException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDF0129"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "InvalidParameterException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDF01FC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Key" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDF02D8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CDF03A0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyFactory" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE0008A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyFactorySpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE0015D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyManagementException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE0021B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyPair" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE002E3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyPairGenerator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE003B6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyPairGeneratorSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE1008C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyStore" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE1017C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyStoreException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE1023B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "KeyStoreSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE10317"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageDigest" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE2000B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageDigestSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE200D3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchAlgorithmException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE2019C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchProviderException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE2025A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Permission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE20322"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PermissionCollection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE30003"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Permissions" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE300C1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Policy" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE302F2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Principal" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE303A6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrivateKey" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE40086"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrivilegedAction" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE4013A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrivilegedActionException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE40203"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PrivilegedExceptionAction" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE402B7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ProtectionDomain" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE40375"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Provider" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE50060"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ProviderException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE50114"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PublicKey" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE501D2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SecureClassLoader" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE50290"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SecureRandom" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE50359"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SecureRandomSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE6002F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Security" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE60101"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SecurityPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE601B6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Signature" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE602A6"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SignatureException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE60350"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SignatureSpi" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE70030"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SignedObject" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE700E5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Signer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE701A3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnrecoverableKeyException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE7024D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnresolvedPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE7030B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnresolvedPermissionCollection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CE703C0"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "acl"
+		    quid       	"3A880CE8008C"
+		    physical_models 	(list unit_reference_list
+			(object module "Acl" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE8008D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AclEntry" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE80154"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AclNotFoundException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE801FF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Group" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE802B3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "LastOwnerException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE8035D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "NotOwnerException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE9001F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Owner" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE900CA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Permission" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE9017E"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "cert"
+		    quid       	"3A880CE90232"
+		    physical_models 	(list unit_reference_list
+			(object module "CRL" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE90233"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CRLException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE902DC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Certificate" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CE90391"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateEncodingException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEA0053"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEA00F3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateExpiredException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEA01A7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateFactory" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEA0266"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateFactorySpi" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEA0310"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateNotYetValidException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEA03BA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CertificateParsingException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEB0072"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "X509CRL" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEB013B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "X509CRLEntry" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEB01F9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "X509Certificate" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEB02B7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "X509Extension" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEB0361"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "interfaces"
+		    quid       	"3A880CEC001A"
+		    physical_models 	(list unit_reference_list
+			(object module "DSAKey" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEC001B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAKeyPairGenerator" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEC00BA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAParams" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEC0178"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAPrivateKey" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEC0222"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAPublicKey" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEC02C3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RSAPrivateCrtKey" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEC0363"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RSAPrivateKey" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED001B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RSAPublicKey" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED00BB"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "spec"
+		    quid       	"3A880CED015B"
+		    physical_models 	(list unit_reference_list
+			(object module "AlgorithmParameterSpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED015C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAParameterSpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED0206"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAPrivateKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED02B0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DSAPublicKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED0350"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "EncodedKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CED03E6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InvalidKeySpecException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEE0095"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InvalidParameterSpecException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEE0135"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "KeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEE01CB"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "PKCS8EncodedKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEE026B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RSAPrivateCrtKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEE030C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RSAPrivateKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEE03A2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RSAPublicKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEF0050"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "X509EncodedKeySpec" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880CEF00E6"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "sql"
+	    quid       	"3A880CEF0190"
+	    physical_models 	(list unit_reference_list
+		(object module "Array" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CEF0191"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BatchUpdateException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CEF0227"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Blob" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CEF02BD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CallableStatement" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CEF0371"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Clob" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF0001F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Connection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF000F2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataTruncation" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF00192"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DatabaseMetaData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF10035"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Date" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF100D5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Driver" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF1016B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DriverInfo" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF10201"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DriverManager" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF102AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DriverPropertyInfo" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF10342"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PreparedStatement" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF20022"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Ref" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF200A4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ResultSet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF20235"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ResultSetMetaData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF202F3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SQLData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF2037F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SQLException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF30024"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SQLInput" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF300CE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SQLOutput" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF30182"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SQLWarning" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF3020E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Statement" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF302C3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Struct" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF30345"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Time" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF303DB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Timestamp" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF40089"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Types" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF401B6"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "text"
+	    quid       	"3A880CF40242"
+	    physical_models 	(list unit_reference_list
+		(object module "Annotation" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF40243"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AttributeEntry" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF402CE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AttributedCharacterIterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF4035A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AttributedString" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF50031"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BreakIterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF500D1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CharacterBreakData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF50149"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CharacterIterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF501E9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ChoiceFormat" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF50289"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CollationElementIterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF5032A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CollationKey" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF503AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CollationRules" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF6003C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Collator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF60118"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CompactByteArray" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF601B9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CompactCharArray" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF60245"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CompactIntArray" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF602DB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CompactShortArray" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF6038F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CompactStringArray" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF7003D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DateFormat" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF7019C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DateFormatSymbols" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF70264"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DecimalFormat" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF70323"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DecimalFormatSymbols" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF703CD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DigitList" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF80161"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EntryPair" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF801EE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FieldPosition" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF8027A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Format" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF802F2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IntHashtable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF8036A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LineBreakData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF803D8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MergeCollation" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF90072"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageFormat" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF900FF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Normalizer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF901DB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NumberFormat" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF90299"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ParseException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF90307"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ParsePosition" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CF9038A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PatternEntry" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA0038"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "RuleBasedCollator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA0100"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SentenceBreakData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA0164"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SimpleDateFormat" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA01FA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SimpleTextBoundary" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA027D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SpecialMapping" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA02F5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringCharacterIterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFA0377"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TextBoundaryData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC008B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnicodeClassMapping" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC00EF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Utility" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC017B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "WordBreakData" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC01DF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "WordBreakTable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC0257"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "util"
+	    quid       	"3A880CFC02D0"
+	    physical_models 	(list unit_reference_list
+		(object module "AbstractCollection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC02D1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AbstractList" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFC0370"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AbstractMap" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFD0000"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AbstractSequentialList" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFD0064"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AbstractSet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFD00C8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ArrayList" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFD014A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Arrays" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFD01FF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BitSet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFD0277"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Calendar" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE00A2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Collection" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE0110"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Collections" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE01B0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Comparator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE0200"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ConcurrentModificationException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE0250"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Date" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE02DC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Dictionary" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE0337"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EmptyStackException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE0387"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Enumeration" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFE03D7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventListener" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF0035"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventObject" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF008F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "GregorianCalendar" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF0111"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "HashMap" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF0189"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "HashSet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF01E4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Hashtable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF0266"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Iterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF02AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "LinkedList" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF032E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "List" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF0392"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ListIterator" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880CFF03E2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ListResourceBundle" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D00004A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Locale" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0000FF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Map" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D000159"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MissingResourceException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D00019F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchElementException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0001DB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Observable" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D00022B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Observer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D000271"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Properties" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0002C1"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyPermission" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D000307"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PropertyResourceBundle" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D000380"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Random" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0003DA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ResourceBundle" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D010042"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Set" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D01009C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SimpleTimeZone" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D01010A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SortedMap" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D010146"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SortedSet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D01018C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Stack" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0101C8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StringTokenizer" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D01020E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TimeZone" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0102C3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TooManyListenersException" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D010327"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TreeMap" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D010395"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "TreeSet" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0103E5"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Vector" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D020093"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "WeakHashMap" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A880D0200D9"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "jar"
+		    quid       	"3A880D020134"
+		    physical_models 	(list unit_reference_list
+			(object module "Attributes" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D02013E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "JarEntry" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D02017A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "JarException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0201AC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "JarFile" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0201F2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "JarInputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D02022E"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "JarOutputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D020260"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "JarVerifier" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0202A6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Manifest" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0202E2"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "zip"
+		    quid       	"3A880D02031E"
+		    physical_models 	(list unit_reference_list
+			(object module "Adler32" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D02031F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CRC32" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D020350"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CheckedInputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D020382"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "CheckedOutputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0203B5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Checksum" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0203E7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DataFormatException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D030027"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Deflater" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0300A9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DeflaterOutputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0300EF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GZIPInputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D03012B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "GZIPOutputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D03015D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "Inflater" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0301A3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InflaterInputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0301FD"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ZipConstants" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D040227"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ZipEntry" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0402E5"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ZipException" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D04030D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ZipFile" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D040349"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ZipInputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D040371"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ZipOutputStream" "NotAModuleType" "NotAModulePart"
+			    quid       	"3A880D0403B7"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list))

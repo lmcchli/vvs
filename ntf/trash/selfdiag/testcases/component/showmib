@@ -1,0 +1,215 @@
+#!/usr/bin/perl
+@statuses=("null", "up", "down", "impaired");
+
+#Mapping table to get a canonical id for MIB variables independent of
+#what SNMP knows about the MIB. It is assumed that ntfObjects is
+#always known.
+
+$names{'ntfObjects.1'} = 'ntfName';
+$names{'ntfObjects.2'} = 'ntfVersion';
+$names{'ntfObjects.3'} = 'ntfOperationalState';
+$names{'ntfObjects.4'} = 'ntfAdministrativeState';
+$names{'ntfObjects.5'} = 'ntfInstallDate';
+$names{'ntfObjects.6'} = 'ntfCurrentUpTime';
+$names{'ntfObjects.7'} = 'ntfAccumulatedUpTime';
+$names{'ntfObjects.8'} = 'ntfNotifInQueue';
+$names{'ntfObjects.9'} = 'ntfNotifForRetry';
+$names{'ntfObjects.10'} = 'ntfInternalQueues';
+$names{'ntfObjects.11'} = 'ntfLoadConfig';
+$names{'ntfObjects.12'} = 'ntfLogLevel';
+$names{'ntfObjects.13'} = 'ntfMailboxPollerStatus';
+$names{'ntfObjects.200'} = 'services';
+$names{'ntfObjects.40'} = 'ntfConsumedServiceTable';
+
+$names{'services.3'} = 'ntfConsumedServiceInstancesTable';
+$names{'services.2'} = 'ntfConsumedServiceTable';
+
+$names{'ntfConsumedServiceTable.1'} = 'ntfConsumedServiceEntry';
+
+$names{'ntfConsumedServiceInstancesTable.1'} = 'ntfConsumedServiceInstancesEntry';
+
+$names{'ntfConsumedServiceEntry.1'} = 'ntfConsumedServiceIndex';
+$names{'ntfConsumedServiceEntry.2'} = 'ntfConsumedServiceName';
+$names{'ntfConsumedServiceEntry.3'} = 'ntfConsumedServiceStatus'; #R11 and newer
+$names{'ntfConsumedServiceEntry.4'} = 'ntfConsumedServiceTime'; #R11 and newer
+$names{'ntfConsumedServiceEntry.5'} = 'ntfConsumedServiceNumSuccess'; #R11 and newer
+$names{'ntfConsumedServiceEntry.6'} = 'ntfConsumedServiceNumFailures'; #R11 and newer
+
+$names{'ntfConsumedServiceEntry.7'} = 'ntfConsumedServiceStatus'; #R10 only
+$names{'ntfConsumedServiceEntry.8'} = 'ntfConsumedServiceTime'; #R10 only
+$names{'ntfConsumedServiceEntry.9'} = 'ntfConsumedServiceNumNotifSent'; #R10 only
+$names{'ntfConsumedServiceEntry.10'} = 'ntfConsumedServiceNumNotifFailures'; #R10 only
+
+$names{'ntfConsumedServiceInstancesEntry.1'} = 'ntfConsumedServiceInstancesIndex'; #R11 and newer
+$names{'ntfConsumedServiceInstancesEntry.2'} = 'ntfConsumedServiceInstancesName'; #R11 and newer
+$names{'ntfConsumedServiceInstancesEntry.3'} = 'ntfConsumedServiceInstancesStatus'; #R11 and newer
+$names{'ntfConsumedServiceInstancesEntry.4'} = 'ntfConsumedServiceInstancesHostName'; #R11 and newer
+$names{'ntfConsumedServiceInstancesEntry.5'} = 'ntfConsumedServiceInstancesPort'; #R11 and newer
+$names{'ntfConsumedServiceInstancesEntry.6'} = 'ntfConsumedServiceInstancesZone'; #R11 and newer
+
+if ($#ARGV <0) {
+    $format = 1;
+} else {
+    $raw = $ARGV[0] =~ /-.*r/;
+    $name = $ARGV[0] =~ /-.*n/;
+    $order = $ARGV[0] =~ /-.*o/;
+    $format = $ARGV[0] =~ /-.*f/;
+}
+
+die "Could not find SNMP installation" unless -e "/apps/MOBYemanate";
+
+$getmany=`/bin/find /apps/MOBYemanate -name getmany | tail -1`;
+print "$getmany -v2c localhost public ntf" if $raw;
+
+chop $getmany;
+die "Could not find getmany" unless -x $getmany;
+
+open (F, "$getmany -v2c localhost public ntf|") || die "Could not run $getmany";
+
+while ($_ = <F>) {
+    print $_ if $raw;
+    s/ntfLastFailureType/ntfNotifInQueue/; #Some MEMA versions use wrong name
+
+    #Replace numbers with names until all known numbers on the line
+    #have been replaced
+    do {
+        ($w) = /^\s*(\w+.\d+)/;
+        s/$w/$names{$w}/ if $names{$w};
+    } while ($names{$w});
+
+    print $_ if $name;
+    push @order, $_ if $order || $format;
+}
+
+#Print sorted list
+if ($order) {
+    foreach $line (sort mibsortorder @order) {
+        print $line;
+    }
+}
+
+#Print formatted information
+if ($format && $#order > 0) {
+    foreach $_ (@order) {
+        chop;
+        ($name, $value) = /^(\S+)\s*=\s*(.+)$/;
+        $val{$name} = $value;
+        if ($name =~ /^ntfConsumed\w+\.(\d+)/) {
+            $ix = $1;
+            $ixes{$ix} = 1;
+            if ($name =~ /^ntfConsumedServiceInstance\w+\.\d+\.(\d+)/) {
+                $instix = $1;
+                $instixes{$ix} .= " $instix " unless $instixes{$ix} =~ / $instix /;
+            }
+        }
+    }
+
+    print "NTF " . $val{'ntfName.0'} .
+        ", version " . $val{'ntfVersion.0'} .
+        " installed at " . $val{'ntfInstallDate'} . "\n";
+    print "    Uptime " . &formattime($val{'ntfCurrentUpTime.0'}) .
+        " (" . &formattime($val{'ntfAccumulatedUpTime.0'}) . " accumulated)\n";
+    print "    Operational state is " . $val{'ntfOperationalState.0'} .
+        ", administrative state is " . $val{'ntfAdministrativeState.0'} . "\n";
+    print "    Queued messages: " .
+        $val{'ntfNotifInQueue.0'} . " new, " .
+        $val{'ntfInternalQueues.0'} . " being processed and " .
+        $val{'ntfNotifForRetry.0'} . " for retry later\n";
+    print "    Log level: " . $val{'ntfLogLevel.0'} . "\n";
+    print "    Mailbox poller status: " . $val{'ntfMailboxPollerStatus.0'} . "\n";
+
+    print "\n    Consumed services\n";
+    foreach $ix (keys %ixes) {
+        print "        $ix:" .
+            $val{"ntfConsumedServiceName.$ix"} . " is " .
+            &status($val{"ntfConsumedServiceStatus.$ix"}) . " since " .
+            &formattime($val{"ntfConsumedServiceTime.$ix"}) . ". " .
+            $val{"ntfConsumedServiceNumSuccess.$ix"} . #R11 and newer
+            " " . $val{"ntfConsumedServiceNumNotifSent.$ix"} . #R10
+            " successful and " .
+            $val{"ntfConsumedServiceNumFailures.$ix"} . #R11 and newer
+            " " . $val{"ntfConsumedServiceNumNotifFailures.$ix"} . #R10
+            " failed requests\n";
+
+        foreach $instix (split(/\s+/, $instixes{"$ix"})) {
+            if ($instix) {
+                print "            $instix:" .
+                    $val{"ntfConsumedServiceInstancesHostName.$ix.$instix"} . ":" .
+                    $val{"ntfConsumedServiceInstancesPort.$ix.$instix"} . " in zone " .
+                    $val{"ntfConsumedServiceInstancesZone.$ix.$instix"} . " is " .
+                    &status($val{"ntfConsumedServiceInstancesStatus.$ix.$instix"})  . "\n";
+            }
+        }
+    }
+}
+
+exit 0;
+
+#Sort the MIB variables, so that the ntf variables come first, in
+#alphabetic order and then the consumed services and consumed service
+#instances ordered first by index and the alphabetically
+sub mibsortorder {
+    $acs = ($a =~ /^ntfConsumedService/) ?1 :0;
+    $bcs = ($b =~ /^ntfConsumedService/) ?1 :0;
+    $acsi = ($a =~ /^ntfConsumedServiceInstance/) ?1 :0;
+    $bcsi = ($b =~ /^ntfConsumedServiceInstance/) ?1 :0;
+
+    #consumed service info after ntf info
+    return 1 if $acs and not $bcs;
+    return -1 if $bcs and not $acs;
+
+    #ntf info sorted by name
+    return $a cmp $b if not $acs and not $bcs;
+
+    #The rest sorted in index order
+    ($aix) = $a =~ /^\w+\.(\d+)/;
+    ($bix) = $b =~ /^\w+\.(\d+)/;
+    return 1 if $aix > $bix;
+    return -1 if $aix < $bix;
+
+    #service before instance
+    return 1 if $acsi and not $bcsi;
+    return -1 if $bcsi and not $acsi;
+
+    #service info sorted by name
+    return $a cmp $b if not $acsi and not $bcsi;
+
+    ($aiix) = $a =~ /^\w+\.\d+\.(\d+)/;
+    ($biix) = $b =~ /^\w+\.\d+\.(\d+)/;
+
+    return 1 if $aiix > $biix;
+    return -1 if $aiix < $biix;
+
+    return $a cmp $b;
+}
+
+sub status {
+    local($s) = pop;
+    ($word, $num) = $s =~ /(\w+)?\(?(\d+)\)?/;
+    if ($word) {
+        return $word;
+    } else {
+        return $statuses[$num];
+    }
+}
+
+sub formattime() {
+    local($sec)=pop;
+    if ($sec =~ /:/) {
+        $res = $sec;
+    } else {
+        $sec=int($sec / 100);
+        $min=int($sec / 60);
+        $sec=$sec % 60;
+        $hour=int($min / 60);
+        $min=$min % 60;
+        $day=int($hour / 24);
+        $hour=$hour % 24;
+        $res="";
+        if ($day) {
+            $res="$day days, ";
+        }
+        $res = sprintf("%s%02d:%02d:%02d.%02s", $res, $hour, $min, $day, $sec);
+    }
+    return $res;
+}

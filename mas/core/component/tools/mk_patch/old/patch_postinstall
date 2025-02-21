@@ -1,0 +1,36 @@
+#!/bin/sh
+# This script deletes the used backout data for a patch package
+# and removes the deletes file entries.
+#
+# directory format options.
+#
+# @(#)patch_postinstall 1.2 96/01/29 SMI
+#
+# Copyright (c) 1995 by Sun Microsystems, Inc.
+# All rights reserved
+#
+PATH=/usr/sadm/bin:$PATH
+
+THIS_DIR=`dirname $0`
+Our_Deletes=$THIS_DIR/deletes
+#
+# Delete the used backout data
+#
+if [ -f $Our_Deletes ]; then
+cat $Our_Deletes | while read path; do
+if valpath -l $path; then
+Client_Path=`echo "$CLIENT_BASEDIR/$path" | sed s@//@/@`
+else # It's an absolute path
+Client_Path=$path
+fi
+rm `removef $PKGINST $Client_Path`
+done
+removef -f $PKGINST
+rm $Our_Deletes
+fi
+#
+# Remove the deletes file, checkinstall and the postinstall
+#
+rm -r $PKGSAV/$ACTIVE_PATCH
+rm -f $THIS_DIR/checkinstall $THIS_DIR/postinstall
+exit 0

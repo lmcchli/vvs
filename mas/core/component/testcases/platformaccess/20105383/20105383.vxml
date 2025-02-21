@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.w3.org/2001/vxml
+  http://www.w3.org/TR/voicexml21/vxml.xsd">
+
+
+    <form id="main_form">
+        <var name="phoneNumber"/>
+        <var name="origPhoneNumber"/>
+        <var name="unknown_sender"/>
+        <var name="unknown_receiver"/>
+        <var name="mediaObjects"/>
+        <var name="props"/>
+        <var name="passed"/>
+        <block>
+
+            <!--get facs number attribute -->
+            <script>
+                // Check to see if the receiver exists in MUR
+                unknown_receiver = true;
+                if (typeof(session.connection.redirect) != 'undefined') {
+                    mas.systemLog(3, 'TC 20105383 session.connection.redirect is defined');
+                    if (typeof(session.connection.redirect[0]) != 'undefined') {
+                        mas.systemLog(3, 'TC 20105383 session.connection.redirect[0] is defined');
+                        if (typeof(session.connection.redirect[0].number) != 'undefined') {
+                            phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+                            mas.systemLog(3, 'TC 20105383 phoneNumber=' + phoneNumber);
+                            if (mas.subscriberExist(phoneNumber)) {
+                                // The subscriber do not exists, we should play unknown.wav and hangup
+                                unknown_receiver = false;
+
+                                mas.systemLog(3, 'TC 20105383 receiver is known');
+                            }
+                        }
+                    }
+                }
+                if (unknown_receiver) {
+                    mas.systemLog(3, 'TC 20105383 Failed as receiver is unknown');
+                }
+                // Check to see if the sender exists in MUR
+                if (typeof(session.connection.remote.number) != "undefined") {
+                    origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+                    unknown_sender = !mas.subscriberExist(origPhoneNumber);
+                }
+                if (unknown_sender) {
+                    mas.systemLog(3, 'TC 20105383 Failed as sender is unknown in MUR');
+                }
+
+            </script>
+
+
+            <script>
+                var storableMessageId = mas.messageCreateNew();
+                var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+                var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+                var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+                var sender = callerEmailAddress[0];
+                var recipients = new Array(emailaddress[0],'john@doe.com');
+                mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+                mas.messageSetStorableProperty(storableMessageId, 'recipients', recipients);
+                mas.messageSetStorableProperty(storableMessageId, 'subject', new Array('somesubject!'));
+                mas.messageSetStorableProperty(storableMessageId, 'type', new Array('video'));
+
+                props = mas.messageGetStorableProperty(storableMessageId, 'recipients');
+                mas.systemLog(3, 'Property recipients=' + props[0] + ',' + props[1]);
+                passed = false;
+
+                if (props[0] == recipients[0]) {
+                    if (props[1] == recipients[1]) {
+                        passed = true;
+                    }
+                }
+                if (passed) {
+                    mas.systemLog(3, 'TC 20105383 PASSED');
+                } else {
+                    mas.systemLog(3, 'TC 20105383 FAILED ' );
+                }
+            </script>
+            <exit/>
+        </block>
+
+     </form>
+
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105383 Failed</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

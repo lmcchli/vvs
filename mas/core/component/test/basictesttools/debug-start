@@ -1,0 +1,220 @@
+#!/bin/ksh
+###################################################################
+# File    : rc.masadm /masadm
+# Author  : Håkan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is is renamed to masadm if installed on a Solaris 8 system.
+#	This file is always called to operate on mas. Except on start restart.
+#
+# OS: 	Solaris 8
+#
+# History
+#	Date			Who	What
+#	2006-01-10  	MHATU	Created
+#	2005-09-29		QMIAN Completely botched it, and made something 
+#					entirely different
+#
+#
+####################################################################
+
+
+#*********************************************
+# These parameters exsist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+HOSTNAME=`hostname`
+
+JAVA_CLASSPATH=""
+BASEDIR=`pwd`
+BASE=$BASEDIR/MAS
+LIBDIR=/vobs/ipms/mas/stream/lib
+mode=$1
+param=$2
+OPTIT=/usr/local/OptimizeitEntSuite2006
+GC_OPTS="-XX:+UseG1GC"
+JDK=/usr/java/bin/java
+JVM_OPTS="-XX:+HeapDumpOnOutOfMemoryError -Xms64M -Xmx64M"
+LOG="/tmp/log"
+CHANNELS=50
+
+append_gc_option() {
+  GC_OPTS="${GC_OPTS} $1" 
+}
+
+append_jvm_option() {
+  JVM_OPTS="${JVM_OPTS} $1" 
+}
+
+mask_jvm_option() {
+  typeset ESCAPED_OPTION=`echo "$1" | sed -e 's/\+/\\+/'`
+  ESCAPED_OPTION=`echo "${ESCAPED_OPTION}" | sed -e 's/\*/[^ ]*/'`
+  JVM_OPTS=`echo ${JVM_OPTS} | sed -e "s/${ESCAPED_OPTION}//g"`
+}
+
+export MAS_INSTALL_PATH=$BASEDIR
+
+REGULARSTART=$BASEDIR"/etc/regularstart"
+
+# Load config values
+. $BASEDIR/etc/mas.conf
+
+# set up library path
+OLD_LDPATH=${LD_LIBRARY_PATH}
+LD_LIBRARY_PATH=$LIBDIR:$BASEDIR/lib:/usr/local/SUNWspro/lib/
+
+LD_CONFIG=${BASEDIR}/ld.mas.conf
+export LD_CONFIG
+echo "ld.so.1 configuration file: $LD_CONFIG , view with crle(1)"
+
+
+# LD_DEBUG=basic,libs
+# export LD_DEBUG
+
+# Setup java class path
+libs=`ls $BASEDIR/lib/*.jar`
+for lib in $libs
+do 
+   JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+done
+
+# Add lib directory to class path
+JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:$BASDIR/conf:$JAVA_CLASSPATH
+       
+DIRNAME=`pwd`
+
+cd $INSTALL_DIR
+
+# Preload umem in case somebody (me) messed-
+# up the link-order or, in this case, because
+# the JVM might have loadded the wrong library
+# before we get loaded
+LD_PRELOAD_32="libumem.so.1 libccrtpadapter.so"
+
+# Disable default allocator, and use new (up to gcc 3.3 i think)
+GLIBCPP_FORCE_NEW=1
+
+# Disable default allocator, and use new (newer gcc's)
+GLIBCXX_FORCE_NEW=1
+
+while test $# -gt 0 ; do
+
+  MATCH=0
+
+  CHAN_ARG=${1%%=*}
+  if test x"$CHAN_ARG" = xchannels ; then
+    CHANNELS=${1#channels=}
+    shift
+    MATCH=1
+  fi
+
+  HEAP_ARG=${1%%=*}
+  set -x
+  if test x"$HEAP_ARG" = xheap ; then
+    HEAP=${1#heap=}
+    shift
+    MATCH=1
+    mask_jvm_option '-Xmx*'
+    mask_jvm_option '-Xms*'
+    append_jvm_option -Xmx${HEAP}
+    append_jvm_option -Xms${HEAP}
+  fi
+
+  LOG_ARG=${1%%=*}
+  if test x"$LOG_ARG" = xlog ; then
+    LOG=${1#log=}
+    LOG=`eval echo $LOG`
+    if test ! -d ${LOG} ; then
+      echo "Logging directory ${LOG} doesn't appear to be a directory"
+      exit
+    fi
+    shift
+    MATCH=1
+  fi
+
+  JDK_ARG=${1%%=*}
+  if test x"$JDK_ARG" = xjdk ; then
+    JDK=${1#jdk=}
+    JDK=`eval echo $JDK`
+    if test ! -x ${JDK} ; then
+      echo "Jvm ${JDK} is not marked as an executable"
+      exit
+    fi
+    shift
+    MATCH=1
+    VER=`echo "${JDK}" | sed -e 's/.*\(1[\._0-9]*\)\/.*/\1/g'`
+    echo "Version $VER"
+    if test x"$VER" = x"1.5.0_05" ; then 
+      echo "Disabling -XX:+HeapDumpOnOutOfMemoryError"
+      mask_jvm_option `echo ${JVM_OPTS} | sed -e 's/-XX:\+HeapDumpOnOutOfMemoryError//g'`
+    fi
+  fi
+
+  # enable optimize-it
+  if test x"$1" = xopt ; then
+    shift
+    MATCH=1
+    LD_LIBRARY_PATH="${OPTIT}/lib:${LD_LIBRARY_PATH}"
+    JAVA_CLASSPATH="${OPTIT}/lib/optit.jar:${JAVA_CLASSPATH}"
+    OPTIT_OPTS="-Xbootclasspath/a:${OPTIT}/lib/oibcp.jar -Xrunpri:startAudit=t,filter=/vobs/ipms/mas/tools/optimizeit/mas.oif,auditOption=/vobs/ipms/mas/tools/optimizeit/oi.audit"
+    GC_OPTS=""
+  fi
+
+  # If debug given on commandline, enable umem
+  # memory debugging functions
+  if test x"$1" = xdebug ; then
+    MATCH=1
+    shift
+    UMEM_DEBUG="default,audit=30"
+  
+    UMEM_LOGGING=transaction
+
+    #UMEM_DEBUG="default,firewall=1"
+    #UMEM_OPTIONS="backend=mmap"
+    #export UMEM_OPTIONS
+
+
+  fi
+
+  if test x"$1" = xjconsole ; then
+    MATCH=1
+    shift
+    append_jvm_option -Dcom.sun.management.jmxremote
+  fi
+
+  if test $MATCH -eq 0 ; then
+    echo "Unrecognized parameter  $1"
+    exit 
+  fi
+
+done
+
+append_gc_option -XX:NewSize=$((400*CHANNELS))K
+
+export UMEM_LOGGING
+export UMEM_DEBUG
+export LD_PRELOAD_32
+export GLIBCPP_FORCE_NEW
+export GLIBCXX_FORCE_NEW
+export LD_LIBRARY_PATH
+
+set -x
+${JDK} ${JVM_OPTS} -server -XX:+DisableExplicitGC -verbose:gc -Xloggc:${LOG}/gc.log -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -XX:+PrintGCTimeStamps -XX:+PrintGCDetails -XX:-EliminateLocks ${GC_OPTS} -cp ${JAVA_CLASSPATH} ${OPTIT_OPTS} com.mobeon.masp.execution_engine.Main 2>&1 > ${LOG}/process.log
+set -
+
+sleep 2
+JVM_PID=$!
+unset LD_PRELOAD_32
+unset LD_CONFIG
+LD_LIBRARY_PATH=${OLD_LDPATH}
+pargs -ae ${JVM_PID} > ${LOG}/env.log
+tail -f ${LOG}/process.log
+
+
+
+#/home/tyke/qmian/jdk1.6.0/bin/java -server  -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+UseParNewGC -verbose:gc -Xms64m -Xmx64m -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main 2>&1
+#/usr/local/studio11/SUNWspro/bin/collect -j off -F all -p 1m -d /tmp/qmian $JAVA_HOME/bin/java -server -Djava.compiler=NONE -Xdebug -Xnoagent -Xrundbx_agent -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main 2>&1
+

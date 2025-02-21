@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/mib";
+
+my $result = 0;
+
+my $fileloglevel = &getconfig("loglevel");
+print "The log level set in the configuration file is $fileloglevel\n";
+
+($mibresult, $mibtext) = &getmibvar("ntfLogLevel");
+if ($mibresult == 0) {
+    print "The log level set in the MIB is $mibtext\n";
+} else {
+    print $mibtext;
+    $result = 1;
+}
+
+if ($fileloglevel != 1 or $mibtext !~ /1/) {
+    print "The recommended log level is 1\n";
+    $result = 1;
+}
+
+exit $result;
+

@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC
+	"-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+	<bean id="SystemPropertiesInitializer" class="com.mobeon.masp.util.lang.SystemPropertiesInitializer" init-method="init" singleton="true" depends-on="ExecutorServiceManager">
+      <property name="systemProperties">
+        <props>
+          <prop key="mail.mime.base64.ignoreerrors">true</prop>
+          <prop key="com.mobeon.masp.canonicalhostname">___MAS_HOST___</prop>
+        </props>
+      </property>
+    </bean> 
+
+    <bean id="CallManager" class="com.mobeon.masp.callmanager.CallManagerImpl">
+        <property name="streamFactory">
+            <ref bean="StreamFactory"/>
+        </property>
+       <!-- <property name="applicationManagment">
+            <ref bean="ApplicationManagement"/>
+        </property> -->
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+       <!-- <property name="supervision">
+            <ref bean="OmManager"/>
+        </property>  -->
+        <property name="eventDispatcher">
+            <ref bean="EventDispatcher"/>
+        </property>
+
+        <property name="sessionFactory">
+            <ref bean="SessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="PlatformAccessFactory" class="com.mobeon.masp.execution_engine.platformaccess.PlatformAccessFactoryImpl">
+        <constructor-arg index="0">
+            <ref bean="NumberAnalyzer"/>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <ref bean="ProfileManager"/>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <ref bean="Configuration"/>
+        </constructor-arg>
+        <constructor-arg index="3">
+            <ref bean="StorableMessageFactory"/>
+        </constructor-arg>
+        <constructor-arg index="4">
+            <ref bean="MediaContentManager"/>
+        </constructor-arg>
+        <constructor-arg index="5">
+            <ref bean="TrafficEventSender"/>
+        </constructor-arg>
+        <constructor-arg index="6">
+            <ref bean="MediaQualifierFactory"/>
+        </constructor-arg>
+        <constructor-arg index="7">
+            <ref bean="MediaObjectFactory"/>
+        </constructor-arg>
+        <constructor-arg index="8">
+            <ref bean="MediaTranslationManager"/>
+        </constructor-arg>
+        <constructor-arg index="9">
+            <ref bean="ChargingAccountManager"/>
+        </constructor-arg>
+        <constructor-arg index="10">
+            <ref bean="MediaHandlerFactory"/>
+        </constructor-arg>
+        <constructor-arg index="11">
+            <ref bean="ContentTypeMapper"/>
+        </constructor-arg>
+
+    </bean>
+
+    <bean id="ApplicationManagement" class="com.mobeon.masp.execution_engine.ApplicationManagmentImpl" init-method="init">
+        <!-- &lt;property name=&quot;componentManager&quot;&gt;&lt;ref bean=&quot;IComponentManager&quot;/&gt;&lt;/property&gt; -->
+        <property name="applicationCompiler">
+            <ref bean="ApplicationCompiler"/>
+        </property>
+        <property name="mapServiceToApplicationURI">
+            <map>
+                <entry>
+                    <key>
+                        <value>1234</value>
+                    </key>
+                    <value>file:/$WORKINGDIR/applications/vva0001.1/1234.xml</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>abcd</value>
+                    </key>
+                    <value>file:/$WORKINGDIR/applications/vva0001.1/Undefined.xml</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>Undefined</value>
+                    </key>
+                    <value>file:/$WORKINGDIR/applications/vva0001.1/Undefined.xml</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>MWINotification</value>
+                    </key>
+                    <value>file:/$WORKINGDIR/applications/vva0001.1/MWINotification.xml</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>OutdialNotification</value>
+                    </key>
+                    <value>file:/$WORKINGDIR/applications/vva0001.1/OutdialNotification.xml</value>
+                </entry>
+            </map>
+        </property>
+        <property name="mapProtocolToService">
+            <map>
+                <entry>
+                    <key>
+                        <value>xmp</value>
+                    </key>
+                        <list>
+                            <value>OutdialNotification:8080</value>
+                            <value>MWINotification:8080</value>
+                        </list>
+                </entry>
+                <entry>
+                    <key>
+                        <value>sip</value>
+                    </key>
+                        <list>
+                            <value>Undefined:5060</value>
+                        </list>
+                </entry>
+            </map>
+        </property>
+        <property name="mapProtocolToServiceEnabler">
+            <map>
+                <entry>
+                    <key>
+                        <value>sip</value>
+                    </key>
+                       <ref bean="CallManager"/>
+                </entry>
+                <entry>
+                    <key>
+                        <value>xmp</value>
+                    </key>
+                    <ref bean="ServiceRequestManager"/>
+                </entry>
+            </map>
+        </property>
+        <property name="applicationExecutionFactory">
+            <ref bean="ApplicationExecutionFactory"/>
+        </property>
+        <property name="sessionFactory">
+            <ref bean="SessionFactory"/>
+        </property>
+        <property name="mediaObjectFactory">
+            <ref bean="MediaObjectFactory"/>
+        </property>
+        <property name="platformAccessFactory">
+            <ref bean="PlatformAccessFactory"/>
+        </property>
+        <property name="callManager">
+            <ref bean="CallManager"/>
+        </property>
+        <property name="supervision">
+            <ref bean="OmManager"/>
+        </property>
+        <property name="mediaTranslationManager">
+            <ref bean="MediaTranslationManager"/>
+        </property>
+        <property name="serviceRequestManager">
+            <ref bean="ServiceRequestManager"/></property>
+        <property name="configurationManager">
+            <ref bean="ConfigurationManager"/></property>
+    </bean>
+
+    <bean id="ApplicationExecution" class="com.mobeon.masp.execution_engine.ApplicationExecutionImpl"
+          init-method="initialize" singleton="false">
+        <property name="session">
+            <ref bean="Session"/>
+        </property>
+        <property name="callManager">
+            <ref bean="CallManager"/>
+        </property>
+        <property name="mediaObjectFactory">
+            <ref bean="MediaObjectFactory"/>
+        </property>
+    </bean>
+
+    <bean id="ApplicationCompiler" class="com.mobeon.masp.execution_engine.compiler.ApplicationCompilerImpl">
+        <property name="configurationManager"><ref bean="ConfigurationManager"/></property>
+    </bean>
+
+    <bean id="Session" class="com.mobeon.masp.execution_engine.session.SessionImpl" singleton="false"/>
+
+    <bean id="ComponentManager"
+          class="com.mobeon.masp.util.component.SpringComponentManager"
+          depends-on="ExecutorServiceManager"/>
+
+    <bean id="ExecutorServiceManager" class="com.mobeon.masp.util.executor.ExecutorServiceManager"
+          factory-method="getInstance" singleton="true">
+        <property name="executors">
+            <map>
+                <entry>
+                    <key>
+                        <value>com.mobeon.masp</value>
+                    </key>
+                    <bean class="com.mobeon.masp.util.executor.ThreadPoolExecutorService" singleton="false">
+                        <constructor-arg index="0">
+                            <value>30</value>   <!-- Initial pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="1">
+                            <value>150</value>   <!-- Max pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="2">
+                            <value>com.mobeon.masp</value> <!-- Thread pool name -->
+                        </constructor-arg>
+                    </bean>
+                </entry>
+                <entry>
+                    <key>
+                        <value>com.mobeon.masp.mediatranslationmanager</value>
+                    </key>
+                    <bean class="com.mobeon.masp.util.executor.ThreadPoolExecutorService" singleton="false">
+                        <constructor-arg index="0">
+                            <value>10</value>   <!-- Initial pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="1">
+                            <value>20</value>   <!-- Max pool size-->
+                        </constructor-arg>
+                        <constructor-arg index="2">
+                            <value>com.mobeon.masp.mediatranslationmanager</value> <!-- Thread pool name -->
+                        </constructor-arg>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+
+    <bean id="StreamFactory" class="com.mobeon.masp.stream.StreamFactoryImpl" init-method="init">
+        <property name="contentTypeMapper">
+            <ref bean="ContentTypeMapper"/>
+        </property>
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+        <property name="eventDispatcher">
+            <ref bean="EventDispatcher"/>
+        </property>
+        <property name="mediaTranslationManager">
+            <ref bean="MediaTranslationManager"/>
+        </property>
+    </bean>
+
+    <bean id="ApplicationExecutionFactory" class="com.mobeon.masp.execution_engine.ApplicationExecutionFactoryImpl"/>
+
+    <bean id="SessionFactory" class="com.mobeon.masp.execution_engine.SessionFactory"/>
+
+    <bean id="EventDispatcher" class="com.mobeon.masp.eventnotifier.MulticastDispatcher"/>
+
+    <bean id="NumberAnalyzer" class="com.mobeon.masp.numberanalyzer.NumberAnalyzer">
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="eventDispatcher"><ref bean="EventDispatcher"/></property>
+    </bean>
+
+    <bean id="ProfileManager" class="com.mobeon.masp.profilemanager.ProfileManagerImpl"  init-method="init" depends-on="SystemPropertiesInitializer">
+        <property name="context"><ref bean="ProfileManagerContext"/></property>
+    </bean>
+
+    <bean id="ProfileManagerContext" class="com.mobeon.masp.profilemanager.BaseContext" init-method="init">
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="serviceLocator"><ref bean="ServiceLocator"/></property>
+        <property name="mailboxAccountManager"><ref bean="MailboxAccountManager"/></property>
+        <property name="mediaObjectFactory"><ref bean="MediaObjectFactory"/></property>
+        <property name="provisioning"><ref bean="Provisioning"/></property>
+        <property name="eventDispatcher">
+            <ref bean="EventDispatcher"/>
+        </property>
+        <property name="dirContextEnv">
+            <props>
+                <prop key="java.naming.factory.initial">com.sun.jndi.ldap.LdapCtxFactory</prop>
+                <prop key="java.naming.referral">follow</prop>
+            </props>
+        </property>
+        <property name="sessionProperties">
+            <props>
+                <prop key="mail.imap.partialfetch">false</prop>
+                <prop key="mail.imap.auth.plain.disable">true</prop>
+                <prop key="mail.debug">false</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="ServiceLocator" class="com.mobeon.masp.externalcomponentregister.ExternalComponentRegister" init-method="init">
+        <property name="context"><ref bean="ExternalComponentRegisterContext"/></property>
+    </bean>
+
+    <bean id="ExternalComponentRegisterContext" class="com.mobeon.masp.externalcomponentregister.BaseContext" init-method="init">
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="eventDispatcher"><ref bean="EventDispatcher"/></property>
+        <property name="dirContextEnv">
+            <props>
+                <prop key="java.naming.factory.initial">com.sun.jndi.ldap.LdapCtxFactory</prop>
+                <prop key="java.naming.referral">follow</prop>
+            </props>
+        </property>
+        <property name="serviceAlgorithmMap">
+            <props>
+                <prop key="userregister">com.mobeon.masp.externalcomponentregister.algorithm.LogicalHostChooser</prop>
+                <prop key="userregisterwrite">com.mobeon.masp.externalcomponentregister.algorithm.LogicalHostMultimasterChooser</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="MailboxContextFactory" class="com.mobeon.masp.mailbox.javamail.JavamailContextFactory">
+        <property name="mediaObjectFactory"><ref bean="MediaObjectFactory"/></property>
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="internetMailSender"><ref bean="MailSender"/></property>
+        <property name="pageCounterMap">
+            <map>
+                <entry>
+                    <key><value>image/tiff</value></key>
+                    <bean class="com.mobeon.masp.util.content.PageBreakingStringCounter">
+                        <property name="pageBreaker"><value>Fax Image</value></property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+        <property name="defaultSessionProperties">
+            <props>
+              <prop key="mail.imap.auth.plain.disable">true</prop>
+              <prop key="mail.imap.partialfetch">false</prop>
+              <prop key="mail.debug">false</prop>
+            </props>
+      </property>
+      <property name="imapProperties">
+          <bean class="com.mobeon.masp.mailbox.imap.ImapProperties">
+              <!-- Interim solution, should be removed when MS supports "MessageUsage" in IMAP QuotaRoot command. -->
+              <property name="messageUsageFolderNames">
+                  <set>
+                      <value>inbox</value>
+                  </set>
+              </property>
+          </bean>
+      </property>
+    </bean>
+
+    <bean id="MailboxAccountManager" class="com.mobeon.masp.mailbox.javamail.JavamailMailboxAccountManager" depends-on="SystemPropertiesInitializer">
+        <property name="contextFactory"><ref bean="MailboxContextFactory"/></property>
+    </bean>
+
+    <bean id="ConfigurationManager" class="com.mobeon.masp.configuration.ConfigurationManagerImpl">
+        <property name="configFile">
+            <list>
+                <value>cfg/vva.xml</value>
+                <value>cfg/mas.xml</value>
+                <value>cfg/numberanalyzer.xml</value>
+                <value>cfg/trafficevents.xml</value>
+                <value>cfg/chargingaccountmanager.xml</value>
+            </list>
+        </property>
+        <property name="eventDispatcher"><ref bean="EventDispatcher"/> </property>
+    </bean>
+
+    <bean id="Configuration"
+          factory-bean="ConfigurationManager"
+          factory-method="getConfiguration"/>
+
+    <bean id="StorableMessageFactory" class="com.mobeon.masp.mailbox.javamail.JavamailStorableMessageFactory">
+        <property name="contextFactory"><ref bean="MailboxContextFactory"/></property>
+    </bean>
+
+    <bean id="MailSender" class="com.mobeon.masp.message_sender.jakarta.JakartaCommonsSmtpInternetMailSender" init-method="init">
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="serviceLocator"><ref bean="ServiceLocator"/></property>
+        <property name="eventDispatcher"><ref bean="EventDispatcher"/></property>
+    </bean>
+
+    <bean id="OmManager" class="com.mobeon.masp.operateandmaintainmanager.OMManager" init-method="init">
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="configurationManager"><ref bean="ConfigurationManager"/></property>
+        <property name="eventDispatcher"><ref bean="EventDispatcher"/> </property>
+    </bean>
+
+    <bean id="ContentTypeMapper" class="com.mobeon.masp.mediaobject.ContentTypeMapperImpl" init-method="init">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+    </bean>
+
+    <bean id="MediaHandlerFactory" class="com.mobeon.masp.mediahandler.MediaHandlerFactoryImpl">
+    </bean>
+
+    <bean id="MediaObjectFactory" class="com.mobeon.masp.mediaobject.factory.MediaObjectFactory">
+        <property name="bufferSize" value="8000"/>
+    </bean>
+
+    <bean id="OutOfMemoryGenerator" class="com.mobeon.masp.util.outofmemoryexception.OutOfMemoryGenerator" init-method="init">
+        <property name="throwingTime" value="0"/>
+    </bean>
+
+    <bean id="MediaContentManager" class="com.mobeon.masp.mediacontentmanager.MediaContentManager" init-method="init">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+        <property name="mediaObjectFactory">
+            <ref bean="MediaObjectFactory"/>
+        </property>
+        <property name="contentTypeMapper">
+            <ref bean="ContentTypeMapper"/>
+        </property>
+
+    </bean>
+
+    <bean id="TrafficEventSender" class="com.mobeon.masp.trafficeventsender.TrafficEventSender" init-method="init">
+       <property name="configuration"><ref bean="Configuration"/></property>
+       <property name="serviceLocator"><ref bean="ServiceLocator"/></property>
+       <property name="internetMailSender"><ref bean="MailSender"/></property>
+    </bean>
+
+    <bean id="MediaQualifierFactory" class="com.mobeon.masp.mediacontentmanager.qualifier.MediaQualifierFactory">
+    </bean>
+
+    <bean id="MediaTranslationManager"
+          class="com.mobeon.masp.mediatranslationmanager.MediaTranslationManagerFacade"
+          init-method="init">
+        <property name="mediaObjectFactory">
+            <ref bean="MediaObjectFactory"/>
+        </property>
+        <property name="streamFactory">
+            <ref bean="StreamFactory"/>
+        </property>
+        <property name="serviceLocator">
+            <ref bean="ServiceLocator" />
+        </property>
+        <property name="configurationManager">
+            <ref bean="ConfigurationManager"/>
+        </property>
+    </bean>
+
+    <bean id="XMPServiceHandlerFactory" class="com.mobeon.masp.servicerequestmanager.xmp.XMPServiceHandlerFactory"/>
+    
+    <bean id="ServiceRequestManager" class="com.mobeon.masp.servicerequestmanager.ServiceRequestManager" singleton="true" init-method="init">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+        <property name="applicationManagement">
+            <ref bean="ApplicationManagement"/>
+        </property>
+        <property name="serviceHandlerFactory">
+            <ref bean="XMPServiceHandlerFactory"/>
+        </property>
+        <property name="eventDispatcher">
+            <ref bean="EventDispatcher"/>
+        </property>
+        <property name="supervision">
+            <ref bean="OmManager"/>
+        </property>
+        <property name="serviceLocator">
+            <ref bean="ServiceLocator" />
+        </property>
+        <property name="sessionFactory">
+            <ref bean="SessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="Provisioning" class="com.mobeon.masp.provisionmanager.Provisioning" init-method="init">
+        <property name="configuration"><ref bean="Configuration"/></property>
+        <property name="eventDispatcher"><ref bean="EventDispatcher"/></property>
+        <property name="serviceLocator"><ref bean="ServiceLocator"/></property>
+    </bean>
+
+    <bean id="ChargingAccountManager" class="com.mobeon.masp.chargingaccountmanager.ChargingAccountManager" init-method="init">
+        <property name="configuration"><ref bean="Configuration"/></property>
+    </bean>
+
+</beans>

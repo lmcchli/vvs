@@ -1,0 +1,119 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "netscape"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DE2A0038"
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class_Category "ldap"
+	    quid       	"3AC4DE2A0056"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "LDAPSearchConstraints"
+		    quid       	"3AC4DE2A0060"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    module     	"Component View::netscape::ldap::LDAPSearchConstraints"
+		    quidu      	"3AC4DE2A002E"
+		    language   	"Java")
+		(object Class "LDAPConnection"
+		    quid       	"3AC4DE2A0092"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    module     	"Component View::netscape::ldap::LDAPConnection"
+		    quidu      	"3AC4DE2A007E"
+		    language   	"Java")
+		(object Class "LDAPSearchResults"
+		    quid       	"3AC4E6CB02E7"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    module     	"Component View::netscape::ldap::LDAPSearchResults"
+		    quidu      	"3AC4E6CB0279"
+		    language   	"Java"))
+	    logical_presentations 	(list unit_reference_list))
+	(object Class_Category "messaging"
+	    quid       	"3AC4DE32004D"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class_Category "imap4"
+		    quid       	"3AC4DE32004F"
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "IMAP4Client"
+			    quid       	"3AC4DE320051"
+			    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+			    
+			    module     	"Component View::netscape::messaging::imap4::IMAP4Client"
+			    quidu      	"3AC4DE32003A"
+			    language   	"Java")
+			(object Class "IMAP4Sink"
+			    quid       	"3AC4DE340000"
+			    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+			    
+			    module     	"Component View::netscape::messaging::imap4::IMAP4Sink"
+			    quidu      	"3AC4DE3303D4"
+			    language   	"Java"))
+		    logical_presentations 	(list unit_reference_list))
+		(object Class_Category "mime"
+		    quid       	"3AC4DE3300EF"
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "MIMEMessage"
+			    quid       	"3AC4DE3300F9"
+			    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+			    
+			    module     	"Component View::netscape::messaging::mime::MIMEMessage"
+			    quidu      	"3AC4DE3300E5"
+			    language   	"Java"))
+		    logical_presentations 	(list unit_reference_list))
+		(object Class_Category "smtp"
+		    quid       	"3B016E6A0369"
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "ISMTPSink"
+			    quid       	"3B016E6A036B"
+			    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+			    
+			    stereotype 	"Interface"
+			    module     	"Component View::netscape::messaging::smtp::ISMTPSink"
+			    quidu      	"3B016E6A0356"
+			    language   	"Java")
+			(object Class "SMTPClient"
+			    quid       	"3B016E6B0180"
+			    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+			    
+			    module     	"Component View::netscape::messaging::smtp::SMTPClient"
+			    quidu      	"3B016E6B016C"
+			    language   	"Java"))
+		    logical_presentations 	(list unit_reference_list)))
+	    logical_presentations 	(list unit_reference_list)))
+    logical_presentations 	(list unit_reference_list))

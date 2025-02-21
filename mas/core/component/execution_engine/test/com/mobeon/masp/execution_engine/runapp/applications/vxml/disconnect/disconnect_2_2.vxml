@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="disconnect_2.vxml">
+
+    <form>
+        <block>
+            <disconnect></disconnect>
+        </block>
+    </form>
+
+    <!-- This catch shall be used -->
+    <catch event="connection.disconnect.hangup">
+        <log>TCPASS</log>
+        <exit></exit>
+    </catch>
+
+</vxml>

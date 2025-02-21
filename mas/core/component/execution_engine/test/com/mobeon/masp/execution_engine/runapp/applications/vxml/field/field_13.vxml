@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+
+    <!-- there are two scenarios which may happen in this test case:
+    1) The hangup event comes first. We check that the noinput handler has not executed at all
+     2) The noinput event comes first. We run the catch to completion and go to another field, at which point
+     we expect the hangup event to trigger -->
+
+    <var name="counter" expr="0"></var>
+
+    <catch event="connection.disconnect.hangup">
+        <if cond="counter == 0 || counter == 3">
+            <log>TCPASS1</log>
+            <script>Packages.java.lang.Thread.sleep(5000);</script>
+            <!-- if we have the bug described inthe TR the following line never gets executed-->
+            <log>TCPASS2</log>
+            <exit/>
+        </if>
+        <log>TCFAIL hangup</log>
+        <exit/>
+    </catch>
+
+    <catch event="noinput">
+        <assign name="counter" expr="counter+1"></assign>
+        <assign name="counter" expr="counter+1"></assign>
+        <assign name="counter" expr="counter+1"></assign>
+        <goto next="#form2"></goto>
+    </catch>
+
+    <form>
+
+        <!-- hangup while playing the prompt -->
+        <field>
+            <prompt timeout="0s">
+                <audio src="beep.wav"></audio>
+            </prompt>
+        </field>
+
+        <block>
+            <log>TCFAIL should not reach block</log>
+        </block>
+    </form>
+
+    <form id="form2">
+        <field>
+            <prompt timeout="10s">
+                <audio src="beep.wav"></audio>
+            </prompt>
+        </field>
+
+        <block>
+            <log>TCFAIL should not reach block</log>
+        </block>
+
+    </form>
+
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+</vxml>

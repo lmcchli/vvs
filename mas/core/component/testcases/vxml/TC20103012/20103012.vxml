@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<throw eventexpr="'my'+'Event'" />
+			<goto next="#id2"/>
+		</block>
+	</form>
+	<form id="id2">
+	<!-- if we got here no event was thrown whatsoever-->
+		<block>Failed
+			<log label="error">TC 20103012 Failed (no event was thrown)</log>					
+			<exit/>
+		</block>
+	</form>
+	<catch event="myEvent">Passed
+		<log label="error">TC 20103012 Passed</log>				
+		<exit/>
+	</catch>
+	<catch>Failed
+	<!-- if we got here some other event was thrown-->
+		<log label="error">TC 20103012 Failed (wrong event was thrown)</log>					
+			<exit/>
+	</catch>
+</vxml>

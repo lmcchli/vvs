@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+        <transition event="connection.alerting" name="evt">
+            <accept/>
+        </transition>
+
+        <transition event="test.disconnect" name="evt">
+            <disconnect/>
+            <log expr="'TCPASS1'"/>
+            <send data="'test.exit'" target="session.id" delay="'6.5s'"/>
+            <send data="'test.before'" target="session.id" delay="'1.5s'"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt">
+            <send data="'test.disconnect'" target="session.id" delay="'1s'"/>
+        </transition>
+
+        <transition event="test.before" name="evt">
+            <log expr="'TCPASS2'"/>
+        </transition>
+
+        <transition event="test.exit" name="evt">
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

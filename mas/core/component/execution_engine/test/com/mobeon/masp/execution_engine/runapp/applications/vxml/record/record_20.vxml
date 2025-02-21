@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="main_form">
+        <block>
+            <!-- Have this sleep here to make sure that the call is hungup before the first record -->
+            <script>Packages.java.lang.Thread.sleep(2000);</script>
+        </block>
+        <block>
+            <goto next="#form2"></goto>
+        </block>
+    </form>
+
+    <!-- this variable is used to check that the hangup event handler is allowed to run to completion,
+    and no noinput event interfers with the hangup event handler-->
+    <var name="num" expr="0"></var>
+
+    <catch event="connection.disconnect.hangup">
+        <assign name="num" expr="num+1"></assign>
+        <log>TCPASS</log>
+        <exit/>
+    </catch>
+
+    <catch event="noinput">
+        <if cond="num != 0">
+            <log>TCFAIL</log>
+            <exit></exit>
+        </if>
+        <goto next="#form2"></goto>
+    </catch>
+
+    <form id="form2">
+        <record>
+            <prompt timeout="1s">
+                A prompt
+            </prompt>
+        </record>
+    </form>
+
+</vxml>

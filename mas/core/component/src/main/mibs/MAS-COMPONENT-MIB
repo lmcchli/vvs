@@ -1,0 +1,622 @@
+--
+--COPYRIGHT (C) ABCXYZ INC. 
+--
+--THIS SOFTWARE IS FURNISHED UNDER A LICENSE ONLY AND IS
+--PROPRIETARY TO ABCXYZ INC. IT MAY NOT BE COPIED
+--EXCEPT WITH THE PRIOR WRITTEN PERMISSION OF ABCXYZ INC.  
+-- ANY COPY MUST INCLUDE THE ABOVE COPYRIGHT NOTICE AS
+-- WELL AS THIS PARAGRAPH.  THIS SOFTWARE OR ANY OTHER COPIES
+-- THEREOF, MAY NOT BE PROVIDED OR OTHERWISE MADE AVAILABLE
+-- TO ANY OTHER PERSON OR ENTITY.
+-- TITLE TO AND OWNERSHIP OF THIS SOFTWARE SHALL AT ALL
+-- TIMES REMAIN WITH ABCXYZ INC.
+--
+-- <emxver><ln>MAS Component MIB</ln><vl>__EMX_EMBEDDED_VERSION_LABEL__</vl><iv>__EMX_EMBEDDED_INTERNAL_VERSION__</iv></emxver>
+--
+--
+--
+-- Description: This is the MAS Component MIB for the Abcxyz MIO
+--
+--
+
+MAS-COMPONENT-MIB     DEFINITIONS ::= BEGIN
+
+
+IMPORTS
+     MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE,
+     Integer32, Unsigned32, Gauge32, Counter32, Counter64,
+     TimeTicks, IpAddress, Opaque
+          FROM SNMPv2-SMI
+
+     DisplayString, DateAndTime, TimeStamp
+          FROM SNMPv2-TC
+
+     EntryStatus
+          FROM RFC1271-MIB
+
+     mms, mmsComponents
+          FROM MMS-REGISTRATION-MIB;
+
+
+-- The Component-Level objects subtree for the MMS
+
+
+mmsMAS MODULE-IDENTITY
+     LAST-UPDATED "0106151200Z"
+     ORGANIZATION "Abcxyz Inc."
+     CONTACT-INFO "Surendra Seobarrat (EMXSAST)
+                   E-mail: surendra.seobarrat@abcxyz.com"
+     DESCRIPTION  "The definition of the MMS MAS Component-Level MIB."
+
+     -- Revision History
+
+     REVISION     "0106151200Z"
+     DESCRIPTION  "The initial creation of this MIB module."
+     ::= { mmsComponents 19 }
+
+
+-- subtree for all of Component management
+
+mmsComponentManagement OBJECT IDENTIFIER ::= { mmsMAS 1 }
+
+-- subtree for Component Accounting management
+
+mmsAmComponentManagement OBJECT IDENTIFIER ::= { mmsComponentManagement 1 }
+
+-- subtree for Component Configuration management
+
+mmsCmComponentManagement OBJECT IDENTIFIER ::= { mmsComponentManagement 2 }
+
+-- subtree for Component Fault management
+
+mmsFmComponentManagement OBJECT IDENTIFIER ::= { mmsComponentManagement 3 }
+
+-- subtree for Component Fault management events (notifications/traps)
+
+mmsFmComponentEvents     OBJECT IDENTIFIER ::= { mmsFmComponentManagement 0}
+
+-- subtree for Component Performance management
+
+mmsPmComponentManagement OBJECT IDENTIFIER ::= { mmsComponentManagement 4 }
+
+-- subtree for Component Security management
+
+mmsSmComponentManagement OBJECT IDENTIFIER ::= { mmsComponentManagement 5 }
+
+-- subtree for topology management
+
+mmsTopology OBJECT IDENTIFIER ::= { mmsComponentManagement 6 }
+
+-- subtree for the Subsystems of a Component
+
+--mmsComponentSubsystemTable OBJECT IDENTIFIER ::= { mmsMAS 2 }
+
+
+
+-- **************************************************************
+-- **********     Component Accounting Management      **********
+-- **************************************************************
+
+-- There is currently nothing to put here
+
+-- **************************************************************
+-- **********    Component Configuration Management    **********
+-- **************************************************************
+
+mmsCmComponentIdentity OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the unique identifier of the component.
+                   For example; Relay, Server, Logging, etc."
+  ::= { mmsCmComponentManagement 1 }
+
+mmsCmComponentLocationURI OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the URI or description of where
+                   this component is located."
+  ::= { mmsCmComponentManagement 2 }
+
+mmsCmComponentOperationalState OBJECT-TYPE
+  SYNTAX          INTEGER 
+                  {
+                    up(1),
+                    locked(2),
+                    degraded(3), --Not implemented in R2 
+                    down(4)
+                  }
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the operational state (up/locked/degraded/down)
+                   of this component."
+  ::= { mmsCmComponentManagement 3 }
+
+mmsCmComponentAdministrativeState OBJECT-TYPE
+  SYNTAX          INTEGER 
+                  {
+                    unlocked(1),
+                    locked(2),
+                    shutdown(3)
+                   }
+  MAX-ACCESS      read-write 
+  STATUS          current
+  DESCRIPTION     "This variable contains/controls the administrative state 
+                  (unlocked/locked/shutdown) of this component."
+  ::= { mmsCmComponentManagement 4 }
+
+mmsCmComponentConfigurationURI OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the URI or description of where
+                   the configuration file for this component is located."
+  ::= { mmsCmComponentManagement 5 }
+
+mmsCmComponentUpdateConfiguration OBJECT-TYPE
+  SYNTAX          INTEGER 
+                  {
+                    idle(0),
+                    reread(1)
+                  }
+  MAX-ACCESS      read-write
+  STATUS          current
+  DESCRIPTION     "This variable contains/controls the update of the configuration
+                   information for this component."
+  ::= { mmsCmComponentManagement 6 }
+
+mmsCmComponentLastConfigurationDate OBJECT-TYPE   
+  SYNTAX          DateAndTime
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the date and time of the last configuration 
+                   change for this component."
+  ::= { mmsCmComponentManagement 7 }
+
+mmsCmComponentObjectInfoURI OBJECT-TYPE   
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the URI or description of where
+                   ancillary component specific information for this component
+                   is located."
+  ::= { mmsCmComponentManagement 8 }
+
+mmsCmComponentInstallationDate OBJECT-TYPE   
+  SYNTAX          DateAndTime
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the date of the last installation or
+                   upgrade for this component."
+  ::= { mmsCmComponentManagement 9 }
+
+mmsCmComponentApplicationSoftwareVersion OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the version number of the
+                   application software that comprises this component."
+  ::= { mmsCmComponentManagement 10 }
+
+
+
+--*=====================================================
+--*          Define the Component-Level Log table
+--*=====================================================
+
+
+mmsCmComponentLogTable OBJECT-TYPE
+  SYNTAX          SEQUENCE OF MmsCmComponentLogEntry
+  MAX-ACCESS      not-accessible
+  STATUS          current
+  DESCRIPTION     "This table contains the common component log information for
+                   each type of log"
+  ::= {mmsCmComponentManagement 13 }
+
+mmsCmComponentLogEntry OBJECT-TYPE
+  SYNTAX          MmsCmComponentLogEntry
+  MAX-ACCESS      not-accessible
+  STATUS          current
+  DESCRIPTION     "Each entry in this table corresponds to one log type.
+                   The following log types are defined: Alarm, Event,
+                   Traffic, Subscriber, and Operator."
+  INDEX { mmsCmComponentLogIndex }
+  ::= { mmsCmComponentLogTable 1 }
+    
+MmsCmComponentLogEntry ::= SEQUENCE 
+{
+  mmsCmComponentLogIndex          Unsigned32,
+  mmsCmComponentLogRowStatus      EntryStatus,
+  mmsCmComponentLogType           INTEGER,
+  mmsCmComponentLogLevel          INTEGER
+}
+
+mmsCmComponentLogIndex OBJECT-TYPE
+  SYNTAX          Unsigned32 (1..1000)
+  MAX-ACCESS      not-accessible
+  STATUS          current
+  DESCRIPTION     "This variable is the log table index used to access
+                   each entry (row instance) in this table."
+  ::= { mmsCmComponentLogEntry 1 }
+  
+mmsCmComponentLogRowStatus OBJECT-TYPE
+  SYNTAX          EntryStatus
+  MAX-ACCESS      read-only
+  STATUS          mandatory
+  DESCRIPTION     "This variable contains the status of each entry
+                   (row instance) in this table. It denotes whether
+                   an instance exists or not."
+  ::= { mmsCmComponentLogEntry 2 }
+
+mmsCmComponentLogType OBJECT-TYPE
+  SYNTAX          INTEGER 
+                  {
+                    alarm(1),
+                    event(2),
+                    traffic(3),
+                    subscriber(4),
+                    operator(5)
+                  }
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains one of the defined log types."
+  ::= { mmsCmComponentLogEntry 3 }  
+
+mmsCmComponentLogLevel OBJECT-TYPE
+  SYNTAX          INTEGER
+  MAX-ACCESS      read-write
+  STATUS          current
+  DESCRIPTION     "This variable contains/controls the log level for the
+                  particular log type. 
+                  The following Alarm type log levels are defined: 
+                    1 - undetermined, 2 - cleared, 3 - warning, 4 - minor, 5 - major, 6 - critical
+                  The following Event, Traffic, Subscriber, and Operator type log levels are defined: 
+                    1 - debug, 2 - info, 3 - warning, 4 - error, 5 - fatal"
+
+  ::= { mmsCmComponentLogEntry 4 }
+  
+
+-- **************************************************************
+-- **********        Component Fault Management        **********
+-- **************************************************************
+
+mmsFmComponentLastErrorCondition OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the last reported error condition
+                   in the form of an alarm ID, for this component."
+  ::= { mmsFmComponentManagement 1 }
+
+mmsFmComponentLastErrorTime OBJECT-TYPE
+  SYNTAX          DateAndTime
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the date and time of the last
+                   reported error condition for this component. If 
+                   no last error condition, this Last Error Time is
+                   undefined."
+  ::= { mmsFmComponentManagement 2 }
+
+mmsFmComponentSpecificProblem OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains supporting explanatory text of the
+                   alarm that occurred."
+  ::= { mmsFmComponentManagement 3 }
+
+mmsFmComponentObjectInstance OBJECT-TYPE
+  SYNTAX          Unsigned32
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the instance of the managed object
+                  in which the alarm occurred."
+  ::= { mmsFmComponentManagement 4 }
+  
+mmsFmComponentThresholdBasedAlarms	OBJECT IDENTIFIER
+  ::=  {  mmsFmComponentManagement  5  }
+
+--*===========================================================================
+--* Component Events (Notification/Trap) definitions within Fault Management
+--*===========================================================================
+
+mmsMASComponentFault NOTIFICATION-TYPE
+        OBJECTS         
+        { 
+          mmsCmComponentOperationalState,
+          mmsCmComponentAdministrativeState,
+          mmsFmComponentLastErrorCondition,
+          mmsFmComponentLastErrorTime,
+          mmsFmComponentSpecificProblem,
+          mmsFmComponentObjectInstance
+        }
+        STATUS          current
+        DESCRIPTION     "This notification event is issued when a fault in this
+                         component is detected and reported."
+        ::= { mmsFmComponentEvents 1 }
+
+
+-- **************************************************************
+-- **********     Component Performance Management     **********
+-- **************************************************************
+
+mmsPmComponentUptime OBJECT-TYPE
+  SYNTAX          TimeStamp
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the amount of time that this
+                   component has been running since it was last started."
+  ::= { mmsPmComponentManagement 1 }
+
+mmsPmComponentLastRestart OBJECT-TYPE
+  SYNTAX          DateAndTime
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the date and time that this
+                   component was last started running."
+  ::= { mmsPmComponentManagement 2 }
+
+mmsPmComponentLocationURI OBJECT-TYPE 
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the URI or description of where
+                   the performance management information for this component
+                   is located."
+  ::= { mmsPmComponentManagement 3 }
+
+mmsPmPerformanceDataReset OBJECT-TYPE
+  SYNTAX          INTEGER  { default ( 0 ) , reset ( 1 ) , autoreset ( 2 ) } 
+  MAX-ACCESS      read-write
+  STATUS          current
+  DESCRIPTION     "This variable will reset all performance data
+                   parameters for this component"
+  ::= { mmsPmComponentManagement  4 }
+
+
+-- **************************************************************
+-- **********      Component Security Management       **********
+-- **************************************************************
+
+
+-- There is currently nothing to put here
+
+
+-- **************************************************************
+-- **********        Component Subsystem Table         **********
+-- **************************************************************
+
+mmsComponentSubsystemTable OBJECT-TYPE
+  SYNTAX          SEQUENCE OF MmsComponentSubsystemEntry
+  MAX-ACCESS      not-accessible
+  STATUS          current
+  DESCRIPTION     "This table contains the subsystem information for
+                   this component."
+  ::= { mmsMAS 2 }
+
+mmsComponentSubsystemEntry OBJECT-TYPE
+  SYNTAX          MmsComponentSubsystemEntry
+  MAX-ACCESS      not-accessible
+  STATUS          current
+  DESCRIPTION     "Each entry in this table corresponds to one subsystem of
+                   the component. A component can be comprised of zero to
+                   many subsystems."
+  INDEX { mmsComponentSubsystemIndex }
+  ::= { mmsComponentSubsystemTable 1 }
+  
+MmsComponentSubsystemEntry ::= SEQUENCE 
+{
+  mmsComponentSubsystemIndex                  Unsigned32,
+  mmsComponentSubsystemRowStatus              EntryStatus,
+  mmsCmSubsystemIdentity                      DisplayString,
+  mmsCmSubsystemOperationalState              INTEGER,
+  mmsCmSubsystemInstallationDate              DateAndTime,  
+  mmsCmSubsystemApplicationSoftwareVersion    DisplayString
+}
+
+mmsComponentSubsystemIndex OBJECT-TYPE
+  SYNTAX          Unsigned32 (1..1000)
+  MAX-ACCESS      not-accessible
+  STATUS          current
+  DESCRIPTION     "This variable is the subsystem table index used to access
+                   each entry (row instance) in this table."
+  ::= { mmsComponentSubsystemEntry 1 }
+  
+mmsComponentSubsystemRowStatus OBJECT-TYPE
+  SYNTAX          EntryStatus
+  MAX-ACCESS      read-only
+  STATUS          mandatory
+  DESCRIPTION     "This variable contains the status of each entry
+                   (row instance) in this table. It denotes whether
+                   an instance exists or not."
+  ::= { mmsComponentSubsystemEntry 2 }
+
+
+
+-- **************************************************************
+-- **********    Subsystem Configuration Management    **********
+-- **************************************************************
+
+mmsCmSubsystemIdentity OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the actual name of the subsystem.
+                   For example;  etc."
+  ::= { mmsComponentSubsystemEntry 3 }
+
+mmsCmSubsystemOperationalState OBJECT-TYPE
+  SYNTAX          INTEGER 
+                  {
+                    up(1),
+                    locked(2),
+                    degraded(3), --Not implemented in R2
+                    down(4)
+                  }
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the operational state (up/down/degraded)
+                   of this subsystem."
+  ::= { mmsComponentSubsystemEntry 4 }
+
+mmsCmSubsystemInstallationDate OBJECT-TYPE
+  SYNTAX          DateAndTime
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the date of the last installation or
+                         upgrade for this subsystem."
+  ::= { mmsComponentSubsystemEntry 5 }
+
+mmsCmSubsystemApplicationSoftwareVersion OBJECT-TYPE
+  SYNTAX          DisplayString
+  MAX-ACCESS      read-only
+  STATUS          current
+  DESCRIPTION     "This variable contains the version number of the
+                   application software that comprises this subsystem."
+  ::= { mmsComponentSubsystemEntry 6 }
+
+
+-- **************************************************************
+-- **********        Subsystem Fault Management        **********
+-- **************************************************************
+
+-- there is currently nothing to put here
+
+
+-- **************************************************************
+-- **********     Subsystem Performance Management     **********
+-- **************************************************************
+
+-- there is currently nothing to put here
+
+
+-- **************************************************************
+-- **********       Subsystem Security Management      **********
+-- **************************************************************
+
+-- there is currently nothing to put here
+
+
+-- **************************************************************
+-- **********       Threshold Based Alarms             **********
+-- **************************************************************
+
+	mmsFmComponentThresholdBasedAlarmStatus	OBJECT-TYPE	
+		SYNTAX			INTEGER  { disabled ( 0 ) , enabled ( 1 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		
+				"Enables/disables threshold based alarms monitoring."
+		::=  {  mmsFmComponentThresholdBasedAlarms  1  }
+
+	mmsFmComponentThresholdBasedAlarmTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  MmsFmComponentThresholdBasedAlarmEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	
+			"A list of alarm entries."
+		::=  { mmsFmComponentThresholdBasedAlarms  2 }
+
+	mmsFmComponentThresholdBasedAlarmEntry	OBJECT-TYPE
+		SYNTAX		MmsFmComponentThresholdBasedAlarmEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	
+			"A list of parameters that set up a periodic checking for alarm conditions."
+		INDEX		{  mmsFmComponentThresholdBasedAlarmIndex  }
+		::=  { mmsFmComponentThresholdBasedAlarmTable 1 }
+
+	MmsFmComponentThresholdBasedAlarmEntry  ::=  SEQUENCE {
+		mmsFmComponentThresholdBasedAlarmIndex  Unsigned32,
+		mmsFmComponentThresholdBasedAlarmRowStatus  EntryStatus,
+		mmsFmComponentThresholdBasedAlarmId  DisplayString,
+		mmsFmComponentThresholdBasedAlarmName  DisplayString,
+		mmsFmComponentThresholdBasedAlarmValue  DisplayString,
+		mmsFmComponentThresholdBasedAlarmUnits  DisplayString,
+		mmsFmComponentThresholdBasedAlarmType  INTEGER
+		}
+		
+
+	mmsFmComponentThresholdBasedAlarmIndex	OBJECT-TYPE	
+		SYNTAX			Unsigned32
+		MAX-ACCESS		not-accessible
+		STATUS			current
+		DESCRIPTION		
+				"An index that uniquely identifies an entry in the alarm table."
+		DEFVAL			{ 0 }
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  1  }
+		
+	
+	mmsFmComponentThresholdBasedAlarmRowStatus	OBJECT-TYPE	
+		SYNTAX			EntryStatus
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		
+				"The status of this alarm entry."
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  2  }
+
+
+	mmsFmComponentThresholdBasedAlarmId	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		
+				"The alarm unique id used to retrieve the alarm message."
+		DEFVAL			{ "undetermined" }
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  3  }
+
+
+	mmsFmComponentThresholdBasedAlarmName	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		
+				"The object identifier of the particular variable to be monitored."
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  4  }
+
+
+	mmsFmComponentThresholdBasedAlarmValue	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		
+				"The threshold value for this alarm."
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  5  }
+		
+
+	mmsFmComponentThresholdBasedAlarmUnits	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		
+				"The units of the particular variable to be monitored."
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  6  }
+
+
+	mmsFmComponentThresholdBasedAlarmType	OBJECT-TYPE	
+		SYNTAX			INTEGER  { falling ( 0 ) , rising ( 1 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		
+				"When set to rising(1), an alarm is generated when the monitored variable is higher than the threshold value.  When set to falling(0), an alarm is generated when the monitored variable is lower than the threshold value."
+		::=  {  mmsFmComponentThresholdBasedAlarmEntry  7  }
+                
+-- **************************************************************
+-- **********    Component Toplogy Management          **********
+-- **************************************************************
+
+mmsTopologyReadTopology OBJECT-TYPE
+  SYNTAX          INTEGER 
+                  {
+                    idle(0),
+                    reread(1)
+                  }
+  MAX-ACCESS      read-write
+  STATUS          current
+  DESCRIPTION     "This variable contains/controls the update of the
+                   topology for this component."
+  ::= { mmsTopology 1 }
+       
+END

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="checkmate stream" default="all">
+  
+  <property name="module" value="stream" />  
+   <!-- Import project generic properties -->
+  <property name="project.basedir" value=".." />
+  <import file="${project.basedir}/projdefs.xml"/>
+  
+  
+  <!-- Module definitions -->
+  <dirname property="module.basedir" file="${ant.file}"/>
+
+  <property name="module.jarname" value="mobeon_stream.jar" />
+  <property name="module.output.dir" value="${module.basedir}/classes" />
+
+  <path id="module.sourcepath">
+    <dirset dir="${module.basedir}">
+      <include name="src"/>
+      <include name="interface"/>
+    </dirset>
+  </path>
+
+  <path id="module.dependencypath.test">
+  </path>
+
+  <path id="module.testpath">
+    <dirset dir="${module.basedir}">
+      <include name="test"/>
+      <include name="mtest"/>
+    </dirset>
+    <dirset dir="${project.basedir}">
+	<include name="mediaobject/src" />
+	<include name="mediacontentmanager/src" />
+	<include name="configurationmanager/src"/>
+    </dirset>
+  </path>
+
+  <patternset id="excluded.from.module"/>
+
+  <path id="module.classpath">
+    <path refid="${module.jdk.classpath.checkmate}"/>
+    <fileset dir="y:/mas/prototype/">
+       <include name="mobeon.jar"/>
+       <include name="/lib/log4j-1.2.9.jar"/>
+    </fileset>
+  </path>
+
+  <!-- Add <include> directives for all modules
+       this modules depends on -->
+  <path id="module.dependencypath">
+     <dirset dir="${project.basedir}">
+         <include name="logging/interface" />
+         <include name="util/interface" />
+         <include name="eventnotifier/interface"/>
+         <include name="session/interface" />
+         <include name="mediaobject/interface" />
+         <include name="mediacontentmanager/interface" />
+         <include name="execution_engine/interface/**/eventnotifier" />
+         <include name="mediatranslationmanager/interface" />
+         <include name="configurationmanager/interface"/>
+         <include name="operateandmaintainmanager/interface" />
+         <include name="execution_engine/interface" />
+     </dirset>
+  </path>
+
+
+  <!-- And similarly add  <exclude> directives for
+       all modules this modules depends on -->
+  <patternset id="module.jar.files">
+	<include name="**/com/mobeon/masp/stream/**" /> 
+	<exclude name="**/com/mobeon/masp/stream/*Test*" />
+  </patternset>
+
+  <patternset id="excluded.from.compilation">
+    <patternset refid="excluded.from.module"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+
+  <!-- Local and/or overridden targets -->
+     <!-- Build needed packages -->
+  <target name="builddepedencies" >
+  </target>
+
+  <!-- Target to compile and build JNI for the ccRTP -->
+    <target name="compile" depends="compile.3pp,compile.native" description="Compile classes"/>
+
+    <target name="compile.java" depends="init,builddepedencies" description="Java Compile classes">
+
+        <mkdir dir="${module.output.dir}"/>
+        <javac destdir="${module.output.dir}" debug="${compiler.debug}">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${project.basedir}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <src refid="module.sourcepath"/>
+            <src refid="module.dependencypath"/>
+        </javac>
+        <copy todir="${module.output.dir}">
+            <fileset dir="${module.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+        <javah
+                class="com.mobeon.masp.stream.CCRTPSession"
+                outputfile="nativestreamhandling/interface/ccrtpsessionproxy.h"
+                classpath="${module.output.dir}"
+                force="yes" verbose="yes"/>
+        <javah
+                class="com.mobeon.masp.stream.jni.NativeStreamHandling"
+                outputfile="nativestreamhandling/interface/nativestreamhandling.h"
+                classpath="${module.output.dir}"/>
+    </target>
+
+    <target name="compile.3pp" depends="compile.java" unless="stream.exclude.3pp" description="Compile 3PP classes">
+    </target>
+
+   
+    <target name="compile.native" depends="compile.java" unless="stream.exclude.native" description="Compile native classes">
+        <exec dir="${module.basedir}" executable="clearmake" os="SunOS">
+            <arg line="-C gnu CCASE_BLD_UMASK=2 -M"/>
+        </exec>
+    </target>
+
+    <target name="distclean" depends="clean" description="cleanup all">
+        <exec dir="${module.basedir}" executable="clearmake" os="SunOS">
+            <arg line="-C gnu distclean"/>
+        </exec>
+    </target>
+
+    <target name="clean" depends="clean.java,clean.3pp,clean.native" description="cleanup"/>
+
+    <target name="clean.java" description="cleanup java">
+        <delete>
+            <fileset dir="." includes="TEST-*.txt"/>
+        </delete>
+        <delete file="${module.basedir}/TEST-**.txt"/>
+        <delete dir="${module.basedir}/testreports"/>
+        <delete dir="${module.basedir}/coverage_instrumented" />
+        <delete dir="${module.output.dir}"/>
+        <delete file="${module.basedir}/${module.jarname}"/>
+        <delete dir="${module.basedir}/doc/api"/>
+    </target>
+
+    <target name="clean.3pp" unless="stream.exclude.3pp" description="cleanup 3pp">
+    </target>
+
+    <target name="clean.native" unless="stream.exclude.native" description="cleanup native">
+        <exec dir="${module.basedir}" executable="clearmake" os="SunOS">
+            <arg line="-C gnu clean"/>
+        </exec>
+    </target>
+
+
+
+
+  <!-- Import generic targets -->
+        <import file="${project.basedir}/cobertura.xml" /> 
+        <import file="${project.basedir}/targets.xml" />
+</project>

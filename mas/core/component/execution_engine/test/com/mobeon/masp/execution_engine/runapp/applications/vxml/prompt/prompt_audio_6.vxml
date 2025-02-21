@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.badfetch">
+        <!-- We expect an event to be thrown if the file does not
+        exist -->
+        <log>pass</log>
+    </catch>
+   <form>
+       <block>
+            <var name="ljud"/>
+            <script>
+                mas.systemSetMediaResources ("en", "male", null);
+                ljud = mas.systemGetMediaContent ("prompt", "2", null);
+            </script>
+            <prompt>
+                <audio expr="ljud"/>
+            </prompt>
+            <exit/>
+       </block>
+   </form>
+</vxml>

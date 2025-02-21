@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<!-- TC 20103050. This test case verifies that any number of gotos is possible.-->
+<form>
+	<record name="myrecording">
+	</record>
+	<filled>
+	    <log label="error">TC 20103006 Failed</log>
+	</filled>
+</form>
+<catch event="connection.disconnect.hangup">
+	<log label="error">TC 20103006 Passed</log>
+</catch>
+</vxml>

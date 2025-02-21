@@ -1,0 +1,60 @@
+package com.mobeon.masp.operateandmaintainmanager;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+public class ServiceEnablerOperateImpl implements ServiceEnablerOperate {
+
+    String name;
+    String state;
+    Integer threshold;
+    String protocol;
+    private Supervision supervision;
+
+    public ServiceEnablerOperateImpl(String name){
+        this.name = name;
+    }
+
+    public void setSupervision(Supervision supervision){
+        this.supervision = supervision;
+    }
+
+    public synchronized void unlock() {
+        state = "Unlocked";
+    }
+
+    public void lock() {
+        state="Locked";
+    }
+
+    public void shutdown() {
+        state="Shutdown";
+        try {
+            ServiceEnablerInfo seInfo = supervision.getServiceEnablerStatistics(this);
+            seInfo.shutdownComplete();
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    public void updateThreshold(int highWaterMark, int lowWaterMark, int threshold) {
+        this.threshold=threshold;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getProtocol() {
+        return this.protocol;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String toString(){
+        return "x" ;
+    }
+
+}

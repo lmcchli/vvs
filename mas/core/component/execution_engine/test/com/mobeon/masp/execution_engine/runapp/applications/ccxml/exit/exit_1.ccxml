@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="in_connectionid"></var>
+
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <log expr="'CCXML app exiting'"></log>
+            <exit></exit>
+        </transition>
+
+        <!-- Since we exited, twe do not expect an event-->
+        <transition event="connection.disconnected" name="dlg">
+            <log expr="'TCFAIL disconnect'"></log>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL error'"></log>
+            <exit/>
+
+        </transition>
+
+    </eventprocessor>
+</ccxml>

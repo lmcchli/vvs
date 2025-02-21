@@ -1,0 +1,122 @@
+#!/bin/ksh
+###################################################################
+# File    : rc.mas
+# Author  : Håkan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is the main file to operate on MAS.
+#	This calls masadm in install directory for all operations.
+#
+# OS: 	Solaris 8	(Unsuported)
+#	Solaris 10	
+#
+# History
+#	Date		Who	What
+#	2006-01-10  	MHATU	Created
+#
+#
+####################################################################
+
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+CURDIR=`pwd`
+
+#BASE=$BASEDIR/MAS
+mode=$1
+param=$2
+all_params=$@
+
+
+#cd $BASEDIR
+
+# Load config values
+#. $BASEDIR/bin/mas.conf
+
+
+case "$mode" in
+	'start')
+		$BASEDIR/etc/masadm start
+		;;
+
+	'status')
+		$BASEDIR/etc/masadm status
+		;;
+
+	'stop')
+		$BASEDIR/etc/masadm stop
+		;;
+
+	'restart')
+		$BASEDIR/etc/masadm restart
+		;;
+
+	'enableautostart')
+		$BASEDIR/etc/masadm enableautostart
+		;;
+
+	'disableautostart')
+		$BASEDIR/etc/masadm disableautostart
+		;;
+	'lock')
+		$BASEDIR/etc/masadm lock
+		;;
+	'unlock')
+		$BASEDIR/etc/masadm unlock
+		;;
+	'shutdown')
+		$BASEDIR/etc/masadm shutdown $param
+		;;
+	'monitor')
+		$BASEDIR/etc/masadm monitor
+		;;
+	'viewmib')
+		$BASEDIR/etc/masadm viewmib
+		;;
+	'installmcp')
+		$BASEDIR/etc/masadm installmcp $param
+		;;
+	'uninstallmcp')
+		$BASEDIR/etc/masadm uninstallmcp $param
+		;;
+	'viewmcp')
+		$BASEDIR/etc/masadm viewmcp
+		;;
+	'installapp')
+		$BASEDIR/etc/masadm installapp $param
+		;;
+	'uninstallapp')
+		$BASEDIR/etc/masadm uninstallapp $param
+		;;
+	'viewapp')
+		$BASEDIR/etc/masadm viewapp
+		;;
+	'reloadconfig')
+		$BASEDIR/etc/masadm reloadconfig
+		;;
+	'register')
+		$BASEDIR/etc/masadm register
+		;;
+	'unregister')
+		$BASEDIR/etc/masadm unregister
+		;;
+	'version')
+		$BASEDIR/etc/masadm version
+		;;
+	'testnumber')
+		$BASEDIR/etc/masadm $all_params
+		;;
+
+
+
+	*)
+		echo "Usage: `basename $0` <start|stop|status|restart|enableautostart|disableautostart|"
+		echo "               lock|unlock|shutdown|monitor|viewmib|"
+		echo "               installmcp <mcp>|uninstallmcp <mcpid>|viewmcp|"
+		echo "               installapp <app>|uninstallapp <appid>|viewapp|"
+		echo "               reloadconfig|version|register|unregister|testnumber>"
+		cd $CURDIR
+		exit 1
+		;;
+esac
+
+#cd $CURDIR

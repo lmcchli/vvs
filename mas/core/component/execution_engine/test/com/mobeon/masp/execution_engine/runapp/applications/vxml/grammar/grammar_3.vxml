@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit></exit>
+    </catch>
+
+    <property name="timeout" value="10s"/>
+    <form>
+        <grammar version="1.0" mode="dtmf" root="gd1_main_rule">^M
+            <rule id="gd1_main_rule2">^M
+                <one-of>^M
+                    <item>0</item>^M
+                    <item>1</item>^M
+                    <item>2</item>^M
+                    <item>3</item>^M
+                    <item>4</item>^M
+                    <item>5</item>^M
+                    <item>6</item>^M
+                    <item>7</item>^M
+                    <item>8</item>^M
+                    <item>9</item>^M
+                </one-of>^M
+            </rule>^M
+            <rule id="gd1_main_rule" scope="public">^M
+                <one-of>^M
+                    <item repeat="0-">^M
+                        <ruleref uri="#gd1_main_rule2" />^M
+                    </item>^M
+                    <item>^M
+                        <item repeat="0-">^M
+                            <ruleref uri="#gd1_main_rule2" />^M
+                        </item>^M
+                        <one-of>^M
+                            <item>*</item>^M
+                            <item>*</item>^M
+                            <item>* 0</item>^M
+                            <item>* *</item>^M
+                            <item>* 8</item>^M
+                        </one-of>^M
+                    </item>^M
+                </one-of>^M
+            </rule>^M
+        </grammar>^M
+
+        <field name="arne">
+            <filled>
+                <if cond="arne$.utterance == ''">
+                    <log>PASS</log>
+                    <else>
+                        <log>ERROR</log>
+                    </else>
+                </if>
+            </filled>
+        </field>
+
+
+    </form>
+
+</vxml>

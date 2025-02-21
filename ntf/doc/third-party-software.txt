@@ -1,0 +1,33 @@
+Product                           Version  VOB             Vendor               Licence
+===========================================================================================
+Installshield                     4.01     ntf_oem         Installshield        Commercial
+ldapdelete                                 ntf             Netscape             ?
+ldapmodify                                 ntf             Netscape             ?
+ldapsearch                                 ntf             Netscape             ?
+libares21.so                               ntf             Netscape, for ldap*  ?
+libldap30.so                               ntf             Netscape, for ldap*  ?
+libnspr21.so                               ntf             Netscape, for ldap*  ?
+libplc21.so                                ntf             Netscape, for ldap*  ?
+libplds21.so                               ntf             Netscape, for ldap*  ?
+gunzip                            1.2.4    ntf             FSF                  GPL, no cost
+gzip                              1.2.4    ntf             FSF                  GPL, no cost
+notify.so                                  ntf             (AMTEVA SMS ???)     ?
+Java Runtime Environment          1.3      oem             Sun                  Sun, no cost
+Java Activation Framework         1.0.2    ntf_oem         Sun                  Sun, no cost
+Javamail                          1.3      ntf_oem         Sun                  Sun, no cost
+Xerces                            1.3.0    oem             Apache               Apache, no cost
+Radius api                                 ntf_oem         MOIP MER             internal
+Netscape LDAP SDK                 4.0      oem             Iplanet              ?
+libadminutil.so                            ntf             Netscape, LDAP       ?
+libnsbrk30.so                              ntf             ?                    ?
+libnsbrk31.so                              ntf             ?                    ?
+libnscnv30.so                              ntf             ?                    ?
+libnscnv31.so                              ntf             ?                    ?
+libnscol30.so                              ntf             ?                    ?
+libnscol31.so                              ntf             ?                    ?
+libnsfmt30.so                              ntf             ?                    ?
+libnsfmt31.so                              ntf             ?                    ?
+libnsres30.so                              ntf             ?                    ?
+libnsres31.so                              ntf             ?                    ?
+libnsuni30.so                              ntf             ?                    ?
+libnsuni31.so                              ntf             ?                    ?

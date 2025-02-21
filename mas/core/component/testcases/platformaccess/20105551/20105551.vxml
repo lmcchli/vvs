@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="cfg"/>
+
+
+            <script>
+                cfg = mas.systemGetConfigurationParameter('not.existing', 'policy');
+                mas.systemLog(3, 'Configuration Parameter mediacontentmanager.mediaobjectcache.resourcepath=' + cfg);
+            </script>
+             <log>TC 20105551  Failed</log>
+        </block>
+    </form>
+    <catch event="error.com.mobeon.platform.datanotfound">
+		<log>Error caught <value expr="_event"/></log>
+        <log>Error message <value expr="_message"/></log>
+        <log>TC 20105551  Passed</log>
+
+		<exit/>
+   </catch>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105551  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

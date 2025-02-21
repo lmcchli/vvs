@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <var name="messageType" />
+   <!--This variable contains a message recorded by the user. It has been added by the system automatically.-->
+   <var name="depositMessage" />
+   <!--This variable contains the duration of a recorded message. It has been added by the system automatically.-->
+   <var name="depositMessageDuration" />
+   <!--This variable contains the size of a recorded message. It has been added by the system automatically.-->
+   <var name="depositMessageSize" />
+   <!--This variable contains the termination key used in a record shape. It has been added by the system automatically.-->
+   <var name="depositMessageTermchar" />
+   <!--This variable contains the maximum time for a record shape. It has been added by the system automatically.-->
+   <var name="depositMessageMaxtime" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime" />
+   <var name="procedureResult1" />
+   <var name="procedureResult2" />
+   <var name="procedureResult3" />
+   <var name="procedureResult4" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="sub2">
+      <script>Utility_SetGlobalObject ('DepositEnd', true)</script>
+      <block>
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SendTrafficEvent ('depositstart', 'description=depositstart,operation=1,objecttype=2,callingnumber=' + ANI)</script>
+      <block>
+         <if cond="(Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'mailuserstatus') =='inactive')">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(400)" />
+            </prompt>
+            <goto next="Goodbye.vxml" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'Extended_Absence', '') == true" />
+            <goto next="#pmess1" />
+            <else />
+            <goto next="#proc2" />
+         </if>
+      </block>
+   </form>
+   <form id="pmess1">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="Greeting_GetGreeting(GlobalObject.Subscriber,'Extended_Absence')" />
+         </prompt>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(403)" />
+         </prompt>
+         <goto next="Goodbye.vxml" />
+      </block>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="QuotaCheckDeposit.vxml">
+         <param name="p_ani" expr="ANI" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult1" expr="sub.resultCode" />
+            <if cond="procedureResult1 == 'full'">
+               <goto next="Goodbye.vxml" />
+               <elseif cond="procedureResult1 == 'ok'" />
+               <goto next="#proc1" />
+               <else />
+               <goto next="#proc1" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="DepositPlayGreeting.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult2" expr="sub.resultCode" />
+            <if cond="Subscriber_HasService(GlobalObject.Subscriber, 'voice') &amp;&amp;&#xD;&#xA;Call_IsVideo()">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(401)" />
+               </prompt>
+               <assign name="messageType" expr="'video'" />
+               <goto next="#rec1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(402)" />
+               </prompt>
+               <assign name="messageType" expr="'voice'" />
+               <goto next="#rec1" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="rec1">
+      <script>System_SetProperty('com.mobeon.platform.record_maxtime', 10)</script>
+      <record name="recording" dtmfterm="false">
+         <grammar mode="dtmf" version="1.0" root="rec1_main_rule">
+            <rule id="rec1_main_rule">
+               <one-of>
+                  <item>#</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="noinput">
+            <goto next="#ptarget2" />
+         </catch>
+         <filled>
+             <log>TCPASS</log>
+             <exit/>
+
+
+
+            <assign name="depositMessage" expr="recording" />
+            <assign name="depositMessageDuration" expr="recording$.duration" />
+            <assign name="depositMessageSize" expr="recording$.size" />
+            <assign name="depositMessageTermchar" expr="recording$.termchar" />
+            <assign name="depositMessageMaxtime" expr="recording$.maxtime" />
+            <if cond="depositMessageMaxtime == true || true">
+               <goto next="#proc3" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2207, new Array(System_GetMediaQualifier('Number', Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'eomsgwarning'))))" />
+               </prompt>
+               <goto next="#rec1" />
+            </if>
+         </filled>
+      </record>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="proc3">
+      <subdialog name="sub" src="DepositMenu.vxml">
+         <param name="p_depositMessage" expr="depositMessage" />
+         <param name="p_ani" expr="ANI" />
+         <param name="p_maxLengthReached" expr="depositMessageMaxtime" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult3" expr="sub.resultCode" />
+            <if cond="procedureResult3 == 'send'">
+               <goto next="#proc4" />
+               <elseif cond="procedureResult3 == 're-record'" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(422)" />
+               </prompt>
+               <goto next="#ptarget1" />
+               <elseif cond="procedureResult3 == 'continue'" />
+               <goto next="#ptarget1" />
+               <elseif cond="procedureResult3 == 'cancel'" />
+               <goto next="Goodbye.vxml" />
+               <elseif cond="procedureResult3 == 'login'" />
+               <goto next="CalledNumberLogin.vxml" />
+               <else />
+               <goto next="Goodbye.vxml" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc4">
+      <subdialog name="sub" src="StoreMessage.vxml">
+         <param name="p_ani" expr="ANI" />
+         <param name="p_depositMessage" expr="depositMessage" />
+         <param name="p_messageType" expr="messageType" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult4" expr="sub.resultCode" />
+            <goto next="Goodbye.vxml" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#rec1" />
+      </block>
+   </form>
+   <catch event="connection.disconnect.hangup">
+      <if cond="depositMessage == null">
+         <goto next="Goodbye.vxml" />
+         <else />
+         <goto next="#proc4" />
+      </if>
+   </catch>
+</vxml>

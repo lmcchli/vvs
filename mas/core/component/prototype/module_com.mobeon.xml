@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="module_com.mobeon" default="compile.module.com.mobeon">
+  <dirname property="module.com.mobeon.basedir" file="${ant.file.module_com.mobeon}"/>
+  
+  <property name="module.jdk.home.com.mobeon" value="${project.jdk.home}"/>
+  <property name="module.jdk.classpath.com.mobeon" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.com.mobeon" value="${compiler.args}"/>
+  
+  <property name="com.mobeon.output.dir" value="${module.com.mobeon.basedir}/classes"/>
+  <property name="com.mobeon.testoutput.dir" value="${module.com.mobeon.basedir}/classes"/>
+  
+  <path id="com.mobeon.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="com.mobeon.module.classpath">
+    <path refid="${module.jdk.classpath.com.mobeon}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.com.mobeon"/>
+  
+  <patternset id="excluded.from.compilation.com.mobeon">
+    <patternset refid="excluded.from.module.com.mobeon"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+  
+  <path id="com.mobeon.module.sourcepath">
+    <dirset dir="${module.com.mobeon.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.com.mobeon" depends="compile.module.com.mobeon.production,compile.module.com.mobeon.tests" description="compile module com.mobeon"/>
+  
+  <target name="compile.module.com.mobeon.production" description="compile module com.mobeon production classes">
+    <mkdir dir="${com.mobeon.output.dir}"/>
+    <javac destdir="${com.mobeon.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memoryMaximumSize="${compiler.max.memory}" fork="true" executable="${module.jdk.home.com.mobeon}/bin/javac">
+      <compilerarg line="${compiler.args.com.mobeon}"/>
+      <bootclasspath refid="com.mobeon.module.bootclasspath"/>
+      <classpath refid="com.mobeon.module.classpath"/>
+      <src refid="com.mobeon.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.com.mobeon"/>
+    </javac>
+    <copy todir="${com.mobeon.output.dir}">
+      <fileset dir="${module.com.mobeon.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.com.mobeon"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.com.mobeon.tests" depends="compile.module.com.mobeon.production" description="compile module com.mobeon test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.com.mobeon" description="cleanup module">
+    <delete dir="${com.mobeon.output.dir}"/>
+    <delete dir="${com.mobeon.testoutput.dir}"/>
+  </target>
+</project>

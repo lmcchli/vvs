@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.badfetch">
+        <log>TCPASS</log>
+    </catch>
+    <form>
+        <var name="target" expr="'goto_34_2.vxml#block3'"></var>
+        <block>
+            <!-- Goto a nonexisting form-->
+            <goto expr="target"></goto>
+        </block>
+    </form>
+</vxml>

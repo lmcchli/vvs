@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	
+	<form id="start">
+		<block>
+			Davids mamma
+			<goto nextitem="f1" />
+		</block>
+		
+		<field name="f1" type="number" >
+			<prompt> Patricks mamma </prompt>
+		</field>
+	</form>
+</vxml>

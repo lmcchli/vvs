@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml">
+
+    <script src="libMas.js"/>
+    <var name="VMPA_SERVICE_MESSAGE_PREFIX" expr="'VMPA service: '"/>
+	
+	<!-- To have the call re-routed to the legacy system, the reject event type has to be '_488_NOT_ACCEPTABLE_HERE'. -->
+	<var name="REJECT_EVENT_TYPE_LEGACY" expr="'_488_NOT_ACCEPTABLE_HERE'"/>
+	
+	<!-- Reject reasons -->
+	<var name="REJECT_REASON_REDIRECTING_NUMBER_PARSING_ERROR" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Error parsing redirecting number.'"/>
+	<var name="REJECT_REASON_CALLED_NUMBER_PARSING_ERROR" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Error parsing called number.'"/>
+	<var name="REJECT_REASON_CALLED_NUMBER_UNKNOWN" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Unknown called number.'"/>
+	<var name="REJECT_REASON_TARGET_MAILBOX_LEGACY" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Target mailbox is in legacy system.'"/>
+	<var name="REJECT_REASON_TARGET_MAILBOX_NOT_FOUND" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Target mailbox not found.'"/>
+	<var name="REJECT_REASON_INVALID_PROXY_SERVER_INFO" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Invalid proxy server information.'"/>
+	<var name="REJECT_REASON_SUBSCRIBER_LOOKUP_ERROR" expr="VMPA_SERVICE_MESSAGE_PREFIX + 'Subscrber lookup error.'"/>
+	
+    <var name="myState" expr="'init'"/>
+    <var name="in_connectionid"/>
+    <var name="RDNIS"/>	
+    <var name="DNIS"/>
+    <var name="opcoName"/>
+    <var name="opcoVip"/>  
+    <var name="opcoPort"/>    
+	<var name="incomingCallProcessingStartTime"/>
+	<var name="proxyingStartTime"/>
+	
+		
+    <eventprocessor statevariable="myState">
+        		
+		<transition event="ccxml.loaded" name="evt">	
+			<log expr="'Setting up test case values.'"/>
+			<script>
+				setTestValue("testserveraddress", undefined);
+			</script>
+		</transition>
+		
+        <!-- Handle incoming call. -->
+        <transition state="init" event="connection.alerting" name="evt">
+            <assign name="in_connectionid" expr="evt.connectionid"/>
+            <script>System_SetPartitionRestriction(true);</script>
+        	<assign name="incomingCallProcessingStartTime" expr="new Date().getTime()"/>            
+			
+			<var name="redirectNumberExists" expr="'false'"/>
+        	<if cond="evt.connection.redirect != undefined">
+        		<if cond="evt.connection.redirect[0].number != undefined">      
+        	      	<if cond="evt.connection.redirect[0].number != ''">
+        	      			
+    					<!-- Redirect number exists; this is the Divert Deposit case. -->
+    					<assign name="redirectNumberExists" expr="'true'"/>
+		        		<assign name="RDNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vmpa.numberanalysis', 'redirectingnumberrule'), evt.connection.redirect[0].number, '')"/>
+		        		<if cond="RDNIS == undefined || RDNIS == ''">
+		        			<log label="'error'" expr="'CCXML: Call rejected due to redirecting number parsing error: connection.redirect[0].number=' + evt.connection.redirect[0].number + ' RDNIS=' + RDNIS"/>
+			        		<log expr="'TestCase: Redirecting number is undefined or Redirecting number is an empty string.'"/>
+			        		<reject connectionid="in_connectionid" reason="REJECT_REASON_REDIRECTING_NUMBER_PARSING_ERROR"/>
+			        		<exit/>
+		        				    
+			        	<else/>				
+			        		<assign name="opcoName" expr="Subscriber_GetOpcoName(RDNIS)"/>
+			        		<if cond="opcoName != undefined">
+			        			<if cond="opcoName != SUBSCRIBER_LOOKUP_ERROR">
+				        			<assign name="opcoVip" expr="System_GetProxyServerAddress(opcoName)"/>
+				        			<assign name="opcoPort" expr="System_GetProxyServerPort(opcoName)"/>	
+				        			<if cond="opcoVip == undefined || opcoVip == '' || opcoPort == undefined || opcoPort == ''">
+				        				<log label="'error'" expr="'CCXML: Call rejected due to invalid proxy server information: opco=' + opcoName + ' vip=' + opcoVip + ' port=' + opcoPort"/>
+				        				<log expr="'TestCase: Divert Deposit Opco VIP is undefined.'"/>
+				        				<reject connectionid="in_connectionid" reason="REJECT_REASON_INVALID_PROXY_SERVER_INFO"/>
+				        				<exit/>
+				        			<else/>
+				        				<assign name="myState" expr="'proxying'"/>
+				        				<assign name="proxyingStartTime" expr="new Date().getTime()"/>
+				        				<log expr="'TestCase: Divert Deposit proxy starting.'"/>
+					        			<proxy server="opcoVip" port="opcoPort"/>	
+				        			</if> 
+				        		<else/>
+				        			<log label="'error'" expr="'CCXML: Call rejected due to error accessing database'"/>
+				        			<log expr="'TestCase: Divert Deposit subscrber lookup problem reject.'"/>
+				        			<reject connectionid="in_connectionid" reason="REJECT_REASON_SUBSCRIBER_LOOKUP_ERROR"/>
+			        				<exit/>
+				        		</if>		    		
+			        		<elseif cond="System_IsMigrationEnabled() == true"/>
+		    					<var name="hints"/>    					
+					        	<script>
+					        		hints = {rejecteventtype : REJECT_EVENT_TYPE_LEGACY}
+					        	</script>    
+			        			<log expr="'TestCase: Divert Deposit legacy reject.'"/>
+			        			<reject connectionid="in_connectionid" reason="REJECT_REASON_TARGET_MAILBOX_LEGACY" hints="hints"/>
+			        			<exit/>	        		
+			        		<else/>
+			        			<log label="'error'" expr="'CCXML: Call rejected due to target mailbox not found: RDNIS=' + RDNIS"/>
+			        			<log expr="'TestCase: Divert Deposit unknown subscriber reject.'"/>
+			        			<reject connectionid="in_connectionid" reason="REJECT_REASON_TARGET_MAILBOX_NOT_FOUND"/>
+			        			<exit/>
+			        		</if>
+				        		
+			        	</if>  
+		        	</if>
+	        	</if>
+        	</if>
+        	       	
+        	<!-- Redirect number does not exist; analyse the DNIS. -->
+        	<if cond="redirectNumberExists == 'false'">
+        		<assign name="DNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vmpa.numberanalysis', 'callednumberrule'), evt.connection.local.number, '')"/>        		
+        		<if cond="DNIS == undefined || DNIS == ''">          			
+        			<log label="'error'" expr="'CCXML: Call rejected due to called number parsing error: evt.connection.local.number=' + evt.connection.local.number + ' DNIS=' + DNIS"/>
+	        		<log expr="'TestCase: Called number is undefined or Called number is an empty string.'"/>
+	        		<reject connectionid="in_connectionid" reason="REJECT_REASON_CALLED_NUMBER_PARSING_ERROR"/>
+	        		<exit/>
+	        		
+	        	<else/>	        	    		 
+        			<var name="mailboxNumber" expr="PhoneNumber_RemoveShortCode(DNIS)"/> 
+        						
+        			<!-- DNIS starts with short code; this is the Short Code Retrieval case, Direct Deposit case or other short code case. -->
+	        		<if cond="mailboxNumber != DNIS">      
+	        			<assign name="opcoName" expr="Subscriber_GetOpcoName(mailboxNumber)"/>
+	        			<if cond="opcoName != undefined">
+	        				<if cond="opcoName != SUBSCRIBER_LOOKUP_ERROR">
+			        			<assign name="opcoVip" expr="System_GetProxyServerAddress(opcoName)"/>
+			        			<assign name="opcoPort" expr="System_GetProxyServerPort(opcoName)"/>		        			
+			        			<if cond="opcoVip == undefined || opcoVip == '' || opcoPort == undefined || opcoPort == ''">
+			        				<log label="'error'" expr="'CCXML: Call rejected due to invalid proxy server information: opco=' + opcoName + ' vip=' + opcoVip + ' port=' + opcoPort"/>
+			        				<log expr="'TestCase: Short Code Retrieval Opco VIP is undefined or Direct Deposit Opco VIP is undefined.'"/>
+			        				<reject connectionid="in_connectionid" reason="REJECT_REASON_INVALID_PROXY_SERVER_INFO"/>
+			        				<exit/>
+			        			<else/>
+			        				<assign name="myState" expr="'proxying'"/>
+			        				<assign name="proxyingStartTime" expr="new Date().getTime()"/>    
+				        			<log expr="'TestCase: Short Code Retrieval proxy starting or Direct Deposit proxy starting.'"/>
+				        			<proxy server="opcoVip" port="opcoPort"/>	     
+			        			</if>   	
+			        		<else/>
+			        			<log label="'error'" expr="'CCXML: Call rejected due to error accessing database'"/> 
+			        			<log expr="'TestCase: Short Code Retrieval subscrber lookup problem reject or Direct Deposit subscrber lookup problem reject.'"/>
+			        			<reject connectionid="in_connectionid" reason="REJECT_REASON_SUBSCRIBER_LOOKUP_ERROR"/>
+		        				<exit/>
+			        		</if>	
+		        		<elseif cond="System_IsMigrationEnabled() == true"/>    						
+	    					<var name="hints"/>    					
+				        	<script>
+				        		hints = {rejecteventtype : REJECT_EVENT_TYPE_LEGACY}
+				        	</script>
+	        				<log expr="'TestCase: Short Code Retrieval legacy reject or Direct Deposit legacy reject.'"/>
+	        				<reject connectionid="in_connectionid" reason="REJECT_REASON_TARGET_MAILBOX_LEGACY" hints="hints"/>	    
+		        			<exit/>    		
+		        		<else/>
+		        			<log label="'error'" expr="'CCXML: Call rejected due to target mailbox not found: DNIS=' + DNIS + ' mailboxNumber=' + mailboxNumber"/>
+		        			<log expr="'TestCase: Short Code Retrieval unknown subscriber reject or Direct Deposit unknown subscriber reject.'"/>
+		        			<reject connectionid="in_connectionid" reason="REJECT_REASON_TARGET_MAILBOX_NOT_FOUND"/>
+		        			<exit/>
+		        		</if>
+	        		
+	        		<!-- DNIS is the Retrieval DNIS; this the Long Dial Retrieval case. -->
+	        		<elseif cond="PhoneNumber_IsRetrievalDNIS(DNIS) == true"/>
+        		        		<log expr="'TestCase: Long Dial Retrieval B2BUA starting.'"/>
+        		        		<accept/>
+	        					        			
+	        		<!-- DNIS is unknown; reject the call. -->
+	        		<else/>
+	        			<log label="'error'" expr="'CCXML: Call rejected due to unknown called number: DNIS=' + DNIS"/>
+		        		<log expr="'TestCase: Called number is unknown.'"/>
+		        		<reject connectionid="in_connectionid" reason="REJECT_REASON_CALLED_NUMBER_UNKNOWN"/>
+		        		<exit/>	        		
+	        		</if>		        		
+	        	</if>
+        	</if>
+		</transition>
+				
+		<transition state="proxying" event="connection.proxied" name="evt">	
+			<var name="proxyingTime" expr="new Date().getTime() - proxyingStartTime"/>
+			<log expr="'TestCase: proxy succeeded.'"/>
+			<!-- TODO CallProxied MDR -->
+			<exit/>	
+		</transition>	
+			
+		<transition state="proxying" event="connection.disconnected" name="evt">
+			<!-- TODO CallProxied MDR -->
+			<exit/>			
+		</transition>		
+		
+		<transition state="proxying" event="error.connection" name="evt">		
+			<!-- TODO CallProxied MDR -->
+			<exit/>	
+		</transition>	
+		
+		<transition state="proxying" event="connection.failed" name="evt">	
+			<!-- TODO CallProxied MDR -->
+			<exit/>		
+		</transition>		
+		
+		<transition state="init" event="connection.connected" name="evt">
+			<log expr="'TestCase: connection connected successfully.'"/>
+			<exit/>
+		</transition>
+			
+    </eventprocessor>	
+</ccxml>

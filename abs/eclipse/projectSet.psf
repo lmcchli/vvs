@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="com.rational.clearcase.ccprovider_nature">
+<project reference="&lt;ClearCaseProject version=&quot;3.0&quot;&gt;&#x0A;&lt;family_oid&gt;84a75d6f.499f11dd.9a85.00:30:6e:5d:e0:86&lt;/family_oid&gt;&#x0A;&lt;dir_elem_oid&gt;1e4d9f35.51b411dd.88dd.00:01:83:83:43:1d&lt;/dir_elem_oid&gt;&#x0A;&lt;VOB_tag&gt;\ipms_sys2&lt;/VOB_tag&gt;&#x0A;&lt;pathname&gt;./ipms_sys2/backend&lt;/pathname&gt;&#x0A;&lt;/ClearCaseProject&gt;"/>
+<project reference="&lt;ClearCaseProject version=&quot;3.0&quot;&gt;&#x0A;&lt;family_oid&gt;1f777525.3c8411d9.a1e2.00:01:80:82:ab:46&lt;/family_oid&gt;&#x0A;&lt;dir_elem_oid&gt;20a775b1.3c8411d9.a1e2.00:01:80:82:ab:46&lt;/dir_elem_oid&gt;&#x0A;&lt;VOB_tag&gt;\mas&lt;/VOB_tag&gt;&#x0A;&lt;pathname&gt;./mas&lt;/pathname&gt;&#x0A;&lt;/ClearCaseProject&gt;"/>
+<project reference="&lt;ClearCaseProject version=&quot;3.0&quot;&gt;&#x0A;&lt;family_oid&gt;f32fc2dc.ff7311d3.a970.00:01:80:a7:66:27&lt;/family_oid&gt;&#x0A;&lt;dir_elem_oid&gt;f45fc344.ff7311d3.a970.00:01:80:a7:66:27&lt;/dir_elem_oid&gt;&#x0A;&lt;VOB_tag&gt;\ntf&lt;/VOB_tag&gt;&#x0A;&lt;pathname&gt;./ntf&lt;/pathname&gt;&#x0A;&lt;/ClearCaseProject&gt;"/>
+</provider>
+</psf>

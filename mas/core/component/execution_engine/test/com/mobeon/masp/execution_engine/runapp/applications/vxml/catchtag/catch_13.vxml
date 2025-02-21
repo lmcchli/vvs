@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch>
+        <log>VXMLTCpass</log>
+    </catch>
+
+    <form>
+        <catch>
+            <!-- this catch shall never be triggered -->
+            <log>ERROR</log>
+        </catch>
+        <block>
+            <goto next="#form2"></goto>
+        </block>
+    </form>
+
+    <form id="form2">
+        <block>
+            <!-- this throw shall end up in the document level catch -->
+            <throw event="whatever"></throw>
+        </block>
+    </form>
+
+</vxml>

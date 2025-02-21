@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml">
+
+    <eventprocessor>
+
+        <!-- Handle incoming call. -->
+        <transition event="connection.alerting">
+            <script>
+                Give me a semantic error
+            </script>
+        </transition>
+
+        <transition event="error.semantic" name="evt">
+
+<!-- Check that evt.reason got some value defined by the EE-->
+            
+            <if cond="evt.reason != undefined">
+                <if cond="evt.reason.length != 0">
+                    <log expr="'TCPASS'"/>
+                </if>
+            </if>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

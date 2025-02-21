@@ -1,0 +1,6 @@
+# Test script for SIPP perl compiler
+description "Verify that MAS uses MCR for accounting service"
+
+connect voicesms
+#sleep 16000
+disconnect

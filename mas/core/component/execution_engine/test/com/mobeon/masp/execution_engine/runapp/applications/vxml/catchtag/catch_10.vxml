@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+ <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+  </grammar>
+   <catch>
+          <log>TCFAIL VXML: Catch 10 nok (document level catch)</log>
+          <exit/>
+    </catch>
+  <form>
+    <field>
+       <throw event="testevent"/>
+       <log>TCFAIL VXML: Catch 10 nok (in log)</log>
+       <catch>
+          <log>TCPASS VXML: Catch 10 OK</log>
+          <exit/>
+        </catch>
+    </field>
+  </form>
+</vxml>

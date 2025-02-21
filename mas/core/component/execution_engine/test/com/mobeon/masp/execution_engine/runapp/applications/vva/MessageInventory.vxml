@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="folderId" />
+   <var name="messageListId" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="assign1">
+      <block>
+         <assign name="folderId" expr="Mailbox_GetFolder(GlobalObject.Subscriber, 'inbox')" />
+         <assign name="messageListId" expr="Mailbox_GetMessageList(folderId, Subscriber_GetMessageTypesAllowed(GlobalObject.Subscriber), 'new,read', 'urgent,nonurgent', '', 'fifo')" />
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(292)" />
+         </prompt>
+         <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'voice,video,fax,email', 'new', 'urgent,nonurgent') &gt; 0))">
+            <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'voice', 'new', 'urgent,nonurgent') &gt; 0))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2103, new Array(System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'voice', 'new', 'urgent,nonurgent')), System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'voice', 'new', 'urgent'))))" />
+               </prompt>
+               <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'video,fax,email', 'new', 'urgent,nonurgent') &gt; 0))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(294)" />
+                  </prompt>
+                  <goto next="#cond3" />
+                  <else />
+                  <goto next="#cond3" />
+               </if>
+               <else />
+               <goto next="#cond3" />
+            </if>
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(293)" />
+            </prompt>
+            <goto next="#prompt7" />
+         </if>
+      </block>
+   </form>
+   <form id="cond3">
+      <block>
+         <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'video', 'new', 'urgent,nonurgent') &gt; 0))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(2104, new Array(System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'video', 'new', 'urgent,nonurgent')), System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'video', 'new', 'urgent'))))" />
+            </prompt>
+            <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'fax,email', 'new', 'urgent,nonurgent') &gt; 0))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(294)" />
+               </prompt>
+               <goto next="#cond5" />
+               <else />
+               <goto next="#cond5" />
+            </if>
+            <else />
+            <goto next="#cond5" />
+         </if>
+      </block>
+   </form>
+   <form id="cond5">
+      <block>
+         <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'fax', 'new', 'urgent,nonurgent') &gt; 0))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(2105, new Array(System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'fax', 'new', 'urgent,nonurgent')), System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'fax', 'new', 'urgent'))))" />
+            </prompt>
+            <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'email', 'new', 'urgent,nonurgent') &gt; 0))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(294)" />
+               </prompt>
+               <goto next="#prompt1" />
+               <else />
+               <goto next="#cond9" />
+            </if>
+            <else />
+            <goto next="#cond9" />
+         </if>
+      </block>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2106, new Array(System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'email', 'new', 'urgent,nonurgent')), System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages (messageListId, 'email', 'new', 'urgent'))))" />
+         </prompt>
+         <goto next="#prompt7" />
+      </block>
+   </form>
+   <form id="prompt7">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(294)" />
+         </prompt>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2102, new Array(System_GetMediaQualifier('Number', Mailbox_GetNumberOfMessages(messageListId, 'voice,video,fax,email', 'old', 'urgent,nonurgent'))))" />
+         </prompt>
+         <if cond="((Subscriber_GetSingleBooleanAttribute (GlobalObject.Subscriber, 'autoplay') == true) &amp;&amp; (Mailbox_GetNumberOfMessages (messageListId, 'voice,video,fax,email', 'new,read', 'urgent,nonurgent') &gt; 0))">
+            <goto next="#proc1" />
+            <else />
+            <goto next="MainMenu.vxml" />
+         </if>
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="AutoPlay.vxml">
+         <param name="p_messageListId" expr="messageListId" />
+         <param name="p_ani" expr="ANI" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <goto next="MainMenu.vxml" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="cond9">
+      <block>
+         <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'email', 'new', 'urgent,nonurgent') &gt; 0))">
+            <goto next="#prompt1" />
+            <else />
+            <goto next="#prompt7" />
+         </if>
+      </block>
+   </form>
+</vxml>

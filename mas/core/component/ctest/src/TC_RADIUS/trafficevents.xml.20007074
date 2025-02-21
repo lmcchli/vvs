@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="trafficevents.xsd">
+    <trafficevents>
+        <event name="accountingdebit" enabled="false" type="radius"/>
+        <event name="accountingdebitfailed" enabled="true" type="radius"/>
+        <event name="accountingrefund" enabled="false" type="radius"/>
+        <event name="accountingrefundfailed" enabled="true" type="radius"/>
+        <event name="callended" enabled="true" type="radius"/>
+        <event name="changedgreeting" enabled="true" type="radius"/>
+        <event name="depositcancelled" enabled="true" type="radius"/>
+        <event name="depositend" enabled="true" type="radius"/>
+        <event name="depositstart" enabled="true" type="radius"/>
+        <event name="emaildeleted" enabled="true" type="radius"/>
+        <event name="emailfwd" enabled="true" type="radius"/>
+        <event name="emailread" enabled="true" type="radius"/>
+        <event name="emailreply" enabled="true" type="radius"/>
+        <event name="emailreread" enabled="true" type="radius"/>
+        <event name="faxdeleted" enabled="true" type="radius"/>
+        <event name="faxfwd" enabled="true" type="radius"/>
+        <event name="faxread" enabled="true" type="radius"/>
+        <event name="faxreply" enabled="true" type="radius"/>
+        <event name="faxreread" enabled="true" type="radius"/>
+        <event name="ivrtosmscancelled" enabled="true" type="radius"/>
+        <event name="lockout" enabled="true" type="radius"/>
+        <event name="login" enabled="true" type="radius"/>
+        <event name="logout" enabled="true" type="radius"/>
+        <event name="makecallconnect" enabled="true" type="radius"/>
+        <event name="makecallstart" enabled="true" type="radius"/>
+        <event name="makecallstartcaller" enabled="true" type="radius"/>
+        <event name="makecallstop" enabled="true" type="radius"/>
+        <event name="makecallstopcaller" enabled="true" type="radius"/>
+        <event name="notificationcall" enabled="true" type="radius"/>
+        <event name="printemailsent" enabled="true" type="radius"/>
+        <event name="printfaxsent" enabled="true" type="radius"/>
+        <event name="slamdown" enabled="true" type="radius"/>
+        <event name="videodeleted" enabled="true" type="radius"/>
+        <event name="videodeposit" enabled="true" type="radius"/>
+        <event name="videofungreeting" enabled="true" type="radius"/>
+        <event name="videofwd" enabled="true" type="radius"/>
+        <event name="videoread" enabled="true" type="radius"/>
+        <event name="videoreply" enabled="true" type="radius"/>
+        <event name="videoreread" enabled="true" type="radius"/>
+        <event name="videosent" enabled="true" type="radius"/>
+        <event name="voicedeleted" enabled="true" type="radius"/>
+        <event name="voicedeposit" enabled="true" type="radius"/>
+        <event name="voicefungreeting" enabled="true" type="radius"/>
+        <event name="voicefwd" enabled="true" type="radius"/>
+        <event name="voiceread" enabled="true" type="radius"/>
+        <event name="voicereply" enabled="true" type="radius"/>
+        <event name="voicereread" enabled="true" type="radius"/>
+        <event name="voicesent" enabled="true" type="radius"/>
+
+        <event name="cliinformationmessage" enabled="true" type="email">
+            <emailqueue sizelimit="100" timelimit="100"/>
+        </event>
+        <event name="mwioff" enabled="true" type="email">
+            <emailqueue sizelimit="100" timelimit="100"/>
+        </event>
+        <event name="slamdowninformation" enabled="true" type="email">
+            <emailqueue sizelimit="100" timelimit="100" multievent="true"/>
+        </event>
+        <event name="missedcallnotification" enabled="true" type="email">
+            <emailqueue sizelimit="100" timelimit="100" multievent="true"/>
+        </event>
+    </trafficevents>
+</configuration>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!--START DEMO BEANS
+Demo beans used for test purposes. Should be removed in deployment  -->
+    <bean id="DemoBean1" class="java.lang.Object" depends-on="SystemPropertiesInitializer"/>
+    <bean id="DemoBean2" class="java.lang.Object" depends-on="SystemPropertiesInitializer"/>
+    <!-- END DEMO BEANS -->
+
+    <bean id="SystemPropertiesInitializer "
+          class="com.mobeon.masp.util.lang.SystemPropertiesInitializer"
+          init-method="init"
+          singleton="true">
+      <!-- results in a setSystemProperties(java.util.Properties) call -->
+      <property name="systemProperties">
+        <props>
+          <prop key="mail.mime.base64.ignoreerrors">true</prop>
+        </props>
+      </property>
+    </bean>
+
+</beans>

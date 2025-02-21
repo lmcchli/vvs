@@ -1,0 +1,188 @@
+package com.mobeon.masp.operateandmaintainmanager;
+
+import junit.framework.TestCase;
+import com.mobeon.masp.logging.ILogger;
+import com.mobeon.masp.logging.ILoggerFactory;
+import com.mobeon.masp.configuration.*;
+import com.mobeon.masp.rpcclient.Command;
+import com.mobeon.masp.rpcclient.RpcClient;
+
+import java.io.IOException;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+public class testXmlRpc extends TestCase {
+    ILogger log;
+
+    /**
+     *  Test that lock/unlock and XMLRpc.
+     *  This test uses XML Rpc connection.
+     */
+   public void testRpcCommand(){
+
+       ILoggerFactory.configureAndWatch("logmanager.xml");
+       log = ILoggerFactory.getILogger(ProvidedServiceTest.class);
+
+       mockMulticastDispatcher eventDispatcher = new mockMulticastDispatcher();
+
+       OMManager omm = new OMManager();
+       ConfigurationManagerImpl configuration = new ConfigurationManagerImpl();
+       configuration.setConfigFile("mas.xml");
+       IConfiguration config = configuration.getConfiguration();
+       omm.setConfigurationManager(configuration); // set config manager to be able to reload config
+       omm.setConfiguration(config);               // set configuration for om
+       omm.setEventDispatcher(eventDispatcher);
+       omm.init();
+
+
+       // Create a new service enabler
+       // ServiceEnablerOperateImpl implements the ServiceEnabler interface
+       ServiceEnablerOperateImpl seop = new ServiceEnablerOperateImpl("sename");
+       seop.setSupervision(omm);
+
+       // Create provided Service entry object
+       ProvidedService providedService;
+       try {
+           // Creates the provided service on the service enabler.
+           providedService= omm.createProvidedServiceEntry("Service","loclahost",1111,seop);
+
+           // set values on the provided service entry object.
+           providedService.setApplication("appname","appversion");
+           providedService.setStatus(Status.UNKNOWN);
+       } catch (IlegalServiceParametersException e) {
+           e.printStackTrace();
+       }
+
+/*        try {
+            ServiceEnablerInfo seStat = omm.getServiceEnablerStatistics((ServiceEnablerOperate) seop);
+            seStat.shutdownComplete();
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+  */
+
+        Command rpcCmd = new Command(config);
+       //rpcCmd.setConfiguration(config);
+
+       rpcCmd.status();
+
+       rpcCmd.lock();
+       try {
+           Thread.sleep(2000);
+       } catch (InterruptedException e) {
+           e.printStackTrace();
+       }
+       assertEquals(omm.getServiceEnablers().get(seop.toString()).getServiceEnablerStatus(),"locked");
+
+       rpcCmd.unlock();
+       try {
+           Thread.sleep(2000);
+       } catch (InterruptedException e) {
+           e.printStackTrace();
+       }
+        assertEquals(omm.getServiceEnablers().get(seop.toString()).getServiceEnablerStatus(),"unlocked");
+
+
+        rpcCmd.shutdown();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+       assertEquals(omm.getServiceEnablers().get(seop.toString()).getServiceEnablerStatus(),"locked");
+        try {
+            omm.finalize();
+            omm = null;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void testRpcClient() throws ParameterTypeException {
+
+        ILoggerFactory.configureAndWatch("logmanager.xml");
+        log = ILoggerFactory.getILogger(ProvidedServiceTest.class);
+
+        mockMulticastDispatcher eventDispatcher = new mockMulticastDispatcher();
+
+        OMManager omm = new OMManager();
+        ConfigurationManagerImpl configuration = new ConfigurationManagerImpl();
+        configuration.setConfigFile("mas.xml");
+        IConfiguration config = configuration.getConfiguration();
+        omm.setConfigurationManager(configuration); // set config manager to be able to reload config
+        omm.setConfiguration(config);               // set configuration for om
+        omm.setEventDispatcher(eventDispatcher);
+        omm.init();
+
+
+        // Create a new service enabler
+        // ServiceEnablerOperateImpl implements the ServiceEnabler interface
+        ServiceEnablerOperateImpl seop = new ServiceEnablerOperateImpl("sename");
+
+        // Create provided Service entry object
+        ProvidedService providedService;
+        try {
+            // Creates the provided service on the service enabler.
+            providedService= omm.createProvidedServiceEntry("Service","loclahost",1111,seop);
+
+            // set values on the provided service entry object.
+            providedService.setApplication("appname","appversion");
+            providedService.setStatus(Status.UNKNOWN);
+        } catch (IlegalServiceParametersException e) {
+            e.printStackTrace();
+        }
+
+        IGroup mainGroup = null;
+        try {
+            mainGroup = config.getGroup("operateandmaintainmanager.omm");
+        } catch (GroupCardinalityException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (UnknownGroupException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        String hostName=mainGroup.getString("hostname","localhost");
+        Integer rpcPort=mainGroup.getInteger("port",8081);
+
+        RpcClient rpcClient = new RpcClient(hostName,rpcPort.toString());
+        try {
+            // This test is onlu made to check that no exeception is thrown
+            rpcClient.getMonitorConnectionData();
+            rpcClient.getMibAttributes();
+            rpcClient.getMonitorStatisticData();
+            rpcClient.sendCommand("reloadConfiguration","");
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        try {
+            rpcClient.finalize();
+            omm.finalize();
+            omm = null;
+            rpcClient=null;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+}

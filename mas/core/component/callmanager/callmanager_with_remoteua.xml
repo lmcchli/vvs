@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="callmanager.xsd">
+    <callmanager
+            registerbackofftimer="5000"
+            registerbeforeexpirationtime="1000"
+            registeredname=""
+            defaultcalltype="voice"
+            inboundaudiomedia="pcmu"
+            inboundvideomedia="h263"
+            outboundcallcallingparty=""
+            contacturioverride=""
+            outboundcallconnecttimeout="30000"
+            disconnectonsiptimeout="true">
+
+            
+            <requiredoutboundaudiomedia>
+				<mediatype encoding="pcmu"></mediatype>
+				<mediatype encoding="telephone-event"></mediatype>
+			</requiredoutboundaudiomedia> 
+
+            <requiredoutboundvideomedia>
+				<mediatype encoding="h263"></mediatype>
+			</requiredoutboundvideomedia> 
+
+			<remoteparty>
+				<sipproxy>
+					<address host="localhost" port="5090"/>
+				</sipproxy>
+			</remoteparty>
+
+        <siptimers t2="4" t4="4" timerb="4" timerc="400" timerd="4" timerf="4" timerh="4" timerj="4"/>
+
+        <restrictedoutboundheaders>
+            <header name="remote-party-id"/>
+            <header name="p-asserted-identity"/>
+        </restrictedoutboundheaders>
+
+        </callmanager>
+</configuration>
+

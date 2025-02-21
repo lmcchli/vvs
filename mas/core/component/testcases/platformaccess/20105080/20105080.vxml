@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="transid1"/>
+            <var name="transid2"/>
+            <var name="transid3"/>
+            <var name="transid4"/>
+            <var name="transid5"/>
+            <var name="transid6"/>
+            <var name="transid7"/>
+            <var name="transid8"/>
+            <var name="transid9"/>
+            <var name="greeting1"/>
+            <var name="greeting2"/>
+            <var name="greeting3"/>
+            <var name="greeting4"/>
+            <var name="greeting5"/>
+            <var name="greeting6"/>
+            <var name="greeting7"/>
+            <var name="greeting8"/>
+            <var name="greeting9"/>
+            <!-- set greetings for all types-->
+            <script>
+                var mediaObjects = new Array();
+				<!-- allcalls -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0010",null);
+                mas.subscriberSetGreeting("99910002", 'allcalls', 'voice', null, mediaObjects[0]);
+                <!-- noanswer -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0186",null);
+                mas.subscriberSetGreeting("99910002", 'noanswer', 'voice', null, mediaObjects[0]);
+                <!-- busy -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0329",null);
+                mas.subscriberSetGreeting("99910002", 'busy', 'voice', null, mediaObjects[0]);
+                <!-- outofhours -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0936",null);
+                mas.subscriberSetGreeting("99910002", 'outofhours', 'voice', null, mediaObjects[0]);
+                <!-- extended_absence -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0010",null);
+                mas.subscriberSetGreeting("99910002", 'extended_absence', 'voice', null, mediaObjects[0]);
+                <!-- cdg -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0186",null);
+                mas.subscriberSetGreeting("99910002", 'cdg', 'voice', "99910001", mediaObjects[0]);
+                <!-- temporary -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0329",null);
+                mas.subscriberSetGreeting("99910002", 'temporary', 'voice', null, mediaObjects[0]);
+                <!-- ownrecorded -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0936",null);
+                mas.subscriberSetGreeting("99910002", 'ownrecorded', 'voice', null, mediaObjects[0]);
+                <!-- spokenname -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "UM_0010",null);
+                mas.subscriberSetGreeting("99910002", 'spokenname', 'voice', null, mediaObjects[0]);
+
+                transid1 = mas.subscriberGetGreetingAsync ("99910002", 'allcalls', 'voice', null);
+
+                transid2 = mas.subscriberGetGreetingAsync ("99910002", 'noanswer', 'voice', null);
+                transid3 = mas.subscriberGetGreetingAsync ("99910002", 'busy', 'voice', null);
+                transid4 = mas.subscriberGetGreetingAsync ("99910002", 'outofhours', 'voice', null);
+                transid5 = mas.subscriberGetGreetingAsync ("99910002", 'extended_absence', 'voice', null);
+                transid6 = mas.subscriberGetGreetingAsync ("99910002", 'cdg', 'voice', "99910001");
+                transid7 = mas.subscriberGetGreetingAsync ("99910002", 'temporary', 'voice', null);
+                transid8 = mas.subscriberGetGreetingAsync ("99910002", 'ownrecorded', 'voice', null);
+                transid9 = mas.subscriberGetGreetingAsync ("99910002", 'spokenname', 'voice', null);
+
+                greeting1 = mas.subscriberGetGreeting (transid1);
+                greeting2 = mas.subscriberGetGreeting (transid1);
+                greeting3 = mas.subscriberGetGreeting (transid1);
+                greeting4 = mas.subscriberGetGreeting (transid1);
+                greeting5 = mas.subscriberGetGreeting (transid1);
+                greeting6 = mas.subscriberGetGreeting (transid1);
+                greeting7 = mas.subscriberGetGreeting (transid1);
+                greeting8 = mas.subscriberGetGreeting (transid1);
+                greeting9 = mas.subscriberGetGreeting (transid1);
+            </script>
+            <log>transid1=<value expr="transid1"/></log>
+            <log>transid2=<value expr="transid1"/></log>
+            <prompt>
+                   <audio expr="greeting1"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting2"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting3"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting4"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting5"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting6"/>
+       		</prompt>
+             <prompt>
+                   <audio expr="greeting7"/>
+       		</prompt>
+             <prompt>
+                   <audio expr="greeting8"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting9"/>
+       		</prompt>
+
+
+        </block>
+    </form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105080  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

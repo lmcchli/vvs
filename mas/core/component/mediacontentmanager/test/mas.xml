@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="mas.xsd">
+
+    <contenttypemapper>
+        <contenttype mimetype="video/quicktime">
+            <codec mimetype="video/h263"/>
+            <codec mimetype="audio/pcmu"/>
+            <fileext name="mov"/>
+        </contenttype>
+        <contenttype mimetype="audio/wav">
+            <codec mimetype="audio/pcmu"/>
+            <fileext name="wav"/>
+        </contenttype>
+        <contenttype mimetype="text/plain">
+            <codec mimetype="text/plain"/>
+            <fileext name="txt"/>
+        </contenttype>
+    </contenttypemapper>
+
+    <externalcomponentregister>
+        <mcr hostname="mcrhost" port="389" timeout="5000" periodicity="300000"
+             userid="icomponent" password="abc123" suffix="emregistername=messagingcomponentregister,o=config"
+             trylimit="3" trytimelimit="500"/>
+        <propertymap>
+            <port mcrname="ipserviceport"/>
+            <protocol mcrname="ipserviceprotocol"/>
+            <version mcrname="emcomponentversion"/>
+            <hostname mcrname="emhostname"/>
+            <logicalzone mcrname="emlogicalzone"/>
+            <component mcrname="emcomponentname"/>
+            <type mcrname="emcomponenttype"/>
+            <rootoid mcrname="emrootoid"/>
+            <language mcrname=""/>
+        </propertymap>
+        <services>
+            <storage overridemcr="yes">
+                <!--<default port="143"/>-->
+                <instance hostname="ockelbo.lab.mobeon.com" port="143"/>
+            </storage>
+            <smtpstorage overridemcr="yes">
+                <!--<default port="25"/>-->
+                <instance hostname="ockelbo.lab.mobeon.com" port="25"/>
+            </smtpstorage>
+            <userregister overridemcr="no">
+                <!--<default port="389"/>-->
+                <instance hostname="murhost" port="389"/>
+            </userregister>
+            <eventreporting overridemcr="no">
+                <!--<default port="1813"/>-->
+                <instance hostname="" port="1813"/>
+            </eventreporting>
+            <speechrecognition overridemcr="yes">
+                <instance hostname="10.16.2.98" port="4900" protocol="mrcp"/>
+            </speechrecognition>
+            <texttospeech overridemcr="yes">
+                <instance hostname="10.16.2.98" port="4900" protocol="mrcp"/>
+            </texttospeech>
+            <provision overridemcr="yes">
+                <instance hostname="" port="2400"/>
+            </provision>
+        </services>
+        <algorithms>
+            <localrandomchooser
+                    logicalzone="localzone"
+                    netmask="255.255.255.0"/>
+        </algorithms>
+    </externalcomponentregister>
+
+    <mediacontentmanager resourcepath="applications/mediacontentpackages">
+        <!-- Configuration for the MediaObject Cache that
+MediaContentManager Uses. If no cache configured the MediaContentManager
+will not use one.
+- Policy is the caching policy that is used can be:
+LFU (Least frequently used)
+FIFO (First in first out)
+LRU  (Least recently used)
+- maxSize is the max number of MediaObjects in the cache.
+- elementTimeout is the timeout in seconds for an element.
+- memorySensitive If set to true the elements in the cache is available for garbage collection -->
+        <mediaobjectcache policy="lfu" maxsize="100" elementtimeout="600" memorysensitive="false"/>
+    </mediacontentmanager>
+
+    <stream
+            portpoolbase="23000"
+            portpoolsize="250"
+            threadpoolsize="5"
+            threadpoolmaxwaittimesec="240"
+            usepoolforrtpsessions = "true"
+            synccallmaxwaittimesec="120"
+            packetpendtimeoutmicrosec="5000"
+            sendpacketsaheadms="40"
+            expiretimeoutms="100000000"
+            streamabandonedms="32000"
+            senderscontrolfraction="0.4"
+            audioreplacewithsilencems="10"
+            dispatchdtmfonkeydown="true"
+            maximumtransmissionunit="2000"
+            audioskipms = "0"
+            maxwaitforiframems = "2000"
+            skew="0"
+            skewmethod="LOCAL_AND_RTCP"
+            defaultinboundptime="40">
+
+        <supportedcontenttype name="audio/wav"/>
+        <supportedcontenttype name="video/quicktime"/>
+
+        <rtppayloaddef primarytype="audio" subtype="pcmu" rtppayload="0" encoding="PCMU" clockrate="8000"/>
+        <rtppayloaddef primarytype="audio" subtype="amr" rtppayload="97" encoding="AMR" clockrate="8000"/>
+        <rtppayloaddef primarytype="audio" subtype="telephone-event" rtppayload="101" encoding="telephone-event" clockrate="8000"/>
+        <rtppayloaddef primarytype="audio" subtype="cn" rtppayload="13" encoding="CN" clockrate="8000"/>
+        <rtppayloaddef primarytype="video" subtype="h263" rtppayload="34" encoding="H263" clockrate="90000"/>
+    </stream>
+
+</configuration>

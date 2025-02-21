@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml" application="start.vxml">
+	<form id="leaveMsg">
+        <record name="newMsg" beep="true" maxtime="60s">
+            <prompt>
+                <audio expr="getPrompt('LEAVE_MSG_AFTER_BEEP');">
+                </audio>
+            </prompt>
+        </record>
+        <block>
+            <script >
+                storeMsg(newMsg);
+            </script>
+
+            <prompt>
+                <audio expr="newMsg">
+                </audio>
+            </prompt>
+            <goto next="#bye"/>
+        </block>
+	</form>
+    <form id="bye">
+        <block>
+            <prompt>
+                <audio expr="getPrompt('THANK_YOU');"></audio>
+            </prompt>
+        </block>
+	</form>
+</vxml>

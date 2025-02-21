@@ -1,0 +1,137 @@
+#!/bin/sh
+#
+# job_mas_package
+#
+# Started by the jumpstart scripts
+# Used to install one or more packages given as parameters
+#
+# Copyright (C) 2006 Mobeon AB
+# All Rights Reserved
+#
+
+MOUNTPOINT=/mnt
+ACTIONLOG=/var/sadm/add_mas_package_job.log
+
+#
+# Make sure that we can find all of our required libraries
+#
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MOUNTPOINT/lib
+export LD_LIBRARY_PATH
+
+echo "The Add MAS Package Job: Started `date`" | tee -a $ACTIONLOG
+
+#
+# First obtain the primary interface
+#
+PRIMARY_IF=`ifconfig -a | grep -v "lo0:" | grep flags= | head -1 | awk -F: '{print $1}'`
+
+#
+# Set this interface to DHCP inform mode
+#
+#ifconfig $PRIMARY_IF dhcp inform
+#ifconfig $PRIMARY_IF dhcp
+
+#
+# Get the parameters from the interface
+#
+JSHOST=`/sbin/dhcpinfo -i $PRIMARY_IF SinstIP4`
+JSPATH=`/sbin/dhcpinfo -i $PRIMARY_IF SjumpsCF | awk -F':' '{print $2}'`
+
+if [ "$JSHOST" = "" -o "$JSHOST" = "0.0.0.0" ]; then
+	echo 
+	echo "ERROR: Unable to determine the JumpStart server to use!"
+	echo 
+	read junk
+fi
+
+ACTIONNFSMOUNT="$JSHOST:$JSPATH"
+
+JSMODE=action
+JSVERSION=P6B_02
+
+echo "Using $ACTIONNFSMOUNT as action source directory." | tee -a $ACTIONLOG
+
+#
+# Make $MOUNTPOINT visible to all subscripts (actions)
+#
+export MOUNTPOINT
+export JSHOST JSPATH JSVERSION JSMODE
+mount $ACTIONNFSMOUNT $MOUNTPOINT
+
+install_package()
+{
+	PKGNAME="$1"
+
+        #
+        # Locate the package
+        #
+        if [ -f $MOUNTPOINT/dist/$PKGNAME ]; then
+                PKGFILE=$MOUNTPOINT/dist/$PKGNAME
+        else
+                echo "Error: Unable to locate package named ${PKGNAME}!"
+                return 1
+        fi
+
+        echo "   Installing package $PKGNAME... \c"
+
+        /etc/init.d/rc.mas $COMMAND $PKGFILE < /dev/null >> $ACTIONLOG 2>&1
+
+	rc=$?
+
+	case $rc in 
+		0)
+			echo "Ok."
+			return 0
+			;;
+
+		*)
+			echo "Failed (inspect $ACTIONLOG for details, rc=$rc)"
+			return 1
+			;;
+	esac
+}
+
+#
+# MAIN
+#
+
+if [ $# -le 1 ]; then
+        echo "Error: Job requires at least a command and one package as argument"
+        exit 1
+fi
+
+#
+# Check that the mount point is valid
+#
+if [ ! -d $MOUNTPOINT/dist ]; then
+	echo "Error: Mount point is damaged or not accessable!"
+	exit 5
+fi
+
+#
+# Retrieve command (installmcp or installapp)
+#
+COMMAND=$1
+shift
+case $COMMAND in
+        installapp|installmcp)
+                ;;
+        *)
+                echo "Unknown command: $COMMAND"
+                exit 1
+                ;;
+esac
+
+for a in $*; do
+	if install_package $a; then
+		:
+	else
+		exit 3
+	fi
+done
+
+cd /
+umount $MOUNTPOINT
+echo "The Add Package Job: Completed at `date`" | tee -a $ACTIONLOG
+
+exit 0

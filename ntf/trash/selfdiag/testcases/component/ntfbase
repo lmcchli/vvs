@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+#This file sets some commonly needed variables for NTF test cases.
+use Cwd;
+
+chomp($BASEDIR = `pkgparam LMENtf BASEDIR`);
+$NTFBIN = "$BASEDIR/bin";
+
+$HA = (`pkgparam LMENtf HAMODE` =~ /YES/i);
+if ($HA) {
+    $NTFINSTANCENAME = $ARGV[1];
+    if ($NTFINSTANCENAME) {
+        $NTFINSTANCENAME =~ /^[^@]+@([^.]+)/;
+        $NTF_HOME = "/global/$1/ntf";
+    } else {
+        my $dir = getcwd();
+        until (&isinstdir($dir) or $dir eq "") {
+          $dir =~ s:^(.*)/[^/]+$:$1:;
+        }
+        if ($dir) {
+            $NTF_HOME = $dir;
+        } else {
+            print "No instance name was specified on the command line and the instance could not be guessed from the current directory (" . getcwd() . "). Exiting.\n";
+            exit 99;
+        }
+    }
+} else {
+    $NTF_HOME = $BASEDIR;
+}
+
+$NTFINSTANCENAME = &getconfig("mcr_instance_name");
+($NTFNAME, $NTFHOST) = split(/@/, $NTFINSTANCENAME);
+$FILEVERSION = (`/bin/cat $BASEDIR/VERSION`);
+$FILEVERSION =~ s/^[^=]+=\s*//;
+$FILEVERSION =~ s/\s*$//;
+$COLLECTDIR=$ARGV[0];
+
+sub isinstdir() {
+    my $d = pop;
+    return
+        -f "$d/cfg/notification.cfg";
+}
+
+sub getconfig () {
+    $n = pop;
+    chomp (my $v = `$NTFBIN/getconfig -d $NTF_HOME $n 2>/dev/null`);
+    return $v;
+}
+
+=pod
+
+  Name    : resolve_ip
+  Param1  : hostname
+  Returns : IP address
+  Descr.  : -
+
+=cut
+
+sub resolve_ip {
+    my $hostname = shift;
+    my @octets;
+    my $raw_addr;
+    my $ip;
+
+    if ( $hostname =~ /[a-zA-Z]/g ) {
+        $raw_addr = ( gethostbyname($hostname) )[4];
+        @octets   = unpack( "C4", $raw_addr );
+        $ip       = join( ".", @octets );
+    }
+
+    return $ip;
+}
+
+
+
+#print "BASEDIR = $BASEDIR\n";
+#print "NTFBIN = $NTFBIN\n";
+#print "HA = $HA\n";
+#print "NTFINSTANCENAME = $NTFINSTANCENAME\n";
+#print "NTF_HOME = $NTF_HOME\n";
+#print "NTFHOST = $NTFHOST\n";
+#print "FILEVERSION = $FILEVERSION\n";
+#print "COLLECTDIR = $COLLECTDIR\n";
+
+return 1;

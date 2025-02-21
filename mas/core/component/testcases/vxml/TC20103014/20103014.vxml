@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<goto next="20103014a.vxml"/>
+			<exit/>
+		</block>	
+	</form>
+	<catch event="myEvent">
+		<log label="error">TC 20103014 Passed</log>				
+		<exit/>
+	</catch>
+	<catch>
+	<!-- if we got here some other event was thrown-->
+		<log label="error">TC 20103014 Failed (wrong event was thrown)<value expr="_event"/></log>					
+			<exit/>
+	</catch>
+</vxml>

@@ -1,0 +1,74 @@
+http://cafe.bevocal.com/docs/vxml/eventhandling.html#270177
+Predef events
+* exit - The user asked to exit.
+* help - The user asked for help.
+* noinput - The user did not provide timely input.
+* nomatch  The user did not provide meaningful input.
+* cancel - The user asked to cancel the prompt that is being played.
+* connection.disconnect.hangup -  The user hung up. New in VoiceXML 2.0.
+* connection.disconnect.transfer -The user's call was transferred. New in VoiceXML 2.0.
+ 
+
+Predef errors
+* error.badfetch - An error occurred while the interpreter was fetching a document or resource.
+* error.noauthorization - The user is not authorized to perform the requested action.
+* error.semantic - A runtime error occurred in the VoiceXML code.
+* error.connection.baddestination - The destination URI for an outbound telephone call was invalid.
+* error.connection.noauthorization - An attempt was made to place an unauthorized outbound telephone call, for example, one that exceeds the maximum allowed duration.
+* error.connection.noresource - An audio input or output resource is unavailable.
+* error.noresource - An audio input or output resource is unavailable.
+* error.unsupported.format - The requested resource format is not supported.
+* error.unsupported.element - The requested element is not supported (for example, error.unsupported.subdialog).
+
+
+default event handlers
+* exit - Exit the interpreter.
+* help - Play a default audio help message and reprompt. The default message configurable
+* noinput - Reprompt
+* nomatch - Reprompt
+* error - Exit the interpreter.
+* connection.disconnect.hangup - Exit the interpreter. New in VoiceXML 2.0.
+ 
+MAS specific events
+
+Scopes
+    New scopes are created by
+    * vxml
+    * menu
+    * form
+    * transer
+    * record
+    * initial
+    * field
+    Anonymous scopes
+    * block
+    * filled
+    * catch
+
+   Surf to http://www.w3.org/TR/voicexml20/#dml5.1.2 for more info
+
+
+ Grammar Collisions
+    If the user respond with DTMF that is containd in more then one active grammar voiceXML
+    uses the following precedence:
+    1. Grammars in current field and links contained in current field
+    2. Grammars contained in current from or menu or link tags in current form or menu
+    3. Grammer with document scope contained in current document but not in current dialog. Link element that are
+        contained in the vxml element of the current document
+    4. Grammar with documentscope in the current document's root document including link elements that are contained in
+        the vxml element in the root document. 
+	
+Scoping for variables
+
+* session  - Session variables are defined by MAS and are read only by the application  
+* application -  Application variables are declared with <var> or <script> tags who are children to the application <vxml> 
+	element. application.x is eqvivilant to document.x.
+* document variables - Declared with <var> or <script> tags who are children to the current documents <vxml> element. Visible in only in the current document.
+* dialog variables - Declared with <var> or <script> who are children of a <form> or <menu> or shadow variabled or the form field variables.
+* anonymous variables - eve
+dialog  Varje dialog, dvs varje <form> eller <menu>.Dialogvariabler deklareras av <var>,<script> som är barn till <form>, formulärfälts variabler, och skuggvariabler till formulärfält. 
+Variablerna deklarerade med <var> och <script> initialiseras när formuläret besöks för första gången i motsats till <var> innuti körbart innehåll som initialiseas när
+det körbara innehållet exekveras.  
+
+(anonyma)  Varje <block>, <filled>, och <catch> definierar ett anonymt scope som innehåller variabler deklarerade i det elementet  
+

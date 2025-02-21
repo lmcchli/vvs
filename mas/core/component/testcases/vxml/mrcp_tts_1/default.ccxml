@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="dlgid"/>
+
+    <eventprocessor>
+
+        <transition event="connection.alerting" name="evt">
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt">
+            <dialogstart dialogid="dlgid" src="'default.vxml'"/>
+        </transition>
+
+        <transition event="dialog.disconnect" name="dlg">
+            <disconnect connectionid="dlg.connectionid" />
+        </transition>
+
+        <transition event="connection.disconnected" name="dlg">
+            <send data="'connection.disconnect.hangup'"
+                  target="dlgid" targettype="'dialog'"/>
+        </transition>
+
+        <transition event="dialog.exit" name="dlg">
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + dlg.name + ', Reason = '+dlg.reason"/>
+            <exit/>
+        </transition>
+
+    </eventprocessor>
+</ccxml>

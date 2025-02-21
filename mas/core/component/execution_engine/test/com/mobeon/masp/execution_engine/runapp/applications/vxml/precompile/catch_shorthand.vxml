@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <help>
+        <log>TCPASS VXML HELP</log>
+        <goto next="#form2"/>
+        >
+    </help>
+
+    <error>
+        <log>TCPASS VXML ERROR</log>
+        <goto next="#form3"/>
+        >
+    </error>
+
+    <noinput>
+        <log>TCPASS VXML NOINPUT</log>
+        <goto next="#form4"/>
+        >
+    </noinput>
+
+
+    <nomatch>
+        <log>TCPASS VXML NOMATCH</log>
+        <exit/>
+    </nomatch>
+
+
+    <form id="form1">
+        <block>
+            <throw event="help"/>
+        </block>
+    </form>
+
+    <form id="form2">
+        <block>
+            <throw event="error"/>
+        </block>
+    </form>
+
+    <form id="form3">
+        <block>
+            <throw event="noinput"/>
+        </block>
+    </form>
+
+    <form id="form4">
+        <block>
+            <throw event="nomatch"/>
+        </block>
+    </form>
+
+</vxml>

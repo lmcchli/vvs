@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+<!--START DEMO BEANS
+Demo beans used for test purposes. Should be removed in deployment  -->
+
+<!-- END DEMO BEANS -->
+    <bean id="Configuration"
+          factory-bean="ConfigurationManager"
+          factory-method="getConfiguration"/>
+    <bean id="ConfigurationManager" class="com.mobeon.masp.configuration.ConfigurationManagerImpl">
+        <property name="configFile">
+            <list>
+                <value>servicerequestmanager.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="EventDispatcher" class="com.mobeon.masp.eventnotifier.MulticastDispatcher"/>
+
+    <bean id="XMPServiceHandlerFactory" class="com.mobeon.masp.servicerequestmanager.xmp.XMPServiceHandlerFactory"/>
+
+    <bean id="ApplicationManagement" class="com.mobeon.masp.servicerequestmanager.ApplicationManagementStub"/>
+
+    <bean id="ApplicationExecution" class="com.mobeon.masp.servicerequestmanager.ApplicationExecutionStub" singleton="false">
+
+    </bean>
+
+    <bean id="ApplicationExecutionFactory" class="com.mobeon.masp.servicerequestmanager.ApplicationExecutionStubFactory" singleton="true">
+        <property name="serviceRequestManager">
+            <ref bean="ServiceRequestManager"/>
+        </property>
+        <property name="eventDispatcher">
+            <ref bean="EventDispatcher"/>
+        </property>
+    </bean>
+
+    <bean id="ServiceRequestManager" class="com.mobeon.masp.servicerequestmanager.ServiceRequestManager" singleton="true">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+        <property name="applicationManagement">
+            <ref bean="ApplicationManagement"/>
+        </property>
+        <property name="serviceHandlerFactory">
+            <ref bean="XMPServiceHandlerFactory"/>
+        </property>
+        <property name="eventDispatcher">
+            <ref bean="EventDispatcher"/>
+        </property>
+    </bean>
+
+    <bean id="DiagnoseServiceXMP" class="com.mobeon.masp.servicerequestmanager.diagnoseservice.DiagnoseServiceImpl" init-method="init">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+    </bean>
+</beans>

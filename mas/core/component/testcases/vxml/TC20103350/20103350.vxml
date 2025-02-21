@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<var name="num" expr="1"/>
+	<form id="id1">
+		<block>
+			<if cond="session.connection.redirect[0].number == '20103350'">
+				<log label="error">TC 20103300 Passed (Redirect=<value expr="session.connection.redirect[0].number"/>)</log>
+				<else/>
+				<log label="error">TC 20103300 Failed (Redirect=<value expr="session.connection.redirect[0].number"/>)</log>
+			</if>
+			<exit/>
+		</block>
+	</form>
+</vxml>

@@ -1,0 +1,63 @@
+################################################################################
+#			NTF - BASIC TEST SPECIFICATION			       #
+#									       #
+# Author:      ermjnil							       #
+# Date:        2006-01-02						       #
+# Description: Test cases in this file will cover the SMPP error handling in   #
+# 	       Java package com.mobeon.common.smscom.smpp.		       #
+#	       Test cases shall be executed in order with start of TC1.        #
+# Test Tools:  Mobeon SMS-C simulator version P8A_01.			       #
+################################################################################
+
+TC0: DISCARD FAILED SMS
+Preparations: Create a user with SMS notification enabled in the CoS. Create a
+SMPPErrorCodes.cfg file with no error actions and no default action. Set error
+code (0x14 MSGQFUL) in the SMS-C simulator. Set log level to debug(3) and
+restart NTF.
+Action: Send a voice mail to the subscriber.
+Result: NTF will receive the error response from the SMS-C and discard the
+message. Check the NotificationTrace.log logfile after message:
+Handle SMPP error code [0x14] with action failed
+
+TC1: DISCARD FAILED SMS
+Preparations: Set error code (0x01 INVMSGLEN) in the SMS-C simulator.
+Configure file SMPPErrorCodes.cfg with error code 0x01 to be equal to "failed".
+Restart NTF.
+Action: Send a voice mail to the subscriber.
+Result: NTF will receive the error response from the SMS-C and discard the 
+message. Check the NotificationTrace.log logfile after message:
+Handle SMPP error code [0x1] with action failed
+
+TC2: RETRY FAILED SMS
+Preparations: Configure file SMPPErrorCodes.cfg with error code 0x58 to be equal
+to "retry". Set error code (0x58 THROTTLING) in the SMS-C simulator.
+Restart NTF.
+Action: Send a voice mail to the subscriber.
+Result: NTF will receive the error response from the SMS-C and retry the message.
+Check the NotificationTrace.log logfile after message:
+Handle SMPP error code [0x58] with action retry
+
+TC3: RETRY FAILED SMS AS DEAFULT ACTION
+Preparations: Configure file SMPPErrorCodes.cfg with default error action to be
+equal to "retry". Set error code (0x02 INVCMDLEN) in the SMS-C simulator.
+Restart NTF.
+Action: Send a voice mail to the subscriber.
+Result: NTF will receive the error response from the SMS-C and retry the message.
+Check the NotificationTrace.log logfile after message:
+Handle SMPP error code [0x58] with action retry
+
+TC4: SEND SMS OK
+Preparations: Set result code (0x00 OK) in the SMS-C simulator.
+Action: Send a voice mail to the subscriber.
+Result: NTF will receive the OK response from the SMS-C. 
+Check the NotificationTrace.log logfile after message:
+SMS delivery OK for user1@host.domain
+
+TC5: NO SMPPErrorCodes.cfg FILE
+Preparations: Set result code (0x14 MSGQFUL) in the SMS-C simulator.
+Remove the SMPPErrorCodes.cfg file and restart NTF.
+Action: Send a voice mail to the subscriber.
+Result: NTF will receive the error response from the SMS-C and discard the
+message. Check the NotificationTrace.log logfile after message:
+Handle SMPP error code [0x14] with action failed
+

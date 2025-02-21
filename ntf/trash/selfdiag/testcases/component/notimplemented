@@ -1,0 +1,7 @@
+#!/usr/bin/perl -w
+
+# Dummy test command printing "not implemented" and returning 0 as result value
+
+print "Not implemented.\n";
+exit(0);
+

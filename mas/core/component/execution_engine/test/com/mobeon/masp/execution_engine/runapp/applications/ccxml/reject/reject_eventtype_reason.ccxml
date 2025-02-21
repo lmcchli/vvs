@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+	<var name="REJECT_EVENT_TYPE_LEGACY" expr="'_488_NOT_ACCEPTABLE_HERE'"/>
+	
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+        	<var name="hints"/>
+        	<script>
+        		hints = {rejecteventtype : REJECT_EVENT_TYPE_LEGACY}
+        	</script>
+            <reject connectionid="evt.connectionid" reason="'A reason to reject.'" hints="hints"/>
+            <log expr="'TCPASS'"/>
+            <exit/>
+        </transition>                	
+    </eventprocessor>
+</ccxml>

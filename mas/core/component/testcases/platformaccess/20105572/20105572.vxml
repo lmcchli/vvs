@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="main_form">
+        <var name="subscribers"/>
+        <var name="passed"/>
+        <block>
+
+            <!--get facs number attribute -->
+            <script>
+
+                subscribers = mas.systemGetSubscribers('invalidattribyte', 'bishop.hurr9.lab.mobeon.com');
+               <!-- mas.systemLog(3, 'Number of subscribers=' + subscribers.length);
+                var i = 0;
+                while (true) {
+                    if (i == subscribers.length) {
+                        break;
+                    }
+                    mas.systemLog(3, 'Subscriber ' + i + '=' + subscribers[i]);
+                    var mailHost = mas.subscriberGetStringAttribute(subscribers[i], 'mailhost');
+                    mas.systemLog(3, 'Mailhost=' + mailHost[0]);
+                    if (mailHost[0] != 'bishop.hurr9.lab.mobeon.com') {
+                        break;
+                        mas.systemLog(3, 'TC 20105571 FAILED');
+                    }
+                    i++;
+                }     -->
+            </script>
+           <exit/>
+
+
+        </block>
+      </form>
+   <catch event="error.com.mobeon.platform.profileread">
+		<log>Error caught <value expr="_event"/></log>
+        <log>Error message <value expr="_message"/></log>
+        <log>TC 20105572  Passed</log>
+
+		<exit/>
+   </catch>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105572 FAILED</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

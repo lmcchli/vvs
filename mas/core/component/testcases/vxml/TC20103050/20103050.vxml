@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="20103050a.vxml">
+	<form id="id1">
+		<block>
+			<assign name="loops" expr="loops + 1"/>
+			<log label="error">TC 20103050 loop no: <value expr="loops"/>
+			</log>
+			<if cond="loops &gt; 10000">
+				<log label="error">TC 20103050 Passed</log>
+				<exit/>S
+		</if>
+			<goto next="#id2"/>
+		</block>
+	</form>
+	<form id="id2">
+		<block>
+			<goto next="20103050b.vxml"/>
+		</block>
+	</form>
+</vxml>

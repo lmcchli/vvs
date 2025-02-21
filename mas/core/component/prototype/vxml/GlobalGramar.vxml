@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<vxml version="2.0"   xmlns="http://www.w3.org/2001/vxml">
+	<form id="qform">
+		<grammar mode="dtmf" scope="dialog" >
+			<rule id="main_rule">
+				<one-of>
+					<item>1</item>
+					<item>2</item>
+				</one-of>
+			</rule>
+		</grammar>
+		<field name="q1">
+			<prompt>
+				<audio src="a.wav">
+					Do you Like A,
+					press 1 for yes and
+					press 2 for no
+				</audio>
+			</prompt>
+			
+		</field>
+		<field name="q2">
+			<prompt>
+				<audio src="b.wav">
+					Do you Like B,
+					press 1 for yes and
+					press 2 for no
+				</audio>
+			</prompt>
+			
+		</field>
+		<field name="q3">
+			<prompt>
+				<audio src="c.wav">
+					Do you Like C,
+					press 1 for yes and
+					press 2 for no
+				</audio>
+			</prompt>
+			<grammar mode="dtmf">
+				<rule id="main_rule">
+					<one-of>
+						<item>1</item>
+						<item>2</item>
+					</one-of>
+				</rule>
+			</grammar>
+		</field>
+		<field name="q4">
+			<prompt>
+				<audio src="d.wav">
+					Do you Like D,
+					press 1 for yes and
+					press 2 for no
+				</audio>
+			</prompt>
+			
+		</field>
+		<field name="q5">
+			<prompt>
+				<audio src="e.wav">
+					Do you Like E,
+					press 1 for yes and
+					press 2 for no
+				</audio>
+			</prompt>
+		</field>
+		
+		<filled>
+			<log>
+				<value expr="q1" />
+				<value expr="q2" />
+				<value expr="q3" />
+				<value expr="q4" />
+				<value expr="q5" />
+			</log>
+		</filled>
+		
+		
+	</form>
+</vxml>

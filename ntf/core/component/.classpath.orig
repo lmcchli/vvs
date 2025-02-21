@@ -1,0 +1,49 @@
+<<<<<<< Updated upstream
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="com/mobeon/common/commands/test/*.java|com/mobeon/common/storedelay/test/*.java|com/mobeon/common/soap/test/*.java|com/mobeon/ntf/out/outdial/test/*.java|com/mobeon/ntf/mail/test/*.java|com/mobeon/ntf/test/*.java|**/*Test.java|**/*Tests.java|com/abcxyz/messaging/vvs/ntf/sms/smpp/test/client/*.java" kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="com/mobeon/common/commands/test/*.java|com/mobeon/common/storedelay/test/*.java|com/mobeon/common/soap/test/*.java|com/mobeon/ntf/out/outdial/test/*.java|com/mobeon/ntf/mail/test/*.java|com/mobeon/ntf/test/*.java|**/*Test.java|**/*Tests.java|com/abcxyz/messaging/vvs/ntf/sms/smpp/test/client/*.java" kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="src" path="/backend-component"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="src" path="/common-oam"/>
+	<classpathentry exported="true" kind="src" path="/commonvoicemail"/>
+	<classpathentry exported="true" kind="src" path="/mcc_mfs"/>
+	<classpathentry exported="true" kind="src" path="/mcc_common"/>
+	<classpathentry exported="true" kind="src" path="/transcoderfacade"/>
+	<classpathentry exported="true" kind="src" path="/cdrgen"/>
+	<classpathentry exported="true" kind="src" path="/ntf-notifierframework"/>
+	<classpathentry exported="true" kind="src" path="/oe-library"/>
+	<classpathentry exported="true" kind="src" path="/mcc_scheduler"/>
+	<classpathentry exported="true" kind="src" path="/provisioningagent-rules"/>
+	<classpathentry exported="true" kind="src" path="/mcc_mrd"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
+>>>>>>> Stashed changes

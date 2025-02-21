@@ -1,0 +1,3238 @@
+
+(object Petal
+    version    	43
+    _written   	"Rose 6.1.9113.5"
+    charSet    	0)
+
+(object Class_Category "IPMS iM-Bus"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    attributes 	(list Attribute_Set
+	(object Attribute
+	    tool       	"sc"
+	    name       	"SourceControlSpec"
+	    value      	"IPMS-FW"))
+    quid       	"35ABA0CC01B7"
+    documentation 	
+|This package contains the System iM-Bus interfaces.
+|These interfaces specify the architecture of the system and only these interfaces are allowed for system internal communication between components.
+|
+|Any new interfaces needed shall be discussed with system management team.
+    
+    visible_categories 	(list visibility_relationship_list
+	(object Visibility_Relationship
+	    quid       	"37793F3601B0"
+	    supplier   	"Logical View::IPMS Messaging Business Framework"
+	    quidu      	"36CDC3920150"))
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class_Category "LDAP"
+	    quid       	"36DC3AF70021"
+	    documentation 	
+|This package contains the Lightweight Directory Access Protocol (LDAP) interface classes and documents.
+|
+|LDAP is a protocol for accessing information directories. LDAP is based on the standards contained within the X.500 standard, but is much simpler.
+|
+|
+|RFC2251
+|Lightweight Directory Access Protocol (v3).
+|[2]	RFC2252
+|Lightweight X.500 Directory Access Protocol (v3): Attribute Syntax Definitions
+|[2]	RFC2253
+|Lightweight Directory Access Protocol (v3):
+|UTF-8 String Representation of Distinguished Names.
+|[3]	RFC2254
+|The String Representation of LDAP Search Filters
+|[4]	RFC2255
+|The LDAP URL Format
+|[5]	RFC2256
+|A Summary of the X.500(96) User Schema for use with LDAPv3
+|[6]	RFC1823
+|	The LDAP Application Program Interface.
+|
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2251.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2252.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2253.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2254.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2255.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2256.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1823.txt")
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\1_15519.ldap.doc"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "LDAPv3_cli"
+		    quid       	"35ABA1020237"
+		    documentation 	"This interface class contains operations the server uses for responding the client side."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "LDAP-bind_rsp"
+			    quid       	"35E477750345"
+			    documentation 	"Used by the directory server to acknowledge a log in and authenticattfication request (BindRequest)."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-unsolicited"
+			    quid       	"35E47797005F"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-search_rsp"
+			    quid       	"35E5A4EA0023"
+			    documentation 	"Used by the directory server as a response to a search request."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-extended_rsp"
+			    quid       	"36D548B700F2"
+			    documentation 	"Used by the directory server as a response to a extended request."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-modify_rsp"
+			    quid       	"371CC172003D"
+			    documentation 	"Used by the directory server as a response to a modify request."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-add_rsp"
+			    quid       	"371CC1A9019A"
+			    documentation 	"Used by the directory server as a response to a add request."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-delete_rsp"
+			    quid       	"371CC2070394"
+			    documentation 	"Used by the directory server as a response to a delete request."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-modify_dn_rsp"
+			    quid       	"371CC2700223"
+			    documentation 	"Used by the directory server as a response to modify distinguished name request."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-compare_rsp"
+			    quid       	"371CC2A40029"
+			    documentation 	"Used by the directory server as a response to a compare request."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "LDAPv3_srv"
+		    quid       	"36D5473B038A"
+		    documentation 	"This interface class contains operations the client side can invoke on the server."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "LDAP-bind_rq"
+			    quid       	"35E47751019F"
+			    documentation 	"Used by a client to log in and authenticate with the directory server."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-unbind_rq"
+			    quid       	"35E4778700C0"
+			    documentation 	"Used by a client to log out from the directory server."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-search_rq"
+			    quid       	"35E5A4C701AA"
+			    documentation 	"Used by a client to search the directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-modify_rq"
+			    quid       	"35E5A4F202D8"
+			    documentation 	"Used by a client to modify an entry in the directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-add_rq"
+			    quid       	"35E5A5050249"
+			    documentation 	"Used by a client to add an entry to  the directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-delete_rq"
+			    quid       	"35E5A51201E3"
+			    documentation 	"Used by a client to delete an entry in the directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-compare_rq"
+			    quid       	"35E5A5240153"
+			    documentation 	"Used by a client to compare a directory entry attribute value with a supplied value."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-abandon_rq"
+			    quid       	"35E5A52B0103"
+			    documentation 	"Used by a client to abandon a previously sent request."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-extended_rq"
+			    quid       	"35E5A5320009"
+			    documentation 	"The extended operation allows clients to make requests and receive responses with predefined syntaxes and semantics."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "LDAP-modify_dn_rq"
+			    quid       	"35E5A51B01BE"
+			    documentation 	"Used by a client to modify a distinguished name in the directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF50A03BB"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::LDAP::LDAPv3_srv" @1
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(590, 637)
+			    label      	(object ItemLabel
+				Parent_View 	@1
+				location   	(372, 353)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	436
+				justify    	0
+				label      	"LDAPv3_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@1
+				location   	(372, 303)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	436
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36D5473B038A"
+			    width      	454
+			    height     	692
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::LDAP::LDAPv3_cli" @2
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1390, 616)
+			    label      	(object ItemLabel
+				Parent_View 	@2
+				location   	(1161, 357)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"LDAPv3_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@2
+				location   	(1161, 307)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35ABA1020237"
+			    width      	476
+			    height     	642
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "FTP"
+	    quid       	"36DC3B080382"
+	    documentation 	
+|This package contains the File Transfer Protocol  (FTP) interface classes and documents.
+|
+|FTP allows reliable transfer of files from one node to another.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\13_15519.ftp.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc959.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "FTP_cli"
+		    quid       	"36DBEC7001A1"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "FTP_rsp"
+			    quid       	"371CC77202BC"
+			    documentation 	"FTP replies are 3-digit numbers in ASCII, with an optional message following the number."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "FTP_srv"
+		    quid       	"36D5700B0166"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "FTP-user"
+			    quid       	"36CED3970162"
+			    documentation 	"Username on remote server."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-quit"
+			    quid       	"36CED5200121"
+			    documentation 	"Logoff from server."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-port"
+			    quid       	"36CED531034C"
+			    documentation 	"Specifies the hostname and dataport to be used by the server when setting up the data connection to the client."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-type"
+			    quid       	"36CED54F013C"
+			    documentation 	"Specify file type: A for ASCII, I for image."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-mode"
+			    quid       	"36CED57B01F4"
+			    documentation 	"Specify the data transfer mode. Default S for Stream."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-stru"
+			    quid       	"36CED55A0247"
+			    documentation 	"Specify the file structure. Default F for File (no record structure)."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-retr"
+			    quid       	"36CED58E02E2"
+			    documentation 	"Retrieve (get) a file."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-stor"
+			    quid       	"36CED59802D2"
+			    documentation 	"Store (put) a file."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-noop"
+			    quid       	"36CED66100DC"
+			    documentation 	"No operation. Specifies no action other than that the server sends an OK reply."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-pass"
+			    quid       	"36CED3B20020"
+			    documentation 	"The user's password on the remote server."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-acct"
+			    quid       	"36CED3C700F3"
+			    documentation 	"The user's account, not necessarily related to the USER command."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-cwd"
+			    quid       	"36CED3D3000A"
+			    documentation 	"Change working directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-smnt"
+			    quid       	"36CED3E0035C"
+			    documentation 	"Structure mount. Allows the user to mount a different file system."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-rein"
+			    quid       	"36CED5150360"
+			    documentation 	"Reinitialize. Allows a user to set himself in same state as immediately after the control connection is opened."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-pasv"
+			    quid       	"36CED5430348"
+			    documentation 	"Passive. Server does not setup a data connection. Instead the server replies to the client on which host and port it is listening for a data connection."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-stou"
+			    quid       	"36CED5A0039C"
+			    documentation 	"Store unique. Like STOR except that the resultant file name generated is unique to the current directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-appe"
+			    quid       	"36CED5AC0371"
+			    documentation 	"If the file already exist, then the data shall be appended to that file."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-allo"
+			    quid       	"36CED5BA026D"
+			    documentation 	"The server shall allocate sufficient storage to accommodate the new file."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-rnfr"
+			    quid       	"36CED5D70110"
+			    documentation 	"Specifies the old pathname of file which is to be renamed."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-rnto"
+			    quid       	"36CED5E303AC"
+			    documentation 	"Specifies the new pathname of the file specified in RNFR command."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-abor"
+			    quid       	"36CED5EE004B"
+			    documentation 	"Abort previous FTP command and any data transfer."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-dele"
+			    quid       	"36CED5F70080"
+			    documentation 	"Delete specified file at the server site."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-rmd"
+			    quid       	"36CED6000318"
+			    documentation 	"Remove directory specified in the pathname."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-mkd"
+			    quid       	"36CED6080052"
+			    documentation 	"Make directory specified in the pathname"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-pwd"
+			    quid       	"36CED61402DA"
+			    documentation 	"Print current working directory."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-list"
+			    quid       	"36CED61E03BB"
+			    documentation 	"List files or directories."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-nlst"
+			    quid       	"36CED626016E"
+			    documentation 	"Name list. Causes a directory listing to be sent from server to user's site."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-site"
+			    quid       	"36CED6330217"
+			    documentation 	"Site parameters. Used by the server to provide services specific to the server system."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-syst"
+			    quid       	"36CED63E037B"
+			    documentation 	"Server returns operating system type."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-stat"
+			    quid       	"36CED64B013F"
+			    documentation 	"Causes a status response to be sent over the control connection."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-help"
+			    quid       	"36CED65801FC"
+			    documentation 	"Shall cause the server to send helpful information regarding its implementation status."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-cdup"
+			    quid       	"371CC5390354"
+			    documentation 	"Change to parent directory."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "FTP-rest"
+			    quid       	"371CC6110337"
+			    documentation 	"File transfer is to be restarted, skips over the file to the specified data  checkpoint."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4EC02B3"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::FTP::FTP_srv" @3
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(609, 1028)
+			    label      	(object ItemLabel
+				Parent_View 	@3
+				location   	(477, 169)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	264
+				justify    	0
+				label      	"FTP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@3
+				location   	(477, 119)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	264
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36D5700B0166"
+			    width      	282
+			    height     	1842
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::FTP::FTP_cli" @4
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1302, 240)
+			    label      	(object ItemLabel
+				Parent_View 	@4
+				location   	(1174, 181)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	256
+				justify    	0
+				label      	"FTP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@4
+				location   	(1174, 131)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	253
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBEC7001A1"
+			    width      	274
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "HTTP"
+	    quid       	"36DC3B110118"
+	    documentation 	
+|This package contains the Hyper Text Transfer Protocol (HTTP) interface classes and documents.
+|
+|Transport layer for the HTML protocol used in web applications.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\4_15519.http.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2068.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "HTTP_cli"
+		    quid       	"36DBEC440393"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "HTTP_rsp"
+			    quid       	"371CCB05016E"
+			    documentation 	"Contains status line, including the message's protocol version and a success or error code, followed by a MIME-like message containing server information, entity metainformation, and possible body content."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "HTTP_srv"
+		    quid       	"35ED96FB0044"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "HTTP-options"
+			    quid       	"36CED94A0200"
+			    documentation 	"Provides the HTTP client with the capability to query a remote Web server as to its ability to its communication and protocol support. New message body information is passed using this method."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "HTTP-get"
+			    quid       	"36CED95B029B"
+			    documentation 	"Used to retrieve object identified within the URI. The use of defined headers can make the retrieval conditional."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "HTTP-head"
+			    quid       	"36CED96800C3"
+			    documentation 	"This method is identical to GET except that the Web server does not return an enclosed message body--only the relating header information."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "HTTP-post"
+			    quid       	"36CED979026C"
+			    documentation 	"Used to request that the destination Web server accept the enclosed message body; this is generally used for returning completed electronic forms or for posting electronic news or e-mail messages."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "HTTP-put"
+			    quid       	"36CED981012D"
+			    documentation 	"Enables a Web client to deliver a new object to a Web server. This object will be identified using a URL specified within the method."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "HTTP-delete"
+			    quid       	"36CED997007A"
+			    documentation 	"This is used to remove a specified object--referenced using an enclosed URL."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "HTTP-trace"
+			    quid       	"36CED9A20383"
+			    documentation 	"This method provides an effective means for troubleshooting connections and/or performance."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4D70137"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::HTTP::HTTP_srv" @5
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(437, 591)
+			    label      	(object ItemLabel
+				Parent_View 	@5
+				location   	(276, 382)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	322
+				justify    	0
+				label      	"HTTP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@5
+				location   	(276, 332)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	322
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35ED96FB0044"
+			    width      	340
+			    height     	542
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::HTTP::HTTP_cli" @6
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1240, 437)
+			    label      	(object ItemLabel
+				Parent_View 	@6
+				location   	(1112, 378)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	256
+				justify    	0
+				label      	"HTTP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@6
+				location   	(1112, 328)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	253
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBEC440393"
+			    width      	274
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "IMAP"
+	    quid       	"36DC3B1B004A"
+	    documentation 	
+|This package contains the Internet Message Access Protocol (IMAP) interface classes and documents.
+|
+|IMAP is a protocol for retrieving e-mail messages. IMAPv4 is similar to POP3 but supports some additional features, e.g search through e-mail messages for keywords while the messages are still on message server.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\2_15519.imap.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2060.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "IMAPv4_srv"
+		    quid       	"35ABA10A0397"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "IMAP-capability_cmd"
+			    quid       	"35E473A3033F"
+			    documentation 	"Requests a listing of capabilities that the server supports."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-noop_cmd"
+			    quid       	"35E473B702ED"
+			    documentation 	"Does nothing. It is used for keep alive activity on the client/server connection"
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-logout_cmd"
+			    quid       	"35E473CD00BE"
+			    documentation 	"Informs the server that the client is done with the connection.  "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-authenticate_cmd"
+			    quid       	"35E473E20096"
+			    documentation 	"Indicates an authentication mechanism to the server."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-login_cmd"
+			    quid       	"35E473F30005"
+			    documentation 	"Identifies the client to the server and carries the plain text password authenticating this user."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-select_cmd"
+			    quid       	"35E473FE01E1"
+			    documentation 	"Selects a mailbox so that messages in the mailbox can be accessed."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-examine_cmd"
+			    quid       	"35E4740D0201"
+			    documentation 	"Identical to SELECT and returns the same output; however, the selected mailbox is identified as read-only."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-create_cmd"
+			    quid       	"35E47422008E"
+			    documentation 	"Creates a mailbox with the given name."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-delete_cmd"
+			    quid       	"35E47437014D"
+			    documentation 	"Permanently removes the mailbox with the given name."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP_rename_cmd"
+			    quid       	"35E4744401BA"
+			    documentation 	"Changes the name of a mailbox."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-subscribe_cmd"
+			    quid       	"35E4744E018C"
+			    documentation 	
+|Adds the specified mailbox name to the server's set of "active" or "subscribed" mailboxes as returned by the LSUB command.
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-unsubscribe_cmd"
+			    quid       	"35E47458035D"
+			    documentation 	
+|Removes the specified mailbox name from the server's set of "active" or "subscribed" mailboxes as returned by the LSUB command.
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-list_cmd"
+			    quid       	"35E4746301AA"
+			    documentation 	"Returns a subset of names from the complete set of all names available to the client."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-lsub_cmd"
+			    quid       	"35E4746E02D3"
+			    documentation 	
+|Returns a subset of names from the set of names that the user has declared as being "active" or "subscribed.
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-status_cmd"
+			    quid       	"35E4748D007E"
+			    documentation 	"Requests the status of the indicated mailbox."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-append_cmd"
+			    quid       	"35E4749A0023"
+			    documentation 	"Appends the literal argument as a new message to the end of the specified destination mailbox."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-check_cmd"
+			    quid       	"35E474A70054"
+			    documentation 	"Requests a checkpoint of the currently selected mailbox.  A checkpoint refers to any implementation-dependent housekeeping associated with the mailbox (e.g. resolving the, server's in-memory state of the mailbox with the state on its disk) that is not normally executed as part of each command."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-close_cmd"
+			    quid       	"35E474B102A7"
+			    documentation 	"Permanently removes from the currently selected mailbox all messages that have the \\Deleted flag set, and returns to authenticated state from selected state."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-expunge_cmd"
+			    quid       	"35E474BA03D6"
+			    documentation 	"Permanently removes from the currently selected mailbox all messages that have the \\Deleted flag set."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-search_cmd"
+			    quid       	"35E474CE00A0"
+			    documentation 	"Searches the mailbox for messages that match the given searching criteria."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-fetch_cmd"
+			    quid       	"35E474D9018C"
+			    documentation 	"Retrieves data associated with a message in the mailbox."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-store_cmd"
+			    quid       	"35E474E303B7"
+			    documentation 	"Alters data associated with a message in the mailbox."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-copy_cmd"
+			    quid       	"35E474F000D1"
+			    documentation 	"Copies the specified message(s) to the end of the specified destination mailbox."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-uid_cmd"
+			    quid       	"35E474FA014D"
+			    documentation 	
+|Has two forms.  In the first form, it takes as its arguments a COPY, FETCH, or STORE commands with arguments appropriate for the associated command.  However, the numbers in the message set argument are unique identifiers instead of message sequence numbers.
+|In the second form, the UID command takes a SEARCH command with SEARCH command arguments.
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "IMAPv4_cli"
+		    quid       	"376ECD3002B1"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "IMAP-ok_rsp"
+			    quid       	"376ECD4600F0"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-no_rsp"
+			    quid       	"376ECD540335"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-bad_rsp"
+			    quid       	"376ECD5F033B"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "IMAP-cmd_rsp"
+			    quid       	"376ECD6D0255"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4AB02E2"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::IMAP::IMAPv4_srv" @7
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(478, 951)
+			    label      	(object ItemLabel
+				Parent_View 	@7
+				location   	(222, 317)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"IMAPv4_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@7
+				location   	(222, 267)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35ABA10A0397"
+			    width      	530
+			    height     	1392
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::IMAP::IMAPv4_cli" @8
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1459, 462)
+			    label      	(object ItemLabel
+				Parent_View 	@8
+				location   	(1286, 328)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	346
+				justify    	0
+				label      	"IMAPv4_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@8
+				location   	(1286, 278)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	346
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"376ECD3002B1"
+			    width      	364
+			    height     	392
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "MGCP"
+	    quid       	"36DC3B24029C"
+	    documentation 	
+|This package contains the  Media Gateway Control Protocol (MGCP) interface classes and documents.
+|
+|MGCP is used for controlling Media  Gateways, for example   Voice over IP (VoIP) gateways, from external call control agents.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\12_15519.mgcp.doc"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "MGCP_cli"
+		    quid       	"36DBEC920056"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "MGCP-NTFY"
+			    quid       	"37AAF6AE033D"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-RSIP"
+			    quid       	"37AAF6F00356"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-DLCX"
+			    quid       	"37AAF7260191"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "MGCP_srv"
+		    quid       	"36BA14830227"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "MGCP-EPCF"
+			    quid       	"37AAF640006D"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-CRCX"
+			    quid       	"37AAF65501B8"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-MDCX"
+			    quid       	"37AAF6640123"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-DLCX"
+			    quid       	"37AAF67003DE"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-RQNT"
+			    quid       	"37AAF689036B"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-AUEP"
+			    quid       	"37AAF6BE0169"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "MGCP-AUCX"
+			    quid       	"37AAF6D402A1"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4920282"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::MGCP::MGCP_srv" @9
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(434, 556)
+			    label      	(object ItemLabel
+				Parent_View 	@9
+				location   	(272, 347)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	324
+				justify    	0
+				label      	"MGCP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@9
+				location   	(272, 297)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	324
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36BA14830227"
+			    width      	342
+			    height     	542
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::MGCP::MGCP_cli" @10
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1065, 672)
+			    label      	(object ItemLabel
+				Parent_View 	@10
+				location   	(908, 563)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	314
+				justify    	0
+				label      	"MGCP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@10
+				location   	(908, 513)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	314
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBEC920056"
+			    width      	332
+			    height     	342
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "RADIUS-MA"
+	    quid       	"36DC3B33003B"
+	    documentation 	
+|This package contains the RADIUS-MA interface classes and documents.
+|RADIUS-MA is an extensin of the RADIUS protocol when used with a messaging system.
+|
+|In IPMS, RADIUS-MA is used to report usage events from various resources and services. As example, usage events may contain  time that a certain resource was used or number bytes transfered in a user session.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\14_15519.radius.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2138.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2139.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "RADIUS_srv"
+		    quid       	"36DBECA90167"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RADIUS-accounting_rq"
+			    quid       	"371CE0DC01E6"
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "RADIUS_cli"
+		    quid       	"35E7128200A7"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RADIUS-accounting_rsp"
+			    quid       	"371CE0A5022D"
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF47B0120"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RADIUS-MA::RADIUS_cli" @11
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(478, 425)
+			    label      	(object ItemLabel
+				Parent_View 	@11
+				location   	(221, 366)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	514
+				justify    	0
+				label      	"RADIUS_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@11
+				location   	(221, 316)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	514
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35E7128200A7"
+			    width      	532
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RADIUS-MA::RADIUS_srv" @12
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1321, 425)
+			    label      	(object ItemLabel
+				Parent_View 	@12
+				location   	(1074, 366)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	494
+				justify    	0
+				label      	"RADIUS_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@12
+				location   	(1074, 316)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	494
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBECA90167"
+			    width      	512
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "RTP/RTCP"
+	    quid       	"36DC3B3F0010"
+	    documentation 	
+|This package contains the Real-time Transport Protocol (RTP) and  the Real-Time Control Protocol (RTCP) interface classes and documents.
+|
+|RTP is an Internet protocol for transmitting real-time data such as audio and video. Typically, RTP runs on top of the UDP protocol.
+|
+|RTCP is the control protocol that works in conjunction with RTP.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\8_15519.rtp.rtcp.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1889.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1890.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2032.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2035.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2190.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2198.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2250.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "RTCP_cli"
+		    quid       	"36DBECBD036F"
+		    documentation 	"RTCP client is defined as the receiver in a streaming session."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RTCP-sr"
+			    quid       	"371CE2980049"
+			    documentation 	"Sender report, for transmission and reception statistics from participants that are active senders. Sent by senders in a streaming session."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTCP-sdes"
+			    quid       	"371CE3BB0156"
+			    documentation 	"Source description items, including CNAME. Sent by senders in a streaming session."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTCP-app"
+			    quid       	"371CE3CE0031"
+			    documentation 	"Application specific functions. Can be sent by both senders and receivers in a streaming session."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "RTCP_srv"
+		    quid       	"36CDCE32001B"
+		    documentation 	"RTCP server is defined as the sender in a streaming session."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RTCP-rr"
+			    quid       	"371CE42302D2"
+			    documentation 	"Receiver report, for reception statistics from participants that are not active senders. Sent by receivers in a streaming session."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTCP-bye"
+			    quid       	"371CE434016E"
+			    documentation 	"Indicates end of participation. Sent by receivers in a streaming session."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTCP-app"
+			    quid       	"371CE44300E4"
+			    documentation 	"Application specific functions. Can be sent by both senders and receivers in a streaming session."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "RTP_cli"
+		    quid       	"36DBECD6034D"
+		    documentation 	"RTP client is defined as the receiver in a streaming session."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RTP-stream"
+			    quid       	"371CE5110072"
+			    documentation 	"RTP does not contain any special protocol operations. It is to be viewed as continues stream of, normally, UDP packets. In other words, an RTP end-system continuously generates or consumes RTP packets."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "RTP_srv"
+		    quid       	"36BA0282012F"
+		    documentation 	"RTP server is defined as the sender in a streaming session."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RTP-stream"
+			    quid       	"37AAF4610119"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4380214"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTP/RTCP::RTP_srv" @13
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(391, 262)
+			    label      	(object ItemLabel
+				Parent_View 	@13
+				location   	(244, 203)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	294
+				justify    	0
+				label      	"RTP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@13
+				location   	(244, 153)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	294
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36BA0282012F"
+			    width      	312
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTP/RTCP::RTP_cli" @14
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1100, 244)
+			    label      	(object ItemLabel
+				Parent_View 	@14
+				location   	(953, 185)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	294
+				justify    	0
+				label      	"RTP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@14
+				location   	(953, 135)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	294
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBECD6034D"
+			    width      	312
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTP/RTCP::RTCP_srv" @15
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(378, 841)
+			    label      	(object ItemLabel
+				Parent_View 	@15
+				location   	(247, 732)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	262
+				justify    	0
+				label      	"RTCP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@15
+				location   	(247, 682)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	262
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36CDCE32001B"
+			    width      	280
+			    height     	342
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTP/RTCP::RTCP_cli" @16
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1162, 794)
+			    label      	(object ItemLabel
+				Parent_View 	@16
+				location   	(1020, 685)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	284
+				justify    	0
+				label      	"RTCP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@16
+				location   	(1020, 635)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	284
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBECBD036F"
+			    width      	302
+			    height     	342
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "RTSP"
+	    quid       	"36DC3BA00146"
+	    documentation 	
+|This package contains the Real Time Streaming Protocol (RTSP) interface classes and documents.
+|
+|RTSP is a standard for controlling streaming data over the World Wide Web. Uses RTP (Real-Time Transport Protocol) to format packets of multimedia content.
+|
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\7_15519.rtsp.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2326.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "RTSP_cli"
+		    quid       	"36DBECEE01F3"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RTSP-announce_rq"
+			    quid       	"371CE66002C2"
+			    documentation 	"Updates the session description in real-time."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-get_parameter_rq"
+			    quid       	"371CE6B80002"
+			    documentation 	
+|GET_PARAMETER with no entity body may be used to test client or server liveness ("ping").
+			    
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-redirect_rq"
+			    quid       	"371CE84001FA"
+			    documentation 	"With the REDIRECT request a server informs a client that it must connect to another server location."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP_rsp"
+			    quid       	"371CE95A035E"
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "RTSP_srv"
+		    quid       	"35EDA92C005E"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RTSP-describe_rq"
+			    quid       	"371CE5B50258"
+			    documentation 	"With the DESCRIBE method a client retrieves the description of a presentation or media object identified by the request URL from a server. "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-announce_rq"
+			    quid       	"371CE65101D0"
+			    documentation 	"Posts the description of a presentation or media object identified by the request URL to a server. "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-get_parameter_rq"
+			    quid       	"371CE6C703D9"
+			    documentation 	
+|With the GET_PARAMETER request a client retrieves the value of a parameter of a presentation or stream specified in the URI. The content of the reply and response is left to the implementation. GET_PARAMETER with no entity body may be used to test client or server liveness ("ping").
+			    
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-options_rq"
+			    quid       	"371CE79A0328"
+			    documentation 	"The Options request informs a user about available methods."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-pause_rq"
+			    quid       	"371CE7DD01BC"
+			    documentation 	"With the PAUSE request causes, a client can temporarily interrupt (halt) the stream delivery."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-play_rq"
+			    quid       	"371CE7FE00FB"
+			    documentation 	"With the PLAY method a client requests the server to start sending data via the mechanism specified in SETUP. A client MUST NOT issue a PLAY request until all outstanding SETUP requests have been acknowledged as successful."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-record_rq"
+			    quid       	"371CE82002E4"
+			    documentation 	"With the RECORD method a client can initiate recording a range of media data according to the presentation description. "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-setup_rq"
+			    quid       	"371CE85C0241"
+			    documentation 	"With the SETUP request a client orders a server to use the specified transport mechanism for the streamed media pointed to via the URI. "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-set_parameter_rq"
+			    quid       	"371CE87801D3"
+			    documentation 	"With the SET_PARAMETER method a client request the server to set the value of a parameter for a presentation or stream specified by the URI."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP-teardown_rq"
+			    quid       	"371CE89900EA"
+			    documentation 	"With the TEARDOWN request a client orders a server to stop the stream delivery for the given URI, freeing the resources associated with it."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "RTSP_rsp"
+			    quid       	"371CE967017C"
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4230341"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTSP::RTSP_srv" @17
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(600, 641)
+			    label      	(object ItemLabel
+				Parent_View 	@17
+				location   	(344, 332)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"RTSP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@17
+				location   	(344, 282)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35EDA92C005E"
+			    width      	530
+			    height     	742
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTSP::RTSP_cli" @18
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1565, 453)
+			    label      	(object ItemLabel
+				Parent_View 	@18
+				location   	(1309, 319)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"RTSP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@18
+				location   	(1309, 269)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBECEE01F3"
+			    width      	530
+			    height     	392
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "SMTP"
+	    quid       	"36DC3BB600ED"
+	    documentation 	
+|This package contains the Simple Mail Transfer Protocol (SMTP) interface classes and documents.
+|
+|SMTP is a protocol for sending messages between mail-client and -servers. Regular e-mail messages is an example of messages deleivered using SMTP.
+|
+|In IPMS, SMTP is used to deliver MIME message objects between components. In other words, in IPMS any component can be a mail-client and any component can be a mail-server.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\3_15519.smtp.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc821.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "SMTP_cli"
+		    quid       	"36DBED3B0121"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SMTP-rsp"
+			    quid       	"371CEBCF03DB"
+			    documentation 	"SMTP replies are 3-digit numbers in ASCII, with an optional message following the number."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "SMTP_srv"
+		    quid       	"35ABA14D00EA"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SMTP-helo"
+			    quid       	"36CEDC920334"
+			    documentation 	"Identifies the client to the server."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-mail"
+			    quid       	"36CEDC9B00F2"
+			    documentation 	
+|Initiates a mail transfer. This command tells the SMTP-server that a new mail transaction is starting and to reset all its state tables and buffers, including any recipients or mail data. 
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-rcpt"
+			    quid       	"36CEDCA60152"
+			    documentation 	
+|This command is used to identify an individual recipient of the mail data and typically follows a MAIL command. Multiple recipients are specified by multiple use of this command. The address of one of the recipients of the mail to be transferred is passed.
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-data"
+			    quid       	"36CEDCB20344"
+			    documentation 	"Follows a RCPT command; indicates that all message recipients has been identified, and initiates the data transfer."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-send"
+			    quid       	"36CEDCCF03A0"
+			    documentation 	"Substitute for the MAIL command which delivers the message to a terminal instead of to a mailbox. It is rarely used nowadays."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-soml"
+			    quid       	"36CEDCD60224"
+			    documentation 	"Substitute for the MAIL command which is rarely used nowadays. (SOML stands for SEND or MAIL)."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-saml"
+			    quid       	"36CEDCE50261"
+			    documentation 	"Substitute for the MAIL command which is rarely used nowadyays (SAML stands for SEND and MAIL)."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-rset"
+			    quid       	"36CEDCEE008E"
+			    documentation 	"Reset the session; Current transfer (if any) is canceled."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-vrfy"
+			    quid       	"36CEDCFB005A"
+			    documentation 	"This command is used by a client to verify with the SMTP server that a given user exists. This command is often disabled in mail servers because of security considerations."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-expn"
+			    quid       	"36CEDD040216"
+			    documentation 	"Used by a client to verify the existence of a mailing list and to expand that mailing list."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-help"
+			    quid       	"36CEDD0B0108"
+			    documentation 	"Asks what commands the server supports."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-noop"
+			    quid       	"36CEDD16026C"
+			    documentation 	"No operation; the server is expected to respond OK."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-quit"
+			    quid       	"36CEDD1E0065"
+			    documentation 	"Client sends this command to close the session."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-turn"
+			    quid       	"36CEDD2503B8"
+			    documentation 	"The client offers to exchange roles with the server to deliver mail in the reverse direction. Rarely used among other because of security reasons."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SMTP-ehlo"
+			    quid       	"371CEABE02A2"
+			    documentation 	"If the server supports the command it answers with a multi line response showing which SMTP extensions that the server supports. Each service extension is identified by a keyword and optionally can also parameters defined for the extension be passed."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF4060140"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SMTP::SMTP_srv" @19
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(406, 794)
+			    label      	(object ItemLabel
+				Parent_View 	@19
+				location   	(261, 385)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	290
+				justify    	0
+				label      	"SMTP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@19
+				location   	(261, 335)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	290
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35ABA14D00EA"
+			    width      	308
+			    height     	942
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::RTSP::RTSP_cli" @20
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1199, 559)
+			    label      	(object ItemLabel
+				Parent_View 	@20
+				location   	(943, 402)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"RTSP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@20
+				location   	(943, 352)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	512
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DBECEE01F3"
+			    width      	530
+			    height     	438
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "SNMP"
+	    quid       	"36DC3BC00355"
+	    documentation 	
+|This package contains the Simple Network Management Protocol (SNMP) interface classes and documents.
+|
+|In IPMS, SNMP is used to manage all components part of the IPMS system. Focus is put on fault- and performance-monitoring.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\5_15519.snmp.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1902.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1903.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1904.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1905.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1906.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1907.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc1908.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2271.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2251.txtftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2272.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2273.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2274.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2275.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "SNMPv1_cli"
+		    quid       	"36DC34C700CD"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SNMPv1-trap"
+			    quid       	"35ACCB410234"
+			    documentation 	
+|Signals to a manager that an event of importance has occurred.
+|
+|The Trap-PDU
+|The Trap-PDU is generated by a protocol entity only at the request of the SNMP application entity. The means by which an SNMP application entity selects the destination addresses of the SNMP application entities is implementation-specific.
+|Upon receipt of the Trap-PDU, the receiving protocol entity presents its contents to its SNMP application entity.
+			    
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "SNMPv1_srv"
+		    quid       	"35ABA0DD02F2"
+		    documentation 	
+|This is the SNMP Version 1 Interface.
+|
+|SNMP includes the following protocol operations:
+|� get retrieves specified information;
+|� getnext used for table row retrieval and for discovery of managed objects;
+|� set changes the value of specified information;
+|� trap signals to a manager that an event of importance has occurred.
+|
+|SNMP, SIMPLE NETWORK MANAGEMENT PROTOCOL
+|The simple network management protocol is an application protocol by which the variables of an agent's MIB may be inspected or altered.
+|Communication among protocol entities is accomplished by the exchange of messages, each of which is entirely and independently represented within a single UDP datagram using the basic encoding rules of ASN.1. A message consists of a version identifier, an SNMP community name, and a protocol data unit (PDU).
+|It is mandatory that all implementations of SNMP support the five PDUs: GetRequest-PDU, GetNextRequest-PDU, GetResponse-PDU, SetRequest-PDU, and Trap-PDU.
+|
+|SNMP OPERATIONAL MODEL
+|SNMP is based on a connection less client-server model. The management station is the client and the management agent is the server.
+|The top-level actions of a protocol entity that generates a message are as follows:
+|1. It first constructs the appropriate PDU, e.g., the GetRequest-PDU, as an ASN.1 object.
+|2. It then passes this ASN.1 object along with a community name its source transport address and the destination transport address, to the service which implements the desired authentication scheme. This authentication service returns another ASN.1 object.
+|3. The protocol entity then constructs an ASN.1 Message object, using the community name and the resulting ASN.1 object.
+|4. This new ASN.1 object is then serialized, using the basic encoding rules of ASN.1, and then sent using a transport service to the peer protocol entity.
+|Similarly, the top-level actions of a protocol entity which receives a message are as follows:
+|1. It performs a rudimentary parse of the incoming datagram to build an ASN.1 object corresponding to an ASN.1 Message object. If the parse fails, it discards the datagram and performs no further actions.
+|2. It then verifies the version number of the SNMP message. If there is a mismatch, it discards the datagram and performs no further actions.
+|3. The protocol entity then passes the community name and user data found in the ASN.1 Message object, along with the datagram's source and destination transport addresses to the service which implements the desired authentication scheme. This entity returns another ASN.1 object, or signals an authentication failure. In the latter case, the protocol entity notes this failure,(possibly) generates a trap, and discards the datagram and performs no further actions.
+|4. The protocol entity then performs a rudimentary parse on the ASN.1 object returned from the authentication service to build an ASN.1 object corresponding to an ASN.1 PDUs object. If the parse fails, it discards the datagram and performs no further actions. Otherwise, using the named SNMP community, the appropriate profile is selected, and the PDU is processed accordingly. If, as a result of this processing, a message is returned then the source transport address that the response message is sent from shall be identical to the destination transport address that the original request message was sent to.
+|
+|MAPPING ONTO TRANSPORT SERVICES
+|SNMP PDUs are mapped on to a connection less datagram transport using UDP.
+|A protocol entity receives messages at UDP port 161 on the host with which it is associated for all messages except for those which report traps (i.e., all messages except those which contain the Trap-PDU). Messages, which report traps, should be received on UDP port 162 for further processing. 
+|
+|
+|PROTOCOL ELEMENT ENCODING
+|Management information communicated by operation of SNMP is represented according to the subset of the ASN.1 language.
+|Also for the sake of simplicity, the SNMP uses only a subset of the basic encoding rules of ASN.1. Namely, all encodings use the definite-length form. Further, whenever permissible, non-constructor encodings are used rather than constructor encodings. This restriction applies to all aspects of ASN.1 encoding, both for the top-level protocol data units and the data objects they contain.
+|
+|USERS
+|Normally, all components part of the MXE system will use the SNMP protocol.
+|
+		    
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SNMPv1-get_rq"
+			    quid       	"35ACCB280379"
+			    documentation 	
+|Retrieves specified information.
+|
+|The GetRequest-PDU
+|The GetRequest-PDU is generated by a protocol entity only at the request of its SNMP application entity. Upon receipt of the GetRequest-PDU, the receiving protocol entity responds according to any applicable rule in the list below:
+|1. If, for any object named in the variable-bindings field, the object's name does not exactly match the name of some object available for get operations in the relevant MIB view, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is noSuchName, and the value of the error-index field is the index of said object name component in the received message.
+|2. If, for any object named in the variable-bindings field, the object is an aggregate type (as defined in the SMI), then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is noSuchName, and the value of the error-index field is the index of said object name component in the received message.
+|3. If the size of the GetResponse-PDU generated as described below would exceed a local limitation, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is tooBig, and the value of the error-index field is zero.
+|4. If, for any object named in the variable-bindings field, the value of the object cannot be retrieved for reasons not covered by any of the foregoing rules, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is genErr and the value of the error-index field is the index of said object name component in the received message.
+|If none of the foregoing rules apply, then the receiving protocol entity sends to the originator of the received message the GetResponse-PDU such that, for each object named in the variable- bindings field of the received message, the corresponding component of the GetResponse-PDU represents the name and value of that variable. The value of the error- status field of the GetResponse- PDU is noError and the value of the error-index field is zero. The value of the request-id field of the GetResponse-PDU is that of the received message.
+|
+|
+|The GetResponse-PDU
+|The form of the GetResponse-PDU is identical to that of the GetRequest-PDU except for the indication of the PDU type.
+|The GetResponse-PDU is generated by a protocol entity only upon receipt of the GetRequest-PDU, GetNextRequest-PDU, or SetRequest-PDU, as described elsewhere in this document.
+|Upon receipt of the GetResponse-PDU, the receiving protocol entity presents its contents to its SNMP application entity.
+|
+			    
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv1-get_next_rq"
+			    quid       	"35ACCB3200AC"
+			    documentation 	
+|Used for table row retrieval and for discovery of managed objects.
+|
+|The GetNextRequest-PDU
+|The form of the GetNextRequest-PDU is identical to that of the GetRequest-PDU except for the indication of the PDU type. In the ASN.1 language: The GetNextRequest-PDU is generated by a protocol entity only at the request of its SNMP application entity. Upon receipt of the GetNextRequest-PDU, the receiving protocol entity responds according to any applicable rule in the list below:
+|1. If, for any object name in the variable-bindings field, that name does not lexicographically precede the name of some object available for get operations in the relevant MIB view, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is noSuchName, and the value of the error-index field is the index of said object name component in the received message.
+|2. If the size of the GetResponse-PDU generated as described below would exceed a local limitation, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is tooBig, and the value of the error-index field is zero.
+|3. If, for any object named in the variable-bindings field, the value of the lexicographical successor to the named object cannot be retrieved for reasons not covered by any of the foregoing rules, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is genErr and the value of the error-index field is the index of said object name component in the received message.
+|If none of the foregoing rules apply, then the receiving protocol entity sends to the originator of the received message the GetResponse-PDU such that, for each name in the variable-bindings field of the received message, the corresponding component of the GetResponse-PDU represents the name and value of that object whose name is, in the lexicographical ordering of the names of all objects available for get operations in the relevant MIB view, together with the value of the name field of the given component, the immediate successor to that value. The value of the error-status field of the GetResponse-PDU is noError and the value of the errorindex field is zero. The value of the request-id field of the GetResponse-PDU is that of the received message.
+|
+|The GetResponse-PDU
+|The form of the GetResponse-PDU is identical to that of the GetRequest-PDU except for the indication of the PDU type.
+|The GetResponse-PDU is generated by a protocol entity only upon receipt of the GetRequest-PDU, GetNextRequest-PDU, or SetRequest-PDU, as described elsewhere in this document.
+|Upon receipt of the GetResponse-PDU, the receiving protocol entity presents its contents to its SNMP application entity.
+|
+			    
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv1-set_rq"
+			    quid       	"35ACCB3B03DA"
+			    documentation 	
+|Changes the value of specified information.
+|
+|The SetRequest-PDU
+|The form of the SetRequest-PDU is identical to that of the GetRequest-PDU except for the indication of the PDU type. The SetRequest-PDU is generated by a protocol entity only at the request of its SNMP application entity. Upon receipt of the SetRequest-PDU, the receiving entity responds according to any applicable rule in the list below:
+|1. If, for any object named in the variable-bindings field, the object is not available for set operations in the relevant MIB view, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is noSuchName, and the value of the error-index field is the index of said object name component in the received message.
+|2. If, for any object named in the variable-bindings field, the contents of the value field does not, according to the ASN.1 language, manifest a type, length, and value that is consistent with that required for the variable, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is badValue, and the value of the error-index field is the index of said object name in the received message.
+|3. If the size of the Get Response type message generated as described below would exceed a local limitation, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is tooBig, and the value of the error-index field is zero.
+|4. If, for any object named in the variable-bindings field, the value of the named object cannot be altered for reasons not covered by any of the foregoing rules, then the receiving entity sends to the originator of the received message the GetResponse-PDU of identical form, except that the value of the error-status field is genErr and the value of the error-index field is the index of said object name component in the received message.
+|If none of the foregoing rules apply, then for each object named in the variable-bindings field of the received message, the corresponding value is assigned to the variable. Each variable assignment specified by the SetRequest-PDU should be effected as if simultaneously set with respect to all other assignments specified in the same message.
+|The receiving entity then sends to the originator of the received message the GetResponse-PDU of identical form except that the value of the error-status field of the generated message is noError and the value of the error-index field is zero.
+|
+|The GetResponse-PDU
+|The form of the GetResponse-PDU is identical to that of the GetRequest-PDU except for the indication of the PDU type.
+|The GetResponse-PDU is generated by a protocol entity only upon receipt of the GetRequest-PDU, GetNextRequest-PDU, or SetRequest-PDU, as described elsewhere in this document.
+|Upon receipt of the GetResponse-PDU, the receiving protocol entity presents its contents to its SNMP application entity.
+|
+			    
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"
+		    cardinality 	(value Cardinality "1..1"))
+		(object Class "SNMPv2_cli"
+		    quid       	"36DC34D50380"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SNMPv2_rsp"
+			    quid       	"371CF03C02E0"
+			    documentation 	"The Response-PDU is generated by a SNMP agent only upon receipt of a GetRequest-PDU, GetNextRequest-PDU, GetBulkRequest-PDU, SetRequest-PDU, or InformRequest-PDU."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv2-trap"
+			    quid       	"371CF1100096"
+			    documentation 	"A SNMPv2-Trap-PDU is generated and transmitted by an SNMP agent when an exceptional situation occurs. "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv2-inform_rq"
+			    quid       	"371CF1A50162"
+			    documentation 	"An InformRequest-PDU is generated and transmitted at the request of an SNMP manager, that wishes to notify another application (in a SNMP entity also acting in a manager role) of information in a MIB view which is remote to the receiving application. Typically used in a Manager-of-Manager situation."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "SNMPv2_srv"
+		    quid       	"35ABA0EA0373"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SNMPv2-get_rq"
+			    quid       	"371CEDA30293"
+			    documentation 	"A GetRequest-PDU is generated and transmitted at the request of a SNMP manager and is used to get the value of any or several SNMP variable(s)."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv2-get_next_rq"
+			    quid       	"371CEEE00195"
+			    documentation 	"A GetNextRequest-PDU is generated and transmitted at the request of a SNMP manager and is used to get the values of all variables in an SNMP table row. "
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv2-get_bulk_rq"
+			    quid       	"371CEFFE0240"
+			    documentation 	"The purpose of the GetBulkRequest-PDU is to request the transfer of a potentially large amount of data, including, but not limited to, the efficient and rapid retrieval of large tables."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv2-set_rq"
+			    quid       	"371CF08A0151"
+			    documentation 	"Changes the value of specified information."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "SNMPv3_cli"
+		    quid       	"36DC34E402B0"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SNMPv3-trap"
+			    quid       	"35E5A8E6032D"
+			    documentation 	"A SNMPv2-Trap-PDU is generated and transmitted by an SNMP agent when an exceptional situation occurs. "
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv3_rsp"
+			    quid       	"371CF04D03B6"
+			    documentation 	"The Response-PDU is generated by a SNMP agent only upon receipt of a GetRequest-PDU, GetNextRequest-PDU, GetBulkRequest-PDU, SetRequest-PDU, or InformRequest-PDU."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv3-inform_rq"
+			    quid       	"371CF1D3015E"
+			    documentation 	"An InformRequest-PDU is generated and transmitted at the request of an SNMP manager, that wishes to notify another application (in a SNMP entity also acting in a manager role) of information in a MIB view which is remote to the receiving application. Typically used in a Manager-of-Manager situation."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "SNMPv3_srv"
+		    quid       	"35ABA0F20049"
+		    documentation 	"Simple Network Management Protocol (SNMP) version 3."
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SNMPv3-get_rq"
+			    quid       	"35E5A8A1017F"
+			    documentation 	"A GetRequest-PDU is generated and transmitted at the request of a SNMP manager and is used to get the value of any or several SNMP variable(s)."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv3-get_next_rq"
+			    quid       	"35E5A8AB0300"
+			    documentation 	"A GetNextRequest-PDU is generated and transmitted at the request of a SNMP manager and is used to get the values of all variables in an SNMP table row. "
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv3-set_rq"
+			    quid       	"35E5A8B703DA"
+			    documentation 	"Changes the value of specified information."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SNMPv3-get_bulk_rq"
+			    quid       	"35E5A8BE02F3"
+			    documentation 	"The purpose of the GetBulkRequest-PDU is to request the transfer of a potentially large amount of data, including, but not limited to, the efficient and rapid retrieval of large tables."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++"))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37AAF392037E"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SNMP::SNMPv3_srv" @21
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(493, 440)
+			    label      	(object ItemLabel
+				Parent_View 	@21
+				location   	(264, 306)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"SNMPv3_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@21
+				location   	(264, 256)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35ABA0F20049"
+			    width      	476
+			    height     	392
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SNMP::SNMPv3_cli" @22
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1259, 425)
+			    label      	(object ItemLabel
+				Parent_View 	@22
+				location   	(1053, 316)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	412
+				justify    	0
+				label      	"SNMPv3_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@22
+				location   	(1053, 266)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	412
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC34E402B0"
+			    width      	430
+			    height     	342
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SNMP::SNMPv2_srv" @23
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(474, 1103)
+			    label      	(object ItemLabel
+				Parent_View 	@23
+				location   	(245, 969)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"SNMPv2_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@23
+				location   	(245, 919)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"35ABA0EA0373"
+			    width      	476
+			    height     	392
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SNMP::SNMPv2_cli" @24
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1262, 1100)
+			    label      	(object ItemLabel
+				Parent_View 	@24
+				location   	(1056, 991)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	412
+				justify    	0
+				label      	"SNMPv2_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@24
+				location   	(1056, 941)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	412
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"36DC34D50380"
+			    width      	430
+			    height     	342
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SNMP::SNMPv1_srv" @25
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(465, 1615)
+			    label      	(object ItemLabel
+				Parent_View 	@25
+				location   	(236, 1506)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"SNMPv1_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@25
+				location   	(236, 1456)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	458
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	12632256
+			    quidu      	"35ABA0DD02F2"
+			    width      	476
+			    height     	342
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SNMP::SNMPv1_cli" @26
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1271, 1603)
+			    label      	(object ItemLabel
+				Parent_View 	@26
+				location   	(1114, 1544)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	314
+				justify    	0
+				label      	"SNMPv1_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@26
+				location   	(1114, 1494)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	314
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	12632256
+			    quidu      	"36DC34C700CD"
+			    width      	332
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE)))))
+	(object Class_Category "SQL"
+	    quid       	"36DC3C5E035C"
+	    documentation 	
+|This package contains the  Structured Query Language (SQL) interface classes and documents.
+|
+|SQL is a protocol for requesting information from a database.
+|
+|In IPMS, SQL is mainly used to provision user profile information, i.e. to create/update/delete user profiles.
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\6_15519.sql.doc"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "SQL_srv"
+		    quid       	"36DC3C4F03AA"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SQL-create"
+			    quid       	"36D075F203A6"
+			    documentation 	"The Create construct is used to instantiate data base objects such as tables, views, or databases."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-alter"
+			    quid       	"36D075FE00B4"
+			    documentation 	"The Alter construct is used to change data base objects such as tables, views, or databases."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-drop"
+			    quid       	"36D0760801EF"
+			    documentation 	"The Drop construct is used to remove data base objects such as tables, views, or databases."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-insert"
+			    quid       	"36D07629011A"
+			    documentation 	"The Insert construct is used to place an entry into a database object such as a table or view."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-update"
+			    quid       	"36D0763101D0"
+			    documentation 	"The Update construct is used to change entries in database object such as tables or views."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-delete"
+			    quid       	"36D0767E02A3"
+			    documentation 	"The Delete construct is used to remove entries from database objects such as tables or views."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-select"
+			    quid       	"36D076870256"
+			    documentation 	"The Select construct is used recover entries from database objects such as tables or views."
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-commit"
+			    quid       	"371CF2BE03DD"
+			    documentation 	"The COMMIT construct is used for transaction control. The statement is used to apply changes to a database."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-rollback"
+			    quid       	"371CF2D10109"
+			    documentation 	"The ROLLBACK construct is used for transaction control. It is the opposite of the COMMIT statement in that it is used to undo the actions of a statement or statements should conditions so warrant."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-grant"
+			    quid       	"371CF2F80138"
+			    documentation 	"The GRANT construct is used for access control."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "SQL-revoke"
+			    quid       	"371CF312008B"
+			    documentation 	"The REVOKE construct is used for access control."
+			    result     	"return"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    language   	"C++")
+		(object Class "SQL_cli"
+		    quid       	"376ECA650295"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "SQL-rsp"
+			    quid       	"376ECA770074"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Main"
+		    quid       	"37B888420175"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list))))
+	(object Class_Category "MIME"
+	    quid       	"3738477F0262"
+	    documentation 	
+|This package contains the Multipurpose Internet Mail Extension (MIME)  interface classes and documents.
+|
+|In IPMS, MIME is used a the message "object" format in, for example, SMTP and IMAP session. Messages are therefore stored in the message store as MIME encoded objects.
+|
+|VPIM (Voice Profile for Internet messaging) and SPIM (SMS Profile for Internet Messaging) is examples of MIME objects.
+|
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\9_15519.mime.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2045.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2046.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2047.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2048.txt")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2049.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list)
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Main"
+		    quid       	"37B8884B0037"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list))))
+	(object Class_Category "SIP"
+	    quid       	"37A759CF032A"
+	    documentation 	
+|The introduction and usage of SIP within the IPMS system is to allow setup of IP multimedia sessions (eg telephony call).
+|
+|The Session Initiation Protocol (SIP) is an application-layer control  (signaling) protocol for creating, modifying and terminating sessions with one or more participants. These sessions include Internet multimedia conferences, Internet telephone calls and multimedia distribution. 
+|SIP invitations used to create sessions carry session descriptions which allow participants to agree on a set of compatible media types.  SIP supports user mobility by proxying and redirecting requests to the user's current location. Users can register their current location.  SIP is not tied to any particular session control protocol. 
+|
+	    
+	    stereotype 	"iM-Bus"
+	    external_docs 	(list external_doc_list
+		(object external_doc
+		    external_doc_path 	"$VIEW_ROOT\\ipms_sys\\doc\\11_15519.sip.doc")
+		(object external_doc
+		    external_doc_url 	"ftp://erigate.abcxyz.se/pub/MIRRORS/network/rfc/rfc2543.txt"))
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "SIP_srv"
+		    quid       	"37A75BB10230"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "INVITE"
+			    quid       	"37A75C0E033E"
+			    documentation 	"The INVITE request indicates that the user or service is being invited to participate in a session. The negotiation of the parameters of the session such as port which will receive the media stream or which codec will be used is carried out using this request. In the middle of a session, it is also possible to change the current parameters of the media stream by sending a new INVITE request. A success response indicates in its message body which media the callee wishes to receive"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "ACK"
+			    quid       	"37A75C170154"
+			    documentation 	"The ACK request confirms that the client has received a final response to an INVITE. It may contain a message body with the final session description to be used by the callee. If the message body is empty, the callee uses the session description in the INVITE request. "
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "REGISTER"
+			    quid       	"37A75C1E0398"
+			    documentation 	
+|Informs a SIP server about the current location of a user. This way, the user can be reached where he is logged in at that moment.
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "OPTIONS"
+			    quid       	"37A75C280096"
+			    documentation 	
+|The OPTIONS request solicits information about capabilities of a server. It does not set up a connection. The server returns the requests that it supports.
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "BYE"
+			    quid       	"37A75C5100B4"
+			    documentation 	
+|The user agent client uses BYE to indicate to the server that it wishes to release the call. For two party calls, it terminates the call.
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "CANCEL"
+			    quid       	"37A75C57017C"
+			    documentation 	
+|The CANCEL request cancels a pending request, but does not affect a completed request. (A request is considered completed if the server has returned a final response). Can be used to terminate parallel searches
+|
+			    
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)))
+		(object Class "SIP_cli"
+		    quid       	"37A75BD20168"
+		    stereotype 	"Interface"
+		    operations 	(list Operations
+			(object Operation "RESPONSE"
+			    quid       	"37A75BE10190"
+			    documentation 	"After receiving and interpreting a request message, the recipient responds with a SIP response message. "
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Protocol Operations"
+		    quid       	"37A75B9A0118"
+		    title      	"Protocol Operations"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SIP::SIP_srv" @27
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(529, 393)
+			    label      	(object ItemLabel
+				Parent_View 	@27
+				location   	(389, 209)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	280
+				justify    	0
+				label      	"SIP_srv")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@27
+				location   	(389, 159)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	280
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"37A75BB10230"
+			    width      	298
+			    height     	492
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::IPMS iM-Bus::SIP::SIP_cli" @28
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    location   	(1078, 356)
+			    label      	(object ItemLabel
+				Parent_View 	@28
+				location   	(925, 297)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	306
+				justify    	0
+				label      	"SIP_cli")
+			    stereotype 	(object ItemLabel
+				Parent_View 	@28
+				location   	(925, 247)
+				fill_color 	13434879
+				anchor     	10
+				nlines     	1
+				max_width  	306
+				justify    	0
+				label      	"<<Interface>>")
+			    icon       	"Interface"
+			    icon_style 	"Label"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"37A75BD20168"
+			    width      	324
+			    height     	242
+			    annotation 	8
+			    autoResize 	TRUE))))))
+    logical_presentations 	(list unit_reference_list
+	(object ClassDiagram "Main"
+	    quid       	"373DC0E5017F"
+	    title      	"Main"
+	    zoom       	77
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	38
+	    origin_y   	106
+	    items      	(list diagram_item_list
+		(object NoteView @29
+		    location   	(1427, 987)
+		    label      	(object ItemLabel
+			Parent_View 	@29
+			location   	(102, 597)
+			fill_color 	13434879
+			nlines     	15
+			max_width  	2615
+			label      	"iM-Bus")
+		    line_color 	3342489
+		    fill_color 	13558525
+		    width      	2675
+		    height     	793)
+		(object CategoryView "Logical View::IPMS iM-Bus::LDAP" @30
+		    location   	(352, 832)
+		    label      	(object ItemLabel
+			Parent_View 	@30
+			location   	(208, 797)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"LDAP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@30
+			location   	(208, 747)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3AF70021"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::FTP" @31
+		    location   	(736, 816)
+		    label      	(object ItemLabel
+			Parent_View 	@31
+			location   	(592, 781)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"FTP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@31
+			location   	(592, 731)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3B080382"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::HTTP" @32
+		    location   	(1088, 816)
+		    label      	(object ItemLabel
+			Parent_View 	@32
+			location   	(944, 781)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"HTTP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@32
+			location   	(944, 731)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3B110118"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::IMAP" @33
+		    location   	(1440, 816)
+		    label      	(object ItemLabel
+			Parent_View 	@33
+			location   	(1296, 781)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"IMAP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@33
+			location   	(1296, 731)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3B1B004A"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::MGCP" @34
+		    location   	(1808, 816)
+		    label      	(object ItemLabel
+			Parent_View 	@34
+			location   	(1664, 781)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"MGCP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@34
+			location   	(1664, 731)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3B24029C"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::RADIUS-MA" @35
+		    location   	(2192, 816)
+		    label      	(object ItemLabel
+			Parent_View 	@35
+			location   	(2048, 781)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"RADIUS-MA")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@35
+			location   	(2048, 731)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3B33003B"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::RTP/RTCP" @36
+		    location   	(352, 1152)
+		    label      	(object ItemLabel
+			Parent_View 	@36
+			location   	(208, 1117)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"RTP/RTCP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@36
+			location   	(208, 1067)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3B3F0010"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::RTSP" @37
+		    location   	(736, 1152)
+		    label      	(object ItemLabel
+			Parent_View 	@37
+			location   	(592, 1117)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"RTSP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@37
+			location   	(592, 1067)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3BA00146"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::SMTP" @38
+		    location   	(1104, 1152)
+		    label      	(object ItemLabel
+			Parent_View 	@38
+			location   	(960, 1117)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"SMTP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@38
+			location   	(960, 1067)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3BB600ED"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::SNMP" @39
+		    location   	(1456, 1152)
+		    label      	(object ItemLabel
+			Parent_View 	@39
+			location   	(1312, 1117)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"SNMP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@39
+			location   	(1312, 1067)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3BC00355"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::SQL" @40
+		    location   	(1808, 1168)
+		    label      	(object ItemLabel
+			Parent_View 	@40
+			location   	(1664, 1133)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"SQL")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@40
+			location   	(1664, 1083)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"36DC3C5E035C"
+		    width      	300
+		    height     	182)
+		(object CategoryView "Logical View::IPMS iM-Bus::MIME" @41
+		    location   	(2192, 1168)
+		    label      	(object ItemLabel
+			Parent_View 	@41
+			location   	(2048, 1133)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"MIME")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@41
+			location   	(2048, 1083)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"3738477F0262"
+		    width      	300
+		    height     	182)
+		(object ClassView "Class" "Logical View::IPMS Messaging Business Framework::Operating System::Operating System Interface::FileSystem" @42
+		    ShowCompartmentStereotypes 	TRUE
+		    ShowOperationSignature 	TRUE
+		    location   	(768, 1696)
+		    label      	(object ItemLabel
+			Parent_View 	@42
+			location   	(520, 1643)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	496
+			justify    	0
+			label      	"FileSystem")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@42
+			location   	(520, 1593)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	496
+			justify    	0
+			label      	"<<Interface>>")
+		    icon       	"Interface"
+		    icon_style 	"Label"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35E44EE70043"
+		    width      	514
+		    height     	230
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object ClassView "Class" "Logical View::IPMS Messaging Business Framework::Operating System::Operating System Interface::EventLog" @43
+		    ShowCompartmentStereotypes 	TRUE
+		    ShowOperationSignature 	TRUE
+		    location   	(1328, 1696)
+		    label      	(object ItemLabel
+			Parent_View 	@43
+			location   	(1080, 1643)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	496
+			justify    	0
+			label      	"EventLog")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@43
+			location   	(1080, 1593)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	496
+			justify    	0
+			label      	"<<Interface>>")
+		    icon       	"Interface"
+		    icon_style 	"Label"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35E44F300161"
+		    width      	514
+		    height     	230
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object ClassView "Class" "Logical View::IPMS Messaging Business Framework::Operating System::Operating System Interface::DNS" @44
+		    ShowCompartmentStereotypes 	TRUE
+		    ShowOperationSignature 	TRUE
+		    location   	(1888, 1696)
+		    label      	(object ItemLabel
+			Parent_View 	@44
+			location   	(1640, 1643)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	496
+			justify    	0
+			label      	"DNS")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@44
+			location   	(1640, 1593)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	496
+			justify    	0
+			label      	"<<Interface>>")
+		    icon       	"Interface"
+		    icon_style 	"Label"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"35FD882401F8"
+		    width      	514
+		    height     	230
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object NoteView @45
+		    location   	(352, 224)
+		    label      	(object ItemLabel
+			Parent_View 	@45
+			location   	(211, 112)
+			fill_color 	13434879
+			nlines     	4
+			max_width  	246
+			label      	"Component 1")
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	306
+		    height     	237)
+		(object NoteView @46
+		    location   	(1440, 224)
+		    label      	(object ItemLabel
+			Parent_View 	@46
+			location   	(1299, 112)
+			fill_color 	13434879
+			nlines     	4
+			max_width  	246
+			label      	"Component 4")
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	306
+		    height     	237)
+		(object NoteView @47
+		    location   	(1088, 224)
+		    label      	(object ItemLabel
+			Parent_View 	@47
+			location   	(947, 112)
+			fill_color 	13434879
+			nlines     	4
+			max_width  	246
+			label      	"Component 3")
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	306
+		    height     	237)
+		(object NoteView @48
+		    location   	(2192, 224)
+		    label      	(object ItemLabel
+			Parent_View 	@48
+			location   	(2051, 112)
+			fill_color 	13434879
+			nlines     	4
+			max_width  	246
+			label      	"Component n")
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	306
+		    height     	237)
+		(object AttachView "" @49
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@48
+		    supplier   	@35
+		    line_style 	0)
+		(object AttachView "" @50
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@46
+		    supplier   	@33
+		    line_style 	0)
+		(object AttachView "" @51
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@47
+		    supplier   	@32
+		    line_style 	0)
+		(object AttachView "" @52
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@45
+		    supplier   	@30
+		    line_style 	0)
+		(object NoteView @53
+		    location   	(736, 224)
+		    label      	(object ItemLabel
+			Parent_View 	@53
+			location   	(595, 112)
+			fill_color 	13434879
+			nlines     	4
+			max_width  	246
+			label      	"Component 2")
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	306
+		    height     	237)
+		(object AttachView "" @54
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@53
+		    supplier   	@31
+		    line_style 	0)
+		(object AttachView "" @55
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@29
+		    supplier   	@42
+		    line_style 	0)
+		(object AttachView "" @56
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@29
+		    supplier   	@43
+		    line_style 	0)
+		(object AttachView "" @57
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    client     	@29
+		    supplier   	@44
+		    line_style 	0)
+		(object CategoryView "Logical View::IPMS iM-Bus::SIP" @58
+		    location   	(2549, 817)
+		    label      	(object ItemLabel
+			Parent_View 	@58
+			location   	(2405, 782)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"SIP")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@58
+			location   	(2405, 732)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<iM-Bus>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	33023
+		    quidu      	"37A759CF032A"
+		    width      	300
+		    height     	182)))))

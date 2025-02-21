@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <script>
+        function alpha (a) { return a*a; }
+    </script>
+
+    <catch event=".">
+        <log>TCFAIL VXML: subdialog_a-003</log>
+        <exit/>
+    </catch>
+
+   <form id="volvo">
+       <block>
+           <log>TCPASS VXML: alpha(5)-001=<value expr="alpha(5)"/></log>
+       </block>
+       <subdialog name="v40" src="subdialog_5b.vxml">
+           <filled>
+               <log>TCPASS VXML: subdialog_a-001</log>
+           </filled>
+       </subdialog>
+       <filled>
+           <log>TCPASS VXML: subdialog_a-002</log>
+           <exit/>
+       </filled>
+   </form>
+
+</vxml>

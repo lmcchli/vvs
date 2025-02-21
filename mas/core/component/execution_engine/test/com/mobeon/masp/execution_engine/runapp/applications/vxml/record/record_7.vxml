@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode="dtmf" root="root">
+        <rule id="root">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form id="main_form">
+        <catch event="nomatch">
+            <log>TCFAIL: record 7 catch</log>
+        </catch>
+        <record name="recording" dtmfterm="true">
+            <prompt>
+                <audio src="beep.wav">Record 7 prompt</audio>
+            </prompt>
+            <filled>
+                <log>TCPASS: record 7</log>
+            </filled>
+        </record>
+
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

@@ -1,0 +1,35 @@
+BTS DP4
+2008-05-28
+Lennart Rasmusson
+-------------------------------------------------------------------------
+Verification of TR32050 for DP4
+
+CONFIGURATION
+=============
+MS and NTF on the same host. IMAPPORT in notification.cfg set to 1143
+and tcpproxy set up which forwards port 1143 to 143 on the same host.
+
+ERROR LOGGING FOR MAILBOX POLLERS
+=================================
+SET
+Kill the proxy now and then to break IMAP connections.
+
+VERIFY
+Verify that the error is not reported immediately.
+Verify that the error is not reported at all if it disappears within a minute.
+Verify that the error is reported after a minute if it remains.
+Verify that the error is reported again every five minutes if it still remains.
+Verify that the error is not reported immediately if occurs again after disappearing for more than one minute.
+Verify that the error is reported as for the first time if it occurs again after disappearing for more than one minute..
+
+ERROR LOGGING FOR NOTIFICATION EMAIL
+====================================
+Difficult to verify completely, but the change is regular and uncomplicated.
+
+SET
+Set a notification template with all mail information tags in.
+Kill the proxy now and then to break IMAP connections.
+
+VERIFY
+Verify that the errors are logged at the debug level.
+Verify that the operation succeeds eventually.

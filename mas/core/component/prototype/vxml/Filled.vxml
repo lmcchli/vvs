@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<form id="qform">
+		<field name="q1">
+			<prompt>
+				<audio src="a.wav">
+					Q1
+				</audio>
+			</prompt>
+			
+			
+		</field>
+		<field name="q2">
+			<prompt>
+				<audio src="b.wav">
+					Sukka
+				</audio>
+			</prompt>
+			
+			
+		</field>
+		<block><log>inlog</log></block>
+		<filled mode="all" namelist="q1 q2">
+			bajs
+			<log> in filled </log>
+		</filled>
+	</form>
+</vxml>

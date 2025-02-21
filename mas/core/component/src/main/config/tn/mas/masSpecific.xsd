@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+  <xs:complexType name="Abcxyz.configType">
+    <xs:sequence>
+      <xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+      <xs:element name="configFileType" type="xs:int" fixed="5" minOccurs="0" maxOccurs="0">
+			</xs:element>
+      <xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ComponentSpecificType" mixed="true">
+    <xs:all>
+      <xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType"/>
+      <xs:element name="ContentTypeMapper.Table" type="contentTypeMapperTableType"/>
+      <xs:element name="OmmServiceEnablers.Table" type="ommServiceEnablersType"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+    <xs:all>
+      <!-- Global-->
+      <xs:element name="Cm.shutdownGracePeriod" type="xs:nonNegativeInteger" default="300" minOccurs="0"/>
+      <!-- Execution Engine -->
+      <xs:element name="Cm.executionEngineStackSize" type="executionEngineStackSizeType" default="100" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineCallManagerWaitTime" type="executionEngineCallManagerWaitTimeType" default="60000" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineAcceptTimeout" type="executionEngineAcceptTimeoutType" default="30000" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineCreateCallAdditionalTimeout" type="executionEngineCreateCallAdditionalTimeoutType" default="30000" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineTraceEnabled" type="xs:boolean" default="false" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineAlwaysCompile" type="xs:boolean" default="false" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineGenerateOps" type="xs:boolean" default="false" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineOpsPath" type="xs:string" default="." minOccurs="0"/>
+      <xs:element name="Cm.executionEngineHostname" type="xs:string" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineWatchdogTimeout" type="executionEngineWatchdogTimeoutType" default="600000" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineVxmlPoolSize" type="executionEngineVxmlPoolSizeType" default="0" minOccurs="0"/>
+      <xs:element name="Cm.executionEngineCcxmlPoolSize" type="executionEngineCcxmlPoolSizeType" default="0" minOccurs="0"/>
+      <xs:element name="Cm.alertSCRegistrationNumOfRetry" type="xs:nonNegativeInteger" default="30" minOccurs="0"/>
+      <xs:element name="Cm.alertSCRegistrationTimeInSecBetweenRetry" type="xs:nonNegativeInteger" default="2" minOccurs="0"/>
+      <!-- Media Content Manager -->
+      <!-- Configuration for the MediaObject Cache that MediaContentManager Uses. If no cache configured the MediaContentManager will not use one.
+	             			- Policy is the caching policy that is used can be:
+	               			lfu  (Least frequently used)
+	               			fifo (First in first out)
+	               			lru  (Least recently used)
+	             			- maxsize is the max number of MediaObjects in the cache.
+	             			- elementtimeout is the timeout in milli seconds for an element.
+	             			- memorysensitive If set to true the elements in the cache is available for garbage collection -->
+      <xs:element name="Cm.mediaContentManagerResourcePath" type="xs:string" default="applications/mediacontentpackages" minOccurs="0"/>
+      <xs:element name="Cm.mediaContentManagerCachePolicy" type="mediaContentManagerPolicyType" default="lfu" minOccurs="0"/>
+      <xs:element name="Cm.mediaContentCacheMaxSize" type="xs:positiveInteger" default="100" minOccurs="0"/>
+      <xs:element name="Cm.mediaContentCacheElementTimeout" type="xs:positiveInteger" default="3600000" minOccurs="0"/>
+      <xs:element name="Cm.mediaContentCacheMemorySensitive" type="xs:boolean" default="false" minOccurs="0"/>
+      <!-- Operate and Maintain Manager -->
+      <xs:element name="Cm.ommHostname" type="xs:string" default="localhost" minOccurs="0"/>
+      <xs:element name="Cm.ommRpcMaxNoOfRetries" type="xs:integer" default="10" minOccurs="0"/>
+      <xs:element name="Cm.ommRpcRetryDelaySec" type="xs:integer" default="5" minOccurs="0"/>
+      <xs:element name="Cm.ommCounterSaveTimeout" type="xs:integer" default="60" minOccurs="0"/>
+      <xs:element name="Cm.ommCounterSaveFilenameSuffix" type="xs:string" default="CounterData.dat" minOccurs="0"/>
+      <xs:element name="Cm.ommCounterSaveFilenamePath" type="xs:string" default="data" minOccurs="0"/>
+      <xs:element name="Cm.ommMasNoResponseTimeoutLimitUntilDown" type="xs:integer" default="2000" minOccurs="0"/>
+      <xs:element name="Cm.ommPort" type="xs:positiveInteger" default="8081" minOccurs="0"/>
+      <!-- The following is the memory monitor, it enables will shutdown MAS if enabled
+           It will shutdown within 30 minutes of the maintShutDownHour if the maintMemoryShutdownThreshold is 
+           reached.  
+	
+	   If the criticalMemoryShutdownThreshold is reached it will shutdown within 10 minutes.
+
+	   By Shutdown, it means it will Intiate a controlled shutdown, lock the MAS and wait for upto
+           Cm.shutdownGracePeriod for existing calls to disconnect, after which a forced shutdown will 
+	   occur.  When locked MAS does not accept new calls, just continues with existing ones -->
+      <xs:element name="Cm.maintMemoryShutdownMonitorEnabled" type="xs:boolean" default="false" minOccurs="0"/>
+      <xs:element name="Cm.maintMemoryShutdownThreshold" type="xs:nonNegativeInteger" default="80" minOccurs="0"/>
+      <xs:element name="Cm.criticalMemoryShutdownThreshold" type="xs:nonNegativeInteger" default="95" minOccurs="0"/>
+      <xs:element name="Cm.maintShutdownHour" type="xs:nonNegativeInteger" default="2" minOccurs="0"/>
+      <!-- Service Request Manager -->
+      <xs:element name="Cm.serviceRequestManagerRequestTimeout" type="xs:integer" default="30000" minOccurs="0"/>
+      <xs:element name="Cm.serviceRequestManagerRequestRetries" type="xs:integer" default="3" minOccurs="0"/>
+      <xs:element name="Cm.serviceRequestManagerClientId" type="xs:string" default="mas@localhost" minOccurs="0"/>
+      <xs:element name="Cm.serviceRequestManagerDiagnoseClientId" type="xs:string" default="diagnoseservice@localhost" minOccurs="0"/>
+      <!-- application -->
+      <xs:element name="Cm.applicationWorkingDir" type="xs:string" default="/opt/moip/mas" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <!-- ContentTypeMapper -->
+  <xs:complexType name="contentTypeMapperTableType">
+    <xs:sequence>
+      <xs:element name="contentTypeMimeType" type="contentTypeMimeTypeType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contentTypeMimeTypeType" mixed="true">
+    <xs:all>
+      <xs:element name="fileExtName" type="xs:string" default="wav" minOccurs="0"/>
+      <xs:element name="codecMimeTypes" type="xs:string" default="audio/wav,audio/pcmu" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <!-- ExecutionEngine type definitions-->
+  <xs:simpleType name="executionEngineStackSizeType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="100"/>
+      <xs:maxInclusive value="10000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="executionEngineCallManagerWaitTimeType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="3000"/>
+      <xs:maxInclusive value="100000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="executionEngineAcceptTimeoutType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="3000"/>
+      <xs:maxInclusive value="3600000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="executionEngineCreateCallAdditionalTimeoutType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="10000"/>
+      <xs:maxInclusive value="30000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="executionEngineWatchdogTimeoutType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="60000"/>
+      <xs:maxInclusive value="600000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="executionEngineVxmlPoolSizeType">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="executionEngineCcxmlPoolSizeType">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- mediacontentmanager -->
+  <xs:simpleType name="mediaContentManagerPolicyType">
+    <xs:annotation>
+      <xs:documentation>
+                        			Enumeration of policy policies.
+                        			lfu=  Least frequently used
+                        			fifo= First in first out
+                        			lru=  Least recently used)
+                 		</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="fifo"/>
+      <xs:enumeration value="lfu"/>
+      <xs:enumeration value="lru"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- operateandmaintainmanager-->
+  <xs:complexType name="ommServiceEnablersType">
+    <xs:sequence>
+      <xs:element name="serviceEnabler" type="serviceEnablerType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="serviceEnablerType" mixed="true">
+    <xs:all>
+      <xs:element name="initThreshold" type="xs:positiveInteger" minOccurs="0"/>
+      <xs:element name="lowWatermark" type="xs:nonNegativeInteger" minOccurs="0"/>
+      <xs:element name="highWatermark" type="xs:nonNegativeInteger" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+</xs:schema>

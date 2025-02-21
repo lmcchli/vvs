@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml application="subdialog_10a.vxml" version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <!-- Not much happens here, we let the FIA fall over the end and
+exit which will play the prompt from the calling document-->
+    <form>
+        <block>
+            <log>In the subdialog</log>
+        </block>
+    </form>
+</vxml>

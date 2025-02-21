@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<vxml version="2.0" application="start.vxml" xmlns="http://www.w3.org/2001/vxml">
+
+	<var name="foo" expr="'your mother'" />
+	<var name="bar" expr="'your daddi'" />
+	<script>
+		function test() {return true;}	
+	</script>
+	
+	<form>
+		<block>
+			Alternative text 1
+			<if cond="test()">
+				Hello <value expr="foo" />
+			<else />
+				Tadam <value expr="bar" /> blam
+			</if>
+				
+					Alternative text 2
+			</block>
+	</form>
+</vxml>

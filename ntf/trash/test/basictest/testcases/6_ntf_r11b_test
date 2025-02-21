@@ -1,0 +1,56 @@
+################################################################################
+#                       NTF - BASIC TEST SPECIFICATION                         #
+#                                                                              #
+# Author:      ermjnil                                                         #
+# Date:        2006-10-19                                                      #
+# Description: Test cases in this file will cover the selfdiag script threads, #
+#	       processes and collectdata.				       #
+#              Test cases shall be executed in order with start of TC0.        #
+# Test Tools:  NTF basictest send script                                       #
+################################################################################
+
+TC0: Verify that the selfdiag script 'threads'  is executed with
+     successful test result.
+     Action: Run the command <NTF_HOME>/selfdiag/testcases/component/threads
+     Result: No error message shall be printed and the value of $?
+     shall be 0.
+
+TC1: Verify that the selfdiag script 'process' is executed with
+     successful test result.
+     Action: Run the command <NTF_HOME>/selfdiag/testcases/component/processes
+     Result: No error message shall be printed and the value of $?
+     shall be 0.
+
+TC2: Verify that the selfdiag script collectdata is executed with
+     successful test result.
+     Action: Run the command <NTF_HOME>/selfdiag/selfdiag -c
+     Result: No error message shall be printed for collectdata and a
+     result file shall printed in directory /opt/selfdiag/ntf.
+
+TC3: Verify that the parameter scheduled_delivery_time is set to default
+     value (3 seconds) in SMS when sending a fax autoprint message.
+     Pre-requirements: Activate autoprint fax for the test user.
+     Set the SMS-C for the user to a SMPP SMS-C.
+     Action: Send a autoprint fax message to the test user.
+     Result: An SMS shalll be received in the SMS-C and the scheduled_delivery_time
+     parameter value shall be equal to '000000000003000R'.
+
+TC4: Verify that the parameter scheduled_delivery_time is set to 3605
+     seconds in SMS when sending a fax autoprint message.
+     Pre-requirements: Activate autoprint fax for the test user.
+     Set the configuration parameter "delayautoprintfaxsms" to '3605' seconds in
+     file notification.cfg.
+     Set the SMS-C for the user to a SMPP SMS-C.
+     Action: Send a autoprint fax message to the test user.
+     Result: An SMS shalll be received in the SMS-C and the scheduled_delivery_time
+     parameter value shall be equal to '000000010005000R'.
+
+TC5: Verify that the parameter "First deliver time relative" is set to 1 hour
+     in SMS when sending a fax autoprint message.
+     Pre-requirements: Activate autoprint fax for the test user.
+     Set the configuration parameter "delayautoprintfaxsms" to '3605' seconds in
+     file notification.cfg.
+     Set the SMS-C for the user to a CIMD2 SMS-C.
+     Action: Send a autoprint fax message to the test user.
+     Result: An SMS shalll be received in the SMS-C and the parameter 053
+     value shall be equal to '1'.

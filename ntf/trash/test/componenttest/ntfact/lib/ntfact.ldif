@@ -1,0 +1,1512 @@
+dn: o=mobeon.com
+objectClass: top
+objectClass: organization
+objectClass: nsmanageddomain
+objectClass: emCommunity
+objectClass: emProviderCommunity
+description: top level node in the Organization tree
+nsNumUsers: 1
+o: mobeon.com
+
+dn: cn=Directory Administrators, o=mobeon.com
+objectClass: top
+objectClass: groupofuniquenames
+cn: Directory Administrators
+
+dn: cn=Community Administrators, o=mobeon.com
+objectClass: top
+objectClass: groupofuniquenames
+uniqueMember: uniqueidentifier=um9999999999999999,o=mobeon.com
+cn: Community Administrators
+
+dn: ou=Directory Administrators, o=mobeon.com
+ou: Directory Administrators
+objectClass: top
+objectClass: organizationalunit
+description: Entities with administrative access to MUR.
+
+dn: cn=Subscriber Administrators,ou=Directory Administrators, o=mobeon.com
+objectClass: top
+objectClass: groupofuniquenames
+description: Members of this group are allowed to administer subscribers in M
+ UR.
+cn: Subscriber Administrators
+
+dn: cn=Administrators,ou=Directory Administrators, o=mobeon.com
+description: Members of this group are allowed to administer all in MUR.
+objectClass: top
+objectClass: groupofuniquenames
+uniqueMember: uniqueidentifier=um9999999999999999,o=mobeon.com
+uniqueMember: uid=admin,ou=Directory Administrators,o=mobeon.com
+uniqueMember: uid=provadm,ou=Directory Administrators,o=mobeon.com
+uniqueMember: uid=admin, ou=Administrators, ou=TopologyManagement, o=Netscape
+ Root
+cn: Administrators
+
+dn: ou=Services, o=mobeon.com
+ou: Services
+objectClass: top
+objectClass: organizationalunit
+
+dn: emservicename=msgtype_email,ou=Services, o=mobeon.com
+emServiceName: msgtype_email
+objectClass: top
+objectClass: emservice
+objectClass: emMessageTypeService
+
+dn: emservicename=msgtype_voice,ou=Services, o=mobeon.com
+emServiceName: msgtype_voice
+objectClass: top
+objectClass: emservice
+objectClass: emMessageTypeService
+
+dn: emservicename=msgtype_video,ou=Services, o=mobeon.com
+emServiceName: msgtype_video
+objectClass: top
+objectClass: emservice
+objectClass: emMessageTypeService
+
+dn: emservicename=notification_filters,ou=Services, o=mobeon.com
+emServiceName: notification_filters
+objectClass: top
+objectClass: emservice
+objectClass: emNotificationService
+
+dn: emservicename=tui,ou=Services, o=mobeon.com
+emServiceName: tui
+objectClass: top
+objectClass: emservice
+objectClass: emTelephonyUIService
+
+dn: emservicename=call_handling,ou=Services, o=mobeon.com
+emServiceName: call_handling
+objectClass: top
+objectClass: emservice
+objectClass: emTelephonyUIService
+
+dn: emservicename=send_sms,ou=Services, o=mobeon.com
+emServiceName: send_sms
+objectClass: top
+objectClass: emservice
+objectClass: emMessageTypeService
+
+dn: emservicename=external_mail,ou=Services, o=mobeon.com
+emServiceName: external_mail
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=message_recovery,ou=Services, o=mobeon.com
+emServiceName: message_recovery
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=sms_notification,ou=Services, o=mobeon.com
+emServiceName: sms_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=mms_notification,ou=Services, o=mobeon.com
+emServiceName: mms_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=mwi_notification,ou=services, o=mobeon.com
+emServiceName: mwi_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=outdial_notification,ou=services, o=mobeon.com
+emServiceName: outdial_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=slamdown_notification,ou=services, o=mobeon.com
+emServiceName: slamdown_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=wappush_notification,ou=Services, o=mobeon.com
+emServiceName: wappush_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=callMWI_notification,ou=Services, o=mobeon.com
+emServiceName: callMWI_notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicename=address_book,ou=Services, o=mobeon.com
+emServiceName: address_book
+objectClass: top
+objectClass: emservice
+objectClass: emaddressbookservice
+
+dn: emservicename=wapmail,ou=Services, o=mobeon.com
+emServiceName: wapmail
+empresentationtype: wml
+objectClass: top
+objectClass: emservice
+objectClass: emSubscriberGUIService
+objectClass: empresentation
+
+dn: emservicename=webmail,ou=Services, o=mobeon.com
+emServiceName: webmail
+empresentationtype: html
+objectClass: top
+objectClass: emservice
+objectClass: emSubscriberGUIService
+objectClass: empresentation
+
+dn: emservicename=web_voicemail,ou=Services, o=mobeon.com
+emServiceName: web_voicemail
+empresentationtype: html
+objectClass: top
+objectClass: emservice
+objectClass: emSubscriberGUIService
+objectClass: empresentation
+
+dn: emservicename=calendar,ou=Services, o=mobeon.com
+emServiceName: calendar
+empresentationtype: html
+objectClass: top
+objectClass: emservice
+objectClass: emSubscriberGUIService
+objectClass: empresentation
+
+dn: emservicename=MIB_management,ou=Services, o=mobeon.com
+emServiceName: MIB_management
+empresentationtype: html
+objectClass: top
+objectClass: emservice
+objectClass: emcmservice
+objectClass: empresentation
+
+dn: emservicename=config_management,ou=Services, o=mobeon.com
+emServiceName: config_management
+empresentationtype: html
+objectClass: top
+objectClass: emservice
+objectClass: emcmservice
+objectClass: empresentation
+
+dn: emservicename=prerecordedgreeting_tui,ou=Services, o=mobeon.com
+emServiceName: prerecordedgreeting_tui
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=prerecordedgreeting_email,ou=Services, o=mobeon.com
+emServiceName: prerecordedgreeting_email
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=multiline,ou=Services, o=mobeon.com
+emServiceName: multiline
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=future_delivery,ou=Services, o=mobeon.com
+emServiceName: future_delivery
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=caller_dependent_greeting,ou=Services, o=mobeon.com
+emServiceName: caller_dependent_greeting
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=external_voicemsg,ou=Services, o=mobeon.com
+emServiceName: external_voicemsg
+objectClass: top
+objectClass: emservice
+
+dn: emservicename=FixedMWI_Notification,ou=services, o=mobeon.com
+emServiceName: FixedMWI_Notification
+objectClass: top
+objectClass: emservice
+objectClass: emnotificationservice
+
+dn: emservicecollectionname=All_services,ou=Services, o=mobeon.com
+emServiceCollectionName: All_services
+emServiceDn: emservicename=webmail,ou=Services,o=mobeon.com
+emServiceDn: emservicename=wapmail,ou=Services,o=mobeon.com
+emServiceDn: emservicename=address_book,ou=Services,o=mobeon.com
+emServiceDn: emservicename=sms_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=mms_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=outdial_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=slamdown_notification, ou=services,o=mobeon.com
+emServiceDn: emservicename=mwi_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=wappush_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=callMWI_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=msgtype_email,ou=Services,o=mobeon.com
+emServiceDn: emservicename=msgtype_voice,ou=Services,o=mobeon.com
+emServiceDn: emservicename=notification_filters,ou=Services,o=mobeon.com
+emServiceDn: emservicename=tui,ou=Services,o=mobeon.com
+emServiceDn: emservicename=call_handling,ou=Services,o=mobeon.com
+emServiceDn: emservicename=send_sms,ou=Services,o=mobeon.com
+emServiceDn: emservicename=external_mail,ou=Services,o=mobeon.com
+emServiceDn: emservicename=MIB_management,ou=Services,o=mobeon.com
+emServiceDn: emservicename=config_management,ou=Services,o=mobeon.com
+emServiceDn: emservicename=prerecordedgreeting_tui,ou=Services,o=mobeon.com
+emServiceDn: emservicename=prerecordedgreeting_email,ou=Services,o=mobeon.com
+emServiceDn: emservicename=multiline,ou=Services,o=mobeon.com
+emServiceDn: emservicename=future_delivery,ou=Services,o=mobeon.com
+emServiceDn: emservicename=caller_dependent_greeting,ou=Services,o=mobeon.com
+emServiceDn: emservicename=external_voicemsg,ou=Services,o=mobeon.com
+emServiceDn: emservicename=FixedMWI_Notification,ou=services,o=mobeon.com
+emServiceDn: emservicename=msgtype_video,ou=Services,o=mobeon.com
+objectClass: top
+objectClass: emservicecollection
+mailQuota: 0
+
+dn: emservicecollectionname=Subscriber_services,ou=Services, o=mobeon.com
+emServiceCollectionName: Subscriber_services
+emServiceDn: emservicename=webmail,ou=Services,o=mobeon.com
+emServiceDn: emservicename=wapmail,ou=Services,o=mobeon.com
+emServiceDn: emservicename=address_book,ou=Services,o=mobeon.com
+emServiceDn: emservicename=sms_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=mms_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=outdial_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=slamdown_notification, ou=services,o=mobeon.com
+emServiceDn: emservicename=mwi_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=wappush_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=callMWI_notification,ou=Services,o=mobeon.com
+emServiceDn: emservicename=msgtype_email,ou=Services,o=mobeon.com
+emServiceDn: emservicename=msgtype_voice,ou=Services,o=mobeon.com
+emServiceDn: emservicename=notification_filters,ou=Services,o=mobeon.com
+emServiceDn: emservicename=tui,ou=Services,o=mobeon.com
+emServiceDn: emservicename=call_handling,ou=Services,o=mobeon.com
+emServiceDn: emservicename=send_sms,ou=Services,o=mobeon.com
+emServiceDn: emservicename=external_mail,ou=Services,o=mobeon.com
+emServiceDn: emservicename=prerecordedgreeting_tui,ou=Services,o=mobeon.com
+emServiceDn: emservicename=prerecordedgreeting_email,ou=Services,o=mobeon.com
+emServiceDn: emservicename=multiline,ou=Services,o=mobeon.com
+emServiceDn: emservicename=future_delivery,ou=Services,o=mobeon.com
+emServiceDn: emservicename=caller_dependent_greeting,ou=Services,o=mobeon.com
+emServiceDn: emservicename=external_voicemsg,ou=Services,o=mobeon.com
+emServiceDn: emservicename=FixedMWI_Notification,ou=services,o=mobeon.com
+emServiceDn: emservicename=msgtype_video,ou=Services,o=mobeon.com
+objectClass: top
+objectClass: emservicecollection
+mailQuota: 0
+
+dn: emservicecollectionname=Super,ou=Services, o=mobeon.com
+emServiceCollectionName: Super
+emServiceDn: emservicename=MIB_management,ou=Services,o=mobeon.com
+emServiceDn: emservicename=config_management,ou=Services,o=mobeon.com
+objectClass: top
+objectClass: emservicecollection
+mailQuota: 0
+
+dn: emservicecollectionname=Community,ou=Services, o=mobeon.com
+emServiceCollectionName: Community
+emServiceDn: emservicename=MIB_management,ou=Services,o=mobeon.com
+emServiceDn: emservicename=config_management,ou=Services,o=mobeon.com
+objectClass: top
+objectClass: emservicecollection
+mailQuota: 0
+
+dn: emservicecollectionname=User,ou=Services, o=mobeon.com
+emServiceCollectionName: User
+objectClass: top
+objectClass: emservicecollection
+mailQuota: 0
+
+dn: authorityname=um,ou=Directory Administrators, o=mobeon.com
+authorityname: um
+emAdminHostCounter: 1
+emCosCounter: 3
+objectClass: globalstate
+objectClass: top
+objectClass: emGlobalState
+uniqueidentifiercounter: 4
+emCommunityCounter: 2
+
+dn: uniqueidentifier=um9999999999999999, o=mobeon.com
+emAdministratorType: super
+givenName: umsaroot
+sn: umsaroot
+userPassword:: e1NTSEF9MnYyWGdVa0UvT0krdW9RcGppMnhDdWlGS2ppZ0lFdEUzbVE0V2c9PQ
+ ==
+mailUserStatus: inactive
+ou: Administrators
+emServiceDn: emservicecollectionname=Super,ou=Services,o=mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: emAdministrator
+objectClass: inetMailUser
+uid: umsaroot
+preferredLanguage: en
+cn: umsaroot
+uniqueIdentifier: um9999999999999999
+
+dn: uid=admin,ou=Directory Administrators, o=mobeon.com
+mailUserStatus: inactive
+userPassword:: e1NTSEF9WDFrRHVYL2tZVEtIaTVYcWpwQ1ZteDJiZmJlUGN0bE5HMVNnTkE9PQ
+ ==
+uid: admin
+ou: Administrators
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: inetMailUser
+givenName: System
+sn: Administrator
+cn: System Administrator
+
+dn: uid=provadm,ou=Directory Administrators, o=mobeon.com
+mailUserStatus: inactive
+userPassword:: e1NTSEF9UkZYeGRJaFRyOEpEd2hzbThwMXFhcDZhRXJHYVhXSmRIVitRY2c9PQ
+ ==
+uid: provadm
+ou: Administrators
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: inetMailUser
+givenName: System
+sn: Administrator
+cn: System Administrator
+
+dn: ou=groups, o=mobeon.com
+ou: groups
+objectClass: top
+objectClass: organizationalunit
+
+dn: cn=Service Administrators,ou=Groups, o=mobeon.com
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: nsManagedDeptAdminGroup
+uniqueMember: uid=ServiceAdmin, ou=People,o=mobeon.com
+uniqueMember: uid=admin, ou=People,o=mobeon.com
+cn: Service Administrators
+
+dn: cn=Messaging End User Administrators Group,ou=Groups, o=mobeon.com
+objectClass: top
+objectClass: groupofuniquenames
+uniqueMember: uid=msg-admin-renault.lab.mobeon.com-20070314144959Z,ou=People,
+  o=mobeon.com
+cn: Messaging End User Administrators Group
+
+dn: ou=People, o=mobeon.com
+ou: People
+objectClass: top
+objectClass: organizationalUnit
+
+dn: cn=Domain Administrators,ou=Groups, o=mobeon.com
+nsMaxUsers: Unlimited
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: inetMailAdministrator
+objectClass: nsManagedDept
+nsNumUsers: 1
+cn: Domain Administrators
+mailAdminRole: storeadmin
+
+dn: uid=ServiceAdmin,ou=People, o=mobeon.com
+givenName: Service
+objectClass: top
+objectClass: person
+objectClass: inetorgperson
+objectClass: organizationalPerson
+objectClass: inetUser
+objectClass: ipUser
+objectClass: userPresenceProfile
+objectClass: inetMailUser
+objectClass: inetLocalMailRecipient
+objectClass: nsManagedPerson
+nsdaCapability: mailListCreate
+userPassword:: e1NTSEF9K3VheTVWWWorbWkrUWtFamJMaFM2azdYcEtPUEMrdEI1VHNQY2c9PQ
+ ==
+mailAlternateAddress: svcadmin@lab.mobeon.com
+mailQuota: -1
+uid: ServiceAdmin
+mail: Service.Administrator@lab.mobeon.com
+cn: Service Administrator
+initials: SA
+dataSource: Sun ONE Messaging Server Installer
+mailDeliveryOption: mailbox
+mailUserStatus: active
+inetUserStatus: active
+mailHost: renault.lab.mobeon.com
+sn: Administrator
+mailMsgQuota: -1
+memberOf: cn=Service Administrators,ou=Groups,o=mobeon.com
+
+dn: cn=Postmaster,ou=Groups, o=mobeon.com
+dataSource: Sun ONE Messaging Server Installer
+owner: uid=ServiceAdmin,ou=People,o=mobeon.com
+mgmanJoinability: NONE
+mailAlternateAddress: postmast@lab.mobeon.com
+mail: postmaster@lab.mobeon.com
+multiLineDescription: Postmaster group for domain lab.mobeon.com
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: inetMailGroup
+objectClass: inetLocalMailRecipient
+objectClass: inetMailGroupManagement
+objectClass: nsManagedMailList
+inetMailGroupStatus: active
+cn: Postmaster
+mgrpRFC822MailMember: root@renault.lab.mobeon.com
+
+dn: uid=msg-admin-renault.lab.mobeon.com-20070314144959Z,ou=People, o=mobeon.
+ com
+userPassword:: e1NTSEF9aHdCMURLcnlMMTFkSUwxbG1lVkNzZFp1bGl5VEpnY3ZpUjFIWVE9PQ
+ ==
+uid: msg-admin-renault.lab.mobeon.com-20070314144959Z
+objectClass: top
+objectClass: person
+objectClass: inetorgperson
+objectClass: organizationalPerson
+givenName: Messaging End User
+sn: Administrator
+cn: Messaging End User Administrator
+
+dn: ou=provisioning, o=mobeon.com
+ou: provisioning
+objectClass: top
+objectClass: organizationalunit
+
+dn: cn=renault.lab.mobeon.com,ou=provisioning, o=mobeon.com
+emmscounter: 0
+emmsenabled: on
+objectClass: top
+objectClass: emcounters
+emmszone: unspecified
+emmslimit: 300000
+cn: renault.lab.mobeon.com
+
+dn: ou=C1, o=mobeon.com
+ou: C1
+objectClass: top
+objectClass: organizationalUnit
+objectClass: emCommunity
+objectClass: emEndUserCommunity
+emAllowedMailHosts: renault.lab.mobeon.com
+emAllowedMailDomains: lab.mobeon.com
+cn: com1
+
+dn: cn=Community Administrators,ou=C1, o=mobeon.com
+objectClass: top
+objectClass: groupOfUniqueNames
+uniqueMember: uniqueidentifier=um1,ou=C1,o=mobeon.com
+cn: Community Administrators
+
+dn: cos=1,ou=C1, o=mobeon.com
+MsgLenMaxVoice: 180
+MaxLoginLockout: 6
+GreetingSecMax: 60
+faxenabled: yes
+emMaxGroupMember: 9
+COS: 1
+fastloginenabled: yes
+emOutboundCallTL: 0
+emMsgLenMaxVideo: 180
+emNotRetrievedVoiceMsg: no
+MessageInventory: yes
+messageplayvideo: both
+maxsnrnototry: 3
+PhoneNumberCallerAccessSection: CALLEROUTDIAL
+passwordMaxLength: 8
+SubSearchBase: o=mobeon.com
+emServiceDn: emservicename=webmail, ou=services, o=mobeon.com
+emServiceDn: emservicename=wapmail, ou=services, o=mobeon.com
+emServiceDn: emservicename=msgtype_email, ou=services, o=mobeon.com
+emServiceDn: emservicename=msgtype_voice, ou=services, o=mobeon.com
+emServiceDn: emservicename=msgtype_video, ou=services, o=mobeon.com
+emServiceDn: emservicename=sms_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=mms_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=mwi_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=outdial_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=wappush_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=call_handling, ou=services, o=mobeon.com
+emServiceDn: emservicename=external_mail, ou=services, o=mobeon.com
+emServiceDn: emservicename=web_voicemail, ou=services, o=mobeon.com
+emServiceDn: emservicename=slamdown_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=future_delivery, ou=services, o=mobeon.com
+emServiceDn: emservicename=prerecordedgreeting_tui, ou=services, o=mobeon.com
+emServiceDn: emservicename=multiline, ou=services, o=mobeon.com
+emServiceDn: emservicename=pager_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=callMWI_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=fixedmwi_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=caller_dependent_greeting, ou=services, o=mobeon.c
+ om
+emServiceDn: emservicename=family_mailbox, ou=services, o=mobeon.com
+emServiceDn: emservicename=flashmessagenotification, ou=services, o=mobeon.co
+ m
+emNoOfmailquota: 10
+emWAPStart: mainmenu
+objectClass: top
+objectClass: confcos
+objectClass: emservicecollection
+emOutdialOnlyToSender: no
+UrgentMsgPlay: yes
+PasswdLenMin: 4
+COSname: c1
+emServiceCollectionName: 1
+mailQuota: 1572864
+InHoursDOW: 12345
+DLMax: 10
+DLEntriesMax: 65
+CDGMax: 10
+emFTLFunctions: 00,F,PIN:M,SPO:M,ACG:M
+messageplayemail: both
+emVUIaccess: std
+emCNL: yes
+IncludeSpokenName: yes
+emMaxExtAccount: 5
+ttsemailenabled: yes
+passwordskipavailable: yes
+emOutdialSequence: default
+reinventory: yes
+subscriberxfer: yes
+emMaxSecNb: 4
+EOMsgWarning: 30
+InHoursStart: 0800
+passwordMinLength: 4
+callerxfer: no
+messageplayvoice: both
+diskspaceremainingwarninglevel: .3
+emFilter: 1;y;a;evf;SMS;s;1;;;;;default;;
+InHoursEnd: 1630
+emAutoPrintFax: no
+emODLpinskip: yes
+PasswdLenMax: 4
+AutoPlay: yes
+passwordskipenabled: yes
+AnsweringServiceList: LM
+callerxfertocoverage: yes
+fastloginavailable: yes
+PhoneNumberDialingSection: SUBSCRIBEROUTDIAL
+emNotifExpTime: 24
+
+dn: cos=2,ou=C1, o=mobeon.com
+MsgLenMaxVoice: 180
+MaxLoginLockout: 6
+GreetingSecMax: 60
+faxenabled: yes
+emMaxGroupMember: 9
+COS: 2
+fastloginenabled: yes
+emOutboundCallTL: 0
+emMsgLenMaxVideo: 180
+emNotRetrievedVoiceMsg: no
+MessageInventory: yes
+messageplayvideo: both
+maxsnrnototry: 3
+PhoneNumberCallerAccessSection: CALLEROUTDIAL
+passwordMaxLength: 8
+SubSearchBase: o=mobeon.com
+emServiceDn: emservicename=webmail, ou=services, o=mobeon.com
+emServiceDn: emservicename=wapmail, ou=services, o=mobeon.com
+emServiceDn: emservicename=msgtype_email, ou=services, o=mobeon.com
+emServiceDn: emservicename=msgtype_voice, ou=services, o=mobeon.com
+emServiceDn: emservicename=msgtype_video, ou=services, o=mobeon.com
+emServiceDn: emservicename=sms_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=mms_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=mwi_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=outdial_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=wappush_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=address_book, ou=services, o=mobeon.com
+emServiceDn: emservicename=calendar, ou=services, o=mobeon.com
+emServiceDn: emservicename=call_handling, ou=services, o=mobeon.com
+emServiceDn: emservicename=external_mail, ou=services, o=mobeon.com
+emServiceDn: emservicename=web_voicemail, ou=services, o=mobeon.com
+emServiceDn: emservicename=slamdown_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=future_delivery, ou=services, o=mobeon.com
+emServiceDn: emservicename=prerecordedgreeting_tui, ou=services, o=mobeon.com
+emServiceDn: emservicename=multiline, ou=services, o=mobeon.com
+emServiceDn: emservicename=pager_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=callMWI_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=fixedmwi_notification, ou=services, o=mobeon.com
+emServiceDn: emservicename=caller_dependent_greeting, ou=services, o=mobeon.c
+ om
+emServiceDn: emservicename=family_mailbox, ou=services, o=mobeon.com
+emServiceDn: emservicename=flashmessagenotification, ou=services, o=mobeon.co
+ m
+emNoOfmailquota: 10
+emWAPStart: mainmenu
+objectClass: top
+objectClass: confcos
+objectClass: emservicecollection
+emOutdialOnlyToSender: no
+UrgentMsgPlay: yes
+PasswdLenMin: 4
+COSname: c2
+emServiceCollectionName: 2
+mailQuota: 1572864
+InHoursDOW: 12345
+DLMax: 10
+DLEntriesMax: 65
+CDGMax: 10
+emFTLFunctions: 00,F,PIN:M,SPO:M,ACG:M
+messageplayemail: both
+emVUIaccess: std
+emCNL: yes
+IncludeSpokenName: yes
+emMaxExtAccount: 5
+ttsemailenabled: yes
+passwordskipavailable: yes
+emOutdialSequence: default
+reinventory: yes
+subscriberxfer: yes
+emMaxSecNb: 4
+EOMsgWarning: 30
+InHoursStart: 0800
+passwordMinLength: 4
+callerxfer: no
+messageplayvoice: both
+diskspaceremainingwarninglevel: .3
+emFilter: 1;y;a;evf;SMS;s;1;;;;;default;;
+InHoursEnd: 1630
+emAutoPrintFax: no
+emODLpinskip: yes
+PasswdLenMax: 4
+AutoPlay: yes
+passwordskipenabled: yes
+AnsweringServiceList: LM
+callerxfertocoverage: yes
+fastloginavailable: yes
+PhoneNumberDialingSection: SUBSCRIBEROUTDIAL
+emNotifExpTime: 24
+
+dn: uniqueidentifier=um1,ou=C1, o=mobeon.com
+emAdministratorType: user
+givenName: Mr Com1
+sn: Admin
+ou: Administrators
+emAccessRights: addusers
+emAccessRights: modifyusers
+emAccessRights: templates
+emAccessRights: administrators
+emServiceDn: emServiceCollectionName=User,ou=Services,o=mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emAdministrator
+uid: com1root
+preferredLanguage: en
+cn: Mr Com1 Admin
+uniqueIdentifier: um1
+
+dn: ou=Non-Subscribers, o=mobeon.com
+ou: Non-Subscribers
+objectClass: top
+objectClass: organizationalunit
+
+dn: uid=gnotification1_0,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_0@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_0
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_1,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_1@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_1
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_2,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_2@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_2
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_3,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_3@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_3
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_4,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_4@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_4
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_5,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_5@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_5
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_6,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_6@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_6
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_7,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_7@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_7
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_8,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_8@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_8
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_9,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_9@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_9
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_10,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_10@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_10
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_11,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_11@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_11
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_12,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_12@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_12
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_13,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_13@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_13
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_14,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_14@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_14
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_15,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_15@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_15
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_16,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_16@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_16
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_17,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_17@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_17
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_18,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_18@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_18
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_19,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_19@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_19
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_20,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_20@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_20
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_21,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_21@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_21
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_22,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_22@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_22
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_23,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_23@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_23
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_24,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_24@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_24
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_25,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_25@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_25
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_26,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_26@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_26
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_27,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_27@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_27
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_28,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_28@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_28
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=gnotification1_29,ou=Non-Subscribers, o=mobeon.com
+givenName: General
+sn: Notification
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: gnotification1_29@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: gnotification1_29
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: General Notication
+
+dn: uid=notification.off.renault.lab.mobeon.com,ou=Non-Subscribers, o=mobeon.
+ com
+givenName: notification
+sn: off
+userPassword:: e1NIQX1NWDhlZGg4dnFvMm5nYVIySzUzTUxGeXRJSm89
+mail: notification.off@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+uid: notification.off.renault.lab.mobeon.com
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: notification off
+
+dn: uniqueidentifier=um3,ou=c1, o=mobeon.com
+sn: sn3
+xamtevatitle: GrtAdmin
+telephoneNumber: 99993
+userPassword:: e1NTSEF9U0lnUkJuR1R6UkEzaWJKbE1NOW5yNHZmVkF3SVl1eEtrVUU5S3c9PQ
+ ==
+ou: Administrators
+emFolderCnt: 6
+mail: sn3@renault.lab.mobeon.com
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: LIP
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+objectClass: emgrtadmin
+uid: GrtAdm_3
+mailHost: renault.lab.mobeon.com
+mailDeliveryOption: mailbox
+cn: cn3
+uniqueIdentifier: um3
+
+dn: billingnumber=99993,uniqueidentifier=um3,ou=c1, o=mobeon.com
+version: 6.1
+Password: 2u3a0C4W3V2k1B16
+objectClass: top
+objectClass: appUM
+objectClass: confmsgbox
+BillingNumber: 99993
+
+dn: uniqueidentifier=um1p19,ou=c1, o=mobeon.com
+emSMPPcenterid: auto
+Password: 3Z191R240A0L472u
+preferredLanguage: en
+givenName: Ntf
+emPreferredDateFormat: yyyy/MM/dd
+uniqueIdentifier: um1p19
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emnotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: lip
+userPassword:: e1NTSEF9STNnZjZjR3pwZzJqSVUvMEFJWGMxSi8xcWc0b0xlMStFakdjQmc9PQ
+ ==
+mailQuota: 1572864
+uid: 5551001
+mail: ntfact1@lab.mobeon.com
+cn: 5551001
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 5551001
+mailDeliveryOption: mailbox
+emServiceDn: cos=1,ou=C1,o=mobeon.com
+gender: M
+l: 0
+mailHost: renault.lab.mobeon.com
+sn: Act
+umpassword: 7Y0i1J2Q6T3R750R
+emNotifNumber: 5551001
+BadLoginCount: 0
+emPreferredTimeFormat: 24
+
+dn: billingnumber=5551001,uniqueidentifier=um1p19,ou=c1, o=mobeon.com
+admininfo: uniqueidentifier=um3
+COSDN: cos=1,ou=C1,o=mobeon.com
+subscribertimezone: GMT
+objectClass: top
+objectClass: confmsgbox
+objectClass: appum
+AnsweringService: LM
+BillingNumber: 5551001
+
+dn: uniqueidentifier=um1p20,ou=c1, o=mobeon.com
+emSMPPcenterid: auto
+Password: 3Z191R240A0L472u
+preferredLanguage: en
+givenName: Ntf2
+emPreferredDateFormat: yyyy/MM/dd
+uniqueIdentifier: um1p20
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emnotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: lip
+userPassword:: e1NTSEF9WE14aTBPZktoRHNLZEo3bGNTdE5tZTFacjV3bkdmd1BYeCtyVHc9PQ
+ ==
+mailQuota: 1572864
+uid: 5551002
+mail: ntfact2@lab.mobeon.com
+cn: 5551002
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 5551002
+mailDeliveryOption: mailbox
+emServiceDn: cos=1,ou=C1,o=mobeon.com
+gender: M
+l: 0
+mailHost: renault.lab.mobeon.com
+sn: Act2
+umpassword: 7Y0i1J2Q6T3R750R
+emNotifNumber: 5551002
+BadLoginCount: 0
+emPreferredTimeFormat: 24
+
+dn: billingnumber=5551002,uniqueidentifier=um1p20,ou=c1, o=mobeon.com
+admininfo: uniqueidentifier=um3
+COSDN: cos=1,ou=C1,o=mobeon.com
+subscribertimezone: GMT
+objectClass: top
+objectClass: confmsgbox
+objectClass: appum
+AnsweringService: LM
+BillingNumber: 5551002
+
+dn: uniqueidentifier=um1p21,ou=c1, o=mobeon.com
+emSMPPcenterid: auto
+Password: 3Z191R240A0L472u
+preferredLanguage: en
+givenName: Ntf3
+emPreferredDateFormat: yyyy/MM/dd
+uniqueIdentifier: um1p21
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emnotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: lip
+userPassword:: e1NTSEF9b3FLVGxTSTZYSG1MTGtuV0YzWWIyRHFUZyt6VmZBNHV2UjBLRHc9PQ
+ ==
+mailQuota: 1572864
+uid: 5551003
+mail: ntfact3@lab.mobeon.com
+cn: 5551003
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 5551003
+mailDeliveryOption: mailbox
+emServiceDn: cos=1,ou=C1,o=mobeon.com
+gender: M
+l: 0
+mailHost: renault.lab.mobeon.com
+sn: Act3
+umpassword: 7Y0i1J2Q6T3R750R
+emNotifNumber: 5551003
+BadLoginCount: 0
+emPreferredTimeFormat: 24
+
+dn: billingnumber=5551003,uniqueidentifier=um1p21,ou=c1, o=mobeon.com
+admininfo: uniqueidentifier=um3
+COSDN: cos=1,ou=C1,o=mobeon.com
+subscribertimezone: GMT
+objectClass: top
+objectClass: confmsgbox
+objectClass: appum
+AnsweringService: LM
+BillingNumber: 5551003
+
+dn: uniqueidentifier=um1p22,ou=c1, o=mobeon.com
+emSMPPcenterid: auto
+Password: 3Z191R240A0L472u
+preferredLanguage: en
+givenName: Ntf4
+emPreferredDateFormat: yyyy/MM/dd
+uniqueIdentifier: um1p22
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emnotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: lip
+userPassword:: e1NTSEF9Y1hCdm9acGsxOGFXT0RyK1hwQ1p6bW5pdG1HckJmZEo5VGE4Wnc9PQ
+ ==
+mailQuota: 1572864
+uid: 5551004
+mail: ntfact4@lab.mobeon.com
+cn: 5551004
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 5551004
+mailDeliveryOption: mailbox
+emServiceDn: cos=2,ou=C1,o=mobeon.com
+gender: M
+l: 0
+mailHost: renault.lab.mobeon.com
+sn: Act4
+umpassword: 7Y0i1J2Q6T3R750R
+emNotifNumber: 5551004
+BadLoginCount: 0
+emPreferredTimeFormat: 24
+
+dn: billingnumber=5551004,uniqueidentifier=um1p22,ou=c1, o=mobeon.com
+admininfo: uniqueidentifier=um3
+COSDN: cos=2,ou=C1,o=mobeon.com
+subscribertimezone: GMT
+objectClass: top
+objectClass: confmsgbox
+objectClass: appum
+AnsweringService: LM
+BillingNumber: 5551004
+
+dn: uniqueidentifier=um1p23,ou=c1, o=mobeon.com
+emSMPPcenterid: auto
+Password: 3Z191R240A0L472u
+preferredLanguage: en
+givenName: Ntf5
+emPreferredDateFormat: yyyy/MM/dd
+uniqueIdentifier: um1p23
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emnotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: lip
+userPassword:: e1NTSEF9VDVFREZXR3NwRlZJYXFRR1YzdDZ5bjZQa1pUTkIrTlphQTBIS0E9PQ
+ ==
+mailQuota: 1572864
+uid: 5551005
+mail: ntfact5@lab.mobeon.com
+cn: 5551005
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 5551005
+mailDeliveryOption: mailbox
+emServiceDn: cos=2,ou=C1,o=mobeon.com
+gender: M
+l: 0
+mailHost: renault.lab.mobeon.com
+sn: Act5
+umpassword: 7Y0i1J2Q6T3R750R
+emNotifNumber: 5551005
+BadLoginCount: 0
+emPreferredTimeFormat: 24
+
+dn: billingnumber=5551005,uniqueidentifier=um1p23,ou=c1, o=mobeon.com
+admininfo: uniqueidentifier=um3
+COSDN: cos=2,ou=C1,o=mobeon.com
+subscribertimezone: GMT
+objectClass: top
+objectClass: confmsgbox
+objectClass: appum
+AnsweringService: LM
+BillingNumber: 5551005
+
+dn: uniqueidentifier=um1p24,ou=c1, o=mobeon.com
+emSMPPcenterid: auto
+Password: 3Z191R240A0L472u
+preferredLanguage: en
+givenName: Ntf6
+emPreferredDateFormat: yyyy/MM/dd
+uniqueIdentifier: um1p24
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emnotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: lip
+userPassword:: e1NTSEF9TWxIN210Y1RMblhKL3hBWmdiM1FCRHpHM0NwUEdkNDVxaDdlR2c9PQ
+ ==
+mailQuota: 1572864
+uid: 5551006
+mail: ntfact6@lab.mobeon.com
+cn: 5551006
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 5551006
+mailDeliveryOption: mailbox
+emServiceDn: cos=2,ou=C1,o=mobeon.com
+gender: M
+l: 0
+mailHost: renault.lab.mobeon.com
+sn: Act6
+umpassword: 7Y0i1J2Q6T3R750R
+emNotifNumber: 5551006
+BadLoginCount: 0
+emPreferredTimeFormat: 24
+
+dn: billingnumber=5551006,uniqueidentifier=um1p24,ou=c1, o=mobeon.com
+admininfo: uniqueidentifier=um3
+COSDN: cos=2,ou=C1,o=mobeon.com
+subscribertimezone: GMT
+objectClass: top
+objectClass: confmsgbox
+objectClass: appum
+AnsweringService: LM
+BillingNumber: 5551006
+

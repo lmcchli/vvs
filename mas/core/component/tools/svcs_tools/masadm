@@ -1,0 +1,66 @@
+#!/bin/ksh
+#*********************************************
+# These parameters exsist in rc.mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+
+# Load config values
+. ./mas.conf
+
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+BASE=$BASEDIR/MAS
+mode=$1
+
+setupEnv() {
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:$BASE/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASE/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASE/lib:$JAVA_CLASSPATH
+
+    DIRNAME=`pwd`
+
+}
+
+
+case "$mode" in
+	'start')
+		
+		setupEnv
+		cd $BASEDIR/MAS
+  	        $JAVA_HOME/bin/java -server -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main&
+		;;
+
+	'status')
+		;;
+
+	'stop')
+		;;
+
+	'restart')
+
+		;;
+
+	'enableautostart')
+		;;
+
+	'disableautostart')
+		;;
+
+	*)
+		echo "Usage: `basename $0` <start|stop|restart|enableautostart|disableautostart>"
+		exit 1
+		;;
+esac

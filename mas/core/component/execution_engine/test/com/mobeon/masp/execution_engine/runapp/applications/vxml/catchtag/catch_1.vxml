@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+  <catch>
+    <log>TCPASS VXML: Catch 1 <value expr="_message"></value></log>
+    <exit/>
+  </catch>
+  <form>
+    <block>
+      <throw event="testevent" message="someevent"/>
+       <log>TCFAIL VXML: Catch 1</log>
+    </block>
+  </form>
+</vxml>

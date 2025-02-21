@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="cfg"/>
+
+
+            <script>
+                cfg = mas.systemGetConfigurationParameter('mediacontentmanager.mediaobjectcache', 'policy');
+                mas.systemLog(3, 'Configuration Parameter mediacontentmanager.mediaobjectcache.resourcepath=' + cfg);
+            </script>
+
+        </block>
+    </form>
+
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105550  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

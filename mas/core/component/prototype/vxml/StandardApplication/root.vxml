@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+	<link dtmf="*9" next="disconnect.vxml" />
+	<script src="mas.js"/>
+	<!-- fire upp the application -->
+	<form>
+		<block>
+			<goto next="init.vxml"/>
+		</block>
+	</form>
+</vxml>

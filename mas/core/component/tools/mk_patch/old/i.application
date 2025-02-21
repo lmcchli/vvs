@@ -1,0 +1,197 @@
+#!/bin/sh
+# This class action script copies the files being replaced
+# into a package being constructed in $BUILD_DIR. This class
+# action script is only appropriate for regular files that
+# are installed by simply copying them into place.
+#
+# For special package objects such as editable files, the patch
+# producer must supply appropriate class action scripts.
+#
+# directory format options.
+#
+# @(#)i.script 1.6 96/05/10 SMI
+#
+# Copyright (c) 1995 by Sun Microsystems, Inc.
+# All rights reserved
+#
+PATH=/usr/sadm/bin:$PATH
+
+Patch_label=$PATCH
+ECHO="/usr/bin/echo"
+SED="/usr/bin/sed"
+PKGPROTO="/usr/bin/pkgproto"
+EXPR="/usr/bin/expr" # used by dirname
+MKDIR="/usr/bin/mkdir"
+CP="/usr/bin/cp"
+RM="/usr/bin/rm"
+MV="/usr/bin/mv"
+recovery="no"
+Pn=$$
+procIdCtr=0
+CMDS_USED="$ECHO $SED $PKGPROTO $EXPR $MKDIR $CP $RM $MV"
+LIBS_USED=""
+if [ "$PKG_INSTALL_ROOT" = "/" ]; then
+PKG_INSTALL_ROOT=""
+fi
+# Check to see if this is a patch installation retry.
+if [ "$INTERRUPTION" = "yes" ]; then
+if [ -d "$PKG_INSTALL_ROOT/var/tmp/$Patch_label.$PKGINST" ] ||
+\
+[ -d "$PATCH_BUILD_DIR/$Patch_label.$PKGINST" ]; then
+recovery="yes"
+fi
+fi
+if [ -n "$PATCH_BUILD_DIR" -a -d "$PATCH_BUILD_DIR" ]; then
+BUILD_DIR="$PATCH_BUILD_DIR/$Patch_label.$PKGINST"
+else
+BUILD_DIR="$PKG_INSTALL_ROOT/var/tmp/$Patch_label.$PKGINST"
+fi
+FILE_DIR=$BUILD_DIR/files
+RELOC_DIR=$FILE_DIR/reloc
+ROOT_DIR=$FILE_DIR/root
+BO_Deletes=$FILE_DIR/deletes
+PROGNAME=`basename $0`
+if [ "$PATCH_PROGRESSIVE" = "true" ]; then
+PATCH_NO_UNDO="true"
+fi
+# Since this is generic, figure out the class.
+Class=`echo $PROGNAME | nawk ' { print substr($0, 3) }'`
+# Since this is an update, $BASEDIR is guaranteed to be correct
+BD=${BASEDIR:-/}
+cd $BD
+#
+# First, figure out the dynamic libraries that can trip us up.
+
+#
+if [ -z "$PKG_INSTALL_ROOT" ]; then
+if [ -x /usr/bin/ldd ]; then
+LIB_LIST=`/usr/bin/ldd $CMDS_USED | sort -u | nawk '
+$1 ~ /\// { continue; }
+{ printf "%s ", $3 } '`
+else
+LIB_LIST="/usr/lib/libc.so.1 /usr/lib/libdl.so.1
+\
+/usr/lib/libw.so.1 /usr/lib/libintl.so.1 /usr/lib/libadm.so.1 \
+/usr/lib/libelf.so.1"
+fi
+fi
+#
+# Now read the list of files in this class to be replaced. If the file
+# is already in place, then this is a change and we need to copy it
+# over to the build directory if undo is allowed. If it's a new entry
+# (No $dst), then it goes in the deletes file for the backout package.
+#
+procIdCtr=0
+while read src dst; do
+if [ -z "$PKG_INSTALL_ROOT" ]; then
+Chk_Path=$dst
+for library in $LIB_LIST; do
+if [ $Chk_Path = $library ]; then
+$CP $dst $dst.$Pn
+LIBS_USED="$LIBS_USED $dst.$Pn"
+LD_PRELOAD="$LIBS_USED"
+export LD_PRELOAD
+fi
+done
+fi
+if [ "$PATCH_PROGRESSIVE" = "true" ]; then
+# If this is being used in an old-style patch, insert
+# the old-style script commands here.
+#XXXOld_CommandsXXX#
+echo >/dev/null # dummy
+fi
+if [ "${PATCH_NO_UNDO}" != "true" ]; then
+#
+# Here we construct the path to the appropriate source
+# tree for the build. First we try to strip BASEDIR. If
+# there's no BASEDIR in the path, we presume that it is
+# absolute and construct the target as an absolute path
+# by stripping PKG_INSTALL_ROOT. FS_Path is the path to
+# the file on the file system (for deletion purposes).
+# Build_Path is the path to the object in the build
+# environment.
+#
+if [ "$BD" = "/" ]; then
+FS_Path=`$ECHO $dst | $SED s@"$BD"@@`
+
+else
+FS_Path=`$ECHO $dst | $SED s@"$BD/"@@`
+fi
+# If it's an absolute path the attempt to strip the
+# BASEDIR will have failed.
+if [ $dst = $FS_Path ]; then
+if [ -z "$PKG_INSTALL_ROOT" ]; then
+FS_Path=$dst
+Build_Path="$ROOT_DIR$dst"
+else
+Build_Path="$ROOT_DIR`echo $dst | \
+sed s@"$PKG_INSTALL_ROOT"@@`"
+FS_Path=`echo $dst | \
+sed s@"$PKG_INSTALL_ROOT"@@`
+fi
+else
+Build_Path="$RELOC_DIR/$FS_Path"
+fi
+if [ -f $dst ]; then # If this is replacing something
+cd $FILE_DIR
+#
+# Construct the prototype file entry. We replace
+# the pointer to the filesystem object with the
+# build directory object.
+#
+$PKGPROTO -c $Class $dst=$FS_Path | \
+$SED -e s@=$dst@=$Build_Path@ >> \
+$BUILD_DIR/prototype
+# Now copy over the file
+if [ "$recovery" = "no" ]; then
+DirName=`dirname $Build_Path`
+$MKDIR -p $DirName
+$CP -p $dst $Build_Path
+else
+# If this file is already in the build area skip it
+if [ -f "$Build_Path" ]; then
+cd $BD
+continue
+else
+DirName=`dirname $Build_Path`
+if [ ! -d "$DirName" ]; then
+$MKDIR -p $DirName
+fi
+$CP -p $dst $Build_Path
+fi
+fi
+cd $BD
+else # It's brand new
+$ECHO $FS_Path >> $BO_Deletes
+fi
+fi
+
+# If special processing is required for each src/dst pair,
+# add that here.
+#
+#XXXSpecial_CommandsXXX#
+#
+$CP $src $dst.$$$procIdCtr
+if [ $? -ne 0 ]; then
+$RM $dst.$$$procIdCtr 1>/dev/null 2>&1
+else
+$MV -f $dst.$$$procIdCtr $dst
+for library in $LIB_LIST; do
+if [ "$library" = "$dst" ]; then
+LD_PRELOAD="$dst"
+export LD_PRELOAD
+fi
+done
+fi
+procIdCtr=`expr $procIdCtr + 1`
+done
+# If additional operations are required for this package, place
+# those package-specific commands here.
+#XXXSpecial_CommandsXXX#
+#
+# Release the dynamic libraries
+#
+for library in $LIBS_USED; do
+$RM -f $library
+done
+exit 0

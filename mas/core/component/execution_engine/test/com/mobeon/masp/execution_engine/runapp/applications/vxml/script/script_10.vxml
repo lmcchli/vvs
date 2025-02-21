@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <var name="result"></var>
+
+    <form id="uno">
+        <block>
+            <var name="i"></var>
+            <script>
+                for (i = 0; i &lt;  3; i++) {
+                result = i;
+                }
+            </script>
+
+            <if cond="result==2">
+                <log>TCPASS VXML: Script ok 1</log>
+                <else/>
+                <log>ERROR</log>
+            </if>
+        </block>
+    </form>
+</vxml>
+

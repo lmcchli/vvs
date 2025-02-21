@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+		<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+	<var name="nofm"/>
+	<var name="msglist"/>
+	<var name="msgno"/>
+	<var name="contentno"/>
+	<var name="contentlist"/>
+	<var name="mob"/>
+    <var name="subscriberExist"/>
+        <var name="greeting"/>
+    <var name="oldState"/>
+    <var name="newState"/>
+    <block>
+
+		<!-- Get hold of the sender -->
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+        <log>origPhoneNumber=<value expr="origPhoneNumber"/></log>
+         <log>unknown_sender=<value expr="unknown_sender"/></log>
+        <if cond="unknown_sender">
+				<log>TC 20105050 FAILED as the sender does not exist in MUR</log>
+        </if>
+
+        <!-- Open up his mailbox -->
+		<script>
+			mailboxid = mas.subscriberGetMailbox (origPhoneNumber);
+			mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+			mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, null);
+			nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, null, null, null);
+		</script>
+        <log>Mailoboxid=<value expr="mailboxid"/></log>
+		<log>Mailboxlistid=<value expr="mailboxlistid"/></log>
+		<log>Mailboxfolderid=<value expr="mailboxfolderid"/></log>
+		<log>nofm=<value expr="nofm"/></log>
+		<script>
+			msgno = 3;
+			msglist = mas.mailboxGetMessages (mailboxlistid);
+       </script>
+       <log>Message 3 in array has id=<value expr="msglist[3]"/></log>
+       <script>
+            oldState = mas.messageGetStoredProperty(msglist[msgno], "state");
+            var state = new Array();
+            state[0] = "read";
+            mas.messageSetStoredProperty(msglist[msgno], "state", state);
+            newState = mas.messageGetStoredProperty(msglist[msgno], "state");
+        </script>
+        <log>oldState of message=<value expr="msgno"/> is=<value expr="oldState[0]"/>, new state is <value expr="newState[0]"/> </log>
+
+
+
+
+
+	</block>
+       <field name="retrieval">
+
+        <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+        <rule id="cmnu1_main_rule">
+          <one-of>
+            <item>#</item>
+          </one-of>
+          </rule>
+        </grammar>
+
+        <prompt>
+			<audio expr="mob"/>
+		</prompt>
+
+		<prompt>
+			<audio src="beep.wav" />
+		</prompt>
+
+        <catch event="noinput">
+            <script>
+                msgno = msgno + 1;
+            </script>
+            <if cond="msgno>nofm">
+                <exit/>
+            </if>
+            <script>
+                contentlist = mas.messageGetContent (msglist[msgno]);
+                contentno = 0;
+                mob = mas.messageGetMediaObject (contentlist[contentno]);
+            </script>
+        </catch>
+
+        <filled>
+			<log>Filled !</log>
+		</filled>
+
+    </field>
+    </form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105050  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

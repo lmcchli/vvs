@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<grammar xml:lang="en-GB" version="1.0" root="grammarA">
+    <rule id="grammarA" scope="public">
+        <one-of>
+            <item> one </item>
+            <item> two </item>
+            <item> nine </item>
+        </one-of>
+    </rule>
+</grammar>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event=".">
+        <log>Ouch, caugh an event!!!</log>
+    </catch>
+
+    <form id="subaru">
+        <var name="p_test"/>
+        <block>
+            <log>TCPASS VXML: subdialog_b-001</log>
+            <log><value expr="'TCPASS VXML: p_test='+p_test"/></log>
+            <log>SESSIONVAR = <value expr="session.connection.local"/></log>
+            <return/>
+        </block>
+    </form>
+
+</vxml>

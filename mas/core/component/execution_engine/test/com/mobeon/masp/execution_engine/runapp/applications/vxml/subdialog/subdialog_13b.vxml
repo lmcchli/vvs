@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml application="subdialog_13a.vxml" version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <form id="subaru">
+
+
+        <!-- This record shall immediately trigger the buffered hangup event -->
+        <record></record>
+
+        <filled>
+            <log>TCFAIL filled</log>
+            <exit></exit>
+        </filled>
+        <block>
+            <log>TCFAIL block</log>
+            <exit></exit>
+        </block>
+
+    </form>
+
+    <catch event="connection.disconnect.hangup">
+        <log>TCPASS</log>
+        <exit/>
+    </catch>
+
+</vxml>

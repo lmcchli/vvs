@@ -1,0 +1,230 @@
+Instructions for creating MAS Application and Media Content Packages
+====================================================================
+1. P r e p a r a t i o n s 
+
+* Copy the AMCPM delivery file to a location you have write permission on, 
+and extract the deliveryfile
+# cp <deliveryfile> <amcpmhome>
+# cd <amcpmhome>
+# tar xvf <amcpmdeliveryfile>
+* Now six files are extracted
+	- mkapp.sh
+	- app_properties.cfg
+	- mkmcp.sh
+	- mcp_properties.cfg
+	- action_mas_package   # Needed for Deployment server installation
+	- job_mas_package      # Needed for Deployment server installation
+
+
+
+2. C r e a t i o n 
+------------------
+2.1 A p p l c a t i o n   P a c k a g e 
+
+2.1.1 change directory to the directory where Application make utility resides 
+# cd <amcpmhome>
+
+2.1.2 edit the properties.cfg file located in this directory
+# vi app_properties.cfg
+
+This file has the following parameters that need to be set
+The paths mentioned below is assumed to contain no other files than the 
+one that shall be included in the delivery
+vxmlfiles		This shall contain the path to where all VoiceXML files
+			resides
+ccxmlfiles		This shall contain the path to where all CCXML files 
+			resides
+ecmafiles		This shall contain the path to where all ECMA files 
+			resides
+configfiles		This shall contain the path to where the configfile and
+			schema resides
+attributemappingfiles	This shall contain the path to where the attribute 
+			mappingfile and schema resides
+name			This shall contain the name of this Application e.g. 
+			name=Vodafone.    
+productid		This shall contain the productnumber of the Application
+			e.g. productid=1/cxc 12341 235/1
+rstate			This shall contain the R-state of the prouctnumber e.g.
+			rstate=r1a.001
+service			For each service supported enter one row using the 
+			following syntax:
+			service=<servicename> <ccxmlfileforthisservice> 
+				<protocoltoaccessthisservice>
+				<porttoaccessthisservice> 
+			e.g. service=incoming_call incoming_call.ccxml sip 5060
+
+2.1.3 Create the Application Package by issuing the following command
+# ./mkapp.sh
+
+2.1.4 When done the mkapp command displays the location where the application 
+deliveryfile can be found.
+
+2.2 M e d i a   C o n t e n t   P a c k a g e 
+
+2.2.1 change directory to the directory where Application make utility resides 
+# cd <amcpmhome>
+
+2.2.2 edit the properties.cfg file located in this directory
+# vi mcp_properties.cfg
+
+This file has the following parameters that need to be set
+
+mediafiles		This shall contain the path to where all media files
+			resides
+mediacontentfiles	This shall contain the filenames (and path) to the 
+			mediacontent files.
+			For instance Media Content that is text only can be 
+			located in its own mediacontent file, see 2.2.2.1
+mediaobjectfiles	This shall contain the filenames (and path) to the 
+			mediaobject files		
+			System prompts e.g. 1.wav and 2.wav can be located in 
+			its own mediaobject file
+grammarfile		This shall contain the filename (and path) to the 
+			grammar file. See 2.2.2.2 how to use the grammar file 
+			tool to verify the number rules in a grammar file.
+name			This shall contain the name of this Application e.g. 
+			name=Vodafone.    
+type			This shall contain the type of this package e.g. 
+			type=prompt
+productid		This shall contain the productnumber of the Application
+		 	e.g. productid=1/cxc 12341 235/1
+rstate			This shall contain the R-state of the prouctnumber e.g.
+			rstate=r1a.001
+lang			This shall contain the language in the MUR format.
+voicevariant		This shall contain the voice variant e.g. 
+			voicevariant=male
+videovariant		This shall contain the video variant e.g. 
+			videovariant=blue.				
+			N O T E: only one of voicevariant and videovariant can 
+			be specified.
+audioencoding		This shall contain the encoding of the audio part of 
+			the media files 
+			e.g audioencoding=audio/pcmu
+			N O T E: The audio encoding must be specified for a 
+			video variant package as well.
+videoencoding		This shall contain the encoding of the video part of 
+			the media files e.g videoencoding=video/quicktime
+
+2.2.2.1 Text Media Content
+
+Media Content that is text only can be defined in its ows mediacontent file. 
+This is because the SCE does not automatically create the contents. An example
+of a text Media Content:
+
+Media content file:
+
+<mediacontents>
+  <mediacontent id="subject" returnall="true">
+    <qualifiers>
+      <qualifier name="forwarded" type="String" gender="None"/>
+      <qualifier name="messageType" type="String" gender="None"/>
+      <qualifier name="sender" type="MediaObject" gender="None"/>
+    </qualifiers>
+    <instance cond="(forward == 'true')">
+      <element type="text" reference="forward"/>
+    </instance>
+    <instance cond="(messageType == 'voice')">
+      <element type="text" reference="voicemessage"/>
+    </instance>
+    <instance cond="(messageType == 'video')">
+      <element type="text" reference="videomessage"/>
+    </instance>
+    <instance cond="true">
+      <element type="text" reference="from"/>
+    </instance>
+    <instance cond="true">
+      <element type="qualifier" reference="sender:MediaObject:None"/>
+    </instance>
+  </mediacontent>
+</mediacontents>
+
+
+Media object file:
+
+<mediaobjects>
+  <mediaobject type="Text" src="forward">
+     <sourcetext><![CDATA[Forwarded ]]></sourcetext>
+  </mediaobject>
+  <mediaobject type="Text" src="voicemessage">
+     <sourcetext><![CDATA[Voice message ]]></sourcetext>
+  </mediaobject>
+  <mediaobject type="Text" src="videomessage">
+     <sourcetext><![CDATA[Video message ]]></sourcetext>
+  </mediaobject>
+  <mediaobject type="Text" src="from">
+     <sourcetext><![CDATA[from ]]></sourcetext>
+  </mediaobject>
+</mediaobjects>
+
+
+The Media Content in the example above has three qualifiers that are used to 
+decide the apprearance of the text message. The content has the attribute 
+returnall set to true, so all instance elements with a condition that is 
+interpreted as true will be added to the resulting message.
+If the qualifier 'forwarded' has the value 'true', the text MediaObject 
+referenced by 'forward' will be added to the result. The actual text 
+represented by the 'forward' MediaObject should be defined in a CDATA element 
+in a media object file in this Media Content Package. The CDATA text can for 
+example be "Forwarded " or "Vidarebefodrat ".
+The value of the 'messageType' qualifier decides the next part of the message. 
+If the value is 'voice', the text MediaObject 'voicemessage' is used. This 
+MediaObject's text can for example be "Voice message " or "Röstmeddelande ".
+The next instance is 'from', which text MediaObject also is defined in the 
+media object file. It can for example be "from " or "från ".
+The last instance is a MediaObject qualifier containing a name or telephone 
+number of the sender. This is appended to the end of the result.
+The final result is a list of MediaObjects representing the text, for example 
+"Forwarded Voice Message from John Doe", or "Video message from John Doe", 
+dependent of the values of the input qualifiers.
+
+2.2.2.2 Grammar File Tool
+In <amcpmhome>/tools/grammarfiletool there is a tool called grammarFileTool.sh 
+that can be used to verify the number rules in a grammar file. The tool takes 
+input from a file and prints the result on standard out.
+
+The content in the input data file should have the following format:
+<data>;<type>;<gender>
+where <data> is the number that should be decomposed, e.g. 125 or 2006-02-13.
+<type> specifies the type of input data, e.g. Number or DateDM. <gender> is the
+gender of the input data, e.g. Male, Female or None.
+
+For example, an input file with this content:
+123;Number;Male
+2006-12-24;DateDM;None
+12:34:00;Time24;None
+15:43:00;Time12;None
+
+could generate this output:
+
+123	1 100 20 3
+2006-12-24	dec dom24
+12:34:00	12 30 4
+15:43:00	3 40 3 pm
+
+The second column is the matching file names found in the grammar file.
+
+Usage:
+# cd <amcpmhome>/tools
+# ./grammarFileTool.sh <grammarfile> <inputdatafile>
+
+2.2.3 Create the Media Content Package by issuing the following command
+# ./mkmcp.sh
+
+2.2.4 When done the mkmcp command displays the location where the application 
+deliveryfile can be found.
+
+3. I n s t a l l a t i o n 
+--------------------------
+3.1 Installation of an Application Package
+* Place the delivery file to the target host
+* start the installation by issuing the following command
+# /etc/init.d/rc.mas installapp <deliveryfile>
+If this Application Package is already installed, you will be asked if you want
+to replace the existing one
+
+3.2 Installation of a Media Content Package
+* Place the delivery file to the target host
+* start the installation by issuing the following command
+# /etc/init.d/rc.mas installmcp <deliveryfile>
+If this Media Content Package is already installed, you will be asked if you 
+want to replace the existing one

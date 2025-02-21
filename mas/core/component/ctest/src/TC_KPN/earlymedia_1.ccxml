@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="myState" expr="'init'"></var>
+    <var name="in_connectionID"></var>
+
+    <eventprocessor statevariable="myState">
+
+        <!-- On receiving the alerting event, start set media resources-->
+        <transition event="connection.alerting" name="evt">
+            <assign name="in_connectionID" expr="evt.connectionid"></assign>
+            <script>mas.systemSetEarlyMediaResource('en', 'voice1', 'video1');</script>
+        </transition>
+
+        <!-- On receiving the earlymediaresourceavailable event, start the application for early media-->
+        <transition event="com.mobeon.platform.earlymediaresourceavailable">
+            <assign name="myState" expr="'startingEarlyMedia'"></assign>
+            <dialogstart src="'earlymedia_1a.vxml'"/>
+        </transition>
+
+        <transition event="dialog.started" state="startingEarlyMedia">
+            <assign name="myState" expr="'earlyMediaDialogActive'"></assign>
+        </transition>
+
+        <!-- Assume that the early media application exits. Then you accept the call.-->
+        <transition event="dialog.exit" state="earlyMediaDialogActive">
+            <accept/>
+        </transition>
+
+        <!-- When the call is connected, start the "real" application -->
+        <transition event="connection.connected" name="evt">
+            <assign name="myState" expr="'startingReal'"></assign>
+            <dialogstart src="'earlymedia_1b.vxml'"/>
+        </transition>
+
+        <transition event="dialog.started" state="startingReal">
+            <assign name="myState" expr="'realDialogActive'"></assign>
+        </transition>
+
+        <!-- When the real dialog exits, we are done-->
+        <transition event="dialog.exit" state="realDialogActive">
+            <log expr="'TCPASS CCXML'"></log>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

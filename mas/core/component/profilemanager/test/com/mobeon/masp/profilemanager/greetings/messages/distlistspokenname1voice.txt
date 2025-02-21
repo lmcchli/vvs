@@ -1,0 +1,14 @@
+From: GrtAdm_33
+To: 19161
+MIME-Version: 1.0
+Subject: 1
+Content-Type: multipart/Greeting-Message;
+  boundary="------------Boundary-01=_UXUN40MWKGMMYJ0CCJD0"
+
+--------------Boundary-01=_UXUN40MWKGMMYJ0CCJD0
+Content-Type: audio/wav
+Content-Transfer-Encoding: base64
+Content-Description: Greeting message (2 seconds)
+Content-Disposition: inline; voice=Greeting-Message
+
+--------------Boundary-01=_UXUN40MWKGMMYJ0CCJD0--

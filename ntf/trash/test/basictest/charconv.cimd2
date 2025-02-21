@@ -1,0 +1,68 @@
+DataCodingScheme=0
+Converter=Converter
+#Three-byte sequences starting with _ (5F) are CIMD2 special combinations for non-ascii characters
+#Four-byte sequences starting with _XX are escapes to the GSM extension table
+
+#Convert unsupported characters to question-marks.
+0000-FFFF=3F
+#Just chop characters that are the same as ASCII
+000A,000D,0020-007A=Chop
+
+0060=60
+#Currency symbols and accented characters
+0040=5F4F61
+00A3=5F4C2D
+00A4=5F6F78
+00A5=5F592D
+00E8=5F6560
+00E9=5F6522
+00F9=5F7560
+00EC=5F6960
+00F2=5F6F60
+00C7=5F432C
+20AC=5F585865
+# 0A is line feed
+00D8=5F4F2F
+00F8=5F6F2F
+# 0C is form feed
+#Greek characters
+0394=5F6764
+005F=5F2D2D
+03A6=5F6766
+0393=5F6767
+039B=5F676C
+03A9=5F676F
+03A0=5F6770
+03A8=5F6769
+03A3=5F6773
+0398=5F6774
+039E=5F6778
+001B=delete
+# Misc. european characters
+00C5=5D
+00E5=7D
+00C6=5F4145
+00E6=5F6165
+00DF=5F7373
+00C9=5F4522
+00A1=5F2121
+00C4=5B
+00D6=5C
+00D1=5F4E7E
+00DC=5F5522
+00A7=5F736F
+00BF=5F3F3F
+00E4=7B
+00F6=7C
+00F1=5F6E7E
+00FC=5F7522
+00E0=5F6160
+#Brackets etc.
+005E=5F585814
+007B=5F585828
+007D=5F585829
+005C=5F58582F
+005B=5F58583C
+007E=5F58583D
+005D=5F58583E
+007C=5F585840

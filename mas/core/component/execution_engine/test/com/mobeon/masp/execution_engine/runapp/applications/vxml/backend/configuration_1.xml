@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/backend/" type="application/xml+ccxml">
+        <document src="configuration_1.ccxml" root="true"/>
+    </documents>
+</application>

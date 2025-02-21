@@ -1,0 +1,16 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "sms"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DC59027A"
+    physical_models 	(list unit_reference_list
+	(object module "\\smsjdk201\\src\\sms\\Smpp" "NotAModuleType" "NotAModulePart"
+	    quid       	"3AC4DE3A0207"
+	    stereotype 	""
+	    language   	"Java"))
+    physical_presentations 	(list unit_reference_list))

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+<!--
+    Copyright 2005 Mobeon AB.  All rights reserved.
+    Use is subject to license terms.
+    mas.xml : MAS manifest, Hakan Tunell 
+    updated: 2006-01-26
+-->
+
+<service_bundle type='manifest' name='MOBYmas'>
+
+   <service
+	   name='application/mobeon/MOBYmas'
+	   type='service'
+	   version='1'>
+	
+	   <dependency
+	      name='filesystem'
+	      grouping='require_all'
+	      restart_on='none'
+	      type='service'>
+	      <service_fmri value='svc:/system/filesystem/local' />
+	   </dependency>
+	
+	   <instance name='mas' enabled='false' >
+	   
+		   <exec_method 
+		      type='method' 
+		      name='start'
+		      exec='/etc/sfw/mobeon/MOBYmas/mas start'
+		      timeout_seconds='120' />
+		
+		   <exec_method 
+		      type='method' 
+		      name='stop'
+		      exec=':kill'
+		      timeout_seconds='120' />
+		
+		   <template>
+		      <common_name>
+		         <loctext xml:lang='C'>M3 Media Access Server </loctext>
+		      </common_name>
+		      <documentation>
+		         <manpage title='CPI document: MAS Feature ' section=' ' manpath=' ' />
+		      </documentation>
+		   </template>
+	   
+	   </instance>
+	   
+	   <instance name='snmpagent' enabled='false' >
+
+		   <exec_method 
+		      type='method' 
+		      name='start'
+		      exec='/etc/sfw/mobeon/MOBYmas/snmpagent start'
+		      timeout_seconds='120' />
+		
+		   <exec_method 
+		      type='method' 
+		      name='stop'
+		      exec=':kill'
+		      timeout_seconds='120' />
+		      
+		   <template>
+		      <common_name>
+		         <loctext xml:lang='C'>M3 SNMP agent </loctext>
+		      </common_name>
+		      <documentation>
+		         <manpage title='CPI document: MAS Feature ' section=' ' manpath=' ' />
+		      </documentation>
+		   </template>
+
+
+	   
+   	   </instance>
+
+   </service>
+</service_bundle>

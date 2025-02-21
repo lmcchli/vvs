@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="error.com.mobeon.platform.system">
+        <log>TCPASS. message: <value expr="_message"></value></log>
+        <exit></exit>
+    </catch>
+    <form id="form2">
+
+        <block>
+            <script>
+                var parameterNames = ["param1"];
+                var parameterValues = null;
+                mas.systemSendServiceRequest( "anita",
+                "someService",
+                10,
+                true,
+                parameterNames,
+                parameterValues);
+            </script>
+        </block>
+        <block>
+            <log>TCFAIL should not get here</log>
+            <exit></exit>
+        </block>
+    </form>
+</vxml>

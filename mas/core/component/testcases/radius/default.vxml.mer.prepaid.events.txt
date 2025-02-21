@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR: Event caught, should not happen!</log>
+        <exit/>
+    </catch>
+
+    <form>
+
+        <block>
+            <script>
+                var propertyNames = [];
+                var propertyValues = [];
+
+                propertyNames[0] = 'sessionid';
+                propertyValues[0] = '1';
+                propertyNames[1] = 'username';
+                propertyValues[1] = '1234';
+                propertyNames[2] = 'operation';
+                propertyValues[2] = '28';
+                propertyNames[3] = 'ownername';
+                propertyValues[3] = 'prepaid';
+                propertyNames[4] = 'sssporttype';
+                propertyValues[4] = '14';
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'TC 10007070.1 TC 10007072.1';
+                mas.trafficEventSend('accountingdebit', propertyNames, propertyValues, false);
+
+                propertyNames[3] = 'ownername';
+                propertyValues[3] = 'a veeeeeeeeeeeeeeeeeeeeery looooooooooooooooooooooong striiiiiiiiiiiiiiiiiiiiiiiing';
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'TC 10007070.2';
+                mas.trafficEventSend('accountingdebit', propertyNames, propertyValues, false);
+
+                propertyNames[4] = 'sssporttype';
+                propertyValues[4] = '14';
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'TC 10007071.1';
+                mas.trafficEventSend('accountingdebit', propertyNames, propertyValues, false);
+
+                propertyNames[4] = 'sssporttype';
+                propertyValues[4] = '14';
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'This is the only event generated for TC 10007075';
+                mas.trafficEventSend('slamdown', propertyNames, propertyValues, false);
+
+                propertyNames[4] = 'sssporttype';
+                propertyValues[4] = '123456789';
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'TC 10007071.2';
+                mas.trafficEventSend('accountingdebit', propertyNames, propertyValues, false);
+
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'TC6';
+                mas.trafficEventSend('accountingrefund', propertyNames, propertyValues, false);
+
+                propertyNames[2] = 'operation';
+                propertyValues[2] = '29';
+                propertyNames[5] = 'description';
+                propertyValues[5] = 'TC 10007072.2';
+               mas.trafficEventSend('accountingrefund', propertyNames, propertyValues, false);
+            </script>
+        </block>
+    </form>
+</vxml>

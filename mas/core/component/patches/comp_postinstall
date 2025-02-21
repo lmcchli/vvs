@@ -1,0 +1,119 @@
+#!/bin/sh
+
+#
+#  Register the patch to MCR
+#
+mcrRegister()
+{
+	info " Register component to MCR"
+	$BASEDIR/etc/mascommon patchregister
+
+	if [ $? -gt 0 ]
+	then
+		warning "Failed to register MAS to MCR"
+	else
+		info "Result ok" 
+	fi
+}
+
+#
+#  Update mas.conf
+#
+updateMasConf()
+{
+        echo "update mas.conf"
+	# Restore mas.conf to what it was before patch install started
+	# before starting to manipulate it. See comp_preinstall.
+        mv $BASEDIR/etc/mas.conf.$SUNW_PATCHID $BASEDIR/etc/mas.conf 
+
+        #Remove "MAS_" before register in MCR.
+        BASE_VERSION=`echo $BASE_VERSION|sed 's/MAS_//g'`
+        if [ "$MOIP_PATCHLIST" != "" ]
+        then
+	    VERSION=$BASE_VERSION","$MOIP_PATCHLIST
+	else
+	    VERSION=$BASE_VERSION
+        fi
+    
+        echo "BASE_VERSION:$VERSION"
+
+	# Here we update the JVM heap parameters according to 
+	# platformDependantFunctions.
+	PLATFORM_DEPENDENT_FUNCTIONS=`$BASEDIR/etc/getPlatformDependentParameter PLATFORM_DEPENDENT_FUNCTIONS`
+	. $BASEDIR/etc/$PLATFORM_DEPENDENT_FUNCTIONS
+	setup_DEF_INIT_HEAP_SIZE
+	setup_DEF_MAX_HEAP_SIZE
+	setup_DEF_NEW_GEN_HEAP_SIZE
+
+        cp $BASEDIR/etc/mas.conf $BASEDIR/etc/mas.conf.save
+
+	cat $BASEDIR/etc/mas.conf.save | \
+             sed "s/^\(INIT_HEAP_SIZE=\)\(.*\)/\1${DEF_INIT_HEAP_SIZE}M/" | \
+             sed "s/^\(MAX_HEAP_SIZE=\)\(.*\)/\1${DEF_MAX_HEAP_SIZE}M/" | \
+             sed "s/^\(NEW_GEN_HEAP_SIZE=\)\(.*\)/\1${DEF_NEW_GEN_HEAP_SIZE}M/" | \
+             sed "s/^\(BASE_VERSION=\)\(.*\)/\1$VERSION/" >$BASEDIR/etc/mas.conf
+
+	echo "Update done"
+}
+
+#
+# Update mas xml configuration files
+#
+updateMasConfig() 
+{
+# Updating mas xml configuration files can be done in either of two ways
+# 1. Use the xmlmodify.sh script located in the <masinstalldir>/bin directory
+# 2. Use the xslt directly as shown in the example below.
+
+# X S L T   e x a m p l e 
+#xslTransformFile=/var/tmp/fe29masr4a_updateMasConfig.xslt
+#
+#cat >> $xslTransformFile << __EOF__
+#<?xml version="1.0"?>
+#<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+#  <xsl:output method="xml" version="1.0" encoding="iso-8859-1" indent="yes"/>
+#
+#  <!-- Identity template -->
+#  <xsl:template match="@*|node()" priority="-1">
+#    <xsl:copy>
+#      <xsl:apply-templates select="@*|node()"/>
+#    </xsl:copy>
+#  </xsl:template>
+#
+#
+#  <!-- Insert new writelevel attribute into profilemanager.attributemap.emusersd -->
+#  <xsl:template match="/configuration/profilemanager/attributemap/emusersd">
+#    <xsl:copy>
+#       <xsl:copy-of select="@*"/>
+#       <xsl:attribute name="writelevel">user</xsl:attribute>
+#       <xsl:apply-templates/>
+#    </xsl:copy>
+#  </xsl:template>
+#
+#</xsl:stylesheet>
+#__EOF__
+#
+#mv $BASEDIR/cfg/mas.xml $BASEDIR/cfg/old_mas.xml
+#xsltproc -nonet -novalid -o $BASEDIR/cfg/mas.xml $xslTransformFile $BASEDIR/cfg/old_mas.xml
+#rm $xslTransformFile
+}
+
+# Update configuration files
+#############################
+updateMasConf
+updateMasConfig
+
+# Register the new version in MCR
+##################################
+mcrRegister
+
+
+
+
+# Start the component (if it was started before)
+#################################################
+if [ ! -f /var/tmp/TmpMasPatchInstall_stateStopped ]; then
+    info "Starting MAS"
+    /etc/init.d/rc.mas start
+fi
+rm -f /var/tmp/TmpMasPatchInstall_stateStopped

@@ -1,0 +1,4489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE doc PUBLIC "-//ABCXYZ//DTD XSEIF 1/FAD 110 05 R5//EN"
+ "XSEIF_R5.dtd">
+<doc new-page-level="npl1" version="XSEIF R5" xmlns="urn:x-abcxyz:r2:reg-doc:1551-fad.110.05:en:*">
+<meta-data>
+<confidentiality class="abcxyz-internal"/>
+<doc-name>Operation Directions</doc-name>
+<doc-id>
+<doc-no type="reference">1/OM-MAS0001</doc-no><language code="en"/><rev>G</rev>
+<date><y>2008</y><m>08</m><d>05</d></date>
+</doc-id>
+<company-id>
+<business-unit>BMUM DMMP MOIP</business-unit>
+<company-name>Abcxyz AB</company-name>
+<company-symbol logotype="abcxyz"></company-symbol>
+</company-id>
+<title>Operation and Maintenance MAS</title>
+<drafted-by>
+<person>
+<name>Torsten Eriksson</name><signature>EERITOR</signature>
+<location>SU</location><company>Abcxyz AB</company><department>Systems Management</department>
+</person>
+</drafted-by>
+<approved-by approved="yes">
+<person>
+<name>Per Berggren</name><signature>EPERGPE</signature>
+<location>SU</location><company>Abcxyz AB</company><department>New Development</department>
+</person>
+</approved-by>
+<revision-history suppress="yes">
+<rev-info>
+<rev>G</rev>
+<date><y>2008</y><m>08</m><d>05</d></date>
+<signature>EERITOR</signature>
+<description></description>
+</rev-info>
+</revision-history>
+</meta-data>
+<front>
+<title-page>
+<copyright><p>&copy; Abcxyz AB 2000-2008 - All Rights Reserved</p>
+</copyright>
+<disclaimer>
+<p>The information in this document is subject to change without notice.</p>
+<p>Abcxyz makes no warranty of any kind with regard to this material, including,
+but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose. Abcxyz shall not be liable for errors contained
+herein nor for incidental or consequential damages in connection with the
+furnishing, performance or use of this material.</p>
+</disclaimer>
+</title-page>
+</front>
+<body xml:id="body">
+<chl1><title>Introduction</title>
+<chl2><title>Scope</title>
+<p>This document provides information on operation and maintenance specific
+for the Media Access Server (MAS).</p>
+</chl2>
+<chl2><title>Audience</title>
+<p>The document is primarily written for O&amp;M personnel.</p>
+<p>Part of the document may also be useful for personnel responsible for software
+installation.</p>
+<chl3><title>Prerequisite Knowledge</title>
+<p>The readers of this document should have a good understanding of Messaging-over-IP
+and good knowledge and experience of:</p>
+<list type="unordered">
+<list-item><p>IP based networks</p>
+</list-item>
+<list-item><p>Protocols SIP, HTTP, IMAP, LDAP, RADIUS, RADIUS-MA, SMTP, SNMP</p>
+</list-item>
+<list-item><p>Messaging Telephony Gateway, MTG</p>
+</list-item>
+<list-item><p>UNIX</p>
+</list-item>
+</list>
+<note><p>Operation and maintenance of the system is only to be performed by
+personnel authorized through having attended the corresponding courses.</p>
+</note>
+</chl3>
+</chl2>
+<chl2><title>Related Documents</title>
+<p>The following documents also contain information related to the component,
+or are referred to from this document:</p>
+<list type="unordered">
+<list-item><p>Messaging-over-IP Overview </p>
+</list-item>
+<list-item><p>Installation Guide MAS</p>
+</list-item>
+<list-item><p>Solaris Documentation  (http://docs.sun.com) <emph type="low">System
+Administration Guide, Solaris 10</emph></p>
+</list-item>
+</list>
+</chl2>
+<chl2><title>Document Conventions</title>
+<chl3><title>Notational Conventions</title>
+<p>This document uses the following notational conventions:</p>
+<p><emph>Bold font</emph> style is used for emphasis, to indicate keywords
+and buttons.</p>
+<p><emph type="low">Italic font</emph> style is used for references, window/page/menu
+titles and specific terms.</p>
+<p><input>Bold Monospace font</input> is used to describe user input.</p>
+<p><output>Monospace font</output> is used for code, paths and on-screen computer
+output.</p>
+<p>Square brackets <quote>[]</quote> are used to enclose parameters that are
+optional.</p>
+<p>Curly brackets <quote>{}</quote> are used to enclose parameter values given
+as examples.</p>
+<p>Less than and greater than characters <quote>&lt;></quote> are used to
+enclose variable names.</p>
+<p>Backslash <quote>\</quote> at the end of a line means that this line is
+continued onto the next line.</p>
+<p>The dollar sign <quote>$</quote> is the UNIX Korn (and Bourne) shell prompt.</p>
+<p>The percent sign <quote>%</quote> is the UNIX C shell prompt.</p>
+<p>The number sign <quote>#</quote> is the superuser prompt.</p>
+<p>The number sign <quote>#</quote> is also used for comments.</p>
+<p>A star <quote>*</quote> matches zero or more characters.</p>
+<p>A question mark <quote>?</quote> matches one character.</p>
+<p>A tilde <quote>~</quote> means the home directory of the current user.</p>
+<p><resource-id type="file-path">&lt;MAS_HOME></resource-id> is the installation
+directory for the MAS, for example <resource-id type="file-path">/apps/mas</resource-id>.</p>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title>About the Component</title>
+<p>For an overview of the MAS component, see <emph type="low">Messaging-over-IP
+Overview</emph>.</p>
+<p>The MAS component provides a VoiceXML and CCXML platform with SIP and XMP
+interfaces.</p>
+<chl2><title>Internal Architecture</title>
+<p>The MAS consists of several parts as shown in the figure below.</p>
+<p><graphics scalepct="" scalefit="1" resol="72" xlink:type="simple" xlink:href="mas_arch_1.jpg"
+xlink:show="embed" xlink:actuate="onLoad" xmlns:xlink="http://www.w3.org/1999/xlink"/> 
+			</p>
+<def-list><dl-item>
+<term>Media Content Manager and Media</term><def><p>Handles all media content
+packages such as voice and video files and varios textual information.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Execution Engine</term><def><p>Implements the VoiceXML and CCXML executor.
+It also serves as an access to platform functions via the Platform Access
+interface.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Media Translation Manager</term><def><p>Implements the interface to
+external TTS and ASR services using XMP (via Service Request Manager) and
+RTSP/MRCP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Call Manager and Stream</term><def><p>Implements the interfaces to MTG
+via SIP and RTP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Service Request Manager</term><def><p>Handles inbound and outbound service
+requests using XMP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Profile Manager</term><def><p>Handles subscriber profiles retrieved
+from external user directories using LDAP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Provision Manager</term><def><p>Handles creation of subscribers in the
+system via the CAI interface.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Mailbox</term><def><p>Manages messages for a subscriber using IMAP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Message Sender</term><def><p>Sends messages to a mail server using SMTP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Number Analysis</term><def><p>Handles rule based (regular expressions)
+number analysis.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>External Compon-ent Register</term><def><p>Retrives information from
+an external component register using LDAP.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Traffic Event Sender</term><def><p>Send traffic related events using
+Radius-MA or by SMTP (via Message Sender).</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Log Manager and Configuration Manager</term><def><p>Handles logging
+and configuration.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>O&amp;M Manager</term><def><p>Implements varios O&amp;M related functionality
+such as SNMP agent, backup-restore, start-restart etc.</p>
+</def>
+</dl-item>
+</def-list>
+</chl2>
+<chl2><title>SNMP Environment</title>
+<p>The MAS-MIB has the following OID:</p>
+<p>enterprises.24261.1.1 </p>
+<p>For instructions on how to change a MIB parameter value, see the documentation
+supplied with MIB- or SNMP management tool.</p>
+<p>MIB parameters can be viewed through EMANATE's web interface using an URL
+like: <quote>http://&lt;hostname>:&lt;port>/subtree/mas</quote></p>
+<p>where &lt;hostname> is the host where the MAS is running, and &lt;port>
+(default 20280) is defined by EMANATE. User ID and password (default admin/admin)
+are also defined by EMANATE.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="operation">Operation</title>
+<p>The MAS component uses an initialization and termination script named <quote>/etc/init.d/rc.mas</quote>.
+The "rc.mas" script can be executed with the following arguments.</p>
+<p>start</p>
+<p>stop</p>
+<p>restart</p>
+<p>status</p>
+<p>enableautostart</p>
+<p>disableautostart</p>
+<p>lock</p>
+<p>unlock</p>
+<p>shutdown</p>
+<p>viewmib</p>
+<p>version</p>
+<p>reloadconfig</p>
+<p>monitor</p>
+<p>testnumber</p>
+<p>register</p>
+<p>unregister</p>
+<p>installapp</p>
+<p>viewapp</p>
+<p>uninstallapp</p>
+<p>installmcp</p>
+<p>viewmcp</p>
+<p>uninstallmcp</p>
+<p>A blank or illegal argument will print out the list of valid arguments </p>
+<p>The <quote>start</quote> argument will start the MAS component. The command
+will be ignored if the component is already started.</p>
+<p>The <quote>stop</quote> argument will stop the MAS component. The command
+will be ignored if the component is already stopped.</p>
+<p>The <quote>restart</quote> argument will restart the MAS component. If
+the component is already running, the component will first be stopped and
+then started.</p>
+<p>The <quote>status</quote> argument will return the status of the MAS component.</p>
+<p>The <quote>enableautostart</quote> argument will enable automatic restart
+of the MAS component at boot and process termination.</p>
+<p>The <quote>disableautostart</quote> argument will disable automatic restart
+of the MAS application at boot and process termination.</p>
+<p>The <quote>lock</quote> argument will lock the MAS component. The MAS unregisters
+from the SSP (if an SSP is used in the deployment) and all end users will
+be immediately disconnected. In state locked, the component will not perform
+any of its traffical tasks.</p>
+<p>The <quote>unlock</quote> argument will unlock the MAS component. In state
+unlocked the component performs its assigned tasks.</p>
+<p>The <quote>shutdown</quote> argument will shutdown the MAS component. Shutdown
+is a temporary state. MAS waits for all callers to end their calls and then
+changes the state to locked. A time out value can be supplied to the shutdown
+argument. The MAS will then only wait for the calls to disconnect until the
+time out is reached, then it will be forced to change the state to locked.</p>
+<p>The <quote>viewmib</quote> argument will display the MAS MIB.</p>
+<p>The <quote>version</quote> argument will show the version name of the MAS
+component.</p>
+<p>The <quote>reloadconfig</quote> argument will re-load the configuration
+parameters during run time.</p>
+<p>The "testnumber" argument will test numberanalyzer rules.</p>
+<p>The <quote>register</quote> argument will register the MAS component, the
+application package and the media content packages to the MCR.</p>
+<p>The <quote>unregister</quote> argument will unregister the MAS component,
+the application package and the media content packages from the MCR.</p>
+<p>The "monitor" argument will start the monitor tools.</p>
+<p>The "installapp" argument will install an application package on the MAS.</p>
+<p>The "viewapp" argument will show which application package is installed
+on the MAS.</p>
+<p>The "uninstallapp" argument will uninstall the application package.</p>
+<p>The "installmcp" argument will install a media content package on the MAS.</p>
+<p>The "viewmcp" argument will show which media content packages are installed
+on the MAS.</p>
+<p>The "uninstallmcp" argument will uninstall a media content package.</p>
+<p>Operation includes tasks as described in:</p>
+<list type="unordered">
+<list-item><p><xref linkend="startcmp"/></p>
+</list-item>
+<list-item><p><xref linkend="stopcmp"/></p>
+</list-item>
+<list-item><p><xref linkend="restcmp"/></p>
+</list-item>
+<list-item><p><xref linkend="statuscmp"/></p>
+</list-item>
+<list-item><p><xref linkend="autostartcmp"/></p>
+</list-item>
+<list-item><p><xref linkend="lockcmp"/></p>
+</list-item>
+<list-item><p><xref linkend="viewmib"/></p>
+</list-item>
+<list-item><p><xref linkend="version"/></p>
+</list-item>
+<list-item><p><xref linkend="loadconfig"/></p>
+</list-item>
+<list-item><p><xref linkend="register"/></p>
+</list-item>
+<list-item><p><xref linkend="unregister"/></p>
+</list-item>
+<list-item><p><xref linkend="Monitor"/></p>
+</list-item>
+<list-item><p><xref linkend="testnumber"/></p>
+</list-item>
+<list-item><p><xref linkend="installapp"/></p>
+</list-item>
+<list-item><p><xref linkend="viewapp"/></p>
+</list-item>
+<list-item><p><xref linkend="uninstallapp"/></p>
+</list-item>
+<list-item><p><xref linkend="installmcp"/></p>
+</list-item>
+<list-item><p><xref linkend="installmcp"/></p>
+</list-item>
+<list-item><p><xref linkend="uninstallmcp"/></p>
+</list-item>
+</list>
+<chl2 xml:id="startcmp"><title>Start Component</title>
+<p>To start the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas </quote> script with "start" as argument.</p>
+<p><input>#/etc/init.d/rc.mas start</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:&lt;host name>:&lt;action> ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas start</caption>
+<preform># /etc/init.d/rc.mas start
+mas:mashost1:result ok started</preform>
+</example>
+</chl2>
+<chl2 xml:id="stopcmp"><title>Stop Component</title>
+<p>To stop the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the "rc.mas "script with "stop" as argument.</p>
+<p><input>#/etc/init.d/rc.mas stop</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:&lt;host name>:&lt;action> ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas stop</caption>
+<preform># /etc/init.d/rc.mas stop
+mas:mashost1:result ok stopped</preform>
+</example>
+</chl2>
+<chl2 xml:id="restcmp"><title>Restart Component</title>
+<p>To restart the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the "rc.mas" script with "restart" as argument.</p>
+<p><input>#/etc/init.d/rc.mas restart</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:&lt;host name>:&lt;action> ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas restart</caption>
+<preform># /etc/init.d/rc.mas restart
+mas:mashost1:result ok started</preform>
+</example>
+</chl2>
+<chl2 xml:id="statuscmp"><title>Check Component Status</title>
+<p>To check the status of the MAS component: </p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+<p>Run the "rc.mas" script with "status" as argument.</p>
+<p><input>#/etc/init.d/rc.mas status</input></p>
+<p>The result can be one of the following:</p>
+<p><quote>mas:&lt;host name>:status starting (autostart) </quote></p>
+<p>or</p>
+<p><quote>mas:&lt;host name>:status started (autostart) (unlocked) (enabled)</quote></p>
+<p>or</p>
+<p><quote>mas:&lt;host name>:status started (not autostart) (locked) (enabled)</quote></p>
+<p>or</p>
+<p><quote>mas:&lt;host name>:status stopped (autostart)</quote> 	 				</p>
+<p>or</p>
+<p><quote>mas:&lt;host name>:status stopped (not autostart)</quote></p>
+<p>Syntax description</p>
+<p>mas:&lt;host name>:status &lt;status> (&lt;autostart>) ([opstate]) ([admstate])</p>
+<list type="unordered">
+<list-item><p>Status can have one of the following valus</p>
+</list-item>
+</list>
+<def-list><dl-item>
+<term>starting</term><def><p>The MAS process is starting up.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>started</term><def><p>The MAS process is started.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>stopped</term><def><p>The MAS process is not running.</p>
+</def>
+</dl-item>
+</def-list>
+<list type="unordered">
+<list-item><p>autostart can have one of the following values.</p>
+</list-item>
+</list>
+<def-list><dl-item>
+<term>autostart</term><def><p>Indicates that autostart is enabled</p>
+</def>
+</dl-item>
+<dl-item>
+<term>not autostart</term><def><p>Indicates that autostart is disabled</p>
+</def>
+</dl-item>
+</def-list>
+<list type="unordered">
+<list-item><p>admstate can have one of the following values.</p>
+</list-item>
+</list>
+<def-list><dl-item>
+<term>locked</term><def><p>The MAS administrative state is locked.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>unlocked</term><def><p>The MAS administrative state is unlocked.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>shutdown</term><def><p>The MAS administrative state is shutdown.</p>
+</def>
+</dl-item>
+</def-list>
+<list type="unordered">
+<list-item><p>opstate can have one of the following values.</p>
+</list-item>
+</list>
+<def-list><dl-item>
+<term>enabled</term><def><p>The MAS operational state is in enabled state.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>disabled</term><def><p>The MAS operational state is in disabled state.</p>
+</def>
+</dl-item>
+</def-list>
+<p>The examples below show some typical outputs.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas status (after start)</caption>
+<preform>/etc/init.d/rc.mas status
+mas:mashost1:status started (autostart) (unlocked) (enabled)</preform>
+</example>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas status (after stop)</caption>
+<preform>/etc/init.d/rc.mas status
+mas:mashost1:status stopped (autostart)</preform>
+</example>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas status (after enable autostart)</caption>
+<preform>/etc/init.d/rc.mas status
+mas:mashost1:status started (autostart) (unlocked) (enabled)</preform>
+</example>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas status (after disable autostart)</caption>
+<preform>/etc/init.d/rc.mas status
+mas:mashost1:status started (not autostart) (unlocked) (enabled)</preform>
+</example>
+</chl2>
+<chl2 xml:id="autostartcmp"><title>Enable/Disable Autostart</title>
+<p>To make the watchdog monitor and restart the MAS process the autostart
+mode must be enabled.</p>
+<p>If autostart is <emph>enabled:</emph></p>
+<list type="unordered">
+<list-item><p>The MAS process will be restarted if MAS process is terminated.</p>
+</list-item>
+<list-item><p>The MAS process will be restarted if host is rebooted</p>
+</list-item>
+</list>
+<p>If autostart is <emph>disabled</emph></p>
+<list type="unordered">
+<list-item><p>The MAS process will <emph>not</emph> be restarted if the MAS
+process is terminated.</p>
+</list-item>
+<list-item><p>The MAS process will <emph>not</emph> be restarted if host is
+rebooted</p>
+</list-item>
+</list>
+<p>The recommended setting is that autostart is enabled.</p>
+<chl3 xml:id="enableautostartcmp"><title>Enable Autostart</title>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>enableautostart</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas enableautostart</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:&lt;host name>:result ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas enableautostart</caption>
+<preform>mas:mashost1:result ok</preform>
+</example>
+</chl3>
+<chl3 xml:id="disableautostartcmp"><title>Disable Autostart</title>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>disableautostart</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas disableautostart</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:&lt;host name>:result ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas disableautostart</caption>
+<preform>mas:mashost1:result ok</preform>
+</example>
+</chl3>
+</chl2>
+<chl2 xml:id="lockcmp"><title>Lock/Unlock/Shutdown Component</title>
+<p>The following parameter in the MAS-MIB controls the behavior of the started
+component.</p>
+<table indent="column">
+<caption></caption>
+<tgroup cols="3" char="" charoff="50"><colspec colname="col1" colwidth="1.08*"/>
+<colspec colname="col2" colwidth="1.33*"/><colspec colname="col3" colwidth="0.59*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Parameter</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Description</tp></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Value</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MASAdministrativeState</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>In state
+unlocked the component performs its traffic related tasks. </tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>1=unlocked</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>In state
+locked, the component will not perform all its traffic related tasks, even
+if it is up and running.</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>2=locked</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"></entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>Shutdown
+is a temporary state. The MAS waits for all callers to end their calls and
+then changes the state to locked.  </tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>3=shutdown </tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<chl3><title>Lock </title>
+<p>When the MAS is locked, it will immediately disconnect all end users. To
+lock the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>lock</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas lock</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:mashost1:result ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas lock </caption>
+<preform>mas:mashost1:result ok</preform>
+</example>
+</chl3>
+<chl3><title>UnLock </title>
+<p>To unlock the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input># su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>unlock</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas unlock</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:mashost1:result ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas unlock </caption>
+<preform>mas:mashost1:result ok</preform>
+</example>
+</chl3>
+<chl3><title>Shutdown</title>
+<p>To shutdown the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>shutdown</quote> and
+a timeout value as arguments.</p>
+<p><input>#/etc/init.d/rc.mas shutdown 900</input></p>
+<p>The MAS will now wait 900 seconds for all calls to disconnect and then
+change the state to locked. The script will not return before all calls are
+disconnected. The result should be the following:</p>
+<p><quote>mas:mashost1:result ok</quote></p>
+<p>The time out value is optional. If no timeout value is given, the MAS will
+wait for the calls to disconnect without time limit and return when all calls
+is disconnected.</p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas shutdown</caption>
+<preform>mas:mashost1:result ok</preform>
+</example>
+</chl3>
+</chl2>
+<chl2 xml:id="viewmib"><title>Viewmib</title>
+<p>To view the mib of the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>viewmib</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas viewmib</input></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas viewmib</caption>
+<preform># /etc/init.d/rc.mas viewmib
+masName.0 = mas@mashost1.domain
+masVersion.0 = MAS_R4A.066
+masOperationalState.0 = enabled(1)
+masAdministrativeState.0 = unlocked(1)
+masInstallDate.0 = 2007-Jun-4,17:37:21.0,+1:0
+masCurrentUpTime.0 = 1 day, 19:47:23.54
+masAccumulatedUpTime.0 = 2 days, 03:03:45.57
+masConfigurationState.0 = ok(2)
+masLastConfigurationUpdateTime.0 = 2007-Jun-4,17:37:21.0,+1:0
+masLastConfigurationUpdateTicks.0 = 1 day, 19:47:23.70
+masServiceEnablerStatisticsIndex.1 = 1
+masServiceEnablerStatisticsIndex.2 = 2
+masServiceEnablerStatisticsProtocol.1 = sip:mashost1.domain:5060
+masServiceEnablerStatisticsProtocol.2 = xmp:mashost1.domain:8080
+masServiceEnablerStatisticsMaxConnections.1 = 65
+masServiceEnablerStatisticsMaxConnections.2 = 20
+masConnectionStatisticsIndex.1.1 = 1
+masConnectionStatisticsIndex.1.2 = 2
+masConnectionStatisticsIndex.1.3 = 3
+masConnectionStatisticsIndex.1.4 = 4
+masConnectionStatisticsIndex.2.1 = 1
+masConnectionStatisticsIndex.2.2 = 2
+masConnectionStatisticsIndex.2.3 = 3
+masConnectionStatisticsIndex.2.4 = 4
+masConnectionStatisticsType.1.1 = voice
+masConnectionStatisticsType.1.2 = video
+masConnectionStatisticsType.1.3 = service_request
+masConnectionStatisticsType.1.4 = unknown
+masConnectionStatisticsType.2.1 = voice
+masConnectionStatisticsType.2.2 = video
+masConnectionStatisticsType.2.3 = service_request
+masConnectionStatisticsType.2.4 = unknown
+masConnectionStatisticsConnections.1.1 = 0
+masConnectionStatisticsConnections.1.2 = 0
+masConnectionStatisticsConnections.1.3 = 0
+masConnectionStatisticsConnections.1.4 = 0
+masConnectionStatisticsConnections.2.1 = 0
+masConnectionStatisticsConnections.2.2 = 0
+masConnectionStatisticsConnections.2.3 = 0
+masConnectionStatisticsConnections.2.4 = 0
+masConnectionStatisticsPeakConnections.1.1 = 20
+masConnectionStatisticsPeakConnections.1.2 = 0
+masConnectionStatisticsPeakConnections.1.3 = 0
+masConnectionStatisticsPeakConnections.1.4 = 20
+masConnectionStatisticsPeakConnections.2.1 = 0
+masConnectionStatisticsPeakConnections.2.2 = 0
+masConnectionStatisticsPeakConnections.2.3 = 0
+masConnectionStatisticsPeakConnections.2.4 = 0
+masConnectionStatisticsPeakTime.1.1 = 2007-Jun-4,17:40:34.1,+1:0
+masConnectionStatisticsPeakTime.1.2 = 2007-Jun-4,17:37:21.0,+1:0
+masConnectionStatisticsPeakTime.1.3 = 2007-Jun-4,17:37:21.0,+1:0
+masConnectionStatisticsPeakTime.1.4 = 2007-Jun-4,17:40:08.8,+1:0
+masConnectionStatisticsPeakTime.2.1 = 2007-Jun-4,17:37:21.0,+1:0
+masConnectionStatisticsPeakTime.2.2 = 2007-Jun-4,17:37:21.0,+1:0
+masConnectionStatisticsPeakTime.2.3 = 2007-Jun-4,17:37:21.0,+1:0
+masConnectionStatisticsPeakTime.2.4 = 2007-Jun-4,17:37:21.0,+1:0
+masConnectionStatisticsTotalConnections.1.1 = 27
+masConnectionStatisticsTotalConnections.1.2 = 0
+masConnectionStatisticsTotalConnections.1.3 = 0
+masConnectionStatisticsTotalConnections.1.4 = 13
+masConnectionStatisticsTotalConnections.2.1 = 0
+masConnectionStatisticsTotalConnections.2.2 = 0
+masConnectionStatisticsTotalConnections.2.3 = 0
+masConnectionStatisticsTotalConnections.2.4 = 0
+masConnectionStatisticsAccumulatedConnections.1.1 = 98
+masConnectionStatisticsAccumulatedConnections.1.2 = 0
+masConnectionStatisticsAccumulatedConnections.1.3 = 0
+masConnectionStatisticsAccumulatedConnections.1.4 = 75
+masConnectionStatisticsAccumulatedConnections.2.1 = 0
+masConnectionStatisticsAccumulatedConnections.2.2 = 0
+masConnectionStatisticsAccumulatedConnections.2.3 = 0
+masConnectionStatisticsAccumulatedConnections.2.4 = 0
+masProvidedServiceIndex.1 = 1
+masProvidedServiceIndex.2 = 2
+masProvidedServiceIndex.3 = 3
+masProvidedServiceName.1 = Undefined
+masProvidedServiceName.2 = OutdialNotification
+masProvidedServiceName.3 = MWINotification
+masProvidedServiceStatus.1 = up(1)
+masProvidedServiceStatus.2 = up(1)
+masProvidedServiceStatus.3 = up(1)
+masProvidedServiceHostName.1 = mashost1.domain
+masProvidedServiceHostName.2 = mashost1.domain
+masProvidedServiceHostName.3 = mashost1.domain
+masProvidedServicePort.1 = 5060
+masProvidedServicePort.2 = 8080
+masProvidedServicePort.3 = 8080
+masProvidedServiceZone.1 = unspecified
+masProvidedServiceZone.2 = unspecified
+masProvidedServiceZone.3 = unspecified</preform>
+</example>
+</chl2>
+<chl2 xml:id="version"><title>Version</title>
+<p>To show the version of the MAS component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>version</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas version</input></p>
+<p>The result should be the following:</p>
+<p><quote>version: &lt;version></quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas version</caption>
+<preform>version: MAS_R2A.026</preform>
+</example>
+</chl2>
+<chl2 xml:id="loadconfig"><title>Reloadconfig</title>
+<p>Reloads configuration parameters.</p>
+<p><xref linkend="MAScfgfiles"/> describes reloadable parameters.</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>reloadconfig</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas reloadconfig</input></p>
+<p>The result should be the following:</p>
+<p><quote>mas:mashost1:status ok</quote></p>
+<p>The example below shows a typical output.</p>
+</sl-item>
+</step-list>
+<example condensed="yes" indent="column">
+<caption>Output, rc.mas reloadconfig</caption>
+<preform>/etc/init.d/rc.mas reloadconfig
+mas:mashost1:status ok</preform>
+</example>
+</chl2>
+<chl2 xml:id="register"><title>MCR registration (or update)</title>
+<p>To register the MAS component, the application package and the media content
+packages in the MCR, make sure that the MCR values in &lt;MAS_HOME>/etc/mas.cfg
+are correct, and the correct MCR credentials exist in mas.xml, see <xref linkend="externalcomponentregister"/>.</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>register</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas register</input></p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2 xml:id="unregister"><title>MCR unregistration </title>
+<p>To unregister the MAS component, the application package and the media
+content packages from the MCR.</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>#su -</input></p>
+</sl-item>
+<sl-item><p>Run the <quote>rc.mas</quote> script with <quote>unregister</quote> as
+argument.</p>
+<p><input>#/etc/init.d/rc.mas unregister</input></p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Check that MAS is registered in the SSP</title>
+<p>If an SSP is used, check in the Operate and Maintenance Guide for the SSP
+regarding how to verify that the MAS is registered in the SSP.</p>
+</chl2>
+<chl2 xml:id="Monitor"><title>Monitor tool</title>
+<p>This tool is used to monitor sessions and shows call statistics.</p>
+<p>Run the "rc.mas" script with "monitor" as argument to start the monitor.</p>
+<p><input>#/etc/init.d/rc.mas monitor</input> 				</p>
+<p>The monitor has two views, the Statistics view and the Connections view.</p>
+<p>To navigate beween these views, press F5 for the Connections view and F6
+for the Statistics view.</p>
+<p>To scroll up and down in a view, use the up arrow key and the down arrow
+key.</p>
+<p>If the monitor for some reason loses its connection to the MAS, press F9
+to restore the connection. The Connection Status in the statusbar shows information
+about the connection state.</p>
+<p>To exit the monitor, press the escape key.</p>
+<chl3><title>Statistics view</title>
+<p>The statistic view contains information about counters for each service
+enabler registered</p>
+<figure align="center">
+<graphics scalepct="" scalefit="1" resol="72" xlink:type="simple" xlink:href="Statistic_counter.jpg"
+xlink:show="embed" xlink:actuate="onLoad" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+<caption></caption>
+</figure>
+<p>For each service enabler, the current and total connections will be presented.
+For the XMP service enabler, "connection" is equivalent to service request,
+and for the SIP service enabler, "connection" is equivalent to call.</p>
+<list type="unordered">
+<list-item><p>Current connections </p>
+</list-item>
+<list-item><p>Total connections</p>
+<p>Number of connections since the last restart</p>
+</list-item>
+</list>
+<p>Current and total connections present statistics for the following connection
+types.</p>
+<list type="unordered">
+<list-item><p>Voice</p>
+<p>Shows the number of active voice connections over SIP.</p>
+</list-item>
+<list-item><p>Video</p>
+<p>Shows the number of active video connections over SIP.</p>
+</list-item>
+<list-item><p>Service Request</p>
+<p>Shows the number of active service request connections over XMP.</p>
+</list-item>
+<list-item><p>Unknown</p>
+<p>Shows the number of active Unknown connections over SIP.</p>
+</list-item>
+</list>
+<p>For each connection type, the following counters can be displayed.</p>
+<p><emph>For current connections</emph>.</p>
+<list type="unordered">
+<list-item><p>Inbound </p>
+<p>The number of inbound connections per type.</p>
+</list-item>
+<list-item><p>Outbound </p>
+<p>The number of outbound connections per type.</p>
+</list-item>
+</list>
+<p><emph>For total connections</emph></p>
+<list type="unordered">
+<list-item><p>Total connections </p>
+<p>Number of connections since the last restart (with the same definition
+as Current connections)</p>
+</list-item>
+<list-item><p>Total inbound connections </p>
+<p>Out of Total connections the number of inbound connections.</p>
+</list-item>
+<list-item><p>Total outbound connections </p>
+<p>Out of Total connections the number of outbound connections</p>
+</list-item>
+<list-item><p>Total connected connections </p>
+<p>Out of Total connections the number of connections that have been answered
+since the last restart.</p>
+</list-item>
+<list-item><p>Total connected inbound connections </p>
+<p>Out of Total answered connections the number of inbound connections</p>
+</list-item>
+<list-item><p>Total connected outbound connections </p>
+<p>Out of Total answered connections the number of outbound connections</p>
+</list-item>
+<list-item><p>Total abandoned connections</p>
+<p>Number of abandoned connections since restart.</p>
+<p>A connection is considered "far end abandoned" when no RTP-data has been
+received on an inbound media stream during a certain time (configured in the
+stream group, streamabandonedms).</p>
+<p>A connection is considered "near end abandoned" when the application has
+not answered an inbound call within a certain time (configured in the callmanager
+group, callnotacceptedtimer).</p>
+</list-item>
+<list-item><p>Total abandoned inbound connections</p>
+<p>Out of Total abandoned connections the number of inbound connections.</p>
+</list-item>
+<list-item><p>Total abandoned outbound connections</p>
+<p>Out of Total abandoned connections the number of outbound connections.</p>
+</list-item>
+<list-item><p>Total failed connections </p>
+<p>Numbers of connections since restart that where rejected by the near or
+far end for any reason.</p>
+</list-item>
+<list-item><p>Total failed inbound connections </p>
+<p>Out of Total rejected connections the number of inbound connections.</p>
+</list-item>
+<list-item><p>Total failed outbound connections</p>
+<p>Out of Total rejected connections the number of outbound connections.</p>
+</list-item>
+</list>
+</chl3>
+<chl3><title>Connection view</title>
+<p>The connection view contains information about current connections</p>
+<p>This view has two pages. Press F2 for page 1 and F3 for page 2.</p>
+<figure align="center">
+<graphics scalepct="" scalefit="1" resol="72" xlink:type="simple" xlink:href="connection_statistic.jpg"
+xlink:show="embed" xlink:actuate="onLoad" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+<caption></caption>
+</figure>
+<p>For each connection, the following values is displayed.</p>
+<list type="unordered">
+<list-item><p>Session Id (Sid)</p>
+<p>The identity of the session using this connection. This information can
+be used to see which connections are used for a particular session.</p>
+<p>This id can also be found in the logfile.</p>
+</list-item>
+<list-item><p>Service (Service)</p>
+<p>The Service using this connection</p>
+</list-item>
+<list-item><p>Session initiator (SessInit) </p>
+<p>The initiator of the session that created this connection. One of:</p>
+<list type="unordered">
+<list-item><p>&rdquo;xmp &lt;xmpclientid>&rdquo; for Service Requests</p>
+</list-item>
+<list-item><p>&rdquo;&lt;session id>&rdquo; when initiated by another session</p>
+</list-item>
+<list-item><p>&rdquo;sip&rdquo; when initiated by a telephony session.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>Connection type (Tp)</p>
+<p>One of Voice or Video</p>
+</list-item>
+<list-item><p>Connection State (St)</p>
+<p>The state of the connections.</p>
+<p>The connection state can have the following values</p>
+<list type="unordered">
+<list-item><p>ALERTING (a). This is an inbound call from the MAS perspective.
+The call has not yet been answered by the MAS.</p>
+</list-item>
+<list-item><p>PROGRESSING (p). This is an outbound call from the MAS perspective.
+The call has not yet been answered by the remote end.</p>
+</list-item>
+<list-item><p>CONNECTED (c). This is either and inbound or an outbound call
+from the MAS perspective. The call is connected.</p>
+</list-item>
+<list-item><p>FAILED (f). This is either and inbound or an outbound call from
+the MAS perspective. The call failed to reach connected state.</p>
+</list-item>
+<list-item><p>DISCONNECTED (d). This is either and inbound or an outbound
+call from the MAS perspective. The call is disconnected.</p>
+</list-item>
+<list-item><p>ERROR (e). This is either and inbound or an outbound call from
+the MAS perspective. An abnormal condition has been detected on the call.</p>
+</list-item>
+<list-item><p>UNKNOWN (""). This call has unknown connection state. This state
+should be very temporary.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>Direction (Di)</p>
+<p>One of Inbound(in) or Outbound (out)</p>
+</list-item>
+<list-item><p>Outbound activity (O) </p>
+<p>One of Idle(i) or Play(p).</p>
+</list-item>
+<list-item><p>Inbound activity (I)</p>
+<p>One of Idle(i) or Record(r).</p>
+</list-item>
+<list-item><p>ANI</p>
+<p>The telephone number of the calling party</p>
+</list-item>
+<list-item><p>DNIS </p>
+<p>The telephone number of the called party</p>
+</list-item>
+<list-item><p>RDNIS </p>
+<p>The telephone number of the redirected called party</p>
+</list-item>
+<list-item><p>Far end connection properties (FarECP)</p>
+<p>A list of the far end IP address and ports (for the outbound traffic) used
+for this connection and protocol. E.g. &ldquo;RTP:123.4.56.127:2080:2082,SIP:123.4.56.24:5060&rdquo;</p>
+</list-item>
+</list>
+<p>Page 1 has the following columns.</p>
+<list type="unordered">
+<list-item><p>Session Id</p>
+</list-item>
+<list-item><p>Service</p>
+</list-item>
+<list-item><p>Connection Type</p>
+</list-item>
+<list-item><p>ConnectionState</p>
+</list-item>
+<list-item><p>Direction</p>
+</list-item>
+<list-item><p>Outbound activity</p>
+</list-item>
+<list-item><p>Inbound activity</p>
+</list-item>
+<list-item><p>ANI</p>
+</list-item>
+<list-item><p>DNIS</p>
+</list-item>
+<list-item><p>RDNIS</p>
+</list-item>
+</list>
+<p>Page 2 has the following columns</p>
+<list type="unordered">
+<list-item><p>Session Id</p>
+</list-item>
+<list-item><p>Session Initiator</p>
+</list-item>
+<list-item><p>Far end connection properties</p>
+</list-item>
+</list>
+</chl3>
+</chl2>
+<chl2 xml:id="testnumber"><title>Testnumber</title>
+<p>The testnumber is used to test that number analysis is working correctly.</p>
+<p>See the Application Documentation for more details on number analyzer.</p>
+<p><input>#/etc/init.d/rc.mas testnumber &lt;filename> &lt;rule> &lt;number>
+&lt;aninumber></input> 				</p>
+<p>The options are explained here:</p>
+<list type="unordered">
+<list-item><p>&lt;filename> </p>
+<p>The name and location of the file containing the rule to be tested (normally
+numberanalyzer.xml)</p>
+</list-item>
+<list-item><p>&lt;rule> </p>
+<p>The name of the rule to test </p>
+</list-item>
+<list-item><p>&lt;number> </p>
+<p>The number to test</p>
+</list-item>
+<list-item><p>&lt;aninumber> </p>
+<p>The ANI number including region code (optional)</p>
+</list-item>
+</list>
+</chl2>
+<chl2 xml:id="installapp"><title>Installapp</title>
+<p>To install an application package on the MAS component:</p>
+<list type="alphabetic">
+<list-item><p>Become superuser (root):</p>
+<p><input># su -</input></p>
+</list-item>
+<list-item><p>Install the application package by issuing the command:</p>
+<p><input># /etc/init.d/rc.mas installapp &lt;app_file></input> 	 				</p>
+</list-item>
+</list>
+<p>For a more detailed instruction, see the MAS Installation Guide.</p>
+</chl2>
+<chl2 xml:id="viewapp"><title>Viewapp</title>
+<p>To view which application package that is installed on the MAS component:</p>
+<list type="unordered">
+<list-item><p>Become super-user (root):</p>
+<p><input># su -</input></p>
+</list-item>
+<list-item><p>View the installed application package by issuing the command:</p>
+<p><input># /etc/init.d/rc.mas viewapp</input></p>
+</list-item>
+</list>
+<p>For a more detailed instruction, see the MAS Installation Guide.</p>
+</chl2>
+<chl2 xml:id="uninstallapp"><title>Uninstallapp</title>
+<p>To uninstall an application package from the MAS component:</p>
+<list type="alphabetic">
+<list-item><p>Become super-user (root):</p>
+<p><input># su -</input></p>
+</list-item>
+<list-item><p>Uninstall the application package by issuing the command:</p>
+<p><input># /etc/init.d/rc.mas uninstallapp &lt;id></input></p>
+</list-item>
+</list>
+<p>For a more detailed instruction, see the MAS Installation Guide.</p>
+</chl2>
+<chl2 xml:id="installmcp"><title>Installmcp</title>
+<p>To install an media content package on the MAS component:</p>
+<list type="alphabetic">
+<list-item><p>Become super-user (root):</p>
+<p><input># su -</input></p>
+</list-item>
+<list-item><p>Install the media content package by issuing the command:</p>
+<p><input># /etc/init.d/rc.mas installmcp &lt;mcp_file></input> 	 				</p>
+</list-item>
+</list>
+<p>For a more detailed instruction, see the MAS Installation Guide.</p>
+</chl2>
+<chl2 xml:id="viewmcp"><title>Viewmcp</title>
+<p>To view which media content packages that are installed on the MAS:</p>
+<list type="alphabetic">
+<list-item><p>Become super-user (root):</p>
+<p><input># su -</input></p>
+</list-item>
+<list-item><p>View the installed media content packages by issuing the command:</p>
+<p><input># /etc/init.d/rc.mas viewmcp</input></p>
+</list-item>
+</list>
+<p>For a more detailed instruction, see the MAS Installation Guide.</p>
+</chl2>
+<chl2 xml:id="uninstallmcp"><title>Uninstallmcp</title>
+<p>To uninstall a media content package from the MAS component:</p>
+<list type="alphabetic">
+<list-item><p>Become super-user (root):</p>
+<p><input># su -</input></p>
+</list-item>
+<list-item><p>Uninstall the media content package by issuing the command:</p>
+<p><input># /etc/init.d/rc.mas uninstallmcp &lt;id></input></p>
+</list-item>
+</list>
+<p>For a more detailed instruction, see the MAS Installation Guide.</p>
+</chl2>
+</chl1>
+<chl1><title>Process Supervision</title>
+<p>The MAS uses the Solaris 10 Service Management Facility (SMF) for process
+supervision. The SMF will check if any of the MAS processes is down, if so
+it starts the process immediately.</p>
+<p>See <xref linkend="autostartcmp"/> how to enable/disable process supervision.</p>
+<p>For more information about SMF services, refer to the Solaris 10 Documentation.</p>
+</chl1>
+<chl1><title>Service Administration </title>
+<chl2 xml:id="releasecausemappings"><title>Configure Release Cause Mappings</title>
+<p>When an outdial call cannot be established, the MAS receives a SIP Final
+Response. A SIP Final Response may or may not contain a Q.850 cause and location
+for the release in the SIP header Reason. The MAS uses the configuration in
+the callmanager section to map these responses to Network Status Codes as
+used by Messaging-over-IP. If a Q.850 cause/location value is found in the
+SIP Final Response, it is used when mapping, otherwise the SIP response code
+is used. With an application installed, the Network Status Code is used to
+inform other components in the system of the result of an outbound call. This
+information can be used for example to map the result of an outdial call to
+a specific outdial notification retry scheme.</p>
+<p>The default configuration of release cause mappings is shown below:</p>
+<p><preform>&lt;releasecausemappings defaultnetworkstatuscode="621"> 
+ &lt;mapping name="suppressed" networkstatuscode="614"
+  sipresponsecodeintervals="600" q850causeintervals="17"
+  q850locationintervals="0"/>
+ &lt;mapping name="busy" networkstatuscode="603"
+  sipresponsecodeintervals="486" q850causeintervals="17"/>  
+ &lt;mapping name="noreply" networkstatuscode="610"
+  sipresponsecodeintervals="408,480" 
+  q850causeintervals="18-19"/>
+ &lt;mapping name="notreachable" networkstatuscode="613"
+  sipresponsecodeintervals="301,403-404,410,484,501-502,603"
+  q850causeintervals="1-9,20-23,25-31"/>
+ &lt;mapping name="congestion" networkstatuscode="620"
+  sipresponsecodeintervals="503" 
+  q850causeintervals="39-44,46"/>
+&lt;/releasecausemappings></preform> 				</p>
+<p>In the above example, the SIP response code 486, which can be seen as a
+busy signal in the SIP network is mapped to the Network Status Code 603 and
+given the name busy.</p>
+<p>The Network Status Code for the scenarios described in the example should
+not be changed and are the default values after an installation, i.e. the
+Network Status Code for the congestion scenario should always be set to 620
+although it is possible to change which SIP Final Responses values and Q.850
+cause/location values that generate that code.</p>
+<p>see <xref linkend="callmanager_releasecausemappings_group"/> for more information.</p>
+</chl2>
+<chl2><title>Configure user provisioning</title>
+<p>By default, MCR is used to retrieve the user provisioning host(s) and normally
+does not need to be manually configured. This section describes how user provisioning
+can be configured manually, overriding the default MCR setting.</p>
+<p>The configuration for user provisioning host(s) is located under the services
+group in the externalcomponentregister group.</p>
+<p>In order to override the MCR settings for user provisioning, set the corresponding
+overridemcr attribute to true. Configure the user provisioning host name and
+port by using the instance tag located in the provisioning group.</p>
+<note><p>To provide redundancy, additional provisioning hosts can be configured.
+This is done by adding an instance tag for each host, in the provision service
+group, see <xref linkend="externalcomponentregister"/>. For example:<preform>&lt;provisioning overridemcr="true">
+  &lt;instance hostname="provisioninghost1.domain"
+     port="2400"/>
+  &lt;instance hostname="provisioninghost2.domain"
+     port="2400"/>
+&lt;/provisioning></preform></p>
+</note>
+<p>A provisioning administrator must also be configured in the provisioning
+group. This is located under the provision group located in the profilemanager
+group. Set the password to use for all provisioning administrators in the
+password attribute.</p>
+</chl2>
+<chl2><title>Call Trace</title>
+<p>The call trace is a log function that filters the log to show all logs
+for a specified number/numbers.</p>
+<p>See <xref linkend="CallTraceConfig"/> how to configure call trace.</p>
+</chl2>
+<chl2><title>Configure media codec</title>
+<p>The MAS is by default configured for the G.711 u-law codec. This section
+describes which steps that are needed in order to configure a non-default
+media codec such as AMR or a-law. </p>
+<list>
+<list-item><p>The defaultinboundptime and defaultinboundmaxptime configuration
+must be adjusted according to <xref linkend="cfg.stream"/>.</p>
+</list-item>
+<list-item><p>The inboundaudiomedia and requiredoutboundaudiomedia must be
+adjusted according to  <xref linkend="cfg.callmanager"/>.</p>
+</list-item>
+<list-item><p>The codec part of contenttypemapper must be adjusted according
+to <xref linkend="cfg.contenttypemanager"/></p>
+</list-item>
+<list-item><p>The vva.xml must be updated according to the Operation and Maintenance
+guide for VVA.</p>
+</list-item>
+<list-item><p>Make sure that the media content packages that are installed
+supports the codec that should be used.</p>
+</list-item>
+</list>
+<note><p>The above list only describes necessary changes for MAS/VVA. Configuration
+of other parts in the system, such as gateways may also need to be modified.</p>
+</note>
+<note><p>Configuring a new codec requires a restart of MAS, reload of configuration
+is not enough.</p>
+</note>
+</chl2>
+<chl2 xml:id="configSilenceDetection"><title>Configure silence detection</title>
+<p>Silence detection in MAS is default disabled for both audio and video calls.
+When silence detection is enabled it gets enabled for audio calls. Silence
+detection is only supported for pure audio calls and only for G.711 &mu;-law
+and A-law codecs. It is necessary that the silent audio packets are sent by
+the gateway or end-point all the time (e.g. in case the user mutes his audio),
+silence detection will not work if MAS does not receive an audio stream. If
+no audio packets are received there will be no recording.  </p>
+<p>MAS supports three silence detection modes: </p>
+<list>
+<list-item><p>No Silence Detection mode</p>
+</list-item>
+<list-item><p>Static Silence Detection mode</p>
+</list-item>
+<list-item><p>Dynamic Silence Detection mode</p>
+</list-item>
+</list>
+<chl3><title>No Silence Detection mode</title>
+<p>To turn off the Silence Detection, the SilenceDetectionMode must be set
+to 0. When the Silence Detection is turned off, the recording is continued
+until one of the following occurs:</p>
+<list>
+<list-item><p>Maximum recording duration is reached.</p>
+</list-item>
+<list-item><p>Caller has hung up</p>
+</list-item>
+<list-item><p>Caller has pressed the specified DTMF to interrupt.</p>
+</list-item>
+</list>
+</chl3>
+<chl3><title>Static Silence Detection mode</title>
+<p>To set the Silence Detection to Static Silence Detection mode, the SilenceDetectionMode
+parameter must be set to 1. This mode uses the configuration attribute &ldquo;SilenceThreshold&rdquo;
+to decide on the silence frames. Every PCM sample value in an audio frame
+is compared with this threshold value. A PCM sample value is deemed to be
+silent if it is below the threshold. A complete frame is deemed silent if
+90% of the samples are silent.</p>
+</chl3>
+<chl3><title>Dynamic Silence Detection mode</title>
+<p>To set the Silence Detection mode to Dynamic Silence Detection mode, the
+&ldquo;SilenceDetectionMode&rdquo; parameter must be set to 2. In this option,
+the silence detection works on an adaptive threshold value. Here the threshold
+value is not for each PCM sample; rather it is for the average energy level
+of a frame used for detection. In this mode the following configuration parameters
+are used:</p>
+<list>
+<list-item><p>InitialSilenceFrames</p>
+</list-item>
+<list-item><p>DetectionFrames</p>
+</list-item>
+<list-item><p>SilenceDeadband</p>
+</list-item>
+<list-item><p>SignalDeadband</p>
+</list-item>
+</list>
+<p>The initial threshold value is calculated by averaging the energy level
+of first incoming audio frame(s) of length (in ms) as specified by the attribute
+&ldquo;InitialSilenceFrames&rdquo; at the start of recording. The subsequent
+incoming frames of length as specified by the attribute &ldquo;DetectionFrames&rdquo;
+are averaged for energy and compared with the current threshold. The default
+detection frame size is chosen as 10 ms since it gives a better granularity
+while averaging for energy and better zero crossing rate for voice signal.
+The threshold value is lowered when a transition occurs from speech to silence
+and vice versa. The increment in threshold value is less monotonic than the
+decrement since we want to quickly come back to better silence threshold in
+the event of transition from noise or speech burst. In order to make silence
+transition more conservative, we keep a silence dead band as specified by
+the attribute &ldquo;SilenceDeadBand&rdquo;. A transition from speech to silence
+occurs when consecutive silent (as decided by comparing with the current threshold
+value) audio frames cross the &ldquo;SilenceDeadBand&rdquo; value. The default
+value is 150 ms. The default value is chosen since the inter word silence
+and hysteresis on an average speaker is less than 150 ms.  Similarly, a &ldquo;SignalDeadBand&rdquo;
+value is used to decide on transition from silence to speech. The speech transition
+is not constrained and the default speech dead band is 10 ms (that is 1 detection
+frame size). The transition from silence to speech occurs when we detect consecutive
+speech audio frames equal to &ldquo;SignalDeadBand&rdquo;.</p>
+</chl3>
+<chl3><title>Description of Silence Detection Parameters</title>
+<list>
+<list-item><p>The silencedetectionmode is used to set the Silence Mode. MAS
+supports the following three Silence Modes: </p>
+<list>
+<list-item><p>Mode 0 - No Silence Detection.</p>
+</list-item>
+<list-item><p>Mode 1 - Static Silence Detection mode.</p>
+</list-item>
+<list-item><p>Mode 2 - Dynamic Silence Detection mode. Default is 0.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>The silencethreshold is the initial threshold value for the
+energy of a detection frame. The range of this attribute is from 0 to 1200.
+The unit is in short value equivalent to a 16-bit linear PCM sample. This
+value is not used in the case of dynamic silence detection. Default is 0.</p>
+</list-item>
+<list-item><p>The initialsilenceframes is used to calculate the initial silence
+threshold. The value should always be 40.</p>
+</list-item>
+<list-item><p>The silencedeadband is used to decide transition from speech
+to silence. Default is 150 ms. This value should be a non-zero value. This
+value determines the number of silence frames to accumulate before we make
+a transition from speech to silence. Also, after we make this transition,
+the threshold value changes to a lower value based on the maximum silence
+level during the period of accumulation of silence packets in the deadband.
+When fine tuning silence detection, this parameter is likely to be the first
+candidate to adjust.</p>
+</list-item>
+<list-item><p>The signaldeadband is used to decide transition from silence
+to speech. Default is 10 ms. It has to be a non zero value and less than the
+"Silence-Deadband" value above. This is same as silence dead band applicable
+for silence to speech transition. The lower value of this being same as the
+detection frame size makes the silence detector more sensitive to speech transition.</p>
+</list-item>
+<list-item><p>The detectionframes determines the number of samples for calculation
+of average energy in an RTP packet. If an RTP packet is bigger than 10 ms
+(40 ms as in the case of MTG), it is divided into four packets and the average
+energy is calculated for each one. Default is 10.</p>
+</list-item>
+<list-item><p>The silencedetectiondebuglevel provides different levels of
+debug information for the Silence Detection functionality. This is information
+that is provided in addition to the normal debug log information for Stream.
+See the appropriate section for enabling debug logging for Stream. Default
+is silencedetectiondebuglevel=0. The parameter can have the following values:
+ </p>
+<list>
+<list-item><p>silencedetectiondebuglevel=0:  Will indicate that Silence Detection
+has occurred and print Silence Detection configuration parameters and attribute
+values (VoiceXML) received from the application.</p>
+</list-item>
+<list-item><p>silencedetectiondebuglevel=1: Provides information on e.g. energy
+levels per RTP packet.</p>
+</list-item>
+<list-item><p>silencedetectiondebuglevel=2: Provides some additional information
+when Silence has been detected.</p>
+</list-item>
+<list-item><p>silencedetectiondebuglevel=3: This level is only used for SilenceDetectionMode=1
+(static) and provides additional information on Sample level.</p>
+</list-item>
+</list>
+<note><p>Stream debug log must also be enabled in order for this attribute
+to have any effect.</p>
+</note>
+</list-item>
+</list>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title>Preventive Maintenance</title>
+<p>Preventive maintenance means regularly performed measures to prevent faults
+from occurring and to reduce the time needed to correct faults.</p>
+<chl2 xml:id="bckup"><title>Back Up</title>
+<p>The backup script delivered together with the MAS is intended to be used
+during System backup. The backup script collects all files that should be
+backed up into the <resource-id type="file-path">/apps/backup/MAS_&lt;date>_backup.tar</resource-id> file
+and passes the file location to the System backup which proceeds the backup
+process. The backup script file <resource-id type="file-path">bckmasconfig.sh</resource-id> is
+stored in the <resource-id type="file-path"> /apps/backup</resource-id> directory</p>
+<p>Follow this procedure to back up the MAS component:</p>
+<step-list>
+<sl-item><p>Login to the host that should be backed up as root.</p>
+</sl-item>
+<sl-item><p>Change to the <resource-id type="file-path">/apps/backup</resource-id> directory.</p>
+</sl-item>
+<sl-item><p>Run <resource-id type="file-path">bckmasconfig.sh</resource-id></p>
+<p><input># ./bckmasconfig.sh</input></p>
+</sl-item>
+<sl-item><p>The script will end with path to a tar file containing all backed
+up files.</p>
+<p><output>RESULTFILE /apps/backup/MAS_&lt;date>_backup.tar</output></p>
+</sl-item>
+</step-list>
+<p>The following table describes the files that gets backed up with the backup
+script.</p>
+<table indent="column">
+<caption>Backup files</caption>
+<tgroup cols="2" char="" charoff="50"><colspec colname="col1" colwidth="0.84*"/>
+<colspec colname="col2" colwidth="1.16*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>File</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Contents</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>&lt;MAS_HOME>/cfg/*.xml</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>All installation
+specific Information, e.g. all hostnames of for example MCR and MUR and application
+configurations.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>/apps/logs/mas/*</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>All logfiles.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chl2>
+<chl2 xml:id="vstatmib"><title>View Static Data in MIB</title>
+<p>Static parameter values are not updated by the component during operation.
+The MAS MIB defines the following static parameters:</p>
+<table indent="column">
+<caption>Static parameters in MAS MIB</caption>
+<tgroup cols="3" char="" charoff="50"><colspec colname="col1" colwidth="1.31*"/>
+<colspec colname="col2" colwidth="0.63*"/><colspec colname="col3" colwidth="1.05*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Parameter</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Type</tp></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Description</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The name
+of the component as registered in MCR i.e. &lt;component_instancename> @&lt;hostname> </tp>
+<tp>e.g. mas1@host1.com</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masVersion</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The version
+of the component as registered in MCR.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masInstallDate</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Date and
+time</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The date
+the component was installed.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp><emph type="low">For
+each Service Enabler, the following parameters are shown</emph></tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"></entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masServiceEnabler\StatisticsMax\Connection</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>INTEGER</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The maximum
+number of channels (this is also referred to as the high watermark).</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masServiceEnabler\StatisticsProtocol</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The protocol
+used by this Service Enabler i.e. a literal name with the name of the protocol
+e.g. &ldquo;sip&rdquo;, &ldquo;xmp&rdquo; etc.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp><emph type="low">For
+each Provided Service, the following parameters are shown</emph></tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"></entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masProvided\ServiceName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The name
+of the registered service.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masProvided\ServiceHostName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The host
+providing the service.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masProvided\ServicePort</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>INTEGER</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The server
+port providing the service.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masProvided\ServiceZones</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The name
+of the logical zone this host is installed in.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>For instructions on how to view static data, see the documentation supplied
+with the SNMP Management tool.</p>
+<p>The following information can also be viewed by using <emph type="low">rc.mas
+viewmib</emph> command, see <xref linkend="viewmib"/></p>
+</chl2>
+<chl2 xml:id="vdynmib"><title>View Dynamic Data in MIB</title>
+<p>Dynamic parameter values may be updated by the component during operation.
+The MAS MIB defines the following dynamic parameters:</p>
+<table indent="half-indent">
+<caption>Dynamic parameters in MAS MIB</caption>
+<tgroup cols="3" char="" charoff="50"><colspec colname="col1" colwidth="1.18*"/>
+<colspec colname="col2" colwidth="0.60*"/><colspec colname="col3" colwidth="1.22*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Parameter</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Type</tp></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Description</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masOperationalState</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>INTEGER</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Indicates
+if the component is in operation. The component may be disabled if it cannot
+perform its tasks.</tp>
+<tp>1=enabled 2=disabled</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masAdministrativeState</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>INTEGER
+ </tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The Administrative
+state of the component.</tp>
+<tp>1=unlocked2=locked3=shutdown</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masCurrentUpTime</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>TimeStamp</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The time
+the component has been running since start. </tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masAccumulatedUpTime</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>TimeStamp</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The time
+the component has been running since installation.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConfigurationState</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>INTEGER</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The state
+of the configuration.</tp>
+<tp>load(1) = The configuration is loading.</tp>
+<tp>If this value is set to 1, the component is trigged to reread the configuration.</tp>
+<tp>ok(2) = The configuration is loaded ok.</tp>
+<tp>nok(3) = The configuration was not loaded ok, Loaded backup configuration
+successfully.</tp>
+<tp>failed(4) = The configuration was not loaded ok and no backup configuration
+could be loaded.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masLastConfiguration\</tp>
+<tp>UpdateTime</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Date and
+time</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The date
+and time when the last successful reload configuration was performed.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masLastConfigurationUpdateTicks</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>INTEGER</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>This variable
+shows the time in number of hundredths of a second since the last time the
+configuration was loaded.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp><emph type="low">For
+each Type, The following parameters are shown.</emph></tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"></entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConnectionStatisticsType</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>String</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The type
+of this connection, one of Voice, Video, Service Request or Unknown.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConnectionStatistics</tp>
+<tp>Connections</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Integer</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The current
+number of connection(s).</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConnection\</tp>
+<tp>StatisticsPeakConnections</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Integer</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The peak
+number of connection(s) since the last restart.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConnectionStatisticsPeakTime</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Date and
+time</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The time
+when "masConnectionStatisticPeakConnections" occurred. Until the MAS has received
+a call, this parameter will equal the MAS start time.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConnection\</tp>
+<tp>StatisticsTotalConnections</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Integer</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The total
+number of connection(s) since the last restart.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>masConnection\</tp>
+<tp>StatisticsAccumulatedConnections</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Integer</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The total
+number of  connection(s) since installation time.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>For instructions on how to view dynamic data, see the documentation supplied
+with the SNMP Management tool.</p>
+<p>The following information can also be viewed by using <emph type="low">rc.mas
+viewmib</emph> command, see <xref linkend="viewmib"/></p>
+</chl2>
+<chl2 xml:id="mdsksp"><title>Manage Disk Space</title>
+<p>No files need to be manually cleared out to free disk space. This is done
+automatically.</p>
+</chl2>
+</chl1>
+<chl1 xml:id="correctivemaintenance"><title>Corrective Maintenance</title>
+<p>Corrective maintenance means fault tracing and correction. </p>
+<p></p>
+<chl2><title xml:id="mtraps">Monitor Traps and Correct Faults</title>
+<p>The traps that are defined by the MAS MIB are started and stopped.</p>
+<chl3><title xml:id="MASstart">MASStarted</title>
+<p>The <quote>MASStarted</quote> trap is issued when the MAS component is
+started. It reports:</p>
+<list type="unordered">
+<list-item><p>The operational state of the MAS (MASOperationalState). </p>
+</list-item>
+<list-item><p>The administrative state of the MAS (MASAdministrativeState).</p>
+</list-item>
+</list>
+</chl3>
+<chl3><title xml:id="MASstop">MASStopped</title>
+<p>The <quote>MASStopped</quote> trap is issued when the MAS component is
+stopped. It reports:</p>
+<list type="unordered">
+<list-item><p>The operational state of the MAS (MASOperationalState). </p>
+</list-item>
+<list-item><p>The administrative state of the MAS (MASAdministrativeState).</p>
+</list-item>
+</list>
+</chl3>
+</chl2>
+<chl2 xml:id="rdata"><title>Restore Data</title>
+<p>Restore of the MAS component can be performed by using the backed up tar
+file (made in section: <xref linkend="bckup"/> ), e.g. <resource-id type="file-path">&lt;RESTORE_HOME>/MAS_&lt;date>_backup.tar.gz</resource-id>,
+where &lt;RESTORE_HOME> is where the backup file is located.</p>
+<p>The MAS component can either be totally restored with all backed up files,
+or partially restored with some of the files.</p>
+<step-list>
+<sl-item><p>If the operating system is reinstalled, make sure that the MAS
+component is installed first, according to the MAS Installation Guide.</p>
+</sl-item>
+<sl-item><p>Make sure that any application and media content packages are
+reinstalled.</p>
+</sl-item>
+<sl-item><p>Copy the compressed tar file to the home directory of the MAS
+component (&lt;MAS_HOME>)(e.g <resource-id type="file-path">/apps/mas</resource-id>)</p>
+<p><input># cp &lt;RESTORE_HOME>/MAS_&lt;date>_backup.tar &lt;MAS_HOME></input></p>
+</sl-item>
+<sl-item><p>Move to the &lt;MAS_HOME> directory.</p>
+<p><input># cd &lt;MAS_HOME></input></p>
+</sl-item>
+<sl-item><p>Uncompress the file.</p>
+<p><input># gunzip MAS_&lt;date>_backup.tar.gz</input></p>
+</sl-item>
+<sl-item><p>To see which files that are backed up in the tar file, type the
+following command:</p>
+<p><input># tar tf MAS_&lt;date>_backup.tar</input></p>
+</sl-item>
+<sl-item><p>Extract files from the container file. Either all, for a full
+restore, or just a few files for partial restore.</p>
+<p>For full restore, type the following command:</p>
+<p><input># tar xvf MAS_&lt;date>_backup.tar</input></p>
+<p>For partial restore, type the following command (with mas.cfg as example):</p>
+<p><input># tar xvf MAS_&lt;date>_backup.tar cfg/mas.xml</input></p>
+</sl-item>
+<sl-item><p>Restart the MAS. See: <xref linkend="restcmp"/></p>
+</sl-item>
+<sl-item><p>Verify that the MAS handle the traffic correctly, e.g. by making
+a test call.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2 xml:id="inslog"><title>Inspect and Manage Log Files</title>
+<chl3 xml:id="MASinstallationlogfiles"><title>Logfile location</title>
+<p>All the MAS logs can be found in the /apps/logs/mas directory. A brief
+description of the content of each log file is provided in this section.</p>
+<chl4><title>Installation Log</title>
+<p>The installation log file will named according to the following convention: </p>
+<p><resource-id type="file-path">mas@&lt;Host name>.&lt;YYYY_MM_DD_HHMM>.installog</resource-id></p>
+<p>Example:</p>
+<p><resource-id type="file-path">mas@mashost1.domain.2006_01_27_1606.installog</resource-id></p>
+<p>This log file is not removed when the component is uninstalled.</p>
+</chl4>
+<chl4 xml:id="installationlog"><title>MAS Log</title>
+<p>The MAS logfiles will be named mas.log and mas_agent.log.</p>
+<p>In the default configuration, the following log format is used:</p>
+<p>&lt;timestamp>&lt;source>&lt;loglevel>[SID:&lt;sid>]&lt;trace></p>
+<def-list><dl-item>
+<term>Timestamp</term><def><p>Time of the log entry conformant with ISO 8601:2000
+with the format as yyyy-mm-dd hh:mm:ss,msec timezone. Time zone is specified
+as +-hhmm offset from UTC.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Source</term><def><p>Reference to the component responsible for the
+Log Entry.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Loglevel</term><def><p>Level of this log event signifying the severity.
+The loglevel is one of:</p>
+<list type="unordered">
+<list-item><p>debug</p>
+</list-item>
+<list-item><p>info</p>
+</list-item>
+<list-item><p>warn</p>
+</list-item>
+<list-item><p>error</p>
+</list-item>
+<list-item><p>fatal</p>
+</list-item>
+</list>
+<p>For information about how to set the Loglevel for different parts of the
+MAS, see <xref linkend="cconfil"/>.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Sid</term><def><p>End-user session Id.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Trace</term><def><p>This is the textual description of the log entry.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Tid</term><def><p>The thread making the log request.</p>
+</def>
+</dl-item>
+</def-list>
+<example condensed="yes" indent="column">
+<caption>Call related log entry</caption>
+<preform>2006-09-28 09:43:42,535 MET com.mobeon.masp.externalcomponentregister.algorithm.LogicalHostMultimasterChooser
+WARN [TID:main] [SID:] - Unknown property: replicationid. Could not retrieve
+replicationid. Return replicationid &lt;65535>.</preform>
+</example>
+<p>The MAS log files are configured to have the maximum size of 10MB. When
+the logfile reaches this limit, the log files are renamed with a number suffix.
+The maximum number of logfiles is 10, where the oldest file have number 10
+as suffix.</p>
+<p>Example:</p>
+<p> <resource-id type="file-path"><nl/>mas.log<nl/>mas.log.1<nl/>mas.log.2<nl/>.....</resource-id></p>
+<p>These log files are removed when the component is uninstalled.</p>
+</chl4>
+<chl4><title>Stream Log</title>
+<p>The stream log handles output from the low level RTP streaming part of
+MAS. By default the maximum log file size is 10MB. When the log file reaches
+this limit the file will be renamed with a number suffix. The maximum number
+of saved log files are 2. The current log file is named stream.log and the
+oldest saved file will be named stream.log.2.</p>
+<p> <resource-id type="file-path"><nl/>stream.log<nl/>stream.log.1<nl/>stream.log.2</resource-id> </p>
+<p>These log files are removed when the component is uninstalled.</p>
+</chl4>
+<chl4><title>Process Log</title>
+<p>The Process Log handles output from the MAS process, i.e. output from the
+Java Virtual Machine.</p>
+<p>The process log is configured to have the maximum size of 5 MB by default.
+When the logfile reaches this limit, the process.log file is renamed with
+a number suffix. The maximum number of logfiles is 2, where the oldest file
+have number 1 as suffix</p>
+<p>Example:</p>
+<p> <resource-id type="file-path"><nl/>process.log<nl/>process.log.1</resource-id> </p>
+<p>These log files are removed when the component is uninstalled.</p>
+</chl4>
+</chl3>
+<chl3><title>Trace errors in Logfiles</title>
+<p>Normally, there should be no errors or warnings logged in the log files.
+If there are, it can indicate a problem with the configuration, with other
+related components (gateways, SSP's), or with the MAS instance itself. Refer
+to the table below for a description of some of the most common types of log
+entries.</p>
+<table indent="column">
+<caption>Common errors and warnings in the runtime log file</caption>
+<tgroup cols="4" char="" charoff="50"><colspec colname="col1" colwidth="0.69*"/>
+<colspec colname="col2" colwidth="1.10*"/><colspec colname="col3" colwidth="1.11*"/>
+<colspec colname="col4" colwidth="1.10*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Severity</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Instance</tp></entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Message</tp></entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Description</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>WARNING</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>com.mobeon.masp.\externalcomponent\register.*</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Unknown
+property: replicationid. Could not retrieve replicationid. Return replicationid
+&lt;65535>.</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The MCR
+entry of the MUR does not contain a replication ID. Therefore there is no
+way to determine if the MAS is operating in a MUR multi-master deployment
+or not.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ERROR</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>com.mobeon.masp.mailbox
+or com.mobeon.masp.\message_sender</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Read timed
+out</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>A read
+operation on the SMTP or IMAP protocol towards the MS component has timed
+out, probably due to a temporary high load on the MS.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>WARNING</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>com.mobeon.masp.\callmanager.*</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>The INVITE
+is rejected since the Service is temporarily unavailable due to current administrative
+state: Locked state. A SIP "Temporarily Unavailable" response is sent.</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The MAS
+is in LOCKED state. </tp>
+<tp>Action: Unlock the MAS</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ERROR</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>com.mobeon.masp.\callmanager.*</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Exception
+occurred when registering. The backoff timer is scheduled for a REGISTER retry
+later. (State=Registering, SSP=ssphost:5060)</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The SSP
+instance is not reachable.</tp>
+<tp>Action: This may indicate that the SSP instance is down, ssphost atribute
+is not set in mas.xml or the IP address for the ssphost can not be resolved.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ERROR</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>com.mobeon.masp.\mediatrans\lationmanager.*</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Unknown
+ASR engine protocol: [&lt;protocol>]</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The protocol
+specified is not recognized by the MAS. </tp>
+<tp>Action: Update the mas.xml configuration file with the correct ASR protocol.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ERROR</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>com.mobeon.masp.\mediatrans\lationmanager.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Unknown
+TTS engine protocol: [&lt;protocol>]</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The protocol
+specified is not Recognized by the MAS. </tp>
+<tp>Action: Update the mas.xml configuration file with the correct TTS protocol.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>FATAL</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Any</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>Amount
+of free memory is too small</tp>
+</entry>
+<entry colname="col4" colsep="1" rowsep="1" char="" rotate="0"><tp>The amount
+of free physical memory is too small. The MAS is disabled.</tp>
+<tp>Action: Locate process that is using a large amount of memory and take
+the appropriate actions to free up memory. If the MAS  process itself has
+used too much memory, please forward all log-files to support for further
+analysis.</tp>
+<tp>This state is unrecoverable.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>Common errors and warnings in the runtime log file.</p>
+</chl3>
+</chl2>
+<chl2 xml:id="cconmib"><title>Change Configuration Parameters in MIBs</title>
+<p>There are no configuration parameters in the MAS MIB that can be changed.</p>
+</chl2>
+<chl2 xml:id="cconfil"><title>Change Configuration Parameters in File</title>
+<p>The MAS uses the configuration file described in this chapter. Changed
+configuration parameters will generally be read when restarting the MAS component.
+All parameters, except those marked with <emph>NR</emph>, will be reread during
+a reloadconfig operation. When modified, the log configuration files will
+be automatically reloaded within a few seconds.</p>
+<p>The configuration file for the MAS is XML based and is easily edited with
+an XML editor. Either one that can handle XML schemes or one that can check
+start and ending tags.</p>
+<p>All configuration files can be found under &lt;MAS_HOME>/cfg.</p>
+<p>The following configuration files exist:</p>
+<list type="alphabetic">
+<list-item><p>mas.xml. Main MAS configuration file.</p>
+</list-item>
+<list-item><p>logmanager.xml and logmanageragent.xml. Log configuration.</p>
+</list-item>
+<list-item><p>stream.log.properties. Log configuration (the log4cxx logging
+from Stream C++ which is directed to process.log).</p>
+</list-item>
+<list-item><p>numberanalyzer.xml. This file is not affecting the MAS. See
+the application documentation for more information about this file.</p>
+</list-item>
+<list-item><p>trafficevents.xml. This file is not affecting the MAS. See the
+application documentation for more information about this file.</p>
+</list-item>
+<list-item><p>chargingaccountmanager.xml. Configuration file for the charging
+account function.</p>
+</list-item>
+</list>
+<chl3 xml:id="MAScfgfiles"><title>Main Configuration File</title>
+<p>The configuration file consists of a set of root tags, which group the
+configuration attributes for the different components inside the MAS together.
+It has the following syntax:</p>
+<p><preform>&lt;configuration>
+    &lt;trafficeventsender>
+    &lt;/trafficeventsender>
+    &lt;callmanager>
+    &lt;/callmanager>
+    &lt;contenttypemapper>
+    &lt;/contenttypemapper>
+    &lt;executionengine>
+    &lt;/executionengine>
+    &lt;externalcomponentregister>
+    &lt;/externalcomponentregister>
+    &lt;mediacontentmanager>
+    &lt;/mediacontentmanager>
+    &lt;mediatranslationmanager>
+    &lt;/mediatranslationmanager>
+    &lt;mailbox>
+    &lt;/mailbox>
+    &lt;messagesender>
+    &lt;/messagesender>
+    &lt;operateandmaintainmanager>
+    &lt;/operateandmaintainmanager>
+    &lt;profilemanager>
+    &lt;/profilemanager>
+    &lt;servicerequestmanager>
+    &lt;/servicerequestmanager>
+    &lt;stream>
+    &lt;/stream>
+    &lt;provisionmanager>
+    &lt;/provisionmanager>
+&lt;/configuration></preform></p>
+<chl4><title>The mediacontentmanager group</title>
+<p>The mediacontentmanager group holds the configuration for the component
+in the MAS that handles the media content packages.</p>
+<p><preform>&lt;configuration>
+   &lt;mediacontentmanager
+       resourcepath="applications/mediacontentpackages">
+       &lt;mediaobjectcache 
+       policy="lfu"
+       maxsize="100"
+       elementtimeout="600"
+       memorysensitive="false"/>
+   &lt;/mediacontentmanager>
+&lt;/configuration></preform></p>
+<p>The mediacontentmanager group has one attribute, the default value set
+is usually adequate.</p>
+<list type="unordered">
+<list-item><p>The resourcepath tells the MAS where to look for the media content
+packages. The path is relative to the MAS installation directory.</p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>The mediaobjectcache group</title>
+<p>When a Media Object is requested, the Media Content Manager can keep the
+object in a cache to speed up access to frequently used Media Objects. The
+mediaobject group holds the configuration for this cache. If the group is
+not configured, no cache will be used by the Media Content Manager.</p>
+<p>The default values of the attributes in the mediaobjectcache group are
+usually adequate.</p>
+<p><preform>&lt;mediaobjectcache policy="lfu" maxsize="100"
+elementtimeout="600" memorysensitive="false"/></preform></p>
+<list type="unordered">
+<list-item><p>The policy attribute determines which caching policy that should
+be used. Possible values are "lfu" (default), "lru" and "fifo". "lfu" is Least
+Frequently Used, which means that the cache will remove objects starting with
+those least frequently used. "lru" is Least Recently Used. The cache will
+remove objects starting with those least recently used. "fifo" is First In
+First Out. The cache will remove objects starting with the oldest in the cache. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The maxsize attribute determines the maximum number of objects
+that will be kept in the cache. When the cache is full and a new object is
+added, an old object will be removed according to the policy set. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The elementtimeout attribute determines the life time in seconds
+of an object in the cache. When the timeout expires for an object, it is removed
+from the cache. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The memorysensitive attribute determines if the objects added
+to the cache should be available for garbage collection. If "true", the objects
+are available for the garbage collector. Default is "false". <emph>NR</emph></p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>The trafficeventsender group</title>
+<p>The trafficeventsender group holds the configuration for the component
+in the MAS that handles traffic events.</p>
+<p><preform>&lt;trafficeventsender>
+    &lt;emailconfig/>
+    &lt;radiusconfig>
+    &lt;/radiusconfig>
+&lt;/trafficeventsender></preform></p>
+<titled-block>
+<title>emailconfig group</title>
+<p>This group contains parameters used for sending the traffic events via
+E-mail.</p>
+<p><preform>&lt;emailconfig templatespath="lib"/></preform></p>
+<list type="unordered">
+<list-item><p>The templatespath is a file system path to where the template
+files are located. Relative to &lt;MAS_HOME>.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>radiusconfig group</title>
+<p>This group contains parameters used for sending the traffic events via
+Radius-MA.</p>
+<p>The group can have these attributes:</p>
+<p><preform>&lt;radiusconfig servicename="eventreporting" queuesize="2000"
+ delay="5000">
+  &lt;attribute name="sessionid" number="50" type="0"
+    datatype="S"/>
+  &lt;attribute name="username" number="1" type="0"
+    datatype="S"/>
+  &lt;attribute name="callednumber" number="30" type="0"
+    datatype="S"/>
+  &lt;attribute name="callingnumber" number="31" type="0"
+    datatype="S"/>
+  &lt;attribute name="operation" number="1" type="1"
+    datatype="E"/>
+  &lt;attribute name="messagesize" number="2" type="1"
+    datatype="I"/>
+  &lt;attribute name="terminatecause" number="3" type="1"
+    datatype="E"/>
+  &lt;attribute name="accesstype" number="4" type="1"
+    datatype="E"/>
+  &lt;attribute name="objecttype" number="6" type="1"
+    datatype="E"/>
+  &lt;attribute name="objectid" number="7" type="1"
+    datatype="S"/>
+  &lt;attribute name="description" number="8" type="1"
+    datatype="S"/>
+  &lt;attribute name="messagetype" number="12" type="1"
+    datatype="E"/>
+  &lt;attribute name="messageencoding" number="13" type="1"
+    datatype="E"/>
+  &lt;attribute name="ownername" number="16" type="1"
+    datatype="S"/>
+  &lt;attribute name="sssporttype" number="11" type="1"
+    datatype="E"/>
+  &lt;attribute name="accountcurrency" number="30" type="1"
+    datatype="S"/>
+  &lt;attribute name="accountmoney" number="31" type="1"
+    datatype="S"/>
+  &lt;attribute name="accounttype" number="32" type="1"
+    datatype="E"/>
+  &lt;attribute name="accountreason" number="33" type="1"
+    datatype="S"/>
+&lt;/radiusconfig></preform></p>
+<list type="unordered">
+<list-item><p>The servicename is the name of the service to use to get service
+instances from the External Component Register.</p>
+</list-item>
+<list-item><p>The queuesize is maximum size of the event queue.</p>
+</list-item>
+<list-item><p>The delay is the time in milliseconds to wait when no service
+instance is available before trying to get a new service instance and send
+events again.</p>
+</list-item>
+</list>
+<p>The radius group can have one or many attribute groups:</p>
+</titled-block>
+<titled-block>
+<title>essconfig group</title>
+<p>This group contains parameters used for sending the traffic events via
+the event service.</p>
+<p><preform>&lt;essconfig queuesize="1000" essservicename="EventSubscription"/></preform></p>
+<list type="unordered">
+<list-item><p>The essservicename is the name of the service to use to get
+service instances from the External Component Register.</p>
+</list-item>
+<list-item><p>The queuesize is maximum size of the event queue.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>attribute group</title>
+<p>This group contains parameters used to configure each attribute that can
+be sent via Radius-MA. The group can have these attributes:</p>
+<p><preform>&lt;attribute name="sessionid" number="50" type="0" datatype="S"/></preform></p>
+<list type="unordered">
+<list-item><p>The lower case name of the attribute in the traffic event.</p>
+</list-item>
+<list-item><p>The number that identifies an attribute in the Radius-MA protocol.</p>
+</list-item>
+<list-item><p>The type is a boolean value that indicates if this attribute
+should be a Vendor-Specific attribute. If true ("1") it will be set as a Vendor-Specific
+attribute.</p>
+</list-item>
+<list-item><p>The datatype is an identifier of which datatype this attribute
+should be set. Can be I (Integer), S (String) or E (Enumeration)</p>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+<chl4 xml:id="cfg.callmanager"><title>The callmanager group</title>
+<p>The callmanager group holds the configuration for the component in the
+MAS that handles SIP calls.</p>
+<p><preform>&lt;callmanager
+callnotacceptedtimer="32000"
+registerbackofftimer="120000"
+registerbeforeexpirationtime="5000"
+blacklisttimer="60000"
+inboundaudiomedia="pcmu"
+inboundvideomedia="h263"
+registeredname=""
+defaultcalltype="video"
+outboundcallcallingparty=""
+outboundcallconnecttimeout="30000"
+disconnectonsiptimeout="true"
+sendprovisionalresponsesreliable="sdponly"
+supporttestinput="false"
+useragentwithphoneinsipuributnouserparameter=
+"cisco,radvision,eyebeam,express talk,mirial"
+outboundcallserverport="5060"
+contacturioverride="">
+
+&lt;requiredoutboundaudiomedia> &lt;/requiredoutboundaudiomedia> 
+
+&lt;requiredoutboundvideomedia> &lt;/requiredoutboundvideomedia> 
+
+&lt;releasecausemappings> &lt;/releasecausemappings> 
+
+&lt;remoteparty> &lt;/remoteparty> 
+
+&lt;siptimers> &lt;/siptimers>
+
+&lt;loadregulation> &lt;/loadregulation> 
+
+&lt;restrictedoutboundheaders> &lt;/restrictedoutboundheaders> 
+&lt;/callmanager></preform></p>
+<p>The callmanager group consists of a set of attributes. By default media
+configurations is set to G.711 u-Law for audio and H.263 for video. If other
+media settings are wanted configuration has to be updated, otherwise the default
+settings are usually adequate. Attributes should normally not be edited unless
+there is a specific reason to do so. </p>
+<list type="unordered">
+<list-item><p>The callnotacceptedtimer is the amount of time in milliseconds
+within which an inbound call must be accepted by the MAS. If the call has
+not been accepted within that time, the call will be rejected.</p>
+</list-item>
+<list-item><p>The registerbackofftimer is the amount of time in milliseconds
+the MAS will wait before it tries to reregister with an SSP (if an SSP is
+used in the deployment) in case of a registration failure.</p>
+</list-item>
+<list-item><p>The registerbeforeexpirationtime indicates how long before the
+registration expiration time the MAS should reregister to the SSP (if an SSP
+is used in the deployment). The value is in milliseconds.</p>
+</list-item>
+<list-item><p>The blacklisttimer is the amount of time in milliseconds a non-SSP
+(if an SSP is used in the deployment) host is black listed if a timeout occurred
+when setting up a new outbound call towards that host. No new calls are setup
+to that host during the that time.</p>
+</list-item>
+<list-item><p>The inboundaudiomedia is the audio codec to use when recording
+SIP calls. Valid values are: &ldquo;pcmu&rdquo;, &ldquo;pcma&rdquo; and &ldquo;amr&rdquo;.
+Default is &ldquo;pcmu&rdquo;. This attribute shall be modified if a non-default
+codec should be used.</p>
+</list-item>
+<list-item><p>The inboundvideomedia is the video codec to use when recording
+SIP calls. Currently the only valid value is: &ldquo;h263&rdquo;. </p>
+</list-item>
+<list-item><p>The registeredname tells the MAS which name to use when registering
+to the SSP (if an SSP is used in the deployment) and in the SIP user agent
+header. This attribute is prompted for during installation of MAS. Should
+normally not be modified after installation.</p>
+</list-item>
+<list-item><p>The defaultcalltype indicates which call type to setup for outbound
+calls that are created without a call type and for inbound calls that lacks
+a media offer in the initial SIP INVITE. Valid values are: "voice" or "video".
+Default value is: &ldquo;video&rdquo;.</p>
+</list-item>
+<list-item><p>outboundcallcallingparty: If the application has not provided
+a calling party number when an outbound call is created, this value will be
+used as calling party for the outbound call.</p>
+</list-item>
+<list-item><p>outboundcallconnecttimeout: If the application has not provided
+a connect timeout value when an outbound call is created, this value will
+be used as connect timeout for the outbound call.</p>
+</list-item>
+<list-item><p>The disconnectonsiptimeout determines if the call should be
+disconnected if a timeout occurs for a SIP INFO request. The normal case is
+to disconnect the call, but since some SIP clients are known to not respond
+to SIP INFO requests, it is possible to override this behavior. If disconnectonsiptimeout
+is set to false, the MAS will not disconnect the call if a SIP INFO request
+times out. This applies only to SIP INFO, on timeout for other requests the
+call is still disconnected.</p>
+</list-item>
+<list-item><p>The sendprovisionalresponsesreliable determines whether a provisional
+SIP response should be sent reliably or not. The available values are "yes",
+"no" and "sdponly". The normal situation is to send provisional responses
+reliably only when containing SDP information. Default value: &ldquo;sdponly&rdquo;.</p>
+</list-item>
+<list-item><p>The supporttestinput indicates whether or not to support test
+input given over SIP in a non-standardized way. The available values are "true"
+or "false". Default value is &ldquo;false&rdquo;. This attribute should only
+be modified for test purposes and should always be &ldquo;false&rdquo; in
+a normal deployment.</p>
+</list-item>
+<list-item><p>The useragentwithphoneinsipuributnouserparameter indicates for
+which user-agents MAS will treat the user part of the SIPURI as a phone number
+despite that user=phone is missing. Specify a comma-separated list of user-agents.
+The user-agents are case insensitive. There are 2 special values that can
+be used: &ldquo;all&rdquo; means that all URI will be treated as phone number,
+&ldquo;empty&rdquo; means that URIs in a request without an user-agent will
+be treated as phone number.</p>
+</list-item>
+<list-item><p>The outboundcallserverport defines what port number to use when
+contacting an outbound call server. An outbound call server is contacted on
+behalf of the application for example when doing outbound calls. If the application
+has not supplied an outbound call server, the SSP/SIP Proxy will be contacted.
+The outboundcallserverport is used only if the application has not supplied
+a port.</p>
+</list-item>
+<list-item><p>The contacturioverride redefines what is sent in the SIP Contact
+header. By default (when contacturioverride is empty) the SIP Contact header
+is composed using the configured hostname of the MAS (refer to <xref linkend="eegroup"/>).
+That hostname is normally not a fully qualified domain name (FQDN), but this
+normally works well in a gateway deployment since the hostname is routable
+within the private network. However in e.g. a VoIP or IMS deployment where
+the SIP endpoints are in another network than the MAS, the configured MAS
+hostname may not be possible to use for routing the SIP messages. In that
+case it is necessary to define another address in the contacturioverride.
+That address need to be the fully qualified domain name of the MAS, routable
+from the external IMS or VoIP network.</p>
+<p>When specifying that a contact header override is required, the format
+is as follows:<preform>contacturioverride="sip:mas@&lt;MAS FQDN>"</preform>Where
+&lt;MAS FQDN> refers to the Fully Qualified Domain Name (FQDN) of the MAS. </p>
+<p>To disable Contact URI override (the default), specify an empty string:<preform>contacturioverride=""</preform></p>
+<p>Example:<preform> contacturioverride="sip:mas@mas01.mynetwork.com"</preform></p>
+</list-item>
+</list>
+<titled-block>
+<title>The requiredoutboundaudiomedia group</title>
+<p>This group tells the MAS which audio media that shall be possible to stream
+out. By default pcmu and telephone-event is configured. &ldquo;telephone-event&rdquo;
+should always be present while &ldquo;pcmu&rdquo; must be modified if a non-default
+codec is to be used.</p>
+<p><preform>&lt;requiredoutboundaudiomedia>
+ &lt;mediatype encoding="pcmu">&lt;/mediatype>
+ &lt;mediatype encoding="telephone-event">&lt;/mediatype>
+&lt;/requiredoutboundaudiomedia></preform></p>
+<p>Currently the only supported encoding values are pcmu (G.711 u-Law codec),
+pcma (G.711 a-law codec) and amr (AMR-NB codec), together with telephone-event
+(DTMF according to RFC2833).</p>
+</titled-block>
+<titled-block>
+<title>The requiredoutboundvideomedia group</title>
+<p>This group tells the MAS which video media that shall be possible to stream
+out. The default value is normally adequate.</p>
+<p><preform>&lt;requiredoutboundvideomedia>
+ &lt;mediatype encoding="h263">&lt;/mediatype>
+&lt;/requiredoutboundvideomedia></preform></p>
+<p>The only supported values in this version is h263, which is the H.263 codec.</p>
+</titled-block>
+<titled-block>
+<title xml:id="callmanager_releasecausemappings_group">The releasecausemappings
+group</title>
+<p>This group tells the MAS how to map a release cause to a network status
+code. The release cause information can be received either as a Q.850 cause/location
+or as a SIP response code. If a Q.850 cause/location is available it is chosen
+as first alternative when doing the release cause mapping to a network status
+code. The default mapping is usually adequate for a standard system.</p>
+<p><preform>&lt;releasecausemappings defaultnetworkstatuscode="621">
+  &lt;mapping name="suppressed" networkstatuscode="614"
+     sipresponsecodeintervals="600"
+     q850causeintervals="17" q850locationintervals="0"/>
+  &lt;mapping name="busy" networkstatuscode="603" 
+     sipresponsecodeintervals="486" 
+     q850causeintervals="17"/>
+  &lt;mapping name="noreply" networkstatuscode="610"
+     sipresponsecodeintervals="408,480"
+     q850causeintervals="18-19"/>
+  &lt;mapping name="notreachable" networkstatuscode="613" 
+     sipresponsecodeintervals="301,403-404,410,484,501-502,603" 
+     q850causeintervals="1-9,20-23,25-31"/>
+  &lt;mapping name="congestion" networkstatuscode="620"
+     sipresponsecodeintervals="503"
+     q850causeintervals="39-44,46"/>
+&lt;/releasecausemappings></preform></p>
+<p>The SIP responses can be any value between 300 and 699 supported by the
+SIP standard. The Q.850 cause can be any value between 0 and 127. The Q.850
+location can be any value between 0 and 15. The network status codes are as
+defined by the Messaging-over-IP system.</p>
+<p>The configuration order is important. The first line has highest priority
+in case the configuration overlaps.</p>
+</titled-block>
+<titled-block>
+<title xml:id="callmanager_remoteparty_group">The remoteparty group</title>
+<p>This group defines how the MAS will behave for outdials and registering
+towards the SSP:s or an external SIP proxy.</p>
+<p><preform>&lt;remoteparty>
+ &lt;ssplist>
+  &lt;address host="ssp1.domain" port="5060"/>
+  &lt;address host="ssp2.domain" port="5060"/>
+ &lt;/ssplist>
+&lt;/remoteparty></preform></p>
+<p>When using SSP:s the remoteparty group contains a list of SSP:s as shown
+above.</p>
+<p>The hostname and port is the name of the SSP host and the port where it
+responds to SIP requests.</p>
+<p>MAS registers to all of the defined SSP:s in the list and chooses one of
+them randomly when making an outdial.</p>
+<p><preform>&lt;remoteparty>
+ &lt;sipproxy>
+  &lt;address host="ssp1.domain" port="5060"/>
+ &lt;/sipproxy>
+&lt;/remoteparty></preform></p>
+<p>When using a SIP proxy instead of SSP:s the remoteparty group contains
+one SIP proxy as shown above.</p>
+<p>The hostname and port is the name of the SIP proxy host and the port where
+it responds to SIP requests.</p>
+<p>No registration is done to the remote SIP proxy. In this configuration
+the MAS always uses the SIP proxy when making an outdial.</p>
+</titled-block>
+<titled-block>
+<title>The siptimers group</title>
+<p>This group contains the SIP timer values to use. It is read at startup
+of the MAS and is not reloadable. <emph>NR</emph></p>
+<p><preform>&lt;siptimers t2="8" t4="10" timerb="6" timerc="360"
+timerd="64" timerf="18" timerh="64" timerj="64">
+&lt;/siptimers></preform></p>
+<p>The SIP timer values are given as multiples of the T1 timer which is 500
+milliseconds. If timer T4 should be 4 seconds, it is configured to the value
+8, i.e. 8 times 500 milliseconds.</p>
+<p>The default values for the timers are:</p>
+<list type="unordered">
+<list-item><p>T2: 8, i.e. 4 seconds</p>
+</list-item>
+<list-item><p>T4: 10, i.e. 5 seconds</p>
+</list-item>
+<list-item><p>Timer B: 6, i.e. 3 seconds</p>
+</list-item>
+<list-item><p>Timer C: 360, i.e. 3 minutes</p>
+</list-item>
+<list-item><p>Timer D: 64, i.e. 32 seconds</p>
+</list-item>
+<list-item><p>Timer F: 18, i.e. 9 seconds</p>
+</list-item>
+<list-item><p>Timer H: 64, i.e. 32 seconds</p>
+</list-item>
+<list-item><p>Timer J: 64, i.e. 32 seconds</p>
+</list-item>
+</list>
+<p>The definition of these timers can be found in RFC 3261.</p>
+</titled-block>
+<titled-block>
+<title>The loadregulation group</title>
+<p>This group holds the configuration for load regulation during startup of
+the MAS.</p>
+<p><preform>&lt;loadregulation
+    initialramphwm="1"
+    channelstoincrease="1"
+    numberofincrements="1">
+&lt;/loadregulation></preform></p>
+<p>From a the MAS perspective, a state of high load happens when the number
+of active SIP calls exceeds a threshold, i.e. high watermark. The state ceases
+to be high load when the number of calls goes below another threshold, i.e.
+the low watermark. As soon as the MAS reaches the state of high load it will
+unregister from the SSP (if an SSP is used in the deployment). When the high
+load state has ceased the MAS will register to the SSP again.</p>
+<p>During startup, the MAS component cannot take the maximum amount of load
+immediately and needs a slow ramp up. This is since the MAS is mainly implemented
+in Java, so the the Just-In-Time compiler of the Java Virtual machine must
+be invoked for several calls until the the compiler has optimized the Java
+code appropriately.</p>
+<p>When the MAS is started, the operate and maintain manager sets the threshold
+from the configuration values "serviceinitthreshold", "serviceenablerhighwatermark"
+and "serviceenablerlowwatermark" in the operate and maintain group. In addition
+to these values, the MAS uses a rampThreshold, rampHighWatermark and rampLowWatermark
+internally which is the limit currently used by the MAS during the ramp up.
+The ramp-limits will move towards the configured limits by incrementing by
+a ramp rate determined by "channelstoincrease" and "numbersofincrements" when
+the high load state ceases.</p>
+<list type="unordered">
+<list-item><p>initialramphwm is the initial value for rampHighWatermark when
+the MAS is started. If set to 0, the slow ramp up is disabled and the MAS
+uses the "serviceinitthreshold" from operate and maintain manager directly. <emph>NR</emph></p>
+</list-item>
+<list-item><p>channelstoincrease is used to determine the rate for the ramp
+up. The rate is calculated as channelstoincrease / numberofincrements. <emph>NR</emph></p>
+</list-item>
+<list-item><p>numberofincrements is used to determine the rate for the ramp
+up. The rate is calculated as channelstoincrease / numberofincrements. <emph>NR</emph></p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The ramp up algorithm</title>
+<p>In this section the ramp up algorithm is described. This gives the details
+required to fine tune the load regulation.</p>
+<p>Startup:</p>
+<list type="alphabetic">
+<list-item><p>threshold, HWM and LWM is given by the operate and maintain
+manager configuration.</p>
+</list-item>
+<list-item><p>initial rampHWM is given by initialramphwm in the loadregulation
+group.</p>
+</list-item>
+<list-item><p>The rampLWM is given by rampHWM - ( HWM - LWM ), with zero as
+lowest value.</p>
+</list-item>
+<list-item><p>The rampThreshold is given by rampHWM + ( threshold - HWM ),
+with zero as lowest value.</p>
+</list-item>
+<list-item><p>The ramp rate is given by channelstoincrease / numberofincrements.</p>
+</list-item>
+</list>
+<p>When the number of channels reaches rampHWM:</p>
+<list type="alphabetic">
+<list-item><p>The MAS unregisters from the SSP (if an SSP is used in the deployment).</p>
+</list-item>
+</list>
+<p>If the number of channels reaches rampThreshold:</p>
+<list type="alphabetic">
+<list-item><p>The MAS starts redirecting incoming calls to the SSPs (if an
+SSP is used in the deployment).</p>
+</list-item>
+</list>
+<p>When the number of calls reaches rampLWM (after recently have reached rampHWM):</p>
+<list type="alphabetic">
+<list-item><p>rampHWM is increased by the ramp rate. If rampHWM reaches HWM,
+HWM is used.</p>
+</list-item>
+<list-item><p>rampLWM and rampThreshold is re-calculated as in Startup. If
+rampThreshold reaches threshold, threshold is used.</p>
+</list-item>
+<list-item><p>The MAS registers to the SSP (if an SSP is used in the deployment).</p>
+</list-item>
+</list>
+<p>The following is an example illustrating how the values involved in the
+rampup algorithm are increased until threshold, LWM and HWM are reached.</p>
+<p>In the example, the following configuration is used:</p>
+<list type="unordered">
+<list-item><p>initialramphwm is 1.</p>
+</list-item>
+<list-item><p>channelstoincrease is 5.</p>
+</list-item>
+<list-item><p>numberofincrements is 1.</p>
+</list-item>
+<list-item><p>threshold is 65.</p>
+</list-item>
+<list-item><p>LWM is 48.</p>
+</list-item>
+<list-item><p>HWM is 60.</p>
+</list-item>
+</list>
+<p>Initially, the MAS will use the following values: rampThreshold=6, rampHWM=1,
+rampLWM=0. When the first call arrives, the MAS will consider itself in high
+load, and this call must disconnect before rampLWM is reached. At this point,
+the values are updated as follows: rampThreshold=11, rampHWM=1, rampLWM=0.</p>
+<p>Now, assuming that the number of calls reaches (at least) rampHWM and then
+decreases to rampLWM in every step, the values are updated as follows:</p>
+<list type="unordered">
+<list-item><p>rampThreshold=16, rampHWM=11, rampLWM=0</p>
+</list-item>
+<list-item><p>rampThreshold=21, rampHWM=16, rampLWM=4</p>
+</list-item>
+<list-item><p>rampThreshold=26, rampHWM=21, rampLWM=9</p>
+</list-item>
+<list-item><p>rampThreshold=31, rampHWM=26, rampLWM=14</p>
+</list-item>
+<list-item><p>rampThreshold=36, rampHWM=31, rampLWM=19</p>
+</list-item>
+<list-item><p>rampThreshold=41, rampHWM=36, rampLWM=24</p>
+</list-item>
+<list-item><p>rampThreshold=46, rampHWM=41, rampLWM=29</p>
+</list-item>
+<list-item><p>rampThreshold=51, rampHWM=46, rampLWM=34</p>
+</list-item>
+<list-item><p>rampThreshold=56, rampHWM=51, rampLWM=39</p>
+</list-item>
+<list-item><p>rampThreshold=61, rampHWM=56, rampLWM=44</p>
+</list-item>
+<list-item><p>rampThreshold=65, rampHWM=60, rampLWM=48</p>
+</list-item>
+</list>
+<p>As can be observed, the difference between rampHWM and rampLWM in every
+step is 12 (HWM - LWM), and the values are generally increased by the ramp
+rate (channelstoincrease / numberofincrements = 5). In the last step however,
+the values have reached the target values of threshold, LWM and HWM.</p>
+</titled-block>
+<titled-block>
+<title>The restrictedoutboundheaders group</title>
+<p>This group tells the MAS which SIP headers that should be excluded in an
+outbound call. The default value is to exclude no headers. This is normally
+adequate but may be modified for higher security. Multiple SIP headers may
+be excluded. The only supported values in this version are "remote-party-id"
+and "p-asserted-identity".</p>
+<p><preform>&lt;restrictedoutboundheaders
+ &lt;header name="remote-party-id"/>
+&lt;/restrictedoutboundheaders></preform></p>
+<p>In the above example, the remote-party-id header field should be excluded
+in an outbound call. The default value is to exclude no headers and thus normally
+this group is left empty.</p>
+</titled-block>
+</chl4>
+<chl4 xml:id="cfg.contenttypemanager"><title>The content type mapper group</title>
+<p>The contenttypemapper group holds mappings between different content types,
+codecs and file extensions. Normally, the default values in this group are
+adequate and should not be modified.</p>
+<p><preform>&lt;configuration>
+    &lt;contenttypemapper>
+        &lt;contenttype mimetype="video/quicktime">
+            &lt;codec mimetype="video/h263"/>
+            &lt;codec mimetype="audio/pcmu"/>
+            &lt;fileext name="mov"/>
+        &lt;/contenttype>
+        &lt;contenttype mimetype="audio/wav">
+            &lt;codec mimetype="audio/pcmu"/>
+            &lt;fileext name="wav"/>
+        &lt;/contenttype>
+        &lt;contenttype mimetype="video/3gpp">
+            &lt;codec mimetype="video/h263"/>
+            &lt;codec mimetype="audio/amr"/>
+            &lt;fileext name="3gp"/>
+        &lt;/contenttype>
+        &lt;contenttype mimetype="audio/3gpp">
+            &lt;codec mimetype="audio/amr"/>
+            &lt;fileext name="3gp"/>
+        &lt;/contenttype>
+        &lt;contenttype mimetype="text/plain">
+            &lt;codec mimetype="text/plain"/>
+            &lt;fileext name="txt"/>
+        &lt;/contenttype>
+    &lt;/contenttypemapper>
+&lt;/configuration></preform></p>
+<titled-block>
+<title>The contenttype group</title>
+<p>Each content type is configured in a contenttype group identified by its
+mimetype attribute. Each content type has:</p>
+<list type="unordered">
+<list-item><p>One or several codec groups</p>
+</list-item>
+<list-item><p>One fileext group</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The codec group</title>
+<p>The codec group holds a mimetype for a codec in a content type e.g. &ldquo;audio/pcmu&rdquo;
+or &ldquo;audio/pcma&rdquo;</p>
+</titled-block>
+<titled-block>
+<title>The fileext group</title>
+<p>The fileext group holds the file extension used in a content type.</p>
+</titled-block>
+</chl4>
+<chl4 xml:id="eegroup"><title>The executionengine group</title>
+<p>The executionengine group holds the configuration for the handling and
+execution of applications.</p>
+<p>It has the following syntax:</p>
+<p>				<preform>&lt;executionengine enginestacksize="100" 
+  callmanagerwaittime="60000" accepttimeout="30000"
+  createcalladditionaltimeout="30000" traceenabled="false"
+  alwayscompile="false" generateops="false" opspath="."
+  hostname="10.11.0.38" watchdogtimeout="600000"/></preform></p>
+<p>The executionengine group consists of a set of attributes. The default
+settings are normally adequate.</p>
+<list type="unordered">
+<list-item><p>The enginestacksize parameter is the size of an internal data
+structure. If the application contains very nested control flows, it may be
+necessary to increase the value. A sign of this is that you get log entries
+mentioning engine stack exhaustions.</p>
+</list-item>
+<list-item><p>The callmanagerwaittime parameter is how long the Execution
+Engine shall wait for events from the Call Manager component before considering
+it an error. Unit: milliseconds.</p>
+</list-item>
+<list-item><p>The accepttimeout parameter is how long the Execution Engine
+shall wait for the application to take appropriate action (like answering
+the call) after Execution Engine has notified the application of a new incoming
+call. Unit: milliseconds</p>
+</list-item>
+<list-item><p>The createcalladditionaltimeout parameteris how long the Execution
+Engine shall wait for an event from the Call Manager following a "createcall"
+invocation. The createcalladditionaltimeout is used only if the application
+has defined a timeout for maximum time to connect the outgoing call. Execution
+Engine will actually wait for a maximum of (createcalladditionaltimeout +
+the maximum time defined by the application). Unit: milliseconds.</p>
+</list-item>
+<list-item><p>The hostname parameter defines the hostname of the MAS. The
+value is automatically set during installation, and to defined the host name
+for SIP.</p>
+</list-item>
+</list>
+<p>These parameters also exists, but are only for use by developers.</p>
+<list type="unordered">
+<list-item><p>The traceenabled parameter defines if low level tracing of executing
+engine shall be enabled.</p>
+</list-item>
+<list-item><p>The alwayscompile parameter defines if Voice XML/CCXML documents
+shall be compiled every time a new MAS session (e.g. incoming call) is started.
+This is useful for debugging applications, but not recommended in a production
+environment.</p>
+</list-item>
+<list-item><p>The generateops parameter defines if the execution engine shall
+generate ops-files when compiling Voice XML/CCXML documents.</p>
+</list-item>
+<list-item><p>The opspath parameter defines where execution engine stores
+ops-files.</p>
+</list-item>
+<list-item><p>The watchdogtimeout parameter defines how long to allow nothing
+to happen in a call before a warning log is issued. Unit: milliseconds.</p>
+</list-item>
+</list>
+</chl4>
+<chl4 xml:id="externalcomponentregister"><title>The externalcomponentregister
+group</title>
+<p>This XML tag groups together configuration for how the MAS handles services
+stored in the MCR or absence of services in the MCR.</p>
+<p>It has the following syntax.</p>
+<p><preform>&lt;externalcomponentregister>
+    &lt;mcr/>
+    &lt;propertymap>
+    &lt;/propertymap>
+    &lt;services>
+    &lt;/services>
+    &lt;algorithms>
+        &lt;localrandomchooser/>
+    &lt;/algorithms>
+&lt;externalcomponentregister></preform></p>
+<titled-block>
+<title>The mcr group</title>
+<p>The mcr group defines where the MAS locates services. For every individual
+service, the MAS will either use the configuration file or find the services
+in MCR. Changes after a reloadconfig operation will only take effect next
+time MCR is contacted, e.g. after the time defined by the periodicity attribute
+has elapsed.</p>
+<p><preform>&lt;mcr hostname="mcrhost" port="389" timeout="5000"
+  periodicity="300000" lookupdelay="500" userid="icomponent"
+  password="abc123"
+  suffix="emregistername=messagingcomponentregister,o=config"
+  trylimit="3" trytimelimit="500"/></preform></p>
+<list type="unordered">
+<list-item><p>The hostname is the name of the MCR host.</p>
+</list-item>
+<list-item><p>The port is the port number of the MCR host where the LDAP directory
+in MCR is located.</p>
+</list-item>
+<list-item><p>The timeout is the timeout in milliseconds to wait for a response
+from the MCR before a retry is done.</p>
+</list-item>
+<list-item><p>The periodicity is the time in milliseconds between the periodic
+MCR lookups when the cache is updated.</p>
+</list-item>
+<list-item><p>The lookupdelay is the time in milliseconds between when all
+service instances has been error reported until the MCR is searched for service
+instances again.</p>
+</list-item>
+<list-item><p>The userid is the userid to be used when accessing the MCR.</p>
+<p>The authentication is made for the following distinguished name:</p>
+<p><preform>"uid=&lt;userid>,&lt;suffix>"</preform></p>
+</list-item>
+<list-item><p>The password is the password used for accessing the MCR.</p>
+</list-item>
+<list-item><p>The suffix is the root suffix of the LDAP directory where the
+MCR:s services are located.</p>
+<p>Typically this is emregistername=messagingcomponentregister,o=config and
+should never change.</p>
+</list-item>
+<list-item><p>The trylimit is the maximum number of times to try contacting
+MCR in case of problems.</p>
+</list-item>
+<list-item><p>The trytimelimit is the maximum time period in milliseconds
+to try contacting MCR in case of problems.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The propertymap group</title>
+<p>The propertymap maps the LDAP directory names to MAS names. </p>
+<p>This map should never have to be edited and will have adequate default
+values after installation.</p>
+<p><preform>&lt;propertymap>
+    &lt;port mcrname="ipserviceport"/>
+    &lt;protocol mcrname="ipserviceprotocol"/>
+    &lt;version mcrname="emcomponentversion"/>
+    &lt;hostname mcrname="emhostname"/>
+    &lt;logicalzone mcrname="emlogicalzone"/>
+    &lt;component mcrname="emcomponentname"/>
+    &lt;type mcrname="emcomponenttype"/>
+    &lt;rootoid mcrname="emrootoid"/>
+    &lt;language mcrname=""/>
+    &lt;replicationid mcrname="emcomponentmur-replicationid"/>
+&lt;/propertymap></preform></p>
+</titled-block>
+<titled-block>
+<title>The services group</title>
+<p>The services group contains a list of all services configured to retrieve
+from the MCR. It has the following syntax:</p>
+<p><preform>&lt;services>
+    &lt;storage overridemcr="false">
+    &lt;/storage>
+    &lt;smtpstorage overridemcr="false">
+    &lt;/smtpstorage>
+    &lt;userregister overridemcr="false">
+    &lt;/userregister>
+    &lt;userregisterwrite overridemcr="false" 
+      servicename="userregister">
+    &lt;/userregisterwrite>
+    &lt;eventreporting overridemcr="false">
+    &lt;/eventreporting>
+    &lt;speechrecognition overridemcr="true">
+    &lt;/speechrecognition>
+    &lt;texttospeech overridemcr="true">
+    &lt;/texttospeech>
+    &lt;provisioning overridemcr="false">
+    &lt;/provisioning>
+    &lt;Accounting overridemcr="false">
+    &lt;/Accounting>
+&lt;/services></preform></p>
+<p>All services in this list has an attribute called overridemcr, if this
+is set to "true", the MAS never asks the MCR for where the service is located
+and it uses the information given in the group instead.</p>
+<p> <emph type="low">Added services to this section will not take effect after
+a reloadconfig operation, instead the MAS has to be restarted when adding
+services. Configuration changes in existing services will be updated at reloadconfig</emph>. <emph>NR</emph></p>
+</titled-block>
+<titled-block>
+<title>The storage section</title>
+<p>This service contains information for the Storage service usually provided
+by the MS component. It has the following syntax:</p>
+<p><preform>&lt;storage overridemcr="false">
+    &lt;default port="143"/>
+    &lt;!--&lt;instance hostname=""/>-->
+&lt;/storage></preform></p>
+<list type="unordered">
+<list-item><p>The port number is the IMAP server port in the MS component..</p>
+</list-item>
+<list-item><p>The hostname is the name of the configured fallback MS host.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The smtpstorage service</title>
+<p>This service contains information for the SMTPStorage service usually provided
+by the MS component. It has the following syntax:</p>
+<p><preform>&lt;smtpstorage overridemcr="false">
+    &lt;default port="25"/>
+    &lt;!--&lt;instance hostname=""/>-->
+&lt;/smtpstorage></preform></p>
+<list type="unordered">
+<list-item><p>The port number is the SMTP server port in the MS component.</p>
+</list-item>
+<list-item><p>The hostname is the name of the configured fallback MS host.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The userregister service</title>
+<p>This service contains information for the UserRegister service used for
+reading, usually provided by the MUR component. It has the following syntax:</p>
+<p><preform>&lt;userregister overridemcr="false">
+    &lt;default port="389"/>
+    &lt;instance hostname="murhost"/>
+&lt;/userregister></preform></p>
+<list type="unordered">
+<list-item><p>The port number is the LDAP server port in the MUR component.</p>
+</list-item>
+<list-item><p>The hostname is the name of the configured fallback MUR host.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The userregisterwrite service</title>
+<p>This service contains information for the UserRegister service used for
+writing, usually provided by the MUR component. It has the following syntax:</p>
+<p><preform>&lt;userregisterwrite overridemcr="false" servicename="userregister">
+    &lt;default port="389"/>
+    &lt;instance hostname="murhost"/>
+&lt;/userregisterwrite></preform></p>
+<list type="unordered">
+<list-item><p>The servicename is the service name to use when searching MCR
+for service instances providing the userregisterwrite service.</p>
+</list-item>
+<list-item><p>The port number is the LDAP server port in the MUR component.</p>
+</list-item>
+<list-item><p>The hostname is the name of the configured fallback MUR host.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The eventreporting service</title>
+<p>This service contains information for the EventReporting service usually
+provided by the MER component. It has the following syntax:</p>
+<p><preform>&lt;eventreporting overridemcr="false">
+    &lt;default port="1813"/>
+    &lt;!--&lt;instance hostname=""/>-->
+&lt;/eventreporting></preform></p>
+<list type="unordered">
+<list-item><p>The port number is the RADIUS-MA server port in the MER component.</p>
+</list-item>
+<list-item><p>The hostname is the name of the configured fallback MER host.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The speechrecognition service</title>
+<p>This service contains information for the SpeechRecognition service. It
+has the following syntax:</p>
+<p><preform>&lt;speechrecognition overridemcr="true">
+    &lt;instance hostname="10.16.2.98" 
+              port="4900" 
+              protocol="mrcp"/>
+&lt;/speechrecognition></preform></p>
+<list type="unordered">
+<list-item><p>The hostname is the name/address of the speech recognition host.</p>
+</list-item>
+<list-item><p>The port is the speech recognition server port number.</p>
+</list-item>
+<list-item><p>Protocol is the protocol (currently mrcp only) used by the MAS
+when communicating with the speech recognition server.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The texttospeech service</title>
+<p>This service contains information for the TextToSpeech service. It has
+the following syntax:</p>
+<p><preform>&lt;texttospeech overridemcr="true">
+    &lt;instance hostname="10.16.2.98" 
+              port="4900" 
+              protocol="mrcp"/>
+&lt;/texttospeech></preform></p>
+<list type="unordered">
+<list-item><p>The hostname is the name/address of the text to speech host.</p>
+</list-item>
+<list-item><p>The port is the speech recognition server port number.</p>
+</list-item>
+<list-item><p>The protocol is the protocol (currently mrcp or xmp) used by
+MAS when communicating with the text to speech server.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title xml:id="provisioningService">The provisioning service</title>
+<p>This service contains information for the provisioning service. It has
+the following syntax:</p>
+<p><preform>&lt;provisioning overridemcr="false">
+    &lt;instance hostname="" port="2400"/>
+&lt;/provisioning></preform></p>
+<list type="unordered">
+<list-item><p>The hostname is the name/address of the provisioning server.</p>
+</list-item>
+<list-item><p>The port is the provisioning server port number.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The accounting service</title>
+<p>This service contains information for the accounting service. It has the
+following syntax:</p>
+<p><preform>&lt;Accounting overridemcr="false">
+    &lt;instance hostname="" port="8080"/>
+&lt;/Accounting></preform></p>
+<list type="unordered">
+<list-item><p>The hostname is the name/address of the accounting (XMP) server</p>
+</list-item>
+<list-item><p>The port is the accounting (XMP) server port number.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The algorithms group</title>
+<p>This group contains configuration for the different service instance choosing
+algorithms. Currently only the localrandomchooser algorithm is defined.</p>
+<p><preform>&lt;algorithms>
+   &lt;localrandomchooser logicalzone=""
+      netmask="255.255.255.0"/>
+&lt;/algorithms></preform></p>
+<list type="unordered">
+<list-item><p>The logicalzone is the logical zone the MAS belongs to.</p>
+</list-item>
+<list-item><p>The netmask is the netmask of the host of the MAS. This is used
+to find "close" hosts, when no logical zone is defined.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The media content manager group</title>
+<p>The mediacontentmanager group holds the configuration for the component
+in the MAS that handles the media content packages.</p>
+<p><preform>&lt;configuration>
+  &lt;mediacontentmanager
+    resourcepath="applications/mediacontentpackages">
+    &lt;mediaobjectcache
+    policy="lfu"
+    maxsize="100"
+    elementtimeout="600"
+    memorysensitive="false"/>
+  &lt;/mediacontentmanager>
+&lt;/configuration></preform></p>
+<p>The mediacontentmanager group has one attribute, the default value set
+is usually adequate.</p>
+<list type="unordered">
+<list-item><p>The resourcepath tells the MAS where to look for the media content
+packages. The path is relative to the MAS installation directory.</p>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+<chl4><title>The mediaobjectcache group</title>
+<p>When a Media Object is requested, the Media Content Manager can keep the
+object in a cache to speed up access to frequently used Media Objects. The
+mediaobject group holds the configuration for this cache. If the group is
+not configured, no cache will be used by the Media Content Manager. The default
+values of the attributes in the mediaobjectcache group are usually adequate.</p>
+<p><preform>&lt;mediaobjectcache policy="lfu" maxsize="100"
+  elementtimeout="600" memorysensitive="false"/></preform></p>
+<list type="unordered">
+<list-item><p>The policy attribute determines which caching policy that should
+be used. Possible values are "lfu" (default), "lru" and "fifo". "lfu" is Least
+Frequently Used, which means that the cache will remove objects starting with
+those least frequently used. "lru" is Least Recently Used. The cache will
+remove objects starting with those least recently used. "fifo" is First In
+First Out. The cache will remove objects starting with the oldest in the cache. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The maxsize attribute determines the maximum number of objects
+that will be kept in the cache. When the cache is full and a new object is
+added, an old object will be removed according to the policy set. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The elementtimeout attribute determines the life time in seconds
+of an object in the cache. When the timeout expires for an object, it is removed
+from the cache. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The memorysensitive attribute determines if the objects added
+to the cache should be available for garbage collection. If "true", the objects
+are available for the garbage collector. Default is "false". <emph>NR</emph></p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>The mediatranslationmanager group</title>
+<p>The mediatranslationmanager group holds the configuration for the component
+in the MAS that handles TTS and ASR.</p>
+<p><preform>&lt;configuration>
+  &lt;mediatranslationmanager 
+    texttospeechlanguages="en-GB,se-SV" />
+&lt;/configuration></preform></p>
+<p>The mediatranslationmanager group has one attribute which contains a list
+of the languages available for text to speech translations. The attribute
+value string is a comma separated list. The languages list must be consistent
+with the languages which actually are installed in the TTS engine.</p>
+</chl4>
+<chl4><title>The mailbox group</title>
+<p>The mailbox group holds the configuration for the component in the MAS
+that handles the subscriber mailboxes in the MS.</p>
+<p><preform>&lt;mailbox>
+    &lt;message>
+        &lt;additionalproperty/>
+    &lt;/message>
+    &lt;imap/>
+&lt;/mailbox></preform></p>
+<titled-block>
+<title>The message group</title>
+<p>The message group holds parameters for configuring mailbox message handling.</p>
+<p><preform>&lt;message>
+    &lt;additionalproperty name="&lt;propertyname>" 
+      field="&lt;fieldname>"/>
+&lt;/message></preform></p>
+</titled-block>
+<titled-block>
+<title>The additionalproperty group</title>
+<p>The additionalproperty group is used for extending the range of message
+properties without modifying the Mailbox implementation. A additional property
+name is mapped to a field in the underlaying storage implementation. Values
+are read once at first usage after system boot.</p>
+<list type="unordered">
+<list-item><p>The name parameter defines the value for mailbox client to use
+when accessing a additional property.</p>
+</list-item>
+<list-item><p>The field parameter defines the name of the field in the underlaying
+storage implementation (i.e. If MIME messages are used in the storage implementation
+field is the name of an MIME message header). If field is left blank the value
+of the name parmeter will be used.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The imap group</title>
+<p>The imap group holds parameters for tuning the IMAP communication with
+the MS. Values are re-read when opening a mailbox.</p>
+<p><preform>&lt;imap
+    connectiontimeout="5000"
+    commandtimeout="5000"
+/></preform></p>
+<list type="unordered">
+<list-item><p>The connectiontimeout is the socket connection timeout value
+in milliseconds. Set to 5000 at installation.</p>
+</list-item>
+<list-item><p>The commandtimeout is socket I/O timeout value in milliseconds.
+Set to 5000 at installation.</p>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+<chl4><title>The message sender group</title>
+<p>The messagesender group holds parameters for tuning the SMTP communication
+with the MS. Values are re-read when configuration is changed.</p>
+<p><preform>&lt;messagesender
+    smtpservicename="smtpstorage"
+    smtpretries="3"
+    smtpconnectiontimeout="3000"
+    smtpcommandtimeout="3000"
+/></preform></p>
+<list type="unordered">
+<list-item><p>The smtpservicename parameter defines which value Message Sender
+is using when locating an SMTP service from External Component Register.</p>
+</list-item>
+<list-item><p>The smtpretries is how many times Message Sender tries to send
+a message to the MS. If Message Sender not is successful after the configured
+number of tries the failure is reported back to the client.</p>
+</list-item>
+<list-item><p>The connectiontimeout is the SMTP socket connection timeout
+value in milliseconds. Set to 3000 at installation.</p>
+</list-item>
+<list-item><p>The commandtimeout is SMTP socket I/O timeout value in milliseconds.
+Set to 3000 at installation.</p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>The operate and maintain manager group</title>
+<p>The operateandmaintainmanager group holds the configuration for the component
+in the MAS that monitors the MAS activities and functions.</p>
+<p>It has the following syntax.</p>
+<p><preform>&lt;operateandmaintainmanager>
+&lt;omm/>
+&lt;/operateandmaintainmanager></preform></p>
+<titled-block>
+<title>The omm group</title>
+<p><preform>&lt;omm 
+  hostname="localhost"  
+  rpcmaxnoofretries="10" 
+  rpcretrydelaysec="5" 
+  countersavetimeout="5" 
+  countersavefilenamesufix="CounterData.dat" 
+  countersavefilenamepath="data" 
+  masnoresponsetimeoutlimituntildown="20"
+  logicalzone="logicalzone"
+  port="8081"
+/>
+</preform></p>
+<list type="unordered">
+<list-item><p>The hostname that the MAS will listen on when receiving commands
+from SNMP-Agent/User and Monitor.</p>
+</list-item>
+<list-item><p>The rpcmaxnoofretries tells the Monitor how often it try to
+connect to the MAS before reporting error.</p>
+</list-item>
+<list-item><p>The rpcretrydelaysec tells the Monitor the delay time between
+retries. </p>
+</list-item>
+<list-item><p>The countersavetimeout tells the MAS how often it will save
+counter values to disk.</p>
+</list-item>
+<list-item><p>The countersavefilenamesufix tells the MAS what suffix name
+the file will have when storing counter data on disk.</p>
+</list-item>
+<list-item><p>The countersavefilenamepath specifies the store path relative
+to install directory.</p>
+</list-item>
+<list-item><p>The masnoresponsetimeoutlimituntildown specifies the max response
+time for the MAS before setting adminstate to DOWN. (This is currently not
+used.)</p>
+</list-item>
+<list-item><p>The logicalzone specifies the logical zone that this MAS instance
+is installed on. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The port specifies the port the MAS will listen on when receiving
+commands from SNMP-Agent/User and Monitor. <emph>NR</emph></p>
+</list-item>
+</list>
+<p>The service enabler group<preform>
+&lt;serviceenablers>   
+  &lt;serviceenabler protocol="sip" initthreshold="60" 
+                  lowwatermark="10" highwatermark="60"/>   
+  &lt;serviceenabler protocol="xmp" initthreshold="20" 
+                  lowwatermark="0" highwatermark="0"/> 
+&lt;/serviceenablers></preform></p>
+<p>This group contains parameters for different service enabler protocols</p>
+<list type="unordered">
+<list-item><p>The protocol specifies the protocol this service enabler is
+using. <emph>NR</emph></p>
+</list-item>
+<list-item><p>The initthreshold specifies the initial threshold for this service
+enabler. <emph>NR</emph></p>
+<p>When the MAS reaches this value, the MAS starts to redirect calls back
+to the SSP (if an SSP is used in the deployment).</p>
+<p>This value must always be larger then the highwatermark. </p>
+<note><p>Only initthreshold is used when protocol="xmp", hence the attributes
+"lowwatermark" and "highwatermark" are ignored.</p>
+</note>
+</list-item>
+<list-item><p>The lowwatermark specifies the default low watermark for this
+service enabler. <emph>NR</emph></p>
+<p>When the MAS reaches this value, the MAS registers in the SSP (if an SSP
+is used in the deployment) If prevously unregistered due to have reached the
+highwatermark.</p>
+</list-item>
+<list-item><p>The highwatermark default highwatermark for this service enabler. <emph>NR</emph></p>
+<p>The highwatermark specifies the maximum number of channels this host is
+accepting.</p>
+<p>When number of simultaneously call reaches this value, the MAS unregisters
+in the SSP (if an SSP is used in the deployment).</p>
+<p><emph>Note</emph>: changing this value is not supported. If another value
+is desired, reinstallation of the MAS is necessary. The reason is that many
+other settings are dependent of the highwatermark, and they need to be recalculated
+by the installation script.</p>
+</list-item>
+<list-item><p> <emph>If this value is changed, check that the initthreshold
+parameter is larger than the highwatermark</emph>.</p>
+<note><p>Only initthreshold is used when protocol="xmp", hence the attributes
+"lowwatermark" and "highwatermark" are ignored.</p>
+</note>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+<chl4><title>The profilemanager group</title>
+<p>The profilemanager group contains configuration for the component in the
+MAS that handles communication with the user register. It has the following
+syntax:</p>
+<p><preform>&lt;profilemanager limitscope="false" coscachetimeout="300000">
+    &lt;userregister/>
+    &lt;connectionpool/>
+    &lt;provisioning/>
+    &lt;attributemap>
+    &lt;/attributemap>
+&lt;/profilemanager></preform></p>
+<list type="unordered">
+<list-item><p>The limitscope controls if subscriber searches with limited
+scope is supported or not. If set to false, no search for a subscriber will
+use a limit scope for searching. Must be set to true only if IMUX is used.</p>
+</list-item>
+<list-item><p>The coscachetimeout is the time in milliseconds when a cached
+CoS (Class of Service) will be considered old and reread from the user register.</p>
+<p>Only CoS:es cached after a reloadconfig operation will have the new coscachetimeout,
+i.e. old CoS:es will be reread after the old coscachetimeout time period has
+passed. After rereading the CoS will be cached the new coscachetimeout period.</p>
+</list-item>
+</list>
+<titled-block>
+<title>The userregister group</title>
+<p>The userregister group defines settings on how to access the user register.</p>
+<p><preform>&lt;userregister readtimeout="5000" writetimeout="5000" 
+  admin="cn=directory manager" password="emmanager"
+  defaultsearchbase="o=domain"
+  trylimit="3" trytimelimit="500/></preform></p>
+<list type="unordered">
+<list-item><p>The readtimeout is the timeout in milliseconds used for read
+operations, e.g. retrieving subscriber data or greetings.</p>
+</list-item>
+<list-item><p>The writetimeout is the timeout in milliseconds used for write
+operations, e.g. modifying subscriber data.</p>
+</list-item>
+<list-item><p>The admin is the userid to be used when accessing the user register.</p>
+</list-item>
+<list-item><p>The password is the password used for accessing the user register.</p>
+</list-item>
+<list-item><p>The defaultsearchbase is the searchbase to use when locating
+a subscriber when no other searchbase has been provided.</p>
+</list-item>
+<list-item><p>The trylimit is the maximum number of times to try contacting
+MUR in case of problems.</p>
+</list-item>
+<list-item><p>The trytimelimit is the maximum time period to try contacting
+MUR in case of problems.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The connectionpool group</title>
+<p>The connectionpool group defines settings for the LDAP connection pool. </p>
+<p><preform>&lt;connectionpool maxsize="25" connectionlifetime="300000"/></preform></p>
+<list type="unordered">
+<list-item><p>The maxsize is the maximum pool size. There exists a pool for
+each userregister host.</p>
+</list-item>
+<list-item><p>The connectionlifetime is the time after which a connection
+is closed, allowing for renewal of connections.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The provisioning group</title>
+<p>The provisioning group defines settings for provisioning administrators.</p>
+<p><preform>&lt;provisioning password=""/></preform></p>
+<list type="unordered">
+<list-item><p>The password is the password used for authentication of provisioning
+administrators. The same password is used for all administrators.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>The attributemap group</title>
+<p>The attributemap group defines which attributes that are available for
+a subscriber and how these attributes are used to create a subscriber object.</p>
+<p><preform>&lt;attributemap searchorder="community,cos,user,billing"></preform></p>
+<list type="unordered">
+<list-item><p>The searchorder is the default priority order used when retrieving
+subscriber data.</p>
+</list-item>
+</list>
+<p>The other groups under the attributemap group each defines a subscriber
+attribute: name used in the user register, data type, which level to write
+data, and optional default values. If the type is boolean the strings used
+for true and false are also defined. It is also possible to define a searchorder
+which will override the default searchorder.</p>
+</titled-block>
+</chl4>
+<chl4><title>The service request manager group</title>
+<p>The service request manager group holds the configuration for the component
+in the MAS that handles XMP communication. The service request manager acts
+as a server receiving XMP requests from other system components and a client
+sending XMP requests to other system components.</p>
+<p><preform>&lt;servicerequestmanager requesttimeout="30000"
+  requestretries="3" clientid="mas1@host.domain"/></preform></p>
+<p>The service request manager has the following set of attributes:</p>
+<list type="unordered">
+<list-item><p>requesttimeout, the maximum time the XMP client should wait
+for an answer for an XMP request when using synchronous mode.</p>
+</list-item>
+<list-item><p>requestretries, the number of retries that the XMP client should
+make if an XMP request fails.</p>
+</list-item>
+<list-item><p>clientid, the unique id that the XMP client should use in the
+XMP requests. This is set during the installation of the MAS. <emph>NR</emph></p>
+</list-item>
+</list>
+<titled-block>
+<title>The diagnose service service group</title>
+<p>This clientid is used to identify the diagnose service client when diagnosing
+service status.</p>
+<p>This value must not be used by any other service client.</p>
+<p><preform>&lt;diagnoseservice clientid="diagnoseservice@localhost"/></preform></p>
+<list type="unordered">
+<list-item><p>clientid, the clientid the diagnoseservice will use to diagnose
+the service. <emph>NR</emph></p>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+<chl4 xml:id="cfg.stream"><title>The stream group</title>
+<p>The stream group holds the configuration for the component in the MAS that
+handles RTP streaming.</p>
+<p><preform>&lt;stream 
+  portpoolbase="23000" 
+  portpoolsize="900" 
+  movfileversion="1" 
+  synccallmaxwaittimesec="120" 
+  sendpacketsaheadms="40" 
+  expiretimeoutms="40000" 
+  streamabandonedms="32000" 
+  senderscontrolfraction="0.4" 
+  audioreplacewithsilencems="10" 
+  dispatchdtmfonkeydown="true" 
+  maximumtransmissionunit="2000" 
+  audioskipms="0" 
+  maxwaitforiframems="2000" 
+  skew="0" 
+  skewmethod="LOCAL"     
+  defaultinboundptime="40"
+  defaultinboundmaxptime="40"
+  outputprocessors="1" 
+  inputprocessors="4"
+  silencedetectionmode="0" 
+  silencethreshold="0" 
+  initialsilenceframes="40" 
+  signaldeadband="10" 
+  silencedeadband="150" 
+  detectionframes="10" 
+  silencedetectiondebuglevel="0">
+
+  &lt;supportedcontenttype name="audio/wav"/>
+  &lt;supportedcontenttype name="video/quicktime"/>
+  &lt;supportedcontenttype name="audio/3gpp"/>
+  &lt;supportedcontenttype name="video/3gpp"/>
+  &lt;rtppayloaddef primarytype="audio" subtype="pcmu"
+    rtppayload="0" encoding="PCMU" 
+    clockrate="8000" bitrate="64000"/>
+  &lt;rtppayloaddef primarytype="audio" subtype="amr"
+    rtppayload="96" encoding="AMR"
+    clockrate="8000" bitrate="12200" mediaformatparameters=
+    "mode-set=7; octet-align=1"/>
+  &lt;rtppayloaddef primarytype="audio" subtype="telephone-event"
+    rtppayload="101" encoding="telephone-event"
+    clockrate="8000" bitrate="0"/>
+  &lt;rtppayloaddef primarytype="audio" subtype="cn"
+    rtppayload="13" encoding="CN"
+    clockrate="8000" bitrate="0"/>
+  &lt;rtppayloaddef primarytype="video" subtype="h263" 
+    rtppayload="34" encoding="H263"
+    clockrate="90000" bitrate="52000"/>
+&lt;/stream></preform></p>
+<p>The default values of the stream attributes are usually adequate but in
+some situations defaultinboundptime and defaultinboundmaxptime may have to
+be modified, see the descriptions for those attributes below.  Attributes
+should normally not be edited unless there is a specific reason to do so.</p>
+<list type="unordered">
+<list-item><p>The portpoolbase defines the starting port number in the RTP
+port pool. </p>
+</list-item>
+<list-item><p>The portpoolsize defines the range of the port pool (the number
+of RTP/RTCP port pairs; a voice call will allocate two port pairs and a video
+call will allocate four).</p>
+</list-item>
+<list-item><p>The movfileversion ("0" or "1") defines the MOV-file layout
+of recorded messages. The "0" layout must be used if the MAS shall coexist
+with MVAS. In a MAS only system the "1" layout is recommended. The "1" layout
+gives better performance when playing MOV-files, but the messages recorded
+by the MAS can not be played by MVAS. <emph>NR</emph>.</p>
+</list-item>
+<list-item><p>The synccallmaxwaittimesec defines max timeout in seconds for
+a synchronous call to return before an exception is thrown.</p>
+</list-item>
+<list-item><p>The maximum time in seconds a function call waits for the function
+to return before throwing an exception.</p>
+</list-item>
+<list-item><p>The sendpacketsaheadms defines when the RTP packets should be
+sent (ahead: amount of time before packet timestamp).</p>
+</list-item>
+<list-item><p>The expiretimeoutms defines the amount of time in microseconds
+before a packet expires in the send queue (a packet expires when exceeding
+its timestamp).</p>
+</list-item>
+<list-item><p>The streamabandonedms defines the abandoned stream detection
+timeout in milliseconds.</p>
+</list-item>
+<list-item><p>The senderscontrolfraction defines fraction (a value between
+0 and 1) of the total control bandwith to be dedicated to senders reports.</p>
+</list-item>
+<list-item><p>The audioreplacewithsilencems defines the amount of audio, from
+the beginning (in milliseconds), that will be replaced by silence during a
+record.</p>
+</list-item>
+<list-item><p>The dispatchdtmfonkeydown defines if DTMF events (over RTP)
+are handled/dispatched or not (if false the application will not receive DTMF
+events).</p>
+</list-item>
+<list-item><p>The maximumtransmissionunit defines the maximum payload size
+of an RTP packet.</p>
+</list-item>
+<list-item><p>The audioskipms defines the amount of audio that will be skipped
+(from the beginning) when a record is started.</p>
+</list-item>
+<list-item><p>The maxwaitforiframems defines maximum amount of time that the
+video stream will wait for an I-frame.</p>
+</list-item>
+<list-item><p>The skew defines the skew between audio and video (the number
+of milliseconds that the audio is ahead of the video). Please note when applying
+a negative number the video will be ahead of audio.</p>
+</list-item>
+<list-item><p>The skewmethod. Valid values are: &ldquo;LOCAL&rdquo;, &ldquo;RTCP&rdquo;
+and &ldquo;LOCAL_AND_RTCP&rdquo;. Default value is: &ldquo;LOCAL&rdquo;. The
+skewmethod defines how the skew is handled. </p>
+<list>
+<list-item><p>&ldquo;LOCAL&rdquo; means that the local skew configuration
+(see above) is utilized to adjust the offset between audio and video both
+when recording and when playing.</p>
+</list-item>
+<list-item><p>&ldquo;RTCP&rdquo; means that information from RTCP is utilized
+to adjust the offset between audio and video when recording. With this setting
+the skew is not adjusted when playing.</p>
+</list-item>
+<list-item><p>&ldquo;LOCAL_AND_RTCP&rdquo; means that both the local skew
+configuration and information from RTCP is utilized to adjust the offset between
+audio and video when recording. When playing only the local skew configuration
+is used.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>The defaultinboundptime is the preferred ptime of inbound audio
+RTP streams. The ptime defines the recommended size (in milliseconds) of the
+RTP audio packages that MAS wants to receive. Even though this is the preferred
+RTP packet size, other sizes are accepted as well. Valid values are: &ldquo;20&rdquo;
+and &ldquo;40&rdquo;. Default value is &ldquo;40&rdquo;. This parameter should
+be the same as configured in the gateway. Refer to the table below.</p>
+</list-item>
+<list-item><p>The defaultinboundmaxptime is the maximum amount of media (in
+milliseconds) that can be encapsulated in each RTP packet for inbound audio
+RTP streams. The value should be an integer multiple of the defaultinboundptime
+attribute. The recommendation is to set defaultinboundmaxptime to the same
+value as defaultinboundptime. Refer to the table below.</p>
+</list-item>
+</list>
+<table>
+<caption>Possible configurations for defaultinboundptime and defaultinboundmaxptime.</caption>
+<tgroup cols="4"><colspec colname="col1" colwidth="0.61*"/><colspec colname="col2"
+colwidth="0.72*"/><colspec colname="col3" colwidth="0.84*"/><colspec colname="col4"
+colwidth="1.83*"/>
+<tbody>
+<row>
+<entry><tp><emph>Audio media format</emph></tp>
+</entry>
+<entry><tp><emph>defaultinboundptime (ms)</emph></tp>
+</entry>
+<entry><tp><emph>defaultinboundmaxptime (ms)</emph></tp>
+</entry>
+<entry><tp><emph>Comment</emph></tp>
+</entry>
+</row>
+<row>
+<entry><tp>PCMU/PCMA</tp>
+</entry>
+<entry><tp>40</tp>
+</entry>
+<entry><tp>40</tp>
+</entry>
+<entry><tp>Default values. Recommended configuration for PCMU.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>PCMU/PCMA</tp>
+</entry>
+<entry><tp>20</tp>
+</entry>
+<entry><tp>20</tp>
+</entry>
+<entry><tp>Configuration if gateway does not support 40ms RTP packet size.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>AMR</tp>
+</entry>
+<entry><tp>20</tp>
+</entry>
+<entry><tp>20</tp>
+</entry>
+<entry><tp>Recommended configuration for AMR.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>AMR</tp>
+</entry>
+<entry><tp>20</tp>
+</entry>
+<entry><tp>40</tp>
+</entry>
+<entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<list>
+<list-item><p>The outputprocessors defines the number of native threads used
+for outbound streaming.</p>
+</list-item>
+<list-item><p>The inputprocessors defines the number of native threads used
+for inbound streaming.</p>
+</list-item>
+</list>
+<p>The following parameters are explained in <xref linkend="configSilenceDetection"/>: </p>
+<list>
+<list-item><p>silencedetectionmode</p>
+</list-item>
+<list-item><p>silencethreshold</p>
+</list-item>
+<list-item><p>initialsilenceframes</p>
+</list-item>
+<list-item><p>signaldeadband</p>
+</list-item>
+<list-item><p>silencedeadband</p>
+</list-item>
+<list-item><p>detectionframes</p>
+</list-item>
+<list-item><p>silencedetectiondebuglevel</p>
+</list-item>
+</list>
+<titled-block>
+<title>The supportedcontenttype group</title>
+<p>This group defines which content types that are supported by the RTP streams
+in the MAS. The default values are normally adequate.</p>
+<list type="unordered">
+<list-item><p>The name defines the supported media content mime type.</p>
+</list-item>
+</list>
+<p>There can be multiple supportedcontenttype currently only audio/wav, audio/quicktime,
+audio/3gpp and video/3gpp (.WAV, .MOV and .3GP) are supported.</p>
+</titled-block>
+<titled-block>
+<title>The rtppayloaddef group</title>
+<p>This group defines which RTP payload types that are supported by the MAS
+(and their corresponding mime type). The default values are normally adequate
+and should not be modified unless there is a specific reason. </p>
+<list type="unordered">
+<list-item><p>The primarytype defines the mime primary type (audio or video).</p>
+</list-item>
+<list-item><p>The subtype defines mime sub type (amr, cn, h263, pcmu, pcma
+and telephone-event).</p>
+</list-item>
+<list-item><p>The rtppayload defines the RTP payload type ID number.</p>
+</list-item>
+<list-item><p>The encoding defines the encoding name.</p>
+</list-item>
+<list-item><p>The clockrate defines the RTP clockrate.</p>
+</list-item>
+<list-item><p>The bitrate defines the amount of bandwidth (bit/s) consumed
+by the payload type/codec.</p>
+</list-item>
+<list-item><p>The mediaformatparameters defines format specific parameters
+for the payload, corresponding to the fmtp attribute in the SDP media descriptor.</p>
+<note><p>This parameter is currently only used for the AMR where two parameters
+must be set; &ldquo;mode-set&rdquo; and &ldquo;octet-align&rdquo;. Mode-set
+specifies the AMR mode-set to use according to the table below (only one mode
+at a time may be specified), octet-align must always be set to &ldquo;1&rdquo;
+and specifies that octet-aligned mode is used. </p>
+</note>
+</list-item>
+</list>
+<p>For AMR there is a relation between the bitrate and the mode-set defined
+in the mediaformatparameters. The following table defines this relation:</p>
+<table>
+<caption></caption>
+<tgroup cols="3">
+<?PubTbl tgroup dispwid="431.00px"?>
+<colspec colname="col1" colwidth="0.60*"/><colspec colname="col2" colwidth="0.70*"/>
+<colspec colname="COLSPEC0" colwidth="1.91*"/>
+<tbody>
+<row>
+<entry><tp><emph>mode-set</emph></tp>
+</entry>
+<entry><tp><emph>bitrate (bit/s)</emph></tp>
+</entry>
+<entry><tp>Comment</tp>
+</entry>
+</row>
+<row>
+<entry><tp>0</tp>
+</entry>
+<entry><tp>4750</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>1</tp>
+</entry>
+<entry><tp>5150</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>2</tp>
+</entry>
+<entry><tp>5900</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>3</tp>
+</entry>
+<entry><tp>6700</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>4</tp>
+</entry>
+<entry><tp>7400</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>5</tp>
+</entry>
+<entry><tp>7950</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>6</tp>
+</entry>
+<entry><tp>10200</tp>
+</entry>
+<entry></entry>
+</row>
+<row>
+<entry><tp>7</tp>
+</entry>
+<entry><tp>12200</tp>
+</entry>
+<entry><tp>Recommended default</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>Normally the mode-set and bitrate are left unchanged. Before modifying
+mode-set and bitrate consider the following:</p>
+<list>
+<list-item><p>The bitrate and the mode-set must be set according to the table
+above.</p>
+</list-item>
+<list-item><p>The bitrate and mode-set must be set equal for the whole system
+including other MAS'es and entities handling stored messages, greetings and
+other media where AMR audio might be included.</p>
+</list-item>
+<list-item><p>The bitrate and mode-set must match the settings in the installed
+media content packages.</p>
+</list-item>
+</list>
+<p>There can be multiple payload types.</p>
+<p>For each rtppayload group there are six optional parameters related to
+bandwidth modifiers that can be specified:</p>
+<table>
+<caption>Optional parameters</caption>
+<tgroup cols="2"><colspec colname="col1"/><colspec colname="col2"/>
+<tbody>
+<row>
+<entry><tp><emph type="medium">Name</emph></tp>
+</entry>
+<entry><tp><emph type="medium">Description</emph></tp>
+</entry>
+</row>
+<row>
+<entry><tp>rs</tp>
+</entry>
+<entry><tp>RTCP bandwidth allocated to active data senders. This value is
+usually set by the client in the SDP offer. If no such value is provided,
+we use the value specified in this parameter in the SDP answer.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>minrs</tp>
+</entry>
+<entry><tp>Minimum value accepted on rs</tp>
+</entry>
+</row>
+<row>
+<entry><tp>maxrs</tp>
+</entry>
+<entry><tp>Maximum value accepted on rs.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>rr</tp>
+</entry>
+<entry><tp>RTCP bandwidth allocated to other participants. This value is usually
+set by the client in the SDP offer. If no such value is provided, we use the
+value specified in this parameter in the SDP answer.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>minrr</tp>
+</entry>
+<entry><tp>Maximum value accepted on rr.</tp>
+</entry>
+</row>
+<row>
+<entry><tp>maxrr</tp>
+</entry>
+<entry><tp>Maximum value accepted on rr.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>Here is an example of how an rtppayload group may look like with the optional
+parameters specified:<preform>  &lt;rtppayloaddef primarytype="audio" subtype="pcmu"
+    rtppayload="0" encoding="PCMU" clockrate="8000" bitrate="64000"
+    rs="3000" minrs="0" maxrs="10000" 
+    rr="800" minrr="0" maxrr="10000"/>
+</preform></p>
+</titled-block>
+</chl4>
+<chl4><title>The provisionmanager group</title>
+<p>The provisionmanager group holds the configuration for the component in
+the MAS that handles provisioning of subscribers in the user directory. The
+group can have these attributes:</p>
+<p><preform>&lt;provisionmanager connectionpoolsize="5" 
+  connectiontimeout="10000"
+  connectionidletimeout="60000" 
+  commandsendretries="1" 
+  defaultmailhost=""/></preform></p>
+<list type="unordered">
+<list-item><p>The connectionpoolsize is max size on the connection pool with
+connections to a CAI server.</p>
+</list-item>
+<list-item><p>The connectiontimeout is the socket timeout value in milliseconds
+to the provision host and also the time limit to wait for a free connection
+if all available connections in the pool are used.</p>
+</list-item>
+<list-item><p>The connectionidletimeout is the millisecond time limit in milliseconds
+for a connection to be idle before it is physically closed.</p>
+</list-item>
+<list-item><p>The commandsendretries is number of retries to do when sending
+a command that gets an error response.</p>
+</list-item>
+<list-item><p>The defaultmailhost is the default mailhost to set for created
+subscribers. If this is empty, the MAS host will be used instead.</p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>The chargingaccountmanager group</title>
+<p>The chargingaccountmanager group holds the configuration for the component
+in MAS that handles the access to an Account Information and Refill server
+(AIR server). These parameters are located in the chargingaccountmanager.xml
+file.</p>
+<p>Example:<preform>&lt;chargingaccountmanager>
+  &lt;airnodes>
+    &lt;node host="localhost" port="4444" username="test" password="xxx"/>
+    &lt;node host="brage.mobeon.com" port="1337"/>
+  &lt;/airnodes>
+
+  &lt;element name="accountActivationFlag" type="boolean"/>
+  &lt;element name="accountGroupID" type="integer"/>
+  &lt;element name="accountHomeRegion" type="integer"/>
+
+  &lt;elementgroup parent="messageCapabilityFlag" structtype="struct">
+    &lt;member name="promotionNotificationFlag"/>
+    &lt;member name="firstIVRCallSetFlag"/>
+    &lt;member name="accountActivationFlag"/>
+  &lt;/elementgroup>
+&lt;/chargingaccountmanager></preform></p>
+<titled-block>
+<title>airnodes group</title>
+<p>This group contains a list of node groups. MAS will access them in an &ldquo;round
+robin per call&rdquo; fashion.</p>
+</titled-block>
+<titled-block>
+<title>node group</title>
+<p>This group contains information about an AIR server. It can have the following
+attributes:</p>
+<list type="unordered">
+<list-item><p>host is hostname for the AIR server.</p>
+</list-item>
+<list-item><p>port for the AIR server.</p>
+</list-item>
+<list-item><p>username for the AIR server.</p>
+</list-item>
+<list-item><p>pwd for the AIR server.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>element group</title>
+<p>This group is used to configure each parameter in the UCIP specification.
+UCIP is the protocol used to send data to an AIR server. The group can have
+the following attributes:</p>
+<list type="unordered">
+<list-item><p>name on the parameter.</p>
+</list-item>
+<list-item><p>type is datatype on the parameter. It can be string, integer,
+boolean or date.</p>
+</list-item>
+</list>
+</titled-block>
+<titled-block>
+<title>elementgroup group</title>
+<p>Some parameters in the UCIP specification are grouped together when a request
+is made. This group is used to configure which parameters that belongs to
+a specific group. It can have the following attributes:</p>
+<list type="unordered">
+<list-item><p>parent is the name on the parameter that contains the other
+(grouped) parameters.</p>
+</list-item>
+<list-item><p>structtype type on the group called struct in the protocol.
+It can be struct or array.</p>
+</list-item>
+</list>
+<p>This group also contains a list of member groups.</p>
+</titled-block>
+<titled-block>
+<title>member group</title>
+<p>This group describes which parameters that are members of the specific
+elementgroup group. It can have the following attributes:</p>
+<list type="unordered">
+<list-item><p>name on the parameter.</p>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+</chl3>
+<chl3><title>Application dependent configuration</title>
+<p>These configuration files are provided by the installed application and
+only the definition is provided by the MAS.</p>
+<chl4><title>The trafficevents group</title>
+<p>The trafficevents group is used to configure each traffic event that can
+be sent in the MAS. The purpose is to be able to filter which events that
+shall be sent. When the application tries to send an event, the MAS will only
+send the event if its name is listed in the configuration, and the value of
+the "enabled" attribute is true.</p>
+<p>The events that can be sent is defined in the XML file trafficevents.xml.</p>
+<p><preform>&lt;trafficevents componentname="vva">
+  &lt;event name="callended" enabled="true" type="radius"/>
+  &lt;event name="emailreread" enabled="true" type="radius"/>
+  &lt;event name="cliinformationmessage" enabled="true" 
+   type="email">
+    &lt;emailqueue sizelimit="100" timelimit="100"/>
+  &lt;/event>
+  &lt;event name="mwioff" enabled="true" type="email">
+    &lt;emailqueue sizelimit="100" timelimit="100"/>
+  &lt;/event>
+  &lt;event name="slamdowninformation" enabled="true" 
+   type="email">
+    &lt;emailqueue sizelimit="100" timelimit="100"
+     multievent="true"/>
+  &lt;/event>
+    &lt;event name="accountingdebit" enabled="true"
+     type="radius"/>
+    &lt;event name="accountingrefund" enabled="true"
+     type="radius"/>
+&lt;/trafficevents></preform></p>
+<list type="unordered">
+<list-item><p>The &ldquo;componentname&rdquo; parameter is the name identifying
+the component in the traffic events. When sending the event MAS adds <emph>@&lt;hostname></emph> to
+the value. Example: <emph>vva</emph>@&lt;hostname>.</p>
+</list-item>
+</list>
+<titled-block>
+<title>The event group</title>
+<p>This group contains event specific parameters. The group can have these
+attributes:</p>
+<p><preform>&lt;event name="callended" enabled="true" type="radius"/></preform></p>
+<list type="unordered">
+<list-item><p>The "name" attribute identifies an event sent by the application.
+The value of the "name" attribute will not be sent in the event itself. It
+is used only for filtering purposes. The MAS will only send events, which
+have their names defined in the configuration, and only if the "enabled" attribute
+is true. Must be lowercase.</p>
+</list-item>
+<list-item><p>The enabled is a boolean value that indicates if this event
+should be enabled or disabled.</p>
+</list-item>
+<list-item><p>The type can be one of radius or email. Indicates if this event
+should be sent via Radius-MA or email.</p>
+</list-item>
+</list>
+<p>The event group can also have a emailqueue group. Only relevant if the
+event group has the attribute type set to email.</p>
+</titled-block>
+<titled-block>
+<title>emailqueue group</title>
+<p>Configures the queue that is used for this event. The group can have these
+attributes:</p>
+<p><preform>&lt;emailqueue sizelimit="100" timelimit="100" multievent="true"/></preform></p>
+<list type="unordered">
+<list-item><p>The sizelimit is max size of the queue before it is emptied.</p>
+</list-item>
+<list-item><p>The timelimit is max time since last time it was emptied before
+the queue is emptied again.</p>
+</list-item>
+<list-item><p>The multievent is a boolean value that indicates if all the
+traffic events in the queue should be sent in one email only. Default is false
+which means that there will be one email for each traffic event.</p>
+</list-item>
+</list>
+</titled-block>
+</chl4>
+<chl4><title>The numberanalyzer group</title>
+<p>The numberanalyzer group holds the configuration for the component in the
+MAS that handles number analysis.</p>
+<p>This definition is specified in XML schema file numberanalyzer.xsd.</p>
+<p>Here is an example of the numberanalyzer group:</p>
+<p><preform>&lt;numberanalyzer>
+&lt;rule name="INBOUNDCALL">
+&lt;subrule name="NumberLength">
+&lt;input expr=""/>
+&lt;return expr="4,12"/>
+&lt;/subrule>
+&lt;subrule name="All">
+&lt;input expr="^(1[09])([0-9]{2})$"/>
+&lt;return expr="466010$i1$i2"/>
+&lt;/subrule>
+&lt;/rule>
+&lt;rule name="CALLEROUTDIAL">
+&lt;subrule name="NumberLength">
+&lt;input expr=""/>
+&lt;return expr="4,6"/>
+&lt;/subrule>
+&lt;subrule name="Office">
+&lt;input expr="^(1[09])([0-9]{2})$"/>
+&lt;return expr="$i0$i1"/>
+&lt;/subrule>
+&lt;subrule name="Local" regioncoderule="RegionCodes">
+&lt;input expr="^([1-9])([0-9]{4,5})$"/>
+&lt;return expr="$i0$i1"/>
+&lt;/subrule>
+&lt;/rule>
+&lt;rule name="RegionCodes">
+&lt;input expr="060,061,062"/>
+&lt;/rule>
+&lt;/numberanalyzer></preform></p>
+<p>The numberanalyzer group contains a list of rule groups.</p>
+<titled-block>
+<title>rule group</title>
+<p>A rule is a set of subrules (rule group) for a certain type of scenario,
+for example inbound call, subscriber outbound call or fax retrieval. Here
+is an example of rule named INBOUNDCALL:</p>
+<p><preform>&lt;rule name="INBOUNDCALL">
+&lt;subrule name="NumberLength">
+&lt;input expr=""/>
+&lt;return expr="4,12"/>
+&lt;/subrule>
+&lt;subrule name="All">
+&lt;input expr="^(1[09])([0-9]{2})$"/>
+&lt;return expr="466010$i1$i2"/>
+&lt;/subrule>
+&lt;/rule></preform></p>
+<p>A rule group can have this attribute:</p>
+<list type="unordered">
+<list-item><p>The name defines the name on the rule</p>
+</list-item>
+</list>
+<p>The rule group can have one or many subrule groups:</p>
+</titled-block>
+<titled-block>
+<title>subrule group</title>
+<p>A subrule is a branch of a rule and is defined to match a specific number
+type. The order in which the subrules are listed determines which rule is
+checked first. The first rule that matches the requirement is the one that
+is used.</p>
+<p>A subrule group can have these attributes:</p>
+<list type="unordered">
+<list-item><p>The name defines the name on the subrule</p>
+</list-item>
+<list-item><p>The useregioncode is used to reference a name on a special rule
+that contains regioncodes. (Optional)</p>
+</list-item>
+</list>
+<p>Each subrule can have one input group and one return group.</p>
+<block><p><emph>input group</emph></p>
+<p>The attribute expr is a regular expression string which is matched against
+the number to analyze. If the expression matches, this rule applies for the
+number analysis.</p>
+</block>
+<block><p><emph>return group</emph></p>
+<p>The attribute expr is an expression string that specifies what should be
+returned as result after the number analysis. There are three different types
+of return expressions:</p>
+<list type="unordered">
+<list-item><p>Group return expression. It can contain identifiers to the regular
+expression pattern from the input group. The identifier has the following
+format $i&lt;group_id>. The group_id relates to the number of the regular
+expression group. For example in the following pattern ^(555)(\d*)$ where
+$i1 relates to the (555) part and $i2 relates to the (\d*) part. In case there
+is no groups $i0 references the whole result.</p>
+<p>The return expression may also contain numeric strings that should be applied
+to the resulting number.</p>
+</list-item>
+<list-item><p>Length return expression. It is used to check correct length
+on a number. The expression contains of a min value and a max value separated
+by comma. Note that the input expression is ignored when this return expression
+is used.</p>
+</list-item>
+<list-item><p>Block return expression. It is used to say that the number is
+blocked if the rule matches the number. The value is "Block".</p>
+</list-item>
+</list>
+</block>
+</titled-block>
+</chl4>
+<chl4><title>Traffic Event template files</title>
+<p>Some traffic events in the MAS are sent as email. These E-mails can be
+configurable with templates that specifies the structure of the email. The
+different attributes in a traffic event should be set into different mail
+headers (and body) of an email</p>
+<p>Each event that is going to be sent as an email has its own template file.
+The name on the file is the same as the name on the event and ".vm" as file
+type. For example the mwioff event has a template file called <emph type="low">mwioff.vm</emph> and
+similarly the slamdowninformation event has a file called <emph type="low">slamdowninformation.vm</emph>.</p>
+<note><p>These template files are not XML files.</p>
+</note>
+<p>Here is an example of the <emph type="low">mwioff.vm</emph> template file.</p>
+<p><preform>From: sink@domain
+Subject: ipms/message
+To: notification.off@$event.mailhost
+Ipms-Message-Type: notification
+Ipms-Notification-Version: 1.0
+Ipms-Component-From: emComponent=$event.component
+Ipms-Notification-Type: mvas.subscriber.logout
+Ipms-Notification-Content: $event.username
+
+Junk</preform></p>
+<p>The attributes from the traffic event can be set by using references to
+the event (the $event in the template). The names on the attribute are defined
+in <xref linkend="trafficeventattrtable"/>:</p>
+<p>Here is an example how the mail looks like when it has been generated:</p>
+<p><preform>Message-ID: &lt;193985.0114491944.JavaMail.user1@mas1.domain>
+From: sink@domain
+To: notification.off@mail1.domain
+Subject: ipms/message
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Ipms-Message-Type: notification
+Ipms-Notification-Version: 1.0
+Ipms-Component-From: emComponent=mas1.domain
+Ipms-Notification-Type: mvas.subscriber.logout
+Ipms-Notification-Content: user1
+
+Junk</preform></p>
+<p>This table lists which attributes that can be present in a traffic event
+and a small description of what they are used for:</p>
+<table indent="column" xml:id="trafficeventattrtable">
+<caption></caption>
+<tgroup cols="2" char="" charoff="50"><colspec colname="col1" colwidth="0.79*"/>
+<colspec colname="col2" colwidth="1.21*"/>
+<thead>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Attribute name</tp></entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0">
+<tp>Description</tp></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>username</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Identifies
+a user, e.g. a phone number or an email address.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>callednumber</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The called
+phone number involved in the traffic event.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>callingnumber</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The calling
+phone number involved in the traffic event.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>accesstype</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The type
+of access into the system.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>mailhost</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Subscriber&rsquo;s
+mail host.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>sender</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The phone
+number of the sender of the message.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>destination</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The phone
+number of a recipient.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>language</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The language
+of the receiver of the message.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>date</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>A date
+and time regarding the traffic event.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>action</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>An action
+regarding the traffic event.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>forwardingnumber</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The number
+that should be used to forward calls to the voice mail system.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>unsetforwards</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The forwards
+that were turned off.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>emailaddress</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The recipient's
+email address.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>component</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The name
+on the MAS that sent the event. (Automatically set if not present in the event.</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<note><p>The attribute names must be lowercase.</p>
+</note>
+</chl4>
+</chl3>
+<chl3><title>MAS Log Configuration</title>
+<chl4><title>General</title>
+<p>The log configuration files for the MAS are XML based and is easily edited
+with an XML aware editor. Either one that can handle XML schemes or one that
+can check start and ending tags.</p>
+<p>The log configuration is specified in logmanager.xml and logmanageragent.xml.</p>
+<p>logmanageragent.xml manages the loggings made by the mas agent and the
+logmanager.xml manages the rest of the logging.</p>
+<p>The logmanager.xml and logmanageragent.xml are automatically reloaded whenever
+a change is made to the configuration.</p>
+<p>The configuration files consists of a set of root tags.</p>
+<list type="unordered">
+<list-item><p>appender</p>
+<p>This tag defines what log appender the logger will use to write the log
+to.</p>
+<p>The following appenders exist:</p>
+<list type="unordered">
+<list-item><p>STDOUT</p>
+<p>Prints log information to the standard output.</p>
+</list-item>
+<list-item><p>PLUGIN</p>
+<p>Prints log information to the plugin.</p>
+</list-item>
+<list-item><p>ROLLFILE</p>
+<p>Prints log information to the file specified.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>category</p>
+<p>Defines what should be logged, to which appender and loglevel.</p>
+<list type="unordered">
+<list-item><p>priority</p>
+<p>Defines which loglevel this category should use.</p>
+</list-item>
+<list-item><p>appender-ref</p>
+<p>Defines which appender this category should use.</p>
+</list-item>
+</list>
+<p>If appender is omitted, the appender is inherited from the category above
+or root.</p>
+<p>In this case, the root category.</p>
+</list-item>
+<list-item><p>root</p>
+<p>Defines the root log level. The root log level applies to all to all categories
+which has not overidden the root log level. Specifies an appender and loglevel
+for logger.</p>
+<list type="unordered">
+<list-item><p>priority</p>
+<p>Defines which loglevel this category should use.</p>
+</list-item>
+<list-item><p>appender-ref</p>
+<p>Defines which appender this category should use.</p>
+</list-item>
+</list>
+<p>This is the starting point for the logger. If no categories is specified,
+the logger will use the loglevel and appender specified here.</p>
+</list-item>
+</list>
+<p>The following loglevels exist:</p>
+<list type="unordered">
+<list-item><p>fatal</p>
+<p>Logs fatal information</p>
+</list-item>
+<list-item><p>error</p>
+<p>Logs error information.</p>
+</list-item>
+<list-item><p>warn</p>
+<p>Logs error and warn information.</p>
+</list-item>
+<list-item><p>info</p>
+<p>Logs level prints error, warn and info information.</p>
+</list-item>
+<list-item><p>debug</p>
+<p>Logs error, warn, info and debug information.</p>
+</list-item>
+</list>
+<p>To change the root log level, edit the logmanager.xml or logmanageragent.xml
+file and change the loglevel for the root tag.</p>
+<p>Ex.</p>
+<p><preform>    &lt;root>
+        &lt;priority value ="warn" />
+        &lt;appender-ref ref="ROLLFILE" />
+   &lt;/root></preform></p>
+<p>to</p>
+<p><preform>    &lt;root>
+        &lt;priority value ="debug" />
+        &lt;appender-ref ref="ROLLFILE" />
+   &lt;/root></preform></p>
+</chl4>
+<chl4 xml:id="CallTraceConfig"><title>Call Trace Configuration</title>
+<p>In order to configure the call trace functionality you must enable the
+session filter, specify which session to filter and the log level of the log
+entries of interest. When choosing the proper log level you should consider
+that error and fatal log entries are not filtered and that the filter will
+only operate on log entries matching the configured log level. Hence, in order
+to benefit from the call trace functionality you should use log level debug
+or info in order to receive meaningful information.</p>
+<p>The log entries are filtered according to the session log data (the phone
+number of caller party, called party or redirecting party). The means that
+every log entry where any entry in the session data matches the filter session
+data is forwarded to the log file. Example: we have a session filter with
+session data caller:1234 which only will forward log entries related to sessions
+where the caller party has phonenumber 1234.</p>
+<p>There are exceptions though, log events which are not session related (log
+events with no session data), these log events are always forwarded by the
+session filter. The filter will only operate on log events that relates to
+the current log level.</p>
+<p>In the log configuration file the session data is a list of parameters
+where each value is a key-value-pair. The value-key-pair is a string in following
+format: &lt;key>:&lt;value>.</p>
+<p>Where key can be one of (case sensitive, must be lower case):</p>
+<list type="unordered">
+<list-item><p> <input>calling</input>; which is the calling party of a call
+session.</p>
+</list-item>
+<list-item><p> <input>called</input>; which is the called party of a call
+session.</p>
+</list-item>
+<list-item><p> <input>redirecting</input>; which is the redirecting party
+of a call session.</p>
+</list-item>
+</list>
+<p>And value is (when the key is one of above) a phone number. Example: if
+the list here below is the session data of a session filter then any log entry
+matching any of the entries in the list will be forwarded to the log file.</p>
+<p><preform>&lt;param name="TraceItem" value="calling:1507432">
+&lt;param name="TraceItem" value="calling:1507434">
+&lt;param name="TraceItem" value="called:5510242">
+&lt;param name="TraceItem" value="redirecting:123400"></preform></p>
+<p>To start trace calls:</p>
+<step-list>
+<sl-item><p>Uncomment the XML clause [ <emph>&lt;filter class="com.mobeon.masp.logging.SessionFilter"></emph>]
+in the &lt;MAS_HOME>/cfg/logmanager.xml file for the ROLLFILE appender.</p>
+<p><preform>&lt;appender name="ROLLFILE" 
+  class="org.apache.log4j.RollingFileAppender">
+    &lt;param name="File" value="log/mas.log"/>
+    &lt;param name="Append" value="true" />
+    &lt;param name="MaxFileSize" value="10MB" />
+    &lt;param name="MaxBackupIndex" value="10" />
+    &lt;layout class="org.apache.log4j.PatternLayout">
+      &lt;param name="ConversionPattern"
+      value="%d{ISO8601} MET %c %5p [TID:%t]
+       [SID:%X{session}] - %m%n"/>
+    &lt;/layout>
+    &lt;!-- if session filtering should be used, 
+      uncomment the following: -->
+    &lt;!-- from here <emph>--></emph>
+<emph>    &lt;filter class="com.mobeon.masp.logging.SessionFilter"></emph>
+      &lt;param name="TraceItem" value="calling:1234">
+    &lt;/filter>
+    &lt;!-- to here -->
+&lt;/appender></preform></p>
+</sl-item>
+<sl-item><p>Set the appropriate log level.</p>
+</sl-item>
+<sl-item><p>Update the TraceItem list with appropriate session data by modifying
+the line [&lt;param name="TraceItem" value=" <emph type="low">calling:1234</emph>">]. </p>
+</sl-item>
+<sl-item><p>Save and quit configuration.</p>
+</sl-item>
+</step-list>
+<note><p>Do not forget undo the changes when finishing the call trace by disabling/commenting
+the session filter and reset the log level to what ever it was before call
+trace was used.</p>
+</note>
+</chl4>
+<chl4><title>Stream Logging</title>
+<p>The Stream component is partly implemented in C++ and uses a log manager
+which is different from the rest of the MAS. The Stream logging is configured
+in the file stream.log.properties. By default the appender is a rolling file
+appender named R and the log output is stored in stream.log. Here follows
+a configuration example:</p>
+<p><preform>log4j.rootCategory=WARN, R
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=log/stream.log
+log4j.appender.R.MaxFileSize=10MB
+log4j.appender.R.MaxBackupIndex=2
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=%d{ISO8601} %c %5p %m%n
+</preform></p>
+<p>As you can see on the first line the log level is warn. In order to set
+the log level to info you have to update the first line in stream.log.properties
+to:</p>
+<p><preform>log4j.rootCategory=INFO, R</preform></p>
+<p>The log levels are as mentioned above, but in upper case: FATAL, ERROR,
+WARN, INFO and DEBUG.</p>
+<p>Please note that call trace is not handled by this log manager. Session
+ID is used though, when available, hence you can use a particular session
+ID found when call tracing in mas.log and search/filter for that session ID
+in the file stream.log.</p>
+</chl4>
+</chl3>
+</chl2>
+</chl1>
+</body>
+</doc>
+<?Pub *0000184486 0?>

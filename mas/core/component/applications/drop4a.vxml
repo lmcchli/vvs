@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+	<var name="nofm"/>
+	<var name="msglist"/>
+	<var name="msgno"/>
+	<var name="contentno"/>
+	<var name="contentlist"/>	
+	<var name="mob"/>
+	<block>
+
+		<!-- Get hold of the retriever -->
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+
+
+		<!-- Open up his mailbox -->
+		<script>
+			mailboxid = mas.subscriberGetMailbox (origPhoneNumber);
+			mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+			mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, null);
+			nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, null, null, null);
+		</script>
+
+		<script>
+			msgno = 0;			
+			msglist = mas.mailboxGetMessages (mailboxlistid);
+			contentlist = mas.messageGetContent (msglist[msgno]);
+			contentno = 0;
+			mob = mas.messageGetMediaObject (contentlist[contentno]);
+		</script>
+
+		<log>Mailoboxid=<value expr="mailboxid"/></log>
+		<log>Mailboxlistid=<value expr="mailboxlistid"/></log>
+		<log>Mailboxfolderid=<value expr="mailboxfolderid"/></log>
+		<log>nofm=<value expr="nofm"/></log>
+
+	</block>
+
+	<field name="retrieval">
+
+        <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+        <rule id="cmnu1_main_rule">
+          <one-of>
+            <item>#</item>
+          </one-of>
+          </rule>
+        </grammar>
+
+        <prompt>
+			<audio expr="mob"/>
+		</prompt>
+
+		<prompt>
+			<audio src="beep.wav" />
+		</prompt>
+
+        <catch event="noinput">
+            <script>
+                msgno = msgno + 1;
+            </script>
+            <if cond="msgno>nofm">
+                <exit/>
+            </if>
+            <script>
+                contentlist = mas.messageGetContent (msglist[msgno]);
+                contentno = 0;
+                mob = mas.messageGetMediaObject (contentlist[contentno]);
+            </script>
+        </catch>
+
+        <filled>
+			<log>Filled !</log>
+		</filled>
+
+    </field>
+
+	</form>
+
+        <catch event="error">
+		    <log>Error caught <value expr="_event"/></log>
+		    <exit/>
+       </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

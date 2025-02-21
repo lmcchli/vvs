@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+    <xs:complexType name="Abcxyz.configType">
+        <xs:sequence>
+            <xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+            <xs:element name="configFileType" type="xs:int" fixed="5" minOccurs="0" maxOccurs="0"/>
+            <xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ComponentSpecificType" mixed="true">
+        <xs:all>
+            <xs:element name="MessagingCommonDirectory.Table" type="messagingCommonDirectoryTableType"/>
+            <xs:element name="MigrationTool.Table" type="migrationToolTableType"/>
+        </xs:all>
+    </xs:complexType>
+
+    <!-- MessagingCommonDirectory -->
+    <xs:complexType name="messagingCommonDirectoryTableType">
+        <xs:sequence>
+            <xs:element name="messagingCommonDirectory" type="messagingCommonDirectoryType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="messagingCommonDirectoryType" mixed="true">
+        <xs:all>
+            <xs:element name="ldapqueryopconame" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="priority" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="caching" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="hostname" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="port" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="username" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="password" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+    
+    <!-- MigrationTool -->
+    <xs:complexType name="migrationToolTableType">
+        <xs:sequence>
+            <xs:element name="migrationTool" type="migrationToolType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="migrationToolType" mixed="true">
+        <xs:all>
+            <xs:element name="priority" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="hostname" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="port" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+    
+</xs:schema>

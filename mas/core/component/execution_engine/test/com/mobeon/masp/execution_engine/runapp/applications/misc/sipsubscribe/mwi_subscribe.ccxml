@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml">
+   <script src="libMas.js"/>
+   <var name="myState" expr="'init'"/>
+   
+   <var name="mailboxId"/>
+      
+
+   <eventprocessor statevariable="myState">
+
+     	<!-- Handle incoming SIP Subscribe. -->
+        <transition state="init" event="connection.alerting" name="evt">
+        
+        	<log expr="'SIP Subscribe connection alerting'"/> 
+        	<var name="in_connectionid" expr="evt.connectionid"/>
+        	<!-- Extract the mailbox id and the user-agent number from the incoming request -->
+        	<assign name="mailboxId" expr="evt.connection.local.user"/>
+	        <var name="userAgentNumber" expr="evt.connection.remote.number"/>
+        	<!-- Validate that the user agent is allowed to subscribe to that mailbox -->
+       	        	
+        	<var name="isUserAgentValid" expr="PhoneNumber_canSubscribeToMWIForMailbox(userAgentNumber,mailboxId)"/> 
+
+			<log expr="'SIP User Agent is Valid ' + isUserAgentValid"/> 
+        	<!-- if valid  -->
+            <if cond="isUserAgentValid == true">
+	        	<!-- Store the subscription dialog information and expires in mailbox's private folder -->
+	        	<var name="callId" expr="evt.callId"/>
+	        	<var name="fromTag" expr="evt.fromTag"/>
+	        	<var name="toTag" expr="evt.toTag"/>
+	        	<var name="cSeq" expr="evt.cSeq"/>
+	        	<var name="expires" expr="evt.expires"/>
+	        	
+	        	<log label="'info'" expr="'CCXML: Calling SIP Subscribe('+mailboxId +','+userAgentNumber+','+callId+','+fromTag+','+toTag+','+cSeq+','+expires+')'"/>
+	        	<var name="subscribeSucceed" expr="System_MWISubscribe(mailboxId,userAgentNumber,callId,fromTag,toTag,cSeq,expires)"/>
+
+	        	<!-- Accept the subscription -->
+	        	<if cond="subscribeSucceed == true" >
+	        		<accept connectionid="in_connectionid" />
+	        		
+	        	<else/>
+	        		<log label="'info'" expr="'CCXML: SIP Subscribe rejected since there was problems creating susbcription'"/> 
+	        		<reject connectionid="in_connectionid" />
+	            	<exit/>
+        	
+        		</if>
+        	<!-- else not valid, reject the call -->
+        	<else/>
+	        	<log label="'info'" expr="'CCXML: SIP Subscribe rejected since UA'+userAgentNumber+' not allowed to subscribe to mailbox '+mailboxId"/> 
+	            <reject connectionid="in_connectionid" />
+	            <exit/>
+        	</if>
+        </transition>
+        
+        <!-- Handle subscription 200 OK sent by CallManager -->
+        <transition state="init" event="connection.connected">
+        	<!-- Call MWI notification on NTF with the following info -->
+        	<script>        	
+        		System_SendTrafficEvent('mailboxUpdate','force=true,mailboxId='+mailboxId);
+        	</script>
+        	<exit/>
+        </transition>
+        
+         <!-- Handle subscription failed for any reason -->
+        <transition state="init" event="Error.*" name="evt">
+        	<!-- Log something -->
+        	<script>System_Log(4, 'VVA: Error = ' + evt.name + ', Reason = ' + evt.reason);</script>
+        	<exit/>
+        </transition>        
+   </eventprocessor>                   
+</ccxml>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="error">
+        <log>TCFAIL catch 1</log>
+        <exit/>
+    </catch>
+
+    <catch event="connection.disconnect.hangup">
+        <if cond="playTheMessage$==undefined">
+            <log>TCPASS</log>
+            <else/>
+            <log>TCFAIL catch 2</log>
+        </if>
+        <exit/>
+    </catch>
+
+    <form>
+        <!-- hangup while in here -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(5000);</script>
+        </block>
+
+        <field name="playTheMessage"></field>
+
+        <filled>
+            <log>TCFAIL filled</log>
+            <exit/>
+        </filled>
+
+        <block>
+            <log>TCFAIL block</log>
+            <exit/>
+        </block>
+    </form>
+</vxml>

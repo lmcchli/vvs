@@ -1,0 +1,203 @@
+<project>
+
+    <fail unless="env.JCSC_HOME">
+        You need to point JCSC to a jcsc installation directory. Copy it from mas\tools\jcsc."/>
+    </fail>
+
+
+    <target name="compile" depends="init, builddepedencies" description="Compile classes">
+        <mkdir dir="${module.output.dir}"/>
+        <javac destdir="${module.output.dir}" debug="${compiler.debug}">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${project.basedir}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <src refid="module.sourcepath"/>
+            <src refid="module.dependencypath"/>
+            <compilerarg line="${compiler.args}"/>
+        </javac>
+        <copy todir="${module.output.dir}">
+            <fileset dir="${module.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.tests" depends="compile, testdepedencies" description="Module test" unless="skip.tests">
+        <mkdir dir="${module.output.dir}"/>
+        <javac destdir="${module.output.dir}" debug="${compiler.debug}">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${project.basedir}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <src refid="module.testpath"/>
+            <src refid="module.dependencypath"/>
+            <src refid="module.dependencypath.test"/>
+            <compilerarg line="${compiler.args}"/>
+        </javac>
+        <copy todir="${module.output.dir}">
+            <fileset dir="${module.basedir}/test">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Perform any build initialization in this target -->
+    <target name="init" description="Build initialization">
+        <tstamp/>
+    </target>
+
+    <target name="clean" description="cleanup">
+        <delete>
+            <fileset dir="." includes="TEST-*.txt"/>
+        </delete>
+        <delete file="${module.basedir}/TEST-**.txt"/>
+        <delete dir="${module.basedir}/testreports"/>
+        <delete dir="${module.basedir}/coverage_instrumented" />
+        <delete dir="${module.output.dir}"/>
+        <delete dir="${module.testoutput.dir}"/>
+        <delete file="${module.basedir}/${module.jarname}"/>
+        <delete dir="${module.basedir}/doc/api"/>
+    </target>
+
+    <target name="distclean" depends="clean" description="cleanup all">
+        <delete file="${project.basedir}/lib/${module.jarname}"/>
+    </target>
+
+    <target name="javadoc" description="Generates JavaDoc">
+        <mkdir dir="${module.basedir}/doc/api"/>
+        <javadoc destdir="doc/api" author="true"
+                 version="true" use="true"
+                 packagenames="com.*" source="1.5">
+            <classpath/>
+            <sourcepath refid="module.sourcepath"/>
+            <sourcepath refid="module.dependencypath"/>
+            <sourcepath refid="module.testpath"/>
+
+            <classpath>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${project.basedir}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+            <link href="http://www.junit.org/junit/javadoc/3.8.1/"/>
+            <doctitle>"<![CDATA[<h1>]]>${ant.project.name}<![CDATA[</h1>]]>"</doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2005 Mobeon AB. All Rights Reserved.</i>]]></bottom>
+            <tag name="todo" scope="all" description="To do:"/>
+            <tag name="logs.fatal" scope="constructors,methods" description="Logs Fatal:"/>
+            <tag name="logs.error" scope="constructors,methods" description="Logs Error:"/>
+            <tag name="logs.warning" scope="constructors,methods" description="Logs Warning:"/>
+
+        </javadoc>
+    </target>
+
+    <target name="jar" depends="compile" description="Create JAR file">
+        <jar destfile="${module.basedir}/${module.jarname}" basedir="${module.output.dir}">
+            <patternset refid="module.jar.files"/>
+        </jar>
+    </target>
+
+    <target name="distdependencies"/>
+
+    <target name="builddepedencies"/>
+
+    <target name="testdepedencies"/>
+
+    <target name="distjar" depends="distdependencies, jar" description="Create JAR file">
+        <copy file="${module.basedir}/${module.jarname}" todir="${project.basedir}/lib/"/>
+        <copy todir="${project.basedir}/lib/">
+            <fileset dir="${module.basedir}/lib">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="all" depends="init, clean, compile, runtest, javadoc" description="build all"/>
+
+    <target name="runtest" depends="compile.tests">
+        <mkdir dir="${module.basedir}/testreports"/>
+        <junit dir="${module.basedir}" printsummary="yes" haltonfailure="no" showoutput="true">
+        	<sysproperty key="com.mobeon.junit.unimplemented.ignore" value="${com.mobeon.junit.unimplemented.ignore}"/>
+            <sysproperty key="com.mobeon.junit.runapp.test" value="${com.mobeon.junit.runapp.test}"/>
+            <sysproperty key="com.mobeon.junit.runapp.timeout" value="${com.mobeon.junit.runapp.timeout}"/>
+
+            <classpath>
+                <pathelement location="${module.output.dir}"/>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${project.basedir}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+
+            <classpath>
+                <pathelement location="${build.tests}"/>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${module.basedir}/lib"/>
+                <pathelement path="${module.basedir}/classes"/>
+            </classpath>
+
+	    <jvmarg value="-Djava.library.path=${module.basedir}/lib"/>
+
+            <formatter type="xml"/>
+
+            <batchtest fork="yes" todir="${module.basedir}/testreports">
+                <fileset dir="${module.basedir}/test">
+                    <include name="**/*Test*.java" unless="test.name"/>
+                    <include name="**/${test.name}.java" if="test.name"/>
+                    <exclude name="**/*TestCase.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest fork="yes" todir="${module.basedir}/testreports" if="mtest">
+                <fileset dir="${module.basedir}/mtest">
+                    <include name="**/*Test*.java" unless="test.name"/>
+                    <include name="**/${test.name}.java" if="test.name"/>
+                    <exclude name="**/*TestCase.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+        <junitreport todir="./testreports">
+            <fileset dir="./testreports">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="./testreports/html"/>
+        </junitreport>
+    </target>
+
+    <target name="jcsc">
+        <taskdef name="jcsc" classname="rj.tools.jcsc.ant.JCSCTask"/>
+        <mkdir dir="${module.basedir}/jcsc"/>
+        <jcsc rules="${project.basedir}/checkmate.jcsc.xml"
+              destdir="${module.basedir}/jcsc"
+              worstcount="20"
+              startdate="2005-08-01 00:00:00"
+              failvalue="0.05"
+              failseverity="5"
+              failproperty="jcsc.failed"
+              copyassociatedfiles="true"
+              jcschome="${env.JCSC_HOME}">
+            <fileset dir="${module.basedir}">
+                <include name="interface/**/*.java"/>
+                <include name="src/**/*.java"/>
+            </fileset>
+        </jcsc>
+        <!-- here you could execute further steps; which will always be executed -->
+    </target>
+
+</project>

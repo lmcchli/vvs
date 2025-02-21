@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";	
+
+my $mcr_murhost;
+my $cfg_murhost;	
+my $tmpmurhost;		
+my $logicalmurhost;
+
+
+# Get murhost from MCR
+$mcr_murhost  = get_mcr_murlogicalname(\$mcr_murhost);
+exit(1) if ($mcr_murhost !~ /.*/);
+
+# Get murhost from notification.cfg
+$cfg_murhost = &getconfig("murhost");
+
+my $errors = 0;
+
+if (   uc($mcr_murhost) ne uc($cfg_murhost) ) {
+    $errors = 1;
+}
+
+if ($errors) {
+    print "The configured hostnames for user register differs!\n";
+    print "Hostname from MCR:                $mcr_murhost\n";
+    print "Hostname from notification.cfg:   $cfg_murhost\n";
+    exit(1);
+}
+else {
+    print "Hostname(s) for accessing user register looks OK ($cfg_murhost).\n";
+    exit(0);
+}
+
+sub get_mcr_murlogicalname {
+    my $logicalmurhost;
+    my $h = &getconfig("mcrhost");
+    my $p = &getconfig("mcrport");
+    my $u = &getconfig("mcrusername");
+    my $pw = &getconfig("mcrpassword");
+    my $o = &getconfig("mcrorg");
+    
+    $u = "uid=$u,emRegisterName=MessagingComponentRegister,$o";
+    
+    chomp($logicalmurhost = `ldapsearch -r -h $h -p $p -b $o -D $u -w $pw emlogicalcomponentname=* | grep emlogicalcomponentnam`);
+    $logicalmurhost =~  s/.*=(.*)/$1/;
+    return $1;
+} 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+<form id="main_form">
+                <var name="PHONE_NUMBER" expr="'202000001'" />
+
+                <var name="mailboxId" />
+                <var name="folderId" />
+                <var name="success" />
+
+<!--                            Send an ESS-event -->
+                <block>
+                        <script>
+                                <![CDATA[
+                                mas.trafficEventSend( 'event.interface.session.create', [ 'mailhost', 'telephonenumber', 'interfacetype', 'sessiontype', 'accesstype' ], [ 'tacos.heavytest.lab.su.sw.abcxyz.se', '202000011', 'tui', 'retrieval', '7' ], false);
+
+                                ]]>
+                        </script>
+
+                        <log>TC 10002000 PASSED</log>
+
+                        <exit />
+                </block>
+        </form>
+
+        <catch event="error.com.mobeon.platform.system">
+                <log>TC 10002000 FAILED <value expr="_event" /> <value expr="_message" /></log>
+                <exit />
+        </catch>
+
+        <catch event="error">
+                <log>TC 10002000 FAILED <value expr="_event" /> <value expr="_message" /></log>
+                <exit />
+        </catch>
+
+        <catch event="connection.disconnect.hangup">
+                <log>Hung up!</log>
+                <exit />
+        </catch>
+</vxml>
+

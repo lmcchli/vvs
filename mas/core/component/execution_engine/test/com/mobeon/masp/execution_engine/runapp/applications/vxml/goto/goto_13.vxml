@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <var name="counter" expr="0"/>
+
+    <!-- check that it is possible to perform goto
+    from a document level catch-->
+    <catch event="error.badfetch">
+        <log>HEJ</log>
+        <goto next="goto_13_2.vxml#form1"></goto>
+    </catch>
+   <form id="form1">
+      <block >
+          <throw event="error.badfetch"></throw>
+      </block>
+   </form>
+</vxml>

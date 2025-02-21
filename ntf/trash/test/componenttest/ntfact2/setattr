@@ -1,0 +1,53 @@
+#! /bin/sh
+
+##
+## setattr <cfg-file> <dn> <attr> [value]
+##
+##  If the value is omitted, the attribute is deleted.
+##
+
+die() {
+    echo "ERROR: $*" >&2
+    exit 1
+}
+help() {
+    grep '^##' $0 | cut -c3-
+    exit 0
+}
+test -n "$1" || help
+
+test -r $1 || die "Not readable [$1]"
+. $1
+
+test -n "$2" || die "DN missing"
+test -n "$3" || die "Attribute missing"
+dn=$2
+attr=$3
+value=''
+test -n $4 && value=$4
+
+echo "Before:"
+base=`echo $dn | cut -d, -f2-`
+item=`echo $dn | cut -d, -f1`
+ldapsearch -p 389 -h $mur_host -b $base $item $attr | grep -i $attr
+
+if test -n "$value"; then
+    ldapmodify -D 'cn=Directory Manager' -w emmanager -p 389 -h $mur_host <<EOF
+dn: $dn
+changetype: modify
+replace: $attr
+$attr: $value
+EOF
+
+else
+
+    ldapmodify -D 'cn=Directory Manager' -w emmanager -p 389 -h $mur_host <<EOF
+dn: $dn
+changetype: modify
+delete: $attr
+EOF
+
+fi
+
+echo "After:"
+ldapsearch -p 389 -h $mur_host -b $base $item $attr | grep -i $attr

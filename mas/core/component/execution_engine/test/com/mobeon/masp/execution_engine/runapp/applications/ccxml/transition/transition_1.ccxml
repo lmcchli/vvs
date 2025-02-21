@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml">
+
+    <eventprocessor>
+
+        <!-- Handle incoming call. -->
+        <transition event="connection.alerting">
+            <accept/>
+        </transition>
+
+        <!-- The call is fully connected. -->
+        <transition event="connection.connected">
+            <log expr="'TCPASS CCXML: TransitionWithoutName'"/>
+            <exit/>
+        </transition>
+
+    </eventprocessor>
+</ccxml>

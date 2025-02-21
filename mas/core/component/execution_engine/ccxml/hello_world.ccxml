@@ -1,0 +1,3 @@
+<ccxml version="1.0">
+    <log label="TEST_LABEL" expr="'Hello'+'World'"/>
+</ccxml>

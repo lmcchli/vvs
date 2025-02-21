@@ -1,0 +1,52 @@
+# preremove
+# This script stops the NTF
+
+stop() {
+    RC=/etc/init.d/rc.ntf
+    if [ -f $RC ]; then
+	/etc/init.d/rc.ntf stop > /dev/null 2>&1
+	return 0
+    else
+	error "Failed to stop NTF, cannot find script $RC"
+	return 1
+    fi
+}
+
+wait_for_stop() {
+    counter=0
+    while [ "$OPSTATE" = "1" ] && [ $counter -lt 30 ]; do
+	getOpState
+	sleep 1
+	counter=`expr $counter + 1`
+    done
+}
+
+getOpState() {
+    RC=/etc/init.d/rc.ntf
+    STATE=`$RC status | nawk ' BEGIN { count=0 }
+	    /stopped/ { count=count+1; }
+	    END { print count; }'`
+    if [ $STATE -eq 3 ]; then
+	OPSTATE=0
+    else
+	OPSTATE=1
+    fi
+}
+
+
+
+###########################################################
+OPSTATE=1 # 0=down, 1=up
+
+if [ `pkgparam LMENtf HAMODE` = "No" ]; then
+# Stop  NTF
+    info "Stop NTF"
+    stop
+    if [ $? -eq 0 ]; then
+	wait_for_stop
+    fi
+    
+    if [ ! "$OPSTATE" = "0" ]; then
+	error "Failed to stop NTF"
+    fi
+fi

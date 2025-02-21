@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures LOGGING for NTF Application..
+     WARNING: DO NOT USE CONSOLE APPENDERS AS STDOUT AND ERROR ARE REDIRECTED
+     INTERNALLY TO com.mobeon.common.util.logging.stdOutErrLogger, IF YOU DO
+     IT WILL CAUSE LOG4J TO LOOP BACK ON ITSELF..
+
+     All stdout and stderr logs are redirected to msgcore.log, These logs
+     are coming from the msgcore libraries.  To see message core specific
+     messages see msgcore.log.
+
+     NOTE: this can be changed to go to a different log file by changing
+     category name="com.mobeon.common.util.logging.stdOutErrLogger$STDOUT/STDERR
+     to point to a different appender, below, however do not use process.log....
+
+     NOTE: in 5.4+ most of the old msgcore logs have been converted to log4j,
+     going forward this should become more so.  So now the stdout/err are not
+     as active as before.  More logs will go to the app log and be more
+     control by adding an appender if needed for the class.
+--><Configuration monitorInterval="15" status="WARN">
+  <Properties>
+    <Property name="path">/opt/moip/logs/ntf</Property>
+    <Property name="msgcorelogs">/opt/msgcore/logs</Property>
+    <Property name="layoutlocal">%d{ISO8601} %m%n</Property>
+    <Property name="layoutlerlog">%c,%p,%m%n</Property>
+    <Property name="layoutlerheader">%m%n</Property>
+    <Property name="compName">ntf</Property>
+  </Properties>
+  <Appenders>
+    <RollingFile fileName="${path}/notificationTraces.log" filePattern="${path}/notificationTraces-%i.log" name="NotifTrace">
+      <MarkerFilter marker="LerHeader" onMatch="DENY" onMismatch="ACCEPT"/>
+      <PatternLayout>
+        <MarkerPatternSelector defaultPattern="%d{ISO8601} %c %5p [TID:%t] - %m%n">
+          <!-- uses a different pattern for Adentnet SNMP as the log priority is included
+				     in the string so remove %5p -->
+          <PatternMatch key="AdventNetSNMP" pattern="%d{ISO8601} %c [TID:%t] - %m%n"/>
+        </MarkerPatternSelector>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="20 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="5"/>
+    </RollingFile>
+    <RollingFile fileName="${path}/msgcore.log" filePattern="${path}/msgcore-%i.log" name="msgcoreLog">
+      <PatternLayout>
+        <pattern>%d %p  %m%n</pattern>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="20 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="5"/>
+    </RollingFile>
+
+    <!-- NOTE pre 5.4 this was /opt/*/logs/oe/snmp_null.log -->
+    <!-- This is optional but becomes snmp_<compName>.log -->
+<!--
+    <RollingFile fileName="${msgcorelogs}/oe/snmp_${compName}.log" filePattern="${msgcorelogs}/oe/snmp_${compName}-%i.log" name="snmpLog">
+      <PatternLayout>
+        <pattern>${layoutlocal}</pattern>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="5"/>
+    </RollingFile>
+-->
+    <!-- ler appender are for backward compatibility with /opt/mms/log csv files -->
+    <RollingFile fileName="${path}/Alarm.ler.${compName}.opco1.csv" filePattern="${path}/Alarm.ler.opco1-${compName}.%i.csv" name="filelogALARM">
+      <PatternLayout>
+        <MarkerPatternSelector defaultPattern="${layoutlerlog}">
+          <PatternMatch key="LerHeader" pattern="${layoutlerheader}"/>
+        </MarkerPatternSelector>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="3"/>
+    </RollingFile>
+  </Appenders>
+
+<!-- Loggers to set logging levels-->
+  <Loggers>
+    <Root level="WARN">
+      <!--typically root level not used for mas, use com.abcxyz and com.mobeon-->
+      <AppenderRef ref="NotifTrace"/>
+    </Root>
+    <!-- com enables disables any 3pp logs-->
+    <AsyncLogger additivity="false" level="OFF" name="com">
+      <AppenderRef ref="NotifTrace"/>
+    </AsyncLogger>
+    <!--NTF typically writes logs to com.mobeon(legacy) and com.abcxyz-->
+        <!--to enable most ntf logging set these two to info or above -->
+    <AsyncLogger additivity="false" level="WARN" name="com.mobeon">
+      <AppenderRef ref="NotifTrace"/>
+    </AsyncLogger>
+    <AsyncLogger additivity="false" level="ERROR" name="com.abcxyz">
+      <AppenderRef ref="NotifTrace"/>
+    </AsyncLogger>
+    <AsyncLogger additivity="false" level="WARN" name="abcxyz">
+      <AppenderRef ref="NotifTrace"/>
+    </AsyncLogger>
+    <AsyncLogger additivity="false" level="WARN" name="com.datastax.oss.driver">
+      <AppenderRef ref="NotifTrace"/>
+    </AsyncLogger>
+    <!-- typically all the classes you see in debug can be enabled individually for example see
+             commented out outdial logs below.  They can also be directed to a different file by adding a 
+             rollingFile above and set the ref to that ref= -->
+        <!-- NOTE, different type of appenders can also be used, but typically not used in MIO-->
+        <!-- NOTE: additivity refers to send to all configured appenders i.e all logs, false 
+             means only the ref= appender.-->
+        <!-- example: all outdial class log at debug to notificationTraces.log 
+             i.e only outdial logs. -->
+        <!-- The stdOut loggers are for logging system.out logs which are mainly used by msgcore.
+             the stdout and stderr are redirected in the java code internally to log4j.
+        -->
+        <!--
+        <Logger name="com.mobeon.ntf.out.outdial" level="debug" additivity="false">
+            <AppenderRef ref="NotifTrace"/>
+        </Logger>
+        -->
+
+
+    <AsyncLogger additivity="false" level="DEBUG" name="com.mobeon.common.util.logging.stdOutErrLogger$STDOUT">
+      <!-- All stdout logs are redirected internally to debug level - to tune off set to off 
+             NOTE: this means there are effectively only two log levels for msgcore, debug and error..-->
+      <AppenderRef ref="msgcoreLog"/>
+    </AsyncLogger>
+    <AsyncLogger additivity="false" level="ERROR" name="com.mobeon.common.util.logging.stdOutErrLogger$STDERR">
+      <!-- All stderr logs are redirected internally to error level - to turn off set to off -->
+      <AppenderRef ref="msgcoreLog"/>
+    </AsyncLogger>
+   <!-- Set LER log master level:
+	     Due to older design of apps like mms Some checks are made
+		 in the code to which log level and are typically read at
+		 startup of app.
+		 
+		 NOTE: TYPICALLY need a RESTART to change these.
+		 
+		 The following section is to turn on the master level for
+		 these logs such as eventlog,trafficlog etc.  In legacy
+		 versions they were set in config like relayspecific.conf	
+
+		 NOTE: nothing is actually logged on these classes but are
+		 further controlled by trafficlog.<class> logs below, so
+		 the AppenderRef is not really needed.
+    -->
+    <AsyncLogger additivity="true" level="FATAL" name="LERMASTERLEVEL.event"/>
+    <AsyncLogger additivity="true" level="FATAL" name="LERMASTERLEVEL.traffic"/>
+    <!--Special case, put at INFO to see all alarms including cleared-->
+    <AsyncLogger additivity="true" level="INFO" name="LERMASTERLEVEL.alarm"/>
+    <AsyncLogger additivity="true" level="FATAL" name="LERMASTERLEVEL.subscriber"/>
+    <AsyncLogger additivity="true" level="FATAL" name="LERMASTERLEVEL.operator"/>
+    <!-- Direct the specific /opt/mfs/logs/*ler*.csv to there respective files 
+	     for backward compatibility with 5.3 and earlier. ler files.
+         	NOTE: It was decided to only keep these for MMS relay to the
+	 	original name. The rest can optionally be sent to a filelogALARM		 
+		including the app name, as log4j cannot append to same file from 
+		diff apps.
+
+		NOTE: the MASTER levels are enabled above to propagate to the
+		apps, otherwise some logs will work and others will not. Once
+		MASTER level is set they can be further controlled at This
+		 level without restart.
+    -->
+	<!-- This controls the alarm.ler level, typically leave as is -->
+    <AsyncLogger additivity="false" level="INFO" name="alarmlog">
+      <AppenderRef ref="filelogALARM"/>
+      <AppenderRef ref="NotifTrace"/>->
+    </AsyncLogger>
+
+
+        <!-- SNMP logs pre 5.4 went to /opt/*/logs/oe/snmp_null.log
+             DEBUG level is good for basic diagnostic, you will see
+	     all the trap and mib walks.  It is not a huge amount of
+	     logs but probably want it WARN by default.
+				 
+             TRACE is unnesessary, only really needed in lab if at all.
+        -->
+    <AsyncLogger additivity="false" level="WARN" name="SNMP">
+      <AppenderRef ref="NotifTrace"/>
+            <!-- AppenderRef ref="snmpLog"/--> <!-- optional to oe/snmp_* -->
+      </AsyncLogger>
+  </Loggers>
+</Configuration>

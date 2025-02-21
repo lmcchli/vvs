@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+   <script src="libMas.js" />
+   <!--The analyzed DNIS.-->
+   <var name="DNIS" />
+   <!--The analyzed ANI.-->
+   <var name="ANI" />
+   <!--The analyzed RDNIS.-->
+   <var name="RDNIS" />
+   <!--The time when the call was connected, in UTC seconds.-->
+   <var name="UtcSecondsAtConnect" />
+   <!--This variable contains the latest input made in a menu.-->
+   <var name="LastMenuInput" />
+   <!--This variable contains the latest input made in a digit input.-->
+   <var name="LastDigitInput" />
+   <!--Contains the new language that has been chosen by the caller at Set Preferred Language at Login, otherwise an empty string.-->
+   <var name="NewLanguageChosen" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="sub2">
+      <script>Utility_SetGlobalObject ('UtcSecondsAtConnect', Time_GetUtcSeconds())</script>
+      <block>
+         <assign name="NewLanguageChosen" expr="''" />
+         <assign name="DNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callednumberrule'), Call_GetDnis(), '')" />
+         <assign name="ANI" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callingnumberrule'), Call_GetAni(), '')" />
+         <assign name="RDNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'redirectingnumberrule'), Call_GetRdnis(), '')" />
+         <if cond="((Call_GetSessionType () == 'incoming_call'))">
+            <goto next="CallType.vxml" />
+            <elseif cond="((Call_GetSessionType () == 'outdial_notification'))" />
+            <goto next="#sub1" />
+            <else />
+            <disconnect />
+         </if>
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Utility_SetGlobalObject ('Subscriber', Call_GetAni())</script>
+      <block>
+         <goto next="OutdialNotification.vxml" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <goto next="MainMenu.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+<goto expr="Menu_GetCurrent()"/>
+   </catch>
+</vxml>

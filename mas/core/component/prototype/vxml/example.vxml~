@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<catch event="telephone.disconnect.hangup">
+		<log>user hangup</log>
+	</catch>
+	<var name="foo" expr="'your   mother'" />
+	<var name="bar" expr="'your daddi'" />
+	<script>
+		function test() {return false;};
+        function getAudio(audio) { if (audio == 1) return "a.wav"; else return "b.wav";};
+	</script>
+	<form>
+		<block name="block1">
+			Some text
+			<prompt>
+				<audio src="a.wav b.wav">
+					Alternative text 1
+				</audio>
+			</prompt>
+			<if cond="test()">
+			
+				<prompt>
+					<audio expr="getAudio(1)">
+					    Hello
+					 </audio>
+				</prompt>
+			<else />
+				<prompt>
+                    <audio expr="getAudio(2)">
+					    Tadam  blam
+                    </audio>
+				</prompt>
+			</if>
+			<prompt>
+				<audio src="b.wav">
+					Alternative text 2
+				</audio>
+			</prompt>
+		</block>
+	</form>
+</vxml>

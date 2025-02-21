@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+
+    	<block>
+           	<prompt>
+                <audio expr="UM_4936.wav"/>
+       		</prompt>
+        </block>
+
+	</form>
+
+    <catch event="error">
+        <log>The testcase resulted in an error = <value expr="_event"/></log>
+        <exit/>
+    </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>The testcase was hungup</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+                <log expr="'Hejsan'"/>
+                <if cond="typeof(evt.connection.remote) != 'undefined'">
+                    <log expr="evt.connection.remote"/>
+                    <if cond="evt.connection.remote=='sip:4660161084@mobeon.com;user=phone'">
+                        <log expr="'TCPASS CCXML: Remote ok 1'"/>
+                    <else/>
+                        <log expr="'TCFAIL CCXML: Remote nok 1, remote is not what is expected'"/>
+                    </if>
+                    <if cond="typeof(evt.connection.remote.number) != 'undefined'">
+                        <if cond="evt.connection.remote.number=='4660161084'">
+                            <log expr="'TCPASS CCXML: Remote ok 2'"/>
+                        <else/>
+                            <log expr="'TCFAIL CCXML: Remote nok 2, remote number is not what is expected'"/>
+                        </if>
+                     <else/>
+                        <log expr="'TCFAIL CCXML: Remote nok 2, remote number is undefined'"/>
+                     </if>
+                <else/>
+                    <log expr="'TCFAIL CCXML: Remote nok 1, remote is undefined'"/>
+                </if>
+                <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'event_empty.vxml'"/>            
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+                <exit/>
+        </transition>
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

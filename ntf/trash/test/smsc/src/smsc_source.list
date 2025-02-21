@@ -1,0 +1,15 @@
+/vobs/ipms/ntf/src/com/mobeon/common/smscom/SMSComException.java
+/vobs/ipms/ntf/src/com/mobeon/common/smscom/SMSComDataException.java
+/vobs/ipms/ntf/src/com/mobeon/common/smscom/SMSAddress.java
+/vobs/ipms/ntf/src/com/mobeon/common/smscom/SMSMessage.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/time/NtfTime.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/NtfUtil.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/delayline/Delayable.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/delayline/DelayEventListener.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/delayline/DelayItem.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/delayline/Delayer.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/util/Logger.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/Config.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/Constants.java
+/vobs/ipms/ntf/src/com/mobeon/ntf/out/sms/SmppConstants.java
+com/mobeon/smsc/Main.java

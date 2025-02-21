@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="outboundId" />
+    <var name="inboundId" />
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt">
+            <if cond="outboundId == evt.connection.connectionid" >
+                <join id1="inboundId" id2="outboundId" />
+                <else/>
+                <assign name="inboundId" expr="evt.connection.connectionid"/>
+                <dialogstart src="'simple.vxml'" />
+            </if>
+        </transition>
+
+        <transition event="dialog.started">
+            <createcall connectionid="outboundId" dest="'sip:4660161084@mobeon.com;user=phone'" callerid="'sip:4660161085@mobeon.com;user=phone'"/>
+        </transition>
+
+        <transition event="conference.joined">
+            <log expr="'TCPASS CCXML: join-unjoined-001'"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.conference.join">
+            <log expr="'TCFAIL CCXML: join-unjoined-002'"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+
+    </eventprocessor>
+</ccxml>

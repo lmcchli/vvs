@@ -1,0 +1,58 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "quicktime", "quicktime.vcproj", "{D9021314-603C-4C4C-9A8A-D4759AB39DEA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickTimeTest", "test\QuickTimeTest.vcproj", "{EF573742-C292-4A1C-8201-7317679F8712}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cppunit", "cppunit-1.10.2\src\cppunit\cppunit.vcproj", "{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		DLL Debug = DLL Debug
+		DLL Release = DLL Release
+		JoinDebug = JoinDebug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.Debug.ActiveCfg = Debug|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.Debug.Build.0 = Debug|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.DLL Debug.ActiveCfg = DLL Debug|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.DLL Debug.Build.0 = DLL Debug|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.DLL Release.ActiveCfg = DLL Release|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.DLL Release.Build.0 = DLL Release|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.JoinDebug.ActiveCfg = JoinDebug|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.JoinDebug.Build.0 = JoinDebug|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.Release.ActiveCfg = Release|Win32
+		{D9021314-603C-4C4C-9A8A-D4759AB39DEA}.Release.Build.0 = Release|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.Debug.ActiveCfg = Debug|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.Debug.Build.0 = Debug|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.DLL Debug.ActiveCfg = Debug|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.DLL Debug.Build.0 = Debug|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.DLL Release.ActiveCfg = Release|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.DLL Release.Build.0 = Release|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.JoinDebug.ActiveCfg = Debug|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.JoinDebug.Build.0 = Debug|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.Release.ActiveCfg = Release|Win32
+		{EF573742-C292-4A1C-8201-7317679F8712}.Release.Build.0 = Release|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.Debug.ActiveCfg = Debug|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.Debug.Build.0 = Debug|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.DLL Debug.ActiveCfg = Debug|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.DLL Debug.Build.0 = Debug|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.DLL Release.ActiveCfg = Release|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.DLL Release.Build.0 = Release|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.JoinDebug.ActiveCfg = Debug|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.JoinDebug.Build.0 = Debug|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.Release.ActiveCfg = Release|Win32
+		{C8FCC2BD-E900-4215-AE02-D6A5191BD2E2}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

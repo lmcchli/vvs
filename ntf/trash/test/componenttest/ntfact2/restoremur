@@ -1,0 +1,27 @@
+#! /bin/sh
+
+##
+## restoremur --
+##
+##  Restore the MUR-data to a known state for NTF CT. This is supposed
+##  to be done for every individual CT.
+##
+## Syntax;
+##
+##  restoremur cfg-file
+##
+
+top=`pwd`
+toolsd=`dirname $0`
+. $toolsd/ntf_ct_functions.sh
+test -n "$segcos" || segcos=101
+test -n "$segcos2" || segcos2=102
+
+ldapdelete -D 'cn=Directory Manager' -w emmanager -p 389 -h $mur_host \
+    cos=$segcos,$community\
+    cos=$segcos2,$community\
+    billingnumber=$phonenumber,uniqueidentifier=$uid,$community\
+    uniqueidentifier=$uid,$community\
+    billingnumber=$phonenumber2,uniqueidentifier=$uid2,$community\
+    uniqueidentifier=$uid2,$community
+

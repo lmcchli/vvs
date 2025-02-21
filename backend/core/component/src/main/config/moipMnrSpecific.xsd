@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:sequence>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+			<xs:element name="configFileType" type="xs:int" fixed="6" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Mnr configuration for Voice Mail
+					</xs:documentation>
+				</xs:annotation>				
+			</xs:element>									
+			<xs:element name="SubsystemSpecificConfigIdentity" type="xs:string" default="moipMnrSpecific"/>
+			<xs:element name="CmConfigDocumentURL" type="xs:string"/>
+			<xs:element name="Abcxyz.subsystem-specific" type="SubsystemSpecificType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubsystemSpecificType" mixed="true">
+		<xs:sequence>
+			<xs:element name="Abcxyz.SubsystemSpecificConfigItem" type="subsystem-specific-config-itemType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="subsystem-specific-config-itemType" mixed="true">
+		<xs:all>
+			<xs:element name="Cm.resolverMethod" type="stringRefreshable" default="MnrEnumResolver" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="stringRefreshable">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="isRefreshable" type="xs:boolean" use="prohibited" fixed="false"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>	
+</xs:schema>

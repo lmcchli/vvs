@@ -1,0 +1,36 @@
+package com.mobeon.masp.operateandmaintainmanager;
+
+import com.mobeon.masp.logging.ILogger;
+import com.mobeon.masp.logging.ILoggerFactory;
+import com.mobeon.masp.execution_engine.eventnotifier.events.Event;
+//import com.mobeon.masp.execution_engine.eventnotifier.IEventReceiver;
+import com.mobeon.masp.configuration.ConfigurationChanged;
+import com.mobeon.masp.eventnotifier.IEventReceiver;
+/*
+ * Copyright (c) $today.year Mobeon AB. All Rights Reserved.
+ */
+
+public class mockEventHandler implements  IEventReceiver {
+
+
+    public boolean globalEvent = false;
+    public boolean nonGlobalEvent = false;
+
+
+    /**
+     * Check the type of the event. If it is of the types DemoEvent or
+     * DemoAbstractCallEvent (or its subclasses) it is handled. Otherwise it
+     * is discarded.
+     *
+     * @param event
+     */
+    public void doEvent(Event event) {
+        nonGlobalEvent=true;
+    }
+
+    public void doGlobalEvent(Event event) {
+        globalEvent=true;
+    }
+
+
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="myState" expr="'start'"/>
+    <var name="out_connectionid"/>
+    <eventprocessor statevariable="myState">
+        <transition state="start" event="connection.alerting" name="evt">
+            <log expr="'TCPASS CCXML0: connection.alerting'"/>
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition state="start" event="connection.connected" name="evt">
+            <log expr="'TCPASS CCXML1: connection.connected'"/>
+            <assign name="myState" expr="'in_connected'"/>
+            <createcall dest="evt.URI" connectionid="out_connectionid" timeout="'10s'"/>
+        </transition>
+        <transition state="in_connected" event="connection.failed" name="evt">
+            <disconnect connectionid="out_connectionid"/>
+            <assign name="myState" expr="'out_failed'"/>
+        </transition>
+        <transition state="out_failed" event="connection.disconnected" name="evt">
+            <log expr="'TCPASS CCXML2: connection.disconnected'"/>
+            <exit/>
+        </transition>
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

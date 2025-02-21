@@ -1,0 +1,136 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+use Socket;
+use strict;
+require "$Bin/ntfbase";
+
+my $result = 0;
+my $errormsg="";
+my $state = 0;
+my $gnotif = &getconfig("imapusername");
+my $numgnotif = &getconfig("imapthreads");
+my ($host,$port, $iaddr, $paddr, $proto, $passwd);
+my @recent;
+my @exists;
+my @val;
+my ($total, $max, $min, $maxmailbox);
+
+
+$host   = &getconfig("imaphost"); # imap host
+$port   = 143;  # imap port
+$passwd = &getconfig("imappassword");
+
+for my $boxnr (0..$numgnotif-1) {
+    initSocket();
+    sendRequest("a login ".$gnotif."_$boxnr ".$passwd."\n"); 
+    "a login ".$gnotif."_$boxnr ".$passwd."\n";
+    @val = sendRequest("a select inbox\n");
+    $recent[$boxnr] = getRecent(@val);
+    $exists[$boxnr] = getExists(@val);
+    sendRequest("a logout\n");
+    close (SOCK)  || die "IMAP close: $!";
+}
+
+# Check load balance of RECENT
+# Recent mail in  the notification mailboxes shall not differ
+# with a factor of 5 between the mailboxes
+$total = 0;
+$max = 0;
+$maxmailbox=0;
+my $tmpmsg = "\n";
+for (my $num=0; $num < $numgnotif; $num++) {
+    $total += $recent[$num];
+    if($recent[$num] > $max) {
+	$max = $recent[$num];
+	$maxmailbox = $num;
+    }
+}
+
+$tmpmsg = $tmpmsg."RECENT mails in the notification mailbox ".$gnotif."_".$maxmailbox."\n";
+$tmpmsg = $tmpmsg."are greater than a factor of 5 compared with mailboxes:";
+for (my $num=0; $num < $numgnotif; $num++) {
+    my $diff = $max/($recent[$num]+1);
+    if($recent[$num] > 50 &&  $diff > 5) {
+	$state = 1;
+	$tmpmsg = $tmpmsg."\n\t- ".$gnotif."_".$num;
+    }
+}
+$tmpmsg = $tmpmsg.".";
+
+if($state == 1) {
+    $errormsg = $errormsg.$tmpmsg."\n";
+}
+
+
+# Check difference in EXISTS and RECENT. EXISTS shall not be 
+# greater than a factor of 10 compared to RECENT 
+$tmpmsg = "EXISTS mail are greater than a factor of 10 compared with the number of RECENT mails\n";
+$tmpmsg = $tmpmsg."in the notificaion mailboxes:";
+for(my $num=0; $num < $numgnotif; $num++) {
+    my $diff=$exists[$num]/($recent[$num]+1);
+    if($recent[$num] > 50 && $diff > 10) {
+	$state = 2;
+	$tmpmsg = $tmpmsg."\n\t- ".$gnotif."_".$num;
+    }
+}
+if($state == 2) {
+    $errormsg = $errormsg."\n".$tmpmsg."\n";
+}
+
+if($state > 0) {
+    print $errormsg."\n";
+    $result = 1;
+}
+else {
+    print "Notification mailboxes ".$gnotif."_0 ... ".$gnotif."_".($numgnotif-1)." are OK.\n";
+}
+
+exit $result;  
+
+
+sub sendRequest() {
+    my @msg = @_;
+    my @buf = "";
+    my $line = "";
+    
+    if(length(@msg[0]) > 0) {
+	print SOCK @msg[0];
+    }
+    
+    while($line = <SOCK>){
+	push @buf, $line;
+	last unless $line !~ /\* OK Welcome|a OK|\* BYE|a NO Authentication|a BAD/;
+    }
+    
+    return @buf;
+}
+
+sub initSocket() {
+    
+    $iaddr   = inet_aton($host) || die "No IMAP host: ".$host;
+    $paddr   = sockaddr_in($port, $iaddr);
+    $proto   = getprotobyname('tcp');
+    socket(SOCK, PF_INET, SOCK_STREAM, $proto) || die "IMAP socket: $!";	
+    connect(SOCK, $paddr)    || die "IMAP connect: $!";
+    my $old_fh = select(SOCK);
+    $|=1;
+    select($old_fh);
+}
+
+sub getRecent() {
+    for (@_) {
+	if(/\* (\d+) RECENT/) {
+	    return $1;
+	}
+    }
+}
+
+sub getExists() {
+    for (@_) {
+	if(/\* (\d+) EXISTS/) {
+	    return $1;
+	}	
+    }
+}

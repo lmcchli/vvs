@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form id="uno">
+       <block>
+           <script>
+               <![CDATA[
+               var test1 = 1234;
+               var test2;
+               ]]>
+           </script>
+           <assign name="test2" expr="5678"/>
+           <if cond="test1==1234">
+               <log>TCPASS VXML: Script ok 1</log>
+           <else/>
+               <log>TCPASS VXML: Script nok</log>
+           </if>
+           <if cond="test2==5678">
+               <log>TCPASS VXML: Script ok 2</log>
+           <else/>
+               <log>TCPASS VXML: Script nok</log>
+           </if>
+            <exit/>
+       </block>
+   </form>
+</vxml>

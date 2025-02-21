@@ -1,0 +1,280 @@
+#! /bin/sh
+
+##
+## preparemur --
+##
+##  Prepare the MUR-data for NTF CT. This is supposed
+##  to be done before every individual CT. A Segmented CoS is created
+##
+##  The password for the created users is "1111".
+##
+## Syntax;
+##
+##  restoremur cfg-file
+##
+
+top=`pwd`
+toolsd=`dirname $0`
+. $toolsd/ntf_ct_functions.sh
+test -n "$segcos" || segcos=101
+test -n "$segcos2" || segcos2=102
+test -n "$ms_host" || die "Not specified [ms_host]"
+test -n "$mail_domain" || die "Not specified [mail_domain]"
+test -n "$smppcenterid" || smppcenterid=SMSC
+
+ldapadd -D 'cn=Directory Manager' -w emmanager -p 389 -h $mur_host <<EOF
+version: 1
+dn: uniqueidentifier=$uid,$community
+mailUserStatus: active
+emPreferredTimeFormat: 12
+emPreferredDateFormat: dd/mm/yyyy
+emSMPPcenterid: $smppcenterid
+emNotifNumber: $phonenumber
+mailDeliveryOption: mailbox
+emMessagecharencoding: ISO-8859-1
+preferredLanguage: en
+l: 0
+gender: M
+BadLoginCount: 0
+emFTL: 00,F
+emServiceDn: cos=$segcos,$community
+mailHost: $ms_host
+mailAlternateAddress: FAX=30901000@$mail_domain
+mail: $phonenumber@$mail_domain
+mailQuota: -1
+cn: Zeev Raby
+sn: Raby
+givenName: Zeev
+telephoneNumber: $phonenumber
+uid: $phonenumber
+uniqueIdentifier: $uid
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+userPassword: {SSHA}XV821nRZfhRKeWG9WWI/vBNRCXZXEXI9LVwUeA==
+
+dn: billingnumber=$phonenumber,uniqueidentifier=$uid,$community
+ActiveGreetingId: SpokenName,AllCalls
+AnsweringService: LM
+subscribertimezone: GMT
+admininfo: uniqueidentifier=um1000
+COSDN: cos=$segcos,$community
+BillingNumber: $phonenumber
+inboundfaxno: 30901000
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+
+dn: uniqueidentifier=$uid2,$community
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+uniqueIdentifier: $uid2
+uid: $phonenumber2
+telephoneNumber: $phonenumber2
+givenName: Shie-Shien
+sn: Corriveau
+cn: Shie-Shien Corriveau
+mailQuota: -1
+mail: $phonenumber2@$mail_domain
+mailAlternateAddress: FAX=30901001@$mail_domain
+mailHost: $ms_host
+emServiceDn: cos=$segcos2,$community
+emFTL: 00,F
+BadLoginCount: 0
+gender: M
+l: 0
+preferredLanguage: en
+emMessagecharencoding: ISO-8859-1
+mailDeliveryOption: mailbox
+emNotifNumber: $phonenumber2
+emSMPPcenterid: $smppcenterid
+emPreferredDateFormat: dd/mm/yyyy
+emPreferredTimeFormat: 12
+mailUserStatus: active
+userPassword: {SSHA}XV821nRZfhRKeWG9WWI/vBNRCXZXEXI9LVwUeA==
+
+dn: billingnumber=$phonenumber2,uniqueidentifier=$uid2,$community
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+inboundfaxno: 30901001
+BillingNumber: $phonenumber2
+COSDN: cos=$segcos2,$community
+admininfo: uniqueidentifier=um1000
+subscribertimezone: GMT
+AnsweringService: LM
+ActiveGreetingId: SpokenName,AllCalls
+
+dn: cos=$segcos,$community
+emServiceDn: emservicename=webmail, ou=services, $base
+emServiceDn: emservicename=msgtype_email, ou=services, $base
+emServiceDn: emservicename=msgtype_voice, ou=services, $base
+emServiceDn: emservicename=msgtype_video, ou=services, $base
+emServiceDn: emservicename=sms_notification, ou=services, $base
+emServiceDn: emservicename=mwi_notification, ou=services, $base
+emServiceDn: emservicename=outdial_notification, ou=services, $base
+emServiceDn: emservicename=call_handling, ou=services, $base
+emServiceDn: emservicename=notification_filters,ou=services,$base
+emFTLFunctions: 00,F,PIN:M,SPO:M,ACG:M
+emRetentionTime: v;1;1
+emRetentionTime: f;1;1
+emRetentionTime: e;1;1
+emRetentionTime: m;1;1
+emFilter: 1;y;a;evf;SMS,ODL;s,;1;;;;;default;;
+COSname: segcos1
+MessageInventory: yes
+objectClass: top
+objectClass: confcos
+objectClass: emservicecollection
+SubSearchBase: $base
+emWAPStart: mainmenu
+emNotifExpTime: 24
+AnsweringServiceList: LM
+messageplayvoice: both
+messageplayemail: both
+messageplayvideo: both
+emMaxExtAccount: 5
+emMaxSecNb: 4
+emMaxGroupMember: 9
+emTUIaccess: std
+IncludeSpokenName: yes
+maxsnrnototry: 3
+GreetingSecMax: 60
+MsgLenMaxVoice: 180
+EOMsgWarning: 30
+reinventory: yes
+CDGMax: 10
+subscriberxfer: yes
+callerxfer: no
+callerxfertocoverage: yes
+emOutboundCallTL: 0
+faxenabled: yes
+ttsemailenabled: no
+emOutdialOnlyToSender: no
+AutoPlay: yes
+emNotRetrievedVoiceMsg: no
+UrgentMsgPlay: yes
+emMsgPlayOrder: FIFO,LIFO
+mailQuota: -1
+emNoOfmailquota: 100
+diskspaceremainingwarninglevel: .3
+DLMax: 10
+DLEntriesMax: 65
+emODLpinskip: yes
+emCNL: yes
+emremovemailboxtime: -1
+emVUIaccess: none
+emMsgLenMaxVideo: 180
+passwordMinLength: 4
+passwordMaxLength: 8
+PasswdLenMin: 4
+PasswdLenMax: 4
+fastloginavailable: yes
+fastloginenabled: yes
+passwordskipavailable: yes
+passwordskipenabled: yes
+MaxLoginLockout: 6
+InHoursStart: 0800
+InHoursEnd: 1630
+InHoursDOW: 12345
+PhoneNumberCallerAccessSection: CALLEROUTDIAL
+PhoneNumberDialingSection: SUBSCRIBEROUTDIAL
+emOutdialSequence: default
+emAutoPrintFax: no
+COS: $segcos
+emServiceCollectionName: 2
+
+dn: cos=$segcos2,$community
+emServiceDn: emservicename=webmail, ou=services, $base
+emServiceDn: emservicename=msgtype_email, ou=services, $base
+emServiceDn: emservicename=msgtype_voice, ou=services, $base
+emServiceDn: emservicename=msgtype_video, ou=services, $base
+emServiceDn: emservicename=sms_notification, ou=services, $base
+emServiceDn: emservicename=mwi_notification, ou=services, $base
+emServiceDn: emservicename=outdial_notification, ou=services, $base
+emServiceDn: emservicename=call_handling, ou=services, $base
+emServiceDn: emservicename=notification_filters,ou=services,$base
+emFTLFunctions: 00,F,PIN:M,SPO:M,ACG:M
+emRetentionTime: v;1;1
+emRetentionTime: f;1;1
+emRetentionTime: e;1;1
+emRetentionTime: m;1;1
+emFilter: 1;y;a;evf;SMS,ODL;s,;1;;;;;default;;
+COSname: segcos2
+MessageInventory: yes
+objectClass: top
+objectClass: confcos
+objectClass: emservicecollection
+SubSearchBase: $base
+emWAPStart: mainmenu
+emNotifExpTime: 24
+AnsweringServiceList: LM
+messageplayvoice: both
+messageplayemail: both
+messageplayvideo: both
+emMaxExtAccount: 5
+emMaxSecNb: 4
+emMaxGroupMember: 9
+emTUIaccess: std
+IncludeSpokenName: yes
+maxsnrnototry: 3
+GreetingSecMax: 60
+MsgLenMaxVoice: 180
+EOMsgWarning: 30
+reinventory: yes
+CDGMax: 10
+subscriberxfer: yes
+callerxfer: no
+callerxfertocoverage: yes
+emOutboundCallTL: 0
+faxenabled: yes
+ttsemailenabled: no
+emOutdialOnlyToSender: no
+AutoPlay: yes
+emNotRetrievedVoiceMsg: no
+UrgentMsgPlay: yes
+emMsgPlayOrder: FIFO,LIFO
+mailQuota: -1
+emNoOfmailquota: 100
+diskspaceremainingwarninglevel: .3
+DLMax: 10
+DLEntriesMax: 65
+emODLpinskip: yes
+emCNL: yes
+emremovemailboxtime: -1
+emVUIaccess: none
+emMsgLenMaxVideo: 180
+passwordMinLength: 4
+passwordMaxLength: 8
+PasswdLenMin: 4
+PasswdLenMax: 4
+fastloginavailable: yes
+fastloginenabled: yes
+passwordskipavailable: yes
+passwordskipenabled: yes
+MaxLoginLockout: 6
+InHoursStart: 0800
+InHoursEnd: 1630
+InHoursDOW: 12345
+PhoneNumberCallerAccessSection: CALLEROUTDIAL
+PhoneNumberDialingSection: SUBSCRIBEROUTDIAL
+emOutdialSequence: default
+emAutoPrintFax: no
+COS: $segcos2
+emServiceCollectionName: 2
+EOF

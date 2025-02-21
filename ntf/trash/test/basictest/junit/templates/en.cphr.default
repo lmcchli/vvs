@@ -1,0 +1,85 @@
+################################################################
+#Copyright (c) 2003 Abcxyz Radio Systems AB
+#All Rights Reserved
+#
+
+
+general = { 
+"You have new messages" 
+}
+
+FSIZE_TEXT= {
+"size SIZE pages"
+}
+ESIZE_TEXT= {
+"size SIZE kilobytes"
+}
+MSIZE_TEXT= {
+"length SIZE seconds"
+}
+VSIZE_TEXT= {
+"length SIZE seconds"
+}
+
+h = {
+ "You have a " STATUS " new " TYPE " message from " FROM ". Message received at " TIME ", " DATE ". The message text is " QUOTE EMAIL_TEXT QUOTE "."
+}
+
+s = { 
+ "You have a new " SIZE " message with " NUM_ATTACHMENTS " attachments, regarding " QUOTE SUBJECT QUOTE "."
+}
+
+aa = {
+FROM " text"
+}
+
+bb={FROM " text"}
+
+cc={FR
+OM "
+ text"
+}
+
+
+c = {
+ (*,*,*,*) "You"
+ (*,*,*,*) " have"
+ (0,0,0,0) " no new messages"
+ (1,*,*,*) " one"
+ (2-,*,*,*) " "
+ (2-,*,*,*) VCOUNT
+ (1-,*,*,*) " new"
+ (1-,*,*,*) " voice"
+ (2-,*,*,*) " messages"
+ (1,*,*,*) " message"
+ (1-,1-,1-,*) ","
+ (1-,0,1-,1-) ","
+ (1-,1-,0,0) " and"
+ (1-,0,1-,0) " and"
+ (1-,0,0,1-) " and"
+ (*,1,*,*) " one"
+ (*,2-,*,*) " "
+ (*,2-,*,*) FCOUNT
+ (*,1-,*,*) " new"
+ (*,1,*,*) " fax"
+ (*,2-,*,*) " faxes"
+ (*,1-,1-,1-) ","
+ (*,1-,1-,0) " and"
+ (*,1-,0,1-) " and"
+ (*,*,1,*) " one"
+ (*,*,2-,*) " "
+ (*,*,2-,*) ECOUNT
+ (*,*,1-,*) " new"
+ (*,*,1,*) " email"
+ (*,*,2-,*) " emails"
+ (*,*,1-,1-) " and"
+ (*,*,*,1) " one"
+ (*,*,*,2-) " "
+ (*,*,*,2-) MCOUNT
+ (*,*,*,1-) " new"
+ (*,*,*,1-) " video"
+ (*,*,*,2-) " messages"
+ (*,*,*,1) " message"
+ (*,*,*,*) "."
+}
+ 

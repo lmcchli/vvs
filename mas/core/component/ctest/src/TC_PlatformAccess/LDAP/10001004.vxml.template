@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+		<var name="ATTR_NAME" expr="'emnotifnumber'" />
+		<var name="EXPECTED_VALUE" expr="'___C_NUMBER___'" />
+		
+		<var name="attr" />
+		<var name="orig" />
+		<var name="changed" />
+		<block>
+			<script>
+				<![CDATA[
+				attr = mas.subscriberGetStringAttribute(
+					PHONE_NUMBER,
+					ATTR_NAME);
+				orig = (attr.length > 0 ? attr[0] : null);
+				mas.subscriberSetStringAttribute(
+					PHONE_NUMBER,
+					ATTR_NAME,
+					[ EXPECTED_VALUE ]
+				);
+				attr = mas.subscriberGetStringAttribute(
+					PHONE_NUMBER,
+					ATTR_NAME)[0];
+				changed = (attr != orig);
+				]]>
+			</script>
+			<if cond="changed">
+				<log>TC 10001004 PASSED</log>
+			<else />
+				<log>TC 10001004 FAILED - The '<value expr="ATTR_NAME" />' string attribute was NOT changed (expected [<value expr="EXPECTED_VALUE" />] but was [<value expr="attr" />])</log>
+			</if>
+			<exit />
+		</block>
+	</form>
+	
+	<catch event="error">
+		<log>TC 10001004 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

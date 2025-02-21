@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form id="uno">
+       <block>
+           <script>
+               var arr = [1,2];
+               var testObj = new Packages.com.mobeon.masp.execution_engine.runapp.applications.vxml.ecma.ECMADummy();
+               testObj.acceptIntArray(arr);
+               testObj.acceptIntArray([1]);
+           </script>
+           <log>TCPASS VXML: ECMA OK</log>
+            <exit/>
+       </block>
+   </form>
+</vxml>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <var name="olle" expr="7"/>
+    <script>
+        function f(x){return x+1;}
+    </script>    
+   <form>
+      <block name="block1">
+         <goto next="goto_39_2.vxml"/>
+      </block>
+       <block>
+          <log>ERROR</log>
+       </block>
+   </form>
+
+</vxml>

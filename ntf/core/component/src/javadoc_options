@@ -1,0 +1,8 @@
+-windowtitle "MoIP Notification CRH109127 RSTATE"
+-doctitle "MoIP Notification CRH109127 RSTATE"
+-header "NTF RSTATE"
+-bottom "Copyright 2007 Mobeon AB"
+-private
+-excludedocfilessubdir test:testsupport
+-subpackages com
+-exclude com.mobeon.ntf.test

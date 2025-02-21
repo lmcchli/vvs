@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode="dtmf" root="root">
+        <rule id="root">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form id="main_form">
+        <catch event="nomatch">
+            <log>TCFAIL: record 6 catch</log>
+        </catch>
+        <record name="recording" dtmfterm="true">
+            <filled>
+                <log>TCPASS: record 6a</log>
+            </filled>
+        </record>
+
+        <record name="recording2" dtmfterm="true">
+            <filled>
+                <log>TCPASS: record 6b</log>
+            </filled>
+        </record>
+
+
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

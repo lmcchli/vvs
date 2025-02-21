@@ -1,0 +1,6 @@
+ANNOUNCE anyUrl RTSP/1.0
+CSeq: 1
+Content-Type: application/mrcp
+Content-Length: 45
+
+START-OF-SPEECH 4711 IN-PROGRESS MRCP/1.0

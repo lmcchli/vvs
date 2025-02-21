@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'empty.vxml'"/>
+        </transition>
+
+        <transition event="dialog.started" name="evt">
+            <send data="'event.2'" delay="'0.2s'" target="session.id"/>
+            <send data="'event.1'" target="session.id"/>
+        </transition>
+
+        <transition event="event.1" name="evt">
+            <log expr="'TCPASS CCXML: send 1 ok'"/>
+        </transition>
+        <transition event="event.2" name="evt">
+            <log expr="'TCPASS CCXML: send 2 ok'"/>
+            <exit/>
+        </transition>
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

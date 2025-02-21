@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">       
+<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+        <xs:complexType name="Abcxyz.configType">
+                <xs:all>
+                        <xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+                        <xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>
+                                                Profile changes Mdr configuration
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+                </xs:all>
+        </xs:complexType>
+
+        <xs:complexType name="ComponentSpecificType" mixed="true">
+                <xs:all>
+			<xs:element name="ProfileAttributes.List" type="profileAttributesListType" minOccurs="0"/>
+                </xs:all>
+        </xs:complexType>
+
+	<xs:complexType name="profileAttributesListType" mixed="true">
+                <xs:sequence>
+                        <xs:element name="profileAttribute" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                        </xs:element>
+                </xs:sequence>
+        </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+
+    <form id="main_form">
+    <var name="origPhoneNumber"/>
+    <var name="phoneNumber"/>
+    <var name="unknown_sender"/>
+    <var name="unknown_receiver"/>
+    <var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+    <var name="msglist"/>
+    <var name="contentlist"/>
+
+    <var name="nofm"/>
+    <var name="msgno"/>
+    <var name="props"/>
+
+    <block>
+
+
+        <script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+            unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+            // Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+        <script>
+
+            mailboxid = mas.subscriberGetMailbox (phoneNumber);
+            mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+
+            mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, 'fifo');
+            nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, null, null, null);
+            mas.systemLog(3, 'Total number of messages in store=' + nofm);
+            msglist = mas.mailboxGetMessages (mailboxlistid);
+            var i = 0;
+
+            while (true) {
+                if (i == nofm) {
+                    break;
+                }
+                props = mas.messageGetStoredProperty(msglist[i], 'receiveddate');
+                mas.systemLog(3, 'Date of message ' + i + '=' + props[0]);
+                props = mas.messageGetStoredProperty(msglist[i], 'subject');
+                mas.systemLog(3, 'Subject of message ' + i + '=' + props[0]);
+                props = mas.messageGetStoredProperty(msglist[i], 'type');
+                mas.systemLog(3, 'Type of message ' + i + '=' + props[0]);
+                props = mas.messageGetStoredProperty(msglist[i], 'state');
+                mas.systemLog(3, 'State of message ' + i + '=' + props[0]);
+                props = mas.messageGetStoredProperty(msglist[i], 'urgent');
+                mas.systemLog(3, 'Message urgent ' + i + '=' + props[0]);
+                i++;
+
+            }
+
+
+
+            nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, 'email', 'new', 'nonurgent');
+
+
+        </script>
+
+        <log>Number of new, nonurgent email messages==<value expr="nofm"/></log>
+        <log>TC 20105183 PASSED</log>
+        <exit/>
+        </block>
+    </form>
+
+    <catch event="error">
+        <log>TC 20105183  FAILED, error caught.</log>
+        <log>Error caught <value expr="_event"/></log>
+        <exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

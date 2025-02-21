@@ -1,0 +1,30 @@
+#Behavior control
+ok=50           #Normal OK response
+error=00        #One of the error code responses above
+crash=0         #Close the connection
+dropreq=0       #Just forget the request, never reply
+delay=0         #Reply late
+alive=0         #Send an alive request before replying
+garbage=0       #Send some garbage bytes
+hang=0          #Hang the process
+
+#General CIMD2 Error codes
+EC_2=1     #Syntax error
+EC_3=1     #Unsupported parameter error
+EC_4=1     #Connection to MC lost
+EC_5=1     #No response from MC
+EC_6=1     #General system error
+EC_8=1     #Parameter formatting error
+EC_9=1     #Requested operation failed
+
+#Login Error codes
+EC_100=1   #Invalid login
+EC_102=1   #Too many users with this login id
+EC_103=1   #Login refused by MC
+
+#Submit Error codes
+EC_300=1   #Incorrect destination address
+EC_301=1   #Incorrect number of destination addresses
+EC_302=1   #Syntax error in user data parameter
+EC_304=1   #Incorrect DCS parameter usage
+EC_305=1   #Incorrect validity period parameter usage

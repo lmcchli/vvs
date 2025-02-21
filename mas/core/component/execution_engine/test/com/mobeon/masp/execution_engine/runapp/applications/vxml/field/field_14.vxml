@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <script>
+        mas.systemSetProperty ('termdigittimeout', '3s')
+        mas.systemSetProperty ('interdigittimeout', '10s')
+    </script>
+    
+
+
+    <form>
+
+        <!-- enter DTMF while in here -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(5000);</script>
+        </block>
+
+        <field name="f1">
+            <prompt timeout="10s"><audio src="beep.wav"></audio></prompt>
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>**</item>
+                    </one-of>
+                </rule>
+            </grammar>
+        </field>
+
+        <filled>
+            <if cond="f1$.utterance == '**'">
+                <log>TCPASS</log>
+                <exit></exit>
+            </if>
+        </filled>
+
+        <nomatch>
+            <log>TCFAIL nomatch</log>
+            <exit></exit>
+        </nomatch>
+
+        <!--  should never get here -->
+        <block>
+            <log>TCFAIL block</log>
+            <exit></exit>
+        </block>
+    </form>
+
+</vxml>

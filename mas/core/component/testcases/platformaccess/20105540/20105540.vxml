@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="mob"/>
+
+            <!-- set greetings for all types-->
+            <script>
+                var mediaObjects = new Array();
+				<!-- allcalls -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "one",null);
+                mas.subscriberSetSpokenName("99910002", 'voice', mediaObjects[0]);
+
+                mob = mas.subscriberGetSpokenName('99910002', 'voice');
+            </script>
+           	<prompt>
+                   <audio expr="mob"/>
+       		</prompt>
+        </block>
+    </form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105540  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

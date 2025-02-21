@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+
+    <form id="main_form">
+
+	<var name="usageId"/>
+    <block>
+
+        <script>
+            <!-- Fetch the receivers mailbox -->
+            usageId = mas.mailboxUsage(9);
+        </script>
+        <log>TC 20105231 FAILED, error should be thrown</log>
+
+        </block>
+    </form>
+    <catch event="error.com.mobeon.platform.system">
+        <log>TC 20105231  PASSED</log>
+        <log>Error caught <value expr="_event"/></log>
+        <exit/>
+   </catch>
+    <catch event="error">
+        <log>TC 20105231  FAILED, error caught.</log>
+        <log>Error caught <value expr="_event"/></log>
+        <exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

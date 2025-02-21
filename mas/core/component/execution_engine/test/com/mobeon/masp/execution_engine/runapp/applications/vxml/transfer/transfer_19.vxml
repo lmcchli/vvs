@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+   <!--If 0, the outbound call is not time limited.-->
+   <var name="outboundCallTimeLimitation" />
+   <!--Boolean to indicate if ANI is restricted-->
+   <var name="aniRestricted" />
+   <!--Time in the following format:
+[h,m,s]-->
+   <var name="timeArray" />
+   <!--The number to call.-->
+   <var name="destinationNumber" expr="'121314'"/>
+   <!--A local copy of GlobalObject.-->
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+
+   <form id="tc1">
+      <script>
+         mas.systemSetProperty('com.mobeon.platform.transfer_ani', '1');
+         mas.systemSetProperty('com.mobeon.platform.transfer_local_pi', '1');
+         mas.systemSetProperty('com.mobeon.platform.transfer_maxtime', '30s');
+         mas.systemSetProperty('com.mobeon.platform.transfer_connecttimeout', '30s');
+      </script>
+
+      <transfer name="outboundcall" bridge="true" destexpr="destinationNumber" transferaudio="beep.wav">
+         <grammar version="1.0" mode="dtmf" root="tc1_main_rule">
+            <rule id="tc1_main_rule" scope="public">
+               <item>*</item>
+            </rule>
+         </grammar>
+         <filled>
+             <log>TCPASS</log>
+         </filled>
+      </transfer>
+   </form>
+</vxml>

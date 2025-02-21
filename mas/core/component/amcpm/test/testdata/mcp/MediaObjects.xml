@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+   <mediaobject type="MediaFile" src="VVA_0001.wav">
+      <spokentext><![CDATA[Good morning.]]></spokentext>
+      <sourcetext><![CDATA[Good morning.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2010;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0002.wav">
+      <spokentext><![CDATA[Good afternoon.]]></spokentext>
+      <sourcetext><![CDATA[Good afternoon.]]></sourcetext>
+      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="VVA_0003.wav">
+      <spokentext><![CDATA[Good evening.]]></spokentext>
+      <sourcetext><![CDATA[Good evening.]]></sourcetext>
+      <comment><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\*\generator Riched20 5.50.99.2010;}\viewkind4\uc1\pard\f0\fs17\par
+}]]></comment>
+   </mediaobject>
+</mediaobjects>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="dlgid"/>
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+                <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+                <dialogstart src="'dialogstart_empty.vxml'" dialogid="dlgid"/>
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+            <if cond="typeof(dlgid)=='undefined'">
+                <log expr="'TCFAIL CCXML: dialogid is undefined'"/>
+            <else/>
+                <if cond="dlg.dialogid==dlgid">
+                    <log expr="'TCPASS CCXML: Dialogstart ok'"/>
+                <else/>
+                    <log expr="'TCFAIL CCXML: Dialogid mismatch '+dlg.dialogid + ' and ' + dlgid"/>
+                </if>
+            </if>
+            <exit/>
+        </transition>
+        <transition event="error.*" name="evt">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

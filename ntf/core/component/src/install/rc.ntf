@@ -1,0 +1,252 @@
+#! /bin/sh 
+#
+# FILE: rc.ntf
+#
+# Rc.script for the NTF Component
+
+BASEDIR=`pkgparam LMENtf BASEDIR`
+NOTIFICATION_PIDFILE=$BASEDIR/logs/notification.pid
+AGENT_PIDFILE=$BASEDIR/logs/subagent.pid
+WATCHDOG_PIDFILE=$BASEDIR/logs/watchdog.pid
+NTFHOST=`hostname`
+MANAGEMENT_PORT=`$BASEDIR/bin/getconfig snmpagentport $BASEDIR/cfg/notification.cfg`
+JAVA_HOME=`pkgparam SUNWj5rt BASEDIR`
+INSTANCE_NAME="ntf"
+
+if [ -f "/etc/rc3.d/S99ntf" ]; then
+        AUTOSTART=`echo autostart`
+else
+        AUTOSTART=`echo not autostart`
+fi
+
+#################################
+#Functions
+#################################
+
+##########
+getPid ()
+{
+    if [ -r $@ ]
+    then
+	thepid=`cat $@`
+	# Check that the PID is valid (existing)
+	if [ ! "$thepid" ]
+	then
+	    return 0
+	fi
+        thepid=`ps -p $thepid -o pid | grep $thepid`
+	if [ "$thepid" ]
+	then
+	    echo "$thepid"
+	    return 1
+	fi
+    fi
+    return 0
+}
+
+showStatus() {
+    	notification_pid=`getPid $NOTIFICATION_PIDFILE`
+	echo "notification_pid is $notification_pid"
+        if [ "$notification_pid" ]
+        then
+                echo "$INSTANCE_NAME:$NTFHOST:status ntf started on PID: $notification_pid ($AUTOSTART)"
+        else
+                echo "$INSTANCE_NAME:$NTFHOST:status ntf stopped ($AUTOSTART)"
+        fi
+        agent_pid=`getPid $AGENT_PIDFILE`
+        if [ "$agent_pid" ]
+        then
+                echo "$INSTANCE_NAME:$NTFHOST:status ntfagent started on PID: $agent_pid ($AUTOSTART)"
+        else
+                echo "$INSTANCE_NAME:$NTFHOST:status ntfagent stopped ($AUTOSTART)"
+        fi
+        watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+        if [ "$watchdog_pid" ]
+        then
+                echo "$INSTANCE_NAME:$NTFHOST:status ntfWatchdog started on PID: $watchdog_pid ( $AUTOSTART)"
+        else
+                echo "$INSTANCE_NAME:$NTFHOST:status ntfWatchdog stopped ($AUTOSTART)"
+        fi
+
+}
+ 
+waitToDie() {
+    runs=0;
+    while [ $runs -le 17 ]
+    do
+	if [ ! -r $WATCHDOG_PIDFILE ]
+	then
+	  return;
+	fi
+
+	sleep 1;
+	runs=`expr $runs + 1`	
+    done
+}
+
+stopNtf() {
+    watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+    if [ $watchdog_pid ]
+    then
+        kill -QUIT $watchdog_pid
+    fi
+
+    waitToDie
+
+    watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+    if [ $watchdog_pid ]
+    then
+        kill -9 $watchdog_pid
+    fi
+    notification_pid=`getPid $NOTIFICATION_PIDFILE`
+    if [ "$notification_pid" ]
+        then
+        kill -9 $notification_pid
+    fi
+    agent_pid=`getPid $AGENT_PIDFILE`
+    if [ "$agent_pid" ]
+        then
+        kill -9 $agent_pid
+    fi
+
+}
+
+killNtf() {
+    notification_pid=`getPid $NOTIFICATION_PIDFILE`
+    if [ "$notification_pid" ]
+        then
+	echo "Killing NTF zombie process at pid: $notification_pid"
+        kill -9 $notification_pid
+    fi
+    agent_pid=`getPid $AGENT_PIDFILE`
+    if [ "$agent_pid" ]
+        then
+	echo "Killing NTF Agent zombie process at pid: $agent_pid"
+        kill -9 $agent_pid
+    fi
+}
+
+startNtf() {
+    watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+    if [ $watchdog_pid ]
+    then
+	echo "$INSTANCE_NAME:$NTFHOST:result ok"
+        echo "$INSTANCE_NAME:$NTFHOST:info ntfWatchdog already running on PID: $watchdog_pid"
+    else
+	# Kill eventual unwatchdogged NTF processes 
+	killNtf
+
+    if [ $DEBUG_NTF ]; then
+        DEBUG_FLAG="-x"
+    fi
+
+    LC_CTYPE=iso8859-1
+        LC_NUMERIC=iso8859-1
+        LC_COLLATE=iso8859-1
+        LC_MONETARY=iso8859-1
+        LC_MESSAGES=iso8859-1
+        export LC_CTYPE
+        export LC_NUMERIC
+        export LC_COLLATE
+        export LC_MONETARY
+        export LC_MESSAGES
+        LD_LIBRARY_PATH=$BASEDIR/lib:$LD_LIBRARY_PATH
+        export LD_LIBRARY_PATH
+
+    CLASSPATH=$BASEDIR/lib/classes
+    for JARFILE in $BASEDIR/bin/*.jar
+    do
+        CLASSPATH="$JARFILE:$CLASSPATH"
+    done
+        export CLASSPATH
+	$BASEDIR/bin/ntfWatchdog -b $BASEDIR -d $BASEDIR -j $JAVA_HOME/bin/java -p $MANAGEMENT_PORT $DEBUG_FLAG &
+    	sleep 1;
+	watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+	if [ $watchdog_pid ]
+    	then
+	    echo "$INSTANCE_NAME:$NTFHOST:result ok"
+            echo "$INSTANCE_NAME:$NTFHOST:info ntfWatchdog started on PID: $watchdog_pid"
+	else
+	    echo "$INSTANCE_NAME:$NTFHOST:result error"
+            echo "$INSTANCE_NAME:$NTFHOST:info ntfWatchdog not started "
+	fi
+
+    fi
+
+}
+
+debugNtf() {
+    DEBUG_NTF=1
+    SUCCESS="${SUCCESS} with port 4000 enabled for java debugging"
+    startNtf "daemon"
+}
+
+
+case $1 in 
+'disableautostart')
+	if [ -f "/etc/rc3.d/S99ntf" ]; then
+       		rm /etc/rc3.d/S99ntf
+		echo "$INSTANCE_NAME:$NTFHOST:result ok "
+		echo "$INSTANCE_NAME:$NTFHOST:info disableautostart set"
+	else
+		echo "$INSTANCE_NAME:$NTFHOST:result error disableautostart already set"
+		echo "$INSTANCE_NAME:$NTFHOST:info S99ntf doesn't exists"
+	fi
+	;;
+
+'enableautostart')
+	if [ -f "/etc/rc3.d/S99ntf" ]; then
+		echo "$INSTANCE_NAME:$NTFHOST:result error enableautostart already set"
+		echo "$INSTANCE_NAME:$NTFHOST:info S99ntf already exists"
+	else
+       		ln -s /etc/init.d/rc.ntf /etc/rc3.d/S99ntf
+		echo "$INSTANCE_NAME:$NTFHOST:result ok "
+		echo "$INSTANCE_NAME:$NTFHOST:info enableautostart set"
+	fi
+	;;
+
+	
+'status')
+        showStatus
+	;;
+
+'start')
+	startNtf
+	;;
+'debug')
+	debugNtf
+	;;
+'stop')
+	watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+	if [ "$watchdog_pid" ]
+	then
+	    stopNtf
+            echo "$INSTANCE_NAME:$NTFHOST:result ok"
+            echo "$INSTANCE_NAME:$NTFHOST:info ntfWatchdog process stopped."
+	else
+	    echo "$INSTANCE_NAME:$NTFHOST:result ok"
+	    echo "$INSTANCE_NAME:$NTFHOST:info ntfWatchdog process is not running."
+	fi
+	;;
+'restart')
+    	watchdog_pid=`getPid $WATCHDOG_PIDFILE`
+    	if [ "$watchdog_pid" ]
+    	then
+		stopNtf
+        	echo "$INSTANCE_NAME:$NTFHOST:info ntfWatchdog process stopped."
+	fi
+    	startNtf
+	;;
+'register')
+	$BASEDIR/bin/ntf_mcr_reg.sh -d $BASEDIR
+	;;
+'unregister')
+	$BASEDIR/bin/ntf_mcr_unreg.sh -d $BASEDIR
+	;;
+*)
+	echo "usage: $0 {start|stop|status|restart|enableautostart|disableautostart|register|unregister}"
+	;;
+
+esac
+exit 0
+

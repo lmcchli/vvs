@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <var name="form2wasentered" expr="false"></var>
+
+    <catch event="error.semantic">
+        <goto next="#form2"></goto>
+    </catch>
+
+    <catch event="connection.disconnect.hangup">
+        <if cond="form2wasentered==true">
+            <log>TCPASS</log>
+            <else/>
+            <log>TCFAIL</log>
+        </if>
+        <exit></exit>
+    </catch>
+
+    <form>
+
+        <property name="termchar" value="#"/>
+        <grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+            <rule id="gd1_main_rule2">
+                <one-of>
+                    <item>0</item>
+                    <item>1</item>
+                    <item>2</item>
+                    <item>3</item>
+                    <item>4</item>
+                    <item>5</item>
+                    <item>6</item>
+                    <item>7</item>
+                    <item>8</item>
+                    <item>9</item>
+                </one-of>
+            </rule>
+            <rule id="gd1_main_rule" scope="public">
+                <one-of>
+                    <item repeat="0-">
+                        <ruleref uri="#gd1_main_rule2" />
+                    </item>
+                    <item>
+                        <item repeat="0-">
+                            <ruleref uri="#gd1_main_rule2" />
+                        </item>
+                        <one-of>
+                            <item>*</item>
+                        </one-of>
+                    </item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <!-- hangup while in here -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(5000);</script>
+        </block>
+
+        <!-- make a semantic error -->
+        <block>
+            <assign name="variablewhichdoesnotexist" expr="3"></assign>
+        </block>
+    </form>
+
+
+    <form id="form2">
+
+        <block>
+            <assign name="form2wasentered" expr="true"></assign>
+        </block>
+        <field></field>
+    </form>
+</vxml>

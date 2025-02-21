@@ -1,0 +1,2474 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "NotificationProcess"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DC430254"
+    visible_modules 	(list dependency_list
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC4402D8"
+	    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+	    quidu      	"3AC4DC440260"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC590274"
+	    supplier   	"Component View::java::util"
+	    quidu      	"3A880CFC02D0"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC590276"
+	    supplier   	"Component View::java::io"
+	    quidu      	"3A880C7D00EC"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC590278"
+	    supplier   	"Component View::java::net"
+	    quidu      	"3A880CBE00AA"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC59027E"
+	    supplier   	"Component View::sms"
+	    quidu      	"3AC4DC59027A"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC590288"
+	    supplier   	"Component View::utils"
+	    quidu      	"3AC4DC590280"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC590292"
+	    supplier   	"Component View::MgtMon::MgtClient"
+	    quidu      	"3AC4DC59028B"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC59029C"
+	    supplier   	"Component View::MgtMon::MgtNotif"
+	    quidu      	"3AC4DC590294"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC59029F"
+	    supplier   	"Component View::MgtMon::MgtLog"
+	    quidu      	"3AC4DC59029E"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC5902A7"
+	    supplier   	"Component View::NotificationProcess::nsMgtMon"
+	    quidu      	"3AC4DC59009D"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC5902B0"
+	    supplier   	"Component View::NotificationProcess::smscConnection"
+	    quidu      	"3AC4DC5902AA"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC5902B3"
+	    supplier   	"Component View::NotificationProcess::nsIMAPconnection"
+	    quidu      	"3AC4DC5902B2"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC5902BB"
+	    supplier   	"Component View::NotificationProcess::notificationLogging"
+	    quidu      	"3AC4DC59004D"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC5A014A"
+	    supplier   	"Component View::NotificationProcess::notificationExceptions"
+	    quidu      	"3AC4DC5A0149"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DC690064"
+	    supplier   	"Component View::java::text"
+	    quidu      	"3A880CF40242"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3AC4DE2A00ED"
+	    supplier   	"Component View::netscape::ldap"
+	    quidu      	"3AC4DE2A0024"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3B016E2602AD"
+	    supplier   	"Component View::NotificationProcess::utils"
+	    quidu      	"3AC4DC720392"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3B016E30037A"
+	    supplier   	"Component View::NotificationProcess::mmsNotification"
+	    quidu      	"3B016E300322"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3B016E30037C"
+	    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+	    quidu      	"3A65C0F20187"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3B016E30038E"
+	    supplier   	"Component View::NotificationProcess::jmail::imap"
+	    quidu      	"3AD75CE0033B"
+	    supplier_is_subsystem 	TRUE)
+	(object Module_Visibility_Relationship
+	    quid       	"3B016E320200"
+	    supplier   	"Component View::javax::mail"
+	    quidu      	"3AD75A220395"
+	    supplier_is_subsystem 	TRUE))
+    physical_models 	(list unit_reference_list
+	(object module "EmailQueue" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\EmailQueue.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC440011"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E2701A0"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "ObjectQueue" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\ObjectQueue.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC44027E"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4502F8"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "FilterManager" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\FilterManager.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC580269"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002EE"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002EF"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002F8"
+		    supplier   	"Component View::java::net"
+		    quidu      	"3A880CBE00AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002F9"
+		    supplier   	"Component View::MgtMon::MgtClient"
+		    quidu      	"3AC4DC59028B"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002FA"
+		    supplier   	"Component View::MgtMon::MgtNotif"
+		    quidu      	"3AC4DC590294"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002FB"
+		    supplier   	"Component View::MgtMon::MgtLog"
+		    quidu      	"3AC4DC59029E"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3002FC"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E300302"
+		    supplier   	"Component View::NotificationProcess::nsMgtMon"
+		    quidu      	"3AC4DC59009D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E300316"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E300317"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E300320"
+		    supplier   	"Component View::NotificationProcess::nsIMAPconnection"
+		    quidu      	"3AC4DC5902B2"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E300321"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E30037B"
+		    supplier   	"Component View::NotificationProcess::mmsNotification"
+		    quidu      	"3B016E300322"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E30037D"
+		    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+		    quidu      	"3A65C0F20187"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E30038F"
+		    supplier   	"Component View::NotificationProcess::jmail::imap::JmailMailboxConnection"
+		    quidu      	"3AFC3B4A017A"
+		    supplier_is_spec 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3003A2"
+		    supplier   	"Component View::NotificationProcess::NotificationConfig"
+		    quidu      	"3AC4DC5A00D1"
+		    supplier_is_spec 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3003B6"
+		    supplier   	"Component View::NotificationProcess::utils::MurClient"
+		    quidu      	"3B016E2502DE"
+		    supplier_is_spec 	TRUE))
+	    language   	"Java")
+	(object module "SMSCreator" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\SMSCreator.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC580313"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4A01A1"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4A01A2"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4A01A3"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4A01AB"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "SMSCFactory" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\SMSCFactory.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC590025"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E470174"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E470175"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E470176"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E47017E"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "MailboxManager" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\MailboxManager.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC5A004F"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3201F6"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E32020A"
+		    supplier   	"Component View::javax::mail::MessagingException"
+		    quidu      	"3AD75A230102"
+		    supplier_is_spec 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E32020B"
+		    supplier   	"Component View::NotificationProcess::nsIMAPconnection"
+		    quidu      	"3AC4DC5902B2"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E32020C"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E32020D"
+		    supplier   	"Component View::NotificationProcess::notificationExceptions"
+		    quidu      	"3AC4DC5A0149"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E320214"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E32021E"
+		    supplier   	"Component View::NotificationProcess::jmail::imap::JmailMailboxConnection"
+		    quidu      	"3AFC3B4A017A"
+		    supplier_is_spec 	TRUE))
+	    language   	"Java")
+	(object module "NotificationConfig" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\NotificationConfig.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC5A00D1"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E36031E"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E36031F"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E360320"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "ThreadMaintainer" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\ThreadMaintainer.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC630142"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0030"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0031"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0032"
+		    supplier   	"Component View::NotificationProcess::nsIMAPconnection"
+		    quidu      	"3AC4DC5902B2"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B003A"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0044"
+		    supplier   	"Component View::NotificationProcess::jmail::imap::JmailMailboxConnection"
+		    quidu      	"3AFC3B4A017A"
+		    supplier_is_spec 	TRUE))
+	    language   	"Java")
+	(object module "WirelessEmailPerson" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\WirelessEmailPerson.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DC6802EE"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4D01C3"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4D01C4"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4D01C5"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4D01CD"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4D01CE"
+		    supplier   	"Component View::java::text"
+		    quidu      	"3A880CF40242"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "WirelessEmailPersonFactory" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\WirelessEmailPersonFactory.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3AC4DE2E008E"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E540227"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E540228"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E540229"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E540231"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E540232"
+		    supplier   	"Component View::NotificationProcess::notificationExceptions"
+		    quidu      	"3AC4DC5A0149"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E540233"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E54023B"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "COSMaintainer" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\COSMaintainer.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3B016E2401EC"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E2602A3"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E2602A4"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E2602A5"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E2602A6"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E2602B7"
+		    supplier   	"Component View::NotificationProcess::utils::MurClient"
+		    quidu      	"3B016E2502DE"
+		    supplier_is_spec 	TRUE))
+	    language   	"Java")
+	(object module "NotificationFilter" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\NotificationFilter.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3B016E3C0395"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3E0059"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3E0063"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3E0064"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3E0065"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E3E0066"
+		    supplier   	"Component View::java::text"
+		    quidu      	"3A880CF40242"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object module "notifPersonFactory" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notifPersonFactory.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3B016E4003A5"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450167"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450168"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450169"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E45016A"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450171"
+		    supplier   	"Component View::NotificationProcess::notificationExceptions"
+		    quidu      	"3AC4DC5A0149"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450172"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450173"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E450174"
+		    supplier   	"Component View::NotificationProcess::nsMgtMon"
+		    quidu      	"3AC4DC59009D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E45017B"
+		    supplier   	"Component View::NotificationProcess::mmsNotification"
+		    quidu      	"3B016E300322"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E45017C"
+		    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+		    quidu      	"3A65C0F20187"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E45018F"
+		    supplier   	"Component View::NotificationProcess::utils::MurClient"
+		    quidu      	"3B016E2502DE"
+		    supplier_is_spec 	TRUE))
+	    language   	"Java")
+	(object module "WAPPushPerson" "NotAModuleType" "NotAModulePart"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Java"
+		    name       	"FileName"
+		    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\WAPPushPerson.java")
+		(object Attribute
+		    tool       	"Java"
+		    name       	"RootPath"
+		    value      	"D:\\comps\\ntf\\src\\ntf"))
+	    quid       	"3B016E4B01DE"
+	    stereotype 	""
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0370"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0371"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0372"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B0379"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E4B037A"
+		    supplier   	"Component View::java::text"
+		    quidu      	"3A880CF40242"
+		    supplier_is_subsystem 	TRUE))
+	    language   	"Java")
+	(object SubSystem "notificationInterfaces"
+	    quid       	"3AC4DC440260"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC6A0305"
+		    supplier   	"Component View::NotificationProcess::notificationExceptions"
+		    quidu      	"3AC4DC5A0149"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC6C0069"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC6C00C3"
+		    supplier   	"Component View::NotificationProcess::smscConnection"
+		    quidu      	"3AC4DC5902AA"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E70000B"
+		    supplier   	"Component View::netscape::messaging::mime"
+		    quidu      	"3AC4DC700231"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "EmailStore" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\EmailStore.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC440261"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NotificationConstants" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\NotificationConstants.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC5802B0"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EmailGenerator" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\EmailGenerator.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC5802CD"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PersonFactory" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\PersonFactory.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC5802EB"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E700143"
+			    supplier   	"Component View::NotificationProcess::notificationExceptions"
+			    quidu      	"3AC4DC5A0149"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "MailboxConnection" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\MailboxConnection.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC5A008B"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6C01AA"
+			    supplier   	"Component View::NotificationProcess::notificationExceptions"
+			    quidu      	"3AC4DC5A0149"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "ConfigAccess" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\ConfigAccess.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC6A0192"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NotificationEmail" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\NotificationEmail.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC6B039C"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E70000C"
+			    supplier   	"Component View::netscape::messaging::mime::MIMEMessage"
+			    quidu      	"3AC4DE3300E5"
+			    supplier_is_spec 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E70000D"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "Person" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\Person.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC6C009B"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7000E7"
+			    supplier   	"Component View::NotificationProcess::smscConnection"
+			    quidu      	"3AC4DC5902AA"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "MMSConstants" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationInterfaces\\MMSConstants.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E670120"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "notificationLogging"
+	    quid       	"3AC4DC59004D"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC6C02FD"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC6C02FF"
+		    supplier   	"Component View::MgtMon::MgtLog"
+		    quidu      	"3AC4DC59029E"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "Logger" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationLogging\\Logger.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC59004E"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E71000C"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E71000D"
+			    supplier   	"Component View::MgtMon::MgtLog"
+			    quidu      	"3AC4DC59029E"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "nsMgtMon"
+	    quid       	"3AC4DC59009D"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC70032D"
+		    supplier   	"Component View::MgtMon::MgtClient"
+		    quidu      	"3AC4DC59028B"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC71019E"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC7101C4"
+		    supplier   	"Component View::NotificationProcess"
+		    quidu      	"3AC4DC430254"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC7101CE"
+		    supplier   	"Component View::MgtMon::MgtNotif"
+		    quidu      	"3AC4DC590294"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "NotifCounter" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsMgtMon\\NotifCounter.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC59009E"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A020E"
+			    supplier   	"Component View::MgtMon::MgtClient"
+			    quidu      	"3AC4DC59028B"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "NotifSNMP" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsMgtMon\\NotifSNMP.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC7002A9"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B01BF"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B01C9"
+			    supplier   	"Component View::NotificationProcess::NotificationConfig"
+			    quidu      	"3AC4DC5A00D1"
+			    supplier_is_spec 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B01CA"
+			    supplier   	"Component View::MgtMon::MgtClient"
+			    quidu      	"3AC4DC59028B"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B01CB"
+			    supplier   	"Component View::MgtMon::MgtNotif"
+			    quidu      	"3AC4DC590294"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "smscConnection"
+	    quid       	"3AC4DC5902AA"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC71034C"
+		    supplier   	"Component View::NotificationProcess"
+		    quidu      	"3AC4DC430254"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC71034E"
+		    supplier   	"Component View::NotificationProcess::nsMgtMon"
+		    quidu      	"3AC4DC59009D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC710355"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC710357"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE3B0032"
+		    supplier   	"Component View::NotificationProcess::utils"
+		    quidu      	"3AC4DC720392"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE3B0036"
+		    supplier   	"Component View::sms"
+		    quidu      	"3AC4DC59027A"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE3B003D"
+		    supplier   	"Component View::utils"
+		    quidu      	"3AC4DC590280"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7F0298"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7F02A1"
+		    supplier   	"Component View::ie::ncl::sms::smpp"
+		    quidu      	"3B09218700B5"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7F02A3"
+		    supplier   	"Component View::ie::ncl::sms::smpp::async"
+		    quidu      	"3B0921A102EE"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7F02A5"
+		    supplier   	"Component View::ie::ncl::sms::smpp::tvl"
+		    quidu      	"3B0921870119"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7F02AC"
+		    supplier   	"Component View::ie::ncl::util"
+		    quidu      	"3B092170022F"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "SMSDevice" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\smscConnection\\SMSDevice.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC680320"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageResponse" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\smscConnection\\MessageResponse.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC710278"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B03C8"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B03C9"
+			    supplier   	"Component View::NotificationProcess::nsMgtMon"
+			    quidu      	"3AC4DC59009D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B03CA"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7B03CB"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "SMSCConnection" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\smscConnection\\SMSCConnection.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC72014D"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F032F"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "SMPPSMSCConnection" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\smscConnection\\SMPPSMSCConnection.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DE3A00C7"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F028D"
+			    supplier   	"Component View::NotificationProcess::utils"
+			    quidu      	"3AC4DC720392"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F0297"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F0299"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F029A"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F02A2"
+			    supplier   	"Component View::ie::ncl::sms::smpp"
+			    quidu      	"3B09218700B5"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F02A4"
+			    supplier   	"Component View::ie::ncl::sms::smpp::async"
+			    quidu      	"3B0921A102EE"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F02AB"
+			    supplier   	"Component View::ie::ncl::sms::smpp::tvl"
+			    quidu      	"3B0921870119"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7F02AD"
+			    supplier   	"Component View::ie::ncl::util"
+			    quidu      	"3B092170022F"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "nsIMAPconnection"
+	    quid       	"3AC4DC5902B2"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC700232"
+		    supplier   	"Component View::netscape::messaging::mime"
+		    quidu      	"3AC4DC700231"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC70023C"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC70023E"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC700245"
+		    supplier   	"Component View::java::lang"
+		    quidu      	"3A880C9D0189"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC700247"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DC700249"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE320105"
+		    supplier   	"Component View::netscape::messaging::imap4"
+		    quidu      	"3AC4DE320039"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE3202BD"
+		    supplier   	"Component View::NotificationProcess"
+		    quidu      	"3AC4DC430254"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE3403E2"
+		    supplier   	"Component View::java::text"
+		    quidu      	"3A880CF40242"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3AC4DE350005"
+		    supplier   	"Component View::NotificationProcess::notificationExceptions"
+		    quidu      	"3AC4DC5A0149"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7102E7"
+		    supplier   	"Component View::javax::mail"
+		    quidu      	"3AD75A220395"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E7102F2"
+		    supplier   	"Component View::NotificationProcess::jmail::imap"
+		    quidu      	"3AD75CE0033B"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "NSSDKNotificationEmail" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsIMAPconnection\\NSSDKNotificationEmail.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC6E038D"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A00F5"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A00F6"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A00FF"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A0100"
+			    supplier   	"Component View::java::lang"
+			    quidu      	"3A880C9D0189"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A0101"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7A0102"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "IMAPConnectionMaintainer" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsIMAPconnection\\IMAPConnectionMaintainer.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DE3103C7"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7102DD"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7102DE"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7102F1"
+			    supplier   	"Component View::javax::mail::MessagingException"
+			    quidu      	"3AD75A230102"
+			    supplier_is_spec 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7102F3"
+			    supplier   	"Component View::NotificationProcess::jmail::imap"
+			    quidu      	"3AD75CE0033B"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7102FB"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E710305"
+			    supplier   	"Component View::NotificationProcess::ObjectQueue"
+			    quidu      	"3AC4DC44027E"
+			    supplier_is_spec 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E71030F"
+			    supplier   	"Component View::NotificationProcess::jmail::imap::ImapClient"
+			    quidu      	"3AD75CE0033C"
+			    supplier_is_spec 	TRUE))
+		    language   	"Java")
+		(object module "NotifResponseSink" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsIMAPconnection\\NotifResponseSink.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DE320061"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750008"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750009"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E75000A"
+			    supplier   	"Component View::java::text"
+			    quidu      	"3A880CF40242"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E75000B"
+			    supplier   	"Component View::netscape::messaging::imap4"
+			    quidu      	"3AC4DE320039"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750012"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750013"
+			    supplier   	"Component View::NotificationProcess::notificationExceptions"
+			    quidu      	"3AC4DC5A0149"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750014"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "IMAPThreadMaintainer" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsIMAPconnection\\IMAPThreadMaintainer.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DE3201CA"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7201BC"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7201BD"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7201C6"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7201C7"
+			    supplier   	"Component View::netscape::messaging::imap4"
+			    quidu      	"3AC4DE320039"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7201C8"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7201C9"
+			    supplier   	"Component View::NotificationProcess::jmail::imap"
+			    quidu      	"3AD75CE0033B"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "mimeDataSink" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsIMAPconnection\\mimeDataSink.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DE33006D"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7300AF"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7300B9"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7300BA"
+			    supplier   	"Component View::java::lang"
+			    quidu      	"3A880C9D0189"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7300BB"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E7300BC"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "MIMEDataSink" "NotAModuleType" "NotAModulePart"
+		    quid       	"3AC4DE330095"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NSSDKMailboxConnection" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\nsIMAPconnection\\NSSDKMailboxConnection.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DE350110"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E75031F"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750320"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750321"
+			    supplier   	"Component View::netscape::messaging::imap4"
+			    quidu      	"3AC4DE320039"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750322"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750329"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E75032A"
+			    supplier   	"Component View::NotificationProcess::notificationExceptions"
+			    quidu      	"3AC4DC5A0149"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E75032B"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E750333"
+			    supplier   	"Component View::NotificationProcess::jmail::imap"
+			    quidu      	"3AD75CE0033B"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E75033D"
+			    supplier   	"Component View::javax::mail::MessagingException"
+			    quidu      	"3AD75A230102"
+			    supplier_is_spec 	TRUE))
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "notificationExceptions"
+	    quid       	"3AC4DC5A0149"
+	    physical_models 	(list unit_reference_list
+		(object module "MailboxConnectionException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationExceptions\\MailboxConnectionException.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC6A00AC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PersonFactoryException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\notificationExceptions\\PersonFactoryException.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC6A012E"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "utils"
+	    quid       	"3AC4DC720392"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E810041"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E81004B"
+		    supplier   	"Component View::NotificationProcess"
+		    quidu      	"3AC4DC430254"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E81005F"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E810073"
+		    supplier   	"Component View::pushinitiator::wapnotification::paputils"
+		    quidu      	"3AD36A9102E6"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "TimeoutHandler" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\utils\\TimeoutHandler.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3AC4DC720393"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MurClient" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\utils\\MurClient.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E2502DE"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E810042"
+			    supplier   	"Component View::netscape::ldap"
+			    quidu      	"3AC4DE2A0024"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E81004C"
+			    supplier   	"Component View::NotificationProcess::NotificationConfig"
+			    quidu      	"3AC4DC5A00D1"
+			    supplier_is_spec 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E810060"
+			    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+			    quidu      	"3AC4DC59004E"
+			    supplier_is_spec 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E810074"
+			    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+			    quidu      	"3AD36A9203CE"
+			    supplier_is_spec 	TRUE))
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "jmail"
+	    quid       	"3AD75CE002D7"
+	    physical_models 	(list unit_reference_list
+		(object SubSystem "imap"
+		    quid       	"3AD75CE0033B"
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271B0048"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271B01C4"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271B0355"
+			    supplier   	"Component View::javax::mail"
+			    quidu      	"3AD75A220395"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271C0157"
+			    supplier   	"Component View::javax::mail::internet"
+			    quidu      	"3AD75A3F022F"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271C0306"
+			    supplier   	"Component View::javax::activation"
+			    quidu      	"3AD75AEA01B2"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271D019F"
+			    supplier   	"Component View::com::sun::mail::imap"
+			    quidu      	"3AD75A0D022D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271D02E9"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271E00E2"
+			    supplier   	"Component View::NotificationProcess::jmail::email"
+			    quidu      	"3ADB3FAE0388"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271E0327"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271F007F"
+			    supplier   	"Component View::NotificationProcess::nsIMAPconnection"
+			    quidu      	"3AC4DC5902B2"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271F017A"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF271F0346"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF272000E5"
+			    supplier   	"Component View::pushinitiator::wapnotification::paputils"
+			    quidu      	"3AD36A9102E6"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AE6EC3E029A"
+			    supplier   	"Component View::javax::mail::search"
+			    quidu      	"3AD75A390140"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AF715B903D6"
+			    supplier   	"Component View::java::lang"
+			    quidu      	"3A880C9D0189"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AFC3B5A0192"
+			    supplier   	"Component View::NotificationProcess::notificationExceptions"
+			    quidu      	"3AC4DC5A0149"
+			    supplier_is_subsystem 	TRUE))
+		    physical_models 	(list unit_reference_list
+			(object module "ImapClient" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\ImapClient.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AD75CE0033C"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E61006D"
+				    supplier   	"Component View::java::util"
+				    quidu      	"3A880CFC02D0"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E61006E"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E61006F"
+				    supplier   	"Component View::java::lang"
+				    quidu      	"3A880C9D0189"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E610070"
+				    supplier   	"Component View::javax::mail"
+				    quidu      	"3AD75A220395"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E610071"
+				    supplier   	"Component View::javax::mail::internet"
+				    quidu      	"3AD75A3F022F"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E610077"
+				    supplier   	"Component View::javax::activation"
+				    quidu      	"3AD75AEA01B2"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E610081"
+				    supplier   	"Component View::javax::mail::search::SearchTerm"
+				    quidu      	"3AD75A390169"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E61008B"
+				    supplier   	"Component View::javax::mail::search::FlagTerm"
+				    quidu      	"3AD75A3A0386"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E610095"
+				    supplier   	"Component View::com::sun::mail::imap"
+				    quidu      	"3AD75A0D022D"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E61009F"
+				    supplier   	"Component View::NotificationProcess::ObjectQueue"
+				    quidu      	"3AC4DC44027E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6100A9"
+				    supplier   	"Component View::javax::mail::MessagingException"
+				    quidu      	"3AD75A230102"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6100AA"
+				    supplier   	"Component View::NotificationProcess::nsIMAPconnection"
+				    quidu      	"3AC4DC5902B2"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6100D1"
+				    supplier   	"Component View::netscape::messaging::mime::MIMEException"
+				    quidu      	"3ADF271902BC"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6100E5"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E610103"
+				    supplier   	"Component View::NotificationProcess::NotificationConfig"
+				    quidu      	"3AC4DC5A00D1"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E61010D"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "TestImapClient" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\TestImapClient.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3ADF272101CD"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601BF"
+				    supplier   	"Component View::java::util"
+				    quidu      	"3A880CFC02D0"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601C0"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601C1"
+				    supplier   	"Component View::javax::mail"
+				    quidu      	"3AD75A220395"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601C2"
+				    supplier   	"Component View::javax::mail::internet"
+				    quidu      	"3AD75A3F022F"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601C3"
+				    supplier   	"Component View::javax::activation"
+				    quidu      	"3AD75AEA01B2"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601C9"
+				    supplier   	"Component View::com::sun::mail::imap"
+				    quidu      	"3AD75A0D022D"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601D3"
+				    supplier   	"Component View::NotificationProcess::ObjectQueue"
+				    quidu      	"3AC4DC44027E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601DD"
+				    supplier   	"Component View::NotificationProcess::jmail::email::JmailNotificationEmail"
+				    quidu      	"3ADB3FAF00CD"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6601E7"
+				    supplier   	"Component View::javax::mail::MessagingException"
+				    quidu      	"3AD75A230102"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E660205"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::NotificationEmail"
+				    quidu      	"3AC4DC6B039C"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E66020F"
+				    supplier   	"Component View::NotificationProcess::nsIMAPconnection::NSSDKNotificationEmail"
+				    quidu      	"3AC4DC6E038D"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E660223"
+				    supplier   	"Component View::netscape::messaging::mime::MIMEException"
+				    quidu      	"3ADF271902BC"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E660237"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E66025F"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "DeleteThread" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\DeleteThread.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3ADF2F680115"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902A7"
+				    supplier   	"Component View::java::util::Properties"
+				    quidu      	"3A880D0002C1"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902B1"
+				    supplier   	"Component View::java::util::Calendar"
+				    quidu      	"3A880CFE00A2"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902B2"
+				    supplier   	"Component View::javax::mail"
+				    quidu      	"3AD75A220395"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902B3"
+				    supplier   	"Component View::javax::mail::internet"
+				    quidu      	"3AD75A3F022F"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902B4"
+				    supplier   	"Component View::javax::activation"
+				    quidu      	"3AD75AEA01B2"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902BB"
+				    supplier   	"Component View::javax::mail::MessagingException"
+				    quidu      	"3AD75A230102"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902C5"
+				    supplier   	"Component View::com::sun::mail::imap"
+				    quidu      	"3AD75A0D022D"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902CF"
+				    supplier   	"Component View::NotificationProcess::ObjectQueue"
+				    quidu      	"3AC4DC44027E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902D9"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902E3"
+				    supplier   	"Component View::NotificationProcess::NotificationConfig"
+				    quidu      	"3AC4DC5A00D1"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5902ED"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "ImapServer" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\ImapServer.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3ADF373C01A3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UidQueue" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\UidQueue.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AE6EC2E00F2"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AF715C70213"
+				    supplier   	"Component View::java::util::LinkedList"
+				    quidu      	"3A880CFF032E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AF715C7028C"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AF715C70304"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "ExpungeThread" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\ExpungeThread.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AFC3B11039F"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5B0000"
+				    supplier   	"Component View::javax::mail::MessagingException"
+				    quidu      	"3AD75A230102"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5B0015"
+				    supplier   	"Component View::NotificationProcess::jmail::imap::ImapClient"
+				    quidu      	"3AD75CE0033C"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5B0029"
+				    supplier   	"Component View::NotificationProcess::NotificationConfig"
+				    quidu      	"3AC4DC5A00D1"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5B0033"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E5B0047"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "IMAPConnectionMaintainer" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\IMAPConnectionMaintainer.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AFC3B460297"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6200DD"
+				    supplier   	"Component View::java::util"
+				    quidu      	"3A880CFC02D0"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6200DE"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6200E7"
+				    supplier   	"Component View::javax::mail::MessagingException"
+				    quidu      	"3AD75A230102"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6200F1"
+				    supplier   	"Component View::javax::mail::MessageRemovedException"
+				    quidu      	"3AD75A480340"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6200F2"
+				    supplier   	"Component View::NotificationProcess::jmail::imap"
+				    quidu      	"3AD75CE0033B"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E6200FB"
+				    supplier   	"Component View::NotificationProcess::notificationLogging"
+				    quidu      	"3AC4DC59004D"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E62010F"
+				    supplier   	"Component View::NotificationProcess::ObjectQueue"
+				    quidu      	"3AC4DC44027E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E620123"
+				    supplier   	"Component View::NotificationProcess::jmail::imap::ImapClient"
+				    quidu      	"3AD75CE0033C"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "JmailMailboxConnection" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\imap\\JmailMailboxConnection.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AFC3B4A017A"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E64013A"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E64013B"
+				    supplier   	"Component View::java::util"
+				    quidu      	"3A880CFC02D0"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E64013C"
+				    supplier   	"Component View::NotificationProcess"
+				    quidu      	"3AC4DC430254"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E64013D"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+				    quidu      	"3AC4DC440260"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E640144"
+				    supplier   	"Component View::NotificationProcess::notificationExceptions"
+				    quidu      	"3AC4DC5A0149"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E640145"
+				    supplier   	"Component View::NotificationProcess::notificationLogging"
+				    quidu      	"3AC4DC59004D"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E640146"
+				    supplier   	"Component View::NotificationProcess::jmail::imap"
+				    quidu      	"3AD75CE0033B"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E64014E"
+				    supplier   	"Component View::javax::mail::MessagingException"
+				    quidu      	"3AD75A230102"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "email"
+		    quid       	"3ADB3FAE0388"
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF26E402F1"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF26E503A7"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3ADF26E603D1"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE))
+		    physical_models 	(list unit_reference_list
+			(object module "JmailNotificationEmail" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\jmail\\email\\JmailNotificationEmail.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3ADB3FAF00CD"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E55021F"
+				    supplier   	"Component View::java::util::Date"
+				    quidu      	"3A880CFE02DC"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E550229"
+				    supplier   	"Component View::netscape::messaging::mime::MIMEMessage"
+				    quidu      	"3AC4DE3300E5"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E550233"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::NotificationEmail"
+				    quidu      	"3AC4DC6B039C"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3B016E55023D"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::Person"
+				    quidu      	"3AC4DC6C009B"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "mmsNotification"
+	    quid       	"3B016E300322"
+	    visible_modules 	(list dependency_list
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E670243"
+		    supplier   	"Component View::java::util"
+		    quidu      	"3A880CFC02D0"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E670245"
+		    supplier   	"Component View::java::io"
+		    quidu      	"3A880C7D00EC"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E670247"
+		    supplier   	"Component View::netscape::messaging::mime"
+		    quidu      	"3AC4DC700231"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E67024E"
+		    supplier   	"Component View::NotificationProcess"
+		    quidu      	"3AC4DC430254"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E670250"
+		    supplier   	"Component View::NotificationProcess::notificationLogging"
+		    quidu      	"3AC4DC59004D"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E670252"
+		    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+		    quidu      	"3AC4DC440260"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E6A019E"
+		    supplier   	"Component View::netscape::ldap"
+		    quidu      	"3AC4DE2A0024"
+		    supplier_is_subsystem 	TRUE)
+		(object Module_Visibility_Relationship
+		    quid       	"3B016E6B0054"
+		    supplier   	"Component View::netscape::messaging::smtp"
+		    quidu      	"3B016E6A0355"
+		    supplier_is_subsystem 	TRUE))
+	    physical_models 	(list unit_reference_list
+		(object module "MMSPersonFactory" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\mmsNotification\\MMSPersonFactory.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E4303A9"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6A019D"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6A019F"
+			    supplier   	"Component View::netscape::ldap"
+			    quidu      	"3AC4DE2A0024"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6A01A0"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6A01A1"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6A01A7"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6A01A8"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "BuildMMSMessage" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\mmsNotification\\BuildMMSMessage.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E6700C6"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E670244"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E670246"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E67024D"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E67024F"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E670251"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E670253"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "MMSDevice" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\mmsNotification\\MMSDevice.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E670397"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E68010E"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E68010F"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "MMSPerson" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\mmsNotification\\MMSPerson.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E68028A"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6803CB"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6803CC"
+			    supplier   	"Component View::netscape::messaging::mime"
+			    quidu      	"3AC4DC700231"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6803CD"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6803CE"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "SMTPResponseSink" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\mmsNotification\\SMTPResponseSink.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E6A02DD"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6B0055"
+			    supplier   	"Component View::netscape::messaging::smtp"
+			    quidu      	"3B016E6A0355"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6B0056"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java")
+		(object module "SMTPSession" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"D:\\comps\\ntf\\src\\ntf\\NotificationProcess\\mmsNotification\\SMTPSession.java")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	"D:\\comps\\ntf\\src\\ntf"))
+		    quid       	"3B016E6B0130"
+		    stereotype 	""
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6B01DA"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6B01DB"
+			    supplier   	"Component View::netscape::messaging::smtp"
+			    quidu      	"3B016E6A0355"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3B016E6B01DC"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE))
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list
+	(object Module_Diagram "Main"
+	    quid       	"3ADF2738027A"
+	    title      	"Main"
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list))))

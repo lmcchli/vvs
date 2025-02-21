@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/soaptest/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="soaptest" targetNamespace="http://www.example.org/soaptest/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/soaptest/">
+      <xsd:element name="GetNumber">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="in" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetNumberResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="number" type="xsd:int"/>
+            <xsd:element name="identifier" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetNumberFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="GetNumberFault"
+      				type="xsd:string">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetNumberRequest">
+    <wsdl:part element="tns:GetNumber" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetNumberResponse">
+    <wsdl:part element="tns:GetNumberResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetNumberFault">
+  	<wsdl:part name="parameters" element="tns:GetNumberFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="soaptest">
+    <wsdl:operation name="GetNumber">
+      <wsdl:input message="tns:GetNumberRequest"/>
+      <wsdl:output message="tns:GetNumberResponse"/>
+            <wsdl:fault name="fault" message="tns:GetNumberFault"></wsdl:fault>
+        </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="soaptestSOAP" type="tns:soaptest">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetNumber">
+      <soap:operation soapAction="http://www.example.org/soaptest/GetNumber"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="soaptest">
+    <wsdl:port binding="tns:soaptestSOAP" name="soaptestSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <script>
+        function mult(a, b)
+        {
+            return a*b;
+        }
+    </script>
+   <form id="uno">
+       <block>
+           <if cond="mult(5,4)==20">
+               <log>TCPASS VXML: Script ok</log>
+           <else/>
+               <log>TCPASS VXML: Script nok</log>
+           </if>
+           <exit/>
+       </block>
+   </form>
+</vxml>

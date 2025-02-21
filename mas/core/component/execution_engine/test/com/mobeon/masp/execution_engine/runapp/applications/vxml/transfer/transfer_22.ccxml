@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="vxml_maxtime"/>
+    <var name="maxtimeSendid"/>
+    <var name="out_connectionid"/>
+    <var name="in_connectionid"/>
+    <var name="results"/>
+    <var name="dialogid"/>
+    <var name="in_calltype"/>
+
+
+
+    <var name="myState" expr="'init'"></var>
+
+
+    <!--
+
+    States:
+
+    init
+    dialogActive: we have tried to start dialog on inbound call,
+                  or, tried to join back once the transfer is over
+    dialing: we have invoked createcall
+    outgoingCallActive: outboubd call is connected, we try to join
+    outgoingCallJoined: both calls are joined and connected
+    hotword: we have received a hotword and tried to unjoin the calls
+    disconnectingOutboundHotword: calls are now unjoined and
+             we have started to disconnect outbound call
+    disconnectingOutbound: we got connection.disconnected for the inbound call,
+                          and now we are disconnecting the outbound.
+    disconnectingMaxTime: we got a maxtime event and have now disconnected the outbound call.
+    disconnectingOutboundWhileDialing: we got a hotword in dialing state and disconnected outbound call
+
+    -->
+
+    <eventprocessor statevariable="myState">
+        <transition event="connection.alerting" name="evt">
+            <assign name="in_connectionid" expr="evt.connectionid" />
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+
+
+        <transition event="connection.connected" name="evt" state="init">
+            <assign name="myState" expr="'dialogActive'"/>
+            <assign name="in_calltype" expr="evt.connection._calltype" />
+            <dialogstart src="'transfer_22.vxml'" dialogid="dialogid"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt" state="dialing">
+            <log>DIALING</log>
+            <assign name="myState" expr="'outgoingCallActive'"/>
+            <join id1="in_connectionid" id2="out_connectionid" duplex="'full'" />
+        </transition>
+
+
+        <transition event="connection.failed" name="evt" state="dialing">
+            <assign name="myState" expr="'dialogActive'"/>
+
+            <if cond="evt.reason == 603">
+                <assign name="results" expr="'busy'" />
+                <send data="'dialog.vxml.transfer.complete'"
+                      target="dialogid"
+                      targettype="'dialog'"
+                      namelist="results" />
+                <elseif cond="evt.reason == 610"/>
+                <assign name="results" expr="'noanswer'" />
+                <send data="'dialog.vxml.transfer.complete'"
+                      target="dialogid"
+                      targettype="'dialog'"
+                      namelist="results" />
+                <elseif cond="evt.reason == 620"/>
+                <assign name="results" expr="'network_busy'" />
+                <send data="'dialog.vxml.transfer.complete'"
+                      target="dialogid"
+                      targettype="'dialog'"
+                      namelist="results" />
+                <else/>
+                <log>ERROR</log>
+                <exit></exit>
+            </if>
+        </transition>
+
+        <transition state="disconnectingOutbound" event="connection.disconnected" name="evt">
+            <log expr="'received connection.disconnected for connection ID' +evt.connectionid"></log>
+
+            <!-- in this state we were just waiting for dosconnected event for the
+                 outbound call; do sanity check -->
+
+            <if cond="evt.connectionid != out_connectionid">
+                <log>ERROR were expecting that the outbound call disconnected now</log>
+                <exit/>
+            </if>
+
+            <send data="'connection.disconnect.hangup'"
+                  target="dialogid" targettype="'dialog'"/>
+
+        </transition>
+
+
+        <transition state="disconnectingMaxTime" event="connection.disconnected" name="evt">
+
+            <join id1="in_connectionid" id2="dialogid"/>
+        </transition>
+
+
+        <transition state="disconnectingMaxTime" event="conference.joined" name="evt">
+
+            <!-- we are back in "normal state"! -->
+            <assign name="myState" expr="'dialogActive'"/>
+            <assign name="results" expr="'maxtime_disconnect'" />
+            <send data="'dialog.vxml.transfer.complete'"
+                  target="dialogid"
+                  targettype="'dialog'"
+                  namelist="results" />
+
+        </transition>
+
+
+        <transition state="disconnectingOutboundHotword" event="conference.joined" name="evt">
+
+            <!-- we are back in "normal state"! -->
+            <assign name="myState" expr="'dialogActive'"/>
+            <assign name="results" expr="'near_end_disconnect'" />
+            <send data="'dialog.vxml.transfer.complete'"
+                  target="dialogid"
+                  targettype="'dialog'"
+                  namelist="results" />
+
+        </transition>
+
+
+        <transition state="disconnectingOutboundHotword" event="connection.disconnected" name="evt">
+
+            <join id1="in_connectionid" id2="dialogid"/>
+        </transition>
+
+        <transition state="disconnectingOutboundWhileDialing" event="connection.disconnected" name="evt">
+            <!-- we are back in "normal state"! -->
+            <assign name="myState" expr="'dialogActive'"/>
+            <assign name="results" expr="'near_end_disconnect'" />
+            <send data="'dialog.vxml.transfer.complete'"
+                  target="dialogid"
+                  targettype="'dialog'"
+                  namelist="results" />
+        </transition>
+
+
+        <transition event="connection.disconnected" name="evt">
+            <log expr="'received connection.disconnected for connection ID' +evt.connectionid"></log>
+            <if cond="evt.connectionid == in_connectionid">
+                <log>inbound call disconnected</log>
+                <assign name="myState" expr="'disconnectingOutbound'"></assign>
+                <disconnect connectionid="out_connectionid"/>
+                <else/>
+                <log>outbound call disconnected</log>
+                <assign name="results" expr="'far_end_disconnect'" />
+                <send data="'dialog.vxml.transfer.complete'"
+                      target="dialogid"
+                      targettype="'dialog'"
+                      namelist="results" />
+            </if>
+        </transition>
+
+
+        <!-- Handle joined complete for transfer -->
+        <transition state="outgoingCallActive" event="conference.joined" name="evt">
+            <log>JOINED</log>
+            <assign name="myState" expr="'outgoingCallJoined'"/>
+
+            <!-- If maxtime has been set we setup a timer -->
+            <if cond="vxml_maxtime != undefined">
+                <send data="'maxtime'" target="session.id" delay="vxml_maxtime" sendid="maxtimeSendid" />
+            </if>
+        </transition>
+
+        <!-- handle maxtime event for transfer -->
+
+        <transition state="outgoingCallJoined" event="maxtime" name="evt">
+            <assign name="myState" expr="'disconnectingMaxTime'"/>
+            <disconnect connectionid="out_connectionid"/>
+        </transition>
+
+
+        <transition event="dialog.transfer" name="evt">
+            <!-- Branch on transfer type -->
+            <if cond="evt.type == 'bridge'">
+                <assign name="vxml_maxtime" expr="evt.maxtime" />
+
+                <!-- a test case expectation relieas on thislog, dont remove-->
+                <log expr="'dialog.transfer received'"></log>
+
+
+                <log expr="'CALLING:'+evt.URI"></log>
+                <log expr="'CONNECTTIMEOUT:'+evt.connecttimeout"></log>
+                <log expr="'MAXTIME:'+evt.maxtime"></log>
+                <log expr="'PRESENTATIONINDICATOR:'+evt.values.transfer_local_pi"></log>
+                <log expr="'ANI:'+evt.values.transfer_ani"></log>
+
+                <var name="hints"></var>
+                <script>
+                    hints= {pi : evt.values.transfer_local_pi,
+                            calltype : in_calltype}
+                </script>
+                <createcall dest="evt.URI"
+                            callerid="evt.values.transfer_ani"
+                            connectionid="out_connectionid"
+                            timeout="evt.connecttimeout"
+                            hints="hints"/>
+
+                <assign name="myState" expr="'dialing'"></assign>
+
+                <log expr="out_connectionid"></log>
+
+                <else/>
+                <log expr="evt.type ">ERROR</log>
+                <exit></exit>
+            </if>
+
+        </transition>
+
+        <transition event="dialog.terminatetransfer"  state="dialing" name="evt">
+
+            <assign name="myState" expr="'disconnectingOutboundWhileDialing'"/>
+
+            <disconnect connectionid="out_connectionid"/>
+
+        </transition>
+
+
+        <transition event="dialog.terminatetransfer" name="evt">
+
+            <!-- Change our state to show we are dealing with hotword stuff -->
+            <assign name="myState" expr="'hotword'" />
+
+            <!-- unjoin our connections -->
+            <unjoin id1="in_connectionid" id2="out_connectionid"/>
+
+        </transition>
+
+        <!--
+                  - Calls have been unjoined.
+                -->
+        <transition state="hotword" event="conference.unjoined" name="evt">
+            <!-- Disconnect the outbound call -->
+            <disconnect connectionid="out_connectionid"/>
+
+            <assign name="myState" expr="'disconnectingOutboundHotword'" />
+        </transition>
+
+
+        <transition event="dialog.exit" name="dlg">
+            <exit/>
+        </transition>
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

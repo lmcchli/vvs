@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="checkmate media_content_manager" default="all">
+
+  <property name="module" value="mediacontentmanager" />  
+  
+   <!-- Import project generic properties -->
+  <property name="project.basedir" value=".." />
+  <import file="${project.basedir}/projdefs.xml"/>
+
+
+  <!-- Module definitions -->
+  <dirname property="module.basedir" file="${ant.file}"/>
+
+  <property name="module.jarname" value="mobeon_media_content_manager.jar" />
+  <property name="module.output.dir" value="${module.basedir}/classes" />
+
+  <path id="module.sourcepath">
+    <dirset dir="${module.basedir}">
+      <include name="src"/>
+      <include name="interface"/>
+    </dirset>
+  </path>
+
+  <path id="module.dependencypath.test">
+  </path>
+
+  <path id="module.testpath">
+    <dirset dir="${module.basedir}">
+      <include name="test"/>
+    </dirset>
+    <dirset dir="${project.basedir}">
+        <include name="mediaobject/src" />
+        <include name="configurationmanager/src" />
+    </dirset>    
+  </path>
+
+  <path id="module.classpath">
+    <path refid="${module.jdk.classpath.checkmate}"/>
+  </path>
+
+  <!-- Add <include> directives for all modules
+       this modules depends on -->
+  <path id="module.dependencypath">
+     <dirset dir="${project.basedir}">
+        <include name="logging/interface" />
+		<include name="util/interface" />
+        <include name="session/interface" />
+        <include name="mediaobject/interface" />
+        <include name="configurationmanager/interface"/>
+        <include name="eventnotifier/interface" />
+     </dirset>
+  </path>
+
+
+  <!-- And similarly add  <exclude> directives for
+       all modules this modules depends on -->
+  <patternset id="module.jar.files">
+      <include name="**/com/mobeon/masp/mediacontentmanager/**" />
+      <exclude name="**/com/mobeon/masp/mediacontentmanager/**/*Test*" />
+  </patternset>
+
+  <!--  Import generic targets -->
+  <import file="${project.basedir}/cobertura.xml" />
+  <import file="${project.basedir}/targets.xml" />
+</project>

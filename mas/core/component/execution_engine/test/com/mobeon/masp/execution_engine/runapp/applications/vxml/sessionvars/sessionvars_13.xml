@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/sessionvars/" type="application/xml+ccxml">
+        <document src="sessionvars_13.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/sessionvars/" type="application/xml+vxml">
+        <document src="sessionvars_13.vxml"/>
+    </documents>
+</application>

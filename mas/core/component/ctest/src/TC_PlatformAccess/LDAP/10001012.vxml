@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="greeting" expr="'greeting.tagged.wav'" />
+		<var name="result" />
+		<block>
+			<audio expr="greeting" />
+			<script>
+				<![CDATA[
+				var ids = mas.systemGetMediaContentIds('Prompt', null);
+				
+				if (ids == null) {
+					mas.systemLog(3, 'TC 10001012 - NO id:s');
+				} else {
+					mas.systemLog(3, 'TC 10001012 - id count = ' + ids.length);
+				}
+				
+				/*
+				greeting = mas.systemGetMediaContent(
+					'Prompt',
+					'greeting.tagged.wav',
+					null);
+				mas.subscriberSetGreeting(
+					'0731950950',
+					'allcalls',
+					'voice',
+					null,
+					null);
+				result = mas.subscriberGetGreeting(
+					'0731950950',
+					'allcalls',
+					'voice',
+					null);
+				*/
+				]]>
+			</script>
+			<!--
+			<audio expr="result" />
+			-->
+			<log>TC 10001012 PASSED</log>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 10001012 FAILED</log>
+		<log>Error caught <value expr="_event" /></log>
+		<log>Error message= <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

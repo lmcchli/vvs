@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <property name="timeout" value="0s"/>
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <noinput>
+        <log>TCFAIL noinput</log>
+        <exit/>
+    </noinput>
+
+    <var name="numberOfRuns" expr="0"></var>
+
+    <form id="form1">
+
+        <block>
+            <if cond="numberOfRuns == 10">
+                <log>TCPASS</log>
+                <exit></exit>
+            </if>
+            <assign name="numberOfRuns" expr="numberOfRuns+1"></assign>
+        </block>
+
+        <!-- enter DTMF while in here -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(5000);</script>
+        </block>
+
+        <field name="f1">
+        </field>
+
+        <filled>
+            <if cond="f1$.utterance != '1'">
+                <log>TCFAIL wrong utterance</log>
+                <exit></exit>
+            </if>
+        </filled>
+
+        <nomatch>
+            <log>TCFAIL nomatch</log>
+            <exit></exit>
+
+        </nomatch>
+
+        <block>
+            <goto next="#form1"></goto>
+        </block>
+    </form>
+
+</vxml>

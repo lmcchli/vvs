@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <form id="main_form">
+
+
+        <field name="collect_numbers">
+            <prompt>
+                This is the TR26990 prompt
+            </prompt>
+            <grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+                <rule id="gd1_main_rule2">
+                    <one-of>
+                        <item>0</item>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                        <item>4</item>
+                        <item>5</item>
+                        <item>6</item>
+                        <item>7</item>
+                        <item>8</item>
+                        <item>9</item>
+                    </one-of>
+                </rule>
+                <rule id="gd1_main_rule" scope="public">
+                    <one-of>
+                        <item repeat="0-">
+                            <ruleref uri="#gd1_main_rule2"/>
+                        </item>
+                        <item>
+                            <item repeat="0-">
+                                <ruleref uri="#gd1_main_rule2"/>
+                            </item>
+                            <one-of>
+                                <item>*</item>
+                            </one-of>
+                        </item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <if cond="collect_numbers == '*'">
+                    <goto nextitem="second"/>
+                </if>
+            </filled>
+        </field>
+
+        <field name="second">
+            <prompt>In second prompt</prompt>
+
+            <grammar version="1.0" mode="dtmf" root="second_rule">
+                <rule id="second_rule">
+                    <one-of>
+                        <item>0</item>
+                        <item>*</item>
+                        <item>8</item>
+                    </one-of>
+                </rule>
+            </grammar>
+
+            <filled>
+                <log>TCFAIL: Match with value <value expr="second" /></log>
+            </filled>
+            <nomatch>
+                <log>TCPASS: We have a corrrect no match</log>
+                <exit />
+            </nomatch>
+        </field>
+    </form>
+</vxml>

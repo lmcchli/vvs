@@ -1,0 +1,30 @@
+# Tested in lab w/o iMux. 
+# MAS version: DP5.004
+MAS: MAS_DP5.004: 08-05-16 09:10:07
+Result from test: Passed: PlatformAccess - LDAP - subscriberCreate: 10001000
+Result from test: Failed: PlatformAccess - LDAP - subscriberDelete: 10001001
+Find additional information in log/autotest_TC_PlatformAccess_mainlog_080516-091004.log
+Result from test: Passed: PlatformAccess - LDAP - subscriber[Get/Set]BooleanAttribute: 10001002
+Result from test: Passed: PlatformAccess - LDAP - subscriber[Get/Set]IntegerAttribute: 10001003
+Result from test: Passed: PlatformAccess - LDAP - subscriber[Get/Set]StringAttribute: 10001004
+Result from test: Passed: PlatformAccess - LDAP - subscriberGetCosBooleanAttribute: 10001005
+Result from test: Passed: PlatformAccess - LDAP - subscriberGetCosIntegerAttribute: 10001006
+Result from test: Passed: PlatformAccess - LDAP - subscriberGetCosStringAttribute: 10001007
+Result from test: Passed: PlatformAccess - LDAP - subscriberGetCommunityBooleanAttribute: 10001008
+Result from test: Passed: PlatformAccess - LDAP - subscriberGetCommunityIntegerAttribute: 10001009
+Result from test: Passed: PlatformAccess - LDAP - subscriberGetCommunityStringAttribute: 10001010
+Result from test: Passed: PlatformAccess - LDAP - subscriberExist: 10001011
+Result from test: Passed: PlatformAccess - IMAP - mailboxAddFolder/mailboxGetFolder: 10002000
+Result from test: Passed: PlatformAccess - IMAP - mailboxGetFolder: 10002001
+Result from test: Passed: PlatformAccess - IMAP - mailboxGetFolder: 10002002
+Result from test: Passed: PlatformAccess - IMAP - mailboxGetMessageList: 10002003
+Result from test: Passed: PlatformAccess - IMAP - mailboxGetNumberOfMessages: 10002004
+Result from test: Passed: PlatformAccess - IMAP - mailboxGetMessageSubList: 10002005
+Result from test: Failed: PlatformAccess - IMAP - mailboxSetRead[Only / Write]: 10002006
+Find additional information in log/autotest_TC_PlatformAccess_mainlog_080516-091004.log
+Result from test: Passed: PlatformAccess - SMTP - messageStore: 10003000
+Result from test: Passed: PlatformAccess - SMTP - messageForward: 10003001
+*****************************************************
+PASSED TESTS:       19
+FAILED TESTS:        2
+*****************************************************

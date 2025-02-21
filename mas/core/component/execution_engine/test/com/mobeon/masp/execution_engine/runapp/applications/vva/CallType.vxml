@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="cond1">
+      <block>
+         <if cond="((PhoneNumber_IsIVRtoSMS (DNIS) == true))">
+            <goto next="IvrToSms.vxml" />
+            <else />
+            <if cond="((PhoneNumber_StartsWithRetrievalPrefix (DNIS) == true))">
+               <goto next="#sub1" />
+               <else />
+               <if cond="((System_GetConfig ('vva.incomingcall', 'retrievaldnis') == DNIS))">
+                  <goto next="Identification.vxml" />
+                  <elseif cond="((System_GetConfig ('vva.incomingcall', 'admingreetingdnis') == DNIS))" />
+                  <goto next="Identification.vxml" />
+                  <elseif cond="((System_GetConfig ('vva.incomingcall', 'faxprintdnis') == DNIS))" />
+                  <goto next="Identification.vxml" />
+                  <else />
+                  <if cond="((DNIS == System_GetConfig('vva.incomingcall', 'depositdnis')))">
+                     <if cond="((RDNIS &gt; ''))">
+                        <if cond="((ANI == RDNIS))">
+                           <if cond="((System_GetConfig ('vva.incomingcall', 'retrievalallowedatdepositdnis') == 'yes'))">
+                              <goto next="Identification.vxml" />
+                              <else />
+                              <goto next="#sub2" />
+                           </if>
+                           <else />
+                           <goto next="#sub2" />
+                        </if>
+                        <else />
+                        <if cond="((System_GetConfig ('vva.incomingcall', 'retrievalallowedatdepositdnis') == 'yes'))">
+                           <goto next="AskDepositOrRetrieval.vxml" />
+                           <else />
+                           <goto next="DepositAskForNumber.vxml" />
+                        </if>
+                     </if>
+                     <else />
+                     <if cond="((DNIS == System_GetConfig('vva.incomingcall', 'directdepositdnis')))">
+                        <goto next="DepositAskForNumber.vxml" />
+                        <else />
+                        <if cond="((RDNIS &gt; ''))">
+                           <if cond="((ANI == RDNIS))">
+                              <if cond="((System_GetConfig ('vva.incomingcall', 'aniequalsdepositid') == 'Retrieval'))">
+                                 <goto next="Identification.vxml" />
+                                 <else />
+                                 <goto next="#cond16" />
+                              </if>
+                              <else />
+                              <goto next="#cond16" />
+                           </if>
+                           <else />
+                           <if cond="((PhoneNumber_IsASubscriber (DNIS) == true))">
+                              <if cond="((ANI == DNIS))">
+                                 <if cond="((System_GetConfig ('vva.incomingcall', 'aniequalsdepositid') == 'retrieval'))">
+                                    <goto next="Identification.vxml" />
+                                    <else />
+                                    <goto next="#sub4" />
+                                 </if>
+                                 <else />
+                                 <goto next="#sub4" />
+                              </if>
+                              <else />
+                              <if cond="((ANI &gt; ''))">
+                                 <goto next="Identification.vxml" />
+                                 <else />
+                                 <goto next="AskDepositOrRetrieval.vxml" />
+                              </if>
+                           </if>
+                        </if>
+                     </if>
+                  </if>
+               </if>
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Utility_SetGlobalObject ('Subscriber', PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callednumberretrprefixrule'), DNIS, ''))</script>
+      <block>
+         <if cond="((PhoneNumber_IsASubscriber (GlobalObject.Subscriber) == true))">
+            <goto next="Identification.vxml" />
+            <else />
+            <goto next="AskDepositOrRetrieval.vxml" />
+         </if>
+      </block>
+   </form>
+   <form id="sub2">
+      <script>Utility_SetGlobalObject ('Subscriber', RDNIS)</script>
+      <block>
+         <goto next="Deposit.vxml" />
+      </block>
+   </form>
+   <form id="cond16">
+      <block>
+         <if cond="((PhoneNumber_IsASubscriber (RDNIS) == true))">
+            <goto next="#sub3" />
+            <else />
+            <goto next="AskDepositOrRetrieval.vxml" />
+         </if>
+      </block>
+   </form>
+   <form id="sub3">
+      <script>Utility_SetGlobalObject ('Subscriber', RDNIS)</script>
+      <block>
+         <goto next="Deposit.vxml" />
+      </block>
+   </form>
+   <form id="sub4">
+      <script>Utility_SetGlobalObject ('Subscriber', DNIS)</script>
+      <block>
+         <goto next="Deposit.vxml" />
+      </block>
+   </form>
+</vxml>

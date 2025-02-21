@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <nomatch>
+        <log>TCFAIL nomatch</log>
+        <exit></exit>
+    </nomatch>
+
+    <form id="rec1">
+
+        <property name="termchar" value="A" />
+
+        <grammar mode="dtmf" version="1.0" root="rec1_main_rule">
+            <rule id="rec1_main_rule">
+                <item>2#</item>
+            </rule>
+        </grammar>
+
+        <record name="recording" dtmfterm="false">
+
+            <filled>
+                <log>TCPASS: record ok</log>
+                <exit/>
+            </filled>
+        </record>
+    </form>
+
+</vxml>

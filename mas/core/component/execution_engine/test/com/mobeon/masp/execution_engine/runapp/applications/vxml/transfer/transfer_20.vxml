@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit/>>
+    </catch>
+
+   <form>
+       <subdialog name="form1" src="transfer_20_1.vxml">
+           <filled>
+               <log>TCPASS</log>
+               <exit></exit>
+           </filled>
+       </subdialog>
+       <block>
+           <log>ERROR</log>
+       </block>
+   </form>
+</vxml>

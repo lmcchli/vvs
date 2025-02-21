@@ -1,0 +1,16 @@
+<mediacontentpackage id="de_audio_fungreetings"
+                     language="de"
+                     type="fun"
+                     priority="1">
+
+     
+    <voice variant="none" />
+
+    <codecs>
+        <codec mimetype="audio/pcmu" />
+    </codecs>
+
+    <contentfile path="./MediaContent.xml" />
+    <objectfile path="./MediaObjects.xml" />
+
+</mediacontentpackage>

@@ -1,0 +1,17 @@
+<mediacontentpackage id="sv_audio_1"
+                     language="sv"
+                     type="prompt"
+                     priority="2">
+
+
+    <voice variant="male" />
+
+    <codecs>
+        <codec mimetype="audio/pcmu" />
+    </codecs>
+
+    <grammarfile path="./grammar.xml" />
+    <contentfile path="./MediaContent.xml"/>
+    <objectfile path="./MediaObjects.xml" />
+
+</mediacontentpackage>

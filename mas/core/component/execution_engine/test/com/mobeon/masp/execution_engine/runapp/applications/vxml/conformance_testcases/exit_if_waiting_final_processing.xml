@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/conformance_testcases/" type="application/xml+ccxml">
+        <document src="exit_if_waiting_final_processing.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/conformance_testcases/" type="application/xml+vxml">
+        <document src="exit_if_waiting_final_processing.vxml"/>
+    </documents>
+</application>

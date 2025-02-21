@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+		<var name="phoneNumber"/>
+		<var name="origPhoneNumber"/>
+		<var name="unknown_sender"/>
+		<var name="unknown_receiver"/>
+		<var name="redirNumber"/>
+		 
+		<block>
+		    <!-- Bad qualifier should result in error -->
+			<script>
+				mas.systemSetMediaResources("en", "male", null);
+				
+				var qualifiers = new Array();
+			    var qualifier = util.getMediaQualifier("String", "HELLO");
+			    qualifiers.push(qualifier);
+			    
+			    var mediaObjects = new Array();
+				mediaObjects = mas.systemGetMediaContent("Prompt", "augustorseptember",qualifiers );
+				
+			</script>
+			<log>TEST 20105041  FAILED</log> 
+		</block>
+		
+		
+	 	
+	</form>
+	 
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TEST 20105041  PASSED</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

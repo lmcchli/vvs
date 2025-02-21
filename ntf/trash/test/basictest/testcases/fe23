@@ -1,0 +1,159 @@
+BTS FE23
+2007-04-23
+Lennart Rasmusson, Niklas Fyhr
+-------------------------------------------------------------------------
+
+CONFIGURATION
+=============
+Verify the following combinations of settings:
+
+Feature           NTF       COS               User           Result
+                  Config    ServiceSetting    emUserNTD
+--------------------------------------------------------------------------
+RetrievalCancel   Off       X                 X              No cancel
+                  On        X                 X              Cancel
+
+CheckTerminal     Off       X                 X              Terminal ignored
+                  On        X                 X              Terminal checked at deposit
+                                                             Cancel sent at termChange
+
+Reminder          Off       On                On             No Reminder
+                  On        Off               Off            No Reminder
+                  On        Off               On             No Reminder
+                  On        On                Off            No Reminder
+                  On        On                On             Reminder
+
+Replace           Off       On                On             No Replace
+                  On        Off               Off            No Replace
+                  On        Off               On             Replace
+                  On        On                Off            Replace
+                  On        On                On             Replace
+
+RetrievalUpdate   Off       On                On             No Update
+                  On        Off               Off            No Update
+                  On        Off               On             No Update
+                  On        On                Off            No Update
+                  On        On                On             Update
+
+TermChangeUpdate  Off       On                On             No Update
+                  On        Off               Off            No Update
+                  On        Off               On             No Update
+                  On        On                Off            No Update
+                  On        On                On             Update
+
+
+Verify that the correct template affects the SMS text, that the source
+address is configurable and that the validity is configurable for the
+following cases:
+
+Feature            Template                     Source         Validity
+---------------------------------------------------------------------------
+Reminder           unreadmessagereminder        SA_=           V_=
+RetrievalUpdate    updatesms                    SA_updatesms   V_updatesms
+TermChangeUpdate   updateafteratterminalchange  SA_updatesms   V_updatesms
+SmsInsteadOfMwi    smsinsteadofmwi              SA_=           V_=
+
+
+UPDATE SMS AT RETRIEVAL
+=======================
+Verify that an update SMS is sent after retrieval.
+Verify that it is not sent if all messages were retrieved.
+Verify that it is not sent if new deposits were made after inventory.
+Verify that it is sent to notif number.
+Verify that it is sent to delivery profile.
+Verify that MWI is tagged onto SMS where number in delivery profile has both and sent separately for MWI-only numbers.
+Verify that MWI off is sent (separately) if no mwioffcheckcount.
+Verify that MWI off is sent (separately) of no new messages.
+Verify that MWI on is sent with update SMS.
+Verify that no MWI on or off is sent if not in filter.
+
+
+TERMINAL CHANGE
+===============
+Preparation
+-----------
+- Set reminder to flash
+- Set fax notification to flash
+- Set voice notification to MWI and SMS with a template with replace (c)
+- Configure a systemnotification with replace and its own source address.
+- Set different source addresses for voice and fax.
+- Create an SMS delivery profile including telephonenumber and other numbers.
+
+Verify with terminalcheck off, that nothing happens at terminal change with none supported.
+Verify with terminalcheck on, that flash, MWI and replaced SMS are cancelled with the changed number as destination and the correct source addresses at terminal change with none supported.
+
+MWI and Update
+--------------
+Verify the following combinations of MWI and update when a terminal change event is received:
+
+Update Inbox Terminal MWI in MWI in Cancel    Result
+enable count supports filter cos    sent
+             mwi
+----------------------------------------------------------------
+no     n     yes      no     yes    no        noSMS
+no     n     yes      yes    no     no        noSMS
+no     0     yes      yes    yes    no        MWIoff
+no     n     yes      yes    yes    no        MWIon
+no     n     no       yes    yes    no        noSMS
+no     0     no       yes    yes    no        noSMS
+yes    0     yes      yes    yes    yes       MWIoff
+yes    0     yes      yes    yes    no        MWIoff
+yes    0     no       yes    yes    yes       noSMS
+yes    n     yes      yes    yes    no        MWIon
+yes    n     yes      yes    yes    yes       MWIon+UPD
+yes    n     yes      yes    yes    no        MWIon
+yes    n     no       yes    yes    yes       UPD
+yes    n     yes      yes    yes    yes       MWIon,UPD   [splitmwiandsms]
+yes    n     yes      no     yes    yes       UPD
+yes    n     yes      yes    no     yes       UPD
+
+Cancel
+------
+With only flash unsupported, verify that only flash is cancelled.
+With only MWI unsupported, verify that only MWI is cancelled.
+With only replace unsupported, verify that only replace is cancelled.
+Verify that replace is cancelled for new message notifications.
+Verify that replace is cancelled for system notifications.
+Verify that replace is cancelled for (non-list) slamdown.
+Verify that replace is cancelled for faxprintfailed notifications.
+
+REMINDER SMS TESTFALL:
+
+Se att rätt sourceaddress används. Testa med sourceaddress_unreadmessagereminder, sourceaddress_unreadmessagereminder_<cosname> och utan nåt angivet.
+Kolla att rätt validity används.
+Kolla att det går att starta om NTF och det fortfarande kommer ut reminder.
+Kolla att tiden och räknare nollställs vid nytt meddelande
+Kolla att det avbryts vid logout
+Kolla att rätt event skickas.
+
+CANCEL SMS TESTFALL
+
+Användare har SMS notifering med s mall. Inga konfigändringar förutom smesourceaddress
+Skicka nytt och gammalt logout meddelande. Ingen cancel ska skickas.
+Sätt cancelsmsatretrieval=true. Skicka gammalt logout meddelande. Inget cancel ska skickas
+Skicka nytt logout meddelande. En cancel ska skickas från default addressen (null om den inte är satt alls)
+Ha en användare med SMS=c, FLS=f med samtliga mailtyper.
+sätt configvaraibler att remindersms och updatesms ska skickas.
+Skicka nytt logout meddelande. Bara en cancel ska skickas från defaultaddressen.
+konfigrera sourceaddress_flash, sourceaddress_email, sourceaddress_fax, sourceaddress_voice, sourceaddress_video, sourceaddress_updatesms, sourceaddress_unreadmessagereminder
+Skicka nytt logout meddelande. Det ska skickas cancel från alla ovanstående addresser men inte från smesourceaddress totalt 7 cancel meddelanden
+ta bort sourceaddress flash. Skicka nytt logout meddelande. Ska skickas till alla sourceaddresser inlusive smesource. Totalt 7 cancel meddelanden
+Skapa en deliveryprofil för användaren med 3 olika sms nummer.
+Skicka nytt logout meddelande. Det ska skickas 7*3=21 olika cancel sms
+Sätt flera sourceadresser likadana. Verifiera att inga onödiga cancel görs.
+
+TERMINAL LOOKUP TESTFALL
+
+Kolla att allt vanliga fungerar utan nån konfiguration dvs. Replace, Flash, MWI, MWI med split, MWIOff
+Stäng av allting och testa:
+Enbart flash ska bli ett vanligt sms med flashinnehåll
+SMS + FLASH ska bli 2 SMS, ett med flashinnehåll
+enbart MWI ska bli ett vanligt SMS med egen template
+SMS + MWI utan split ska bli ett vanligt SMS
+SMS + MWI med split ska bara bli ett SMS
+SMS med count ska skickas som ett vanligt SMS.
+Inget MWI off ska skickas
+Skapa en systemnotifiering med replace. Verifiera att den replacar om terminalen supportar det, och blir ett vanligt SMS annars.
+Motsvarande med slamdown (utan list).
+Motsvarande med faxprintfail
+

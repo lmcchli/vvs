@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.abcxyz.services.moip</groupId>
+    <artifactId>mas</artifactId>
+    <version>MIO.CP50-SNAPSHOT</version>
+  </parent>
+  <artifactId>numberanalyzer</artifactId>
+  <name>Number Analyzer</name>
+  <packaging>jar</packaging>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>interface/com/mobeon/masp/numberanalyzer</source>
+                <source>../configurationmanager/interface/com/mobeon/masp/configuration</source>
+                <source>../configurationmanager/src/com/mobeon/masp/configuration</source>
+                <source>../eventnotifier/interface/com/mobeon/masp/eventnotifier</source>
+                <source>../eventnotifier/interface/com/mobeon/masp/execution_engine</source>
+                <source>../logging/interface/com/mobeon/masp/logging</source>
+                <source>../util/interface/com/mobeon/masp/util</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <sourceDirectory>src/com/mobeon/masp/numberanalyzer</sourceDirectory>
+  </build>
+</project>

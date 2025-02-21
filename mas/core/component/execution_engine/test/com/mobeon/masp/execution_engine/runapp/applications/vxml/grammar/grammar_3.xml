@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/grammar/" type="application/xml+ccxml">
+        <document src="grammar_3.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/grammar/" type="application/xml+vxml">
+        <document src="grammar_3.vxml"/>
+    </documents>
+</application>

@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+my $d = "$NTF_HOME/data";
+unless (-d $d) {
+    print "The data directory \"$d\" does not exist yet. Can not check free space\n";
+    exit $result;
+}
+
+my $NEEDED = 300; #Mbyte
+my $CMD = "df -k $d";
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+my ($cmdresult, $cmdoutput ) = CommandHandler::get_cmdoutput_string($CMD);
+
+if ($cmdresult == 0) {
+    foreach $_ (split( /\n/, $$cmdoutput)) {
+        # /dev/dsk/c0t0d0s0    76419177 22568827 53086159    30%    /
+        my ($filesystem, $kbytes, $used, $avail, $capacity, $mountedon) = split(/\s+/);
+        if ($avail =~ /(\d+)/) {
+            $avail = int($avail / 1000); #kbyte to Mbyte
+            print "Free space on the data directory partition \"$mountedon\" is $avail Mbyte ($NEEDED Mbyte needed)\n";
+
+            $result = 1 if $NEEDED > $avail;
+            last;
+        }
+    }
+} else {
+    print "Error executing command: $CMD\n";
+    print "Return code: $cmdresult\n";
+    if ( ref($cmdoutput) and $$cmdoutput ) {
+        print "Error output:\n$$cmdoutput\n";
+    }
+    $result = 1;
+}
+
+exit $result;
+

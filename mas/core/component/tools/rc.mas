@@ -1,0 +1,469 @@
+#!/bin/ksh
+SYSTEM_STATE="started"
+AUTOBOOT_ENABLED="autostart"
+BASEDIR=/opt/mas
+LOGPATH=/opt/logs/mas
+MVAS_INSTALL_PATH=$BASEDIR
+export MVAS_INSTALL_PATH
+# MVAS_CONFIGURATION=$BASEDIR/cfg/mas.cfg
+# export MVAS_CONFIGURATION
+HOSTNAME=`/bin/hostname`
+TIMEOUT=0
+MAS_STATUS=""
+
+
+PKG_CURSES="FALSE"
+PKG_GCC="FALSE"
+tmp_curses=""
+tmp_gcc=""
+
+#CFGTOOL=$BASEDIR/bin/cfgtool
+
+#*********************************************
+# These parameters exsist in rc.mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+# Load config values
+. ./rc.mas.conf
+
+JAVA_CLASSPATH=""
+
+
+#----------------------------------------------------------------------
+setupEnv() {
+    
+    # Check if pkg ncurses & gcc is installed.
+    # if not installed, monitor will not run.
+    
+    tmp_curses= pkginfo | grep ncurses
+    tmp_gcc= pkginfo | grep gcc
+    
+    if [  tmp_curses != "" ] 
+    then
+    	PKG_CURSES="INSTALLED"
+    fi
+    
+    if [  tmp_gcc != "" ] 
+    then
+    	PKG_GCC="INSTALLED"
+    fi
+
+    RUN_MONITOR="FALSE"
+    if [ PKG_CURSES = "INSTALLED" ]
+    then
+    	if [ PKG_GCC = "INSTALLED" ]
+    	then
+    		RUN_MONITOR="TRUE"
+    	fi
+    fi
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:$INSTALL_DIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $INSTALL_DIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$INSTALL_DIR/lib:$JAVA_CLASSPATH
+
+    DIRNAME=`pwd`
+
+}
+
+doStart() {
+
+   setupEnv
+	
+   # check if MAS is already running
+   #echo "mas:$HOSTNAME:info MasSnmpAgent already started"
+   if [ MAS_STATUS != "RUNNING" ]
+   then
+  	# Check if SNMP agent is already running
+	#echo "mas:$HOSTNAME:info MasSnmpAgent already started" 
+	
+	# make check if java_version is correct
+	# is java installed ?
+	#echo "mas:$HOSTNAME:info Wrong java version"
+	
+	 
+	#if [ ! -d $LOGPATH/om ];then  
+	#   /usr/bin/mkdir $LOGPATH/om
+	#fi
+	 
+	## set up library path
+	# LD_LIBRARY_PATH=/usr/lib/lwp:$INSTALL_DIR/lib
+	# export LD_LIBRARY_PATH
+	#     
+	# # Setup java class path
+	# libs=`ls $INSTALL_DIR/lib/*.jar`
+	# for lib in $libs
+	# do 
+	#   JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+	# done
+	# # Add lib directory to class path
+	# JAVA_CLASSPATH=$INSTALL_DIR/lib:$JAVA_CLASSPATH
+	#
+	# DIRNAME=`pwd`
+	 
+	 cd $INSTALL_DIR
+	
+	 $JAVA_HOME/bin/java -server -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main&
+	
+	 cd $DIRNAME
+	
+	 echo "mas:$HOSTNAME:info MAS started"
+	 
+	 # Starta Self Diag?
+	 # Starta SNMP Agent 
+	 # Starting MasSnmpAgent
+   else
+ 	echo "mas:$HOSTNAME:info MAS already running"
+   fi
+}
+
+
+
+monitor() {
+
+   setupEnv
+   
+   if [ RUN_MONITOR = "TRUE" ]
+   then
+   	#LD_LIBRARY_PATH=/usr/lib/lwp:$INSTALL_DIR/lib
+   	#export LD_LIBRARY_PATH
+   	#  
+   	## Setup java class path
+   	#libs=`ls $INSTALL_DIR/lib/*.jar`
+   	#for lib in $libs
+   	#do 
+   	# 	JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+   	#done
+   	#
+   	## Add lib directory to class path
+   	#JAVA_CLASSPATH=$INSTALL_DIR/lib:$JAVA_CLASSPATH
+
+   	DIRNAME=`pwd`
+ 
+   	cd $INSTALL_DIR
+
+   	$JAVA_HOME/bin/java -server -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.monitor.Monitor
+
+   	cd $DIRNAME
+ 	
+   else
+   	echo "mas:$HOSTNAME:Package missing : Ncurses and/or Gcc is missing."
+  	#/if [ PKG_CURSES != "INSTALLED" ] echo "mas:$HOSTNAME: -->  Ncurses missing."
+  	#/if [ PKG_CURSES != "INSTALLED" ] echo "mas:$HOSTNAME: -->  Gcc missing."
+
+   fi
+}
+
+status() {
+
+   	setupEnv
+	DIRNAME=`pwd`
+   	cd $INSTALL_DIR
+
+	STATUS=`$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.rpcclient.Command status`
+	
+ 	echo "MAS STATUS :" $STATUS
+ 	if [ $STATUS == "Not running" ]
+ 	then
+ 		MAS_STATUS="NOT_RUNNING"
+ 	else
+ 		MAS_STATUS="RUNNING"
+ 	fi
+
+ cd $DIRNAME
+ 
+
+}
+
+doStop() {
+
+ if [ ! -d $LOGPATH/om ];then
+    /usr/bin/mkdir $LOGPATH/om
+ fi
+
+ # Stop MAS Component
+
+
+  #Stopping MasSnmpAgent
+
+}
+
+
+loadConfig()
+{
+
+echo "INFO: Not implemented yet"
+}
+
+
+#--- Print to OM logfile ---
+logAction(){
+#  action=$1
+#  FILE=$LOGPATH/om/rc_actions.log
+#  MAX_LOGLEVEL=500000
+#  if [ ! -d $LOGPATH/om ]; then
+#    mkdir -p $LOGPATH/om
+#  fi
+#  if [ ! -f $FILE ]; then
+#    touch $FILE
+#  fi
+#  size=`cat $FILE | wc -c`
+#  if [ $size -ge $MAX_LOGLEVEL ]; then
+#    AWK=/usr/xpg4/bin/awk
+#    LastNumber=`ls $LOGPATH/om/rc_actions* | $AWK -F'rc_actions' '{print $2}' | sed s%".log"%""% | sort -nr | $AWK 'NR==1'`
+#    if [ -z "$LastNumber" ]; then
+#      LastNumber=1
+#    else
+#      LastNumber=`expr $LastNumber + 1`
+#    fi
+#    cp $FILE $LOGPATH/om/rc_actions${LastNumber}.log
+#    echo "" > $FILE
+#  fi
+#
+#  # get time zone offset
+#    tt=`$BASEDIR/bin/getTimeZone`
+#  #echo `date "+%Y-%m-%d %H:%M:%S ` $ut1 "| rc.mvas | Information | $action"  >> $FILE
+#  echo " $tt | rc.mas | Information | $action"  >> $FILE
+echo "INFO: Not implemented yet"
+}
+#--- End log function ---
+
+
+#--- START MAIN ---
+
+CMD=$1
+if [ $# -eq 2 ]; then
+    TIMEOUT=$2
+fi
+
+if [ -n "$*" ];then
+    shift
+   
+    MONCMDLINE=$*
+    CMDLINE=$*  
+fi
+
+
+case $CMD in
+
+'start')
+  doStart
+  
+  #logAction start
+ ;; 
+
+
+'stop')
+  doStop
+  echo "mas:$HOSTNAME:result ok"
+  logAction stop
+ ;;
+
+'monitor')
+  monitor
+;;
+
+
+'status')
+
+status
+
+#Checking MAS status
+
+# # ev använda ps -ef | grep MAS eller nåt..
+# # Status=`$BASEDIR/mtap/mtap.sh status | grep mtap:$HOSTNAME:status | grep -v grep | awk '{print $2}'`
+# if [ "$Status" != "started" ];then
+#    echo "mas::$HOSTNAME:info MAS stopped"
+#    MAS_STATE="stopped"
+# else
+#    echo "mas:$HOSTNAME:info MAS started"
+#    MAS_STATE="started"
+# fi
+# 
+#
+# # ev använda ps -ef | grep SNMP eller nåt..
+# # Status=`$BASEDIR/mtap/mtap.sh status | grep mtap:$HOSTNAME:status | grep -v grep | awk '{print $2}'`
+# if [ "$Status" != "started" ];then
+#    echo "mas::$HOSTNAME:info SNMP Agent stopped"
+#    SNMP_STATE="stopped"
+# else
+#    echo "mas:$HOSTNAME:info SNMP Agent started"
+#    SNMP_STATE="started"
+# fi
+
+#/echo "INFO: Not implemented yet"
+;;
+
+
+'restart')
+
+ #implies stop then start
+ doStop
+ echo "mas:$HOSTNAME:info MAS coming up"
+ doStart
+  
+  
+ logAction restart
+;;
+
+
+'register')
+
+#registration of MVAS in the MCR
+
+  #logAction register
+echo "INFO: Not implemented yet"
+;;
+
+
+'unregister')
+
+  #logAction unregister
+echo "INFO: Not implemented yet"
+
+;;
+
+
+'enableautostart')
+
+  #logAction enableautostart
+echo "INFO: Not implemented yet"
+;;
+
+
+'disableautostart')
+
+  #logAction disableautostart
+echo "INFO: Not implemented yet"
+;;
+
+
+'viewmib')
+  #pid=`/usr/bin/ps -ef | /usr/bin/grep  MvasSnmpAgent | grep -v grep | awk '{print $2}'`
+  #if [ ! "$pid" ]; then
+  #  echo "operation failed! Reason:MvasSnmpAgent is not running"
+  #else
+  #  #Do snmpwalk for MVAS
+  #  $BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/getmany -v2c localhost public mvas 2> /dev/null
+  #fi
+echo "INFO: Not implemented yet"
+;;
+
+
+'version')
+  #pid=`/usr/bin/ps -ef | /usr/bin/grep  MvasSnmpAgent | grep -v grep | awk '{print $2}'`
+  #if [ ! "$pid" ]; then
+  #   echo "operation failed! Reason:MvasSnmpAgent is not running"
+  #else
+  #   #Get the version of the MVAS
+  #   $BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/getone -v2c localhost public mvasVersion.0 2> /dev/null
+  #fi
+echo "INFO: Not implemented yet"
+;;
+
+
+'lock')
+ #pid=`/usr/bin/ps -ef | /usr/bin/grep  MvasSnmpAgent | grep -v grep | awk '{print $2}'`
+ #if [ ! "$pid" ]; then
+ #   echo "operation failed! Reason:MvasSnmpAgent is not running"
+ #else
+ #   #Lock the MVAS
+ #   $BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/setany -v2c localhost public mvasAdministrativeState.0 -i 2 2> /dev/null
+ #   logAction lock
+ #fi
+echo "INFO: Not implemented yet"
+;;
+
+
+'unlock')
+ #pid=`/usr/bin/ps -ef | /usr/bin/grep  MvasSnmpAgent | grep -v grep | awk '{print $2}'`
+ #if [ ! "$pid" ]; then
+ #   echo "operation failed! Reason:MvasSnmpAgent is not running"
+ #else
+ #   #Unlock the MVAS
+ #   $BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/setany -v2c localhost public mvasAdministrativeState.0 -i 1 2> /dev/null
+ #   logAction unlock
+ #fi
+echo "INFO: Not implemented yet"
+;;
+
+
+
+'shutdown')
+  #pid=`/usr/bin/ps -ef | /usr/bin/grep  MvasSnmpAgent | grep -v grep | awk '{print $2}'`
+  #if [ ! "$pid" ]; then
+  #  echo "operation failed! Reason:MvasSnmpAgent is not running"
+  #else
+  #  #shutdown the MVAS
+  #  $BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/setany -v2c localhost public mvasAdministrativeState.0 -i 3 2> /dev/null
+
+  #  if [ $TIMEOUT -ne 0 ]; then
+  #     COUNTER=0
+  #     while [ $COUNTER -lt $TIMEOUT ]; do
+  #        STATE=`$BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/getmany -v2c localhost public mvasAdministrativeState | cut -f2 -d = | sed 's% %%'`
+  #        if [ "$STATE" = "locked(2)" -o -z "$STATE" ]; then
+  #           COUNTER=$TIMEOUT
+  #        else
+  #           COUNTER=`expr $COUNTER + 5`
+  #           sleep 5
+  #        fi
+  #     done
+  #     $BASEDIR/EMANATE/snmp16.1.0.11/basic/sol64_sun4.bin/setany -v2c localhost public mvasAdministrativeState.0 -i 2 2> /dev/null
+  #   fi 
+  #   logAction shutdown
+  #fi
+echo "INFO: Not implemented yet"
+;;
+
+
+'testnumber')
+echo "INFO: Not implemented yet"
+;;
+
+
+'loadconfig')
+  
+ #logAction loadconfig
+echo "INFO: Not implemented yet"
+;;
+
+
+'mtapmon')
+
+echo "INFO: Not implemented yet"
+;;
+
+'installdir')
+
+#Dir   #__INSTALL_DIR__# 
+echo $INSTALL_DIR
+
+;;
+
+*)
+
+#echo "mvas:$HOSTNAME:info {start|stop|status|restart|enableautostart|disableautostart|register|unregister|viewmib|version|testnumber|lock|unlock|shutdown|loadconfig|mtapmon}"
+
+echo "mvas:$HOSTNAME:info {start|stop|restart|installdir}"
+;;
+
+esac 
+
+#--- End MAIN ---
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+   <mediaobject type="MediaFile" src="0.wav">
+		      <spokentext><![CDATA[zero]]></spokentext>
+ 		      <sourcetext><![CDATA[zero]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="1.wav">
+		      <spokentext><![CDATA[one]]></spokentext>
+ 		      <sourcetext><![CDATA[one]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="10.wav">
+		      <spokentext><![CDATA[ten]]></spokentext>
+ 		      <sourcetext><![CDATA[ten]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="11.wav">
+		      <spokentext><![CDATA[eleven]]></spokentext>
+ 		      <sourcetext><![CDATA[eleven]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="100.wav">
+		      <spokentext><![CDATA[hundred]]></spokentext>
+ 		      <sourcetext><![CDATA[hundred]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+</mediaobjects>

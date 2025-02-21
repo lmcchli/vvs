@@ -1,0 +1,11 @@
+dn: emcomponentname=esi@___XMP_HOST___, emservicename=accounting, emRegisterName=MessagingComponentRegister, o=config
+ipServiceProtocol: xmp
+emcomponenttype: esi
+emlogicalzone: unspecified
+emcomponentversion: P1A
+objectClass: top
+objectClass: emcomponent
+ipServicePort: ___XMP_PORT___
+emcomponentname: esi@___XMP_HOST___
+emhostname: ___XMP_HOST___
+

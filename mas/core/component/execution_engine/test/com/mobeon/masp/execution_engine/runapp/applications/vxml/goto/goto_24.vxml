@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form>
+       <var name="kalle" expr="1"></var>
+
+       <block name="block1">
+           <goto nextitem="block3"></goto>
+           <log>ERROR 1</log>
+
+       </block>
+
+       <block>
+           <if cond="kalle == 2">
+               <log>TCPASS</log>
+               <else/>
+               <log>ERROR 2</log>
+           </if>
+       </block>
+
+       <block name="block3">
+           <log>enter block3</log>
+           <if cond="kalle == 2">
+               <log>ERROR 3</log>
+           </if>
+           <assign name="kalle" expr="2"></assign>
+           <log>leaving block3</log>
+       </block>
+       </form>
+</vxml>

@@ -1,0 +1,1214 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "pushinitiator"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"35B67C9A0348"
+    documentation 	
+|The Implementation Model in Rational Unified Process is a collection of components, and the implementation subsystems that contain them.
+|
+|An architectural view that describes one or several system configurations; the mapping of software components (tasks, modules) to the computing nodes in these configurations.
+|
+|Defines, executables, dll's, files, subsystems, compilation order etc.
+|
+|Rational Unified Process:
+|Activity: Define the Organization of Subsystems
+|
+|These diagram will be presented in the  Implementation  View section in the document generated using the SoDA Software Architecture Document.
+|
+|It is recommended that, in most cases, the mapping should be
+|1:1 between design and implementation, that is, for each package in design there is one subsystem in the implementation model.
+|
+    
+    physical_models 	(list unit_reference_list
+	(object SubSystem "wapnotification"
+	    quid       	"3A65BEAE00BB"
+	    stereotype 	"subsystem"
+	    physical_models 	(list unit_reference_list
+		(object SubSystem "papapi"
+		    quid       	"3A65C0F20187"
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3A65C1870019"
+			    supplier   	"Component View::pushinitiator::wapnotification::papapplication"
+			    quidu      	"3A65C110019E"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A93C94E0112"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AC8896A02AC"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AC8896A02C0"
+			    supplier   	"Component View::NotificationProcess::smscConnection"
+			    quidu      	"3AC4DC5902AA"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36A9403A9"
+			    supplier   	"Component View::pushinitiator::wapnotification::paputils"
+			    quidu      	"3AD36A9102E6"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36A950101"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD5D1C103BF"
+			    supplier   	"Component View::pushinitiator::wapnotification::papclients"
+			    quidu      	"3A814E980083"
+			    supplier_is_subsystem 	TRUE))
+		    physical_models 	(list unit_reference_list
+			(object module "PapManager" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\org\\projs\\emil\\src\\ntf\\pushinitiator\\wapnotification\\papapi\\PapManager.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\org\\projs\\emil\\src\\ntf"))
+			    quid       	"3A65BF520157"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3A9D7A48028B"
+				    supplier   	"Component View::java::io::IOException"
+				    quidu      	"3A880C8902E8"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3A9D7A4802E6"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapplication::WapPushControl"
+				    quidu      	"3A65BFD40367"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "WapPerson" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapi\\WapPerson.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A8831EB037F"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BD03B9"
+				    supplier   	"Component View::java::io::IOException"
+				    quidu      	"3A880C8902E8"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BE00A3"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapplication::WapPushControl"
+				    quidu      	"3A65BFD40367"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BE0194"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BE02DE"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BE03C5"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::Person"
+				    quidu      	"3AC4DC6C009B"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BF00EB"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::NotificationEmail"
+				    quidu      	"3AC4DC6B039C"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1BF019F"
+				    supplier   	"Component View::NotificationProcess::smscConnection::SMSDevice"
+				    quidu      	"3AC4DC680320"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "PPGServer" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"CmIdentification"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Java"
+				    name       	"CopyrightNotice"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapi\\PPGServer.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A8832290220"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IWapPush" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapi\\IWapPush.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A899A7B02FA"
+			    stereotype 	""
+			    realized_interfaces 	(list realize_rel_list
+				(object Realize_Relationship
+				    quid       	"3A899C450168"
+				    supplier   	"Logical View::pushinitiator::wapnotification::papapi::IWapPush"
+				    quidu      	"3A846C670207"))
+			    language   	"Java")
+			(object module "HttpServer" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapi\\HttpServer.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A8D53A80072"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "WapPersonFactory" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapi\\WapPersonFactory.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AC8896A0324"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1C102A7"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1C2009F"
+				    supplier   	"Component View::pushinitiator::wapnotification::papclients::LdapClient"
+				    quidu      	"3AD45E5302B4"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1C20186"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+				    quidu      	"3AC4DC440260"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1C2028A"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list
+			(object Module_Diagram "Main"
+			    quid       	"3A65C1DF01B0"
+			    title      	"Main"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object ModView "Component View::pushinitiator::wapnotification::papapi::PapManager" "NotAModuleType" "NotAModulePart" @1
+				    location   	(1472, 512)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@1
+					location   	(1437, 487)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"PapManager")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A65BF520157"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)
+				(object ModView "Component View::pushinitiator::wapnotification::papapi::WapPerson" "NotAModuleType" "NotAModulePart" @2
+				    location   	(1728, 1056)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@2
+					location   	(1693, 1031)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"WapPerson")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A8831EB037F"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)
+				(object ModView "Component View::pushinitiator::wapnotification::papapi::PPGServer" "NotAModuleType" "NotAModulePart" @3
+				    location   	(1120, 1056)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@3
+					location   	(1085, 1031)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"PPGServer")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A8832290220"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)
+				(object ModView "Component View::pushinitiator::wapnotification::papapi::IWapPush" "NotAModuleType" "NotAModulePart" @4
+				    location   	(944, 512)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@4
+					location   	(909, 487)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"IWapPush")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A899A7B02FA"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)
+				(object InterfaceView "Logical View::pushinitiator::wapnotification::papapi::IWapPush" @5
+				    location   	(448, 512)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@5
+					location   	(447, 620)
+					anchor_loc 	1
+					nlines     	2
+					max_width  	228
+					justify    	0
+					label      	"IWapPush")
+				    icon       	"Interface"
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A846C670207"
+				    width      	58
+				    height     	58
+				    autoResize 	TRUE)
+				(object RealizeView "" @6
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3A899C450168"
+				    client     	@4
+				    supplier   	@5
+				    line_style 	0)))))
+		(object SubSystem "papapplication"
+		    quid       	"3A65C110019E"
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3A65C1C902B3"
+			    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+			    quidu      	"3A65C0F20187"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A846BDB00F7"
+			    supplier   	"Component View::pushinitiator::wapnotification::papclients"
+			    quidu      	"3A814E980083"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A8C0F900052"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A8C0F9000CA"
+			    supplier   	"::org::w3c::dom"
+			    quidu      	"3A8C0F8D03E7"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A8C0F90017F"
+			    supplier   	"::org::apache::xerces::dom"
+			    quidu      	"3A8C0F8B01F0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A8C0F900323"
+			    supplier   	"::org::apache::xml::serialize"
+			    quidu      	"3A8C0F8E02BC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A914B7000C1"
+			    supplier   	"::org::xml::sax"
+			    quidu      	"3A914B6F0044"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A914B7000C8"
+			    supplier   	"::org::xml::sax::helpers"
+			    quidu      	"3A914B700027"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A958D950266"
+			    supplier   	"Component View::org::w3c::dom"
+			    quidu      	"3A958BB300D2"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A958D95026F"
+			    supplier   	"Component View::org::apache::xerces::dom"
+			    quidu      	"3A958BB50111"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A958D9502A1"
+			    supplier   	"Component View::org::apache::xml::serialize"
+			    quidu      	"3A958C7B01BF"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A958D96031A"
+			    supplier   	"Component View::org::xml::sax"
+			    quidu      	"3A958BB500C1"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A958D960324"
+			    supplier   	"Component View::org::xml::sax::helpers"
+			    quidu      	"3A958C030235"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD1FC6A0197"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36AAD00F2"
+			    supplier   	"Component View::pushinitiator::wapnotification::paputils"
+			    quidu      	"3AD36A9102E6"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36AAD0250"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE))
+		    physical_models 	(list unit_reference_list
+			(object module "WapPushControl" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapplication\\WapPushControl.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A65BFD40367"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DF0336"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DF0337"
+				    supplier   	"Component View::pushinitiator::wapnotification::papclients"
+				    quidu      	"3A814E980083"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DF03A4"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+				    quidu      	"3A65C0F20187"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DF03CC"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E00034"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E00084"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::Person"
+				    quidu      	"3AC4DC6C009B"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "PapMsg" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapplication\\PapMsg.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A65C010031D"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D203B9"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D300AE"
+				    supplier   	"Component View::org::w3c::dom"
+				    quidu      	"3A958BB300D2"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D30180"
+				    supplier   	"Component View::org::apache::xerces::dom::AttrImpl"
+				    quidu      	"3A958BD4034F"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D30270"
+				    supplier   	"Component View::org::apache::xerces::dom::DocumentImpl"
+				    quidu      	"3A958BB70177"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D3031B"
+				    supplier   	"Component View::org::apache::xerces::dom::DOMImplementationImpl"
+				    quidu      	"3A958BB8004C"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D303CF"
+				    supplier   	"Component View::org::apache::xerces::dom::DocumentTypeImpl"
+				    quidu      	"3A958BD90108"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D40087"
+				    supplier   	"Component View::org::apache::xml::serialize::OutputFormat"
+				    quidu      	"3A958C7B02B9"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D40127"
+				    supplier   	"Component View::org::apache::xml::serialize::Serializer"
+				    quidu      	"3A958C8303B5"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D401E6"
+				    supplier   	"Component View::org::apache::xml::serialize::SerializerFactory"
+				    quidu      	"3A958C8400BE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D4027C"
+				    supplier   	"Component View::org::apache::xml::serialize::XMLSerializer"
+				    quidu      	"3A958C85030E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D40380"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+				    quidu      	"3A65C0F20187"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D500B1"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D50183"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1D50241"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces::Person"
+				    quidu      	"3AC4DC6C009B"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java")
+			(object module "PapParser" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papapplication\\PapParser.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"CmIdentification"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Java"
+				    name       	"CopyrightNotice"
+				    value      	(value Text "")))
+			    quid       	"3A96725C017A"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC0147"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC01D3"
+				    supplier   	"Component View::org::xml::sax::helpers::AttributesImpl"
+				    quidu      	"3A958C030236"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC025F"
+				    supplier   	"Component View::org::xml::sax::Attributes"
+				    quidu      	"3A958C9A035E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC02AF"
+				    supplier   	"Component View::org::xml::sax::XMLReader"
+				    quidu      	"3A958CA1016A"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC02B9"
+				    supplier   	"Component View::org::xml::sax::helpers::XMLReaderFactory"
+				    quidu      	"3A958CA40363"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC0350"
+				    supplier   	"Component View::org::xml::sax::ContentHandler"
+				    quidu      	"3A958C0301BC"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DC035A"
+				    supplier   	"Component View::org::xml::sax::Locator"
+				    quidu      	"3A958BB5012E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DD004E"
+				    supplier   	"Component View::org::xml::sax::ErrorHandler"
+				    quidu      	"3A958BFD0073"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DD00D0"
+				    supplier   	"Component View::org::xml::sax::SAXParseException"
+				    quidu      	"3A958CA6026B"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DD0116"
+				    supplier   	"Component View::org::xml::sax::SAXException"
+				    quidu      	"3A958CA503AA"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DD0184"
+				    supplier   	"Component View::org::xml::sax::InputSource"
+				    quidu      	"3A958C0701C2"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DD01CA"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1DD0261"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list
+			(object Module_Diagram "Main"
+			    quid       	"3A65C209008E"
+			    title      	"Main"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	306
+			    items      	(list diagram_item_list
+				(object ModView "Component View::pushinitiator::wapnotification::papapplication::PapMsg" "NotAModuleType" "NotAModulePart" @7
+				    location   	(384, 1008)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@7
+					location   	(349, 983)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"PapMsg")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A65C010031D"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)
+				(object ModView "Component View::pushinitiator::wapnotification::papapplication::WapPushControl" "NotAModuleType" "NotAModulePart" @8
+				    location   	(736, 464)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@8
+					location   	(694, 439)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	156
+					label      	"WapPushControl")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A65BFD40367"
+				    width      	280
+				    autoResize 	TRUE
+				    width      	280
+				    height     	162)
+				(object ModView "Component View::pushinitiator::wapnotification::papapplication::PapParser" "NotAModuleType" "NotAModulePart" @9
+				    location   	(1312, 1040)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@9
+					location   	(1277, 1015)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"PapParser")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A96725C017A"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)))))
+		(object SubSystem "papclients"
+		    quid       	"3A814E980083"
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3A899C79007C"
+			    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+			    quidu      	"3A65C0F20187"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A89B90200E5"
+			    supplier   	"Component View::java::net"
+			    quidu      	"3A880CBE00AA"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A89B90200E7"
+			    supplier   	"Component View::java::io"
+			    quidu      	"3A880C7D00EC"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A92BE290395"
+			    supplier   	"Component View::pushinitiator::wapnotification::papapplication"
+			    quidu      	"3A65C110019E"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3A9D74390082"
+			    supplier   	"Component View::sun::misc"
+			    quidu      	"3A9D74380009"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD1FC6E0052"
+			    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+			    quidu      	"3AC4DC440260"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36ABD02AD"
+			    supplier   	"Component View::pushinitiator::wapnotification::paputils"
+			    quidu      	"3AD36A9102E6"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36ABD0307"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD5D1F20351"
+			    supplier   	"Component View::java::util"
+			    quidu      	"3A880CFC02D0"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD5D1F203A1"
+			    supplier   	"Component View::netscape::ldap"
+			    quidu      	"3AC4DE2A0024"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD5D1F30064"
+			    supplier   	"Component View::NotificationProcess::smscConnection"
+			    quidu      	"3AC4DC5902AA"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD5D1F30122"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE))
+		    physical_models 	(list unit_reference_list
+			(object module "HttpClient" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papclients\\HttpClient.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A65BF3A0293"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E301D3"
+				    supplier   	"Component View::java::net"
+				    quidu      	"3A880CBE00AA"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E30237"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E3027D"
+				    supplier   	"Component View::sun::misc::BASE64Encoder"
+				    quidu      	"3A9D74380095"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E30287"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+				    quidu      	"3A65C0F20187"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E3030A"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E30350"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1E30396"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+				    quidu      	"3AC4DC440260"
+				    supplier_is_subsystem 	TRUE))
+			    language   	"Java")
+			(object module "WapClient" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papclients\\WapClient.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3A8C46EC0263"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F402F0"
+				    supplier   	"Component View::java::io"
+				    quidu      	"3A880C7D00EC"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F40304"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapi"
+				    quidu      	"3A65C0F20187"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F40368"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapplication::PapMsg"
+				    quidu      	"3A65C010031D"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F4039A"
+				    supplier   	"Component View::NotificationProcess::notificationInterfaces"
+				    quidu      	"3AC4DC440260"
+				    supplier_is_subsystem 	TRUE))
+			    language   	"Java")
+			(object module "LdapClient" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\papclients\\LdapClient.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AD45E5302B4"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F20365"
+				    supplier   	"Component View::java::util"
+				    quidu      	"3A880CFC02D0"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F3001D"
+				    supplier   	"Component View::netscape::ldap"
+				    quidu      	"3AC4DE2A0024"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F30065"
+				    supplier   	"Component View::NotificationProcess::smscConnection"
+				    quidu      	"3AC4DC5902AA"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F300C8"
+				    supplier   	"Component View::NotificationProcess::notificationLogging::Logger"
+				    quidu      	"3AC4DC59004E"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F30172"
+				    supplier   	"Component View::NotificationProcess::NotificationConfig"
+				    quidu      	"3AC4DC5A00D1"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F3017C"
+				    supplier   	"Component View::pushinitiator::wapnotification::papapi::PPGServer"
+				    quidu      	"3A8832290220"
+				    supplier_is_spec 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F30212"
+				    supplier   	"Component View::pushinitiator::wapnotification::paputils::LoggerFactory"
+				    quidu      	"3AD36A9203CE"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list
+			(object Module_Diagram "Main"
+			    quid       	"3A841994001E"
+			    title      	"Main"
+			    zoom       	100
+			    max_height 	28350
+			    max_width  	21600
+			    origin_x   	0
+			    origin_y   	0
+			    items      	(list diagram_item_list
+				(object ModView "Component View::pushinitiator::wapnotification::papclients::HttpClient" "NotAModuleType" "NotAModulePart" @10
+				    location   	(672, 368)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object ItemLabel
+					Parent_View 	@10
+					location   	(637, 343)
+					fill_color 	13434879
+					anchor_loc 	3
+					nlines     	2
+					max_width  	127
+					label      	"HttpClient")
+				    icon_style 	"Icon"
+				    line_color 	3342489
+				    fill_color 	13434879
+				    quidu      	"3A65BF3A0293"
+				    width      	228
+				    autoResize 	TRUE
+				    width      	228
+				    height     	162)))))
+		(object SubSystem "paputils"
+		    quid       	"3AD36A9102E6"
+		    visible_modules 	(list dependency_list
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36AC101A5"
+			    supplier   	"Component View::NotificationProcess::notificationLogging"
+			    quidu      	"3AC4DC59004D"
+			    supplier_is_subsystem 	TRUE)
+			(object Module_Visibility_Relationship
+			    quid       	"3AD36AC101EB"
+			    supplier   	"Component View::NotificationProcess"
+			    quidu      	"3AC4DC430254"
+			    supplier_is_subsystem 	TRUE))
+		    physical_models 	(list unit_reference_list
+			(object module "LoggerFactory" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"D:\\comps\\ntf\\src\\ntf\\pushinitiator\\wapnotification\\paputils\\LoggerFactory.java")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	"D:\\comps\\ntf\\src\\ntf"))
+			    quid       	"3AD36A9203CE"
+			    stereotype 	""
+			    visible_modules 	(list dependency_list
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F5039C"
+				    supplier   	"Component View::NotificationProcess::notificationLogging"
+				    quidu      	"3AC4DC59004D"
+				    supplier_is_subsystem 	TRUE)
+				(object Module_Visibility_Relationship
+				    quid       	"3AD5D1F503C4"
+				    supplier   	"Component View::NotificationProcess::NotificationConfig"
+				    quidu      	"3AC4DC5A00D1"
+				    supplier_is_spec 	TRUE))
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list
+		(object Module_Diagram "Main"
+		    quid       	"3A65BEBE0295"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object SubSysView "Component View::pushinitiator::wapnotification::papapi" @11
+			    location   	(1872, 336)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@11
+				location   	(1728, 267)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"papapi")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3A65C0F20187"
+			    width      	300
+			    height     	150)
+			(object SubSysView "Component View::pushinitiator::wapnotification::papapplication" @12
+			    location   	(1152, 336)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@12
+				location   	(1008, 267)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"papapplication")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3A65C110019E"
+			    width      	300
+			    height     	150)
+			(object SubSysView "Component View::pushinitiator::wapnotification::papclients" @13
+			    location   	(1152, 944)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@13
+				location   	(1008, 875)
+				fill_color 	13434879
+				nlines     	2
+				max_width  	288
+				justify    	0
+				label      	"papclients")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3A814E980083"
+			    width      	300
+			    height     	150)
+			(object ModVisView "" @14
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3A65C1870019"
+			    client     	@11
+			    supplier   	@12
+			    line_style 	0)
+			(object ModVisView "" @15
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3A846BDB00F7"
+			    client     	@12
+			    supplier   	@13
+			    line_style 	0))))))
+    physical_presentations 	(list unit_reference_list
+	(object Module_Diagram "ImplementationModelStructure"
+	    quid       	"34DBB487006E"
+	    title      	"ImplementationModelStructure"
+	    documentation 	"This diagram presents the organization of the Implementation Model."
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list
+		(object NoteView @16
+		    location   	(624, 160)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@16
+			location   	(21, 26)
+			fill_color 	13434879
+			nlines     	5
+			max_width  	1170
+			label      	
+|
+|RationalUnified Process:
+|Activity: Structure the implementation model
+|Step: Create the Initial Implementation Model Structure
+			)
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	1230
+		    height     	281)
+		(object SubSysView "Component View::pushinitiator::wapnotification" @17
+		    location   	(720, 624)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@17
+			location   	(576, 602)
+			fill_color 	13434879
+			nlines     	2
+			max_width  	288
+			justify    	0
+			label      	"wapnotification")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@17
+			location   	(576, 555)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	288
+			justify    	0
+			label      	"<<subsystem>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"3A65BEAE00BB"
+		    width      	300
+		    height     	150)))))

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.badfetch">
+        <log>TCPASS</log>
+    </catch>
+    <form>
+        <var name="target" expr="true"></var>
+        <block>
+            <!-- Goto a variable evaluating to boolean true
+            We expect this to not work even though there is a form named 'true'-->
+            <goto expr="target"></goto>
+        </block>
+    </form>
+    <form id="true">
+        <block>
+            <log>ERROR</log>
+        </block>
+    </form>
+</vxml>

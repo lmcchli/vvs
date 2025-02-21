@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="mylt" expr="'&lt;'"/>
+	<var name="myrt" expr="'&gt;'"/>
+	<block>
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+	</block>
+
+        <block>
+		<var name="greeting"/>
+		<log>PhoneNumber=<value expr="phoneNumber"/></log>
+		<script>
+			greeting = "UM_0186.mov";
+		</script>
+            	<prompt>
+       		    	<audio expr="greeting"/>
+       		</prompt>
+        </block>
+
+	<record name="recording" dtmfterm="true">
+		<prompt>
+			<audio src="UM_0936.mov" />
+		</prompt>
+		<filled>
+			<log>RECORD: Filled</log>
+			<log>Unknown receiver=<value expr="unknown_receiver"/></log>
+			<log>Unknown sender=<value expr="unknown_sender"/></log>
+			<script>
+				if (!unknown_receiver) {
+			        	var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+					var storableMessageId = mas.messageCreateNew();
+					if (!unknown_sender) {
+				        	var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+				        	var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+	        	                	var sender = mylt + callerEmailAddress[0] + myrt;
+						mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender)); 
+	        	                	var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+						if (spokenName != null) {
+							mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+						}
+					} else {
+	        	                	var sender = 'Unknown()' + mylt + myrt;
+						mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+					}
+					mas.messageSetStorableProperty(storableMessageId, 'recipients', emailaddress);
+					mas.messageSetStorableProperty(storableMessageId, 'subject', new Array('Hello everybody!'));
+					mas.messageSetStorableProperty(storableMessageId, 'type', new Array('voice'));
+					mas.messageAddMediaObject(storableMessageId, recording, 'voice message', 'message', 'en');
+					mas.messageStore(storableMessageId);
+				}
+			</script>
+		</filled>
+	</record>
+
+	</form>
+
+        <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<exit/>
+       </catch>
+
+	<catch event="connection.disconnect.hangup">
+			<log>RECORD: Hangup</log>
+			<script>
+				if (!unknown_receiver) {
+			        	var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+					var storableMessageId = mas.messageCreateNew();
+					if (!unknown_sender) {
+				        	var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+				        	var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+	        	                	var sender = mylt + callerEmailAddress[0] + myrt;
+						mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+	        	                	var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+						if (spokenName != null) {
+							mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+						}
+					} else {
+	        	                	var sender = 'Unknown()' + mylt + myrt;
+						mas.messageSetProperty(storableMessageId, 'sender', new Array(sender));
+					}
+					mas.messageSetStorableProperty(storableMessageId, 'recipients', emailaddress);
+					mas.messageSetStorableProperty(storableMessageId, 'subject', new Array('Hello everybody!'));
+					mas.messageSetStorableProperty(storableMessageId, 'type', new Array('voice'));
+					mas.messageAddMediaObject(storableMessageId, recording, 'voice message', 'message', 'en');
+					mas.messageStore(storableMessageId);
+				}
+			</script>
+		<exit/>
+	</catch>
+
+</vxml>
+

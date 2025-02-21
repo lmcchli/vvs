@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="grammar_scope2_root.vxml">
+
+    <form id="form1" scope="document">
+
+        <field name="leaf1_field">
+            <grammar mode='dtmf' root='leaf1'>
+                <rule id='leaf1'>
+                    <item>7</item>
+                </rule>
+            </grammar>
+            <grammar mode='dtmf' root='qq'>
+                <rule id='qq'>
+                    <item>88</item>
+                </rule>
+            </grammar>
+            <prompt>Leaf1 prompt</prompt>
+            <filled>
+                <if cond="leaf1_field==7">
+                    <goto next="grammar_scope2_leaf2.vxml"/>
+                <else/>
+                    <log>TCFAIL: in leaf1</log>
+                </if>
+            </filled>
+        </field>
+    </form>
+</vxml>

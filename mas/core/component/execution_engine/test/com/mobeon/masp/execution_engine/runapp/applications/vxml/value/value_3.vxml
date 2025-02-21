@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form id="uno">
+       <block>
+           <script>
+               var testObj = new Packages.com.mobeon.masp.execution_engine.runapp.applications.vxml.value.ValueGenerator("TESTING", 12, 13.13,false);
+               var str = testObj.getString();
+           </script>
+           <log>TCPASS: <value expr="testObj.getString()"></value></log>
+           <log>TCPASS: <value expr="testObj.getInt()"></value></log>
+           <log>TCPASS: <value expr="testObj.getFloat()"></value></log>
+           <log>TCPASS: <value expr="testObj.getBool()"></value></log>
+           <log>TCPASS: <value expr="str"></value></log>
+           <log>TCPASS: <value expr="testObj.getString().length"></value></log>
+           <log>TCPASS: <value expr="str.length"></value></log>
+           <log>TCPASS: <value expr="testObj.getString() === testObj.getString()"></value></log>
+           <log>TCPASS: <value expr="testObj.getStringArray()[1]"></value></log>
+       </block>
+   </form>
+</vxml>

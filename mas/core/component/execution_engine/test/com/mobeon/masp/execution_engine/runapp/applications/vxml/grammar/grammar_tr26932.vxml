@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <form id="main_form">
+
+        <field name="field1">
+            <prompt>
+                This is a prompt
+            </prompt>
+            <filled>
+                <log>TCPASS: In filled</log>
+                <if cond="field1=='*'">
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <elseif cond="field='3'"/>
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <elseif cond="field='*'"/>
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <elseif cond="field='* *'"/>
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <else/>
+                    <log>TCFAIL: Fail value
+                        <value expr="field1"/>
+                    </log>
+                </if>
+            </filled>
+
+            <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>#</item>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>5</item>
+                  <item>6</item>
+                  <item>7</item>
+                  <item>9</item>
+                  <item>1 0</item>
+                  <item>1 1</item>
+                  <item>*</item>
+                  <item>* 4</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+        </field>
+    </form>
+</vxml>

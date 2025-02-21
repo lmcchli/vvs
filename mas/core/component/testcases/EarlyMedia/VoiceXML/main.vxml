@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<var name="message"/>
+	<form id="form1">
+		<property name="timeout" value="10s"/>
+		<field name="menu">
+			<prompt>
+				<audio expr="mas.systemGetMediaContent('prompt',2);"/>
+			</prompt>
+			<grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+				<rule id="gd1_main_rule">
+					<one-of>
+						<item>1</item>
+						<item>2</item>
+						<item>3</item>
+					</one-of>
+				</rule>
+			</grammar>
+			<filled>
+				<assign name="menu" expr="menu.replace(/ /g,'')"/>
+				<if cond="menu=='1'">
+					<goto next="#record"/>
+				</if>
+				<if cond="menu=='2'">
+					<goto next="#newmcp"/>
+				</if>
+				<if cond="menu=='3'">
+					<goto next="#transfer"/>
+				</if>
+			</filled>
+			<catch event="noinput">
+				<log label="error">TC  Early Media no input</log>
+				<exit/>
+			</catch>
+		</field>
+	</form>
+	<!-- =================================== -->
+	<form id="record">
+	
+			<record name="recording" dtmfterm="true">
+				<catch event="noinput">
+					<log label="error">TC  Early Media no recording</log>
+					<exit/>
+				</catch>
+				<filled>
+					<assign name="message" expr="recording"/>
+					<goto next="#playrecording"/>
+				</filled>
+			</record>
+	</form>
+	<!-- =================================== -->
+	<form id="playrecording">
+		<block>
+			<prompt>
+				<audio expr="message"/>
+			</prompt>
+			<exit/>
+		</block>
+	</form>
+	<!-- =================================== -->
+	<form id="newmcp">
+		<script>mas.systemSetMediaResources('sv','male','');</script>
+		<block>
+			<prompt>
+				<audio expr="mas.systemGetMediaContent('prompt',3);"/>
+			</prompt>
+			<exit/>
+		</block>
+	</form>
+	<!-- =================================== -->
+	<form id="transfer">
+		<transfer name="outboundcall" bridge="true" destexpr="'1077'">
+			<grammar version="1.0" mode="dtmf" root="tc1_main_rule">
+				<rule id="tc1_main_rule" scope="public">
+					<item>*</item>
+				</rule>
+			</grammar>
+			<filled>
+				<if cond="outboundcall == 'far_end_disconnect'">
+					<prompt bargein="true">
+						<audio expr="mas.systemGetMediaContent('prompt',4);"/>
+					</prompt>
+					<exit/>
+				</if>
+				<throw event="error.connection"/>
+			</filled>
+		</transfer>
+	</form>
+</vxml>

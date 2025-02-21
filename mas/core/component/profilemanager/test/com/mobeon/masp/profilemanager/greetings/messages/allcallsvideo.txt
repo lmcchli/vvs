@@ -1,0 +1,17 @@
+From: GrtAdm_33
+To: 19161
+Subject: All Calls (video)
+MIME-Version: 1.0
+Content-Type: multipart/Greeting-Message; 
+	boundary="----=_Part_21_26444906.1147788652817"
+X-M3-Greeting-Type: AllCalls
+X-M3-Greeting-Format: video
+
+------=_Part_21_26444906.1147788652817
+Content-Type: video/quicktime; name=allcalls.mov
+Content-Transfer-Encoding: base64
+Content-Description: Greeting Message (1 seconds)
+Content-Duration: 1
+Content-Disposition: inline; filename=allcalls.mov; video=Greeting-Message
+
+------=_Part_21_26444906.1147788652817--

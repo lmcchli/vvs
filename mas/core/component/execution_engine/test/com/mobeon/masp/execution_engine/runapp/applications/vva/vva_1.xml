@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vva/" type="application/xml+ccxml">
+        <document src="vva_1.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vva/" type="application/xml+vxml">
+        <document src="AddressMessage.vxml"/>
+    </documents>
+</application>

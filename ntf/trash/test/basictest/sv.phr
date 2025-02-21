@@ -1,0 +1,26 @@
+h=Nytt header från __FROM__ med storlek __MSG_SIZE__ som handlar om __SUBJECT__ . \
+Meddelandets status är __STATUS__. Det finns __NUM_ATTACHMENTS__ bifogade. Meddelandet \
+har typen __DEPOSIT_TYPE__.
+s=Nytt subject __SUBJECT__!
+c=Nytt count __NUM_NEW_TOT__
+general=Nytt
+TotCountText=Totalt count
+FaxCountText=Fax count
+VoiceCountText=Voice count
+EmailCountText=Email count
+TotCountText0=Inga alls
+FaxCountText0=Inga fax
+VoiceCountText0=
+EmailCountText0=Inga email
+TotCountText1=Bara ett
+FaxCountText1=Ett fax
+VoiceCountText1=Ett voice
+EmailCountText1=Ett email
+FaxSize=__SIZE__ sidor
+EmailSize=__SIZE__ kB
+VoiceSize=längd __SIZE__ sekunder
+urgent=Illa bråttom
+normal=Coola bananer
+fax=faxen
+voice=röst
+email=email

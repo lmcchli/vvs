@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="main_form">
+    <var name="phoneNumber"/>
+        <block>
+			<script>
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+			</script>
+			<if cond="!mas.subscriberExist(phoneNumber)">
+			    <exit />
+			</if>
+		</block>
+
+		<block>
+			<script>
+			    var mailboxId = mas.subscriberGetMailbox(phoneNumber);
+			    var folderId = mas.mailboxGetFolder(mailboxId0, "INBOX");
+			    var messageListId = mas.mailboxGetMessageList(folderId, "voice", "new", null, null, "FIFO");
+			    var messageIds = mas.mailboxGetMessages(messageListId);
+                var messageContentIds = mas.messageGetContent(messageIds[0]);
+                //iMediaObject = mas.messageGetMediaObject(messageContentIds[0]);
+			</script>
+		</block>
+	</form>
+</vxml>

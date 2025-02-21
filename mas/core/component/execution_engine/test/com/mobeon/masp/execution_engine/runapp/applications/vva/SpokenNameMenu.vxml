@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="spokenName" />
+   <var name="mediaType" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime" />
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="ccond2">
+      <block>
+         <if cond="Call_IsVoice() == true || GlobalObject.WorkWithVoiceGreetings == true">
+            <goto next="#assign2" />
+            <elseif cond="Subscriber_HasService(GlobalObject.Subscriber, 'video') == false" />
+            <goto next="#assign2" />
+            <elseif cond="Subscriber_HasService(GlobalObject.Subscriber, 'video') == true" />
+            <goto next="#assign3" />
+            <else />
+            <goto next="#assign3" />
+         </if>
+      </block>
+   </form>
+   <form id="assign2">
+      <block>
+         <assign name="mediaType" expr="'voice'" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="spokenName" expr="Greeting_GetGreeting(GlobalObject.Subscriber, 'SpokenName', mediaType)" />
+         <goto next="#ccond1" />
+      </block>
+   </form>
+   <form id="ccond1">
+      <block>
+         <if cond="spokenName == null">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(501)" />
+            </prompt>
+            <goto next="#cmnu1" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == true" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(500)" />
+            </prompt>
+            <goto next="#cmnu1" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(499)" />
+            </prompt>
+            <goto next="#cmnu1" />
+         </if>
+      </block>
+   </form>
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('SpokenNameMenu.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(522)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == false">
+            <audio expr="System_GetPrompt(502)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == false">
+            <audio expr="System_GetPrompt(503)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == true">
+            <audio expr="System_GetPrompt(504)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == true">
+            <audio expr="System_GetPrompt(505)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; spokenName != null">
+            <audio expr="System_GetPrompt(506)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; spokenName != null">
+            <audio expr="System_GetPrompt(507)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(508)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(509)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; spokenName != null">
+            <audio expr="System_GetPrompt(510)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; spokenName != null">
+            <audio expr="System_GetPrompt(511)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; spokenName == null">
+            <audio expr="System_GetPrompt(512)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; spokenName == null">
+            <audio expr="System_GetPrompt(513)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; spokenName != null">
+            <audio expr="System_GetPrompt(514)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; spokenName != null">
+            <audio expr="System_GetPrompt(515)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(12)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(13)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(14)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>#</item>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>*</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#proc2004" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes') &amp;&amp; (GlobalObject.MainMenuValid == true))">
+                  <goto next="MainMenu.vxml" />
+                  <else />
+                  <goto next="Goodbye.vxml" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '#'">
+               <if cond="Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == false">
+                  <goto next="#sub1" />
+               </if>
+            </if>
+            <if cond="menu_input == '#'">
+               <if cond="Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName', mediaType) == true">
+                  <goto next="#sub2" />
+               </if>
+            </if>
+            <if cond="menu_input == '1'">
+               <if cond="spokenName != null">
+                  <goto next="#pmess1" />
+               </if>
+            </if>
+            <if cond="menu_input == '2'">
+               <if cond="spokenName != null">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(2203, new Array(System_GetMediaQualifier(spokenName)))" />
+                  </prompt>
+                  <goto next="#ptarget1" />
+                  <else />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(2200, new Array(System_GetMediaQualifier('String', GlobalObject.Subscriber)))" />
+                  </prompt>
+                  <goto next="#ptarget1" />
+               </if>
+            </if>
+            <if cond="menu_input == '3'">
+               <if cond="spokenName != null">
+                  <goto next="#sub3" />
+               </if>
+            </if>
+            <if cond="menu_input == '4'">
+               <if cond="spokenName == null">
+                  <goto next="#proc1" />
+               </if>
+            </if>
+            <if cond="menu_input == '4'">
+               <if cond="spokenName != null">
+                  <goto next="#proc1" />
+               </if>
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*'">
+               <if cond="((GlobalObject.PreviousMenuValid == true))">
+                  <goto expr="Menu_GetPrevious()" />
+               </if>
+            </if>
+            <if cond="menu_input == '*0'">
+               <goto next="#proc2007" />
+            </if>
+            <if cond="menu_input == '0'">
+               <goto next="#ptarget2002" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2005" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2003" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="proc2004">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastMenuInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult" expr="sub.resultCode" />
+            <goto next="#ptarget2001" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2001">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Greeting_Activate (GlobalObject.Subscriber, 'SpokenName', mediaType)</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(516)" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#cmnu1" />
+      </block>
+   </form>
+   <form id="sub2">
+      <script>Greeting_Deactivate (GlobalObject.Subscriber, 'SpokenName', mediaType)</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(517)" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="pmess1">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="spokenName" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="sub3">
+      <script>Greeting_Delete (GlobalObject.Subscriber, 'SpokenName', mediaType)</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(519)" />
+         </prompt>
+         <assign name="spokenName" expr="null" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="RecordGreeting.vxml">
+         <param name="p_greetingType" expr="'SpokenName'" />
+         <param name="p_mediaType" expr="mediaType" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <if cond="procedureResult == 'recordingOK'">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(520)" />
+               </prompt>
+               <goto next="#ptarget1" />
+               <elseif cond="procedureResult == 'recordingFailed'" />
+               <goto next="#prompt1" />
+               <else />
+               <goto next="#prompt1" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(521)" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="proc2007">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2002">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2005">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult" expr="sub.resultCode" />
+            <goto next="MainMenu.vxml" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2003">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="assign3">
+      <block>
+         <assign name="mediaType" expr="'video'" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <assign name="spokenName" expr="null" />
+      <goto next="#ccond1" />
+   </catch>
+</vxml>

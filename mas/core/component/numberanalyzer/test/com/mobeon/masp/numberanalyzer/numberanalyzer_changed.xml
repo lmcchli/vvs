@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="../../../../../../cfg/numberanalyzer.xsd">
+    <numberanalyzer>
+        <rule name="INBOUNDCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="6,10"/>
+            </subrule>
+            <subrule name="All">
+                <input expr="^(1[09])([0-9]{2})$"/>
+                <return expr="566010$i1$i2"/>
+            </subrule>
+        </rule>
+    </numberanalyzer>
+</configuration>

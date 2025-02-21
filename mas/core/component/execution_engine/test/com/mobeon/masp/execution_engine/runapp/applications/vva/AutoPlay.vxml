@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="numNewMessages" />
+   <var name="messageOrderNew" />
+   <var name="messageOrderOld" />
+   <var name="autoPlayArray" />
+   <var name="autoPlayArrayPointer" />
+   <var name="autoPlayListId" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <var name="messageListId" />
+   <var name="ani" />
+   <!--A local copy of GlobalObject.-->
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageListId" />
+      <var name="p_ani" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="messageListId" expr="p_messageListId" />
+         <assign name="ani" expr="p_ani" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#assign7" />
+      </block>
+   </form>
+   <form id="assign7">
+      <block>
+         <assign name="messageOrderNew" expr="Utility_ConvertToLowerCase(Utility_GetSubString(Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'MessagePlayOrder'), 0,4))" />
+         <assign name="messageOrderOld" expr="Utility_ConvertToLowerCase(Utility_GetSubString(Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'MessagePlayOrder'), 5,8))" />
+         <if cond="(Subscriber_GetSingleBooleanAttribute(GlobalObject.Subscriber, 'urgentmsgplay') == true)">
+            <assign name="autoPlayListId" expr="Mailbox_GetMessageSubList(messageListId, 'voice,video,fax,email', 'new', 'urgent,nonurgent', 'prio,type', messageOrderNew)" />
+            <goto next="#assign10" />
+            <else />
+            <assign name="autoPlayListId" expr="Mailbox_GetMessageSubList(messageListId, 'voice,video,fax,email', 'new', 'urgent,nonurgent', 'type', messageOrderNew)" />
+            <goto next="#assign10" />
+         </if>
+      </block>
+   </form>
+   <form id="assign10">
+      <block>
+         <assign name="autoPlayArray" expr="Mailbox_GetMessages(autoPlayListId)" />
+         <assign name="numNewMessages" expr="Mailbox_GetNumberOfMessages(messageListId, 'voice,video,fax,email', 'new', 'urgent,nonurgent')" />
+         <if cond="((System_GetConfig ('vva.dialogbehaviour', 'autoplayofsaved') == 'yes'))">
+            <assign name="autoPlayListId" expr="Mailbox_GetMessageSubList(messageListId, 'voice,video,fax,email', 'new', 'urgent,nonurgent', 'type', messageOrderOld)" />
+            <assign name="autoPlayArray" expr="Utility_ConcatArray(autoPlayArray, Mailbox_GetMessages(autoPlayListId))" />
+            <if cond="((numNewMessages == 0))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(205)" />
+               </prompt>
+               <goto next="#assign2" />
+               <else />
+               <goto next="#assign2" />
+            </if>
+            <else />
+            <goto next="#assign2" />
+         </if>
+      </block>
+   </form>
+   <form id="assign2">
+      <block>
+         <assign name="autoPlayArrayPointer" expr="0" />
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="PlayMessage.vxml">
+         <param name="p_messageId" expr="autoPlayArray[autoPlayArrayPointer]" />
+         <param name="p_messageCounter" expr="autoPlayArrayPointer" />
+         <param name="p_inAutoPlay" expr="1" />
+         <param name="p_ani" expr="ani" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <if cond="procedureResult == 'prevMsg'">
+               <if cond="((autoPlayArrayPointer &lt;= 0))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(200)" />
+                  </prompt>
+                  <goto next="#ptarget1" />
+                  <else />
+                  <assign name="autoPlayArrayPointer" expr="autoPlayArrayPointer - 1" />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(201)" />
+                  </prompt>
+                  <goto next="#ptarget1" />
+               </if>
+               <elseif cond="procedureResult == 'nextMsg'" />
+               <goto next="#cond2" />
+               <else />
+               <goto next="#cond2" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="((autoPlayArrayPointer + 1) &gt;= Utility_GetArrayLength (autoPlayArray))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(204)" />
+            </prompt>
+            <var name="resultCode" />
+            <assign name="resultCode" expr="''" />
+            <return namelist="resultCode" />
+            <else />
+            <if cond="(((autoPlayArrayPointer + 1) == numNewMessages))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(203)" />
+               </prompt>
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'autoplayofsaved') == 'yes'))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(205)" />
+                  </prompt>
+                  <assign name="autoPlayArrayPointer" expr="autoPlayArrayPointer + 1" />
+                  <goto next="#ptarget1" />
+                  <else />
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="''" />
+                  <return namelist="resultCode" />
+               </if>
+               <else />
+               <assign name="autoPlayArrayPointer" expr="autoPlayArrayPointer + 1" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(202)" />
+               </prompt>
+               <goto next="#ptarget1" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

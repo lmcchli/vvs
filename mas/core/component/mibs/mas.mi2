@@ -1,0 +1,615 @@
+--
+-- COPYRIGHT MOBEON AB 2004
+--
+-- The copyright to the computer program(s) herein is the property of
+-- MOBEON AB, Sweden. The program(s) may be used
+-- and/or copied only with the written permission from
+-- MOBEON AB or in accordance with the terms
+-- and conditions stipulated in the agreement/contract under which
+-- the program(s) have been supplied.
+--
+--
+--
+--   Prepared by:  SDC/Presentation - Andreas Henningsson
+--   Date:         2005-11-17
+--   Rev:          PA3
+--   History:       
+--
+--   Description:  This is the MIB definition for the MAS component.
+--
+--
+--
+--
+
+MAS-MIB	DEFINITIONS ::= BEGIN
+	IMPORTS
+		products
+			FROM MOBEON-REGISTRATION-MIB
+		DisplayString, DateAndTime, TimeStamp, RowStatus
+			FROM SNMPv2-TC
+		MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP
+			FROM SNMPv2-CONF
+		MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, enterprises, Integer32
+			FROM SNMPv2-SMI;
+
+	mas	MODULE-IDENTITY
+		LAST-UPDATED	"200511171412Z"
+		ORGANIZATION	"Mobeon AB"
+		CONTACT-INFO	"SDC/Presentation - Andreas Henningsson"
+		DESCRIPTION	"The general definition of MIB for MAS."
+		::=  {  products  1  }
+
+	-- Sub-tree for objects
+	masObjects	OBJECT IDENTIFIER
+		::=  {  mas  1  }
+
+	-- Sub-tree for events
+	masEvents	OBJECT IDENTIFIER
+		::=  {  mas  2  }
+
+	-- Conformance area, containing groups
+	masMIBConformance	OBJECT IDENTIFIER
+		::=  {  mas  3  }
+
+	masName	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The name of the MAS component as shown in MCR."
+		::=  {  masObjects  1  }
+
+	masVersion	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The version of the MAS component, e.g R1A"
+		::=  {  masObjects  2  }
+
+	masOperationalState	OBJECT-TYPE	
+		SYNTAX			INTEGER  { enabled ( 1 ) , disabled ( 2 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The current operational state of the MAS component. 
+       The enabled(1) state indicates that the internal state 
+       of the component is partially or fully operable and is capabel to 
+       providing its service. The disabled(2) state indicates that the 
+       internal state is inoperable and no service is available."
+		::=  {  masObjects  3  }
+
+	masAdministrativeState	OBJECT-TYPE	
+		SYNTAX			INTEGER  { unlocked ( 1 ) , locked ( 2 ) , shutdown ( 3 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The desired state of the MAS component. 
+       This  variable allows an operator to control the behaviour of
+       started MAS. In the unlocked(1) state MAS service is available. 
+       In the locked(2) state the MAS service is unavailable. 
+       The shutdown(3) state indicates that the component has 
+       started to finish all ongoing operations and is smoothly going to the 
+       locked state."
+		::=  {  masObjects  4  }
+
+	masInstallDate	OBJECT-TYPE	
+		SYNTAX			DateAndTime
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"This variable defines the install date and time of MAS.
+       Each time this component is installed or upgraded, the install
+       date and time object is defined.
+       A date-time specification contains: year, month, day, hour,
+       minutes, seconds, deci-seconds, direction from UTC, hours
+       from UTC and minutes from UTC.
+       This is more exactly described in RFC-1903, Textual Conventions
+       for SNMPv2."
+		::=  {  masObjects  5  }
+
+	masCurrentUpTime	OBJECT-TYPE	
+		SYNTAX			TimeStamp
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"This variable defines the current time the component has been
+       running since the last start. The time is reset when the component is started."
+		::=  {  masObjects  6  }
+
+	masAccumulatedUpTime	OBJECT-TYPE	
+		SYNTAX			TimeStamp
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"This variable defines the total time the component has
+       been running since the last installation/upgrade."
+		::=  {  masObjects  7  }
+
+	masConfigurationState OBJECT-TYPE
+		SYNTAX	INTEGER  {
+                      load(1),
+		      ok(2),
+		      nok(3),
+		      failed(4)
+		}
+		MAX-ACCESS	read-write
+		STATUS		current
+		DESCRIPTION
+	"If this variable is set to load(1), mas configuration file(s) are
+	loaded. After the load is done, the value is set to either ok(2) if
+	everything is correct, nok(3) if the configuration was corrupt but a
+	backup was found or failed(4) if no valid configuration was found."
+    		::=  {  masObjects  20  }
+
+masLastConfigurationUpdateTime OBJECT-TYPE
+		SYNTAX	DateAndTime
+		MAX-ACCESS	read-only
+		STATUS	current
+		DESCRIPTION
+	"This variable shows the time of last the configuration update."
+    		::=  { masObjects  21  }
+
+masLastConfigurationUpdateTicks OBJECT-TYPE  
+		SYNTAX	TimeStamp
+		MAX-ACCESS	read-only
+		STATUS	current
+		DESCRIPTION
+	"This variable shows the time in number of hundredths of a second
+	since the last time the configuration was loaded."
+		::=  {  masObjects  22 }
+		
+commonAlarmsTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  CommonAlarmsEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"This table contains alarms information received from messaging core components. Each alarm has one single entry in this table."
+		::=  { masObjects  100 }
+
+commonAlarmsEntry	OBJECT-TYPE
+		SYNTAX		CommonAlarmsEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"An entry associated with one messaging core alarm."
+		INDEX		{  alarmIndex  }
+		::=  { commonAlarmsTable 1 }
+
+CommonAlarmsEntry  ::=  SEQUENCE {
+		alarmIndex  Integer32,
+		alarmId  OCTET STRING,
+		alarmStatus  INTEGER
+		}
+
+alarmIndex	OBJECT-TYPE	
+		SYNTAX			Integer32  ( -2147483648 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Description"
+		::=  {  commonAlarmsEntry  1  }
+
+
+alarmId	OBJECT-TYPE	
+		SYNTAX			OCTET STRING  ( SIZE ( 0  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"unique alarm ID"
+		::=  {  commonAlarmsEntry  2  }
+
+
+alarmStatus	OBJECT-TYPE	
+		SYNTAX			INTEGER  { raised ( 1 ) , cleared ( 2 ) , notAvailable ( 3 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Column Description"
+		::=  {  commonAlarmsEntry  3  }
+
+	--
+	-- Sub-tree for MAS statistics.
+	--
+	masStatistics	OBJECT IDENTIFIER
+		::=  {  masObjects  50  }
+	--
+	-- Sub-tree for services
+	--
+	services	OBJECT IDENTIFIER
+		::=  {  masObjects  200  }
+
+	--
+	-- MAS Service Enabler statistics table
+	--
+	masServiceEnablerStatisticsTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  MasServiceEnablerStatisticsEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"This table contains statistics for each Service Enabler in MAS."
+		::=  { masStatistics  1 }
+
+	masServiceEnablerStatisticsEntry	OBJECT-TYPE
+		SYNTAX		MasServiceEnablerStatisticsEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"An entry associated with a single Service Enabler."
+		INDEX		{  masServiceEnablerStatisticsIndex  }
+		::=  { masServiceEnablerStatisticsTable 1 }
+
+	MasServiceEnablerStatisticsEntry  ::=  SEQUENCE {
+		masServiceEnablerStatisticsIndex  Integer32,
+		masServiceEnablerStatisticsProtocol  DisplayString,
+		masServiceEnablerStatisticsMaxConnections  Integer32,
+		masServiceEnablerStatisticsConnectionsTable  Integer32
+		}
+
+
+	masServiceEnablerStatisticsIndex	OBJECT-TYPE	
+		SYNTAX			Integer32  ( -2147483648 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The service enabler ID in the table."
+		::=  {  masServiceEnablerStatisticsEntry  1  }
+
+
+	masServiceEnablerStatisticsProtocol	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The protocol used by this Service Enabler i.e. a literal name
+with the name of the protocol e.g. 'sip', 'xmp' etc."
+		::=  {  masServiceEnablerStatisticsEntry  2  }
+
+
+	masServiceEnablerStatisticsMaxConnections	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Max number allowed connections for this Service Enabler."
+		::=  {  masServiceEnablerStatisticsEntry  3  }
+
+
+	--
+	-- Service Enabler connections table.
+	--
+	masServiceEnablerStatisticsConnectionsTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  MasServiceEnablerStatisticsConnectionsEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"This table contains statistics for all connection types for a Service Enabler."
+		::=  { masStatistics  2 }
+
+	masServiceEnablerStatisticsConnectionsEntry	OBJECT-TYPE
+		SYNTAX		MasServiceEnablerStatisticsConnectionsEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"An entry associated with a single connection."
+		INDEX		{  masServiceEnablerStatisticsIndex, masConnectionStatisticsIndex  }
+		::=  { masServiceEnablerStatisticsConnectionsTable 1 }
+
+	MasServiceEnablerStatisticsConnectionsEntry  ::=  SEQUENCE {
+		masConnectionStatisticsIndex  Integer32,
+		masConnectionStatisticsType  DisplayString,
+		masConnectionStatisticsConnections  Integer32,
+		masConnectionStatisticsPeakConnections  Integer32,
+		masConnectionStatisticsPeakTime  DateAndTime,
+		masConnectionStatisticsTotalConnections  Integer32,
+		masConnectionStatisticsAccumulatedConnections  Integer32
+		}
+
+	masConnectionStatisticsIndex	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The connection ID in the table."
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  1  }
+
+
+	masConnectionStatisticsType	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The type of this connection, one of Voice, Video or Service Request"
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  2  }
+
+
+	masConnectionStatisticsConnections	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Currently active connections."
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  3  }
+
+
+	masConnectionStatisticsPeakConnections	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Peak connections since restart."
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  4  }
+
+
+	masConnectionStatisticsPeakTime	OBJECT-TYPE	
+		SYNTAX			DateAndTime
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The time when Peak Connections occurred. If no connections have been
+active since restart this time will indicate start time."
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  5  }
+
+
+	masConnectionStatisticsTotalConnections	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of connections since last restart."
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  6  }
+
+
+	masConnectionStatisticsAccumulatedConnections	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of connections since install."
+		::=  {  masServiceEnablerStatisticsConnectionsEntry  7  }
+
+	--
+	-- Provided service table.
+	--
+	masProvidedServiceTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  MasProvidedServiceEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"This table contains information of services provided. 
+	Each service capable of being monitored should have a single entry 
+	in this table."
+		::=  { services  1 }
+
+	masProvidedServiceEntry	OBJECT-TYPE
+		SYNTAX		MasProvidedServiceEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"An entry associated with a single service provided."
+		INDEX		{  masProvidedServiceIndex  }
+		::=  { masProvidedServiceTable 1 }
+
+	MasProvidedServiceEntry  ::=  SEQUENCE {
+		masProvidedServiceIndex  Integer32,
+		masProvidedServiceName  DisplayString,
+		masProvidedServiceStatus  INTEGER,
+		masProvidedServiceHostName  DisplayString,
+		masProvidedServicePort  Integer32,
+		masProvidedServiceZone  DisplayString,
+		masProvidedServiceApplicationName  DisplayString,
+		masProvidedServiceApplicationVersion  DisplayString
+		}
+
+	masProvidedServiceIndex	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 1 .. 255  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The service entry ID in the table."
+		::=  {  masProvidedServiceEntry  1  }
+
+
+	masProvidedServiceName	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The name of the service as defined in MCR."
+		::=  {  masProvidedServiceEntry  2  }
+
+
+	masProvidedServiceStatus	OBJECT-TYPE	
+		SYNTAX			INTEGER  { up ( 1 ) , down ( 2 ) , impaired ( 3 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Denotes whether the status of the 
+service is up(1), down(2) or impaired(3). up(1) indicates that the service is 
+fully operational. down(2) indicates that the services is completely 
+non-operational. impaired(3) indicates that the service is operational but not 
+fully i.e. enduser might expect quality loss e.g. in terms of latency, sound 
+quality etc. The definition of Impaired is defined by the Service Provider"
+		::=  {  masProvidedServiceEntry  3  }
+
+
+	masProvidedServiceHostName	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The host providing the service (i.e. the host MAS executes on)."
+		::=  {  masProvidedServiceEntry  4  }
+
+
+	masProvidedServicePort	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 65535  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The port on the host providing the service."
+		::=  {  masProvidedServiceEntry  5  }
+
+
+	masProvidedServiceZone	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The logical zone of the Service Provider i.e. this MAS instance."
+		::=  {  masProvidedServiceEntry  6  }
+
+
+	masProvidedServiceApplicationName	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The name of the Application that provides the service. This is defined within each Application."
+		::=  {  masProvidedServiceEntry  20  }
+
+
+	masProvidedServiceApplicationVersion	OBJECT-TYPE	
+		SYNTAX			DisplayString  ( SIZE ( 0 .. 255  ) ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The R-state of the Application that provides the service."
+		::=  {  masProvidedServiceEntry  21  }
+
+	--
+	-- Consumed service table.
+	--
+	masConsumedServiceTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  MasConsumedServiceEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"This table contains information of services used by MAS to perform its tasks."
+		::=  { services  2 }
+
+	masConsumedServiceEntry	OBJECT-TYPE
+		SYNTAX		MasConsumedServiceEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"An entry associated with a single service."
+		INDEX		{  masConsumedServiceIndex  }
+		::=  { masConsumedServiceTable 1 }
+
+	MasConsumedServiceEntry  ::=  SEQUENCE {
+		masConsumedServiceIndex  Integer32,
+		masConsumedServiceName  DisplayString,
+		masConsumedServiceStatus  INTEGER,
+		masConsumedServiceTime  TimeStamp,
+		masConsumedServiceNumSuccess  Integer32,
+		masConsumedServiceNumFailures  Integer32
+		}
+
+
+	masConsumedServiceIndex	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 1 .. 255  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The service entry ID in the table."
+		::=  {  masConsumedServiceEntry  1  }
+
+
+	masConsumedServiceName	OBJECT-TYPE	
+		SYNTAX			DisplayString
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The name of the service as defined in MCR."
+		::=  {  masConsumedServiceEntry  2  }
+
+
+	masConsumedServiceStatus	OBJECT-TYPE	
+		SYNTAX			INTEGER  { up ( 1 ) , down ( 2 ) , impaired ( 3 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Denotes whether the status of the service is up(1), down(2) 
+	or impaired(3). up(1) indicates that all servers that provides 
+	the service is operationaly enabled. down(2) indicates that all 
+	servers that provides the services are operationaly disabled. 
+	impaired(3) indicates that one or more, but not all servers that 
+	provides the service are operationaly disabled."
+		::=  {  masConsumedServiceEntry  3  }
+
+
+	masConsumedServiceTime	OBJECT-TYPE	
+		SYNTAX			TimeStamp
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The time in hundredths of a second since last status change."
+		::=  {  masConsumedServiceEntry  4  }
+
+
+	masConsumedServiceNumSuccess	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of success operations for 
+this service since last start. The provider of the consumed service defines 
+what a success operation is."
+		::=  {  masConsumedServiceEntry  5  }
+
+	masConsumedServiceNumFailures	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 65535  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of failed operations for 
+this service since last start. The provider of the consumed service defines 
+what a failed operation is."
+		::=  {  masConsumedServiceEntry  6  }
+
+
+	--
+	-- Events
+	--
+	masStarted	NOTIFICATION-TYPE
+		OBJECTS			{ masOperationalState, masAdministrativeState }
+		STATUS			current
+		DESCRIPTION		"This event is issued when MAS starts."
+		::=  {  masEvents  1  }
+
+	masStopped	NOTIFICATION-TYPE
+		OBJECTS			{ masOperationalState, masAdministrativeState }
+		STATUS			current
+		DESCRIPTION		"This event is issued when MAS stopped."
+		::=  {  masEvents  2  }
+
+	masStatusFailed	NOTIFICATION-TYPE
+		OBJECTS			{ masOperationalState }
+		STATUS			current
+		DESCRIPTION		"An update of MAS status failed."
+		::=  {  masEvents  3  }
+
+	masMIBCompliances	OBJECT IDENTIFIER
+		::=  {  masMIBConformance  1  }
+
+	masMIBGroups	OBJECT IDENTIFIER
+		::=  {  masMIBConformance  2  }
+
+	masBasicCompliance	MODULE-COMPLIANCE
+		STATUS			current
+		DESCRIPTION		"The basic implementation requirements for MAS MIB."
+
+		MODULE 	
+			MANDATORY-GROUPS	{ masObjGroup, masTrapGroup }
+		::=  {  masMIBCompliances  1  }
+
+	masObjGroup	OBJECT-GROUP
+		OBJECTS			{
+		masAccumulatedUpTime, 
+		masAdministrativeState, 
+		masConnectionStatisticsAccumulatedConnections, 
+		masConnectionStatisticsConnections, 
+		masConnectionStatisticsIndex, 
+		masConnectionStatisticsPeakConnections, 
+		masConnectionStatisticsPeakTime, 
+		masConnectionStatisticsTotalConnections, 
+		masConnectionStatisticsType, 
+		masConsumedServiceIndex, 
+		masConsumedServiceName, 
+		masConsumedServiceNumFailures, 
+		masConsumedServiceNumSuccess, 
+		masConsumedServiceStatus, 
+		masConsumedServiceTime, 
+		masCurrentUpTime, 
+		masInstallDate, 
+		masLastConfigurationUpdateTicks,
+		masLastConfigurationUpdateTime, 
+		masName, 
+		masOperationalState, 
+		masProvidedServiceApplicationName, 
+		masProvidedServiceApplicationVersion, 
+		masProvidedServiceHostName, 
+		masProvidedServiceIndex, 
+		masProvidedServiceName, 
+		masProvidedServicePort, 
+		masProvidedServiceStatus, 
+		masProvidedServiceZone, 
+		masConfigurationState, 
+		masServiceEnablerStatisticsConnectionsTable, 
+		masServiceEnablerStatisticsIndex, 
+		masServiceEnablerStatisticsMaxConnections, 
+		masServiceEnablerStatisticsProtocol, 
+		masVersion
+		}
+		STATUS			current
+		DESCRIPTION		"The collection of objects which are used to represent
+        the MAS component."
+		::=  {  masMIBGroups  1  }
+
+	masTrapGroup	NOTIFICATION-GROUP
+		NOTIFICATIONS	{ masStarted, masStopped, masStatusFailed }
+		STATUS			current
+		DESCRIPTION		"The collection of notifications used to indicate
+       status information of the MAS component.
+       This group is mandatory for all implementations of
+       the component MIB"
+		::=  {  masMIBGroups  2  }
+
+END

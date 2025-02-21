@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+
+        <field name="f1">
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+        </field>
+
+        <filled>
+            <if cond="f1$.utterance != '1'">
+                <log>TCFAIL wrong utterance: <value expr="f1$.utterance"/></log>
+                <exit></exit>
+            </if>
+            <log>TCPASS</log>
+            <exit></exit>
+        </filled>
+    </form>
+
+</vxml>

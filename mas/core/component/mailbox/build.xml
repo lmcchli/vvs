@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="MASP Mailbox" default="all" >
+
+  <property name="module" value="mailbox" />  
+  
+  <!-- Import project generic properties -->
+  <property name="project.basedir" value=".." />
+  <import file="${project.basedir}/projdefs.xml"/>
+  
+  
+  <!-- Module definitions -->
+  <dirname property="module.basedir" file="${ant.file}"/>
+
+  <property name="module.jarname" value="mobeon_mailbox.jar" />
+  <property name="module.output.dir" value="${module.basedir}/classes" />
+
+  <path id="module.sourcepath">
+    <dirset dir="${module.basedir}">
+      <include name="src"/>
+      <include name="interface"/>
+    </dirset>
+  </path>
+
+  <path id="module.dependencypath.test">
+  </path>
+   <path id="module.testpath">
+    <dirset dir="${module.basedir}">
+      <include name="test"/>
+      <include name="mtest"/>
+    </dirset>
+    <dirset dir="${project.basedir}">
+      <include name="message_sender/src"/>
+      <include name="message_sender/test"/>
+      <include name="util/src"/>
+      <include name="configurationmanager/src"/>
+    </dirset>
+  </path>
+
+
+  <patternset id="module.jar.files">
+      <include name="**/com/mobeon/masp/mailbox/**" />
+      <exclude name="**/com/mobeon/masp/mailbox/**/*Test*"/>
+  </patternset>
+
+  <path id="module.classpath">
+    <path refid="${module.jdk.classpath.checkmate}"/>
+  </path>
+
+  <path id="module.dependencypath">
+    <dirset dir="${project.basedir}">
+        <include name="mediaobject/interface"/>
+        <include name="mediaobject/src"/>
+        <include name="message_sender/interface"/>
+        <include name="logging/interface" />
+        <include name="util/interface" />
+        <include name="eventnotifier/interface"/>
+        <include name="externalcomponentregister/interface" />
+        <include name="execution_engine/interface" />
+        <include name="mediacontentmanager/interface"/>
+        <include name="configurationmanager/interface"/>
+        <include name="operateandmaintainmanager/interface"/>
+    </dirset>
+  </path>
+
+    <!-- Local and/or overridden targets -->
+    <!-- Build needed packages -->
+    <target name="testdepedencies">
+        <!-- Copy javamail resource files for mocked javamail interfaces -->
+        <copy todir="${module.output.dir}/META-INF">
+            <fileset dir="${module.basedir}/test/com/mobeon/masp/mailbox/mock">
+                <include name="javamail.*"/>
+            </fileset>
+        </copy>
+    </target>
+  <!-- Import generic targets -->
+  <import file="${project.basedir}/cobertura.xml" />  
+  <import file="${project.basedir}/targets.xml"/> 
+</project>

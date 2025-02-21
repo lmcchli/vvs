@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="response1" />
+		<var name="response2" />
+		<var name="responseCode" />
+		
+		<block>
+			<script>
+				<![CDATA[
+				
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetAccountDetails');
+				response1 = mas.systemGetAccountRequestParameter( 'firstIVRCallFlag');
+				mas.systemLog( 3, 'TC 20006010 FAILED breakpoint1' );
+				
+				]]>
+			</script>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error.com.mobeon.platform.system">
+		<log>TC 20006010 PASSED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="error">
+		<log>TC 20006010 FAILED breakpoint2<value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

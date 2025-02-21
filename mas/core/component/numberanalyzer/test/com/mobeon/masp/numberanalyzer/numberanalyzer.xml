@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="../../../../../../cfg/numberanalyzer.xsd">
+    <numberanalyzer>
+        <rule name="INBOUNDCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+            <subrule name="All">
+                <input expr="^(1[09])([0-9]{2})$"/>
+                <return expr="466010$i1$i2"/>
+            </subrule>
+        </rule>
+        <rule name="CALLEROUTDIAL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,6"/>
+            </subrule>
+            <subrule name="Office">
+                <input expr="^(1[09])([0-9]{2})$"/>
+                <return expr="$i1$i2"/>
+            </subrule>
+            <subrule name="Local">
+                <input expr="^([1-9])([0-9]{4,5})$"/>
+                <return expr="$i1$i2"/>
+            </subrule>
+        </rule>
+        <rule name="BLOCK">
+            <subrule name="blocktest">
+                <input expr="^(555)"/>
+                <return expr="Block"/>
+            </subrule>
+        </rule>
+        <rule name="test2">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="6,6"/>
+            </subrule>
+            <subrule name="Local" regioncoderule="RegionCodes">
+                <input expr="(\d*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="RegionCodes">
+            <input expr="060,061,062"/>
+        </rule>
+    </numberanalyzer>
+</configuration>

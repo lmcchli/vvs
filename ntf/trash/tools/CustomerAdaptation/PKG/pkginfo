@@ -1,0 +1,12 @@
+PKG=
+NAME=NTF
+CATEGORY=application
+ARCH=sparc
+VENDOR=Abcxyz
+BASEDIR=/apps/ntf
+CLASSES=none
+VERSION=
+DESC=Notification Component - Extra Language.
+TERM=dtterm
+BACKUP_FILES=
+

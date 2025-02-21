@@ -1,0 +1,24 @@
+h = {
+"header " FROM 
+}
+
+s = {
+"subject " 
+SUBJECT 
+}
+
+g = {
+"header " SUBJECT " " FROM
+}
+
+f = {
+"from " FROM
+}
+
+unknownsender = {
+"unknown caller"
+}
+
+#fromnumberprefix = { 
+#"number +"
+#}

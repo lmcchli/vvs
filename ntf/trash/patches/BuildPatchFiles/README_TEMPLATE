@@ -1,0 +1,213 @@
+:------------------------------------------------------------------------------:
+:            README FOR PATCH CORRECTION
+:            README FOR EMERGENCY CORRECTION
+:            README FOR FEATURE ENHANCEMENT
+:                           Abcxyz AB
+:------------------------------------------------------------------------------:
+
+ID.buildnr     : __VERSION__
+
+PRODUCT NUMBER : CRH 109 127
+
+TYPE           : Special
+
+OS VERSION     : Solaris 8
+
+ISSUE DATE     : __DATE__ Rev PA1   First Version
+
+:------------------------------------------------------------------------------:
+                                                                               :
+
+IMPORTANT INFO : 
+
+DESCRIPTION    :
+
+DEPLOYMENT     : Applies to all hosts where NTF is installed.
+
+REQUIRES       : 
+
+OBSOLETES      : N/A
+
+:------------------------------------------------------------------------------:
+                                                                               :
+DOWNTIME       : A few minutes.
+
+SYSTEM IMPACT  : Notifications service will be partly down during
+                 downtime. No notifications are lost.
+
+
+:------------------------------------------------------------------------------:
+                                                                               :
+INFO :           The directory paths <BASEDIR>, <NTF_HOME> and <TEMP_DIR> are
+                 used in this README file.
+                 <BASEDIR> is the installation directory, e.g. /apps/ntf.
+                 <NTF_HOME> is the NTF instance directory, e.g. /global/ms1/ntf.
+                 <TEMP_DIR> can be any directory where you can put your
+                 __VERSION__ container file.
+
+
+INSTALLATION IN A STANDARD SYSTEM :
+
+                 This patch can be installed remotely without on-site assistance.
+                        <or>
+                 This patch can be installed remotely with on-site assistance
+                 for step n, n+1 etc <Specify exactly which steps requires on-site assistance.>
+                        <or>
+                 This patch needs to be installed on-site.
+
+                 Repeat on all NTF hosts.
+
+                 1. Login as root on the host where the patch should
+                    be installed.
+
+                 2. Copy(ftp) the patch to a temporary, writeable
+                    directory on the host.
+                    # cp __VERSION_LOWER__.crh109127.solais10.zip <TEMP_DIR>
+
+                 3. Go to the temporary directory:
+                    # cd <TEMP_DIR>
+
+                 4. Stop all NTF instances running on the
+                    physical host.
+                    # /etc/init.d/rc.ntf stop
+
+                 5. Uninstall all obsoleted emergency corrections according to
+                    their respective instructions. Emergency corrections must
+                    be uninstalled in correct order starting with the latest
+                    emergency correction.
+
+                 6. Verify that no obsoleted emergency corrections exist in
+                    <BASEDIR>/VERSION
+
+                 7. Unzip the patch:
+                    # unzip __VERSION_LOWER__.crh109127.solais10.zip
+
+                 8. Run patchadd __VERSION__
+                    # patchadd __VERSION__
+
+                 9. Start NTF again.
+                    # /etc/init.d/rc.ntf start
+
+                 10. Verify that MCR and <BASEDIR>/VERSION file shows the correct
+                     VERSION
+
+
+INSTALLATION IN A HA SYSTEM :
+
+                 This patch can be installed remotely without on-site assistance.
+                        <or>
+                 This patch can be installed remotely with on-site assistance
+                 for step n, n+1 etc <Specify exactly which steps requires on-site assistance.>
+                        <or>
+                 This patch needs to be installed on-site.
+
+                 Installation. Repeat on all hosts where NTF shall be able to
+                 run. This includes standby nodes.
+
+                 1. Login as root on the physical host where the patch shall be
+                    installed.
+
+                 2. Copy(ftp) the patch to a temporary, writeable directory on
+                    the host.
+                    # cp __VERSION_LOWER__.crh109127.solais10.zip <TEMP_DIR>
+
+                 3. Go to the temporary directory:
+                    # cd <TEMP_DIR>
+
+                 4. Stop all NTF instances running on the physical host.
+                    # scswitch -n -j <ntf instance>
+                    Replace <ntf instance> with names suitable in your
+                    installation, e.g. ms1-ntf.
+
+                 5. Uninstall all obsoleted emergency corrections according to
+                    their respective instructions. Emergency corrections must
+                    be uninstalled in correct order starting with the latest
+                    emergency correction.
+
+                 6. Verify that no obsoleted emergency corrections exist in
+                    <BASEDIR>/VERSION
+
+                 7. Unzip the patch.
+                    # unzip __VERSION_LOWER__.crh109127.solais10.zip
+
+                 8. Run patchadd __VERSION__
+                    # patchadd __VERSION__
+
+                 9. Update the new configuration
+                    # <BASEDIR>/bin/upgradeinstance -d <NTF_HOME>
+                    Run this command for all NTF instances on the host.
+
+                 10. Start all NTF instances running on the physical host.
+                    # scswitch -e -j <ntf instance>
+                    Replace <ntf instance> with names suitable in your
+                    installation, e.g. ms1-ntf.
+
+                 11. Verify that MCR and <BASEDIR>/VERSION file shows the correct
+                     VERSION
+
+
+:------------------------------------------------------------------------------:
+                                                                               :
+UNINSTALLATION IN A STANDARD SYSTEM :
+
+                 This patch can be un-installed remotely without on-site assistance.
+                        <or>
+                 This patch can be un-installed remotely with on-site assistance
+                 for step n, n+1 etc <Specify exactly which steps requires on-site assistance.>
+                        <or>
+                 This patch needs to be un-installed on-site.
+
+                 1. Login as root to the host where the patch should be
+                    uninstalled.
+
+                 2. Stop all NTF instances running on the physical host.
+                    # /etc/init.d/rc.ntf stop
+
+                 3. Run patchrm __VERSION__
+                    # patchrm __VERSION__
+
+                 4. Start NTF again.
+                    # /etc/init.d/rc.ntf start
+
+
+UNINSTALLATION IN A HA SYSTEM :
+
+                 This patch can be un-installed remotely without on-site assistance.
+                        <or>
+                 This patch can be un-installed remotely with on-site assistance
+                 for step n, n+1 etc <Specify exactly which steps requires on-site assistance.>
+                        <or>
+                 This patch needs to be un-installed on-site.
+
+                 Uninstallation. Repeat on all hosts where NTF shall be able to
+                 run. This includes standby nodes.
+
+                 1. Login as root on the physical host where the patch shall be
+                    uninstalled.
+
+                 2. Stop all NTF instances running on the physical host.
+                    # scswitch -n -j <ntf instance>
+                    Replace <ntf instance> with names suitable in your
+                    installation, e.g. ms1-ntf.
+
+                 3. Run patchrm __VERSION__
+                    # patchrm __VERSION__
+
+                 4. Start all NTF instances running on the physical host.
+                    # scswitch -e -j <ntf instance>
+                    Replace <ntf instance> with names suitable in your
+                    installation, e.g. ms1-ntf.
+
+:------------------------------------------------------------------------------:
+                                                                               :
+CONFIGURATION
+CHANGES        : N/A
+
+:------------------------------------------------------------------------------:
+                                                                               :
+FIXED TR's and    :
+CR's
+
+:------------------------------------------------------------------------------:
+                                                                               :
+INCLUDED FILES :

@@ -1,0 +1,99 @@
+#!/usr/bin/perl
+
+if ($#ARGV > 0) {
+    if ($ARGV[0] =~ /-.*u/) {
+        $sum_u = 1;
+    }
+    if ($ARGV[0] =~ /-.*m/) {
+        $sum_m = 1;
+    }
+    if ($ARGV[0] =~ /-.*s/) {
+        $sum_s = 1;
+    }
+    shift @ARGV;
+}
+
+if (!$sum_u && !$sum_m && !$sum_s) {
+    $sum_u = 1;
+    $sum_m = 1;
+    $sum_s = 1;
+}
+
+while (<>) {
+    if (/Th.* caller.* left/) {
+        $docount = 1;
+    } elsif (/^$/) {
+        $docount = 0;
+    } elsif (/^To: /) {
+        ($to, $rest) = /To: (\d*,\d*,\d*)/;
+        ++$users{$to};
+        $total++;
+    } elsif (/^Short message: /) {
+        ($msg, $rest) = /Short message: (.*)/;
+        ++$msg{"$to/$msg"};
+    } elsif ($docount) {
+        ($count, $from, $rest) = /\D*(\d+)\D* \D*(\d+)\D*/;
+        ++ $users{$to};
+        $callers{$from} = 1;
+        $sum{$to . "/" . $from} += $count;
+    }
+}
+&writeSummary();
+
+sub Usage {
+    print "Usage: $0 [ -[ums]]\n";
+    print "       -u summarize per user\n";
+    print "       -m summarize per message and user\n";
+    print "       -s summarize slamdown per caller, count and user\n";
+}
+
+sub field {
+    local($v) = pop(@_) . "                ";
+    $v = substr($v, 0, 11) . "|";
+    return $v;
+}
+
+sub writeSummary {
+    if ($sum_u) {
+        print "SMS summary\n";
+        foreach $user (sort(keys %users)) {
+            print "$user\t$users{$user}\n";
+        }
+        print "================================================================\n";
+        print "\t\t$total\n\n";
+    }
+
+    if ($sum_m) {
+        print "SMS per message summary\n";
+        foreach $msg (sort(keys %msg)) {
+            print "$msg\t$msg{$msg}\n";
+        }
+        print "================================================================\n";
+        print "\t\t$total\n\n";
+    }
+
+    if ($sum_s) {
+        print "\nSlamdown summary\n";
+        foreach $user (sort(keys %sum)) {
+            print "$user $sum{$user}\n";
+        }
+        print "\n\n";
+        print &field("");
+        foreach $user (sort(keys %users)) {
+            print &field($user);
+        }
+        print "\n";
+        print &field("--------------------");
+        foreach $user (sort(keys %users)) {
+            print &field("--------------------");
+        }
+        print "\n";
+        foreach $caller (sort(keys %callers)) {
+            print &field($caller);
+            foreach $user (sort(keys %users)) {
+                print &field($sum{"$user/$caller"});
+            }
+            print "\n";
+        }
+    }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="language"/>
+    <var name="tryDefaultLanguage"/>
+    <var name="variantVoice"/>
+    <var name="variantVideo"/>
+
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+
+            <if cond="true">
+                <assign name="language" expr="10" />
+                <log expr="'language is' + language"></log>
+                <if cond="language == ''">
+                    <assign name="language" expr="15" />
+                    <log expr="'language is' + language"></log>
+
+                    <else/>
+                    <assign name="tryDefaultLanguage" expr="true"/>
+                    <log expr="'tryDefaultLanguage is' + tryDefaultLanguage"></log>
+                </if>
+                <assign name="variantVoice" expr="20" />
+                <log expr="'variantVoice is' + variantVoice"></log>
+
+                <assign name="variantVideo" expr="30" />
+                <log expr="'variantVideo is' + variantVideo"></log>
+
+                <else/>
+
+                <assign name="language" expr="40" />
+                <log expr="'language is' + language"></log>
+
+                <assign name="variantVoice" expr="50" />
+                <log expr="'variantVoice is' + variantVoice"></log>
+
+                <assign name="variantVideo" expr="60" />
+                <log expr="'variantVideo is' + variantVideo"></log>
+            </if>
+
+            <exit/>
+
+        </transition>
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

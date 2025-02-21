@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+
+        <transition event="connection.alerting" name="evt">
+            <assign name="myState" expr="'accepting'"></assign>
+            <reject connectionid="evt.connectionid"/>
+        </transition>
+
+        <transition event="error.connection" name="evt" state="accepting">
+            <log expr="'TCPASS CCXML: ' +  'Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

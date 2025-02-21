@@ -1,0 +1,691 @@
+dn: ou=C2, o=ntfTest.se
+ou: C2
+emAllowedMailHosts: jawa.ipms.su.erm.abcxyz.se
+objectClass: top
+objectClass: organizationalUnit
+objectClass: emCommunity
+objectClass: emEndUserCommunity
+emAllowedMailDomains: ipms.su.erm.abcxyz.se
+cn: QLENRAS
+
+dn: cn=Community Administrators, ou=C2, o=ntfTest.se
+objectClass: top
+objectClass: groupOfUniqueNames
+uniqueMember: uniqueidentifier=um1430,ou=C2,o=ntfTest.se
+cn: Community Administrators
+
+dn: uniqueidentifier=um1430, ou=C2, o=ntfTest.se
+emAdministratorType: user
+givenName: adminqlen
+sn: adminras
+ou: Administrators
+emAccessRights: addusers
+emAccessRights: modifyusers
+emAccessRights: templates
+emAccessRights: administrators
+emServiceDn: emServiceCollectionName=User,ou=Services,o=ntfTest.se
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emAdministrator
+uid: adminql
+cn: adminqlen adminras
+preferredLanguage: sv
+uniqueIdentifier: um1430
+
+dn: cos=2, ou=C2, o=ntfTest.se
+welcomegrt: WELCOME_GREETING
+MsgLenMaxVoice: 180
+MaxLoginLockout: 6
+GreetingSecMax: 60
+phonenumberexpansionsection: INBOUNDCALL
+faxenabled: yes
+COS: 2
+emNotRetrievedVoiceMsg: no
+MessageInventory: yes
+PhoneNumberCallerAccessSection: CALLEROUTDIAL
+maxsnrnototry: 3
+passwordMaxLength: 8
+emServiceDn: emservicename=webmail, ou=services, o=ntfTest.se
+emServiceDn: emservicename=wapmail, ou=services, o=ntfTest.se
+emServiceDn: emservicename=msgtype_email, ou=services, o=ntfTest.se
+emServiceDn: emservicename=msgtype_voice, ou=services, o=ntfTest.se
+emServiceDn: emservicename=sms_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=mms_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=mwi_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=outdial_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=wappush_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=notification_filters, ou=services, o=ntfTest.se
+emServiceDn: emservicename=tui, ou=services, o=ntfTest.se
+emServiceDn: emservicename=pager_notification,ou=services,o=ntfTest.se
+SubSearchBase: ou=C2,o=ntfTest.se
+emWAPStart: main
+objectClass: top
+objectClass: confcos
+objectClass: emservicecollection
+UrgentMsgPlay: yes
+PasswdLenMin: 4
+COSname: QLCOS
+emServiceCollectionName: 2
+mailQuota: 10485760
+InHoursDOW: 135
+DLMax: 10
+emRetentionTime: v;0;0
+emRetentionTime: f;0;0
+emRetentionTime: e;0;0
+DLEntriesMax: 65
+messageplayemail: both
+emCNL: no
+IncludeSpokenName: yes
+ttsemailenabled: yes
+passwordskipavailable: no
+reinventory: no
+EOMsgWarning: 30
+InHoursStart: 0900
+snrservice: NONE
+passwordMinLength: 4
+messageplayvoice: both
+emFilter: 1;y;b;evf;SMS;c;1;;;;;costest;;
+InHoursEnd: 1730
+diskspaceremainingwarninglevel: .3
+PasswdLenMax: 4
+emProductType: um
+AutoPlay: yes
+AnsweringServiceList: LM
+fastloginavailable: no
+PhoneNumberDialingSection: SUBSCRIBEROUTDIAL
+emNotifExpTime: 1
+
+dn: uniqueidentifier=um1432, ou=C2, o=ntfTest.se
+sn: sn1432
+xamtevatitle: GrtAdmin
+telephoneNumber: 99991432
+ou: Administrators
+emFolderCnt: 12
+mail: greetingQL@jawa.ipms.su.erm.abcxyz.se
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: LIP
+objectClass: mailrecipient
+objectClass: nsmessagingserveruser
+objectClass: emgrtadmin
+uid: GrtAdm_1432
+mailHost: jawa.ipms.su.erm.abcxyz.se
+mailDeliveryOption: mailbox
+cn: cn1432
+uniqueIdentifier: um1432
+
+dn: billingnumber=99991432,uniqueidentifier=um1432, ou=C2, o=ntfTest.se
+version: 6.1
+Password: 2u3a0C4W3V2k1B16
+objectClass: top
+objectClass: appUM
+objectClass: confmsgbox
+BillingNumber: 99991432
+
+dn: uniqueidentifier=um1433, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: sv
+emUserNTD: SMS,MMS,PAG
+givenName: qlen01
+emPreferredDateFormat: yyyy/mm/dd
+uniqueIdentifier: um1433
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+mailAlternateAddress: FAX=9999701@
+mailQuota: 20971520
+uid: ql01
+mail: ql01@ipms.su.erm.abcxyz.se
+cn: qlen01 ras01
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999901
+mailDeliveryOption: mailbox
+emEmptyTrash: no
+emServiceDn: cos=2,ou=C2,o=ntfTest.se
+gender: M
+emMMScenterid: mmscQL
+l: 0
+mailHost: jawa.ipms.su.erm.abcxyz.se
+emAutoLogin: no
+sn: ras01
+emWAPStart: main
+emFilter: 1;n;nb;evf;SMS;s;2;;;;;hemma;;
+emFilter: 1;y;b;evf;SMS;c;1;;;;;jobbet;;
+emNotifNumber: 9999801
+emPreferredTimeFormat: 24
+
+dn: billingnumber=9999901,uniqueIdentifier=um1433, ou=C2, o=ntfTest.se
+Password: 3Z191R240A0L472u
+InHoursDOW: 12345
+admininfo: uniqueidentifier=um1432
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+BillingNumber: 9999901
+messageplayemail: both
+NoForLastName: 72701753601
+AnsweringService: LM
+AutoPlay: yes
+inboundfaxno: 9999701
+InHoursStart: 0800
+messageplayvoice: both
+InHoursEnd: 1630
+UserLevel: 0
+NoForFirstName: 75360172701
+UrgentMsgPlay: yes
+umpassword: 6X1S0a273H3i1E75
+COSDN: cos=2,ou=C2,o=ntfTest.se
+BadLoginCount: 0
+subscribertimezone: Europe/Stockholm
+
+dn: uniqueidentifier=um1434, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: en
+givenName: qlen02
+emPreferredDateFormat: mm/dd/yyyy
+uniqueIdentifier: um1434
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+mailAlternateAddress: alternativeForQl02@ipms.su.erm.abcxyz.se
+mailAlternateAddress: FAX=9999702@
+mailQuota: 20971520
+uid: ql02
+mail: ql02@ipms.su.erm.abcxyz.se
+cn: qlen02 ras02
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999902
+mailDeliveryOption: mailbox
+emEmptyTrash: no
+emServiceDn: cos=2,ou=C2,o=ntfTest.se
+gender: M
+emNotifDisabled: yes
+emMMScenterid: mmscQL
+l: 0
+mailHost: jawa.ipms.su.erm.abcxyz.se
+emAutoLogin: no
+sn: ras02
+emWAPStart: main
+emFilter: 1;y;a;evf;ODL;c;1;;;;;odl;ro;
+emNotifNumber: 9999802
+emPreferredTimeFormat: 12
+
+dn: billingnumber=9999902,uniqueIdentifier=um1434, ou=C2, o=ntfTest.se
+Password: 3Z191R240A0L472u
+InHoursDOW: 1234
+admininfo: uniqueidentifier=um1432
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+BillingNumber: 9999902
+messageplayemail: both
+NoForLastName: 72702753602
+AnsweringService: LM
+AutoPlay: yes
+inboundfaxno: 9999702
+InHoursStart: 0601
+messageplayvoice: both
+InHoursEnd: 1431
+UserLevel: 0
+NoForFirstName: 75360272702
+emNTD: SMS,MWI
+UrgentMsgPlay: yes
+umpassword: 6X1S0a273H3i1E75
+COSDN: cos=2,ou=C2,o=ntfTest.se
+BadLoginCount: 0
+subscribertimezone: Europe/Stockholm
+
+dn: uniqueidentifier=um1435, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: en
+givenName: qlen03
+emPreferredDateFormat: yyyy/mm/dd
+uniqueIdentifier: um1435
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+mailAlternateAddress: FAX=9999703@ipms.su.erm.abcxyz.se
+mailQuota: 20971520
+uid: ql03
+mail: ql03@ipms.su.erm.abcxyz.se
+cn: qlen03 ras03
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999903
+mailDeliveryOption: forward
+emServiceDn: cos=2,ou=C2,o=ntfTest.se
+gender: M
+emMMScenterid: mmscQL
+l: 0
+emNotifExpTime: 24
+mailHost: jawa.ipms.su.erm.abcxyz.se
+sn: ras03
+emFilter: 1;y;a;evf;ODL;c;1;;;;;odl;ro;
+emNotifNumber: 9999803
+mailForwardingAddress: ql02@jawa.ipms.su.erm.abcxyz.se
+emPreferredTimeFormat: 24
+
+dn: billingnumber=9999903,uniqueIdentifier=um1435, ou=C2, o=ntfTest.se
+InHoursStart: 700
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 9999903
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 9999703
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 72703753603
+COSDN: cos=2,ou=C2,o=ntfTest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 75360372703
+UserLevel: 0
+AnsweringService: LM
+emNTD: MMS,WAP,ODL
+
+dn: uniqueidentifier=um1437, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: en
+givenName: qlen05
+emPreferredDateFormat: mm/dd/yyyy
+uniqueIdentifier: um1437
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+mailAlternateAddress: FAX=9999705@ipms.su.erm.abcxyz.se
+mailQuota: 20971520
+uid: ql05
+mail: ql05@ipms.su.erm.abcxyz.se
+cn: qlen05 ras05
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999905
+mailDeliveryOption: mailbox
+emServiceDn: cos=2,ou=C2,o=ntfTest.se
+gender: M
+emMMScenterid: mmscQL
+l: 0
+mailHost: vespa.ipms.su.erm.abcxyz.se
+sn: ras05
+emPNC: 1234+5678
+emFilter: 1;y;a;evf;PAG,ODL;c;1;;;;;odl;ro;
+emPreferredTimeFormat: 12
+
+dn: billingnumber=9999905,uniqueIdentifier=um1437, ou=C2, o=ntfTest.se
+InHoursStart: 800
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+InHoursDOW: 12345
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 9999905
+subscribertimezone: Europe/Stockholm
+InHoursEnd: 1630
+inboundfaxno: 9999705
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 72705753605
+COSDN: cos=2,ou=C2,o=ntfTest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 75360572705
+UserLevel: 0
+AnsweringService: LM
+
+dn: uniqueidentifier=um1438, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: en
+givenName: qlen06
+emPreferredDateFormat: yyyy/mm/dd
+uniqueIdentifier: um1438
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+mailAlternateAddress: FAX=9999706@ipms.su.erm.abcxyz.se
+mailQuota: 20971520
+uid: ql06
+mail: ql06@ipms.su.erm.abcxyz.se
+cn: qlen06 ras06
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999906
+mailDeliveryOption: mailbox
+emServiceDn: cos=2,ou=C2,o=ntfTest.se
+gender: M
+emMMScenterid: mmscQL
+l: 0
+mailHost: jawa.ipms.su.erm.abcxyz.se
+sn: ras06
+emFilter: 1;y;a;evf;ODL;c;1;;;;;odl;ro;
+emPreferredTimeFormat: 24
+
+dn: billingnumber=9999906,uniqueIdentifier=um1438, ou=C2, o=ntfTest.se
+InHoursStart: 800
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+InHoursDOW: 12345
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 9999906
+subscribertimezone: Europe/Stockholm
+InHoursEnd: 1630
+inboundfaxno: 9999706
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 72706753606
+COSDN: cos=2,ou=C2,o=ntfTest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 75360672706
+UserLevel: 0
+AnsweringService: LM
+
+dn: cos=3, ou=C2, o=ntfTest.se
+welcomegrt: WELCOME_GREETING
+MsgLenMaxVoice: 180
+MaxLoginLockout: 6
+GreetingSecMax: 60
+phonenumberexpansionsection: INBOUNDCALL
+faxenabled: yes
+COS: 3
+emNotRetrievedVoiceMsg: no
+MessageInventory: yes
+PhoneNumberCallerAccessSection: CALLEROUTDIAL
+maxsnrnototry: 3
+passwordMaxLength: 8
+emServiceDn: emservicename=webmail, ou=services, o=ntfTest.se
+emServiceDn: emservicename=wapmail, ou=services, o=ntfTest.se
+emServiceDn: emservicename=msgtype_email, ou=services, o=ntfTest.se
+emServiceDn: emservicename=msgtype_voice, ou=services, o=ntfTest.se
+emServiceDn: emservicename=sms_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=mms_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=mwi_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=outdial_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=wappush_notification, ou=services, o=ntfTest.se
+emServiceDn: emservicename=notification_filters, ou=services, o=ntfTest.se
+emServiceDn: emservicename=tui, ou=services, o=ntfTest.se
+emServiceDn: emservicename=multiline, ou=services, o=ntfTest.se
+SubSearchBase: ou=C2,o=ntfTest.se
+emWAPStart: mainmenu
+objectClass: top
+objectClass: confcos
+objectClass: emservicecollection
+UrgentMsgPlay: yes
+PasswdLenMin: 4
+COSname: cosQLextra
+emServiceCollectionName: 3
+mailQuota: 10485760
+InHoursDOW: 12345
+DLMax: 10
+DLEntriesMax: 65
+messageplayemail: both
+emCNL: no
+IncludeSpokenName: yes
+ttsemailenabled: no
+reinventory: no
+EOMsgWarning: 30
+InHoursStart: 0800
+snrservice: NONE
+passwordMinLength: 4
+messageplayvoice: both
+InHoursEnd: 1630
+diskspaceremainingwarninglevel: .3
+PasswdLenMax: 4
+emProductType: um
+AutoPlay: yes
+AnsweringServiceList: LM
+PhoneNumberDialingSection: SUBSCRIBEROUTDIAL
+emNotifExpTime: 1
+
+dn: uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: en
+givenName: len04
+emPreferredDateFormat: yyyy/mm/dd
+uniqueIdentifier: um1436
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: nsmessagingserveruser
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: LIP
+objectClass: emuser
+objectClass: emNotification
+mailAlternateAddress: FAX=9999904@ipms.su.erm.abcxyz.se
+mailQuota: -1
+uid: 9999904
+mail: ql04@ipms.su.erm.abcxyz.se
+cn: len04 ras04
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999904
+mailDeliveryOption: mailbox
+emServiceDn: cos=3, ou=C2, o=ntftest.se
+gender: M
+emMMScenterid: mmscQL
+l: 0
+mailHost: jawa.ipms.su.erm.abcxyz.se
+sn: ras04
+emABDS: ldap://abd_server.yourcompany.com:389/uniqueidentifier=um1436,ou=C2,o
+ =ntftest.se
+emFilter: 1;y;b;evf;SMS,;;1;;;;;multiline;;
+emNotifNumber: 0000000000
+emSecNb: 1111111111
+emSecNb: 2222222222
+emSecNb: 3333333333
+emSecNb: 4444444444
+emSecNb: 5555555555
+emPreferredTimeFormat: 24
+
+dn: billingnumber=9999904,uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 08123b0z06742U0C
+BillingNumber: 9999904
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 9999704
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+InHoursEnd: 1500
+NoForLastName: 8326683
+ActiveGreetingId: SpokenName,AllCalls
+COSDN: cos=3, ou=C2, o=ntftest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 6838326
+UserLevel: 70
+AnsweringService: LM
+
+dn: billingnumber=4444444444,uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 4444444444
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 4660161068
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 8326683
+COSDN: cos=3, ou=C2, o=ntftest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 6838326
+emttype: fixed
+UserLevel: 0
+AnsweringService: LM
+
+dn: billingnumber=1111111111,uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 1111111111
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 466044444444
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 8326683
+COSDN: cos=3, ou=C2, o=ntftest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 6838326
+emttype: mobile
+UserLevel: 0
+AnsweringService: LM
+
+dn: billingnumber=2222222222,uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 2222222222
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 466044444445
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 8326683
+COSDN: cos=3, ou=C2, o=ntftest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 6838326
+emttype: mobile
+UserLevel: 0
+AnsweringService: LM
+
+dn: billingnumber=3333333333,uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 3333333333
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 466044444446
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 8326683
+COSDN: cos=3, ou=C2, o=ntftest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 6838326
+emttype: mobile
+UserLevel: 0
+AnsweringService: LM
+
+dn: billingnumber=5555555555,uniqueidentifier=um1436, ou=C2, o=ntfTest.se
+admininfo: uniqueidentifier=um1432
+BadLoginCount: 0
+umpassword: 6X1S0a273H3i1E75
+BillingNumber: 5555555555
+subscribertimezone: Europe/Stockholm
+inboundfaxno: 466044444446
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+NoForLastName: 8326683
+COSDN: cos=3, ou=C2, o=ntftest.se
+Password: 3Z191R240A0L472u
+NoForFirstName: 6838326
+emttype: fixed
+UserLevel: 0
+AnsweringService: LM
+
+dn: uniqueidentifier=um4872, ou=C2, o=ntfTest.se
+emSMPPcenterid: smppQL
+preferredLanguage: en
+givenName: len99
+emPreferredDateFormat: yyyy-MM-dd
+uniqueIdentifier: um4872
+emWGPid: wapQL
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: emuser
+objectClass: emNotification
+objectClass: inetmailuser
+objectClass: inetlocalmailrecipient
+objectClass: nsmessagingserveruser
+objectClass: LIP
+mailAlternateAddress: FAX=9999799@
+mailQuota: 10485760
+uid: ql99
+mail: ql99@ipms.su.erm.abcxyz.se
+cn: len99 ras99
+emMessagecharencoding: ISO-8859-1
+telephoneNumber: 9999999
+mailDeliveryOption: mailbox
+emEmptyTrash: no
+emServiceDn: cos=2,ou=C2,o=ntfTest.se
+gender: M
+emMMScenterid: mmscQL
+l: 0
+mailHost: jawa.ipms.su.erm.abcxyz.se
+emAutoLogin: no
+sn: ras99
+emWAPStart: main
+emFilter: 1;y;b;evf;SMS;c;2;;;;;costest;ro;
+emFilter: 1;y;a;evf;SMS;s;1;;;;;test1;;
+emNotifNumber: 9999899
+emPreferredTimeFormat: 24
+
+dn: billingnumber=9999999,uniqueidentifier=um4872, ou=C2, o=ntfTest.se
+InHoursDOW: 135
+Password: 3Z191R240A0L472u
+admininfo: uniqueidentifier=um1432
+objectClass: top
+objectClass: confmsgbox
+objectClass: appUM
+BillingNumber: 9999999
+messageplayemail: both
+AnsweringService: LM
+AutoPlay: yes
+inboundfaxno: 9999799
+InHoursStart: 0900
+messageplayvoice: both
+InHoursEnd: 1730
+UserLevel: 0
+UrgentMsgPlay: yes
+umpassword: 6X1S0a273H3i1E75
+COSDN: cos=2,ou=C2,o=ntfTest.se
+BadLoginCount: 0
+subscribertimezone: Europe/Stockholm
+

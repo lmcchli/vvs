@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode='dtmf' root='rule1'>
+            <rule id='rule1'>
+                <one-of>
+                    <item>1</item>
+                </one-of>
+            </rule>
+        </grammar>
+  <form>
+      <field name="field1">
+
+         <prompt timeout="10s">
+             <mark name="mstart"/>
+             Please press something to continue
+         </prompt>
+         <filled>
+           <if cond="application.lastresult$.interpretation=='1'">
+               <log>TCPASS VXML: ShadowVars ok 1.1</log>
+           <else/>
+               <log>TCFAIL VXML: ShadowVars nok 1.1</log>
+           </if>
+           <if cond="field1$.interpretation=='1'">
+               <log>TCPASS VXML: ShadowVars ok 1.2</log>
+           <else/>
+               <log>TCFAIL VXML: ShadowVars nok 1.2</log>
+           </if>
+           <if cond="field1$.markname=='mstart'">
+               <log>TCPASS VXML: ShadowVars ok 1.3</log>
+           <else/>
+               <log>TCFAIL VXML: ShadowVars nok 1.3</log>
+           </if>
+         </filled>
+      </field>
+  </form>
+</vxml>

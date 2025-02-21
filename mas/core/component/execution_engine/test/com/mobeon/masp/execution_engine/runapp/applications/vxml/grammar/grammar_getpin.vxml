@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+
+    <form id="main_form">
+        <grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+            <rule id="gd1_main_rule2">
+                <one-of>
+                    <item>0</item>
+                    <item>1</item>
+                    <item>2</item>
+                    <item>3</item>
+                    <item>4</item>
+                    <item>5</item>
+                    <item>6</item>
+                    <item>7</item>
+                    <item>8</item>
+                    <item>9</item>
+                </one-of>
+            </rule>
+            <rule id="gd1_main_rule" scope="public">
+                <one-of>
+                    <item repeat="0-">
+                        <ruleref uri="#gd1_main_rule2"/>
+                    </item>
+                    <item>
+                        <item repeat="0-">
+                            <ruleref uri="#gd1_main_rule2"/>
+                        </item>
+                        <one-of>
+                            <item>*</item>
+                            <item>*</item>
+                            <item>* 0</item>
+                            <item>* *</item>
+                            <item>* 8</item>
+                        </one-of>
+                    </item>
+                </one-of>
+            </rule>
+        </grammar>
+        <field name="field1">
+            <prompt>
+                Enter a pin
+            </prompt>
+            <filled>
+                <log>TCPASS: In filled</log>
+                <if cond="field1=='123'">
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <elseif cond="field='1234'"/>
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <elseif cond="field='*'"/>
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <elseif cond="field='* *'"/>
+                    <log>TCPASS: Success with value
+                        <value expr="field1"/>
+                    </log>
+                    <else/>
+                    <log>TCFAIL: Fail value
+                        <value expr="field1"/>
+                    </log>
+                </if>
+            </filled>
+        </field>
+
+    </form>
+
+</vxml>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.w3.org/2001/vxml
+  http://www.w3.org/TR/voicexml21/vxml.xsd">
+
+
+    <form id="main_form">
+        <var name="phoneNumber"/>
+        <var name="origPhoneNumber"/>
+        <var name="unknown_sender"/>
+        <var name="unknown_receiver"/>
+        <var name="mediaObjects"/>
+
+        <var name="passed"/>
+        <block>
+
+            <!--get facs number attribute -->
+            <script>
+                // Check to see if the receiver exists in MUR
+                unknown_receiver = true;
+                if (typeof(session.connection.redirect) != 'undefined') {
+                    mas.systemLog(3, 'TC 20105441 session.connection.redirect is defined');
+                    if (typeof(session.connection.redirect[0]) != 'undefined') {
+                        mas.systemLog(3, 'TC 20105441 session.connection.redirect[0] is defined');
+                        if (typeof(session.connection.redirect[0].number) != 'undefined') {
+                            phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+                            mas.systemLog(3, 'TC 20105441 phoneNumber=' + phoneNumber);
+                            if (mas.subscriberExist(phoneNumber)) {
+                                // The subscriber do not exists, we should play unknown.wav and hangup
+                                unknown_receiver = false;
+
+                                mas.systemLog(3, 'TC 20105441 receiver is known');
+                            }
+                        }
+                    }
+                }
+                if (unknown_receiver) {
+                    mas.systemLog(3, 'TC 20105441 Failed as receiver is unknown');
+                }
+                // Check to see if the sender exists in MUR
+                if (typeof(session.connection.remote.number) != "undefined") {
+                    origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+                    unknown_sender = !mas.subscriberExist(origPhoneNumber);
+                }
+                if (unknown_sender) {
+                    mas.systemLog(3, 'TC 20105441 Failed as sender is unknown in MUR');
+                }
+
+            </script>
+
+
+            <script>
+                <![CDATA[
+                var storableMessageId = mas.messageCreateNew();
+
+                var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+
+                var sender = new Array('apan apan ' + '<' + callerEmailAddress[0] + '>');
+                mas.messageSetStorableProperty(9, 'sender', sender);
+              ]]>
+            </script>
+            <log>TC 20105441 Failed</log>
+            <exit/>
+        </block>
+
+     </form>
+    <catch event="error.com.mobeon.platform.system">
+        <log>TC 20105441 PASSED Error caught <value expr="_event"/></log>
+        <log>Error message: <value expr="_message"/></log>
+        <exit/>
+   </catch>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105441 Failed</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

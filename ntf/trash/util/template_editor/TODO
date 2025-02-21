@@ -1,0 +1,8 @@
+TemplateEditor.java is a prototype of a graphical tool for editing
+NTF text template files. It is not complete. Things to do:
+
+* Rename class from Phrase1 to TemplateEditor
+* Makefile
+* Modify NTF, so TextCreator has a method that can generate a text using
+  properties supplied as a parameter instead of read automagically from 
+  phrase files.

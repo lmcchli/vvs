@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="response1" />
+		<var name="response2" />
+		<var name="responseCode" />
+		
+		<block>
+			<script>
+				<![CDATA[
+				
+<!-- ##### TESTCASE 20016022 #####-->				
+				<!-- Value before update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetBalanceAndDate');
+				response1 = mas.systemGetAccountRequestParameter( 'accountValue1');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+					mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'voucherActivationCode' ], [ '1903', '19031111' ]);
+				mas.systemSendAccountRequest( 'Refill');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetBalanceAndDate');
+						response2 = mas.systemGetAccountRequestParameter( 'accountValue1');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 < response2 ){
+								mas.systemLog( 3, "TC 20016022 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016022 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016022 FAILED responseCode is wrong" );
+				}					
+
+
+	
+				]]>
+			</script>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 777 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

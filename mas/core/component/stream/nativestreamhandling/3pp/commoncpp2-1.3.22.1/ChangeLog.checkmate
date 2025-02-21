@@ -1,0 +1,5 @@
+
+src/mutex.cpp is updated (destructor ~ThreadLock())
+    the attribute were never destryed.
+
+src/mutex.cpp is updated, unsafe aoperations in AtomicCounter.

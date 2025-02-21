@@ -1,0 +1,70 @@
+################################################################
+#Copyright (c) 2003 Abcxyz Radio Systems AB
+#All Rights Reserved
+#
+
+#sms notificationtype is set to header
+h=You have a new __TYPE__ message from __FROM__. Message received at __TIME__, __DATE__ 
+
+#sms notificationtype is set to message text
+s=You have a new __TYPE__ message regarding "__SUBJECT__". Message received at __TIME__, __DATE__
+
+#sms notificationtype is set to count
+c=You have __TCOUNT__ new messages (__VCOUNT__ new voice messages, __FCOUNT__ new faxes, __ECOUNT__ new emails).
+# V F E   selects a different template depending on count (0, 1, 2 or more)
+c(0,0,0)=You have NO new messages.
+c(0,0,1)=You have one new email.
+c(0,0,2)=You have __ECOUNT__ new emails.
+c(0,1,0)=You have one new fax.
+c(0,1,1)=You have one new fax and one new email.
+c(0,1,2)=You have one new fax and __ECOUNT__ new emails.
+c(0,2,0)=You have __FCOUNT__ new faxes.
+c(0,2,1)=You have __FCOUNT__ new faxes and one new email.
+c(0,2,2)=You have __FCOUNT__ new faxes and __ECOUNT__ new emails.
+c(1,0,0)=You have one new voice message.
+c(1,0,1)=You have one new voice message and one new email.
+c(1,0,2)=You have one new voice message and __ECOUNT__ new emails.
+c(1,1,0)=You have one new voice message and one new fax.
+c(1,1,1)=You have one new voice message, one new fax and one new email.
+c(1,1,2)=You have one new voice message, one new fax and __ECOUNT__ new emails.
+c(1,2,0)=You have one new voice message and __FCOUNT__ new faxes.
+c(1,2,1)=You have one new voice message, __FCOUNT__ new faxes and one new email.
+c(1,2,2)=You have one new voice message, __FCOUNT__ new faxes and __ECOUNT__ new emails.
+c(2,0,0)=You have __VCOUNT__ new voice messages.
+c(2,0,1)=You have __VCOUNT__ new voice messages and one new email.
+c(2,0,2)=You have __VCOUNT__ new voice messages and __ECOUNT__ new emails.
+c(2,1,0)=You have __VCOUNT__ new voice messages and one new fax.
+c(2,1,1)=You have __VCOUNT__ new voice messages, one new fax and one new email.
+c(2,1,2)=You have __VCOUNT__ new voice messages, one new fax and __ECOUNT__ new emails.
+c(2,2,0)=You have __VCOUNT__ new voice messages and __FCOUNT__ new faxes.
+c(2,2,1)=You have __VCOUNT__ new voice messages, __FCOUNT__ new faxes and one new email.
+
+#Fallback template used when one of the above templates fails.
+general=You have new messages.
+
+#WAP Push Message
+WapPushText=You have a new message from __FROM__.
+
+#Slamdown message 
+slamdown=You received a call from __FROM__, no message was left. 
+
+#Message size subtemplates
+#VoiceSize is formatted by MVAS
+FSIZE_TEXT=size __SIZE__ pages.
+ESIZE_TEXT=size __SIZE__ kilobytes.
+
+#The value to on the left (i.e. "urgent") must remain constant
+urgent=urgent
+normal=normal
+
+#Deposit_type
+email=email
+fax=fax
+voice=voice
+
+#System notifications
+mailquotaexceeded=Your mailbox is full
+
+#MMS notifications
+mms_sender=From: __FROM__
+mms_date=Received: __DATE__

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+    <xs:complexType name="Abcxyz.configType">
+		<xs:sequence>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+			<xs:element name="configFileType" type="xs:int" fixed="6" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Ssmg configuration
+					</xs:documentation>
+				</xs:annotation>				
+			</xs:element>																					
+			<xs:element name="ssmgSpecificConfigIdentity" type="xs:string" default="moipSsmgSpecific"/>
+            <xs:element name="CmConfigDocumentURL" type="xs:string">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>			
+            <xs:element name="Abcxyz.subsystem-specific" type="SubsystemSpecificType"/>
+		</xs:sequence>
+	</xs:complexType>
+    <xs:complexType name="SubsystemSpecificType" mixed="true">
+		<xs:sequence>
+            <xs:element name="Abcxyz.SubsystemSpecificConfigItem" type="subsystem-specific-config-itemType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="subsystem-specific-config-itemType" mixed="true">
+		<xs:all>
+			<!-- MAP user  -->            
+            <xs:element name="Cm.EinJcpUserId" type="stringRefreshable" default="USER01_ID" minOccurs="0"/>
+                        
+            		<!-- Prepaid user -->
+            <xs:element name="Cm.Cs1EinJcpUserId" type="stringRefreshable" default="USER13_ID" minOccurs="0"/>
+            
+            		<!-- Dialogue slice id and total number of dialogue slices in the system -->            
+            <xs:element name="Cm.EinSs7DidSlicingId" type="xs:integer" default="0" minOccurs="0"/>
+            <xs:element name="Cm.EinSs7DidNumOfSlices" type="xs:integer" default="1" minOccurs="0"/>
+            
+            		<!-- User instance and TCAP attach instances -->            
+            <xs:element name="Cm.EinJcpUserInstanceId" type="stringRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.EinTcapBackEndInstanceId" type="stringRefreshable" default="1" minOccurs="0"/>
+            
+            		<!-- JCP configuration parameters --> 
+            <xs:element name="Cm.EinJcpCPManagerAddress" type="stringRefreshable" default="PL-2-10:6669" minOccurs="0"/>
+
+			<!-- Configuration of mapTcap -->
+            <xs:element name="Cm.mapVersion" type="integerRefreshable" default="2" minOccurs="0"/>
+            <xs:element name="Cm.destinationRoutingIndicator" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.originationRoutingIndicator" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.serviceCentreNumberingPlan" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.serviceCentreTypeofNumber" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.serviceCentreAddressNumber" type="stringRefreshable" default="5166771235" minOccurs="0"/>
+            <xs:element name="Cm.dataSource" type="stringRefreshable" default="HLR" minOccurs="0"/>
+            <xs:element name="Cm.HlrSSN" type="integerRefreshable" default="6" minOccurs="0"/>
+            <xs:element name="Cm.MscSSN" type="integerRefreshable" default="8" minOccurs="0"/>
+            <xs:element name="Cm.SgsnSSN" type="integerRefreshable" default="149" minOccurs="0"/>           
+            <xs:element name="Cm.destinationPointCode" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.destinationGlobalTitleTT" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.destinationGlobalTitleNP" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.destinationGlobalTitleNOA" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.destinationGlobalTitleAN" type="stringRefreshable" default="" minOccurs="0"/>
+            <xs:element name="Cm.destinationGlobalTitleType" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.originationPointCode" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.originationSSN" type="integerRefreshable" default="123" minOccurs="0"/>
+            <xs:element name="Cm.originationGlobalTitleTT" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.originationGlobalTitleNP" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.originationGlobalTitleNOA" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.originationGlobalTitleAN" type="stringRefreshable" default="5166771235" minOccurs="0"/>
+            <xs:element name="Cm.originationGlobalTitleType" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.componentTimeout" type="integerRefreshable" default="15000" minOccurs="0"/>
+            <xs:element name="Cm.SM-RP-PRI" type="booleanRefreshable" default="false" minOccurs="0"/>
+            <xs:element name="Cm.operationClass" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.qualityOfService" type="integerRefreshable" default="3" minOccurs="0"/>
+            <xs:element name="Cm.protocolVersion" type="integerRefreshable" default="6" minOccurs="0"/>
+            <xs:element name="Cm.msisdnExt" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.msisdnNoa" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.msisdnNp" type="integerRefreshable" default="1" minOccurs="0"/>
+                        
+            <!-- for MAP ss7 register SS -->
+            <xs:element name="Cm.supplementaryServiceNoa" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.supplementaryServiceNp" type="integerRefreshable" default="6" minOccurs="0"/>
+            <xs:element name="Cm.ssOriginalReference" type="stringRefreshable" default="49172903333" minOccurs="0"/>
+            <xs:element name="Cm.ssForwardToNumber" type="stringRefreshable" default="121" minOccurs="0"/>
+            <xs:element name="Cm.RegisterSsTimeOut" type="mediumTimeoutType" default="15" minOccurs="0"/>
+            <xs:element name="Cm.EraseSsTimeOut" type="mediumTimeoutType" default="15" minOccurs="0"/>
+            <xs:element name="Cm.InterrogateSsTimeOut" type="mediumTimeoutType" default="15" minOccurs="0"/>
+            <xs:element name="Cm.SupplementaryServiceUseMsisdn" type="xs:boolean" default="false" minOccurs="0"/>            
+            
+            
+            <!-- ATI -->
+            <xs:element name="Cm.AnyTimeInterrogationExtension" type="stringRefreshable" default="LMC" minOccurs="0"/>
+            <xs:element name="Cm.AnyTimeInterrogationGsmScf" type="stringRefreshable" default="" minOccurs="0"/>
+            <xs:element name="Cm.AnyTimeInterrogationTimeOut" type="mediumTimeoutType" default="15" minOccurs="0"/>
+            
+            <!-- Mt Forward Sm -->
+            <xs:element name="Cm.defaultMtForwardSmMsc" type="stringRefreshable" default="" minOccurs="0"/>
+
+            <!-- Alert Sc -->
+            <xs:element name="Cm.AlertSC" type="booleanRefreshable" default="true" minOccurs="0"/>
+
+
+            <!-- Error Type configuration, need to specify either permanent or temporary -->
+            <xs:element name="Cm.systemFailureError" type="errorType" default="temporary" minOccurs="0"/>
+            <xs:element name="Cm.dataMissingError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.unexpectedDataValueError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.facilityNotSupportedError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.unknownSubscriberError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.teleserviceNotProvisionedError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.callBarredError" type="errorType" default="temporary" minOccurs="0"/>
+            <xs:element name="Cm.absentSubscriberSMError" type="errorType" default="temporary" minOccurs="0"/>
+            <xs:element name="Cm.absentSubscriberError" type="errorType" default="temporary" minOccurs="0"/>
+            <xs:element name="Cm.cugRejectError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.smDeliveryFailureError" type="errorType" default="temporary" minOccurs="0"/>
+            <xs:element name="Cm.unidentifiedSubscriberError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.illegalSubscriberError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.illegalEquipmentError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.subscriberBusyForMTError" type="errorType" default="temporary" minOccurs="0"/>
+            <xs:element name="Cm.noTranslationForAnAddressOfSuchNatureError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.noTranslationForThisSpecificAddressError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.unequippedUserError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.destinationCannotPerformReassemblyError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.hopCounterViolationError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.sccpUnqualifiedError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.subsystemCongestionError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.subsystemFailureError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.networkCongestionError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.mtpFailureError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.sccpFailureError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.messageTransportError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.localProcessingError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.segmentationNotSupportedError" type="errorType" default="permanent" minOccurs="0"/>
+            <xs:element name="Cm.segmentationFailureError" type="errorType" default="permanent" minOccurs="0"/>
+			
+			<!-- Configuration of Cs1Tcap -->
+            <xs:element name="Cm.cs1DestinationRoutingIndicator" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationRoutingIndicator" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationPointCode" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationSSN" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationGlobalTitleTT" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationGlobalTitleNP" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationGlobalTitleNOA" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationGlobalTitleAN" type="stringRefreshable" default="" minOccurs="0"/>
+            <xs:element name="Cm.cs1DestinationGlobalTitleType" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationPointCode" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationSSN" type="integerRefreshable" default="124" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationGlobalTitleTT" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationGlobalTitleNP" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationGlobalTitleNOA" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationGlobalTitleAN" type="stringRefreshable" default="" minOccurs="0"/>
+            <xs:element name="Cm.cs1OriginationGlobalTitleType" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.cs1ComponentTimeout" type="integerRefreshable" default="5000" minOccurs="0"/>
+            <xs:element name="Cm.cs1MaxConcurrentClients" type="xs:integer" default="100" minOccurs="0"/>
+            <xs:element name="Cm.cs1OperationClass" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.cs1QualityOfService" type="integerRefreshable" default="3" minOccurs="0"/>
+            <xs:element name="Cm.cs1ProtocolVersion" type="integerRefreshable" default="6" minOccurs="0"/>
+            <xs:element name="Cm.cs1CalledPartyInternalNetworkNumberInd" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1CalledPartyNatureOfAddress" type="integerRefreshable" default="2" minOccurs="0"/>
+            <xs:element name="Cm.cs1CalledPartyNumberingPlanInd" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.cs1CallingPartyNatureOfAddress" type="integerRefreshable" default="4" minOccurs="0"/>
+            <xs:element name="Cm.cs1CallingPartyNumberingPlanInd" type="integerRefreshable" default="1" minOccurs="0"/>
+            <xs:element name="Cm.cs1CallingPartyNumberIncompleteInd" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1CallingPartyAddressPresentationInd" type="integerRefreshable" default="0" minOccurs="0"/>
+            <xs:element name="Cm.cs1CallingScreeningInd" type="integerRefreshable" default="3" minOccurs="0"/>
+			
+			<!-- CR3681: AlarmExpirationTime and AlarmCleanUpInterval are in min -->
+            <xs:element name="Cm.OtherSccpAlarmActivation" type="stringRefreshable" default="ON" minOccurs="0"/>
+            <xs:element name="Cm.AlarmExpirationTime" type="integerRefreshable" default="5" minOccurs="0"/>
+            <xs:element name="Cm.AlarmCleanUpInterval" type="integerRefreshable" default="5" minOccurs="0"/>
+
+                        <!-- Direct SMS: SriForSm is a medium timer (15-30secs), ReportSmDeliveryStatus is a short timer (3-10secs) -->
+			<!-- Direct SMS: MtForwardSm/ForwardSm is a medium timer (60-600secs). Timers are in seconds                -->
+            <xs:element name="Cm.SriForSmTimeOut" type="mediumTimeoutType" default="15" minOccurs="0"/>
+            <xs:element name="Cm.ReportSmDeliveryStatusTimeOut" type="shortTimeoutType" default="3" minOccurs="0"/>
+            <xs:element name="Cm.ForwardSmTimeOut" type="mediumLongTimeoutType" default="60" minOccurs="0"/>
+            
+            <xs:element name="Cm.ForwardSmGsmOnly" type="xs:boolean" default="true" minOccurs="0"/>
+			
+                        <!-- subscriber status cache -->
+            <xs:element name="Cm.SubscriberStatusCacheTime" type="xs:integer" default="1800" minOccurs="0"/>
+            <xs:element name="Cm.SubscriberStatusCacheSize" type="xs:integer" default="5000" minOccurs="0"/>
+
+                        <!--  map version cache size and time (in days) -->
+            <xs:element name="Cm.MapVersionCacheTime" type="xs:integer" default="30" minOccurs="0"/>
+            <xs:element name="Cm.MapVersionCacheSize" type="xs:integer" default="5000" minOccurs="0"/>            
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:simpleType name="shortTimeoutType">
+  		<xs:restriction base="xs:integer">
+    		<xs:minInclusive value="3"/>
+    		<xs:maxInclusive value="10"/>
+  		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="mediumTimeoutType">
+  		<xs:restriction base="xs:integer">
+    		<xs:minInclusive value="3"/>
+    		<xs:maxInclusive value="30"/>
+  		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="mediumLongTimeoutType">
+  		<xs:restriction base="xs:integer">
+    		<xs:minInclusive value="3"/>
+    		<xs:maxInclusive value="600"/>
+  		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="errorType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[P|p][E|e][R|r][M|m][A|a][N|n][E|e][N|n][T|t]"/>
+			<xs:pattern value="[T|t][E|e][M|m][P|p][O|o][R|r][A|a][R|r][Y|y]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="stringRefreshable">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="isRefreshable" type="xs:boolean" use="prohibited" fixed="false"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="integerRefreshable">
+		<xs:simpleContent>
+			<xs:extension base="xs:integer">
+				<xs:attribute name="isRefreshable" type="xs:boolean" use="prohibited" fixed="false"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>		
+	<xs:complexType name="booleanRefreshable">
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean">
+				<xs:attribute name="isRefreshable" type="xs:boolean" use="prohibited" fixed="false"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>			
+</xs:schema>

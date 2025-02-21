@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="chargingaccountmanager.xsd">
+    <chargingaccountmanager>
+        <airnodes>
+            <node host="localhost" port="4444" username="mas" password="mas"/>
+            <!-- <node host="brage.mobeon.com" port="1337"/> -->
+        </airnodes>
+
+        <!-- Note element names must be case-sensitive -->
+        <element name="accountActivationFlag" type="boolean"/>
+        <element name="accountGroupID" type="integer"/>
+        <element name="accountHomeRegion" type="integer"/>
+        <element name="accumulatorEndDate" type="date"/>
+        <element name="accumulatorID" type="integer"/>
+        <element name="accumulatorIDFirst" type="integer"/>
+        <element name="accumulatorStartDate" type="date"/>
+        <element name="accumulatorValue" type="integer"/>
+        <element name="activationDate" type="date"/>
+        <element name="activationStatusFlag" type="boolean"/>
+        <element name="adjustmentAmountRelative" type="string"/>
+        <element name="adjustmentDateRelative" type="integer"/>
+        <element name="allowedServiceClassChangeDateFlag" type="boolean"/>
+
+        <element name="chargingIndicator" type="integer"/>
+        <element name="chargingResultCode" type="integer"/>
+        <element name="chargingType" type="integer"/>
+        <element name="communityID" type="integer"/>
+        <element name="creditClearanceDate" type="date"/>
+        <element name="creditClearancePeriod" type="integer"/>
+
+        <element name="dedicatedAccountID" type="integer"/>
+        <element name="dedicatedAccountIDFirst" type="integer"/>
+        <element name="dedicatedAccountIDLast" type="integer"/>
+        <element name="dedicatedAccountValue1" type="string"/>
+        <element name="dedicatedAccountValue2" type="string"/>
+        <element name="dedicatedAccountValueNew" type="string"/>
+
+        <element name="expiryDate" type="date"/>
+        <element name="expiryDateExtended" type="integer"/>
+
+        <element name="fafChangeUnbarDate" type="date"/>
+        <element name="fafIndicator" type="integer"/>
+        <element name="fafMaxAllowdNumbersReachedFlag" type="boolean"/>
+        <element name="fafNumber" type="string"/>
+        <element name="firstIVRCallFlag" type="boolean"/>
+        <element name="firstIVRCallDoneFlag" type="boolean"/>
+        <element name="firstIVRCallSetFlag" type="boolean"/>
+
+        <element name="languageIDCurrent" type="integer"/>
+        <element name="languageIDNew" type="integer"/>
+        <element name="locationNumberNAI" type="integer"/>
+
+        <element name="negativeBarringStatusFlag" type="boolean"/>
+        <element name="notAllowedReason" type="integer"/>
+        <element name="owner" type="string"/>
+        <element name="pinCodeValidationFlag" type="boolean"/>
+        <element name="progressionRefillCounter" type="integer"/>
+        <element name="promotionAnnouncementCode" type="integer"/>
+        <element name="promotionEndDate" type="date"/>
+        <element name="promotionNotificationFlag" type="boolean"/>
+        <element name="promotionRefillCounter" type="integer"/>
+        <element name="promotionStartDate" type="date"/>
+
+        <element name="refillFraudCount" type="integer"/>
+        <element name="refillUnbarDateTime" type="date"/>
+        <element name="requestedOwner" type="integer"/>
+        <element name="requestedRefillAccountAfterFlag" type="boolean"/>
+        <element name="requestedRefillAccountBeforeFlag" type="boolean"/>
+        <element name="requestedRefillDetailsFlag" type="boolean"/>
+        <element name="reservationCorrelationID" type="integer"/>
+
+        <element name="selectedOption" type="integer"/>
+        <element name="serviceClassChangeUnbarDate" type="date"/>
+        <element name="serviceClassCurrent" type="integer"/>
+        <element name="serviceClassList" type="integer"/>
+        <element name="serviceClassNew" type="integer"/>
+        <element name="serviceClassOriginal" type="integer"/>
+        <element name="serviceClassTemporary" type="integer"/>
+        <element name="serviceClassTemporaryExpiryDate" type="date"/>
+        <element name="serviceClassTemporaryNew" type="integer"/>
+        <element name="serviceClassTemporaryNewExpiryDate" type="date"/>
+        <element name="serviceClassValidationFlag" type="boolean"/>
+        <element name="serviceFeeDaysExtended" type="integer"/>
+        <element name="serviceFeeDaysSurplus" type="integer"/>
+        <element name="serviceFeeExpiryDate" type="date"/>
+        <element name="serviceFeeExpiryDateRelative" type="integer"/>
+        <element name="serviceFeePeriod" type="integer"/>
+        <element name="serviceFeePeriodExpiryFlag" type="boolean"/>
+        <element name="serviceFeePeriodWarningActiveFlag" type="boolean"/>
+        <element name="serviceOfferingActiveFlag" type="boolean"/>
+        <element name="serviceOfferingID" type="integer"/>
+        <element name="serviceRemovalDate" type="date"/>
+        <element name="serviceRemovalPeriod" type="integer"/>
+        <element name="subscriberNumberNAI" type="integer"/>
+        <element name="supervisionExpiryDate" type="date"/>
+        <element name="supervisionExpiryDateRelative" type="integer"/>
+        <element name="supervisionDaysExtended" type="integer"/>
+        <element name="supervisionDaysSurplus" type="integer"/>
+        <element name="supervisionPeriod" type="integer"/>
+        <element name="supervisionPeriodExpiryFlag" type="boolean"/>
+        <element name="supervisionPeriodWarningActiveFlag" type="boolean"/>
+        <element name="temporaryBlockedFlag" type="boolean"/>
+        <element name="usedEndOfCallNotificationID" type="integer"/>
+
+        <elementgroup parent="messageCapabilityFlag" structtype="struct">
+            <member name="promotionNotificationFlag"/>
+            <member name="firstIVRCallSetFlag"/>
+            <member name="accountActivationFlag"/>
+        </elementgroup>
+
+        <elementgroup parent="chargingRequestInformation" structtype="struct">
+            <member name="chargingType"/>
+            <member name="chargingIndicator"/>
+            <member name="reservationCorrelationID"/>
+        </elementgroup>
+
+        <elementgroup parent="fafInformation" structtype="struct">
+            <member name="fafNumber"/>
+            <member name="fafIndicator"/>
+            <member name="owner"/>
+        </elementgroup>
+
+    </chargingaccountmanager>
+</configuration>

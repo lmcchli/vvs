@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>abcxyz.services.messaging.vvs.mas</groupId>
+    <artifactId>mas-parent</artifactId>
+    <version>MIO.CP50-SNAPSHOT</version>
+    <relativePath>../</relativePath>
+  </parent>
+  <groupId>abcxyz.services.messaging.vvs.mas</groupId>
+  <artifactId>mas-core-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>MAS Core Parent</name>
+  <modules>
+    <module>component</module>
+    <module>component/stream</module>
+    <module>platformaccessframework</module>
+  </modules>
+</project>

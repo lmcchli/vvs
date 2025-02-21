@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<form id="main_form">
+        <block expr="true">
+            <log>TCFAIL VXML: block nok 2a</log>
+        </block>
+        <filled>
+            <log>TCFAIL VXML: block nok 2b</log>
+            <exit/>
+        </filled>
+        <catch event="error">
+            <log>TCFAIL VXML: block nok 2c</log>
+        </catch>
+    </form>
+</vxml>

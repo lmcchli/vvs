@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="20103018.vxml">
+	<!-- TC 20103050. This test case verifies that any number of gotos is possible.-->
+<form>
+	<subdialog name="mySub" src="20103018b.vxml">
+		<filled>
+			<log label="error">TC 20103018 Failed (filled in A dokument was executed)</log>
+		</filled>
+	</subdialog>
+</form>
+</vxml>

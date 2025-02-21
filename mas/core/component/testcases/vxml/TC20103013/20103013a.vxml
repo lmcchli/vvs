@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<return eventexpr="'my'+'Event'"/>
+		</block>
+	</form>
+</vxml>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<subdialog name="result" src="20103010a.vxml">
+			<filled>
+				<!-- We shouldn't go here -->
+				<log label="error">TC 20103010 Failed</log>
+			</filled>
+		</subdialog>
+	</form>
+	<catch event="subdialogevent">
+			<log label="error">TC 20103010 Passed</log>
+			<disconnect/>
+	</catch>
+</vxml>

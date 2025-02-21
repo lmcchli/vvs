@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<vxml version="2.0" application="envir.vxml" xmlns="http://www.w3.org/2001/vxml">
+	<form id="sub">
+		<var name="a" />
+		<var name="b" />
+		
+		<var name="ret" expr="a +  b" />
+		<block>
+			<return namelist="ret" />
+		</block>
+	</form>
+</vxml>

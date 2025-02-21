@@ -1,0 +1,315 @@
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# Copyright (C) 1999-2005 Open Source Telecom Corporation.
+#
+# This file is free software; as a special exception the author gives
+# unlimited permission to copy and/or distribute it, with or without
+# modifications, as long as this notice is preserved.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ../..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+build_alias = @build_alias@
+build_triplet = @build@
+host_alias = @host_alias@
+host_triplet = @host@
+target_alias = @target_alias@
+target_triplet = @target@
+AR = @AR@
+AS = @AS@
+BASE_LIB = @BASE_LIB@
+CC = @CC@
+CCXX_DIR = @CCXX_DIR@
+COMMON_FLAGS = @COMMON_FLAGS@
+CPP = @CPP@
+CPPUNIT_LIBS = @CPPUNIT_LIBS@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+DLLTOOL = @DLLTOOL@
+DOXYGEN = @DOXYGEN@
+DYN_LOADER = @DYN_LOADER@
+ECHO = @ECHO@
+EGREP = @EGREP@
+EXEEXT = @EXEEXT@
+F77 = @F77@
+FTPDIR = @FTPDIR@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
+GETOPT_LIBS = @GETOPT_LIBS@
+HAVE_LIB = @HAVE_LIB@
+KDOC_DIR = @KDOC_DIR@
+LIB = @LIB@
+LIBGETOPTOBJS = @LIBGETOPTOBJS@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+LTLIB = @LTLIB@
+LT_ = @LT_@
+LT_MAJOR = @LT_MAJOR@
+LT_MINOR = @LT_MINOR@
+LT_RELEASE = @LT_RELEASE@
+LT_SUBVER = @LT_SUBVER@
+MAINT = @MAINT@
+MAKEINFO = @MAKEINFO@
+MODULE_FLAGS = @MODULE_FLAGS@
+OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
+PACKAGE = @PACKAGE@
+PTHREAD_CC = @PTHREAD_CC@
+RANLIB = @RANLIB@
+RC = @RC@
+SHARED_FLAGS = @SHARED_FLAGS@
+SOCKET_LIBS = @SOCKET_LIBS@
+STAGE2 = @STAGE2@
+STRIP = @STRIP@
+THREAD_FLAGS = @THREAD_FLAGS@
+THREAD_LIBS = @THREAD_LIBS@
+VERSION = @VERSION@
+WARN_FLAGS = @WARN_FLAGS@
+WINVERSION = @WINVERSION@
+XML2_CONFIG = @XML2_CONFIG@
+XML_CONFIG = @XML_CONFIG@
+XML_FLAGS = @XML_FLAGS@
+XML_LIBS = @XML_LIBS@
+ZSTREAM_LIBS = @ZSTREAM_LIBS@
+ccincludedir = @ccincludedir@
+datadir = @datadir@
+incprefix = @incprefix@
+infodir = @infodir@
+localstatedir = @localstatedir@
+mandir = @mandir@
+ost_cv_dynloader = @ost_cv_dynloader@
+prefix = @prefix@
+sysconfdir = @sysconfdir@
+thrprefix = @thrprefix@
+
+AUTOMAKE_OPTIONS = no-dependencies dist-shar dist-zip
+EXTRA_DIST = *.h
+MAINTAINERCLEANFILES = config.h Makefile.in config.tmp
+
+ccxxincludedir = $(ccincludedir)/cc++
+
+# export.h are used by other library
+ccxxinclude_HEADERS =  	common.h config.h digest.h exception.h export.h file.h 	misc.h network.h numbers.h persist.h serial.h slog.h 	socket.h strchar.h thread.h unix.h url.h xml.h process.h 	missing.h string.h buffer.h cmdoptns.h address.h zstream.h 	socketport.h tokenizer.h mime.h
+
+
+kdoc_headers =  	common.h config.h digest.h exception.h export.h file.h 	misc.h network.h numbers.h persist.h serial.h slog.h 	socket.h strchar.h thread.h unix.h url.h xml.h process.h 	missing.h string.h buffer.h zstream.h port.h
+
+mkinstalldirs = $(SHELL) $(top_srcdir)/autoconf/mkinstalldirs
+CONFIG_HEADER = ../../include/config.h
+CONFIG_CLEAN_FILES = 
+HEADERS =  $(ccxxinclude_HEADERS)
+
+DIST_COMMON =  Makefile.am Makefile.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = tar
+GZIP_ENV = --best
+all: all-redirect
+.SUFFIXES:
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.ac $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu include/cc++/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+install-ccxxincludeHEADERS: $(ccxxinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(ccxxincludedir)
+	@list='$(ccxxinclude_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(ccxxincludedir)/$$p"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(ccxxincludedir)/$$p; \
+	done
+
+uninstall-ccxxincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	list='$(ccxxinclude_HEADERS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(ccxxincludedir)/$$p; \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags -o $$here/TAGS $(ETAGS_ARGS) $$tags  $$unique $(LISP))
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = include/cc++
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+	$(MAKE) $(AM_MAKEFLAGS) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-hook
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am:
+install-exec: install-exec-am
+
+install-data-am: install-ccxxincludeHEADERS
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-ccxxincludeHEADERS
+uninstall: uninstall-am
+all-am: Makefile $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(ccxxincludedir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+mostlyclean-am:  mostlyclean-tags mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-tags clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-tags distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-tags maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: uninstall-ccxxincludeHEADERS install-ccxxincludeHEADERS tags \
+mostlyclean-tags distclean-tags clean-tags maintainer-clean-tags \
+distdir info-am info dvi-am dvi check check-am installcheck-am \
+installcheck install-exec-am install-exec install-data-am install-data \
+install-am install uninstall-am uninstall all-redirect all-am all \
+installdirs mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+#do not distribuite config.h, autogenerated
+dist-hook:
+	rm -f $(distdir)/config.h
+
+kdoc:	
+	kdoc -f html -d $(KDOC_DIR) -L $(KDOC_DIR) -n CommonC++ $(kdoc_headers) --cppcmd ../../doc/kdoc_cpp --cpp -I ../../doc
+
+view:
+	lynx ../../doc/index.html
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

@@ -1,0 +1,547 @@
+#!/bin/ksh
+###################################################################
+# File    : mascommon
+# Author  : H…kan Tunell
+# Created : 2006-01-16
+#
+# Description:
+#	This file contaiains common functions for operating mas.
+#
+# OS: 	Solaris 8
+#	Solaris 10
+#
+# History
+#	Date		Who	What
+#	2006-01-16  	MHATU	Created
+#
+#
+####################################################################
+
+# TR 30579. terminal could not be opened in later SOlaris versions without this
+export TERMINFO=/usr/share/lib/terminfo/ 
+
+#*********************************************
+# These parameters exsist in rc.mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+PKGNAME=MOBYmas
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam $PKGNAME BASEDIR`
+HOSTNAME=`hostname`
+mode=$1
+param=$2
+
+
+MAS_ENABLERESTART=$BASEDIR"/etc/enablerestart"
+MAS_DISABLERESTART=$BASEDIR"/etc/disablerestart"
+
+# Load config values
+. $BASEDIR/etc/mas.conf
+
+
+#
+#	Setup java enviroment
+#
+setupEnv() {
+    
+    # set up library path
+    #LD_LIBRARY_PATH=/usr/lib/lwp:/usr/local/lib:$BASEDIR/lib
+    LD_LIBRARY_PATH=/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:/usr/local/lib:$JAVA_CLASSPATH
+
+}
+
+chkMasRunning()
+{
+	# Check if the mas process is online. But it can be in starting state.
+        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+        result=`echo $result |awk -F= '{ print $2}'`  # keep value after "="
+        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }') # Remove white space
+        result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+
+        if [[ $result != "1"  &&  $result != "2" ]]
+        then
+        	#Mas not running
+        	echo "mas:$HOSTNAME:status MAS not running"
+        	exit 1
+	fi
+
+}
+
+#
+#	Disables restart
+#
+enable_restart()
+{
+	if [[ -f $MAS_DISABLERESTART ]]
+	then
+		#rename enable file to disable file
+		mv $MAS_DISABLERESTART $MAS_ENABLERESTART
+	else
+		# if disable file not exsist..create.
+		if [[ ! -f $MAS_ENABLERESTART ]]
+		then
+			echo "DO NOT REMOVE THIS FILE." >> $MAS_ENABLERESTART
+			echo "This is a flag file." > $MAS_ENABLERESTART
+			echo "If filename is : enablerestart  then restart is enabled." >> $MAS_ENABLERESTART
+			echo "		     : disablerestart then restart is disabled." >> $MAS_ENABLERESTART
+		fi
+	fi
+	
+	echo "mas:$HOSTNAME:status ok"
+}
+
+#
+#	Enables restart
+#
+disable_restart()
+{
+	if [[ -f $MAS_ENABLERESTART ]]
+	then
+		#rename enable file to disable file
+		mv $MAS_ENABLERESTART $MAS_DISABLERESTART
+	else
+		# if disable file not exsist..create.
+		if [[ ! -f $MAS_DISABLERESTART ]]
+		then
+			echo "DO NOT REMOVE THIS FILE." > $MAS_DISABLERESTART
+			echo "This is a flag file." >> $MAS_DISABLERESTART
+			echo "If filename is : enablerestart  then restart is enabled." >> $MAS_DISABLERESTART
+			echo "		     : disablerestart then restart is disabled." >> $MAS_DISABLERESTART
+		fi
+	fi
+	
+	echo "mas:$HOSTNAME:status ok"
+
+}
+
+
+doLock()
+{
+       	result=`$SNMP_DIR/setany -v2c localhost public enterprises.24261.1.1.1.4.0 -i 2`
+        result=`echo $result |awk -F= '{ print $2}'`
+        # remove white spaces
+        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+	
+        if [[ $result = "2" ]]
+        then
+                echo "mas:$HOSTNAME:status ok"
+        else
+	        echo "mas:$HOSTNAME:status error"
+        fi
+
+
+   	#setupEnv
+   	#CURDIR=`pwd`
+   	#cd $BASEDIR
+	#$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.rpcclient.Command lock
+	#cd $CURDIR
+}
+
+doUnLock()
+{
+        result=`$SNMP_DIR/setany -v2c localhost public enterprises.24261.1.1.1.4.0 -i 1`
+        result=`echo $result |awk -F= '{ print $2}'`
+        # remove white spaces
+        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+	
+        if [[ $result = "1" ]]
+        then
+                echo "mas:$HOSTNAME:status ok"
+        else
+                echo "mas:$HOSTNAME:status error"
+        fi
+
+
+   	#setupEnv
+   	#CURDIR=`pwd`
+   	#cd $BASEDIR
+	#$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.rpcclient.Command unlock
+	#cd $CURDIR
+}
+
+doShutdown()
+{
+        result=`$SNMP_DIR/setany -v2c localhost public enterprises.24261.1.1.1.4.0 -i 3`
+        result=`echo $result |awk -F= '{ print $2}'`
+        # remove white spaces
+        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+	
+        if [[ $result = "3" ]]
+        then
+                echo "mas:$HOSTNAME:status ok"
+        else
+                echo "mas:$HOSTNAME:status error"
+        fi
+
+   	#setupEnv
+   	#CURDIR=`pwd`
+   	#cd $BASEDIR
+	#$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.rpcclient.Command shutdown
+	#cd $CURDIR
+}
+
+doStatus()
+{
+   	setupEnv
+   	CURDIR=`pwd`
+   	cd $BASEDIR
+	STATUS=`$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.rpcclient.Command status`
+	echo "mas:$HOSTNAME:status "$STATUS
+	cd $CURDIR
+}
+
+doMonitor()
+{
+
+
+	# the mas process is online. But it can be in starting state.
+        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+        result=`echo $result |awk -F= '{ print $2}'`  # keep value after "="
+        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }') # Remove white space
+        result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+
+        if [[ $result = "1"  ||  $result = "2" ]]
+        then
+	   	setupEnv
+	   	CURDIR=`pwd`
+	   	cd $BASEDIR
+		$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.monitor.MonitorLoader
+		cd $CURDIR
+	else
+		echo "mas:$HOSTNAME:status MAS not running"
+	fi
+	
+}
+doViewMib()
+{
+	$SNMP_DIR/getmany -v2c localhost public enterprises.24261.1.1.1
+   	
+   	#setupEnv
+	#$JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.rpcclient.Command viewmib
+}
+
+doReloadConfig(){
+
+        result=`$SNMP_DIR/setany -v2c localhost public enterprises.24261.1.1.1.20.0 -i 1`
+        result=`echo $result |awk -F= '{ print $2}'`
+	result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }') # remove white spaces
+        result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+
+        if [[ $result = "1" ]]
+        then
+        
+        	sleep 1
+        	doChkConfiguration
+        fi
+
+}
+
+doChkConfiguration()
+{
+        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.20.0 `
+	result=`echo $result |awk -F= '{ print $2}'`  # keep value after "="
+	result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }') # remove white spaces
+	result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+
+	if [[ $result = "2" ]]
+	then
+		echo "mas:$HOSTNAME:status ok"
+	elif [[ $result = "3" ]]
+	then
+		echo "mas:$HOSTNAME:status warning. Could not use one or more configfiles. Using backup configuration files. se logfile."
+	elif [[ $result = "4" ]]
+	then
+		echo "mas:$HOSTNAME:status error. Could not use one or more configfiles. No backup configuration found. se logfile."
+	else
+		echo "mas:$HOSTNAME:status unknown (result=$result)"
+	fi
+
+}
+
+doWaitUntilLocked()
+{
+# First check that mas is running before waiting for lock (TR32171).
+	chkMasRunning
+	char=0
+	
+        timeout=$param
+
+        start_time=`perl -e 'printf "%d\n", time;'`
+        
+        if [[ $param != "" ]]
+        then
+	        stop_time=`expr $start_time + $param`
+	fi
+
+        locked=""
+        while [ $locked="" ]
+        do
+                # get unlocked = 1 / locked = 0 / shutdown = 3
+                result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.4.0 `
+                result=`echo $result |awk -F= '{ print $2}'`
+                result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+		result=`echo $result | nawk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'` # Keep only number
+		
+                if [[ $result = "2" ]]
+                then
+                        #locked
+                        echo "\r\c"
+                        #echo "mas:$HOSTNAME:status ok"
+                        locked="yes"
+                        break
+                fi
+
+
+                if [[ $param != "" ]]
+                then
+                	time=`perl -e 'printf "%d\n", time;'`
+
+	                if [[ $stop_time < $time ]]
+        	        then
+                	        #timeout. Do lock
+                        	echo "\r\c"
+	                        sync
+                        	echo "                                \c"
+	                        echo "\r\c"
+                        	doLock
+                        	break
+                	fi
+		fi
+		
+                char=`expr $char + 1`
+                echo "\r\c"
+                case "$char" in
+                   "1") echo "mas:$HOSTNAME:shutting down [\\] \c" ;;
+                   "2") echo "mas:$HOSTNAME:shutting down [|] \c" ;;
+                   "3") echo "mas:$HOSTNAME:shutting down [/] \c" ;;
+                   "4") echo "mas:$HOSTNAME:shutting down [-] \c"
+                        char=0 ;;
+                esac
+
+
+                sleep 1
+
+        done
+        
+
+}
+
+#
+# Update mas.conf file with new version
+#
+updateMasConf()
+{
+# 
+#  THESE LINES MUST NOT BE INDENTED
+#
+cp $BASEDIR/etc/mas.conf $BASEDIR/etc/mas.conf.save
+cat $BASEDIR/etc/mas.conf.save | sed '
+/BASE_VERSION/ c\
+BASE_VERSION='"$MCR_VERSION"'
+' > $BASEDIR/etc/mas.conf
+}
+
+
+mcrRegister()
+{
+	patchinst=$1
+	
+	CURDIR=`pwd`
+   	cd $BASEDIR/etc
+
+	NAME="mediaaccessserver"
+	TYPE="mas"
+	
+	echo "Registering component to MCR"
+
+	
+	VER=`pkgparam MOBYmas BASE_VERSION`
+	if [[ $VER != "" ]]
+	then
+		BASE_VERSION=$VER
+	fi
+
+        #Remove "MAS_" before register in MCR.
+        MCR_VERSION=$(echo $BASE_VERSION|sed 's/MAS_//g')
+
+        patches=""
+        patches_with_space="$MOIP_PATCHLIST"
+        for patch in $patches_with_space
+        do
+                if [[ $patches = "" ]]
+                then
+                        patches="$patch"
+                else
+                        patches="$patches","$patch"
+                fi
+        done
+       
+        if [[ $patches != "" ]]
+        then
+ 		MCR_VERSION=$MCR_VERSION","$patches
+        fi
+	
+	./mcrreg.sh $NAME type=$TYPE version="$MCR_VERSION" component=$MASInstanceName rootoid=$MASRootoid protocol=snmp > /dev/null 2>&1
+	if [ $? -gt 0 ]
+	then
+		cd $CURDIR
+      		echo "Failed to register MAS to MCR"
+      		exit 2
+	fi
+
+	# update mas.conf file
+	updateMasConf
+
+
+        APPDIR=`nawk '/WORKINGDIR\/applications/{sub(/^.*WORKINGDIR./,"");sub(/<\/value>.*$/,"");print $0;exit 0;}' $BASEDIR/etc/ComponentConfig.xml`
+        PROPFILE=$BASEDIR/`dirname $APPDIR`/properties.cfg
+        if [ -f "$PROPFILE" ]; then
+
+	   if [[ -f $BASEDIR/bin/appmcpreg.sh ]]
+	   then
+		$BASEDIR/bin/appmcpreg.sh
+		if [ $? -gt 0 ]
+		then
+			cd $CURDIR
+	      		echo "Failed to register MCP to MCR"
+      			exit 2
+		fi
+	   fi
+	fi
+
+	cd $CURDIR
+
+	
+}
+
+
+
+mcrUnRegister()
+{
+	CURDIR=`pwd`
+   	cd $BASEDIR/etc
+
+	NAME="mediaaccessserver"
+	TYPE="mas"
+	
+	echo "Unregistering component from MCR"
+
+	
+	$BASEDIR/etc/mcrunreg.sh $NAME component=$MASInstanceName > /dev/null 2>&1
+	if [ $? -gt 0 ]
+	then
+		cd $CURDIR
+      		echo "Failed to unregister MAS to MCR"
+      		exit 2
+	fi
+
+        APPDIR=`nawk '/WORKINGDIR\/applications/{sub(/^.*WORKINGDIR./,"");sub(/<\/value>.*$/,"");print $0;exit 0;}' $BASEDIR/etc/ComponentConfig.xml`
+        PROPFILE=$BASEDIR/`dirname $APPDIR`/properties.cfg
+        if [ -f "$PROPFILE" ]; then
+
+		if [[ -f $BASEDIR/bin/appmcpunreg.sh ]]
+		then
+			$BASEDIR/bin/appmcpunreg.sh
+			if [ $? -gt 0 ]
+			then
+				cd $CURDIR
+		      		echo "Failed to unregister MCP to MCR"
+	      			exit 2
+			fi
+	
+		fi
+	fi
+
+	cd $CURDIR
+
+	
+}
+
+testNumber(){
+   	setupEnv
+   	CURDIR=`pwd`
+   	cd $BASEDIR
+	$JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.numberanalyzer.NumberAnalyzer -f $1 -r $2 -n $3 -a $4
+	cd $CURDIR
+}
+
+case "$mode" in
+        'enableautostart')
+		enable_restart
+		;;
+	'disableautostart')
+		disable_restart
+		;;
+	'lock')
+		doLock
+		;;	
+	'unlock')
+		doUnLock
+		;;	
+	'shutdown')
+		doShutdown
+		doWaitUntilLocked
+		;;
+	'status')
+		doStatus
+		;;
+	'monitor')
+		doMonitor
+		;;
+	'viewmib')
+		doViewMib
+		;;
+	'installmcp')
+		$BASEDIR/bin/mcpadmin.sh install $param
+		;;
+        'uninstallmcp')
+	        $BASEDIR/bin/mcpadmin.sh uninstall $param
+                ;;
+	'viewmcp')
+		$BASEDIR/bin/mcpadmin.sh view
+		;;
+	'installapp')
+		$BASEDIR/bin/appadmin.sh install $param
+		;;
+	'uninstallapp')
+		$BASEDIR/bin/appadmin.sh uninstall $param
+		;;
+	'viewapp')
+		$BASEDIR/bin/appadmin.sh view
+		;;
+	'reloadconfig')
+		doReloadConfig
+		;;
+	'register')
+		mcrRegister
+		;;
+	'patchregister')      # called from package or patch installation
+		mcrRegister patch
+		;;
+	'unregister')
+		mcrUnRegister
+		;;
+	'testnumber')
+		testNumber $2 $3 $4 $5
+		;;
+			
+	*)
+		echo "Usage: `basename $0` <enableautostart|disableautostart|monitor>"
+		exit 1
+		;;
+esac

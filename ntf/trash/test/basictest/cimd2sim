@@ -1,0 +1,426 @@
+#!/usr/local/bin/perl
+require "flush.pl";
+use IO::Socket;
+
+
+#CIMD2 delimiters*/
+$CIMD2_STX= "\x2";
+$CIMD2_ETX= "\x3";
+$CIMD2_TAB= "\x9";
+$CIMD2_COLON= "\x3a";
+
+#CIMD2 operations*/
+$CIMD2_LOGIN= "1";
+$CIMD2_LOGOUT= "2";
+$CIMD2_SUBMIT_MESSAGE= "3";
+$CIMD2_ENQUIRE_MESSAGE_STATUS= "4";
+$CIMD2_DELIVERY_REQUEST= "5";
+$CIMD2_CANCEL_MESSAGE= "6";
+$CIMD2_SET= "8";
+$CIMD2_GET= "9";
+$CIMD2_DELIVER_MESSAGE= "20";
+$CIMD2_DELIVER_STATUS_REPORT= "23";
+$CIMD2_ALIVE= "40";
+
+$CIMD2_LOGIN_RESP= "51";
+$CIMD2_LOGOUT_RESP= "52";
+$CIMD2_SUBMIT_MESSAGE_RESP= "53";
+$CIMD2_ENQUIRE_MESSAGE_STATUS_RESP= "54";
+$CIMD2_DELIVERY_REQUEST_RESP= "55";
+$CIMD2_CANCEL_MESSAGE_RESP= "56";
+$CIMD2_SET_RESP= "58";
+$CIMD2_GET_RESP= "59";
+$CIMD2_DELIVER_MESSAGE_RESP= "70";
+$CIMD2_DELIVER_STATUS_REPORT_RESP= "73";
+$CIMD2_ALIVE_RESP= "90";
+$CIMD2_GENERAL_ERROR_RESP= "98";
+$CIMD2_NACK= "99";
+
+#CIMD2 parameters
+$CIMD2_USER_IDENTITY                    = "010";
+$CIMD2_PASSWORD                         = "011";
+$CIMD2_DESTINATION_ADDRESS              = "021";
+$CIMD2_ORIGINATING_ADDRESS              = "023";
+$CIMD2_ORIGINATING_IMSI                 = "026";
+$CIMD2_ALPHANUMERIC_ORIGINATING_ADDRESS = "027";
+$CIMD2_ORIGINATED_VISITED_MSC_ADDRESS   = "028";
+$CIMD2_DATA_CODING_SCHEME               = "030";
+$CIMD2_USER_DATA_HEADER                 = "032";
+$CIMD2_USER_DATA                        = "033";
+$CIMD2_USER_DATA_BINARY                 = "034";
+$CIMD2_TRANSPORTTYPE                    = "041";
+$CIMD2_MESSAGE_TYPE                     = "042";
+$CIMD2_MORE_MESSAGES_TO_SEND            = "044";
+$CIMD2_OPERATION_TIMER                  = "045";
+$CIMD2_DIALOGUE_ID                      = "046";
+$CIMD2_USSD_PHASE                       = "047";
+$CIMD2_SERVICE_CODE                     = "048";
+$CIMD2_VALIDITY_PERIOD_RELATIVE         = "050";
+$CIMD2_VALIDITY_PERIOD_ABSOLUTE         = "051";
+$CIMD2_PROTOCOL_IDENTIFIER              = "052";
+$CIMD2_FIRST_DELIVERY_TIME_RELATIVE     = "053";
+$CIMD2_FIRST_DELIVERY_TIME_ABSOLUTE     = "054";
+$CIMD2_REPLY_PATH                       = "055";
+$CIMD2_STATUS_REPORT_REQUEST            = "056";
+$CIMD2_CANCEL_ENABLED                   = "058";
+$CIMD2_CANCEL_MODE                      = "059";
+$CIMD2_SERVICE_CENTRE_TIME_STAMP        = "060";
+$CIMD2_STATUS_CODE                      = "061";
+$CIMD2_STATUS_ERROR_CODE                = "062";
+$CIMD2_DISCHARGE_TIME                   = "063";
+$CIMD2_TARIFF_CLASS                     = "064";
+$CIMD2_SERVICE_DESCRIPTION              = "065";
+$CIMD2_MESSAGE_COUNT                    = "066";
+$CIMD2_PRIORITY                         = "067";
+$CIMD2_DELIVERY_REQUEST_MODE            = "068";
+$CIMD2_GET_PARAMETER                    = "500";
+$CIMD2_MC_TIME                          = "501";
+$CIMD2_ERROR_CODE                       = "900";
+$CIMD2_ERROR_TEXT                       = "901";
+
+    #CIMD2 error codes*/
+ $CIMD2_NO_ERROR= "0";
+$CIMD2_UNEXPECTED_OPERATION= "1";
+$CIMD2_SYNTAX= "2";
+$CIMD2_UNSUPPORTED_PARAMETER= "3";
+$CIMD2_CONNECTION_TO_MC_LOST= "4";
+$CIMD2_NO_RESPONSE_FROM_MC= "5";
+$CIMD2_GENERAL_SYSTEM= "6";
+$CIMD2_PARAMETER_FORMATTING= "8";
+$CIMD2_REQUESTED_OPERATION_FAILED= "9";
+    #CIMD2 login error codes*/
+$CIMD2_INVALID_LOGIN= "100 ";
+$CIMD2_TOO_MANY_LOGINS= "102";
+$CIMD2_LOGIN_REFUSED= "103";
+    #CIMD2 submit error codes*/
+$CIMD2_DESTINATION_ADDRESS_ERR= "300";
+$CIMD2_NUMBER_OF_DESTINATIONS= "301";
+$CIMD2_USER_DATA_SYNTAX= "302";
+$CIMD2_DCS_USAGE= "304";
+$CIMD2_VALIDITY_PERIOD= "305";
+$CIMD2_ORIGINATOR_ADDRESS_ERR= "306";
+
+($port) = shift;
+if ($port eq "-h" || $port eq "-help") {
+    &doc;
+    exit;
+}
+	
+$port = 5017 unless $port;
+
+&readprops("cimd2sim.rc");
+open(LOG, ">>test.log") ||die "Could not write cimd2sim.log";
+local($oldfh) = select(LOG);
+$|= 1;
+select($oldfh);
+print LOG "\n\n================================================================\n";
+
+
+#Fill arrays for random behaviour
+$behavior[0]= $props{"ok"};
+$behavior[1]= $props{"error"};
+$behavior[2]= $props{"crash"};
+$behavior[3]= $props{"dropreq"};
+$behavior[4]= $props{"delay"};
+$behavior[5]= $props{"alive"};
+$behavior[6]= $props{"garbage"};
+$behavior[7]= $props{"hang"};
+foreach $i (@behavior) {
+    $behavior+= $i;
+}
+
+$errcode[0]= $props{"EC_2"};    $err[0]=  $CIMD2_SYNTAX;
+$errcode[1]= $props{"EC_3"};	$err[1]=  $CIMD2_UNSUPPORTED_PARAMETER;
+$errcode[2]= $props{"EC_4"};	$err[2]=  $CIMD2_CONNECTION_TO_MC_LOST;
+$errcode[3]= $props{"EC_5"};	$err[3]=  $CIMD2_NO_RESPONSE_FROM_MC;
+$errcode[4]= $props{"EC_6"};	$err[4]=  $CIMD2_GENERAL_SYSTEM;
+$errcode[5]= $props{"EC_8"};	$err[5]=  $CIMD2_PARAMETER_FORMATTING;
+$errcode[6]= $props{"EC_9"};	$err[6]=  $CIMD2_REQUESTED_OPERATION_FAILED;
+$errcode[7]= $props{"EC_100"};	$err[7]=  $CIMD2_INVALID_LOGIN;
+$errcode[8]= $props{"EC_102"};	$err[8]=  $CIMD2_TOO_MANY_LOGINS;
+$errcode[9]= $props{"EC_103"};	$err[9]=  $CIMD2_LOGIN_REFUSED;
+$errcode[10]= $props{"EC_300"};	$err[10]= $CIMD2_DESTINATION_ADDRESS_ERR;
+$errcode[11]= $props{"EC_301"};	$err[11]= $CIMD2_NUMBER_OF_DESTINATIONS;
+$errcode[12]= $props{"EC_302"};	$err[12]= $CIMD2_USER_DATA_SYNTAX;
+$errcode[13]= $props{"EC_304"};	$err[13]= $CIMD2_DCS_USAGE;
+$errcode[14]= $props{"EC_305"};	$err[14]= $CIMD2_VALIDITY_PERIOD;
+foreach $i (@errcode) {
+    $errcode+= $i;
+}
+
+
+&startserver;
+################################################################ END
+
+
+sub startserver {
+    $server = IO::Socket::INET->new( Proto     => 'tcp',
+				     LocalPort => $port,
+				     Listen    => 1,
+				     Reuse     => 1);
+    die "can't setup server" unless $server;
+    
+    ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)= localtime(time);
+    $now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+    &log("Waiting for CIMD2 connection\n");
+    while ($client= $server->accept()) {
+	if (($child= fork()) == 0) {
+	    &handleCimd2Connection;
+	    close($client);
+	    exit;
+	}
+    }
+}
+
+
+sub handleCimd2Connection {
+    srand(time|$$);
+    $reqseq= 0;
+    ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)= localtime(time);
+    $now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+    &log("New connection\n");
+    for (;;) {
+	undef $buf;
+	do {
+	    $len= read($client, $buf, 1);
+	    if ($len == 0) {
+		close($client);
+		exit(0);
+	    }
+	} until $len > 0 && substr($buf, 0, 1) eq $CIMD2_STX;
+	undef %params;
+	$pos= 1;
+	do {
+	    $len= read($client, $buf, 1, $pos);
+	    if ($len == 0) {
+		close($client);
+		exit(0);
+	    }
+            $pos+= $len;
+	} until substr($buf, $pos - 1, 1) eq $CIMD2_ETX;
+	$buf= substr($buf, 1);
+	chop $buf;
+	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)= localtime(time);
+	$now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+	&handleMessage($buf);
+    }
+}
+
+
+sub handleMessage() {
+    local($buf)= pop(@_);
+    ($head, @params)= split(/\t/, $buf);
+    ($op, $seq)= split(/:/, $head);
+    &log(" -->$seq OP=$op ");
+    if ($op >= 50) { #Do not respond to responses
+	print LOG "\n";
+	return;
+    }
+    foreach $param(@params) {
+	($key, $value)= split(/:/, $param);
+	print LOG "$key=$value ";
+	$params{$key}= $value;
+    }
+    print LOG "\n";
+    
+    do {
+	$now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+	$action= &draw(*behavior);
+	
+	if ($action == 2) {
+	    &log("Simulating crash\n");
+	    close $client;
+	    exit;
+	}
+	
+	if ($action == 3) {
+	    &log("Dropping request\n");
+	    return;
+	}
+
+	if ($action == 7) {
+	    &log("Simulating hang\n");
+	    for ($i= 0; $i < 100; $i++) {
+		sleep 3;
+	    }
+	    return;
+	}
+	
+	if ($action == 4) {
+	    &log("Delayed response\n");
+	    sleep 10;
+	} elsif ($action == 5) {
+	    &log("Sending alive request\n");
+	    $alseq= sprintf("%03d", &nextseq);
+	    &log(" <--$alseq OP=40\n");
+	    print $client $CIMD2_STX . "40:$alseq" . $CIMD2_TAB . $CIMD2_ETX;
+	    &flush(LOG);
+	    &flush($client);
+	} elsif ($action == 6) {
+	    &log("Printing garbage\n");
+	    print $client "Hej hopp i lingonskogen\n";
+	}
+	$now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+    } while ($action > 1); #Repeat until the action is a response
+    
+    &log(" <--$seq OP=" . ($op + 50) . " ");
+    print $client $CIMD2_STX . ($op + 50) . ":" . $seq . $CIMD2_TAB;
+    if ($action == 0) {
+        &flush(LOG);
+	if ($op == $CIMD2_SUBMIT_MESSAGE) {
+	    $ts= sprintf("%02d%02d%02d%02d%02d%02d", $year - 100, $mon+1, $mday, $hour, $min, $sec);
+	    print LOG "$CIMD2_DESTINATION_ADDRESS=" . $params{$CIMD2_DESTINATION_ADDRESS} . " ";
+	    print $client $CIMD2_DESTINATION_ADDRESS . $CIMD2_COLON . $params{$CIMD2_DESTINATION_ADDRESS} . $CIMD2_TAB;
+	    print LOG "$CIMD2_SERVICE_CENTRE_TIME_STAMP=" . $ts . " ";
+	    print $client $CIMD2_SERVICE_CENTRE_TIME_STAMP . $CIMD2_COLON . $ts . $CIMD2_TAB;
+            &flush($client);
+            if ($params{$CIMD2_STATUS_REPORT_REQUEST}) {
+                $num = $params{$CIMD2_DESTINATION_ADDRESS};
+                if (fork == 0) {
+                    &deliverStatusReport($num);
+                    exit;
+                }
+            }
+	}
+    } else {
+	$err= $err[&draw(*errcode)];
+	print LOG "$CIMD2_ERROR_CODE=" . $err . " ";
+	print $client $CIMD2_ERROR_CODE . $CIMD2_COLON . $err . $CIMD2_TAB;
+	print LOG "$CIMD2_ERROR_TEXT=Error $err ";
+	print $client $CIMD2_ERROR_TEXT . $CIMD2_COLON . "Error $err" . $CIMD2_TAB;
+	if ($op == $CIMD2_SUBMIT_MESSAGE) {
+	    print LOG "$CIMD2_DESTINATION_ADDRESS=" . $params{$CIMD2_DESTINATION_ADDRESS} . " ";
+	    print $client $CIMD2_DESTINATION_ADDRESS . $CIMD2_COLON . $params{$CIMD2_DESTINATION_ADDRESS} . $CIMD2_TAB;
+	}
+    }
+    $now= sprintf("%04d-%02d-%02d %02d%02d.%02d", 1900+$year, $mon+1, $mday, $hour, $min, $sec);
+    print LOG "\n";
+    &flush(LOG);
+    print $client $CIMD2_ETX;
+    &flush($client);
+}
+
+
+sub deliverStatusReport {
+    local($num) = pop(@_);
+    sleep(30);
+
+    print LOG $CIMD2_STX . $CIMD2_DELIVER_STATUS_REPORT . ":" . $seq . $CIMD2_TAB;
+    print $client $CIMD2_STX . $CIMD2_DELIVER_STATUS_REPORT . ":" . $seq . $CIMD2_TAB;
+    $ts= sprintf("%02d%02d%02d%02d%02d%02d", $year - 100, $mon+1, $mday, $hour, $min, $sec);
+    print LOG "$CIMD2_DESTINATION_ADDRESS=" . $params{$CIMD2_DESTINATION_ADDRESS} . " ";
+    print $client $CIMD2_DESTINATION_ADDRESS . $CIMD2_COLON . $params{$CIMD2_DESTINATION_ADDRESS} . $CIMD2_TAB;
+    print LOG "$CIMD2_SERVICE_CENTRE_TIME_STAMP=" . $ts . " ";
+    print $client $CIMD2_SERVICE_CENTRE_TIME_STAMP . $CIMD2_COLON . $ts . $CIMD2_TAB;
+    print LOG "$CIMD2_STATUS_CODE=" . 4 . " ";
+    print $client $CIMD2_STATUS_CODE . $CIMD2_COLON . 4 . $CIMD2_TAB;
+    print LOG "$CIMD2_DISCHARGE_TIME=" . $ts . " ";
+    print $client $CIMD2_DISCHARGE_TIME . $CIMD2_COLON . $ts . $CIMD2_TAB;
+
+    print LOG "\n";
+    &flush(LOG);
+    print $client $CIMD2_ETX;
+    &flush($client);
+}
+
+
+sub readprops {
+    local($filename)= pop(@_);
+
+    open (PROPS, "<$filename") || die "Could not open $filename\n";
+    while($_= <PROPS>) {
+	s/#.*$//;
+	next if (/^$/);
+	s/^\s+//;
+	s/\s+$//;
+	($key, $val)= split(/=/);
+	$props{$key}= $val;
+    }
+    close PROPS
+}
+
+
+sub draw {
+    local(*freq)= @_;
+    local ($rnd, $sum, $num, $result, $i);
+    
+    $sum= 0;
+    $rnd= int(rand($freq));
+    $num= scalar(@freq);
+    $result= 0;
+    
+#    print "$num,$freq,$rnd | ";
+    while ($rnd >= $sum) {
+	$sum+= $freq[$result];
+#	print "$sum ";
+	++$result;
+    }
+
+    --$result;
+#    print "| $result\n";
+    return $result;
+}
+
+
+sub log {
+    print LOG "$now     [$$] :  " . pop(@_);
+    &flush(LOG);
+}
+
+sub nextseq {
+    my $r;
+    if ($reqseq > 254) {
+	$reqseq= 0;
+    }
+    $r= $reqseq;
+    $reqseq+= 2;
+    return $r;
+}
+
+
+sub doc {
+    print "CIMD2SIM\n================================================================
+cimd2sim is a simple simulator of an SMS-C using the CIMD2 protocol. It 
+reads and parses requests from NTF, and responds to them. All operations
+are logged to the file \"test.log\". 
+
+You start cimd2sim with     cimd2sim <port number>
+
+It is possible to control the operation of cimd2sim by editing the file
+\"cimd2sim.rc\". This file sets the frequencies for two sets of random
+variables.
+
+Frequency determines the probability of an alternative relative to all
+the others. Alternatives with the same frequency will be selected 
+approximately the same number of times. An alternative with a frequency of
+10 will be about twice as common as an alternative with a frequency of 5.
+If you want to set probability as a percentage, you just select
+frequencies so they sum up to 100. (Setting the frequencies for four
+alternatives to 1,1,1,2 gives the same result as 20,20,20,40 or 
+1399,1399,1399,2798. There is a 40% probability for alternative 4 in all
+cases.)
+
+Behavior\n----------------------------------------------------------------
+Behavior frequencies are set by lines of the form \"action=freq\", e.g.
+\"ok=50\" and controls the behavior when a message is received. The 
+possible behaviors are:
+  ok          respond with no error.
+  error       respond with an error code.
+  crash       close the connection and exit.
+  dropreq     forget the request, and never respond to it.
+  delay       respond after a 10 second delay.
+  alive       respond, but first send an SMS-C originated alive request.
+  garbage     respond, but first write some garbage data, i.e. data not
+              within <STX>...<ETX> delimiters.
+  hang        Wait 5 minutes without doing anything at all.
+
+Error code\n----------------------------------------------------------------
+Error code frequencies are used to select the error code when the
+behavior was selected to be \"error\". It is set by lines of the form
+\"EC_nn=freq\" where nn denotes an error code.
+
+Notes\n----------------------------------------------------------------
+cimd2sim spawns a new process for each new connection. The log file is
+not locked so the messages from different processes may be mixed up.
+";
+}

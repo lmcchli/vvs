@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<var name="catchno" expr="0"/>
+	<form id="form2">
+		<property name="timeout" value="0s"/>
+		<field name="field1">
+			<grammar version="1.0" mode="dtmf" root="myRoot">
+				<rule id="myRoot">
+					<one-of>
+						<item>0</item>
+						<item>1</item>
+					</one-of>
+				</rule>
+			</grammar>
+		</field>
+		<catch event="noinput">
+			<assign name="catchno" expr="catchno+1"/>
+			<if cond="catchno == 2">
+				<log label="error">TC 20103026 Failed</log>
+			</if>
+			<exit/>
+		</catch>
+	</form>
+</vxml>

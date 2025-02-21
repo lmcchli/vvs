@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<stringAttribute key="bad_container_name" value="\mas\launch"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/mas-component/execution_engine/src/com/mobeon/masp/execution_engine/Main.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<mapAttribute key="org.eclipse.debug.core.environmentVariables">
+<mapEntry key="MAS_HOST" value="localhost"/>
+<mapEntry key="MAS_INSTALL_DATE" value="090114:133926"/>
+<mapEntry key="MAS_INSTALL_PATH" value="${workspace_loc}"/>
+<mapEntry key="MAS_LOGICALZONE" value="zone1"/>
+<mapEntry key="MAS_VERSION" value="PC_TEST"/>
+<mapEntry key="WORKINGDIR" value=""/>
+</mapAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.mobeon.masp.execution_engine.Main"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="mas-component"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
+<booleanAttribute key="org.eclipse.jdt.launching.STOP_IN_MAIN" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dabcxyz.messaging.mrd.vvmRespondAlwaysOk=false&#13;&#10;-Dabcxyz.services.messaging.productPrefix=voicemail&#13;&#10;-Dmms_runlog_root=c:\opt\moip\logs\oe"/>
+</launchConfiguration>

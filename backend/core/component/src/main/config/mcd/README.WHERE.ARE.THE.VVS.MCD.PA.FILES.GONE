@@ -1,0 +1,4 @@
+All files in this directory have been moved to 
+$MSGCORE_REPO/mcd/core/component/src/main/config/schema: moip schema file 
+$MSGCORE_REPO/mcd/core/component/src/main/config/mcdAutoLoadAtStartup: template ldif files
+$MSGCORE_REPO/provisioningagent/core/component/src/main/config/gui: UI*.xml files

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <script src="script_internal.js"/>    
+   <form id="form1">
+      <block name="b1">
+         <goto next="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/externaldocs/outside_module/outside_2.vxml"/>
+      </block>
+   </form>
+</vxml>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	
+	<form>
+		<block name="level0">
+			<throw event="tjo"/>
+		</block>
+		<block>
+			<var name="foo" expr="4711" />
+			<catch event="tjo">
+				Hello <value expr="foo"/>
+			</catch>
+		</block>	
+	</form>
+</vxml>

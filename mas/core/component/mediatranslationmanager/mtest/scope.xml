@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<grammar xml:lang="en-GB" version="1.0" root="ROOT">
+    <rule id="ROOT" scope="public">
+        <item>
+        <one-of>
+        <item>
+            <ruleref uri="session:mtest/grammarA.xml#grammarA"/>
+        </item>
+        </one-of>
+        </item>
+    </rule>
+</grammar>

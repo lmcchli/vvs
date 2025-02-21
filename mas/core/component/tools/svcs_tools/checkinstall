@@ -1,0 +1,86 @@
+#! /bin/sh
+#
+## ********************************************
+## * Exit if a previous installation exist    *
+## ********************************************
+#
+pkginfo -q MOBYmas\*
+if [ $? -eq 0 ]; then
+	echo " There already exists a previous installation."
+	echo " Remove the previous installed version prior"
+	echo " to install this one."
+		
+	exit 1
+fi
+
+
+# ********************************************
+# * Check if responsefile is correct         *
+# ********************************************
+
+missingVariableString=""
+
+exitIfError()
+{
+   if [ "$missingVariableString" != "" ]
+   then
+      echo "Responsefile is incorrect."
+      echo "The folowing values is missing in the responsefile:"
+      echo $missingVariableString
+      exit 1
+   fi
+}
+
+addMissingVariable()
+{
+        missingVariableString=$missingVariableString"$1\n"
+}
+
+
+# ********************************************
+# *                                          *
+# *  When new values ar added in the         *
+# *  responsefile, update the check below    *
+# *  to maintain correct check.              *
+# *                                          *
+# ********************************************
+
+# is there a responsefile provided
+if [ -n "$1" ]
+then
+	if [ "`sed -n '/REGISTERED_NAME/p' $1`" = "" ];   then addMissingVariable "REGISTERED_NAME" ; fi
+#	if [ "`sed -n '/MAS_HOST/p' $1`" = "" ];          then addMissingVariable "MAS_HOST" ; fi
+	if [ "`sed -n '/UPGRADE/p' $1`" = "" ];           then addMissingVariable "UPGRADE" ; fi
+	if [ "`sed -n '/REUSECONFIG/p' $1`" = "" ];       then addMissingVariable "REUSECONFIG" ; fi
+	if [ "`sed -n '/MY_JAVA_HOME/p' $1`" = "" ];      then addMissingVariable "MY_JAVA_HOME" ; fi
+	if [ "`sed -n '/LOGICALZONE/p' $1`" = "" ];       then addMissingVariable "LOGICALZONE" ; fi
+	#if [ "`sed -n '/SSP_HOST/p' $1`" = "" ];         then addMissingVariable "SSP_HOST" ; fi
+	#if [ "`sed -n '/SSP_PORT/p' $1`" = "" ];         then addMissingVariable "SSP_PORT" ; fi
+	if [ "`sed -n '/SSP_HOST_LIST/p' $1`" = "" ];     then addMissingVariable "SSP_HOST_LIST" ; fi
+	if [ "`sed -n '/SIP_PROXY_HOST/p' $1`" = "" ];	  then addMissingVariable "SIP_PROXY_HOST" ; fi
+	if [ "`sed -n '/ASR_PROTOCOL/p' $1`" = "" ];      then addMissingVariable "ASR_PROTOCOL" ; fi
+	if [ "`sed -n '/ASR_HOST/p' $1`" = "" ];          then addMissingVariable "ASR_HOST" ; fi
+	if [ "`sed -n '/ASR_PORT/p' $1`" = "" ];          then addMissingVariable "ASR_PORT" ; fi
+	if [ "`sed -n '/TTS_PROTOCOL/p' $1`" = "" ];      then addMissingVariable "TTS_PROTOCOL" ; fi
+	if [ "`sed -n '/TTS_HOST/p' $1`" = "" ];          then addMissingVariable "TTS_HOST" ; fi
+	if [ "`sed -n '/TTS_PORT/p' $1`" = "" ];          then addMissingVariable "TTS_PORT" ; fi
+	if [ "`sed -n '/SIP_CHANNELS/p' $1`" = "" ];      then addMissingVariable "SIP_CHANNELS" ; fi
+	if [ "`sed -n '/THREADPOOLSIZE/p' $1`" = "" ];    then addMissingVariable "THREADPOOLSIZE" ; fi
+	if [ "`sed -n '/SEARCHBASE/p' $1`" = "" ];        then addMissingVariable "SEARCHBASE" ; fi
+	if [ "`sed -n '/SIP_HOSTNAME/p' $1`" = "" ];                 then addMissingVariable "SIP_HOSTNAME" ; fi
+	if [ "`sed -n '/XMP_HOSTNAME/p' $1`" = "" ];                 then addMissingVariable "XMP_HOSTNAME" ; fi
+	if [ "`sed -n '/RTP_HOSTNAME/p' $1`" = "" ];                 then addMissingVariable "RTP_HOSTNAME" ; fi
+	if [ "`sed -n '/HOSTNAME_TO_REGISTER_IN_MCR/p' $1`" = "" ];  then addMissingVariable "HOSTNAME_TO_REGISTER_IN_MCR" ; fi
+
+	exitIfError
+fi
+
+
+DATE=`date +%Y_%m_%d_%H%M`
+MAS_INSTANCE_NAME=$REGISTERED_NAME"@"$MAS_HOST
+INSTALL_LOGFILE="$BASEDIR/../logs/mas/$MAS_INSTANCE_NAME.$DATE.installog"
+
+cat >>$1 <<EOF
+INSTALL_LOGFILE=$INSTALL_LOGFILE
+
+EOF

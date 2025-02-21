@@ -1,0 +1,127 @@
+#!/usr/local/bin/perl
+require "flush.pl";
+use IO::Socket;
+
+($count) = shift;
+if ($count eq "-h" || $countt eq "-help") {
+    &doc;
+    exit;
+}
+	
+$count = 10 unless $count;
+
+&readprops("mailsim.rc");
+$mailtypes[0] = $props{"mailfreq"};
+$mailtypes[1] = $props{"voicefreq"};
+$mailtypes[2] = $props{"faxfreq"};
+foreach $i (@mailtypes) {
+    $mailtypes+= $i;
+}
+$domain= $props{'domain'};
+
+for ($i = 0; $i < $count; $i++) {          
+    $type = &draw(*mailtypes);
+    $user = int(rand($props{'userend'} - $props{'userstart'})) + $props{'userstart'};
+    if ($user < 10) {
+        $user = "0$user";
+    }
+#    print "$type $user\n";
+    if ($type == 0) {
+        &sys("./sendemail", "ql$user\@$domain");
+    } elsif ($type == 1) {
+        &sys("./sendvmail", "ql$user\@$domain");
+    } elsif ($type == 2) {
+        &sys("./sendfmail", "ql$user\@$domain");
+    }
+}
+
+sub sys() {
+    if (fork) {
+        ;
+    } else {
+        exec $_[0], $_[1];
+        exit;
+    }
+    #print $_[0]."\t".$_[1]."\n";
+}
+
+
+sub readprops {
+    local($filename)= pop(@_);
+
+    open (PROPS, "<$filename") || print "WARNING: could not open $filename\n";
+    
+    while($_= <PROPS>) {
+	s/#.*$//;
+	next if (/^$/);
+	s/^\s+//;
+	s/\s+$//;
+	($key, $val)= split(/=/);
+	$props{$key}= $val;
+    }
+    close PROPS
+}
+
+
+sub draw {
+    local(*freq)= @_;
+    local ($rnd, $sum, $num, $result, $i);
+    
+    $sum= 0;
+    $rnd= int(rand($freq));
+    $num= scalar(@freq);
+    $result= 0;
+    
+#    print "$num,$freq,$rnd | ";
+    while ($rnd >= $sum) {
+	$sum+= $freq[$result];
+#	print "$sum ";
+	++$result;
+    }
+
+    --$result;
+#    print "| $result\n";
+    return $result;
+}
+
+
+sub log {
+    print LOG "$now     [$$] :  " . pop(@_);
+    &flush(LOG);
+}
+
+sub doc {
+    print "mailsim\n================================================================
+mailsim sends mail.
+
+You start mailsim with     mailsim <count>
+
+It is possible to control the operation of mailsim by editing the file
+\"mailsim.rc\". This file sets the frequency for different messagetypes,
+the mail domain and the range of users to send to.
+
+Example:
+
+	#Domain
+	domain=vespa.ipms.su.erm.abcxyz.se
+	#User prefix
+	userprefix=ql
+	#User range
+	userstart=4
+	userend=99
+	#Mail type frequency
+	mailfreq=1
+	voicefreq=1
+	faxfreq=1
+
+Frequency determines the probability of an alternative relative to all
+the others. Alternatives with the same frequency will be selected 
+approximately the same number of times. An alternative with a frequency of
+10 will be about twice as common as an alternative with a frequency of 5.
+If you want to set probability as a percentage, you just select
+frequencies so they sum up to 100. (Setting the frequencies for four
+alternatives to 1,1,1,2 gives the same result as 20,20,20,40 or 
+1399,1399,1399,2798. There is a 40% probability for alternative 4 in all
+cases.)
+";
+}

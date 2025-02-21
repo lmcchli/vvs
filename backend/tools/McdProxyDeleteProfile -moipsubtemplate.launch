@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/msgcore_mcdproxy/client/src/main/java/com/abcxyz/messaging/mcd/client/secclient/DeleteProfile.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.abcxyz.messaging.mcd.client.secclient.DeleteProfile"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-h localhost -p 30389 -d &quot;cn=Directory Manager&quot; -w mcdproxy -o opco1 -i msid:957833ce97a09044 -c subscriber"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="msgcore_mcdproxy"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dcom.abcxyz.messaging.mcd.keyIdName=&quot;msid&quot;"/>
+</launchConfiguration>

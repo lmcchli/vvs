@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+
+    <form>
+        <block>
+            <prompt>
+                <mark name="mstart"/>
+                <audio src="../prompt/beep.wav"/>
+            </prompt>
+        </block>
+
+        <block>
+            <goto next="#form2"></goto>
+        </block>
+
+    </form>
+
+    <form id="form2">
+        <record name="recording">
+            <filled>
+                <if cond="recording$.markname == 'mstart'">
+                    <log>TCPASS</log>
+                    <exit></exit>
+                </if>
+            </filled>
+        </record>
+
+        <block>
+            <log>TCFAIL</log>
+            <exit></exit>
+        </block>
+    </form>
+</vxml>

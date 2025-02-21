@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Grammar rules file for Swedish language -->
+<grammar>
+    <rule type="Number" gender="Female,Male,None">
+        <condition divisor="1000000000000" atomic="true" quotientFrom="0" quotientTo="0" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">0.wav</action>
+        </condition>
+        <condition divisor="1000000000000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999999999" terminal="true" divide="true">
+            <action type="mediafile">1a.wav</action>
+            <action type="mediafile">1e12.wav</action>
+        </condition>
+        <condition divisor="1000000000000" atomic="false" quotientFrom="2" quotientTo="999" remainderFrom="0" remainderTo="999999999999" terminal="false" divide="true">
+            <action type="mediafile">1e12a.wav</action>
+        </condition>
+        <condition divisor="1000000000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999999" terminal="true" divide="true">
+            <action type="mediafile">1a.wav</action>
+            <action type="mediafile">1e9.wav</action>
+        </condition>
+        <condition divisor="1000000000" atomic="false" quotientFrom="2" quotientTo="999" remainderFrom="0" remainderTo="999999999" terminal="false" divide="true">
+            <action type="mediafile">1e9a.wav</action>
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">1a.wav</action>
+            <action type="mediafile">1e6.wav</action>
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="2" quotientTo="999" remainderFrom="0" remainderTo="999999" terminal="false" divide="true">
+            <action type="mediafile">1e6a.wav</action>
+        </condition>
+        <condition divisor="1000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999" terminal="true" divide="true">
+            <action type="mediafile">1.wav</action>
+            <action type="mediafile">1e3.wav</action>
+        </condition>
+        <condition divisor="1000" atomic="false" quotientFrom="2" quotientTo="999" remainderFrom="0" remainderTo="999" terminal="false" divide="true">
+            <action type="mediafile">1e3.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="99" terminal="true" divide="true">
+            <action type="mediafile">1.wav</action>
+            <action type="mediafile">100.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="2" quotientTo="9" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+            <action type="mediafile">100.wav</action>
+        </condition>
+        <condition divisor="90" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">90.wav</action>
+        </condition>
+        <condition divisor="80" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">80.wav</action>
+        </condition>
+        <condition divisor="70" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">70.wav</action>
+        </condition>
+        <condition divisor="60" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">60.wav</action>
+        </condition>
+        <condition divisor="50" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">50.wav</action>
+        </condition>
+        <condition divisor="40" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">40.wav</action>
+        </condition>
+        <condition divisor="30" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">30.wav</action>
+        </condition>
+        <condition divisor="20" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">20.wav</action>
+        </condition>
+        <condition divisor="19" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">19.wav</action>
+        </condition>
+        <condition divisor="18" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">18.wav</action>
+        </condition>
+        <condition divisor="17" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">17.wav</action>
+        </condition>
+        <condition divisor="16" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">16.wav</action>
+        </condition>
+        <condition divisor="15" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">15.wav</action>
+        </condition>
+        <condition divisor="14" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">14.wav</action>
+        </condition>
+        <condition divisor="13" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">13.wav</action>
+        </condition>
+        <condition divisor="12" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">12.wav</action>
+        </condition>
+        <condition divisor="11" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">11.wav</action>
+        </condition>
+        <condition divisor="10" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">10.wav</action>
+        </condition>
+        <condition divisor="9" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">9.wav</action>
+        </condition>
+        <condition divisor="8" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">8.wav</action>
+        </condition>
+        <condition divisor="7" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">7.wav</action>
+        </condition>
+        <condition divisor="6" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">6.wav</action>
+        </condition>
+        <condition divisor="5" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">5.wav</action>
+        </condition>
+        <condition divisor="4" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">4.wav</action>
+        </condition>
+        <condition divisor="3" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">3.wav</action>
+        </condition>
+        <condition divisor="2" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">2.wav</action>
+        </condition>
+        <condition divisor="1" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">1a.wav</action>
+            <action type="select"/>
+            <action type="mediafile">1.wav</action>
+        </condition>
+    </rule>
+    <rule type="DateDM" gender="Female,Male,None">
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom1.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="2" quotientTo="2" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom2.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="3" quotientTo="3" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom3.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="4" quotientTo="4" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom4.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="5" quotientTo="5" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom5.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="6" quotientTo="6" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom6.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="7" quotientTo="7" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom7.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="8" quotientTo="8" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom8.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="9" quotientTo="9" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom9.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="10" quotientTo="10" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom10.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="11" quotientTo="11" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom11.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="12" quotientTo="12" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom12.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="13" quotientTo="13" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom13.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="14" quotientTo="14" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom14.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="15" quotientTo="15" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom15.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="16" quotientTo="16" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom16.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="17" quotientTo="17" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom17.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="18" quotientTo="18" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom18.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="19" quotientTo="19" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom19.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="20" quotientTo="20" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom20.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="21" quotientTo="21" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom21.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="22" quotientTo="22" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom22.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="23" quotientTo="23" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom23.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="24" quotientTo="24" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom24.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="25" quotientTo="25" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom25.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="26" quotientTo="26" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom26.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="27" quotientTo="27" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom27.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="28" quotientTo="28" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom28.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="29" quotientTo="29" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom29.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="30" quotientTo="30" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom30.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="31" quotientTo="31" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom31.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">jan.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="2" quotientTo="2" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">feb.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="3" quotientTo="3" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">mar.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="4" quotientTo="4" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">apl.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="5" quotientTo="5" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">may.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="6" quotientTo="6" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">jun.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="7" quotientTo="7" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">jul.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="8" quotientTo="8" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">aug.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="9" quotientTo="9" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">sep.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="10" quotientTo="10" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">oct.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="11" quotientTo="11" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">nov.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="12" quotientTo="12" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dec.wav</action>
+        </condition>
+    </rule>
+    <rule type="Time24" gender="Female,Male,None">
+        <condition divisor="10000" atomic="false" quotientFrom="0" quotientTo="0" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">0.wav</action>
+            <action type="mediafile">0.wav</action>
+            <action type="mediafile">and.wav</action>
+            <action type="mediafile">0.wav</action>
+            <action type="mediafile">0.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="0" quotientTo="0" remainderFrom="1" remainderTo="5900" terminal="true" divide="true">
+            <action type="mediafile">0.wav</action>
+            <action type="mediafile">0.wav</action>
+            <action type="mediafile">and.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="23" remainderFrom="0" remainderTo="0" terminal="false" divide="true">
+            <action type="mediafile">and.wav</action>
+            <action type="mediafile">0.wav</action>
+            <action type="mediafile">0.wav</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="23" remainderFrom="1" remainderTo="5900" terminal="false" divide="true">
+            <action type="mediafile">and.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="9" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">0.wav</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="10" quotientTo="59" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+        </condition>
+        <condition divisor="50" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">50.wav</action>
+        </condition>
+        <condition divisor="40" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">40.wav</action>
+        </condition>
+        <condition divisor="30" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">30.wav</action>
+        </condition>
+        <condition divisor="20" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">20.wav</action>
+        </condition>
+        <condition divisor="19" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">19.wav</action>
+        </condition>
+        <condition divisor="18" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">18.wav</action>
+        </condition>
+        <condition divisor="17" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">17.wav</action>
+        </condition>
+        <condition divisor="16" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">16.wav</action>
+        </condition>
+        <condition divisor="15" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">15.wav</action>
+        </condition>
+        <condition divisor="14" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">14.wav</action>
+        </condition>
+        <condition divisor="13" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">13.wav</action>
+        </condition>
+        <condition divisor="12" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">12.wav</action>
+        </condition>
+        <condition divisor="11" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">11.wav</action>
+        </condition>
+        <condition divisor="10" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">10.wav</action>
+        </condition>
+        <condition divisor="9" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">9.wav</action>
+        </condition>
+        <condition divisor="8" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">8.wav</action>
+        </condition>
+        <condition divisor="7" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">7.wav</action>
+        </condition>
+        <condition divisor="6" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">6.wav</action>
+        </condition>
+        <condition divisor="5" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">5.wav</action>
+        </condition>
+        <condition divisor="4" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">4.wav</action>
+        </condition>
+        <condition divisor="3" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">3.wav</action>
+        </condition>
+        <condition divisor="2" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">2.wav</action>
+        </condition>
+        <condition divisor="1" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">1a.wav</action>
+        </condition>
+    </rule>
+</grammar>

@@ -1,0 +1,49 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+my $d = "$NTF_HOME/data";
+
+unless (-d $d) {
+    print "The data directory \"$d\" does not exist yet. Can not check database size\n";
+    exit $result;
+}
+
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+my $CMD = "ls -lLR $d";
+my ($cmdresult, $cmdoutput ) = CommandHandler::get_cmdoutput_string($CMD);
+
+if ($cmdresult == 0) {
+    foreach $_ (split(/\n/, $$cmdoutput)) {
+        #-rw-r--r--   1 root     other          0 Nov 25 10:53 slamdown_journal.current
+        my ($mode, $count, $owner, $group, $size, $month, $day, $time, $name) = split(/\s+/);
+        $delaydbsize{$name} = $size if $name =~ /^delaydb/;
+    }
+
+    if (0 < scalar(keys %delaydbsize)) {
+        print "$The size of the outdial/reminder database is $delaydbsize{'delaydb.data'}\n";
+        if ($delaydbsize{'delaydb.data'} > 200 * 1000000) {
+            $result = 1;
+        }
+        print "$The size of the outdial/reminder transaction log is $delaydbsize{'delaydb.log'}\n";
+        if ($delaydbsize{'delaydb.log'} > 10 * 1000000) {
+            $result = 1;
+        }
+    } else {
+        print "Delay/outdial database not used yet. No files to check\n";
+    }
+} else {
+    print "Error executing command: $CMD\n";
+    print "Return code: $cmdresult\n";
+    if ( ref($cmdoutput) and $$cmdoutput ) {
+        print "Error output:\n$$cmdoutput\n";
+    }
+    $result = 1;
+}
+
+exit $result;
+

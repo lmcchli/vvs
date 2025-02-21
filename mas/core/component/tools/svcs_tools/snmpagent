@@ -1,0 +1,132 @@
+###################################################################
+# File    : mas
+# Author  : H…kan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is used in when using svcs in Solaris 10.
+#
+# OS: 	Solaris 10
+#
+# History
+#	Date		Who	What
+#	2006-01-10  	MHATU	Created
+#
+#
+####################################################################
+
+
+#!/bin/ksh
+#*********************************************
+# These parameters exsist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+
+
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+mode=$1
+
+
+
+REGULARSTART=$BASEDIR"/etc/regularstart"
+ENABLERESTART=$BASEDIR"/etc/enablerestart"
+
+
+# Load config values
+. $BASEDIR/etc/mas.conf
+
+
+
+DIRNAME=`pwd`
+
+cd $BASEDIR
+
+setupEnv() {
+    
+    # Must be set. LOGNAME is not available when using svcs.
+    LOGNAME=ipms
+    export LOGNAME
+
+    MAS_INSTALL_PATH=$BASEDIR    
+    export MAS_INSTALL_PATH
+    
+    
+    # set up library path
+    #LD_LIBRARY_PATH=/usr/lib/lwp:/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    LD_LIBRARY_PATH=/usr/lib/lwp:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$JAVA_CLASSPATH
+
+}
+
+#
+# Start mas
+#	
+#
+start()
+{
+	#If regular start: then start.
+	#If a restart: Then restart must be enabled
+	if [ -f $REGULARSTART ] 
+	then
+		setupEnv
+		$JAVA_HOME/bin/java -server -Xms32M -Xmx$SNMP_MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.masagent.Main >> $BASEDIR/log/process.log 2>&1&
+  	else
+  		# it is not a start issued from the script. The process died. 
+  		# and now svcs is trying to restart the process.
+  		# Chek if svcs is alowed to restart process.
+  		if [ -f $ENABLERESTART ]
+  		then
+  			# svcs is alowed to restart.
+			setupEnv
+  			$JAVA_HOME/bin/java -server -Xms32M -Xmx$SNMP_MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.masagent.Main >> $BASEDIR/log/process.log 2>&1&
+  		else
+  			#svcs is NOT alowed to restart.
+  			#set mas in maintenance state to prevent svcs from running this script over and over.
+                        svcadm mark maintenance MOBYmas:snmpagent
+
+  		fi
+  	fi
+	
+}
+
+case "$mode" in
+	'start')	
+		start
+		;;
+
+	'status')
+		;;
+
+	'stop')
+		;;
+
+	'restart')
+
+		;;
+
+	'enableautostart')
+		;;
+
+	'disableautostart')
+		;;
+
+	*)
+		echo "Usage: `basename $0` <start|stop|restart|enableautostart|disableautostart>"
+		cd $DIRNAME
+		exit 1
+		;;
+esac
+cd $DIRNAME

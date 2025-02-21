@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="recipientNumbersList" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="recordMessageResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="sendMessageMenuResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="checkReciverResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="storeMessageResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <var name="mediaType" />
+   <var name="emailAddressList" />
+   <var name="recordingType" />
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput" />
+   <!--Can be one of: 'send', 'replytosender', 'replytoall' or 'forward'.-->
+   <var name="typeOfSend" />
+   <!--Only used at forward or reply. Otherwise empty.-->
+   <var name="messageId" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_typeOfSend" />
+      <var name="p_messageId" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="typeOfSend" expr="p_typeOfSend" />
+         <assign name="messageId" expr="p_messageId" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="messageId != null">
+            <assign name="mediaType" expr="Message_GetProperty(messageId, 'type')" />
+            <goto next="#cond2" />
+            <else />
+            <if cond="Call_IsVoice() == true">
+               <goto next="#assign1" />
+               <elseif cond="Subscriber_HasService(GlobalObject.Subscriber, 'video') == false" />
+               <goto next="#assign1" />
+               <elseif cond="Subscriber_HasService(GlobalObject.Subscriber, 'video') == true" />
+               <goto next="#assign2" />
+               <else />
+               <goto next="#assign2" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="typeOfSend == 'reply'">
+            <goto next="#proc4" />
+            <else />
+            <goto next="#proc1" />
+         </if>
+      </block>
+   </form>
+   <form id="proc4">
+      <subdialog name="sub" src="CheckRecievers.vxml">
+         <param name="p_emailAddressList" expr="emailAddressList" />
+         <param name="p_mediaType" expr="mediaType" />
+         <filled>
+            <assign name="checkReciverResult" expr="sub.resultCode" />
+            <if cond="(typeOfSend == 'forward' &amp;&amp; Subscriber_HasService (GlobalObject.Subscriber, 'forwardwithcomment') == false &amp;&amp; checkReciverResult[0] != null)">
+               <goto next="#proc5" />
+               <elseif cond="(typeOfSend == 'reply' &amp;&amp; checkReciverResult[0] != null)" />
+               <goto next="#proc6" />
+               <elseif cond="(typeOfSend == 'forward' &amp;&amp; Subscriber_HasService (GlobalObject.Subscriber, 'forwardwithcomment') == true &amp;&amp; checkReciverResult[0] != null)" />
+               <goto next="#cmnu1" />
+               <elseif cond="(typeOfSend == 'send' &amp;&amp; checkReciverResult[0] != null)" />
+               <goto next="#proc2" />
+               <else />
+               <var name="resultCode" />
+               <return namelist="resultCode" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc5">
+      <subdialog name="sub" src="StoreMessage.vxml">
+         <param name="p_ani" expr="GlobalObject.Subscriber" />
+         <param name="p_depositMessage" expr="recordMessageResult[1]" />
+         <param name="p_messageType" expr="mediaType" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="storeMessageResult" expr="sub.resultCode" />
+            <var name="resultCode" />
+            <return namelist="resultCode" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc6">
+      <subdialog name="sub" src="RecordMessage.vxml">
+         <param name="p_mediaType" expr="mediaType" />
+         <param name="p_recordingType" expr="recordingType" />
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <goto next="#proc5" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('SendMessage.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(356)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(357)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(358)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(359)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(360)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(361)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(12)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(13)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(14)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>*</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#proc2004" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes') &amp;&amp; (GlobalObject.MainMenuValid == true))">
+<throw event="com.mobeon.vva.mainmenu" />
+                  <else />
+                  <goto next="Goodbye.vxml" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '1'">
+               <goto next="#proc6" />
+            </if>
+            <if cond="menu_input == '2'">
+               <goto next="#proc5" />
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*'">
+               <if cond="((GlobalObject.PreviousMenuValid == true))">
+<throw event="com.mobeon.vva.previousmenu" />
+               </if>
+            </if>
+            <if cond="menu_input == '*0'">
+               <goto next="#proc2007" />
+            </if>
+            <if cond="menu_input == '0'">
+               <goto next="#ptarget2002" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2005" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2003" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="proc2004">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastMenuInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult" expr="sub.resultCode" />
+            <goto next="#ptarget2001" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2001">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="proc2007">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2002">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2005">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult" expr="sub.resultCode" />
+<throw event="com.mobeon.vva.mainmenu" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2003">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="RecordMessage.vxml">
+         <param name="p_mediaType" expr="mediaType" />
+         <param name="p_recordingType" expr="recordingType" />
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="recordMessageResult" expr="sub.resultCode" />
+            <goto next="#proc3" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc3">
+      <subdialog name="sub" src="SendMessageMenu.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <param name="p_message" expr="recordMessageResult[1]" />
+         <param name="p_maxTimeReached" expr="recordMessageResult[0]" />
+         <filled>
+            <assign name="sendMessageMenuResult" expr="sub.resultCode" />
+            <if cond="sendMessageMenuResult == 'send'">
+               <goto next="#proc5" />
+               <elseif cond="sendMessageMenuResult == 'continue'" />
+               <assign name="recordingType" expr="'continue'" />
+               <goto next="#ptarget1" />
+               <elseif cond="sendMessageMenuResult == 'cancel'" />
+               <var name="resultCode" />
+               <return namelist="resultCode" />
+               <elseif cond="sendMessageMenuResult == 're-record'" />
+               <goto next="#assign6" />
+               <else />
+               <goto next="#assign6" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#proc2" />
+      </block>
+   </form>
+   <form id="assign6">
+      <block>
+         <assign name="recordingType" expr="'re-record'" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="AddressMessage.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="recipientNumbersList" expr="sub.resultCode" />
+            <assign name="emailAddressList" expr="PhoneNumber_GetEmailAddresses(recipientNumbersList)" />
+            <goto next="#proc4" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="mediaType" expr="'voice'" />
+         <goto next="#cond2" />
+      </block>
+   </form>
+   <form id="assign2">
+      <block>
+         <assign name="mediaType" expr="'video'" />
+         <goto next="#cond2" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

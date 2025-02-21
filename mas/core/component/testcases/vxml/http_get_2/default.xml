@@ -1,0 +1,11 @@
+<application>
+    <documents base="file:///$WORKINGDIR/applications/"
+               type="application/xml+ccxml">
+        <document src="default.ccxml" root="true"/>
+    </documents>
+
+    <documents base="file:///$WORKINGDIR/applications/"
+               type="application/xml+vxml">
+        <document src="drop_video.vxml"/>
+    </documents>
+</application>

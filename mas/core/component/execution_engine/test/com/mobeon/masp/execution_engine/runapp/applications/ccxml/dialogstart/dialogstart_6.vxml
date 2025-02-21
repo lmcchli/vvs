@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+   <form id="test">
+       <field name="menu_input">
+
+                <property name="interdigittimeout" value="1000ms"/>
+                <property name="timeout" value="5s"/>
+
+                <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+                <rule id="cmnu1_main_rule">
+                  <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                  </one-of>
+                </rule>
+                </grammar>
+
+                <catch event="error.semantic">
+                        <log label="ERROR">Error semantic, lastresult was: <value expr="application.lastresult$.utterance"/></log>
+                        <exit/>
+                </catch>
+
+                <catch event="nomatch">
+                        <log>No match</log>
+                </catch>
+
+                <catch event="noinput">
+                        <log>No input</log>
+                </catch>
+
+        <filled>
+            <log>TCFAIL VXML: dialogstart nok, we got filled for some reason</log>
+        </filled>
+        </field>
+   </form>
+
+    <!-- Make sure we exit the application when hung up -->
+   <catch name="connection.disconnect.hangup">
+       <log>TCPASS VXML: dialogstart ok 1</log>
+       <exit/>
+   </catch>
+
+</vxml>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <form>
+
+        <property name="termchar" value="#"/>
+        <grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+            <rule id="gd1_main_rule2">
+                <one-of>
+                    <item>0</item>
+                    <item>1</item>
+                    <item>2</item>
+                    <item>3</item>
+                    <item>4</item>
+                    <item>5</item>
+                    <item>6</item>
+                    <item>7</item>
+                    <item>8</item>
+                    <item>9</item>
+                </one-of>
+            </rule>
+            <rule id="gd1_main_rule" scope="public">
+                <one-of>
+                    <item repeat="0-">
+                        <ruleref uri="#gd1_main_rule2" />
+                    </item>
+                    <item>
+                        <item repeat="0-">
+                            <ruleref uri="#gd1_main_rule2" />
+                        </item>
+                        <one-of>
+                            <item>*</item>
+                        </one-of>
+                    </item>
+                </one-of>
+            </rule>
+        </grammar>
+        <field name="f1">
+        </field>
+
+        <filled>
+            <if cond="f1$.utterance == ''">
+                <log>TCPASS</log>
+                <exit></exit>
+            </if>
+        </filled>
+
+        <nomatch>
+            <log>TCFAIL nomatch</log>
+            <exit></exit>
+        </nomatch>
+
+        <!--  should never get here -->
+        <block>
+            <log>TCFAIL block</log>
+            <exit></exit>
+        </block>
+    </form>
+
+</vxml>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+    <echo message="ant.project.name: ${ant.project.name}"/>
+    <echo message="basedir: ${basedir}"/>
+    <echo message="ant.file: ${ant.file}"/>
+    <echo message="ant.version: ${ant.version}"/>
+    <echo message="ant.java.version: ${ant.java.version}"/>
+    <echo message="user.name: ${user.name}"/>
+    <echo message="java.version: ${java.version}"/>
+    <echo message="java.vendor: ${java.vendor}"/>
+    <echo message="os.name: ${os.name}"/>
+    <echo message="os.arch: ${os.arch}"/>
+    <echo message="os.version: ${os.version}"/>
+
+    <!-- Ant options -->
+    <property name="build.failoncomponenterror" value="false"/>
+    <property environment="env"/>
+
+    <!-- Compiler options -->
+    <property name="build.compiler" value="modern"/>
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value="-encoding iso8859-1"/>
+    <echo message="compiler.args: ${compiler.args}"/>
+    <property name="compiler.source.version" value="1.5"/>
+    <echo message="compiler.source.version: ${compiler.source.version}"/>
+    <property name="compiler.max.memory" value="128m"/>
+    <patternset id="compiler.excluded"/>
+    <patternset id="compiler.resources">
+        <include name="**/?*.properties"/>
+        <include name="**/?*.xml"/>
+        <include name="**/?*.gif"/>
+        <include name="**/?*.png"/>
+        <include name="**/?*.jpeg"/>
+        <include name="**/?*.jpg"/>
+        <include name="**/?*.html"/>
+        <include name="**/?*.dtd"/>
+        <include name="**/?*.tld"/>
+    </patternset>
+
+    <!-- Set up a patternid that does not include *Test* or *Case* classes -->
+    <patternset id="module.jar.files">
+        <exclude name="**/*Test*" />
+        <exclude name="**/*Case*" />
+    </patternset>
+
+</project>

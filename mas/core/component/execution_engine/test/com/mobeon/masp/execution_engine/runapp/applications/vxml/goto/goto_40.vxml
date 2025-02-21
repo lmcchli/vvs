@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <form>
+        <block name="block1">
+            <goto next="goto_40_1.vxml"/>
+        </block>
+    </form>
+    <catch event="testevent">
+        <log>TCPASS</log>
+        <exit/>
+    </catch>
+</vxml>

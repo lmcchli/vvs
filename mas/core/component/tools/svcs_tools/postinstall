@@ -1,0 +1,882 @@
+#!/bin/sh
+#
+# postinstall
+#
+# Copyright (C) 2004-2005 Mobeon AB
+# All Rights Reserved
+#
+
+version=`uname -r`
+
+DOMAIN=`cat /etc/resolv.conf | grep -i "^domain" | awk '{ print $2}'`
+# Kenneth Selin changed the line below, there may be several hostnames on
+# a host and we want to have the selected one registered in MCR:
+MAS_HOST=$HOSTNAME_TO_REGISTER_IN_MCR"."$DOMAIN
+
+BACKUP_DIRNAME=`echo $INSTALLED_VERSION |awk -F, '{ print $1"_"$2}'`
+MAS_CONF_FILE="mas.conf"
+MAS_ENABLERESTART="enablerestart"
+LOGFILE=""
+MAS_ENABLERESTART=$BASEDIR"/etc/enablerestart"
+MAS_DISABLERESTART=$BASEDIR"/etc/disablerestart"
+
+common()
+{
+	logAction "MAS version: $BASE_VERSION"
+	
+	# Create default file enablerestart flag file.
+	if [ -f $MAS_ENABLERESTART ]
+	then
+		sleep 0
+	else
+		echo "DO NOT REMOVE THIS FILE." >> $MAS_ENABLERESTART
+		echo "This is a flag file." > $MAS_ENABLERESTART
+		echo "IF filename is : enablerestart  then restart is enabled." >> $MAS_ENABLERESTART
+		echo "		     : disablerestart then restart is disabled." >> $MAS_ENABLERESTART
+	fi
+}
+
+#******************************************
+# Function to determine if current platform is a niagara (echoes 1 if
+# platform is Niagara). (this is copied from the "request" script for
+# TR31545)
+#******************************************
+
+isNiagara(){
+  platform=`uname -i`
+  case $platform in
+    SUNW,Sun-Fire-T200)
+      echo 1
+      ;;
+    SUNW,SPARC-Enterprise-T2000)
+      echo 1
+      ;;
+    SUNW,Netra-T2000)
+      echo 1
+      ;;
+    SUNW,Netra-CP3060)
+      echo 1
+      ;;
+    SUNW,SPARC-Enterprise-T5120)
+      echo 1
+      ;;
+   *)
+      echo 0
+      ;;
+  esac
+}
+
+setupEnv() {
+
+    MAS_INSTALL_PATH=$BASEDIR
+    export MAS_INSTALL_PATH    
+    
+    # Must be set. LOGNAME is not available when using svcs.
+    LOGNAME=ipms
+    export LOGNAME
+
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    #LD_LIBRARY_PATH=/usr/lib/lwp:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:$BASDIR/cfg:$JAVA_CLASSPATH
+
+}
+
+
+setup_logdir()
+{
+	
+	DATE=`date +%Y_%m_%d_%H%M`
+	LOGDIR="$BASEDIR/../logs/mas"
+	INSTALL_LOGFILE="$BASEDIR/../logs/mas/$MASInstanceName.$DATE.installog"
+	echo "Install log file: $INSTALL_LOGFILE"
+}
+
+setupEmanateDir()
+{
+	
+	pkginfo -q MOBYemanate\*
+	if [ $? -eq 0 ]; then
+		SNMP_BIN_DIR=`pkgparam MOBYemanate SNMP_BIN_DIR`
+	else
+		SNMP_BIN_DIR=""
+	fi
+	
+	if [ "$SNMP_BIN_DIR" = "" ]
+	then
+		if [ -d /apps/MOBYemanate ]
+		then		
+			EMANATEHOME="/apps/MOBYemanate/snmp*/basic/sol64_sun4.bin"
+		elif [ -d /apps/snmp ]
+		then
+			EMANATEHOME="/apps/snmp/snmp*/basic/sol64_sun4.bin"
+		else
+			logAction "Installation aborted because SNMP Master Agent environment is missing."
+			echo "Installation aborted because SNMP Master Agent environment is missing."
+			exit 1
+		fi
+	else
+		EMANATEHOME="$SNMP_BIN_DIR"
+	fi
+	logAction "Using $EMANATEHOME as Emanate basedir."
+}
+
+logAction(){
+  action=$1
+  tt=`$BASEDIR/bin/getTimeZone`
+  echo "$tt info: $action" >> $INSTALL_LOGFILE
+}
+
+
+setup_rc()
+{
+	echo "Setup for Solaris 8."
+	logAction "Setup for Solaris 8"
+	logAction "Install directory: $BASEDIR"
+
+	createMasConf
+
+	logAction "Setup rc script."
+	
+	#cp $BASEDIR/tools/rc.mas /etc/init.d
+	#cp $BASEDIR/tools/rc.masadm  $BASEDIR/tools/masadm
+	cp $BASEDIR/etc/rc.mas /etc/init.d
+	mv $BASEDIR/etc/rc.masadm  $BASEDIR/etc/masadm
+
+	logAction "Enable autostart."
+	/etc/init.d/rc.mas enableautostart
+
+	# TODO setup snmp agent
+}
+
+
+#
+# Setup system for Solaris 10
+#
+setup_svcs()
+{
+	echo "Setup for Solaris 10"
+	logAction "Setup for Solaris 10"
+
+	echo "Checking if directory structure exist"
+	logAction "Check if directory structure exist"
+	if [ -d /etc/sfw/mobeon ]; then
+		sleep 0 
+	else
+		mkdir /etc/sfw/mobeon
+	fi
+
+	if [ -d /etc/sfw/mobeon/MOBYmas ]; then
+		sleep 0 
+	else
+		mkdir /etc/sfw/mobeon/MOBYmas
+	fi
+
+
+
+	createMasConf
+	
+	echo "Checking if mas service is running"
+	logAction "Check if mas service is running"
+	present=`svcs -H application/mobeon/MOBYmas:mas > $stat 2>&1`
+	result=`echo $present | awk '{ print $4}'`
+
+	if [ "$result" = "doesn't" ]; then
+
+		mv $BASEDIR/bin/mas /etc/sfw/mobeon/MOBYmas/mas
+		chmod +x /etc/sfw/mobeon/MOBYmas/mas
+	else
+		echo "The old service <mas> is still running"
+		logAction "The old service <mas> is still running"
+		echo "Disabling service..\c"
+		logAction "Disabling service..\c"
+		/usr/sbin/svcadm disable /application/mobeon/MOBYmas:mas
+		echo "ok"
+		logAction "ok"
+		echo "Deleting service..\c"
+		logAction "Deleting service..\c"
+		/usr/sbin/svccfg delete -f MOBYmas:mas
+		echo "ok"
+		logAction "ok"
+		mv $BASEDIR/bin/mas /etc/sfw/mobeon/MOBYmas/mas
+		chmod +x /etc/sfw/mobeon/MOBYmas/mas
+	fi
+
+	cp $BASEDIR/etc/rc.mas /etc/init.d
+	
+	# Copy svcs.masadm to masadm
+	mv $BASEDIR/etc/svcs.masadm  $BASEDIR/etc/masadm
+	#cp $BASEDIR/bin/mas.conf $BASEDIR/tools/
+
+
+	# Check if snmpagent service is running
+	present=`svcs -H application/mobeon/MOBYmas:snmpagent > $stat 2>&1`
+	result=`echo $present | awk '{ print $4}'`
+
+	if [ "$result" = "doesn't" ]; then
+
+		mv $BASEDIR/bin/snmpagent /etc/sfw/mobeon/MOBYmas/snmpagent
+		chmod +x /etc/sfw/mobeon/MOBYmas/snmpagent
+	else
+		echo "The old service <snmpagent> is still running"
+		echo "Disabling service..\c"
+		/usr/sbin/svcadm disable /application/mobeon/MOBYmas:snmpagent
+		echo "ok"
+		echo "Deleting service..\c"
+		/usr/sbin/svccfg delete -f MOBYmas:snmpagent
+		echo "ok"
+		cp $BASEDIR/bin/snmpagent /etc/sfw/mobeon/MOBYmas/snmpagent
+		chmod +x /etc/sfw/mobeon/MOBYmas/snmpagent
+	fi
+
+
+
+	if [ -d /var/svc/manifest/application/mobeon ]; then
+		sleep 0 
+	else
+		mkdir /var/svc/manifest/application/mobeon
+	fi
+
+	if [ -d /var/svc/manifest/application/mobeon/MOBYmas ]; then
+		sleep 0 
+	else
+		mkdir /var/svc/manifest/application/mobeon/MOBYmas
+	fi
+
+	if [ -d $BASEDIR/../backup ]; then
+		sleep 0 
+	else
+		mkdir $BASEDIR/../backup
+	fi
+
+
+	mv $BASEDIR/etc/MOBYmas.xml    /var/svc/manifest/application/mobeon/MOBYmas
+	mv $BASEDIR/etc/bckmasconfig.sh    $BASEDIR/../backup
+
+	# import and validate manifest
+	logAction "import and validate manifest"
+	
+	/usr/sbin/svccfg validate /var/svc/manifest/application/mobeon/MOBYmas/MOBYmas.xml 
+	/usr/sbin/svccfg import   /var/svc/manifest/application/mobeon/MOBYmas/MOBYmas.xml
+
+}
+
+#
+# Check if java directory exsists
+#
+chk_JavaDir ()
+{
+   echo "Checking java dir $MY_JAVA_HOME" 
+   if [ ! -d $MY_JAVA_HOME  ]
+   then
+   	logAction "ERROR: Java home not found  ($MY_JAVA_HOME) [Edit mas.conf file] "
+        echo "ERROR: Java home not found  ($MY_JAVA_HOME) [Edit mas.conf file] "
+   else
+       logAction "Java home found  ($MY_JAVA_HOME)"
+   fi
+}
+
+#
+# Create MAS install configuration file
+#
+createMasConf()
+{
+   # Find out where Emanate is.
+   setupEmanateDir
+   
+   logAction "Creating MAS configuration file: $BASEDIR/etc/$MAS_CONF_FILE"
+
+   # Compute the Java heap-sizes (added for TR31545);
+   PLATFORM_IS_NIAGARA=`isNiagara`
+   if [ "$PLATFORM_IS_NIAGARA" = "1" ]; then
+       INIT_HEAP_SIZE=1024M
+       NEW_GEN_HEAP_SIZE=300M
+   else
+       dt=`echo "scale=2;$SIP_CHANNELS * 0.7 + 165" | bc -l`
+       INIT_HEAP_SIZE=`echo "scale=0;$dt/1" | bc -l`M
+       dt=`echo "scale=2;$SIP_CHANNELS / 50 * 20" | bc -l`
+       NEW_GEN_HEAP_SIZE=`echo "scale=0;$dt/1" | bc -l`M
+   fi
+
+   echo "Creating MAS configuration file : $BASEDIR/etc/$MAS_CONF_FILE"
+   echo "#############################" > $BASEDIR/etc/$MAS_CONF_FILE
+   echo "#                           #" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "#  MAS configuration file   #" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "#                           #" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "#############################" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "INIT_HEAP_SIZE=$INIT_HEAP_SIZE" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "MAX_HEAP_SIZE=$INIT_HEAP_SIZE" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "NEW_GEN_HEAP_SIZE=$NEW_GEN_HEAP_SIZE" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "SNMP_MAX_HEAP_SIZE=64M" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "JAVA_HOME=$MY_JAVA_HOME" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "INSTALL_DIR=$BASEDIR" >> $BASEDIR/etc/$MAS_CONF_FILE
+   INSTALL_DATE=`date "+%y%m%d:%H%M%S"`
+   echo "INSTALL_DATE=$INSTALL_DATE" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "SNMP_DIR=$EMANATEHOME" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "LOGICALZONE=$LOGICALZONE" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "HOSTNAME=$HOSTNAME_TO_REGISTER_IN_MCR" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "DOMAIN=$DOMAIN" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "MAS_HOST=$MAS_HOST" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "BASE_VERSION=$BASE_VERSION" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "SIP_CHANNELS=$SIP_CHANNELS  # Do not change" >> $BASEDIR/etc/$MAS_CONF_FILE
+  
+   
+   #Mobeon AB root OID = 1.3.6.1.4.1.24261
+   #Products = 1
+   #MAS = 1
+   echo "MASRootoid=1.3.6.1.4.1.24261.1.1" >> $BASEDIR/etc/$MAS_CONF_FILE
+   echo "MASInstanceName="$REGISTERED_NAME"@"$MAS_HOST >> $BASEDIR/etc/$MAS_CONF_FILE
+
+}
+
+
+createEnableAutostart()
+{
+
+   logAction "Create MAS autostart file: $MAS_ENABLERESTART"
+   echo "Enabling autostart."
+   
+   echo "This is a flagfile for MAS" > $MAS_ENABLERESTART
+   echo "Do not remove this file" >> $MAS_ENABLERESTART
+
+
+}
+
+createLogLink()
+{
+    logAction "Create link to MAS log directory."
+    test -d "$BASEDIR/../logs" || mkdir $BASEDIR/../logs
+    test -d "$BASEDIR/../logs/mas" || mkdir $BASEDIR/../logs/mas
+    ln -s $BASEDIR/log/mas.log $BASEDIR/../logs/mas/mas.log > /dev/null 2>&1
+    ln -s $BASEDIR/log/process.log $BASEDIR/../logs/mas/process.log > /dev/null 2>&1
+    ln -s $BASEDIR/log/mas_agent.log $BASEDIR/../logs/mas/mas_agent.log > /dev/null 2>&1
+    ln -s $BASEDIR/log/stream.log $BASEDIR/../logs/mas/stream.log > /dev/null 2>&1
+}
+
+#
+# Start MAS
+#
+start()
+{
+	/etc/init.d/rc.mas enableautostart
+	/etc/init.d/rc.mas start
+	echo "The new service <mas> is started...\c"
+}
+
+#
+# add process to cron
+#
+add_to_cron()
+{
+	echo "10 3 * * 0   $BASEDIR/MOBYhmon/bin/newlog" >> /var/spool/cron/crontabs/root
+	sync
+	crontab /var/spool/cron/crontabs/root
+}
+
+
+#
+#	Updates configuration from values provided by responsefile
+#
+reuse_configuration()
+{
+
+	CURDIR=`pwd`
+   	#cd $BASEDIR/cfg
+   	
+   	BACKUPDIR=$BASEDIR/../backup/mas/$BACKUP_DIRNAME
+   	
+   	
+	if [ "$REUSECONFIG" = "yes" ]; then
+		LATEST=$BASEDIR/../backup/mas/LATEST
+	
+		
+		if [ -d $LATEST ]; then
+			. $LATEST/backup.info
+			cd $LATEST
+			echo "Reusing values from previous configuration" 
+			echo "Previous configuration version : $VERSION"
+			echo "Previous configuration date    : $UNINST_DATE"
+			echo "" > /tmp/slask
+		        config_files=`ls *.xml *.properties`
+			for file in $config_files
+    			do 
+
+				echo " $file"    				
+    				cp $file $BASEDIR/cfg
+
+    			done
+                        $BASEDIR/bin/updatemasxml.sh $BASEDIR $VERSION $BASE_VERSION
+
+# Do not reuse old mas.conf, several parameters may need to change such as install date and java version
+#
+#			if [ -f mas.conf ]; then
+#				echo " mas.conf"    				
+#    				cp mas.conf $BASEDIR/etc
+#                                # We do not want the version of the resored version in mas.conf,
+#                                # we want current version
+#                                grep -v BASE_VERSION $BASEDIR/etc/mas.conf > /tmp/mas.conf.tmp
+#                                echo "BASE_VERSION=$BASE_VERSION" >> /tmp/mas.conf.tmp
+#                                mv /tmp/mas.conf.tmp $BASEDIR/etc/mas.conf
+#    			else
+#    				echo "Not able to  restore config"
+#    			fi
+		fi
+		
+	fi
+	
+	cd $CURDIR
+}
+
+#
+#	Restores configuration of a reused application
+#
+
+restore_app_config(){
+  logAction "Restoring application config"
+  CONFIGFILES=$BASEDIR/applications/$PRODUCTID/configfiles.txt
+  while read CONFIGFILE
+  do
+    if [ "$CONFIGFILE" != "" ];then
+      FILE=`basename $CONFIGFILE`
+      if [ -f $LATEST/$FILE ]; then
+        cp $LATEST/$FILE $BASEDIR/cfg
+        logAction "Copied $LATEST/$FILE to $BASEDIR/cfg"
+      else
+        logAction "Did not copy $FILE: it did not exist at backup area."
+      fi
+    fi
+  done < $CONFIGFILES
+  logAction "Done application config"
+}
+
+#
+#	Installs media content and applications if wanted
+#
+reuse_appmcp()
+{
+
+	CURDIR=`pwd`
+   	cd $BASEDIR/cfg
+   	
+   	BACKUPDIR=$BASEDIR/../backup/mas/$BACKUP_DIRNAME
+   	
+	if [ "$REUSECONFIG" = "yes" ]; then
+		LATEST=$BASEDIR/../backup/mas/LATEST
+		if [ -d $LATEST ]; then
+			. $LATEST/backup.info
+			#result=`ls $LATEST/dist/app/*.cfg`
+			if [ -d $LATEST/dist/app ]; then
+				#if [ -e $LATEST/dist/app/*.cfg ]; then
+				echo "Reinstall application"
+			        app_files=`ls $LATEST/dist/app/*.cfg`
+				for file in $app_files
+	    			do 
+	    				. /$file
+	    				echo "  install APP: $PRODUCTID"
+	    				/etc/init.d/rc.mas installapp $LATEST/dist/app/$APPFILE
+                                        restore_app_config
+	    			done
+			fi
+
+			if [ -d  $LATEST/dist/mcp ]; then
+				echo "Reinstall media content"
+			        mcp_files=`ls $LATEST/dist/mcp/*.cfg`
+				for file in $mcp_files
+	    			do 
+	    				. /$file
+	    				echo "  install MCP: $PRODUCTID"
+	    				/etc/init.d/rc.mas installmcp $LATEST/dist/mcp/$APPFILE
+	    			done
+			fi
+			
+#			echo "reinstall media content"
+#		        mcp_files=`ls $LATEST/dist/mcp/*.tar`
+#			for file in $mcp_files
+#    			do 
+#    				echo "install $file"
+#    				result=`/etc/init.d/rc.mas installmcp $file`
+#    			done
+
+
+
+
+#			echo "reinstall application(s)"
+#		        app_files=`ls $LATEST/dist/app/*.tar`
+#			for file in $app_files
+#    			do 
+#    				echo "install $file"
+#    				/etc/init.d/rc.mas installapp $file
+#    			done
+
+#			echo "reinstall media content"
+#		        mcp_files=`ls $LATEST/dist/mcp/*.tar`
+#			for file in $mcp_files
+#    			do 
+#    				echo "install $file"
+#    				/etc/init.d/rc.mas installmcp $file
+#    			done
+		fi
+	fi
+	
+	cd $CURDIR
+}
+
+#
+# Restore datafiles
+#
+doRestoreDataFiles()
+{
+	# Restores datafiles. Eg counters. adminstate..
+	if [ -f $LATEST/backup.info ]; then
+		. $LATEST/backup.info		# LATEST_BACKUPDIR
+		if [ -d $LATEST_BACKUPDIR/data ]; then
+			cp $LATEST_BACKUPDIR/data/* $BASEDIR/data
+		fi
+	fi
+}
+
+determineMemoryHWM () {
+
+
+   chkMB()
+   {
+      if [ "$mem" -lt "1024" ]; then
+      	MEM_HWM=40000
+      fi
+   }
+
+
+   chkGB()
+   {
+      mem=`echo $memstring | nawk '{ print substr($0,length($0)-2,1) } '`
+      if [ "$mem" -lt "1" ]; then
+	MEM_HWM=40000
+      fi
+
+   }
+
+   
+
+   # Get memmorysize from host.
+   memstring=`prtconf -p | grep "Memory size:"`
+   mem=`echo $memstring | nawk '{ print $3 } '`
+
+   # is the value in MB or GB
+   case "$mem" in
+      *[0-9]) chkMB ;;
+      *GB) chkGB ;;
+   esac
+}
+
+# Source platform independent functions
+. $BASEDIR/etc/platformIndependentFunctions
+
+# Source platform dependent functions file.
+PLATFORM_DEPENDENT_FUNCTIONS=`$BASEDIR/etc/getPlatformDependentParameter PLATFORM_DEPENDENT_FUNCTIONS`
+. $BASEDIR/etc/$PLATFORM_DEPENDENT_FUNCTIONS
+
+#
+# Update configuration from values given during install
+#
+updateConfigParam()
+{
+	
+	JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:$BASDIR/cfg:$BASEDIR/lib/mobeon_configurationmanager.jar:$BASEDIR/lib/log4j-1.2.9.jar:$BASEDIR/lib/commons-collections-3.1.jar:$BASEDIR/lib/dom4j-1.6.1.jar:$BASEDIR/lib/mobeon_logging.jar:$BASEDIR/lib/mobeon_util.jar
+	
+	#if [ ! "$REUSECONFIG" = "yes" ]; then
+	#	. $BASEDIR/etc/mas.conf
+	#	SIP_CHANNELS=$SIP_CHANNELS
+	#else
+	#	
+	#	SIP_CHANNELS=$SIP_CHANNELS
+	#fi
+
+	
+	
+	# Get installed memory size
+	determineMemoryHWM
+
+	# Get inital thread pool size
+	setup_INIT_THREADPOOL_SIZE
+
+	sed s!#_MAX_THREADPOOL_SIZE_#!$THREADPOOLSIZE!g $BASEDIR/etc/ComponentConfig.xml > $BASEDIR/etc/cpc_tmp1
+	sed s!#_INIT_THREADPOOL_SIZE_#!$INIT_THREADPOOL_SIZE!g $BASEDIR/etc/cpc_tmp1 > $BASEDIR/etc/cpc_tmp2 
+	mv $BASEDIR/etc/cpc_tmp2 $BASEDIR/etc/ComponentConfig.xml
+	rm $BASEDIR/etc/cpc_tmp1
+
+	# Create system property
+	sed s!#_FQ_HOSTNAME_#!$MAS_HOST!g $BASEDIR/etc/ComponentConfig.xml > $BASEDIR/etc/cpc_tmp1
+	mv $BASEDIR/etc/cpc_tmp1 $BASEDIR/etc/ComponentConfig.xml
+
+
+	if [ ! "$REUSECONFIG" = "yes" ]; then
+
+		echo
+		echo " Updating XML configuration documents."
+		logAction "Updating XML configuration documents."
+		
+		# update SIP threshold
+		# THIS SHULD BE CHANGED WHEN CfgTool can handles list.	
+	        INIT_THRESHOLD=`expr $SIP_CHANNELS + 5`
+		
+		# call platform independent function to setup variable LOWWATERMARK
+		setup_LOWWATERMARK
+
+		# call platform independent function to setup variable HIGWATERMARK
+		setup_HIGHWATERMARK
+	
+		sed s!#_INIT_THRESHOLD_#!$INIT_THRESHOLD!g $BASEDIR/cfg/mas.xml > $BASEDIR/cfg/mas_tmp1
+		sed s!#_HIGHWATERMARK_#!$HIGHWATERMARK!g $BASEDIR/cfg/mas_tmp1 > $BASEDIR/cfg/mas_tmp2
+		sed s!#_LOWWATERMARK_#!$LOWWATERMARK!g $BASEDIR/cfg/mas_tmp2 > $BASEDIR/cfg/mas.xml
+		rm $BASEDIR/cfg/mas_tmp1
+		rm $BASEDIR/cfg/mas_tmp2
+
+
+		# First update logmanager.xml with timezone
+		sed s!#TZ#!$TZ!g $BASEDIR/cfg/logmanager.xml > $BASEDIR/cfg/logmanager_ch.xml
+		mv $BASEDIR/cfg/logmanager_ch.xml $BASEDIR/cfg/logmanager.xml
+	
+		#**************************
+		# servicerequestmanager 
+		#**************************
+	        SET_PARAMS=" -s servicerequestmanager.clientid="$REGISTERED_NAME"@"$MAS_HOST
+		#logAction "$SET_PARAMS"			
+		#$JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.cfgtool.CfgTool $SET_PARAMS $BASEDIR/cfg/servicerequestmanager.xml
+		
+		
+	
+		#**************************
+		# execution_engine 
+		#**************************
+		# EE Values
+	        SET_PARAMS="$SET_PARAMS -s executionengine.hostname=xmp:$XMP_HOSTNAME;sip:$SIP_HOSTNAME"
+		#logAction "$SET_PARAMS"			
+		#$JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.cfgtool.CfgTool $SET_PARAMS $BASEDIR/cfg/execution_engine.xml
+		
+	
+	
+		#**************************
+		# callmanager
+		#**************************
+		# SSP Values
+		if [ "$SSP_HOST_LIST" != "" ] 
+		then
+		   for host in $SSP_HOST_LIST
+		   do
+	        	SET_PARAMS="$SET_PARAMS -c callmanager.remoteparty.ssplist.address.{$host}"
+	           done
+	        elif [ $SIP_PROXY_HOST != "" ] 
+		then
+	        	SET_PARAMS="$SET_PARAMS -c callmanager.remoteparty.sipproxy.address.{$SIP_PROXY_HOST}"
+	        fi
+	        SET_PARAMS="$SET_PARAMS -s callmanager.registeredname=$REGISTERED_NAME"
+	        
+	        #SET_PARAMS="$SET_PARAMS -s callmanager.remoteparty.ssplist.address.host=$SSP_HOST"
+	        #SET_PARAMS="$SET_PARAMS -s callmanager.remoteparty.ssplist.address.port=$SSP_PORT"
+	        #SET_PARAMS="$SET_PARAMS -s callmanager.registeredname=$REGISTERED_NAME"
+		
+		#logAction "$SET_PARAMS"			
+		#$JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.cfgtool.CfgTool $SET_PARAMS $BASEDIR/cfg/callmanager.xml
+	
+		#**************************
+		# profilemanager
+		#**************************
+		
+		# call platform independent function to setup variable CONNECTION_POOL_SIZE
+		setup_CONNECTION_POOL_SIZE
+
+	        SET_PARAMS="$SET_PARAMS -s profilemanager.userregister.defaultsearchbase=$SEARCHBASE"
+	        SET_PARAMS="$SET_PARAMS -s profilemanager.connectionpool.maxsize=$CONNECTION_POOL_SIZE"
+	
+	
+		#**************************
+		# externalcomponentregister
+		#**************************
+		# ASR Values
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.services.speechrecognition.instance.protocol=$ASR_PROTOCOL"
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.services.speechrecognition.instance.hostname=$ASR_HOST"
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.services.speechrecognition.instance.port=$ASR_PORT"
+		# TTS Values
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.services.texttospeech.instance.protocol=$TTS_PROTOCOL"
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.services.texttospeech.instance.hostname=$TTS_HOST"
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.services.texttospeech.instance.port=$TTS_PORT"
+	
+		SET_PARAMS="$SET_PARAMS -s externalcomponentregister.algorithms.localrandomchooser.logicalzone=$LOGICALZONE"
+	
+	
+		#**************************
+		# operateandmaintainmanager
+		#**************************
+	
+		SET_PARAMS="$SET_PARAMS -s operateandmaintainmanager.omm.logicalzone=$LOGICALZONE"
+	   	# if memmory is less then 1Gb of ram, Set new memory threshold
+	   	if [ "$MEM_HWM" != "" ]
+	   	then
+			SET_PARAMS="$SET_PARAMS -s operateandmaintainmanager.omm.memoryhighwatermark=$MEM_HWM"
+		fi
+
+
+		#**************************
+		# stream
+		#**************************
+
+		# call platform dependent function to setup variable INPUTPROCESSORS.
+		setup_INPUTPROCESSORS
+
+		# call platform dependent function to setup variable OUTPUTPROCESSORS.
+		setup_OUTPUTPROCESSORS
+		
+		# call platform independent function to setup variable PORT_POOL_SIZE.
+		setup_PORT_POOL_SIZE
+
+		SET_PARAMS="$SET_PARAMS -s stream.inputprocessors=$INPUTPROCESSORS"
+		SET_PARAMS="$SET_PARAMS -s stream.outputprocessors=$OUTPUTPROCESSORS"
+		SET_PARAMS="$SET_PARAMS -s stream.portpoolsize=$PORT_POOL_SIZE"
+		SET_PARAMS="$SET_PARAMS -s stream.localhostname=$RTP_HOSTNAME"
+
+		logAction "$SET_PARAMS"			
+	
+		$JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.cfgtool.CfgTool $SET_PARAMS $BASEDIR/cfg/mas.xml
+		
+#	else
+#		# the configuration might have ben changed since previous version
+#		upgradeConfig		
+	fi
+	# First update logmanager.xml and logmanageragent.xml with timezone
+ sed s!#TZ#!$TZ!g $BASEDIR/cfg/logmanageragent.xml > $BASEDIR/cfg/logmanageragent_ch.xml
+ mv $BASEDIR/cfg/logmanageragent_ch.xml $BASEDIR/cfg/logmanageragent.xml
+	
+	echo " Validating XML configuration documents."
+	logAction "Validating XML configuration documents."			
+	
+	result=`$JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.cfgtool.CfgTool -v $BASEDIR/cfg/mas.xml`
+
+	
+
+	if [ "$result" = "" ] 
+	then
+		
+		echo " Validating ok."			
+		logAction "Validating ok."			
+	else
+		echo " ERROR. Validating failed."			
+		echo " Look in $INSTALL_LOGFILE for more info."
+		logAction "ERROR. Validating failed."			
+		#logAction "$call_result"			
+		#logAction "$exte_result"			
+		#logAction "$exe_result"			
+		logAction "$result"			
+	fi
+
+}
+
+
+#
+# Register component to MCR
+#
+mcrRegister()
+{
+	logAction "Registering component to MCR"
+	$BASEDIR/etc/mascommon register
+
+	if [ $? -gt 0 ]
+	then
+		logAction "Failed to register MAS to MCR"
+	else
+		logAction "Result ok"
+	fi
+     	
+      	cd $CURDIR
+	
+}
+
+uninstallPrevPkg () {
+
+	if [ ! "$REUSECONFIG" = "yes" ]; then
+ 	    PATH=/usr/sadm/bin:$PATH
+	    UPGR_SCRIPT=/tmp/upgr.$PKGINST
+	 
+	    if [ -f $UPGR_SCRIPT ]; then
+		  sh $UPGR_SCRIPT &
+	    fi
+	fi
+}
+
+
+#upgradeConfig()
+#{
+#	# loop in upgrade file to find file to execute
+#		# from   to   script
+#		# P1A.006-P2A.020:upgP2A020.upg
+#	
+#	. $LATEST/backup.info
+#	
+#        exec < $BASEDIR/tmp/upgradelist
+#
+#        while read line
+#        do
+#                echo $line
+#                
+#      		comment=`echo $line | nawk '{ if (substr($0,1,1)=="#"){print "YES"}  } '`
+#      		if [ ! "$comment" = "YES" -a ! "$line" = "" ]; then
+#	                line=`echo $line | nawk '{gsub(" ", ""); print}'`
+#        	        #echo $line
+#
+#                	verfrom=`echo $line | nawk -F: '{ print $1 } '`
+#                	verto=`echo $line | nawk -F: '{ print $2 } '`
+#                	script=`echo $line | nawk -F: '{ print $3 } '`
+#
+#			echo "$VERSION = $verfrom && $BASE_VERSION = $verto"
+#		
+#			if [ "x$VERSION" = "x$verfrom" -a "x$BASE_VERSION" = "x$verto" ]; then 
+#					echo "Execute $script"
+#			fi
+#		fi
+#
+#        done
+#
+#}
+
+
+#
+# MAIN
+#
+case $version in
+	5.8)			
+		#setup_logdir
+		common
+		setup_rc
+		chk_JavaDir
+                createLogLink
+		mcrRegister
+		#update_configuration
+		#start
+		#add_to_cron
+		;;
+	*)	
+		#setup_logdir
+		common			# initiate vars
+		setup_svcs		# Setup to use svcs
+		chk_JavaDir		# Check for java
+#		uninstallPrevPkg	# Upgrade: uninstall prev pkg
+		reuse_configuration	# Upgrade: Copies previous config files to this installation
+		updateConfigParam	# updates config
+                createLogLink           # create link to log dir
+		reuse_appmcp		# Upgrade: reinstalls app(s) and MCP if wanted
+		mcrRegister		# register MAS in MCR
+		doRestoreDataFiles  	# copy back data files, counters,adminstate
+		createEnableAutostart	# create autostart file
+		
+		;;
+esac

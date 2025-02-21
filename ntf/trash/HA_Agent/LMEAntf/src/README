@@ -1,0 +1,28 @@
+Short description of the HA-part of NTF.
+Lennart Rasmusson
+================================================================
+
+The interface between NTF and the cluster has the following operations:
+- Start NTF
+- Stop NTF
+- Check the NTF environment
+- Probe the sanity of running NTF
+
+When NTF is running, the processes are monitored by PMF (process monitoring facility) of the cluster.
+
+The programs in the NTF HA part are:
+
+- ntf_svc_start         Starts NTF, using hantf_ntf and hantf_agt.
+- ntf_svc_stop          Stops NTF with kill.
+- ntf_validate          Checks that the NTF cluster environment is OK. It checks the HA setup and that
+                        the start scripts exist and are executable.
+- ntf_update            Informs NTF of configuration changes in the cluster environment by restarting.
+- ntf_monitor_start     Starts the NTF probe.
+- ntf_monitor_stop      Stops the NTF probe.
+- ntf_monitor_check     Same as ntf_validate.
+- ntf_probe             Checks the sanity of NTF. Currently a no-op.
+- hantf-agt.sh          Shell script that starts the NTF subagent.
+- hantf-ntf.sh          Shell script that starts the NTF java process.
+
+All the functionality is implemented in ntf.c. The other c-files are only wrappers for the commands, 
+that call functions in ntf.c. 

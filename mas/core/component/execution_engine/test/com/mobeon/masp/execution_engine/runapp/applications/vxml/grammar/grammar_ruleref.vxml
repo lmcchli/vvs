@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+
+    <form id="main_form">
+        <grammar mode="dtmf" version="1.0" root="pin">
+            <rule id="digit">
+                <one-of>
+                    <item>0</item>
+                    <item>1</item>
+                    <item>2</item>
+                    <item>3</item>
+                    <item>4</item>
+                    <item>5</item>
+                    <item>6</item>
+                    <item>7</item>
+                    <item>8</item>
+                    <item>9</item>
+                </one-of>
+            </rule>
+
+            <rule id="pin" scope="public">
+                <one-of>
+                    <item>
+                        <item repeat="4">
+                            <ruleref uri="#digit"/>
+                        </item>
+                       #
+                    </item>
+                    <item>
+                         * 9
+                    </item>
+                </one-of>
+            </rule>
+        </grammar>
+        <field name="field1">
+            <property name="termchar" value="A" />
+            <prompt>
+                A prompt is played
+            </prompt>
+            <filled>
+                <log>TCPASS: In filled</log>
+                <if cond="field1=='4711#'">
+                    <log>TCPASS: Success with value <value expr="field1" /></log>
+                <else/>
+                    <log>TCFAIL: Fail value <value expr="field1" /></log>
+                </if>
+            </filled>
+        </field>
+    </form>
+</vxml>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.semantic">
+        <log>TCPASS</log>
+        
+    </catch>
+    <catch event="error">
+        <!-- should never be reached-->
+        <log>FAIL</log>
+    </catch>
+
+
+    <form id="form1">
+
+        <!-- Intialize a variable to a non-existing variable
+  to force an error.semantic during FIA initialization-->
+
+        <var name="somevar" expr="doesnotexist"></var>
+        <block >
+            <log>TCFAIL VXML: Catch 8</log>
+        </block>
+        <filled>
+            <log>TCFAIL VXML: Catch 8</log>
+        </filled>
+    </form>
+</vxml>

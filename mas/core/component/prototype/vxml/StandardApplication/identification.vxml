@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="root.vxml">
+	<form id="identification">
+		<block>
+			<if cond="mailBoxRestricted()">
+					<prompt>
+							<audio expr="getPrompt('MailBoxRestricted')" >
+								I'm sorry. Login to this mail box is not permitted. Please contact
+								cutomer service to fint out more about your account status.
+							</audio>
+							<audio expr="getPrompt('godbye')">
+									godbye
+							</audio>
+					</prompt>
+					<exit />
+			</if>
+			
+			
+			<prompt>
+				<audio expr="getTimeDependantPrompt('initial_greeting')">
+						God <value expr="getDayString()" />
+				</audio>
+			</prompt>
+			</block>
+			<!-- this will execute getPhone and then return just after this point -->
+			<subdialog cond="!isSubscriber(session.connection.remote.uri) || !hasFastLogin(session.connection.remote.uri) || isReinlogged()" src="getPhone.vxml" />
+			<subdialog cond="familyMailBox()" src="family_mailbox.vxml" />
+					
+			<block>
+			<if cond= "firstTimeLogin(session.connection.remote.uri)">
+					<goto next="firstTimeLogin.vxml" />
+			</if>
+				
+			<prompt>
+					<audio expr="getCoSDependantPrompt('welcome_greeting', session.connection.remote.uri)" >
+						<value expr="getCoSDepandantString('welcome_greeting', session.connection.remote.uri)" />
+					</audio>
+			</prompt>
+			
+			<goto next="inventory.vxml" />
+		</block>
+	</form>
+
+</vxml>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.connection">
+        <log>TCPASS</log>
+        <exit></exit>
+    </catch>
+    <form >
+
+        <transfer name="call" dest="1234" bridge="true" connecttimeout="3s" maxtime="50s"
+                  transferaudio="prompt60s.wav">
+            <grammar mode="dtmf" root="root">
+                <rule id="root">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <log>ERROR filled</log>
+                <exit></exit>
+            </filled>
+        </transfer>
+        <block>
+            <log>ERROR nextblock</log>
+        </block>
+    </form>
+</vxml>

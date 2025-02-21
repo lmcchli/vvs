@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+=pod
+  Descr.  : Checks that NTFs datadirectory is writeable.
+    Exit code: 0    OK
+               1    Directory does not exist or is not writeable
+=cut
+
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+my $d = "$NTF_HOME/data";
+if (-d $d) {
+    if (-w $d) {
+        print "The NTF data directory \"$d\" exists and is writeable\n";
+    } else {
+        print "The NTF data directory \"$d\" is not writeable\n";
+        $result = 1;
+    }
+} else {
+    print "The NTF data directory \"$d\" does not exist\n";
+    $result = 1;
+}
+
+exit $result;

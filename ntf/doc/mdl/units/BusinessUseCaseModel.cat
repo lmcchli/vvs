@@ -1,0 +1,91 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "BusinessUseCaseModel"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"35B677D701B8"
+    documentation 	
+|Optional Model:
+|The business modeling workflow in Rational Unified Process produces two models: the business use-case model, and the business object model. Both show the business 
+|processes, but different aspects of them. In the business use-case model each business use case represents a business process, described (text and/or activity diagrams) from an "external" view point without worrying about who does what to whom inside of the organization. 
+|In the business object model, you include realizations of each business use case to show how workers and entities collaborate to perform the process. You do that using class diagrams, activity diagrams with swimlanes, collaboration diagrams, and/or interaction diagrams.
+|
+|<Any additional description of the Business Use Case Model, such as modeling conventions that the reader/reviewer may need to understand the model, should be described here.>
+    
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list)
+    logical_presentations 	(list unit_reference_list
+	(object UseCaseDiagram "Global View of Business Actors and Business Use Cases"
+	    quid       	"35C0DFF50172"
+	    title      	"Global View of Business Actors and Business Use Cases"
+	    documentation 	"This is a global view of the system showing all Busines Use Cases and Business Actors.  It is intended to be an overview diagram, so if the diagram becomes too complex for easy comprehension, use several diagrams, each of which should focus on a different aspect of the system.  Usually, organizing use case diagrams around actors is a good approach."
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list
+		(object NoteView @1
+		    location   	(464, 352)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@1
+			location   	(42, 11)
+			fill_color 	13434879
+			nlines     	14
+			max_width  	809
+			label      	
+|Global View of Business Actors and BusinessUse Cases
+|
+|This diagram presents all Business Actors and all concrete Business Use Cases (those that are directly instantiable).
+|
+|Related Rational Unified Process Activities:
+|- Activity: Find Business Actors and Use Cases
+|- Activity: Structure the Business Use Case Model
+|
+|*Note: this note may be deleted once the diagram is created.
+			)
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	869
+		    height     	694)
+		(object NoteView @2
+		    location   	(1280, 160)
+		    font       	(object Font
+			size       	9
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@2
+			location   	(942, 29)
+			fill_color 	13434879
+			nlines     	5
+			max_width  	640
+			label      	
+|Created/modified by: <name>
+|Date: <creation/modification date>
+|
+|Approved by: <name>
+|Date: <approval date>
+			)
+		    line_color 	3342489
+		    fill_color 	13434879
+		    width      	700
+		    height     	275)))))

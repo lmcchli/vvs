@@ -1,0 +1,92 @@
+#!/usr/local/bin/perl
+
+sub Usage {
+    print "$0 lists files modified files on a branch optionally after a release, optionally also after specified patches\n";
+    print "Usage: $0 [-hist] <branch> [ <release> [<last_patch>]]\n";
+    print "    -hist gives history comments\n";
+    print "e.g. vobnews -hist sus_r3 NTF_R3_1 4\n";
+}
+
+
+if ($ARGV[0] eq '-hist') {
+    $hist= 1;
+    shift;
+}
+
+if ($#ARGV < 0) {
+    &Usage;
+    exit 1;
+}
+
+$branch= shift;
+$cmd="version(.../$branch/LATEST) && !version(.../$branch/0)";
+
+$release= shift;
+if ($release) {
+    $cmd.= " && !lbtype($release)";
+}
+
+$patch= shift;
+for ($i= 1; $i <= $patch; $i++) {
+    $cmd= "$cmd && !lbtype(" . $i . "_$release)";
+}
+
+if ($hist) {
+    print "Doing (with history) cleartool find . -type f -version \"$cmd\" -print\n";
+} else {
+    print "Doing cleartool find . -type f -version \"$cmd\" -print\n";
+    }
+open(C, "cleartool find . -type f -version \"$cmd\" -print|");
+while ($_= <C>) {
+    chop;
+    ($_, $ver)= split(/@@/);
+    $files{$_}= "Not labeled";
+}
+close C;
+open(C, "cleartool lsco -r -s -brtype $branch .|");
+while ($_= <C>) {
+    chop;
+    $files{$_}= "Checked out";
+}
+close C;
+
+foreach $f (sort keys %files) {
+    print "$files{$f}\t$f";
+    if ($hist) {
+	open(C, "cleartool lshistory -branch $branch $f|");
+	$stop= 0;
+	$printed= 1;
+	while($line= <C>) {
+	    chop $line;
+	    undef $who;
+	    ($date, $mon, $hour, $min, $who, $type, $version, $label)= $line=~ /(\d\d)-(...)\.(\d\d):(\d\d)\s+(\S+)\s+create\s+(\S+)\s+\".+\/([^\/]+)\"(\s+\(.*\))?/;
+	    if ($who) {
+		($label)= $label=~ /\s*\((.*)\)/;
+		$stopprint= 0;
+		if ($release=~ /$label/) {
+		    last;
+		}
+		if (type eq "branch") {
+		    $stopprint= 1;
+		} elsif ($version != 0) {
+		    print "\n\t$who $date $mon $version $label";
+		}
+	    } else {
+		print "$line" unless $stopprint;
+	    }
+#	    print "$line\n";
+#	    if ($line=~ /^\s+/) {
+#		$printed= 1;
+#		print"\t$who $line\n";
+#	    } else {
+#		print "\t$who\n" unless $printed;
+#		last if ($line=~ /($release)/);
+#		$printed= 0;
+#		($date, $who, $rest)= split(/\s+/, $line, 3);
+#	    }
+	}
+	print "\n";
+    }
+    print "\n";
+}
+

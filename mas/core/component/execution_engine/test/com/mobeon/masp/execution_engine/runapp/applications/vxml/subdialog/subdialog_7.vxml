@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="com.mobeon.vva.goodbye">
+        <log>TCPASS VXML: subdialog-001</log>
+    </catch>
+ 
+   <form id="proc1">
+      <subdialog name="sub" src="subdialog_7b.vxml">
+         <filled>
+            <if cond="true">
+                <throw event="com.mobeon.vva.goodbye" />
+               <else />
+               <log>TCFAIL VXML: subdialog-002</log>
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+</vxml>

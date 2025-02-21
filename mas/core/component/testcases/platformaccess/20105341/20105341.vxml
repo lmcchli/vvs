@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+	<var name="nofm"/>
+	<var name="msglist"/>
+	<var name="msgno"/>
+	<var name="contentno"/>
+	<var name="contentlist"/>
+	<var name="mob"/>
+    <var name="mediaProperties"/>
+    <var name="props"/>
+    <var name="length"/>
+    <var name="size"/>
+    <var name="storableMessageId"/>
+    <block>
+
+		<!-- Get hold of the retriever -->
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+
+
+		<!-- Open up his mailbox -->
+		<script>
+			mailboxid = mas.subscriberGetMailbox (phoneNumber);
+			mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+			mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, 'lifo');
+			nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, null, null, null);
+		    mas.systemLog(3, 'Total number of messages (nofm) in inbox=' + nofm);
+
+
+			msglist = mas.mailboxGetMessages (mailboxlistid);
+
+            <!-- List all messages and all contents-->
+            msgno = 0;
+            while (true) {
+                mas.systemLog(3, '********* Beginning of loop ************');
+                if (msgno == nofm) {
+                    mas.systemLog(3, '######### Breaking the loop ########');
+                    break;
+                }
+                mas.systemLog(3, '######### Continuing the loop ########');
+                mas.systemLog(3, '********* Message number ' + msgno + ', total number of messages=' + nofm);
+                props = mas.messageGetStoredProperty(msglist[msgno], 'receiveddate');
+                mas.systemLog(3, 'Date of message :' + msgno + '=' + props[0]);
+                props = mas.messageGetStoredProperty(msglist[msgno], 'subject');
+                mas.systemLog(3, 'Subject of message :' + msgno + '=' + props[0]);
+                <!-- forward message -->
+                storableMessageId = mas.messageForward(9);
+
+                var emailaddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+                var callerEmailAddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+                var callerName = mas.subscriberGetStringAttribute(phoneNumber, 'cn');
+                var sender = callerEmailAddress[0];
+                mas.messageSetStorableProperty(storableMessageId, 'sender', new Array(sender));
+                var spokenName = mas.subscriberGetSpokenName(phoneNumber,'voice');
+                if (spokenName != null) {
+                    mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+                }
+
+                mas.messageSetStorableProperty(storableMessageId, 'recipients', emailaddress);
+                mas.messageSetStorableProperty(storableMessageId, 'subject', new Array('A forwarded message!'));
+                mas.messageSetStorableProperty(storableMessageId, 'type', new Array('video'));
+
+                mas.messageStore(storableMessageId);
+
+                msgno++;
+            }
+         </script>
+
+        <log>TC 20105341 FAILED</log>
+	</block>
+
+
+	</form>
+   <catch event="error.com.mobeon.platform.system">
+		    <log>TC 20105341 PASSED Error caught <value expr="_event"/></log>
+            <log>Error message: <value expr="_message"/></log>
+            <exit/>
+       </catch>
+    <catch event="error">
+		 <log>TC 20105341 FAILED Error caught <value expr="_event"/></log>
+	    <exit/>
+    </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

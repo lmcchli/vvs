@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Partial grammar rule file -->
+<gramma>
+	<rule type="Number" gender="Female">
+		<condition divisor="1000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999" terminal="true" divide="true">
+			<action type="mediafile">1e3.wav</action>
+		</condition>
+		<condition divisor="1000" atomic="false" quotientFrom="2" quotientTo="999" remainderFrom="0" remainderTo="999" terminal="false" divide="true">
+			<action type="mediafile">1e3.wav</action>
+		</condition>
+		<condition divisor="100" atomic="false" quotientFrom="1" quotientTo="99" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+			<action type="mediafile">100.wav</action>
+		</condition>
+	</rule>
+		<condition divisor="1000" atomic="false" quotientFrom="1" quotientTo="999" remainderFrom="0" remainderTo="999" terminal="false" divide="true">
+			<action type="mediafile">1e3.wav</action>
+            <action type="swap">-1</action>
+        </condition>
+</gramma>

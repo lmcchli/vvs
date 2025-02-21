@@ -1,0 +1,146 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my @MDAYS=     ( 31,    28,    31,    30,    31,    30,    31,    31,    30,    31,    30,    31);
+my @MONTHNAMES=("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+my $KEYLENGTH = 40;
+my $MESSAGESTOREPORT = 5;
+
+my $result = 0;
+my $pidcounter = 0;
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+my $CMD = "";
+
+my @PROCESSES;
+if($HA) {
+    @PROCESSES = ("notification", "subagent");
+}
+else {
+    @PROCESSES = ("notification", "watchdog", "subagent");
+}
+
+foreach $process ( @PROCESSES ) {
+
+    if ( -e "$NTF_HOME/logs/$process.pid" ) {
+	chomp($pid = `head $NTF_HOME/logs/$process.pid`);
+	$pids{$process} = $pid;
+    }
+    else {
+	$psproc = $process;
+	$psproc =~ s/subagent/ntfagent/;
+	$psproc =~ s/notification/server/;
+	$CMD = "ps -eyo pid,args | grep ntf | grep -i $psproc | grep -v grep";
+	my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD, $errmsg, "-");
+	if ($cmdresult == 0) {
+	    while (chomp($_ = <$cmdoutput>)) {
+		$_ =~ /([0-9]*)/;
+		if ($1 != "") {
+		    $pid = $1;
+		}
+		else {
+		    $pid = 0;
+		}
+	    }
+	}
+	else {
+	    $pid = 0; 
+	}
+    }
+    
+    if ($pid) {
+        if (system("kill -0 $pid >/dev/null 2>&1") == 0) {
+            $pids{$process} = $pid;
+	    $pidcounter += $pid;
+        } else {
+            print "The NTF $process process appears to have crashed\n";
+            $result = 1;
+        }
+    } 
+    else {
+        print "The NTF $process process appears not to be running\n";
+        $result = 1;
+    }
+}
+
+$CMD = "ps -yo s,pid,pcpu,vsz,etime,time,args";
+foreach $process ("notification", "watchdog", "subagent") {
+    $CMD .= " -p $pids{$process}" if $pids{$process};
+}
+
+if ($pidcounter) {
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD, $errmsg, "-");
+    if ($cmdresult == 0) {
+	while (chomp($_ = <$cmdoutput>)) {
+	    print "$_\n";
+	    ($status, $pid, $pcpu, $vsz, $etime, $time, $args) = split(/\s+/, $_, 7);
+	    $status{$pid} = $status;
+	    $pcpu{$pid} =  $pcpu;
+	    $vsz{$pid} =  $vsz;
+	    $etime{$pid} =  $etime;
+	    $time{$pid} =  $time;
+	    $args{$pid} =  $args;
+	}
+    } else {
+	print "Error executing command: $CMD\n" .
+            "Return code: $cmdresult\n" .
+            "Error output:" . $errmsg;
+	$result = 1;
+    }
+}
+
+if ($pids{'notification'}) {
+    if ($args{$pids{'notification'}} =~ /Xmx(\d+)m/) {
+        if ($1 * 0.9 < $vsz{$pids{'notification'}} / 1000) {
+            print "NTF has used 90 % of the available memory\n";
+            $result = 1;
+        }
+    }
+}
+
+foreach $process ("watchdog", "subagent") {
+    if ($pids{$process}) {
+        if ($vsz{$pids{$process}} > 10000) {
+            print "The NTF $process process uses more memory than expected\n";
+            $result = 1;
+        }
+    }
+}
+
+foreach $process ("notification", "watchdog", "subagent") {
+    if ($pids{$process}) {
+        if ($pcpu{$pids{$process}} > 20) {
+            print "The NTF $process process uses a lot of CPU\n";
+            $result = 1;
+        }
+    }
+}
+
+foreach $process ("notification", "watchdog", "subagent") {
+    if ($pids{$process} && $pidcounter) {
+        $etime = $etime{$pids{$process}};
+        ($days, $hours, $mins, $sec) = $etime =~ /(\d+-)?(\d+:)?(\d+):(\d+)$/;
+        if (($status{$pids{$process}}) && (!$days || $days < 24)) {
+            print "The NTF $process process has been restarted the last day\n";
+            $result = 1;
+        }
+    }
+}
+
+foreach $process ("notification", "watchdog", "subagent") {
+    if ($pids{$process}) {
+	if ($status{$pids{$process}} =~ /Z/) {
+	   print "The NTF $process process is in Zombie state\n";
+           $result = 1; 
+	}
+	if ($status{$pids{$process}} =~ /T/) {
+	   print "The NTF $process process is stopped by a job control signal\n";
+           $result = 1; 
+	}
+    }
+}
+
+exit $result;
+

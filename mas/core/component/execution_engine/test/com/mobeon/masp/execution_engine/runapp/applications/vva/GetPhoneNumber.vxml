@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains digits entered by the user. It has been added by the system automatically.-->
+   <var name="phoneNumber" />
+   <!--A local variable used to carry the value of loginAttempts.-->
+   <var name="loginAttemptsLocal" />
+   <!--An array that is returned from this procedure. returnArray[0] is the analyzedNumber and returnArray[1] is loginAttempts.-->
+   <var name="returnArray" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <!--The number of login attempts during this call.-->
+   <var name="loginAttempts" />
+   <!--The value of the ANI global variable.-->
+   <var name="ani" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_loginAttempts" />
+      <var name="p_ani" />
+      <block>
+         <assign name="loginAttempts" expr="p_loginAttempts" />
+         <assign name="ani" expr="p_ani" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="loginAttemptsLocal" expr="loginAttempts" />
+         <goto next="#gd1" />
+      </block>
+   </form>
+   <form id="gd1">
+      <block>
+         <script>Menu_SetUri('GetPhoneNumber.vxml#gd1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#gd1_digit_input" />
+      </block>
+   </form>
+   <form id="gd1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#gd1_digit_input" />
+      </block>
+   </form>
+   <form id="gd1_digit_input">
+      <property name="termchar" value="#" />
+      <block>
+         <assign name="LastDigitInput" expr="''" />
+      </block>
+      <field name="digit_input">
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(5)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(6)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(17)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(18)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(14)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" mode="dtmf" root="gd1_main_rule">
+            <rule id="gd1_main_rule2">
+               <one-of>
+                  <item>0</item>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>5</item>
+                  <item>6</item>
+                  <item>7</item>
+                  <item>8</item>
+                  <item>9</item>
+               </one-of>
+            </rule>
+            <rule id="gd1_main_rule" scope="public">
+               <one-of>
+                  <item repeat="0-">
+                     <ruleref uri="#gd1_main_rule2" />
+                  </item>
+                  <item>
+                     <item repeat="0-">
+                        <ruleref uri="#gd1_main_rule2" />
+                     </item>
+                     <one-of>
+                        <item>*</item>
+                        <item>*</item>
+                        <item>* 0</item>
+                        <item>* *</item>
+                        <item>* 8</item>
+                     </one-of>
+                  </item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="phoneNumber" expr="application.lastresult$.utterance" />
+            <assign name="LastDigitInput" expr="phoneNumber" />
+            <goto next="#proc2009" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes') &amp;&amp; (GlobalObject.MainMenuValid == true))">
+<throw event="com.mobeon.vva.mainmenu" />
+                  <else />
+                  <goto next="Goodbye.vxml" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#gd1_digit_input" />
+         </catch>
+         <filled>
+            <assign name="digit_input" expr="digit_input.replace(/ /g,'')" />
+            <assign name="LastDigitInput" expr="digit_input" />
+            <!--Basic command options-->
+            <if cond="System_StringEndsWith(digit_input, '*')">
+               <goto next="#cond2001" />
+            </if>
+            <if cond="System_StringEndsWith(digit_input, '*')">
+               <if cond="((GlobalObject.PreviousMenuValid == true))">
+                  <goto next="#cond2001" />
+                  <else />
+                  <throw event="nomatch" />
+               </if>
+            </if>
+            <if cond="System_StringEndsWith(digit_input, '*0')">
+               <goto next="#proc2008" />
+            </if>
+            <if cond="System_StringEndsWith(digit_input, '**')">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2001" />
+                  <else />
+                  <throw event="nomatch" />
+               </if>
+            </if>
+            <if cond="System_StringEndsWith(digit_input, '*8')">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2006" />
+                  <else />
+                  <throw event="nomatch" />
+               </if>
+            </if>
+            <assign name="phoneNumber" expr="digit_input" />
+            <if cond="((phoneNumber == ''))">
+               <assign name="phoneNumber" expr="ani" />
+               <goto next="#proc1" />
+               <else />
+               <goto next="#proc1" />
+            </if>
+         </filled>
+      </field>
+   </form>
+   <form id="proc2009">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastDigitInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult2" expr="sub.resultCode" />
+            <goto next="#ptarget2003" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2003">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="cond2001">
+      <block>
+         <if cond="((LastDigitInput != '*'))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(19)" />
+            </prompt>
+            <goto next="#ptarget2003" />
+            <else />
+            <if cond="((GlobalObject.PreviousMenuValid == true))">
+<throw event="com.mobeon.vva.previousmenu" />
+               <else />
+               <goto next="#proc2002" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="proc2002">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastDigitInput" />
+         <filled>
+            <assign name="bc_ProcedureResult" expr="sub.resultCode" />
+            <goto next="#ptarget2003" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2008">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult2" expr="sub.resultCode" />
+            <goto next="#ptarget2004" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2004">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2001">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult2" expr="sub.resultCode" />
+<throw event="com.mobeon.vva.mainmenu" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2006">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult2" expr="sub.resultCode" />
+            <goto next="#ptarget2004" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="NumberAnalysis.vxml">
+         <param name="p_phoneNumber" expr="phoneNumber" />
+         <param name="p_rule" expr="System_GetConfig('vva.numberanalysis', 'subscribernumberrule')" />
+         <param name="p_additionalPhoneNumber" expr="ani" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <if cond="((procedureResult[0] == true))">
+               <if cond="((PhoneNumber_IsASubscriber (procedureResult[1]) == true))">
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="new Array(procedureResult[1], loginAttemptsLocal)" />
+                  <return namelist="resultCode" />
+                  <else />
+                  <assign name="loginAttemptsLocal" expr="loginAttemptsLocal + 1 " />
+                  <if cond="((loginAttemptsLocal &lt; System_GetConfig('DialogBehaviour', 'MaxLoginAttempts')))">
+                     <prompt bargein="true">
+                        <audio expr="System_GetPrompt(54)" />
+                     </prompt>
+                     <goto next="#ptarget1" />
+                     <else />
+                     <goto next="#prompt2" />
+                  </if>
+               </if>
+               <else />
+               <assign name="loginAttemptsLocal" expr="loginAttemptsLocal + 1 " />
+               <if cond="((loginAttemptsLocal &lt; System_GetConfig('DialogBehaviour', 'MaxLoginAttempts')))">
+                  <goto next="#ptarget1" />
+                  <else />
+                  <goto next="#prompt2" />
+               </if>
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#gd1" />
+      </block>
+   </form>
+   <form id="prompt2">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(55)" />
+         </prompt>
+         <goto next="Goodbye.vxml" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

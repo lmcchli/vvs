@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <grammar mode='voice' root='root'>
+        <rule id='root'>
+            <one-of>
+                <item>you</item>
+                <item>one</item>
+                <item>momma</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+        <field name="asr_field">
+            <prompt><audio src="../prompt/beep.wav">Say something</audio></prompt>
+            <filled>
+                <log>TCFAIL</log>
+                <exit/>
+            </filled>
+            <nomatch>
+                <log>TCPASS</log>
+                <exit/>
+            </nomatch>
+            <noinput>
+                <log>TCFAIL</log>
+                <exit/>
+            </noinput>
+        </field>
+        <catch event="error.semantic">
+            <log>TCFAIL</log>
+            <exit/>
+        </catch>
+    </form>
+
+
+</vxml>

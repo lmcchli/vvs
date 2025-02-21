@@ -1,0 +1,129 @@
+package com.mobeon.ntf.util;
+
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+/**
+ * This class is a dummy replacement for the real Logger. It is used to simplify
+ * testing.
+ */
+public class Logger {
+    private static Logger l;
+    private static int no;
+
+    public final static int L_OFF= 0;
+    public final static int L_ERROR= 1;
+    public final static int L_VERBOSE= 2;
+    public final static int L_DEBUG= 3;
+    
+    public final static int E_INFO= 0;
+    public final static int E_WARNING= 1;
+    public final static int E_MINOR= 2;
+    public final static int E_MAJOR= 3;
+    public final static int E_CRITICAL= 4;
+    public final static int E_INDET= 5;
+
+    public static final String[] levels={"OFF", "Error", "Verbose", "Debug"};
+    
+    private PrintStream out;
+
+    public int createMessageId() {
+	return no++;
+    }
+
+    public Logger() {
+	try {
+	    out= new PrintStream(new FileOutputStream("test.log", true));
+	} catch (Exception e) {
+	    System.out.println("Could not open test.log " + e);
+	    try {Thread.sleep(5000);} catch (Exception ee) {}
+	    out=System.out;
+	}
+    }
+	
+    public static Logger getLogger() {
+	if (l == null) {
+	    l= new Logger();
+	}
+	return l;
+    }
+
+    public void setFlush(boolean f) {
+        ;      
+    }
+
+    public static Logger getLogger(String file, int level) {
+	if (l == null) {
+	    l= new Logger();
+	}
+	return l;
+    }
+
+    public static Logger getLogger(String file, int level, long size) {
+	if (l == null) {
+	    l= new Logger();
+	}
+	return l;
+    }
+
+    public static String getCurDate() {
+	Calendar cal = Calendar.getInstance();
+	Date curdate = cal.getTime();
+	SimpleDateFormat df = new SimpleDateFormat("MMM dd yyyy HH:mm:ss:SSS");
+	df.setTimeZone(cal.getTimeZone());
+	return df.format(curdate);
+    }
+    
+    public boolean isActive(int lev) {
+	return true;
+    }
+    public boolean willLog(int lev) {
+	return true;
+    }
+
+    public void logMessage(String msg, int lev, int severity) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + levels[lev] + " ]\t" + msg);
+    }
+
+    public void logMessage(String msg, int lev) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + levels[lev] + " ]\t" + msg);
+    }
+
+    public void logMessage(String msg) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + " ]\t" + msg);
+    }
+
+    public void logReduced(int i, String msg) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + " ON ]\t" + msg);
+    }
+
+    public void logReduced(int i, String msg, int lev) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + levels[lev] + " ON ]\t" + msg);
+    }
+
+    public void logReduced(int i, String msg, int lev, int severity) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + levels[lev] + " ON ]\t" + msg);
+    }
+
+    public void logReducedOff(int i, String msg) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " off ]\t" + msg);
+    }
+
+    public void logReducedOff(int i, String msg, int lev) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + levels[lev] + " off ]\t" + msg);
+    }
+
+    public void logReducedOff(int i, String msg, int lev, int severity) {
+	out.println(getCurDate() + " ["+Thread.currentThread().getName()+"] : " + " [ " + levels[lev] + " off ]\t" + msg);
+    }
+
+    public static boolean setLogLevel(int logLevel) {
+	return true;
+    }
+
+    public synchronized int createMessageId(int every) {
+	return 17;
+    }
+}

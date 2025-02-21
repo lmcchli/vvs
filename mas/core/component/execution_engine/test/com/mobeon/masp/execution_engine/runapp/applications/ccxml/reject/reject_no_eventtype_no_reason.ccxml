@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+	
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <reject connectionid="evt.connectionid"/>
+            <log expr="'TCPASS'"/>
+            <exit/>
+        </transition>                	
+    </eventprocessor>
+</ccxml>

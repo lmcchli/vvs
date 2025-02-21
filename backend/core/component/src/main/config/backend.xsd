@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Backend configuration
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType"/>
+			<xs:element name="Radiusconfig.Table" type="radiusconfigTableType"/>
+		</xs:all>
+	</xs:complexType>
+
+
+	<xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+		<xs:all>
+			<xs:element name="Cm.radiusservicename"	type="xs:string" default="eventreporting" minOccurs="0"/>
+			<xs:element name="Cm.radiusqueuesize"	type="xs:integer" default="2000" minOccurs="0"/>
+			<xs:element name="Cm.radiusdelay"		type="xs:integer" default="5000" minOccurs="0"/>
+
+			<xs:element name="Cm.mfsRootPath"		type="xs:string" default="/opt/mfs" minOccurs="0"/>
+			<xs:element name="Cm.mrd"			type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.ClientSocketCorePoolSize"          type="xs:integer" default="50" minOccurs="0"/>
+			<xs:element name="Cm.ClientSocketMaxPoolSize"           type="xs:integer" default="50" minOccurs="0"/>
+			<!-- ServerSocketCorePoolSize must be atleast twice the value of ClientSocketCorePoolSize -->
+			<xs:element name="Cm.ServerSocketCorePoolSize"          type="xs:integer" default="100" minOccurs="0"/>
+			<!-- ServerSocketMaxPoolSize must be atleast twice the value of ClientSocketMaxPoolSize -->
+			<xs:element name="Cm.ServerSocketMaxPoolSize"           type="xs:integer" default="300" minOccurs="0"/>
+			<xs:element name="Cm.MaxFutureDirTime"           type="xs:integer" default="20160" minOccurs="0"/>
+
+			<xs:element name="Cm.schedulerEventsDirPrecreation"		type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="Cm.mcdPoolSize"		type="xs:integer" default="5" minOccurs="0"/>
+			<xs:element name="Cm.mcdmaxRetries"	type="xs:integer" default="3" minOccurs="0"/>
+			<xs:element name="Cm.mcddelayBetweenRetries"	type="xs:integer" default="1000" minOccurs="0"/>
+			<!-- Caching parameters -->
+			<xs:element name="Cm.mcdcaching"		type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="Cm.mcddefaultCacheSize"	type="xs:integer" default="1000" minOccurs="0"/>
+			<xs:element name="Cm.mcddefaultCacheTimeToLive"	type="xs:integer" default="20" minOccurs="0"/>
+			<xs:element name="Cm.subscriberCache" type="xs:string" default="true" minOccurs="0"/>
+			<xs:element name="Cm.subscriberCacheSize" type="xs:string" default="4096" minOccurs="0"/>
+			<xs:element name="Cm.subscriberCacheTimeToLive" type="xs:string" default="60" minOccurs="0"/>
+			<xs:element name="Cm.classofserviceCache" type="xs:string" default="true" minOccurs="0"/>
+			<xs:element name="Cm.classofserviceCacheSize" type="xs:string" default="1024" minOccurs="0"/>
+			<xs:element name="Cm.classofserviceCacheTimeToLive" type="xs:string" default="60" minOccurs="0"/>
+			<xs:element name="Cm.multilineCache" type="xs:string" default="true" minOccurs="0"/>
+			<xs:element name="Cm.multilineCacheSize" type="xs:string" default="1024" minOccurs="0"/>
+			<xs:element name="Cm.multilineCacheTimeToLive" type="xs:string" default="60" minOccurs="0"/>
+
+			<xs:element name="Cm.ldapConnectionCreationTimeout"	type="xs:integer" default="1000" minOccurs="0"/>
+
+			<xs:element name="Cm.cdrgenloglevel"	type="xs:string" default="warn" minOccurs="0"/>
+			<xs:element name="Cm.cdrFormatFieldValue"	type="xs:string" default="V1.0" minOccurs="0"/>
+			<xs:element name="Cm.cdrDeleteRepositoryFiles"		type="xs:integer" default="1" minOccurs="0"/>
+			<xs:element name="Cm.repMaxTime"		type="xs:integer" default="5" minOccurs="0"/>
+			<xs:element name="Cm.cdrRepDeleteIntervalTime"	type="xs:integer" default="3600" minOccurs="0"/>
+			<xs:element name="Cm.maxFileSize"		type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.fileInterval"		type="xs:integer" default="60" minOccurs="0"/>
+			<xs:element name="Cm.repMaxTimeUnits"	type="xs:string" default="days" minOccurs="0"/>
+			<xs:element name="Cm.cdrRepDeleteRenamed"	type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.cdrRepSubDirs"	type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.asn1WriterClass"	type="xs:string" default="com.abcxyz.messaging.cdrgen.asn1.CommonAsn1Writer" minOccurs="0"/>
+			<xs:element name="Cm.asn1CdrWriterEnabled"	type="xs:boolean" default="true" minOccurs="0"/>
+                        <xs:element name="Cm.cdrFileNameRemoveSitePart"      type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="Cm.asn1AccountingWriterClass"	type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.radiusAccountingPassword"	type="xs:string" default="secret" minOccurs="0"/>
+			<xs:element name="Cm.radiusAccountingHostAndPort"	type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.radiusAccountingTimeout"	type="xs:integer" default="1000" minOccurs="0"/>
+			<xs:element name="Cm.radiusAccountingSendRetries"	type="xs:integer" default="4" minOccurs="0"/>
+			<xs:element name="Cm.radiusAccountingSleepTimeBetweenRetries"	type="xs:integer" default="30000" minOccurs="0"/>
+			<xs:element name="Cm.flushSeconds"	type="xs:integer" default="60" minOccurs="0"/>
+      			<xs:element name="Cm.asn1AccountingEnabled"	type="xs:boolean" default="false" minOccurs="0"/>
+
+			<xs:element name="Cm.enableHlrAccess"	type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="Cm.subscriberStatusHlrMethod" type="SubStatusHlrMethodEnum" default="ati" minOccurs="0"/>
+			<xs:element name="Cm.subscriberStatusHlrMethodCustomClassPath"	type="xs:string" default="com.abcxyz.messaging.common.hlr.plugin.Cai3gHlrAccessManager" minOccurs="0"/>
+			<xs:element name="Cm.subscriberStatusHlrMethodCustomConfigFile"	type="xs:string" default="/opt/moip/config/Cai3gHlrAccessManager.conf" minOccurs="0"/>	
+
+			<!-- Local config -->
+			<xs:element name="Cm.masEventsRootPath"	type="xs:string" default="/opt/moip/events/mas" minOccurs="0"/>
+			<xs:element name="Cm.masRetrySchema"	type="xs:string" default="1:try=4 5:try=23 60:try=22 STOP" minOccurs="0"/>
+			<xs:element name="Cm.masExpireTimeInMinute"	type="xs:integer" default="1443" minOccurs="0"/>
+			<xs:element name="Cm.masMessageDepositEventRetrySchema"         type="xs:string" default="60 CONTINUE" minOccurs="0"/>
+			<xs:element name="Cm.masMessageDepositEventExpireTimeInMin"     type="xs:integer" default="2880" minOccurs="0"/>
+
+                        <xs:element name="Cm.masStoreMsgBodyInRecipientsInbox"	type="xs:boolean" default="true" minOccurs="0"/>
+
+			<xs:element name="Cm.profilerEnabled"	type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="Cm.masSs7InstanceId"	type="xs:integer" default="1" minOccurs="0"/>
+			<xs:element name="Cm.ntfSs7InstanceId"	type="xs:integer" default="2" minOccurs="0"/>
+			<xs:element name="Cm.masEinSs7DidSlicingId"	type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.ntfEinSs7DidSlicingId"	type="xs:integer" default="1" minOccurs="0"/>
+
+			<xs:element name="Cm.sipNotifyExpiryIntervalInMin"	     type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.sipNotifyExpiryRetries"	         type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.slamdownAggregExpiryIntervalInMin"	 type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.slamdownAggregExpiryRetries"	     type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.mcnAggrgExpiryIntervalInMin"	     type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.mcnAggregExpiryRetries"	         type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.messageDeletionExpiryIntervalInMin" type="xs:nonNegativeInteger" default="60" minOccurs="0"/>
+			<xs:element name="Cm.messageDeletionExpiryRetries"	     type="xs:nonNegativeInteger" default="24" minOccurs="0"/>
+			<xs:element name="Cm.mdrInboxEnabled"        type="xs:boolean" default="false" minOccurs="0"/>
+
+			<xs:element name="Cm.masSchedulerHttpListeningPort"        type="xs:nonNegativeInteger" default="7080" minOccurs="0"/>
+			<xs:element name="Cm.ntfSchedulerHttpListeningPort"        type="xs:nonNegativeInteger" default="7180" minOccurs="0"/>
+
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="radiusconfigTableType" mixed="true">
+           <xs:sequence>
+            <xs:element name="attribute" type="attributeType" minOccurs="0" maxOccurs="unbounded"/>
+           </xs:sequence>
+        </xs:complexType>
+        <xs:complexType name="attributeType" mixed="true">
+    	   <xs:all>
+	       <xs:element name="number" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+	       <xs:element name="type" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+	       <xs:element name="datatype" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+         </xs:complexType>
+         
+	<xs:simpleType name="SubStatusHlrMethodEnum">
+           <xs:restriction base="xs:string">
+            <xs:enumeration value="ati"/>
+            <xs:enumeration value="sriforsm"/>
+            <xs:enumeration value="custom"/>
+           </xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

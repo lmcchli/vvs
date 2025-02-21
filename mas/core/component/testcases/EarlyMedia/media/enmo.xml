@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+   <mediaobject type="MediaFile" src="enfile1.wav">
+		      <spokentext><![CDATA[a]]></spokentext>
+ 		      <sourcetext><![CDATA[a]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="enfile2.wav">
+		      <spokentext><![CDATA[b]]></spokentext>
+ 		      <sourcetext><![CDATA[b]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+   <mediaobject type="MediaFile" src="enfile4.wav">
+		      <spokentext><![CDATA[b]]></spokentext>
+ 		      <sourcetext><![CDATA[b]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+</mediaobjects>

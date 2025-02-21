@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+use Cwd;
+require "$Bin/ntfbase";
+#
+# Data collect script for NTF
+#
+my $CFGDIR="$NTF_HOME/cfg";
+my $LOGDIR="$NTF_HOME/logs";
+my $DATADIR="$NTF_HOME/data";
+my $curdir = getcwd();
+my $date = `date "+%y%m%d:%H%M%S"`;
+chomp($date);
+
+# The first argument to this script is the absolute path to place data files,
+# without the trailing / (for example /apps/ntf/selfdiag/output)
+my $datacollect_path = $ARGV[0];
+unless ($datacollect_path) {
+    die("No datacollect path was given");
+}
+CommandHandler::set_cmdoutput_path($datacollect_path);
+
+print "Collecting java process information ...\n";
+my $CMD = "ps -eyo pid,args | grep ntf | grep server | grep -v grep";
+if(! -e "$NTF_HOME/logs/notification.pid") {
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD, $errmsg, "-");
+    if ($cmdresult == 0) {
+	while (chomp($_ = <$cmdoutput>)) {
+	    $_ =~ /([0-9]*)/;
+	    if ($1 != "") {
+		$pid = $1;
+	    }
+	    else {
+		$pid = 0;
+	    }
+	}
+    }
+    else {
+	print "Error executing command: $CMD\n" .
+            "Return code: $cmdresult\n";
+	$result = 1;
+    }
+}
+else { 
+    chomp($pid = `head $NTF_HOME/logs/notification.pid`);
+}
+
+if ($pid) {
+    system("/usr/local/bin/top > $datacollect_path/top.$date 2>&1");
+    system("prstat -L -p $pid 0 1 > $datacollect_path/prstat.$date 2>&1");
+    system("pfiles $pid > $datacollect_path/pfiles.$date 2>&1");
+}
+
+# Collect all logs
+chdir($NTF_HOME);
+print "Collecting logs directory ...\n";
+system("tar -cvf $datacollect_path/logs.tar logs/* > /dev/null 2>&1");
+chdir($curdir);
+
+# Collect data files
+chdir("$DATADIR");
+print "Collecting data directory ...\n";
+system("tar -cvf $datacollect_path/data.tar *  > /dev/null 2>&1");
+chdir($curdir);
+
+exit 0;
+

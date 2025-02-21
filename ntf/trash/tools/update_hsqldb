@@ -1,0 +1,55 @@
+#!/usr/local/bin/perl
+
+$oldroot = $ARGV[0];
+$newroot = $ARGV[1];
+
+chdir($oldroot);
+open(F, "find . |");
+@oldfiles = <F>;
+close(F);
+chop @oldfiles;
+
+chdir($newroot);
+open(F, "find . |");
+@newfiles = <F>;
+close(F);
+chop @newfiles;
+
+foreach $d (@oldfiles) {
+    $oldfiles{$d} = 1;
+}
+
+foreach $d (@newfiles) {
+    if ($oldfiles{$d}) {
+        if (-f $d) {
+            if (system("cmp -s $oldroot/$d $newroot/$d")) {
+                @changed = (@changed, $d);
+            } else {
+                @same = (@same, $d);
+            }
+        }
+        delete $oldfiles{$d};
+    } else {        
+        @added = (@added, $d);
+    }
+}
+
+foreach $d (keys %oldfiles) {
+    @removed = (@removed, $d);
+}
+
+foreach $f (sort @same) {
+    print "SAME $f\n";
+}
+
+foreach $f (sort @changed) {
+    print "DIFF $f\n";
+}
+
+foreach $f (sort @added) {
+    print "ADD  $f\n";
+}
+
+foreach $f (sort @removed) {
+    print "DEL  $f\n";
+}

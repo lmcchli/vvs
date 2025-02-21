@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="out_connectionid"/>
+    <var name="in_connectionid"/>
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+        <transition event="connection.alerting" name="evt">
+            <assign name="in_connectionid" expr="evt.connectionid" />
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+
+
+        <transition event="connection.connected" name="evt" state="init">
+            <assign name="myState" expr="'dialing'"/>
+            <createcall dest="'1212'"
+                        callerid="'111'"
+                        connectionid="out_connectionid"
+                        timeout="'30s'"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt" state="dialing">
+            <assign name="myState" expr="'outgoingCallActive'"/>
+            <join id1="in_connectionid" id2="out_connectionid" duplex="'full'" />
+        </transition>
+
+        <transition event="error.connection" name="evt" state="outgoingCallActive">
+            <log expr="'TCPASS CCXML: ' +  'Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+
+        <transition event="conference.joined" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

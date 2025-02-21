@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						XmpErrorCodes configuration
+					</xs:documentation>
+				</xs:annotation>			
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="CommonXmpErrorCodes.Table" type="xmpErrorCodesTableType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OutdialNotificationXmpErrorCodes.Table" type="xmpErrorCodesTableType" minOccurs="0"/>
+			<xs:element name="PagerNotificationXmpErrorCodes.Table" type="xmpErrorCodesTableType" minOccurs="0"/>
+			<xs:element name="MWINotificationXmpErrorCodes.Table" type="xmpErrorCodesTableType" minOccurs="0" />
+			<xs:element name="CallMWINotificationXmpErrorCodes.Table" type="xmpErrorCodesTableType" minOccurs="0"/>
+			<xs:element name="MediaConversionXmpErrorCodes.Table" type="xmpErrorCodesTableType" minOccurs="0"/>		
+		</xs:all>
+	</xs:complexType> 	
+	
+
+	<!-- Definition of the xmp error codes table type -->
+	<xs:complexType name="xmpErrorCodesTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="xmpErrorCode" type="xmpErrorCodeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="xmpErrorCodeType" mixed="true">
+		<xs:all>
+			<xs:element name="xmpErrorCodeAction" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:all>
+	</xs:complexType>
+    
+</xs:schema>

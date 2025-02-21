@@ -1,0 +1,71 @@
+# comp_checinstall
+#
+# This script confirms the preconditions for installing a patch,
+# e.g. that no ECs or FEs are installed and that the component
+# environment is OK.
+
+check_os_version() {
+    OSNAME=`uname -sr`
+    OS=`uname -sr | sed 's/SunOS...\(.\)/\1/'`
+    if [ ! $OS -eq 10 ]; then
+       return 1
+    fi
+    return 0
+}
+
+check_installed() {
+    TYPE=$1
+    get_patch_ids
+    for patchid in $PATCH_IDS; do
+        TMP=`echo $patchid | grep $TYPE`
+        if [ -n "$TMP" ]; then
+            VERSIONS="$VERSIONS$TMP "
+        fi
+    done
+
+    if [ -n "$VERSIONS" ]; then
+	echo $VERSIONS
+	return 1
+    fi
+    echo $VERSIONS
+    return 0
+}
+
+get_patch_ids() {
+    PATCH_IDS=`cat $VERSION_FILE | sed 's/.*=R13A[,$].\(.*\)/\1/' | grep -v VERSION`
+    PATCH_IDS=`echo $PATCH_IDS | sed '1,$ s/,//g'`
+}
+
+
+################################################################
+VERSION_FILE=$BASEDIR/VERSION
+PATCH_IDS=
+EC_VERSIONS=
+FE_VERSIONS=
+CA_VERSIONS=
+
+
+info "Check OS version"
+check_os_version
+if [ $? -eq 1 ]; then
+    error "OS $OSNAME is not supported, requires SunOS 5.10."
+fi
+
+info "Check installed emergency corrections"
+EC_VERSIONS=`check_installed EC`
+if [ $? -eq 1 ]; then
+    error "Emergency correction(s) have not been uninstalled: $EC_VERSIONS"
+fi
+
+info "Check installed feature enhancements"
+FE_VERSIONS=`check_installed FE`
+if [ $? -eq 1 ]; then
+    error "Feature enhancements have not been uninstalled: $FE_VERSIONS"
+fi
+
+info "Check installed customer adaptions"
+CA_VERSIONS=`check_installed CA`
+if [ $? -eq 1 ]; then
+    error "Customer adaption(s) have not been uninstalled: $CA_VERSIONS"
+fi
+

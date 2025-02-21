@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+<!-- This file has been modified -->
+
+   <!--The analyzed DNIS.-->
+   <var name="DNIS" />
+   <!--The analyzed RDNIS.-->
+   <var name="RDNIS" />
+   <!--The time when the call was connected, in UTC seconds.-->
+   <var name="UtcSecondsAtConnect" />
+   <!--This variable contains the latest input made in a menu.-->
+   <var name="LastMenuInput" />
+   <!--This variable contains the latest input made in a digit input.-->
+   <var name="LastDigitInput" />
+   <!--Contains the new language that has been chosen by the caller at Set Preferred Language at Login, otherwise an empty string.-->
+   <var name="NewLanguageChosen" />
+   <!--The type of greeting to work on. AllCalls, busy etc.-->
+   <var name="GreetingType" />
+   <!--The media type for a greeting. Can be voice or video.-->
+   <var name="GreetingMediaType" />
+   <!--This variable holds the the greeting that was fetched. Contains 'null' if no greeting could be fetched.-->
+   <var name="GreetingFile" />
+   <!--If true, the reprompt should be played instead of init prompts. Used in GreetingMenu to play reprompt when returning from FunGreeting service.-->
+   <var name="GreetingPlayReprompt" />
+   <!--If true, subcriber works with voice greetings in a video call.-->
+   <var name="GreetingWorkWithVoice" />
+   <!--A list of message Id's that is used in MainMenu to been able to use an already fetched list from the message store.-->
+   <var name="MessageIdList" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="assign4">
+      <block>
+         <goto next="grammar_gsne.vxml" />
+      </block>
+   </form>
+
+   <catch event="error.com.mobeon.platform.profileread">
+<log label="error"> error.com.mobeon.platform.profileread: <value expr="_message" /></log>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+<log label="error"> error.com.mobeon.platform.profilewrite: <value expr="_message" /></log>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+<log label="error"> error.com.mobeon.platform.mailbox: <value expr="_message" /></log>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+<log label="error"> error.com.mobeon.platform.numberanalysis: <value expr="_message" /></log>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+<log label="error"> error.com.mobeon.platform.datanotfound: <value expr="_message" /></log>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.system">
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error">
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.goodbye">
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt(4)" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <goto next="MainMenu.vxml" />
+   </catch>
+</vxml>

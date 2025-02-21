@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/transfer/" type="application/xml+ccxml">
+        <document src="transfer_19.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/transfer/" type="application/xml+vxml">
+        <document src="transfer_19.vxml"/>
+    </documents>
+</application>

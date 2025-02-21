@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The follwing 2 rows are only used when XSL is used. The first row replaces the one above. -->
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> -->
+<!-- <?xml-stylesheet type="text/xsl" href="mer.xsl"?> -->
+
+<!DOCTYPE config SYSTEM "mer.dtd">
+
+<config>
+    <attr>
+        <tagname number="1" type="0" description="1"/>
+        <tagname number="5" type="0" description="5"/>
+        <tagname number="25" type="0" description="25"/>
+        <tagname number="26" type="0" description="26"/>
+        <tagname number="30" type="0" description="30"/>
+        <tagname number="31" type="0" description="31"/>
+        <tagname number="32" type="0" description="32"/>
+        <tagname number="40" type="0" description="40"/>
+        <tagname number="44" type="0" description="44"/>
+        <tagname number="46" type="0" description="46"/>
+        <tagname number="50" type="0" description="50"/>
+        <tagname number="51" type="0" description="51"/>
+        <tagname number="0" type="1" description="1000"/>
+        <tagname number="1" type="1" description="1001"/>
+        <tagname number="2" type="1" description="1002"/> 
+        <tagname number="3" type="1" description="1003"/>
+        <tagname number="4" type="1" description="1004"/>
+        <tagname number="5" type="1" description="1005"/>
+        <tagname number="6" type="1" description="1006"/>
+        <tagname number="7" type="1" description="1007"/>
+        <tagname number="8" type="1" description="1008"/>
+        <tagname number="9" type="1" description="1009"/>
+        <tagname number="10" type="1" description="1010"/>
+        <tagname number="11" type="1" description="1011"/>
+        <tagname number="12" type="1" description="1012"/>
+        <tagname number="13" type="1" description="1013"/>
+        <tagname number="14" type="1" description="1014"/>
+        <tagname number="15" type="1" description="1015"/>
+        <tagname number="16" type="1" description="1016"/>
+        <tagname number="17" type="1" description="1017"/>
+        <tagname number="18" type="1" description="1018"/>
+        <tagname number="19" type="1" description="1019"/>
+        <tagname number="20" type="1" description="1020"/>
+        <tagname number="21" type="1" description="1021"/>
+        <tagname number="22" type="1" description="1022"/>
+        <tagname number="23" type="1" description="1023"/>
+        <tagname number="24" type="1" description="1024"/>
+        <tagname number="25" type="1" description="1025"/>
+        <tagname number="26" type="1" description="1026"/>
+        <tagname number="27" type="1" description="1027"/>
+        <tagname number="28" type="1" description="1028"/>
+        <tagname number="29" type="1" description="1029"/>
+        <tagname number="30" type="1" description="1030"/>
+        <tagname number="31" type="1" description="1031"/>
+        <tagname number="32" type="1" description="1032"/>
+        <tagname number="33" type="1" description="1033"/>
+        <tagname number="34" type="1" description="1034"/>
+        <tagname number="35" type="1" description="1035"/>
+        <tagname number="36" type="1" description="1036"/>
+        <tagname number="37" type="1" description="1037"/>
+        <tagname number="67" type="1" description="1067"/>
+        <tagname number="68" type="1" description="1068"/>
+        <tagname number="69" type="1" description="1069"/>
+        <tagname number="70" type="1" description="1070"/>
+        <tagname number="71" type="1" description="1071"/>
+        <tagname number="72" type="1" description="1072"/>
+        <tagname number="73" type="1" description="1073"/>
+        <tagname number="74" type="1" description="1074"/>
+        <tagname number="75" type="1" description="1075"/>
+        <tagname number="76" type="1" description="1076"/>
+        <tagname number="77" type="1" description="1077"/>
+        <tagname number="78" type="1" description="1078"/>
+        <tagname number="79" type="1" description="1079"/>
+        <tagname number="80" type="1" description="1080"/>
+        <tagname number="81" type="1" description="1081"/>
+    </attr>
+</config>

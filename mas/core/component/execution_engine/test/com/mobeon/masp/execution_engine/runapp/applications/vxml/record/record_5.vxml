@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode="dtmf" root="root">
+        <rule id="root">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form id="main_form">
+
+        <!-- it should never go to this recording: -->
+        <record name="recording" cond="false" dtmfterm="true">
+            <filled>
+                <log>TCFAIL: record 5</log>
+            </filled>
+        </record>
+
+        <!-- this recording should be recorded: -->
+        <record name="recording2" cond="true" dtmfterm="true">
+            <filled>
+                <log>TCPASS: record 5</log>
+            </filled>
+        </record>
+
+
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode='dtmf' root='rule1'>
+            <rule id='rule1'>
+                <one-of>
+                    <item>1</item>
+                </one-of>
+            </rule>
+    </grammar>
+    <property name="bargein" value="false"/>
+    <form>
+        <field name="field1">
+            <property name="bargein" value="true"/>
+            <prompt>In Field</prompt>
+        </field>
+        <block name="block1">
+            <prompt>In Block</prompt>
+            <log></log>
+            <exit/>
+        </block>
+        <filled>
+            <log>TCPASS VXML: Property ok</log>
+        </filled>
+        <catch event="error">
+            <log>TCFAIL VXML: Property nok</log>
+        </catch>
+    </form>
+</vxml>

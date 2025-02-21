@@ -1,0 +1,6 @@
+ANNOUNCE anyUrl RTSP/1.0
+CSeq: 1
+Content-Type: application/mrcp
+Content-Length: 30
+
+MRCP/1.0 4711 200 COMPLETE

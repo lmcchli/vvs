@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="greeting1"/>
+            <var name="greeting2"/>
+            <var name="greeting3"/>
+            <var name="greeting4"/>
+            <var name="greeting5"/>
+            <var name="greeting6"/>
+            <var name="greeting7"/>
+            <var name="greeting8"/>
+            <var name="greeting9"/>
+            <!-- set greetings for all types-->
+            <script>
+                var mediaObjects = new Array();
+				<!-- allcalls -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "one",null);
+                mas.subscriberSetGreeting("99910002", 'allcalls', 'voice', null, mediaObjects[0]);
+                <!-- noanswer -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "two",null);
+                mas.subscriberSetGreeting("99910002", 'noanswer', 'voice', null, mediaObjects[0]);
+                <!-- busy -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "three",null);
+                mas.subscriberSetGreeting("99910002", 'busy', 'voice', null, mediaObjects[0]);
+                <!-- outofhours -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "four",null);
+                mas.subscriberSetGreeting("99910002", 'outofhours', 'voice', null, mediaObjects[0]);
+                <!-- extended_absence -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "five",null);
+                mas.subscriberSetGreeting("99910002", 'extended_absence', 'voice', null, mediaObjects[0]);
+                <!-- cdg -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "six",null);
+                mas.subscriberSetGreeting("99910002", 'cdg', 'voice', "99910001", mediaObjects[0]);
+                <!-- temporary -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "seven",null);
+                mas.subscriberSetGreeting("99910002", 'temporary', 'voice', null, mediaObjects[0]);
+                <!-- ownrecorded -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "eight",null);
+                mas.subscriberSetGreeting("99910002", 'ownrecorded', 'voice', null, mediaObjects[0]);
+                <!-- spokenname -->
+                mediaObjects = mas.systemGetMediaContent("Prompt", "nine",null);
+                mas.subscriberSetGreeting("99910002", 'spokenname', 'voice', null, mediaObjects[0]);
+
+                greeting1 = mas.subscriberGetGreeting ("99910002", 'allcalls', 'voice', null);
+                greeting2 = mas.subscriberGetGreeting ("99910002", 'noanswer', 'voice', null);
+                greeting3 = mas.subscriberGetGreeting ("99910002", 'busy', 'voice', null);
+                greeting4 = mas.subscriberGetGreeting ("99910002", 'outofhours', 'voice', null);
+                greeting5 = mas.subscriberGetGreeting ("99910002", 'extended_absence', 'voice', null);
+                greeting6 = mas.subscriberGetGreeting ("99910002", 'cdg', 'voice', "99910001");
+                greeting7 = mas.subscriberGetGreeting ("99910002", 'temporary', 'voice', null);
+                greeting8 = mas.subscriberGetGreeting ("99910002", 'ownrecorded', 'voice', null);
+                greeting9 = mas.subscriberGetGreeting ("99910002", 'spokenname', 'voice', null);
+
+
+            </script>
+           	<prompt>
+                   <audio expr="greeting1"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting2"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting3"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting4"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting5"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting6"/>
+       		</prompt>
+             <prompt>
+                   <audio expr="greeting7"/>
+       		</prompt>
+             <prompt>
+                   <audio expr="greeting8"/>
+       		</prompt>
+            <prompt>
+                   <audio expr="greeting9"/>
+       		</prompt>
+
+
+        </block>
+    </form>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105061  Failed</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

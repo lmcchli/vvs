@@ -1,0 +1,14 @@
+ANNOUNCE rtsp://localhost.mobeon.com:4712/media/speechrecognizer RTSP/1.0
+CSeq: 1
+Content-Type: application/mrcp
+Content-Length: 156
+
+DEFINE-GRAMMAR 1 MRCP/1.0
+Content-Id: test:mobeon.com
+Content-Type: application/grammar+xml
+Content-Length: 37
+
+<?xml version="1.0"?>
+<grammar/>
+
+

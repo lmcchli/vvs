@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch>
+        <log>TCPOINT_CATCHALL</log>
+        <exit></exit>
+    </catch>
+
+    <form>
+
+         <!-- Hangup while in here -->
+
+        <block>
+            <script>Packages.java.lang.Thread.sleep(3000);</script>
+        </block>
+        <record name="recording" dtmfterm="true" type="video/*">
+            <prompt timeout="1s"/>
+            <filled>
+                <log>TCPOINT_FILLED</log>
+                <exit></exit>
+            </filled>
+        </record>
+
+        <noinput>
+            <log>TCPOINT_NOINPUT</log>
+            <goto next="#form2"></goto>
+        </noinput>
+
+        <!-- Should not be reached -->
+
+        <block>
+            <log>TCPOINT_BLOCK</log>
+            <exit></exit>
+        </block>
+
+    </form>
+
+    <form id="form2">
+
+        <catch event="connection.disconnect.hangup">
+            <log>TCPOINT_HANGUP</log>
+            <exit></exit>
+        </catch>
+        <!-- just wait for the hangup event -->
+        <prompt timeout="3s">
+            <audio src="beep.wav">
+            </audio>
+        </prompt>
+
+        <field></field>
+        <noinput></noinput>
+
+    </form>
+
+</vxml>

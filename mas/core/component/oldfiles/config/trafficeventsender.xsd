@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="trafficeventsender"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="trafficeventsender">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="emailconfig"/>
+                <xs:element ref="radiusconfig"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="emailconfig">
+        <xs:complexType>
+            <xs:attribute name="templatespath"/>
+		</xs:complexType>
+    </xs:element>
+
+    <xs:element name="radiusconfig">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="servicename"/>
+            <xs:attribute name="queuesize" type="xs:positiveInteger"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="attribute">
+        <xs:complexType>
+            <xs:attribute name="name"/>
+            <xs:attribute name="number" type="xs:nonNegativeInteger"/>
+            <xs:attribute name="type" type="xs:boolean"/>
+            <xs:attribute name="datatype">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="I|E|S"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

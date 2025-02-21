@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+
+		<var name="mediaObjects"/>
+		 
+		<block>
+			<script>
+				mediaObjects = mas.systemGetMediaContent("Prompt", "augustorseptember");
+			</script>
+			<log>TC 20105033 FAILED</log>
+		    <prompt>
+                   <audio expr="mediaObjects[0]"/>
+       		</prompt>
+            <exit/>
+        </block>
+	 	
+	</form>
+	<catch event="error.com.mobeon.platform.system">
+		<log>Error SUPER NICE caught <value expr="_event"/></log>
+		<if cond="_message.indexOf('NOTEXISTING') >= 0">
+				<log>TC 20105033 PASSED</log>
+				<exit/>
+		    </if>
+	    <exit/>
+	</catch>
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		 <if cond="_event =='error.com.mobeon.platform.system'">
+		    <if cond="_message.indexOf('NOTEXISTING') >= 0">
+				<log>TC 20105033 PASSED</log>
+				<exit/>
+		    </if>
+			
+		</if>
+		<log>TC 20105031  FAILED</log>
+	    
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

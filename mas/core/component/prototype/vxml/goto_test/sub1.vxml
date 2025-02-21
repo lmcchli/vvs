@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml" application="start.vxml">
+    <script>
+      attachSubscription();
+    </script>
+	<var name="numMessages" expr="getNumOfVoiceMsg(inbox);" />
+    <var name="currentMsg" expr="0"/>
+    <script>print ("Current Msg = "); print(currentMsg);</script>
+	<form id="playNumMessages">
+        <block>
+            <prompt>
+                <audio expr="getPrompt('YOU_HAVE') + ' ' + getPrompt(numMessages) + ' ' + getPrompt('NEW_MESSAGES');">
+                </audio>
+            </prompt>
+        </block>
+	</form>
+    <form id="playMessages">
+        <field name="playMsg">
+            <prompt>
+                <audio expr="getPrompt('LISTEN_TO_YOUR_MSGS') + ' ';">
+                </audio>
+            </prompt>
+            <prompt count = "2">
+                <audio expr="getPrompt('NOT_VALID') + ' ' + getPrompt('LISTEN_TO_YOUR_MSGS');">
+                    Im sorry...
+                </audio>
+            </prompt>
+            <grammar mode="dtmf">
+                <rule id="main_rule">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>*</item>
+                    </one-of>
+                </rule>
+            </grammar>
+        </field>
+
+		<block>
+            <script>print("playMsg = " + playMsg);</script>
+            <if cond="playMsg == '*'" >
+                <goto next="#endRetrieve"/>
+            </if>
+            <if cond="currentMsg >= numMessages ">
+                No such msg...
+                <prompt>
+                    <audio expr="getPrompt('NO_SUCH_MSG'); ">
+                    </audio>
+                </prompt>
+                <script> currentMsg--;</script>
+                <clear namelist="playMsg"/>
+                <goto next="#playMessages"/>
+            </if>
+            <if cond="playMsg == 1">
+                press One
+                <script>print("Current msg = " + currentMsg);</script>
+                <prompt>
+                    <audio expr="getVoiceMsgMedia(inbox,currentMsg );">
+                    </audio>
+                </prompt>
+                 <script> currentMsg++;print("Current msg = " + currentMsg);</script>
+                <clear namelist="playMsg"/>
+                <goto next="#playMessages"/>
+            </if>
+            <if cond="playMsg == 2 &amp;&amp; currentMsg > 0">
+                Press two
+                <script> currentMsg--;print("Current msg = " + currentMsg);</script>
+                <prompt>
+                    <audio expr="getVoiceMsgMedia(inbox,currentMsg ); ">
+                    </audio>
+                </prompt>
+                <clear namelist="playMsg"/>
+                <goto next="#playMessages"/>
+            <else/>
+                <prompt>
+                    No such ms
+                    <audio expr="getPrompt('NO_SUCH_MSG'); ">
+                    </audio>
+                </prompt>
+                <clear namelist="playMsg"/>
+                <goto next="#playMessages"/>
+            </if>
+
+		</block>
+	</form>
+    <form id="endRetrieve">
+        <block>
+            <prompt>
+                <audio expr="getPrompt('THANK_YOU') + ' '"></audio>
+            </prompt>
+        </block>
+	</form>
+</vxml>

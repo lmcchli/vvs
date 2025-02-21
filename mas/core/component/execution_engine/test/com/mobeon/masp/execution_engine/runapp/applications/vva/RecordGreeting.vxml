@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains a message recorded by the user. It has been added by the system automatically.-->
+   <var name="recordedMessage" />
+   <!--This variable contains the duration of a recorded message. It has been added by the system automatically.-->
+   <var name="recordedMessageDuration" />
+   <!--This variable contains the size of a recorded message. It has been added by the system automatically.-->
+   <var name="recordedMessageSize" />
+   <!--This variable contains the termination key used in a record shape. It has been added by the system automatically.-->
+   <var name="recordedMessageTermchar" />
+   <!--This variable contains the maximum time for a record shape. It has been added by the system automatically.-->
+   <var name="recordedMessageMaxtime" />
+   <var name="greetingType" />
+   <var name="mediaType" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_greetingType" />
+      <var name="p_mediaType" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="greetingType" expr="p_greetingType" />
+         <assign name="mediaType" expr="p_mediaType" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#prompt3" />
+      </block>
+   </form>
+   <form id="prompt3">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(422)" />
+         </prompt>
+         <if cond="mediaType == 'voice'">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(491)" />
+            </prompt>
+            <goto next="#rec1" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(550)" />
+            </prompt>
+            <goto next="#rec1" />
+         </if>
+      </block>
+   </form>
+   <form id="rec1">
+      <script>System_SetProperty('com.mobeon.platform.record_maxtime', Subscriber_GetSingleIntegerAttriubte(subscriber, 'GreetingSecMax))</script>
+      <record name="recording" dtmfterm="false">
+         <grammar mode="dtmf" version="1.0" root="rec1_main_rule">
+            <rule id="rec1_main_rule">
+               <one-of>
+                  <item>#</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="noinput">
+            <goto next="#Return2" />
+         </catch>
+         <filled>
+            <assign name="recordedMessage" expr="recording" />
+            <assign name="recordedMessageDuration" expr="recording$.duration" />
+            <assign name="recordedMessageSize" expr="recording$.size" />
+            <assign name="recordedMessageTermchar" expr="recording$.termchar" />
+            <assign name="recordedMessageMaxtime" expr="recording$.maxtime" />
+            <goto next="#sub1" />
+         </filled>
+      </record>
+   </form>
+   <form id="Return2">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'recordingFailed'" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Greeting_StoreRecording (GlobalObject.Subscriber, greetingType, mediaType, recordedMessage)</script>
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'recordingOK'" />
+         <return namelist="resultCode" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#Return2" />
+      </catch>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

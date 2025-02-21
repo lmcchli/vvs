@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+require "$Bin/ntfbase";
+
+# This TestCase is supposed to give an ID of the component by
+# printing three lines to stdout:
+# component name, for example mur@audi.lab.mobeon.com
+# component version, for example R7A
+# hostname and ip address, for example audi.lab.mobeon.com (10.11.0.30)
+my $ip = resolve_ip($NTFHOST);
+
+print "$NTFINSTANCENAME\n";
+print "$FILEVERSION\n";
+print "$NTFHOST ($ip)\n";
+

@@ -1,0 +1,23 @@
+# this is a create template for an imsm subscriber
+@operation
+# the operation to be executed - mandatory
+create
+
+@identities
+# the identities of the subscriber - muid is mandatory for
+# create and delete
+ba:<ENTER BA NAME HERE>
+muid:<ENTER BA NAME HERE>
+
+@attributes
+# the attributes to be use
+# for the modify operation you can use the following
+# constructs: REPLACE, REMOVE, ADD
+MOIPBroadcastAnnouncementPlayOnce=no
+MOIPBroadcastAnnouncementDescription=<ENTER BA NAME HERE>
+MOIPBroadcastAnnouncementStartDate=2009-01-01 00:00
+MOIPBroadcastAnnouncementAudience=OPCO
+MOIPBroadcastAnnouncementEndDate=2010-12-31 00:00
+#MOIPBroadcastAnnouncementPriority=<PRIORITY>
+#MOIPBroadcastAnnouncementCos=<ENTER COS NAME HERE>
+

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+       <xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+        <xs:complexType name="Abcxyz.configType">
+                <xs:all>
+                        <xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+                        <xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>
+                                            MiO VVS NTF templateSms plug-in configuration.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+                </xs:all>
+        </xs:complexType>
+
+        <xs:complexType name="ComponentSpecificType" mixed="true">
+                <xs:all>
+                        <xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType" minOccurs="0"/>
+                        <xs:element name="templateSms.Table" type="templateSmsTableType" minOccurs="0"/>
+                </xs:all>
+        </xs:complexType>
+
+        <xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+                <xs:all>
+                        <xs:element name="Cm.templateSmsQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+                        <xs:element name="Cm.templateSmsWorkers" type="xs:int" default="10" minOccurs="0"/>
+                        <xs:element name="Cm.templateSmsSenderSmsQueueSize" type="xs:int" default="1000" minOccurs="0"/>
+                        <xs:element name="Cm.templateSmsSenderSmsWorkers" type="xs:int" default="10" minOccurs="0"/>
+                </xs:all>
+        </xs:complexType>
+
+        <xs:complexType name="templateSmsTableType" mixed="true">
+                <xs:sequence>
+                        <xs:element name="templateEvent" type="templateTypeContent" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+        </xs:complexType>
+
+        <xs:complexType name="templateTypeContent" mixed="true">
+                <xs:all>
+                        <xs:element name="cphrType" type="cphrTYPE" default="mailboxSubscriber" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="pduType" type="pduTYPE" default="submit_sm" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="statusFileValidityInMin" type="xs:nonNegativeInteger" default="4400" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="serviceType" type="xs:string" default="smeServiceType" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    The service type to be sent in the SMPP PDU towards SMS.<br/><br/>
+
+                                    See NTF configuration parameter smeServiceType.<br/><br/>
+
+                                    Default is smeServiceType, which means use NTF's settings.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+
+                        <xs:element name="mdrPortType" type="xs:string" default="1" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="mdrName" type="xs:string" default="templateSms" minOccurs="0" maxOccurs="1"/>
+
+                        <xs:element name="enabledCos" type="xs:string" default="true" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Indicates which cos are enabled,disabled for this type.<br/><br/>
+                                    The format is a comma seperated list of key pairs (cos:cosNameN=true,cos:cosNameN+1=false).<br/><br/>
+
+                                    A value without an equal is considered as default value for cos not in config. so setting
+                                    this value to true, enables all cos to send this notification, false to no cos active.<br/><br/>
+
+                                    To enable for only two cos for example would be:<br/>
+                                    false,cos:cosName1=true,cos:cosName2=true
+
+                                    NOTE: the cos: part is optional but matches the lookup in ldap for the cos attribute and is therefore more efficient.
+                                </xs:documentation>
+                            </xs:annotation>
+                    </xs:element>
+
+                        <xs:element name="notificationNumberType" type="notificationNumberTYPE" default="delivery_profile" minOccurs="0" maxOccurs="1"/>
+
+                        <xs:element name="initialRetrySchema" type="xs:string" default="1:try=4 5:try=2 15:try=3 60:try=5 CONTINUE" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="initialExpireTimeInMin" type="xs:nonNegativeInteger" default="361" minOccurs="0" maxOccurs="1"/>
+
+                        <xs:element name="sendingRetrySchema" type="xs:string" default="1:try=4 5:try=2 15:try=3 60:try=5 CONTINUE" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="sendingExpireTimeInMin" type="xs:nonNegativeInteger" default="361" minOccurs="0" maxOccurs="1"/>
+
+                        <xs:element name="expiryIntervalInMin" type="xs:nonNegativeInteger" default="10" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="expiryRetries" type="xs:nonNegativeInteger" default="10" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="cancelSmsOnNtfCancel" type="xs:boolean"  default="false" minOccurs="0" maxOccurs="1"> 
+                        	<xs:annotation>
+                                <xs:documentation>
+                                    Indicates if cancel SMS feature is enabled in NTF, that the plug-in should cancel also when mailbox is empty.<br/><br/>
+                                    
+                                    The plug-in will provide the source address and service type back to NTF in order for NTF to determine
+                                    which cancel SMS need to be sent.<br/><br/>
+                                    
+                                    Note: for the default entry in the table this is always forced to false, as specific information is needed for
+                                    each cancel SMS to be sent.                                
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="replaceSMSEnabled" type="xs:boolean"  default="false" minOccurs="0" maxOccurs="1"> 
+                        	<xs:annotation>
+                                <xs:documentation>
+                                    Indicates if for this type should make the SMS sent replaceable by serviceType<br/><br/>
+                                    
+                                    This depends upon the ReplaceNotifications.List in notification.conf and the value of serviceType<br/><br/>
+                                    
+                                    If ServiceType is set to smeServiceType it will use the default value from the table dependent on the
+                                    TemplateType name, or CPHR phrase. Otherwise a lookup is made in the table based on the set type, if none
+                                    is found then no replace is done regardless of this setting.<br/><br/>
+                                    
+                                    The serviceType default in the ReplaceNotifications.List is dependent on it's position in the table.  First one
+                                    is VM1 second VM2 etc.  After 9 the names become V10-V99.  Only the first 7 in the table are replaceable in the
+                                    phone, but others are replaceable in the SMSC.<br/><br/>
+                                    
+                                    So if you wish to explicitly set the serviceType you can have the plug-in replace another type listed in the table.
+                                    For example you could have updateSMS replace a count notification (c).                                                            
+                                </xs:documentation>
+                            </xs:annotation>
+                    </xs:element>
+                </xs:all>
+        </xs:complexType>
+
+        <xs:simpleType name="pduTYPE">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="submit_sm"/>
+                        <xs:enumeration value="data_sm"/>
+                </xs:restriction>
+        </xs:simpleType>
+
+
+        <xs:simpleType name="notificationNumberTYPE">
+                <xs:restriction base="xs:string">
+                       <xs:enumeration value="recipient"/>
+                       <xs:enumeration value="delivery_profile"/>
+                </xs:restriction>
+        </xs:simpleType>
+
+        <xs:simpleType name="cphrTYPE">
+                <xs:restriction base="xs:string">
+                       <xs:enumeration value="mailboxSubscriber"/>
+                       <xs:enumeration value="subscriberOnly"/>
+               <!-- This type not currently supported
+                       <xs:enumeration value="nonSubscriber"/>
+               -->
+                </xs:restriction>
+        </xs:simpleType>
+
+        <xs:simpleType name="smeSourceNpiTonType">
+            <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="255"/>
+            </xs:restriction>
+        </xs:simpleType>
+
+</xs:schema>

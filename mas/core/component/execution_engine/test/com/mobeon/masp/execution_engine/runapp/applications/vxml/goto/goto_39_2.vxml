@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="goto_39.vxml">
+    <form>
+        <var name="local"></var>
+        <block>
+            <assign name="local" expr="f(2)"></assign>
+            <if cond="local != 3">
+                <log>ERROR</log>
+            </if>
+        </block>
+        <block>
+            <assign name="local" expr="olle"></assign>
+            <if cond="local != 7">
+                <log>ERROR</log>
+                <else/>
+                <log>
+                    <goto next="#nextform"></goto>
+                </log>
+            </if>
+        </block>
+    </form>
+
+    <!-- check that everything still is fine after goto next form -->
+
+    <form id="nextform">
+        <block>
+            <var name="local"></var>
+            <block>
+                <assign name="local" expr="f(2)"></assign>
+                <if cond="local != 3">
+                    <log>ERROR</log>
+                </if>
+            </block>
+            <block>
+                <assign name="local" expr="olle"></assign>
+                <if cond="local != 7">
+                    <log>ERROR</log>
+                    <else/>
+                    <log>TCPASS</log>
+                </if>
+            </block>
+        </block>
+    </form>
+</vxml>

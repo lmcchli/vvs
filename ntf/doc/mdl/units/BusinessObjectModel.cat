@@ -1,0 +1,22 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "BusinessObjectModel"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"35B678080064"
+    documentation 	
+|This model is optional.
+|The Business Object Model contains a set of interacting workers and business entity (domain) classes which collaborate to enact the business processes.  In some cases, only the business entity classes are documented.  The business entity classes as a whole are sometimes referred to as a 'domain model'.
+|
+|The business modeling workflow in Rational Unified Process produces two models: the business use-case model, and the business object model. Both show the business 
+|processes, but different aspects of them. In the business use-case model each business use case represents a business process, described (text and/or activity diagrams) from an "external" view point without worrying about who does what to whom inside of the organization. 
+|In the business object model, you include realizations of each business use case to show how workers and entities collaborate to perform the process. You do that using class diagrams, activity diagrams with swimlanes, collaboration diagrams, and/or interaction diagrams.
+|
+    
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list)
+    logical_presentations 	(list unit_reference_list))

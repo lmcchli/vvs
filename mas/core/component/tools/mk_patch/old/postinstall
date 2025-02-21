@@ -1,0 +1,272 @@
+#!/bin/sh
+# This script creates the backout package for a patch package
+#
+# directory format options.
+#
+# @(#) postinstall 1.6 96/01/29 SMI
+#
+# Copyright (c) 1995 by Sun Microsystems, Inc.
+# All rights reserved
+#
+
+# Description:
+# 	Set the TYPE parameter for the remote file
+#
+# Parameters:
+# 	none
+#
+# Globals set:
+# 	TYPE
+
+set_TYPE_parameter () {
+	if [ ${PATCH_UNDO_ARCHIVE:?????} = "/dev" ]; then
+		# handle device specific stuff
+		TYPE="removable"
+	else
+		TYPE="filesystem"
+	fi
+}
+
+#
+# Description:
+# 	Build the remote file that points to the backout data
+#
+# Parameters:
+# 	$1: the un/compressed undo archive
+#
+# Globals set:
+# 	UNDO, STATE
+build_remote_file () {
+	remote_path=$PKGSAV/$Patch_label/remote
+	set_TYPE_parameter
+	STATE="active"
+
+	if [ $1 = "undo" ]; then
+		UNDO="undo"
+	else
+		UNDO="undo.Z"
+	fi
+	cat > $remote_path << EOF
+# Backout data stored remotely
+TYPE=$TYPE
+FIND_AT=$ARCHIVE_DIR/$UNDO
+STATE=$STATE
+EOF
+}
+
+
+#
+#  Register the patch to MCR
+#
+mcrRegister()
+{
+
+	echo "Register component to MCR"
+	$BASEDIR/etc/mascommon register
+
+	if [ $? -gt 0 ]
+	then
+		echo "Failed to register MAS to MCR"
+	else
+		echo "Result ok"
+	fi
+}
+
+PATH=/usr/sadm/bin:$PATH
+Patch_label=$PATCH
+
+if [ "$PKG_INSTALL_ROOT" = "/" ]; then
+	PKG_INSTALL_ROOT=""
+fi
+
+if [ -n "$PATCH_BUILD_DIR" -a -d "$PATCH_BUILD_DIR" ]; then
+	BUILD_DIR="$PATCH_BUILD_DIR/$Patch_label.$PKGINST"
+else
+	BUILD_DIR="$PKG_INSTALL_ROOT/var/tmp/$Patch_label.$PKGINST"
+fi
+
+if [ ! -n "$PATCH_UNDO_ARCHIVE" ]; then
+	PATCH_UNDO_ARCHIVE="none"
+fi
+
+FILE_DIR=$BUILD_DIR/files
+RELOC_DIR=$FILE_DIR/reloc
+ROOT_DIR=$FILE_DIR/root
+BO_Deletes=$FILE_DIR/deletes
+THIS_DIR=`dirname $0`
+PROTO_FILE=$BUILD_DIR/prototype
+TEMP_REMOTE=$PKGSAV/$Patch_label/temp
+
+
+if [ "$PATCH_PROGRESSIVE" = "true" ]; then
+	# remove the scripts that are left behind
+	install_scripts=`dirname $0`
+	rm $install_scripts/checkinstall $install_scripts/patch_checkinstall $install_scripts/patch_postinstall
+	# If this is being used in an old-style patch, insert
+	# the old-style script commands here.
+	#XXXOld_CommandsXXX#
+	exit 0
+fi
+
+
+#
+# At this point we either have a deletes file or we don't. If we do,
+# we create a prototype entry.
+#
+if [ -f $BO_Deletes ]; then
+	echo "i deletes=$BO_Deletes" >> $BUILD_DIR/prototype
+fi
+
+
+#
+# Now delete everything in the deletes list after transferring
+# the file to the backout package and the entry to the prototype
+# file. Remember that the pkgmap will get the CLIENT_BASEDIR path
+# but we have to actually get at it using the BASEDIR path. Also
+# remember that removef will import our PKG_INSTALL_ROOT
+#
+Our_Deletes=$THIS_DIR/deletes
+if [ -f $Our_Deletes ]; then
+	cd $BASEDIR
+	cat $Our_Deletes | while read path; do
+		Reg_File=0
+		
+		if valpath -l $path; then
+			Client_Path="$CLIENT_BASEDIR/$path"
+			Build_Path="$RELOC_DIR/$path"
+			Proto_Path=$BASEDIR/$path
+		else # It's an absolute path
+			Client_Path=$path
+			Build_Path="$ROOT_DIR$path"
+			Proto_Path=$PKG_INSTALL_ROOT$path
+		fi
+		
+		# Note: If the file isn't really there, pkgproto
+		# doesn't write anything.
+		LINE=`pkgproto $Proto_Path=$path`
+		ftype=`echo $LINE | nawk '{ print $1 }'`
+		if [ $ftype = "f" ]; then
+			Reg_File=1
+		fi
+
+		if [ $Reg_File = 1 ]; then
+			# Add source file to the prototype entry
+			if [ "$Proto_Path" = "$path" ]; then
+				LINE=`echo $LINE | sed -e s@$Proto_Path@$Build_Path@2`
+			else
+				LINE=`echo $LINE | sed -e s@$Proto_Path@$Build_Path@`
+			fi
+			
+			DirName=`dirname $Build_Path`
+			
+			# make room in the build tree
+			mkdir -p $DirName
+			cp -p $Proto_Path $Build_Path
+		fi
+
+		# Insert it into the prototype file
+		echo $LINE 1>>$PROTO_FILE 2>/dev/null
+
+		# Remove the file only if it's OK'd by removef
+		rm `removef $PKGINST $Client_Path` 1>/dev/null 2>&1
+	done
+
+	removef -f $PKGINST
+	rm $Our_Deletes
+fi
+
+
+#
+# Unless specifically denied, make the backout package.
+#
+if [ "$PATCH_NO_UNDO" != "true" ]; then
+	cd $BUILD_DIR # We have to build from here.
+	
+	if [ "$PATCH_UNDO_ARCHIVE" != "none" ]; then
+		STAGE_DIR="$PATCH_UNDO_ARCHIVE"
+		ARCHIVE_DIR="$PATCH_UNDO_ARCHIVE/$Patch_label/$PKGINST"
+		mkdir -p $ARCHIVE_DIR
+		mkdir -p $PKGSAV/$Patch_label
+	else
+		if [ -d $PKGSAV/$Patch_label ]; then
+			rm -r $PKGSAV/$Patch_label
+		fi
+		STAGE_DIR=$PKGSAV
+		ARCHIVE_DIR=$PKGSAV/$Patch_label
+		mkdir $ARCHIVE_DIR
+	fi
+
+	pkgmk -o -d $STAGE_DIR 1>/dev/null 2>&1
+	pkgtrans -s $STAGE_DIR $ARCHIVE_DIR/undo $PKG 1>/dev/null 2>&1
+	compress $ARCHIVE_DIR/undo
+	retcode=$?
+	
+	if [ "$PATCH_UNDO_ARCHIVE" != "none" ]; then
+		if [ $retcode != 0 ]; then
+			build_remote_file "undo"
+		else
+			build_remote_file "undo.Z"
+		fi
+	fi
+
+	rm -r $STAGE_DIR/$PKG
+	cd ..
+	rm -r $BUILD_DIR
+	# remove the scripts that are left behind
+	install_scripts=`dirname $0`
+	rm $install_scripts/checkinstall $install_scripts/patch_checkinstall $install_scripts/patch_postinstall
+fi
+
+
+#
+# Since this apparently worked, we'll mark as obsoleted the prior
+# versions of this patch - installpatch deals with explicit obsoletions.
+#
+cd ${PKG_INSTALL_ROOT:-/}
+cd var/sadm/pkg
+
+active_base=`echo $Patch_label | nawk '
+	{ print substr($0, 1, match($0, "Patchvers_pfx")-1) } '`
+List=`ls -d $PKGINST/save/${active_base}*`
+echo "4.1"
+if [ $? -ne 0 ]; then
+	List=""
+fi
+
+
+for savedir in $List; do
+	echo "4.2.0: $savedir"
+	patch=`basename $savedir`
+	#echo "Patch:"$patch
+	#echo "Patch label:"$Patch_label
+	
+	if [ $patch = $Patch_label ]; then
+		break
+	fi
+	# If we get here then the previous patch gets deleted
+	if [ -f $savedir/undo ]; then
+		mv $savedir/undo $savedir/obsolete
+		echo $Patch_label >> $savedir/obsoleted_by
+	elif [ -f $savedir/undo.Z ]; then
+		mv $savedir/undo.Z $savedir/obsolete.Z
+		echo $Patch_label >> $savedir/obsoleted_by
+	elif [ -f $savedir/remote ]; then
+		`grep . $PKGSAV/$patch/remote | sed 's/STATE=.*/STATE=obsolete/' > $TEMP_REMOTE`
+		rm -f $PKGSAV/$patch/remote
+		mv $TEMP_REMOTE $PKGSAV/$patch/remote
+		rm -f $TEMP_REMOTE
+		echo $Patch_label >> $savedir/obsoleted_by
+	elif [ -f $savedir/obsolete -o -f $savedir/obsolete.Z ]; then
+		echo $Patch_label >> $savedir/obsoleted_by
+	fi
+done
+
+
+# If additional operations are required for this package, place
+# those package-specific commands here.
+
+# when patch is installed. register MAS to MCR with patch values.
+mcrRegister
+
+#XXXSpecial_CommandsXXX#
+exit 0

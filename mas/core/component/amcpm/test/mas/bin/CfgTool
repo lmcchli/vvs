@@ -1,0 +1,3 @@
+#!/bin/sh
+#Does currently nothing, just a stub
+echo "trafficeventsender.emailconfig.templatespath = lib"

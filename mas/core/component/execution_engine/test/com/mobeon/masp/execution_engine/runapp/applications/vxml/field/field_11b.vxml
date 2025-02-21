@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="field_11.vxml">
+
+    <form>
+        <field name="field1">
+
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <if cond="field1 == '1'">
+                    <log>TCPASS</log>
+                    <exit></exit>
+                </if>
+            </filled>
+            <noinput>
+                <log>TCFAIL noinput</log>
+                <exit></exit>
+            </noinput>
+        </field>
+        <block>
+            <log>TCFAIL block</log>
+            <exit></exit>
+        </block>
+    </form>
+</vxml>

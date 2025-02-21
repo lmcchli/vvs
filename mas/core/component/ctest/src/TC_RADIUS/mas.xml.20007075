@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mas.xsd">
+  <trafficeventsender>
+    <emailconfig templatespath="lib"/>
+    <radiusconfig servicename="eventreporting" queuesize="2000" delay="5000">
+      <attribute name="sessionid" number="50" type="0" datatype="S"/>
+      <attribute name="username" number="1" type="0" datatype="S"/>
+      <attribute name="callednumber" number="30" type="0" datatype="S"/>
+      <attribute name="callingnumber" number="31" type="0" datatype="S"/>
+      <attribute name="operation" number="1" type="1" datatype="E"/>
+      <attribute name="messagesize" number="2" type="1" datatype="I"/>
+      <attribute name="terminatecause" number="3" type="1" datatype="E"/>
+      <attribute name="accesstype" number="4" type="1" datatype="E"/>
+      <attribute name="objecttype" number="6" type="1" datatype="E"/>
+      <attribute name="objectid" number="7" type="1" datatype="S"/>
+      <attribute name="description" number="8" type="1" datatype="S"/>
+      <attribute name="messagetype" number="12" type="1" datatype="E"/>
+      <attribute name="messageencoding" number="13" type="1" datatype="E"/>
+      <attribute name="ownername" number="16" type="1" datatype="S"/>
+      <attribute name="sssporttype" number="11" type="1" datatype="E"/>
+    </radiusconfig>
+  </trafficeventsender>
+  <callmanager callnotacceptedtimer="32000" registerbackofftimer="120000" registerbeforeexpirationtime="5000" blacklisttimer="60000" inboundaudiomedia="pcmu" inboundvideomedia="h263" ptime="40" registeredname="mas" defaultcalltype="video" outboundcallcallingparty="" outboundcallconnecttimeout="30000" disconnectonsiptimeout="true">
+    <requiredoutboundaudiomedia>
+      <mediatype encoding="pcmu"/>
+      <mediatype encoding="telephone-event"/>
+    </requiredoutboundaudiomedia>
+    <requiredoutboundvideomedia>
+      <mediatype encoding="h263"/>
+    </requiredoutboundvideomedia>
+    <releasecausemappings defaultnetworkstatuscode="621">
+      <mapping name="suppressed" networkstatuscode="614" sipresponsecodeintervals="600" q850causeintervals="17" q850locationintervals="0"/>
+      <mapping name="busy" networkstatuscode="603" sipresponsecodeintervals="486" q850causeintervals="17"/>
+      <mapping name="noreply" networkstatuscode="610" sipresponsecodeintervals="408,480" q850causeintervals="18-19"/>
+      <mapping name="notreachable" networkstatuscode="613" sipresponsecodeintervals="301,403-404,410,484,501-502,603" q850causeintervals="1-9,20-23,25-31"/>
+      <mapping name="congestion" networkstatuscode="620" sipresponsecodeintervals="503" q850causeintervals="39-44,46"/>
+    </releasecausemappings>
+    <remoteparty>
+      <ssplist>
+        <address host="ssphost" port="5060"/>
+      </ssplist>
+    </remoteparty>
+    <siptimers t2="8" t4="10" timerb="6" timerc="360" timerd="64" timerf="18" timerh="64" timerj="64"/>
+    <loadregulation initialramphwm="0" channelstoincrease="1" numberofincrements="1"/>
+  </callmanager>
+  <contenttypemapper>
+    <contenttype mimetype="video/quicktime">
+      <codec mimetype="video/h263"/>
+      <codec mimetype="audio/pcmu"/>
+      <fileext name="mov"/>
+    </contenttype>
+    <contenttype mimetype="video/3gpp">
+      <codec mimetype="video/h263"/>
+      <codec mimetype="audio/amr"/>
+      <fileext name="3gp"/>
+    </contenttype>
+    <contenttype mimetype="audio/wav">
+      <codec mimetype="audio/pcmu"/>
+      <fileext name="wav"/>
+    </contenttype>
+    <contenttype mimetype="text/plain">
+      <codec mimetype="text/plain"/>
+      <fileext name="txt"/>
+    </contenttype>
+  </contenttypemapper>
+  <executionengine enginestacksize="100" callmanagerwaittime="60000" accepttimeout="30000" createcalladditionaltimeout="30000" traceenabled="false" alwayscompile="false" generateops="false" opspath="." hostname="jokkfall-2.lab.mobeon.com" watchdogtimeout="600000"/>
+  <externalcomponentregister>
+    <mcr hostname="nosuchmcrhost" port="389" timeout="5000" periodicity="300000" lookupdelay="500" userid="icomponent" password="abc123" suffix="emregistername=messagingcomponentregister,o=config" trylimit="3" trytimelimit="500"/>
+    <propertymap>
+      <port mcrname="ipserviceport"/>
+      <protocol mcrname="ipserviceprotocol"/>
+      <version mcrname="emcomponentversion"/>
+      <hostname mcrname="emhostname"/>
+      <logicalzone mcrname="emlogicalzone"/>
+      <component mcrname="emcomponentname"/>
+      <type mcrname="emcomponenttype"/>
+      <rootoid mcrname="emrootoid"/>
+      <language mcrname=""/>
+      <replicationid mcrname="emcomponentmur-replicationid"/>
+    </propertymap>
+    <services>
+      <storage overridemcr="false">
+        <default port="143"/>
+<!--instance hostname="" port=""/-->
+      </storage>
+      <smtpstorage overridemcr="false">
+        <default port="25"/>
+<!--instance hostname="" port=""/-->
+      </smtpstorage>
+      <userregister overridemcr="false">
+        <default port="389"/>
+        <instance hostname="murhost"/>
+      </userregister>
+      <userregisterwrite overridemcr="false" servicename="userregister">
+        <default port="389"/>
+        <instance hostname="murhost"/>
+      </userregisterwrite>
+      <eventreporting overridemcr="false">
+        <default port="1813"/>
+<!--instance hostname="" port=""/-->
+      </eventreporting>
+      <speechrecognition overridemcr="true">
+        <instance hostname="" port="" protocol="none"/>
+      </speechrecognition>
+      <texttospeech overridemcr="true">
+        <instance hostname="" port="" protocol="none"/>
+      </texttospeech>
+      <provisioning overridemcr="true">
+        <instance hostname="" port="2400"/>
+      </provisioning>
+      <Accounting overridemcr="false">
+        <instance hostname="jokkfall-2.lab.mobeon.com" port="9099" />
+      </Accounting>
+    </services>
+    <algorithms>
+      <localrandomchooser logicalzone="unspecified" netmask="255.255.255.0"/>
+    </algorithms>
+  </externalcomponentregister>
+  <mediacontentmanager resourcepath="applications/mediacontentpackages">
+<!-- Configuration for the MediaObject Cache that
+             MediaContentManager Uses. If no cache configured the MediaContentManager
+             will not use one.
+             - Policy is the caching policy that is used can be:
+               lfu  (Least frequently used)
+               fifo (First in first out)
+               lru  (Least recently used)
+             - maxsize is the max number of MediaObjects in the cache.
+             - elementtimeout is the timeout in milli seconds for an element.
+             - memorysensitive If set to true the elements in the cache is available for garbage collection -->
+    <mediaobjectcache policy="lfu" maxsize="100" elementtimeout="3600000" memorysensitive="false"/>
+  </mediacontentmanager>
+  <mediatranslationmanager tts="mrcp" asr="disabled">
+    </mediatranslationmanager>
+  <mailbox>
+    <message/>
+    <imap connectiontimeout="5000" commandtimeout="5000"/>
+  </mailbox>
+  <messagesender smtpservicename="smtpstorage" smtpretries="3" smtpconnectiontimeout="3000" smtpcommandtimeout="3000"/>
+  <operateandmaintainmanager>
+    <omm hostname="localhost" rpcmaxnoofretries="10" rpcretrydelaysec="5" countersavetimeout="60" countersavefilenamesufix="CounterData.dat" countersavefilenamepath="data" masnoresponsetimeoutlimituntildown="20" logicalzone="unspecified" port="8081" memorycheckdelaysec="30" memoryhighwatermark="50000"/>
+    <serviceenablers>
+      <serviceenabler protocol="sip" initthreshold="65" lowwatermark="50" highwatermark="60"/>
+      <serviceenabler protocol="xmp" initthreshold="20" lowwatermark="5" highwatermark="40"/>
+    </serviceenablers>
+  </operateandmaintainmanager>
+  <profilemanager limitscope="false" coscachetimeout="300000">
+    <userregister readtimeout="5000" writetimeout="5000" admin="cn=directory manager" password="emmanager" defaultsearchbase="o=mobeon.com" trylimit="3" trytimelimit="500"/>
+    <connectionpool maxsize="25" connectionlifetime="300000"/>
+    <provisioning password=""/>
+    <attributemap searchorder="community,cos,user,billing">
+      <activegreetingid userregistername="activegreetingid" type="string" writelevel="billing" default=""/>
+      <addressbookserver provisioningname="ADDRESSBOOK_SERVER"/>
+      <autoplay userregistername="autoplay" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+      <badlogincount userregistername="badlogincount" type="integer" writelevel="user" default="0"/>
+      <billingnumber userregistername="billingnumber" type="string" provisioningname="TELEPHONENUMBER"/>
+      <caattr userregistername="caattr" type="string" default=""/>
+      <callerxfer userregistername="callerxfer" type="boolean" true="yes" false="no" default="no"/>
+      <callerxfertocoverage userregistername="callerxfertocoverage" type="boolean" true="yes" false="no" default="no"/>
+      <cdgmax userregistername="cdgmax" type="integer" default="10"/>
+      <cn userregistername="cn" type="string"/>
+      <cosdn userregistername="cosdn" type="string" provisioningname="COSDN"/>
+      <cosname userregistername="cosname" type="string"/>
+      <coverphonenumber userregistername="coverphonenumber" type="string" writelevel="billing" default=""/>
+      <diskspaceremainingwarninglevel userregistername="diskspaceremainingwarninglevel" type="string" default="0.15"/>
+      <dlentriesmax userregistername="dlentriesmax" type="integer" default="15"/>
+      <dlmax userregistername="dlmax" type="integer" default="10"/>
+      <emactivecdg userregistername="emactivecdg" type="string" writelevel="user" default=""/>
+      <emautoprintfax userregistername="emautoprintfax" type="boolean" writelevel="user" true="yes" false="no" default="no"/>
+      <emca userregistername="emca" type="string" writelevel="user" default=""/>
+      <emcnl userregistername="emcnl" type="boolean" true="yes" false="no" default="no"/>
+      <emcustomerid userregistername="emcustomerid" type="string" default="" provisioningname="CUSTOMERID"/>
+      <emdeliveryprofile userregistername="emdeliveryprofile" type="string" writelevel="user" default="" provisioningname="DELIVERY_PROFILE"/>
+      <emfilter userregistername="emfilter" type="string" writelevel="user" default=""/>
+      <emftl userregistername="emftl" type="string" writelevel="user"/>
+      <emftlfunctions userregistername="emftlfunctions" type="string" default="00,F,PIN:M,SPO:M,ACG:M"/>
+      <emgroupmember userregistername="emgroupmember" type="string" default=""/>
+      <emlogindate userregistername="emlogindate" type="string" writelevel="billing" default=""/>
+      <emmaxgroupmember userregistername="emmaxgroupmember" type="integer" default="10"/>
+      <emmin userregistername="emmin" type="string" default="" provisioningname="MIN"/>
+      <emmmscenterid userregistername="emmmscenterid" type="string" default="" provisioningname="MMSCENTER"/>
+      <emmsglenmaxvideo userregistername="emmsglenmaxvideo" type="integer" default="180"/>
+      <emmsgplayorder userregistername="emmsgplayorder" type="string" writelevel="user" default="FIFO,LIFO"/>
+      <emnoofmailquota userregistername="emnoofmailquota" type="integer" default="-1"/>
+      <emnotifnumber userregistername="emnotifnumber" type="string" writelevel="user" default="" provisioningname="NOTIFICATION_NUMBER"/>
+      <emntd userregistername="emntd" type="string" writelevel="billing" default="" provisioningname="DISABLE_NOTIFICATION_TYPES"/>
+      <emodlpinskip userregistername="emodlpinskip" type="boolean" writelevel="user" true="yes" false="no" default="no"/>
+      <emoutboundcalltl userregistername="emoutboundcalltl" type="integer" default="0"/>
+      <empnc userregistername="empnc" type="string" default="" provisioningname="PAGER_NOTIFICATION_STRING"/>
+      <empreferreddateformat userregistername="empreferreddateformat" type="string" default="" provisioningname="DATEFORMAT"/>
+      <empreferredtimeformat userregistername="empreferredtimeformat" type="string" writelevel="user" default="12" provisioningname="TIMEFORMAT"/>
+      <emreadlevel userregistername="emreadlevel" type="integer" default="-1"/>
+      <emsecnb userregistername="emsecnb" type="string" default=""/>
+      <emservicedn userregistername="emservicedn" type="string" searchorder="cos" default=""/>
+      <emsmppcenterid userregistername="emsmppcenterid" type="string" default="" provisioningname="SMPPCENTER"/>
+      <emtmpgrt userregistername="emtmpgrt" type="string" writelevel="user" default=""/>
+      <emtmpgrtavailable userregistername="emtmpgrtavailable" type="boolean" true="yes" false="no" default="no"/>
+      <emtuiaccess userregistername="emtuiaccess" type="string" default="std"/>
+      <emtuiblockedmenu userregistername="emtuiblockedmenu" type="string" default=""/>
+      <emuserntd userregistername="emuserntd" type="string" writelevel="user" default=""/>
+      <emusersd userregistername="emusersd" type="string" default=""/>
+      <emvuiaccess userregistername="emvuiaccess" type="string" default="none"/>
+      <eomsgwarning userregistername="eomsgwarning" type="integer" default="30"/>
+      <facsimiletelephonenumber userregistername="facsimiletelephonenumber" type="string" writelevel="user" default="" provisioningname="FAX_NUMBER"/>
+      <familymembers provisioningname="FAMILY_MEMBERS"/>
+      <fastloginavailable userregistername="fastloginavailable" type="boolean" true="yes" false="no" default="no"/>
+      <fastloginenabled userregistername="fastloginenabled" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+      <faxenabled userregistername="faxenabled" type="boolean" true="yes" false="no" default="no"/>
+      <gender userregistername="gender" type="string" default="F" provisioningname="GENDER"/>
+      <greetingsecmax userregistername="greetingsecmax" type="integer" default="60"/>
+      <includespokenname userregistername="includespokenname" type="boolean" true="yes" false="no" default="yes"/>
+      <inboundfaxno userregistername="inboundfaxno" type="string" default=""/>
+      <inhoursdow userregistername="inhoursdow" type="string" writelevel="billing" default="12345"/>
+      <inhoursend userregistername="inhoursend" type="string" writelevel="billing" default="1700"/>
+      <inhoursstart userregistername="inhoursstart" type="string" writelevel="billing" default="0800"/>
+      <mail userregistername="mail" type="string" default="" provisioningname="MAILADDRESS"/>
+      <mailalternateaddress userregistername="mailalternateaddress" type="string" default=""/>
+      <mailhost userregistername="mailhost" type="string" default="" provisioningname="MAILHOST"/>
+      <mailquota userregistername="mailquota" type="integer"/>
+      <mailuserstatus userregistername="mailuserstatus" type="string" default="active"/>
+      <maxloginlockout userregistername="maxloginlockout" type="integer" default="6"/>
+      <messageinventory userregistername="messageinventory" type="boolean" true="yes" false="no" default="yes"/>
+      <messageplayemail userregistername="messageplayemail" type="string" writelevel="billing" default="both"/>
+      <messageplayvideo userregistername="messageplayvideo" type="string" writelevel="billing" default="both"/>
+      <messageplayvoice userregistername="messageplayvoice" type="string" writelevel="billing" default="both"/>
+      <mslocation provisioningname="MSLOCATION"/>
+      <msglenmaxvoice userregistername="msglenmaxvoice" type="integer" default="180"/>
+      <noforfirstname userregistername="noforfirstname" type="string" default=""/>
+      <noforlastname userregistername="noforlastname" type="string" default=""/>
+      <passwdlenmax userregistername="passwdlenmax" type="integer" default="4"/>
+      <passwdlenmin userregistername="passwdlenmin" type="integer" default="4"/>
+      <password userregistername="password" type="xstring" provisioningname="MAILBOX_PW"/>
+      <passwordskipavailable userregistername="passwordskipavailable" type="boolean" true="yes" false="no" default="no"/>
+      <passwordskipenabled userregistername="passwordskipenabled" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+      <preferredlanguage userregistername="preferredlanguage" type="string" writelevel="user" default="" provisioningname="LANGUAGE"/>
+      <phonenumbercalleraccesssection userregistername="phonenumbercalleraccesssection" type="string" default="CALLEROUTDIAL"/>
+      <phonenumberdialingsection userregistername="phonenumberdialingsection" type="string" default="SUBSCRIBEROUTDIAL"/>
+      <reinventory userregistername="reinventory" type="boolean" true="yes" false="no" default="no"/>
+      <sn userregistername="sn" type="string" default="" provisioningname="SN"/>
+      <subscribertimezone userregistername="subscribertimezone" type="string" default="" provisioningname="TIMEZONE"/>
+      <subscriberxfer userregistername="subscriberxfer" type="boolean" true="yes" false="no" default="no"/>
+      <subsearchbase userregistername="subsearchbase" type="string"/>
+      <telephonenumber userregistername="telephonenumber" type="string" provisioningname="TELEPHONENUMBER"/>
+      <ttsemailenabled userregistername="ttsemailenabled" type="boolean" true="yes" false="no" default="no"/>
+      <uid userregistername="uid" type="string" provisioningname="UID"/>
+      <umpassword userregistername="umpassword" type="xstring" writelevel="user" provisioningname="PIN"/>
+      <urgentmsgplay userregistername="urgentmsgplay" type="boolean" writelevel="billing" true="yes" false="no" default="yes"/>
+      <userlevel userregistername="userlevel" type="integer" writelevel="user"/>
+      <welcomegrt userregistername="welcomegrt" type="string" default=""/>
+      <xamtevatitle userregistername="xamtevatitle" type="string" default=""/>
+<!-- Elements not in attribute document -->
+      <emallowedmaildomains userregistername="emallowedmaildomains" type="string"/>
+      <admininfo userregistername="admininfo" type="string"/>
+      <uniqueidentifier userregistername="uniqueidentifier" type="string"/>
+    </attributemap>
+  </profilemanager>
+  <servicerequestmanager requesttimeout="30000" requestretries="3" clientid="mas@jokkfall-2.lab.mobeon.com">
+    <diagnoseservice clientid="diagnoseservice@localhost"/>
+  </servicerequestmanager>
+  <stream portpoolbase="23000" portpoolsize="250" movfileversion="1" synccallmaxwaittimesec="120" sendpacketsaheadms="40" expiretimeoutms="100000000" streamabandonedms="32000" senderscontrolfraction="0.4" audioreplacewithsilencems="10" dispatchdtmfonkeydown="true" maximumtransmissionunit="2000" audioskipms="0" maxwaitforiframems="2000" skew="0" skewmethod="LOCAL_AND_RTCP" defaultinboundptime="40">
+    <supportedcontenttype name="audio/wav"/>
+    <supportedcontenttype name="video/quicktime"/>
+    <supportedcontenttype name="video/3gpp"/>
+    <rtppayloaddef primarytype="audio" subtype="pcmu" rtppayload="0" encoding="PCMU" clockrate="8000"/>
+    <rtppayloaddef primarytype="audio" subtype="amr" rtppayload="96" encoding="AMR" clockrate="8000"/>
+    <rtppayloaddef primarytype="audio" subtype="telephone-event" rtppayload="101" encoding="telephone-event" clockrate="8000"/>
+    <rtppayloaddef primarytype="audio" subtype="cn" rtppayload="13" encoding="CN" clockrate="8000"/>
+    <rtppayloaddef primarytype="video" subtype="h263" rtppayload="34" encoding="H263" clockrate="90000"/>
+  </stream>
+  <provisionmanager connectionpoolsize="5" connectiontimeout="10000" connectionidletimeout="60000" commandsendretries="1" defaultmailhost=""/>
+</configuration>

@@ -1,0 +1,89 @@
+#!/bin/sh
+
+
+#
+#  Reregister MAS after patch removal
+#
+mcrRegister()
+{
+    # NOTE! We have to use a backup of the patched mascommon script since 
+    # the original mascommon in R4A.075 is flawed. (The backup was created
+    # by the comp_preremove script and will be deleted after use.)
+
+	info "Register component to MCR"
+	$BASEDIR/etc/mascommon patchregister
+
+	if [ $? -gt 0 ]
+	then
+		warning "Failed to register MAS to MCR"
+	else
+		info "Result ok" 
+	fi
+
+}
+
+
+# Restore configuration files
+##############################
+# mas.conf will be restored automatically by patch since it was overwritten
+# by a dummy file.
+# This method is used for other xml configuration files
+#
+restoreMasConfig()
+{
+# Restoring mas xml configuration files can be done in either of two ways
+# 1. Use the xmlmodify.sh script located in the <masinstalldir>/bin directory
+# 2. Use the xslt directly as shown in the example below.
+
+# X S L T   e x a m p l e 
+#xslTransformFile=/var/tmp/fe29_mas_r4a_restoreMasConfig.xslt
+#cat >> $xslTransformFile << __EOF__
+#<?xml version="1.0"?>
+#<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+#  <xsl:output method="xml" version="1.0" encoding="iso-8859-1" indent="yes"/>
+#
+#  <!-- Identity template -->
+#  <xsl:template match="@*|node()" priority="-1">
+#    <xsl:copy>
+#      <xsl:apply-templates select="@*|node()"/>
+#    </xsl:copy>
+#  </xsl:template>
+#  
+#
+#  <!-- Remove writelevel attribute on emusersd (if its there) -->
+#  <xsl:template match="/configuration/profilemanager/attributemap/emusersd/@writelevel"></xsl:template>
+#
+#</xsl:stylesheet>
+#__EOF__
+#
+#info "Restoring cfg/mas.xml"
+#tmpFile=$BASEDIR/cfg/fe29_old_mas.xml
+#mv $BASEDIR/cfg/mas.xml $tmpFile
+#xsltproc -nonet -novalid -o $BASEDIR/cfg/mas.xml $xslTransformFile $tmpFile
+#retval=$?
+#if [ $retval -ne 0 ]
+#then
+#    error "Error restoring cfg/mas.xml. xsltproc returned: $retval"
+#fi
+#rm $xslTransformFile
+#rm $tmpFile
+}
+
+
+
+# Register the version in MCR
+##############################
+mcrRegister
+
+# Restore the configuration
+###########################
+restoreMasConfig
+
+
+# Start the component (if it was started before)
+#################################################
+if [ ! -f /var/tmp/TmpMasPatchInstall_stateStopped ]; then
+    info "postremove: Starting MAS"
+    /etc/init.d/rc.mas start
+fi
+rm -f /var/tmp/TmpMasPatchInstall_stateStopped

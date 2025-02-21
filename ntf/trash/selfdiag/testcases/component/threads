@@ -1,0 +1,72 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $result = 0;
+
+my @MDAYS=     ( 31,    28,    31,    30,    31,    30,    31,    31,    30,    31,    30,    31);
+my @MONTHNAMES=("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+my $KEYLENGTH = 40;
+my $MESSAGESTOREPORT = 5;
+
+CommandHandler::set_cmdoutput_path($COLLECTDIR);
+
+$checkedfile = "$NTF_HOME/logs/NotificationProcess.log";
+system("cp $checkedfile $checkedfile.bak");
+system("cat </dev/null >$checkedfile");
+my $CMD = "ps -eyo pid,args | grep ntf | grep server | grep -v grep";
+if(! -e "$NTF_HOME/logs/notification.pid") {
+    my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD, $errmsg, "-");
+    if ($cmdresult == 0) {
+	while (chomp($_ = <$cmdoutput>)) {
+	    $_ =~ /([0-9]*)/;
+	    if ($1 != "") {
+		$pid = $1;
+	    }
+	    else {
+		$pid = 0;
+	    }
+	}
+    }
+    else {
+	print "Error executing command: $CMD\n" .
+            "Return code: $cmdresult\n";
+	$result = 1;
+    }
+}
+else { 
+    chomp($pid = `head $NTF_HOME/logs/notification.pid`);
+}
+if (! $result) {
+    system("kill -QUIT $pid");
+    system("cp $checkedfile $NTF_HOME/logs/threadstatus");
+    system("cat </dev/null >$checkedfile");
+    system("cat $checkedfile.bak >>$checkedfile");
+}
+
+my $print = 0;
+my $threads = 0;
+my $CMD="cat $NTF_HOME/logs/threadstatus";
+my ($cmdresult, $cmdoutput) = CommandHandler::get_cmdoutput_file($CMD, $errmsg, "-");
+if ($cmdresult == 0) {
+    while (chomp($_ = <$cmdoutput>)) {
+        ++$threads if /tid=0x/;
+        if (/deadlock/) {
+            $print = 1;
+            $result = 1;
+        }
+        print "$_\n" if $print;
+    }
+}
+
+
+if (! $result) { print "The notification process has $threads threads\n";}
+# If there are lots of traffic it could span lots of threads 
+# System could have more than 200 thread and so this check is 
+# Unnecessary
+#$result = 1 if $threads > 200;
+
+exit $result;
+

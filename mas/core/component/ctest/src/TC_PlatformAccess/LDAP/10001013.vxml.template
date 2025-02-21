@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="
+                        http://www.w3.org/2001/vxml
+                        http://www.w3.org/TR/voicexml21/vxml.xsd">
+                <var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+                <var name="community" />
+        <form id="main_form">
+                <block>
+                        <script>
+                                community = mas.subscriberGetCommunityStringAttribute(PHONE_NUMBER,"ou")[0];
+                                mas.systemSetCommunityRestriction(community);
+                                community = mas.subscriberGetCommunityStringAttribute(PHONE_NUMBER,"ou")[0];
+                        </script>
+                        <goto next="#second_form"/>
+                        <catch event="error">
+                                <log>TC 10001013 FAILED - Search in MUR with legal community restriction failed</log>
+                                <exit/>
+                        </catch>
+                </block>
+        </form>
+        <form id="second_form">
+                <block>
+                        <script>
+                                mas.systemSetCommunityRestriction('NOCOMMUNITY');
+                                community = mas.subscriberGetCommunityStringAttribute(PHONE_NUMBER,"ou")[0];
+                        </script>
+                        <log>TC 10001013 FAILED - Search in MUR with illegal community restriction succeeded anyway</log>
+                        <catch event="error.com.mobeon.platform.datanotfound">
+                                <goto next="#third_form"/>
+                        </catch>
+                </block>
+        </form>
+        <form id="third_form">
+                <block>
+                        <script>
+                                mas.systemClearCommunityRestriction();
+                                community = mas.subscriberGetCommunityStringAttribute(PHONE_NUMBER,"ou")[0];
+                        </script>
+                                <log>TC 10001013 PASSED</log>
+                        <catch event="error.com.mobeon.platform.datanotfound">
+                                <log>TC 10001013 FAILED - ClearCommunity restriction failed</log>
+                                <exit />
+                        </catch>
+                </block>
+        </form>
+
+        <catch event="error">
+                <log>TC 10001013 FAILED <value expr="_event" /> <value expr="_message" /></log>
+                <exit />
+        </catch>
+
+        <catch event="connection.disconnect.hangup"> <log>Hung up!</log> <exit /> 
+        </catch> 
+</vxml>

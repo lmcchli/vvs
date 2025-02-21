@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/reprompt/" type="application/xml+ccxml">
+        <document src="reprompt_4.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/reprompt/" type="application/xml+vxml">
+        <document src="reprompt_4.vxml"/>
+    </documents>
+</application>

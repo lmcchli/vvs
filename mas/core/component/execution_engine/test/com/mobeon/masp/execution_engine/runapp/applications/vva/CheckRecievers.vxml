@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="emailAddressListChecked" />
+   <var name="emailAddressList" />
+   <var name="mediaType" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_emailAddressList" />
+      <var name="p_mediaType" />
+      <block>
+         <assign name="emailAddressList" expr="p_emailAddressList" />
+         <assign name="mediaType" expr="p_mediaType" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="emailAddressListChecked" expr="Message_CheckRecepients(emailAddressList, mediaType)" />
+         <if cond="Utility_GetArrayLength (emailAddressList) == Utility_GetArrayLength(emailAddressListChecked)">
+            <goto next="#Return1" />
+            <elseif cond="((Utility_GetArrayLength(emailAddressListChecked) &lt; Utility_GetArrayLength (emailAddressList)) &amp;&amp; Utility_GetArrayLength(emailAddressListChecked) &gt; 0) &amp;&amp; mediaType == 'voice'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(552)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Utility_GetArrayLength(emailAddressListChecked) &lt; Utility_GetArrayLength (emailAddressList)) &amp;&amp; Utility_GetArrayLength(emailAddressListChecked) &gt; 0) &amp;&amp; mediaType == 'video'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(553)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Utility_GetArrayLength(emailAddressListChecked) &lt; Utility_GetArrayLength (emailAddressList)) &amp;&amp; Utility_GetArrayLength(emailAddressListChecked) &gt; 0) &amp;&amp; mediaType == 'fax'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(554)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="((Utility_GetArrayLength(emailAddressListChecked) &lt; Utility_GetArrayLength (emailAddressList)) &amp;&amp; Utility_GetArrayLength(emailAddressListChecked) &gt; 0) &amp;&amp; mediaType == 'email'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(555)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0 &amp;&amp; Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'voice'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(556)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0) &amp;&amp; mediaType == 'voice'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(560)" />
+            </prompt>
+            <goto next="#Return1" />
+            <elseif cond="Utility_GetArrayLength(emailAddressListChecked) == 0 &amp;&amp; Utility_GetArrayLength(emailAddressList) == 1" />
+            <goto next="#assign2" />
+            <elseif cond="Utility_GetArrayLength(emailAddressListChecked) == 0" />
+            <goto next="#assign2" />
+            <else />
+            <goto next="#assign2" />
+         </if>
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="Utility_ConcatArray(new Array(mediaType), emailAddressListChecked)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="assign2">
+      <block>
+         <assign name="emailAddressListChecked" expr="Message_CheckRecepients(emailAddressList, 'voice')" />
+         <if cond="(Utility_GetArrayLength(emailAddressListChecked) == Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'video'">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(564)" />
+            </prompt>
+            <goto next="#Return3" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'fax'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(565)" />
+            </prompt>
+            <goto next="#Return3" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'email'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(566)" />
+            </prompt>
+            <goto next="#Return3" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0 &amp;&amp; Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'video'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(557)" />
+            </prompt>
+            <goto next="#Return2" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0 &amp;&amp; Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'fax'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(558)" />
+            </prompt>
+            <goto next="#Return2" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0 &amp;&amp; Utility_GetArrayLength(emailAddressList) == 1) &amp;&amp; mediaType == 'email'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(559)" />
+            </prompt>
+            <goto next="#Return2" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0) &amp;&amp; mediaType == 'video'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(561)" />
+            </prompt>
+            <goto next="#Return2" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0) &amp;&amp; mediaType == 'fax'" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(562)" />
+            </prompt>
+            <goto next="#Return2" />
+            <elseif cond="(Utility_GetArrayLength(emailAddressListChecked) == 0) &amp;&amp; mediaType == 'email'" />
+            <goto next="#prompt12" />
+            <else />
+            <goto next="#prompt12" />
+         </if>
+      </block>
+   </form>
+   <form id="Return3">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="Utility_ConcatArray(new Array('voice'), emailAddressListChecked)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="Return2">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(null)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="prompt12">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(563)" />
+         </prompt>
+         <goto next="#Return2" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

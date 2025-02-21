@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form>
+		<record name="myrecording">
+			<filled>
+				<!-- We shouldn't come here-->
+				<log label="error">TC 20103009 Failed (filled was executed)</log>
+			</filled>
+		</record>
+	</form>
+	<catch event="connection.disconnect.hangup">
+		<if cond="myrecording != undefined">
+			<if cond="myrecording$.duration &gt; 0">
+				<log label="error">TC 20103009 Passed (duration was:<value expr="myrecording$.duration"/>)</log>
+			</if>
+			<else/>
+			<log label="error">TC 20103009 Failed (duration was: <value expr="myrecording$.duration"/>)</log>
+		</if>
+	</catch>
+</vxml>

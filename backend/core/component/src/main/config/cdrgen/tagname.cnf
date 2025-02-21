@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The follwing 2 rows are only used when XSL is used. The first row replaces the one above. -->
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> -->
+<!-- <?xml-stylesheet type="text/xsl" href="mer.xsl"?> -->
+
+<!DOCTYPE config SYSTEM "mer.dtd">
+
+<config>
+	<attr>
+		<tagname number="1" type="0" name="un"/>
+	</attr>
+	<attr>
+		<tagname number="5" type="0" name="po"/>
+	</attr>
+	<attr>
+		<tagname number="25" type="0" name="cl"/>
+	</attr>
+	<attr>
+		<tagname number="26" type="0" name="vs"/>
+	</attr>
+	<attr>
+		<tagname number="30" type="0" name="cd"/>
+	</attr>
+	<attr>
+		<tagname number="31" type="0" name="cg"/>
+	</attr>
+	<attr>
+		<tagname number="32" type="0" name="ni"/>
+	</attr>
+	<attr>
+		<tagname number="40" type="0" name="ty"/>
+	</attr>
+	<attr>
+		<tagname number="44" type="0" name="id"/>
+	</attr>
+	<attr>
+		<tagname number="46" type="0" name="ti"/>
+	</attr>
+	<attr>
+		<tagname number="50" type="0" name="ms"/>
+	</attr>
+	<attr>
+		<tagname number="51" type="0" name="lc"/>
+	</attr>
+	<attr>
+		<tagname number="0" type="1" name="it"/>
+	</attr>
+	<attr>
+		<tagname number="1" type="1" name="et"/>
+	</attr>
+	<attr>
+		<tagname number="2" type="1" name="sz"/>
+	</attr>
+	<attr>
+		<tagname number="3" type="1" name="tc"/>
+	</attr>
+	<attr>
+		<tagname number="4" type="1" name="pt"/>
+	</attr>
+	<attr>
+		<tagname number="5" type="1" name="to"/>
+	</attr>
+	<attr>
+		<tagname number="6" type="1" name="ot"/>
+	</attr>
+	<attr>
+		<tagname number="7" type="1" name="oi"/>
+	</attr>
+	<attr>
+		<tagname number="8" type="1" name="ed"/>
+	</attr>
+	<attr>
+		<tagname number="9" type="1" name="si"/>
+	</attr>
+	<attr>
+		<tagname number="10" type="1" name="sp"/>
+	</attr>
+	<attr>
+		<tagname number="11" type="1" name="st"/>
+	</attr>
+	<attr>
+		<tagname number="12" type="1" name="mt"/>
+	</attr>
+	<attr>
+		<tagname number="13" type="1" name="me"/>
+	</attr>
+	<attr>
+		<tagname number="14" type="1" name="rs"/>
+	</attr>
+	<attr>
+		<tagname number="15" type="1" name="er"/>
+	</attr>
+	<attr>
+		<tagname number="16" type="1" name="on"/>
+	</attr>
+	<attr>
+		<tagname number="17" type="1" name="pr"/>
+	</attr>
+	<attr>
+		<tagname number="18" type="1" name="ct"/>
+	</attr>
+	<attr>
+		<tagname number="19" type="1" name="dr"/>
+	</attr>
+	<attr>
+		<tagname number="20" type="1" name="fe"/>
+	</attr>
+	<attr>
+		<tagname number="21" type="1" name="ft"/>
+	</attr>
+	<attr>
+		<tagname number="22" type="1" name="go"/>
+	</attr>
+	<attr>
+		<tagname number="23" type="1" name="in"/>
+	</attr>
+	<attr>
+		<tagname number="24" type="1" name="pa"/>
+	</attr>
+	<attr>
+		<tagname number="25" type="1" name="rc"/>
+	</attr>
+	<attr>
+		<tagname number="26" type="1" name="rt"/>
+	</attr>
+	<attr>
+		<tagname number="27" type="1" name="re"/>
+	</attr>
+	<attr>
+		<tagname number="28" type="1" name="mc"/>
+	</attr>
+	<attr>
+		<tagname number="29" type="1" name="va"/>
+	</attr>
+	<attr>
+		<tagname number="30" type="1" name="ac"/>
+	</attr>
+	<attr>
+		<tagname number="31" type="1" name="am"/>
+	</attr>
+	<attr>
+		<tagname number="32" type="1" name="at"/>
+	</attr>
+	<attr>
+		<tagname number="33" type="1" name="ar"/>
+	</attr>
+	<attr>
+		<tagname number="34" type="1" name="mu"/>
+	</attr>
+	<attr>
+		<tagname number="35" type="1" name="op"/>
+	</attr>
+	<attr>
+		<tagname number="36" type="1" name="ps"/>
+	</attr>
+	<attr>
+		<tagname number="37" type="1" name="bn"/>
+	</attr>	
+	<attr>
+		<tagname number="38" type="1" name="lt"/>
+	</attr>	
+	<attr>
+		<tagname number="67" type="1" name="tm"/>
+	</attr>
+	<attr>
+		<tagname number="68" type="1" name="rd"/>
+	</attr>
+	<attr>
+		<tagname number="69" type="1" name="iv"/>
+	</attr>
+	<attr>
+		<tagname number="70" type="1" name="im"/>
+	</attr>
+	<attr>
+		<tagname number="71" type="1" name="if"/>
+	</attr>
+	<attr>
+		<tagname number="72" type="1" name="pa"/>
+	</attr>
+	<attr>
+		<tagname number="73" type="1" name="pb"/>
+	</attr>
+	<attr>
+		<tagname number="74" type="1" name="pc"/>
+	</attr>
+	<attr>
+		<tagname number="75" type="1" name="pd"/>
+	</attr>
+	<attr>
+		<tagname number="76" type="1" name="pe"/>
+	</attr>
+	<attr>
+		<tagname number="77" type="1" name="pf"/>
+	</attr>
+	<attr>
+		<tagname number="78" type="1" name="pg"/>
+	</attr>
+	<attr>
+		<tagname number="79" type="1" name="ph"/>
+	</attr>
+	<attr>
+		<tagname number="80" type="1" name="pi"/>
+	</attr>
+	<attr>
+		<tagname number="81" type="1" name="pj"/>
+	</attr>	
+</config>

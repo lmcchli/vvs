@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="operateandmaintainmanager.xsd">
+	<operateandmaintainmanager>
+		<omm 
+			hostname="localhost"  
+			rpcmaxnoofretries="10" 
+			rpcretrydelaysec="5" 
+			countersavetimeout="5" 
+			countersavefilenamesufix="CounterData.dat" 
+			countersavefilenamepath="data" 
+			masnoresponsetimeoutlimituntildown="20"
+			logicalzone="logicalzone"
+			serviceinitthreshold="50"
+			port="8081"
+			serviceenablerlowwatermark="10"
+			serviceenablerhighwatermark="100"
+			/>
+	</operateandmaintainmanager>
+</configuration>

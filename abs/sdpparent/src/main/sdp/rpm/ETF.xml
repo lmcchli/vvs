@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--
+		* Copyright (c) Abcxyz AB, 2008. * * All Rights Reserved.
+		Reproduction in whole or in part is prohibited * without the written
+		consent of the copyright owner. * * ABCXYZ MAKES NO REPRESENTATIONS
+		OR WARRANTIES ABOUT THE SUITABILITY OF * THE SOFTWARE, EITHER EXPRESS
+		OR IMPLIED, INCLUDING BUT NOT LIMITED * TO THE IMPLIED WARRANTIES OF
+		MERCHANTABILITY, FITNESS FOR A * PARTICULAR PURPOSE, OR
+		NON-INFRINGEMENT. ABCXYZ SHALL NOT BE LIABLE FOR * ANY DAMAGES
+		SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR * DISTRIBUTING
+		THIS SOFTWARE OR ITS DERIVATIVES. * * @author ehskjjo * @since MMAS
+		1.0 * * @reviewed eraaves 2008-06-24 * @reviewed eolicor 2008-07-10 *
+
+		@reviewed 2009-03-24 Nicolas Gosselin
+	-->
+
+<entityTypesFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="" provider="">
+	<packageInfo>
+		<APP>
+		</APP>
+	</packageInfo>
+	<swBundle name="safSmfBundle=${bundlename}">
+		<removal>
+			<offline>
+				<command>remove.sh</command>
+				<args>${bundlename}</args>
+				<executionEnvironment />
+			</offline>
+			<online>
+				<command></command>
+				<args></args>
+			</online>
+		</removal>
+		<installation>
+			<offline>
+				<command>install.sh</command>
+				<args>${bundlename}</args>
+				<executionEnvironment />
+			</offline>
+			<online>
+                <command></command>
+				<args></args>
+			</online>
+		</installation>
+	</swBundle>
+</entityTypesFile>

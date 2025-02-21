@@ -1,0 +1,198 @@
+#!/usr/xpg4/bin/sh
+id=0
+
+Usage () {
+    echo
+    echo "Usage $0 -a|-n|-o|-d|-l|-e [-y] user password"
+    echo "    -a count all messages"
+    echo "    -n count new messages"
+    echo "    -o count old messages"
+    echo "    -d count deleted messages"
+    echo "    -l list all messages (uid)"
+    echo "    -i list internal date of all messages"
+    echo "    -e empty mailbox"
+    echo
+    echo "    -y yes to all \"are you sure\" questions"
+    echo
+    echo "E.g. \"$0 -ey gnot3 system\" to empty all gnotification3_*"
+    echo "mailboxes without asking questions."
+    echo
+    echo "Remember to set TEST_MAILHOST (to e.g. pamuk.lab.mobeon.com)"
+    echo "in the environment."
+
+    exit 1
+}
+
+getid() {
+    id=`expr $id + 1`
+    echo $id
+}
+
+
+uidlist() {
+    listid=`getid`
+    mconnect -p 143 $TEST_MAILHOST <<EOF >$tmpfile
+a$listid login $1 $2
+b$listid select inbox
+c$listid uid search $3
+d$listid logout
+EOF
+if egrep -i "a[0-9]+ no" $tmpfile >/dev/null 2>&1; then
+    echo "Could not login on $TEST_MAILHOST with password \"$2\"" >$tmpfile
+    return 2
+fi
+cat $tmpfile | tr -d \\015 | fgrep '* SEARCH' | sed -e 's/\* SEARCH//'
+}
+       
+count() {
+    output=`uidlist $1 $2 "$3"`
+    if [ $? = 0 ]; then
+        count=`echo $output | wc -w | tr -d ' '`
+        if [ -z "$count" ]; then
+            count=0
+        fi
+        echo "$count"
+        return 0
+    else
+        return 2
+    fi
+}       
+
+empty() {
+    myid=`getid`
+    output=`uidlist $1 $2 undeleted`
+    if [ $? = 0 ]; then
+        list=`echo $output|sed -e 's/^ *//' -e 's/ *$//' -e 's/  */,/g'`
+        if [ "$interactive" != yes ]; then
+            while [ -z "$y" ]; do
+                echo "ok to delete $list from $1? (y/n) \c"
+                read y
+                if [ "$y" = "n" ]; then
+                    rm $tmpfile
+                    exit 0
+                fi
+                if [ "$y" != "y" ]; then
+                    y=""
+                fi
+            done
+        else
+            echo "Deleting $list from $1"
+        fi
+        mconnect -p 143 $TEST_MAILHOST >/dev/null <<EOF
+a$myid login $1 $2
+b$myid select inbox
+c$myid uid store $list +flags (\deleted)
+d$myid expunge
+e$myid logout
+EOF
+        return 0
+    else
+        return 2
+    fi
+}
+
+internaldatelist() {
+    myid=`getid`
+    output=`uidlist $1 $2 undeleted`
+    if [ $? = 0 ]; then
+        list=`echo $output|sed -e 's/^ *//' -e 's/ *$//' -e 's/  */,/g'`
+        mconnect -p 143 $TEST_MAILHOST <<EOF
+a$myid login $1 $2
+b$myid select inbox
+c$myid uid fetch $list internaldate
+e$myid logout
+EOF
+        return 0
+    else
+        return 2
+    fi
+}
+
+tmpfile="/var/tmp/`basename $0`.$$"
+
+while getopts anodleyi c ; do
+    case $c in
+        a|n|o|d|l|e|i) cmd=$c;;
+        y) interactive=yes;;
+        h|\?) Usage;;
+        *) Usage;;
+    esac
+done
+shift `expr $OPTIND - 1`
+
+if [ -z "$cmd" ]; then
+   cmd=n
+fi       
+         
+if [ -z "$1" -o -z "$2" -o -z "$TEST_MAILHOST" ]; then
+   Usage
+fi
+
+user=$1  
+password=$2
+
+if echo $user|grep gnot >/dev/null 2>&1; then
+    u=`echo $user|sed -e 's/gnot/gnotification/'`
+    u="${u}_"
+    firstuser="${u}0"
+    lastuser="${u}29"
+    i=0
+    while [ $i -lt 30 ]; do
+        user="$user $u$i"
+        i=`expr $i + 1`
+    done
+elif echo $user|fgrep '..' >/dev/null 2>&1; then
+    firstuser=`echo $user|sed -e 's/\.\..*//'`
+    lastuser=`echo $user|sed -e 's/.*\.\.//'`
+else
+    firstuser=$user
+    lastuser=$user
+fi
+
+nonnumericprefix=`echo $firstuser|sed -e 's/[0-9]*$//'`
+tmp=`echo $lastuser|sed -e 's/[0-9]*$//'`
+if [ "$nonnumericprefix" != "$tmp" ]; then
+    echo "Nonnumeric parts of user names differ: $nonnumericprefix - $tmp"
+    exit
+fi
+
+firstuser=`echo $firstuser|sed -e 's/^.*[^0-9]//'`
+lastuser=`echo $lastuser|sed -e 's/^.*[^0-9]//'`
+
+if [ $firstuser != $lastuser ]; then
+    if echo $firstuser|grep '^0[0-9]' >/dev/null 2>&1; then
+        echo "Handling of leading zeros in user numbers is not implemented"
+        exit
+    fi
+fi
+
+douser() {
+    result=0
+    case $cmd in
+        a) echo "$1: \c"; count $1 $password undeleted;;
+        n) echo "$1: \c"; count $1 $password "undeleted unseen";;
+        o) echo "$1: \c"; count $1 $password "undeleted seen";;
+        d) echo "$1: \c"; count $1 $password deleted;;
+        l) echo "$1: \c"; uidlist $1 $password undeleted;;
+        i) echo "$1:"; internaldatelist $1 $password undeleted|grep INTERNALDATE;;
+        e) empty $1 $password;;
+    esac
+    result=$?
+    if [ $result != 0 ]; then
+        cat $tmpfile
+        rm $tmpfile
+        exit $?
+    fi
+}
+
+if [ -z "$firstuser" ]; then
+    douser $nonnumericprefix
+else
+    u=$firstuser
+    while [ $u -le $lastuser ]; do
+        user="$nonnumericprefix$u"
+        douser $user
+        u=`expr $u + 1`
+    done
+fi
+rm $tmpfile

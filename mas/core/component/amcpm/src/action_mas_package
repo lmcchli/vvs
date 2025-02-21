@@ -1,0 +1,84 @@
+#!/bin/sh
+#
+# action_mas_package
+#
+# Started by the jumpstart scripts
+# Used to install one or more packages given as parameters
+#
+# Copyright (C) 2006 Mobeon AB
+# All Rights Reserved
+#
+
+LOGFILE=/var/tmp/pkg.log.$$
+
+install_package()
+{
+	PKGNAME=$1
+
+	#
+	# Locate the package
+	#
+	if [ -f $MOUNTPOINT/dist/$PKGNAME ]; then
+		PKGFILE=$MOUNTPOINT/dist/$PKGNAME
+	else
+		echo "Error: Unable to locate package named ${PKGNAME}!"
+		return 1
+	fi
+
+	echo "   Installing package $PKGNAME... \c"
+
+	/etc/init.d/rc.mas $COMMAND $PKGFILE < /dev/null >$LOGFILE 2>&1
+
+	rc=$?
+
+	case $rc in 
+		0)
+			echo "Ok."
+			return 0
+			;;
+
+		*)
+			echo "Failed (inspect $LOGFILE for details, rc=$rc)"
+			return 1
+			;;
+	esac
+}
+
+#
+# MAIN
+#
+
+if [ $# -le 1 ]; then
+	echo "Error: Action requires at least a command and one package as argument"
+	exit 1
+fi
+
+#
+# Check that the mount point is valid
+#
+if [ ! -d $MOUNTPOINT/dist ]; then
+	echo "Error: Mount point is damaged or not accessable!"
+	exit 5
+fi
+
+#
+# Retrieve command (installmcp or installapp)
+#
+COMMAND=$1
+shift
+case $COMMAND in
+	installapp|installmcp)
+		;;
+	*)
+		echo "Unknown command $COMMAND"
+		exit 1
+		;;
+esac
+
+for a in $*; do
+	if install_package $a; then
+		:
+	else
+		exit 3
+	fi
+done

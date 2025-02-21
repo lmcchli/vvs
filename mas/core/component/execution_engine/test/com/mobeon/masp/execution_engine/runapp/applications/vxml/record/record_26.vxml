@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <nomatch>
+        <log>TCFAIL nomatch</log>
+        <exit></exit>
+    </nomatch>
+
+    <form id="rec1">
+
+        <property name="termchar" value="A" />
+
+        <grammar mode="dtmf" version="1.0" root="rec1_main_rule">
+            <rule id="rec1_main_rule">
+                <one-of>
+                    <item>#</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <record name="recording" dtmfterm="false">
+
+            <filled>
+                <if cond="recording$.maxtime == true">
+                    <log>TCPASS: record ok</log>
+                    <exit/>
+                </if>
+            </filled>
+        </record>
+    </form>
+
+</vxml>

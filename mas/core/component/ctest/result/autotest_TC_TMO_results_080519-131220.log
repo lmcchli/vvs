@@ -1,0 +1,54 @@
+# Test on MAS DP5.006 in lab w/o iMux.
+# All testcases but the three below was executed using the autotest 
+# script. As can be seen when the tc:s were executed 
+# individually they worked perfect. It has not been investigagted why 
+# they failed when executed in the autotest script.
+
+root@jumpstart # ./starfish_engine.sh TC_TMO/tc_tmo_1.sh 
+Result from test: Passed: Verify that the called party information is retrieved from the request URI: 1
+root@jumpstart # ./starfish_engine.sh TC_TMO/tc_tmo_18.sh      
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 408: 18
+root@jumpstart # ./starfish_engine.sh TC_TMO/tc_tmo_42.sh 
+Result from test: Passed: Verify that MAS will use the information from the Diversion header if History-Info also includes redirection information: 42
+
+MAS: MAS_DP5.006: 08-05-19 13:12:23
+Result from test: Passed: Verify that MAS will use the P-Asserted-Identity value if present and valid: 3
+Result from test: Passed: Verify that MAS will use the P-Asserted-Identity header value if the value is a valid user and the From header also includes a valid user different from the user in the P-Asserted-Identity header: 4
+Result from test: Passed: MAS uses the value from P-Asserted-Identity field for setting the calling party number: 5
+Result from test: Passed: MAS will set the calling party as unknown: 6
+Result from test: Passed: MAS will set the calling party as unknown: 7
+Result from test: Passed: MAS will use the value from the P-Asserted-Identity header: 8
+Result from test: Passed: MAS will use the value from the P-Asserted-Identity header: 9
+Result from test: Passed: MAS sets calling party to the phone number retrieved from the P-Asserted-Identity header with SIP-URI: 10
+Result from test: Passed: MAS sets calling party to the phone number retrieved from the P-Asserted-Identity header with TEL-URI: 11
+Result from test: Passed: MAS sets calling party to the phone number retrieved from the P-Asserted-Identity header with SIP-URI: 12
+Result from test: Passed: MAS will use the value from the Remote-Party-ID to set the calling party number: 13
+Result from test: Passed: Verify that MAS sets the redirection number (RDNIS) to the second-to-last and the cause to the last value from the history-info header: 17
+Result from test: Failed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 408: 18
+Find additional information in log/autotest_TC_TMO_mainlog_080519-131220.log
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 404: 19
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 486: 20
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 302: 21
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 487: 22
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 480: 23
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 503: 24
+Result from test: Passed: Verify that MAS sets the correct reason for the redirection when the redirection reason is 410: 25
+Result from test: Passed: Verify that MAS will handle the case when the INVITE includes History-Info with no reason without handling the call as a deposit: 27
+Result from test: Passed: Verify that MAS will handle privacy=history for the second-to-last entry: 28
+Result from test: Passed: Verify that MAS will ignore the privacy=history for all entries other than the second-to-last history-info entry: 29
+Result from test: Passed: Verify that MAS will ignore the privacy=history for all entries other than the second-to-last History-Info entry: 30
+Result from test: Passed: Verify that MAS will handle both ANI and RDNIS as private/restricted if ANI is presented in the P-Asserted-Identity header and privacy value is set to "session": 31
+Result from test: Passed: Verify that MAS will handle the Diversion header correctly when the Privacy header is set to "session" in the request but there is no privacy set in the Diversion header: 41
+Result from test: Failed: Verify that MAS will use the information from the Diversion header if History-Info also includes redirection information: 42
+Find additional information in log/autotest_TC_TMO_mainlog_080519-131220.log
+Result from test: Passed: Verify that MAS will not have any restriction on RDNIS if the Diversion header includes a privacy header with the value "off": 46
+Result from test: Passed: Verify that MAS will will handle more than one privacy parameter: 47
+Result from test: Passed: Verify that MAS will will handle more than one privacy parameter: 48
+Result from test: Passed: Verify that MAS will will handle more than one privacy parameter: 49
+Result from test: Passed: Verify that MAS will will handle more than one privacy parameter: 50
+Result from test: Passed: Verify that MAS will will handle more than one privacy parameter: 51
+Result from test: Passed: Verify that History-Info will not set any restriction to redirecting numbers if privacy is set to a value other than history, session or header: 52
+Result from test: Passed: Verify that MAS will use the default service if service id in request URI does not match 1234 or abcd: 53
+Result from test: Passed: Verify that MAS will use the service 1234 if the request URI is 1234: 54
+Result from test: Passed: Verify that MAS will use the service abcd if the request URI is abcd: 55
+Result from test: Passed: Verify that MAS will use the default service if service id in request URI does not match 1234 or abcd: 56

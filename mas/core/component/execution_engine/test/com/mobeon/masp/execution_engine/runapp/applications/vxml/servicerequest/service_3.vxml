@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="error">
+        <log>TCFAIL caught an error event</log>
+        <exit></exit>
+    </catch>
+
+    <form id="form2">
+
+        <var name="paramName"></var>
+        <var name="TransactionId"></var>
+        <var name="ClientId"></var>
+        <var name="StatusCode"></var>
+        <var name="StatusText"></var>
+
+
+        <block>
+            <script>
+                var parameterNames = ["param88"];
+                var parameterValues = ["value99"];
+                mas.systemSendServiceRequest( "ockelbo",
+                                              "aService",
+                                              66,
+                                              true,
+                                              parameterNames,
+                                              parameterValues);
+            </script>
+        </block>
+        <block>
+            <script>
+                paramName = mas.systemGetServiceResponseParameter( "paramName");
+                TransactionId = mas.systemGetServiceResponseHeaderParameter( "transactionid");
+                ClientId = mas.systemGetServiceResponseHeaderParameter( "clientid");
+                StatusCode = mas.systemGetServiceResponseHeaderParameter( "statuscode");
+                StatusText = mas.systemGetServiceResponseHeaderParameter( "statustext");
+            </script>
+
+            <log>TC: paramName:<value expr="paramName"></value></log>
+            <log>TC: TransactionId:<value expr="TransactionId"></value></log>
+            <log>TC: ClientId:<value expr="ClientId"></value></log>
+            <log>TC: StatusCode:<value expr="StatusCode"></value></log>
+            <log>TC: StatusText:<value expr="StatusText"></value></log>
+            <exit></exit>
+        </block>
+        <block>
+            <log>TCFAIL should not get here</log>
+            <exit></exit>
+        </block>
+    </form>
+</vxml>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+        <transition event="connection.alerting" name="evt">
+            <var name="ev"></var>
+            <script>
+                ev = new Packages.com.mobeon.masp.execution_engine.runapp.EventReporter();
+                ev.reportEvent(_context, 'error.com.mobeon.platform.datanotfound');
+            </script>
+        </transition>
+
+        <transition event="error.com.mobeon.platform.datanotfound" name="evt">
+            <assign name="myState" expr="'generatingESemantic'"></assign>
+            <proxy server="'172.123.45'" port="'1111'"/>
+        </transition>
+
+        <transition event="error.semantic" state="generatingESemantic"name="evt">
+            <log expr="'TCPASS CCXML'"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

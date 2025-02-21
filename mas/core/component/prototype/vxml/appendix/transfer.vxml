@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<form id="transfer_demo">
+		<var name="duration" />
+		<block>
+			<prompt>
+				Calling 
+			</prompt>
+		</block>
+
+		<transfer name="thecall" dest="tel:+46-8-123456" connecttimeout="60s" bridge="true">
+	
+			<!-- This prompt is playes before connections -->
+			<prompt>
+				Press # to disconnect the call
+			</prompt>
+	
+			<grammar mode="dtmf">
+				<rule id="main_rule">
+					<item>#</item>	
+				</rule>
+			</grammar>
+	
+			<filled>
+				<assign name="duration" expr="thecall$.duration"/>
+				<if cond="thecall == 'busy'">
+					<prompt>
+						Line is busy
+					</prompt>
+				<elseif cond="thecall == 'noanswer'"/>
+					<prompt>
+						No answer
+					</prompt>
+				</if>
+			</filled>
+		</transfer>
+
+
+		<block>
+			<log> Duration <value expr="duration" /> </log>
+		</block>
+	</form>
+</vxml>

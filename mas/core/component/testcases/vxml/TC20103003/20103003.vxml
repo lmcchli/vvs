@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+		    <goto next="20103003a.vxml"/>
+		</block>
+	</form>
+	<catch event="nomatch">
+			<if cond="_message == 'leafdocument'">
+				<log label="error">TC 20103003 Passed"</log>
+			<else/>
+				<log label="error">TC 20103003 Failed"</log>
+			</if>
+			<disconnect/>
+	</catch>
+</vxml>

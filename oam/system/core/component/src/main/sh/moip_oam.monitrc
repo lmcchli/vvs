@@ -1,0 +1,8 @@
+check program moip_oam with path "/bin/sh /opt/msgcore/oam/bin/oam status moip" as uid mmas and gid mmas with timeout 20 seconds
+    group oam
+    if status = 1 then restart
+    start program = "/bin/sh /opt/msgcore/oam/bin/oam start moip"
+        as uid mmas and gid mmas with timeout 40 seconds
+    stop program = "/bin/sh /opt/msgcore/oam/bin/oam stop moip"
+        as uid mmas and gid mmas with timeout 40 seconds
+    depends on fsmounted, topologyExists

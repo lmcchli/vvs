@@ -1,0 +1,11 @@
+From: sink@ipms.mobeon.com
+Subject: ipms/message
+To: notification.off@$event.mailhost
+Ipms-Message-Type: notification
+Ipms-Notification-Version: 1.0
+Ipms-Component-From: emComponent=$event.component
+Ipms-Notification-Type: mvas.subscriber.logout
+Ipms-Notification-Content: $event.username
+
+Junk
+

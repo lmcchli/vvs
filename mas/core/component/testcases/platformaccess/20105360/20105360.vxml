@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+	<var name="nofm"/>
+	<var name="msglist"/>
+	<var name="msgno"/>
+	<var name="contentno"/>
+	<var name="contentlist"/>
+	<var name="mob"/>
+    <var name="mediaProperties"/>
+    <var name="props"/>
+    <var name="length"/>
+    <var name="size"/>
+    <block>
+
+		<!-- Get hold of the retriever -->
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+
+
+		<!-- Open up his mailbox -->
+		<script>
+			mailboxid = mas.subscriberGetMailbox (phoneNumber);
+			mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+			mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, 'fifo');
+			nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, null, null, null);
+		</script>
+
+		<script>
+			msgno = 0;
+			msglist = mas.mailboxGetMessages (mailboxlistid);
+
+            <!-- List all messages and all contents-->
+            while (true) {
+                if (msgno == nofm) {
+                    break;
+                }
+                mas.systemLog(3, '********* Message number ' + msgno);
+                props = mas.messageGetStoredProperty(msglist[msgno], 'receiveddate');
+                mas.systemLog(3, 'Date of message :' + msgno + '=' + props[0]);
+                props = mas.messageGetStoredProperty(msglist[msgno], 'subject');
+                mas.systemLog(3, 'Subject of message :' + msgno + '=' + props[0]);
+
+
+                contentlist = mas.messageGetContent (msglist[msgno]);
+                mas.systemLog(3, 'Number of contents in message=' + contentlist.length);
+                var i = 0;
+                while (true) {
+                    if (i == contentlist.length) {
+                        break;
+                    }
+                    mediaProperties = mas.messageGetMediaProperties(9);
+
+                    mas.systemLog(3, 'MediaProperties of content ' + i + ':' + mediaProperties);
+                    size = mas.messageContentSize(contentlist[i]);
+                    mas.systemLog(3, 'Size of content ' + i + '=' + size);
+                    if (mediaProperties.search('voice') != -1 || mediaProperties.search('video') != -1) {
+                        size = mas.messageContentLength(9, 'milliseconds');
+                        mas.systemLog(3, 'Milliseconds of content ' + i + '=' + size);
+                    }
+
+                    i++;
+                }
+
+                msgno++;
+            }
+         </script>
+		<log>nofm=<value expr="nofm"/></log>
+        <log>TC 20105360 FAILED</log>
+	</block>
+
+
+	</form>
+        <catch event="error.com.mobeon.platform.system">
+		    <log>TC 20105360 PASSED Error caught <value expr="_event"/></log>
+            <log>Error message: <value expr="_message"/></log>
+            <exit/>
+       </catch>
+        <catch event="error">
+		    <log>TC 20105360 FAILED Error caught <value expr="_event"/></log>
+		    <exit/>
+       </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

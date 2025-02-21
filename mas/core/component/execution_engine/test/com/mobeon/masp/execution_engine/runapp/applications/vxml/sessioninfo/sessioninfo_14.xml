@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/sessioninfo/" type="application/xml+ccxml">
+        <document src="sessioninfo_14.ccxml" root="true"/>
+    </documents>
+</application>

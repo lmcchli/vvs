@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <property name="timeout" value="5s"></property>
+    <property name="termtimeout" value="3s"></property>
+    <property name="bargein" value="true"></property>
+
+
+    <noinput>
+        <prompt><audio expr="util.getMediaObject('No input')"></audio></prompt>
+    </noinput>
+
+    <nomatch>
+        <prompt><audio expr="util.getMediaObject('No match in grammar')"></audio></prompt>
+    </nomatch>
+
+    <catch>
+        <prompt><audio expr="util.getMediaObject('Event caught!')"></audio></prompt>
+        <prompt><audio expr="_message"></audio></prompt>
+        <exit></exit>
+    </catch>
+
+    <!-- The main menu.
+    Press 1 to do a record test.
+    Press 2 to do a field test.
+    Press 3 to do a recognition test
+    Press 4 to do a transfer test -->
+
+    <form id="mainForm">
+        <var name="menuPrompt" expr=""></var>
+
+
+        <field name="menuInput">
+
+            <grammar version="1.0" mode="dtmf" root="menu_rule">
+                <rule id="menu_rule">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                        <item>4</item>
+                    </one-of>
+                </rule>
+            </grammar>
+
+            <prompt><audio expr="util.getMediaObject('Press 1 to record. Press 2 to test a field. Press 3 to test recognitions. Press 4 to test transfer')"></audio></prompt>
+
+            <filled>
+                <if cond="menuInput == '1'">
+                    <goto next="#recordForm"></goto>
+                    <elseif cond="menuInput == '2'"/>
+                    <goto next="#fieldForm"></goto>
+                    <elseif cond="menuInput == '3'"/>
+                    <goto next="#recognitionForm"></goto>
+                    <elseif cond="menuInput == '4'"/>
+                    <goto next="#transferForm"></goto>
+                </if>
+            </filled>
+        </field>
+
+    </form>
+
+    <!-- 1. The record test.
+    There is both a DTMF and ASR grammar active for the recording. -->
+
+    <form id="recordForm">
+
+        <grammar xml:lang='en-GB' version='1.0' mode='voice' root='root'>
+            <rule id='root'>
+                <one-of>
+                    <item>you</item>
+                    <item>one</item>
+                    <item>momma</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <grammar version="1.0" mode="dtmf" root="menu_rule">
+            <rule id="menu_rule">
+                <one-of>
+                    <item>1</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <record name="recording">
+            <prompt><audio expr="util.getMediaObject('Recording. Press 1 to cancel')"></audio></prompt>
+            <filled>
+                <if cond="recording != undefined">
+                    <prompt><audio expr="util.getMediaObject('Recording succeeded')"></audio></prompt>
+                    <else/>
+                    <prompt><audio expr="util.getMediaObject('Nothing was recorded')"></audio></prompt>
+                </if>
+            </filled>
+        </record>
+
+    </form>
+
+    <!-- 2. The field test.
+    There is both a DTMF and ASR grammar active.
+    "**" is allowed in the DTMF grammar. If you terminate with "**", the execution will continue in another menu
+    -->
+    <form id="fieldForm">
+        <grammar xml:lang='en-GB' version='1.0' mode='voice' root='root'>
+            <rule id='root'>
+                <one-of>
+                    <item>you</item>
+                    <item>one</item>
+                    <item>momma</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <grammar xml:lang='en-GB' version='1.0' mode="dtmf" root="menu_rule">
+            <rule id="menu_rule">
+                <one-of>
+                    <item>**</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <field name="fieldName">
+            <prompt><audio expr="util.getMediaObject('Say one or press **')"></audio></prompt>
+            <filled>
+                <if cond="fieldName != undefined">
+                    <if cond="fieldName$.utterance == '**'">
+                        <goto next="#fieldForm2"></goto>
+                    </if>
+                    <prompt><audio expr="util.getMediaObject('You terminated with')"></audio></prompt>
+                    <prompt><audio expr="fieldName"></audio></prompt>
+                    <log>Value of utterances:
+                        <value expr="application.lastresult$.utterance" />
+                        <value expr="fieldName$.utterance" />
+                    </log>
+                </if>
+            </filled>
+        </field>
+
+    </form>
+
+    <!-- Execution resumes here if you press "**" in the field test.
+    In this menu, only "*" is allowed-->
+    <form id="fieldForm2">
+
+        <grammar version="1.0" mode="dtmf" root="menu_rule">
+            <rule id="menu_rule">
+                <one-of>
+                    <item>*</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <field name="fieldName">
+            <prompt><audio expr="util.getMediaObject('Press *')"></audio></prompt>
+            <filled>
+                <prompt><audio expr="util.getMediaObject('You terminated with')"></audio></prompt>
+                <prompt><audio expr="fieldName"></audio></prompt>
+                <log>Value of utterances:
+                    <value expr="application.lastresult$.utterance" />
+                    <value expr="fieldName$.utterance" />
+                </log>
+            </filled>
+        </field>
+    </form>
+
+
+    <!-- 3. The recognition test.
+    Enter your own interesting tokens in the grammar below and have them reread on match.
+     Note that the grammar allows matching of concatenated tokens! Up to 3 concatenations-->
+
+    <form id="recognitionForm">
+        <grammar xml:lang='en-GB' version='1.0' mode='voice' root='root'>
+            <rule id='root'>
+                <one-of>
+                    <item>one</item>
+                    <item>two</item>
+                    <item>up</item>
+                    <item>down</item>
+                </one-of>
+            </rule>
+        </grammar>
+
+        <!--grammar xml:lang='sv-SV' version='1.0' mode='voice' root='root'>
+            <rule id='root'>
+                <one-of>
+                    <item>ett</item>
+                    <item>två</item>
+                    <item>upp</item>
+                    <item>ner</item>
+                </one-of>
+            </rule>
+        </grammar-->
+
+        <!--grammar xml:lang='en-GB' version="1.0" mode="voice" root="gd1_main_rule">
+            <rule id="gd1_main_rule2">
+                <one-of>
+                    <item>one</item>
+                    <item>two</item>
+                    <item>momma</item>
+                </one-of>
+            </rule>
+            <rule id="gd1_main_rule" scope="public">
+                <one-of>
+                    <item repeat="1-3">
+                        <ruleref uri="#gd1_main_rule2" />
+                    </item>
+                </one-of>
+            </rule>
+        </grammar-->
+
+        <field name="asr_field">
+            <prompt><audio src="../prompt/beep.wav">Say one, two, up or down and some other junk text to make this prompt long</audio></prompt>
+            <filled>
+                <prompt><audio expr="util.getMediaObject('I will now repeat what you said')"></audio></prompt>
+                <prompt><audio expr="util.getMediaObject('From field utterance')"></audio></prompt>
+                <prompt><audio expr="asr_field$.utterance"></audio></prompt>
+                <prompt><audio expr="util.getMediaObject('From application last result  utterance')"></audio></prompt>
+                <prompt><audio expr="application.lastresult$.utterance"></audio></prompt>
+
+                <prompt><audio expr="util.getMediaObject('Returning to main menu')"></audio></prompt>
+                <goto next="#mainForm"></goto>
+            </filled>
+
+        </field>
+    </form>
+
+
+    <!-- 4. The transfer test. You can try aborting the transfer using "1" or "one" -->
+
+    <form id="transferForm">
+        <transfer name="call" dest="121212" bridge="true" connecttimeout="10s">
+            <grammar mode='voice' root='root'>
+                <rule id='root'>
+                    <one-of>
+                        <item>one</item>
+                    </one-of>
+                </rule>
+            </grammar>
+
+            <grammar version="1.0" mode="dtmf" root="menu_rule">
+                <rule id="menu_rule">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+
+            <prompt>
+                <prompt><audio expr="util.getMediaObject('Starting transfer')"></audio></prompt>
+            </prompt>
+            <filled>
+                <prompt><audio expr="util.getMediaObject('Transfer ended')"></audio></prompt>
+            </filled>
+        </transfer>
+    </form>
+
+</vxml>

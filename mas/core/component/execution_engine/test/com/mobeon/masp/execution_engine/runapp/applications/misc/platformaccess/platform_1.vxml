@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- We expect two errors before we are done -->
+    <var name="numberOfErrors" expr="0"></var>
+
+    <catch event="error.com.mobeon.platform">
+        <script>numberOfErrors=numberOfErrors+1</script>
+        <if cond="_event==undefined">
+            <log>ERROR</log>
+        </if>
+        <if cond="_message==undefined">
+            <log>ERROR</log>
+        </if>
+        <if cond="numberOfErrors == 2">
+            <log expr="_message"></log>
+            <log>pass</log>
+        </if>
+    </catch>
+
+
+    <form id="main_form">
+        <block>
+            <script>
+                mas.subscriberGetGreeting('', '', '', '');
+            </script>
+        </block>
+        <block>
+            <goto next="#form2"></goto>
+        </block>
+
+
+    </form>
+
+    <form id="form2">
+        <script>
+            mas.subscriberGetGreeting('', '', '', '');
+        </script>
+    </form>
+
+</vxml>

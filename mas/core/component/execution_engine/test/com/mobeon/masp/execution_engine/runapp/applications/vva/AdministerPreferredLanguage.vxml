@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="proc1">
+      <subdialog name="sub" src="SetPreferredLanguage.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <param name="p_ani" expr="ANI" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <goto next="AdministerMailbox.vxml" />
+         </filled>
+      </subdialog>
+   </form>
+</vxml>

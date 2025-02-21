@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch event="error.com.mobeon.platform.system">
+        <log>TCPASS. message: <value expr="_message"></value></log>
+        <exit></exit>
+    </catch>
+
+    <form id="form2">
+        <block>
+            <script>
+                mas.systemGetServiceResponseHeaderParameter( "ClientId");
+            </script>
+        </block>
+        <block>
+            <log>TCFAIL should not get here</log>
+            <exit></exit>
+        </block>
+    </form>
+</vxml>

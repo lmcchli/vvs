@@ -1,0 +1,13 @@
+To be able to compile sipp, you need to following packages :
+
+libgcrypt-devel-1.2.2-13.2.x86_64.rpm
+libgpg-error-devel-1.0-16.4.x86_64.rpm
+libnet-1.1.2.1-18.2.x86_64.rpm
+libpcap-0.9.4-12.4.1.x86_64.rpm
+openssl-0.9.8a-18.26.x86_64.rpm
+openssl-devel-0.9.8a-18.26.x86_64.rpm
+util-linux-crypto-devel-2.12a-14.15.x86_64.rpm
+
+if time permits, I'll try to add their compilation in the sipp Makefile.
+
+to compile run : make pcapplay_ossl

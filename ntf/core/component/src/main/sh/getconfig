@@ -1,0 +1,58 @@
+#! /bin/sh
+Usage ()
+{
+  echo    
+  echo "Usage: $0 [ -d <instancehome> ] <parameter> [<configfilename>]"
+  echo " <parameter> is the name of the config parameter."
+  echo "The parameter value is taken from the first of"
+  echo "  1  <configfilename>"
+  echo "  2  <instancehome>/cfg/notification.cfg"
+  echo "  3  cfg/notification.cfg"
+  echo "  4  ../cfg/notification.cfg"
+  echo "  5  <ntf_install_dir>/cfg/notification.cfg"
+
+  exit 1
+}
+
+JAVA=/opt/java/bin/java
+while getopts hd: c ; do
+    case $c in
+        d) instanceproperty="-DntfHome=$OPTARG";;
+        h|\?) Usage;;
+    esac
+done
+shift `expr $OPTIND - 1`
+
+## Check arguments ##
+if [ $# -ne 1 ] && [ $# -ne 2 ] ; then
+    echo "Error in number of arguments"
+    Usage
+    
+else
+    param=$1
+    if [ $# -eq 2 ] ; then
+        file=$2
+        if [ -r "$file" ] ; then
+            fileProperty="-DconfigFile=$file"
+        else
+            echo "Can not read the file \"$file\"."
+            Usage
+        fi
+    fi
+fi
+
+
+## Check NTF jar file ##
+basedir=/opt/moip/ntf/bin
+
+# Setup java class path
+libs=`ls /opt/moip/lib/moip/*.jar /opt/moip/ntf/bin/*.jar`
+for lib in $libs
+do 
+JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+done
+
+cfglocation=/opt/moip/config/ntf/cfg/notification.cfg
+
+$JAVA -classpath $JAVA_CLASSPATH $instanceproperty $fileProperty com.mobeon.ntf.Config --getconfig $param $cfglocation
+

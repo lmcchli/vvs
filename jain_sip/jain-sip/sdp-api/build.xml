@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+Avaliable targets are:
+
+    - all           -> Builds everything: SDP API and docs.
+
+    - javadoc       -> Builds java documentation.
+
+    - compilesdpapi -> Compiles the SDP API.
+
+    - cleandocs     -> Cleans the java documentation.
+
+    - clean         -> Cleans everything: All the built stuff and temp files.
+
+    - init	        -> Create the classes directory.
+-->
+
+<project name="SDP-API" default="all" >
+
+	<property name="javac.deprecation" value="true"/>
+	<property name="javac.optimize" value="true"/>
+	<property name="javac.debug" value="true"/>
+	<property name="javac.debuglevel" value="source,lines,vars"/>
+	<property name="javac.nowarn" value="false"/>
+	<property name="javac.source" value="1.5"/>
+	<property name="javac.target" value="${javac.source}"/>
+
+	<!-- set global properties for this build -->
+	<property name="root" value="." />
+
+	<!-- Where the classes are built -->
+	<property name="classes" value="${root}/classes" />
+
+	<!-- where the docs live -->
+	<property name="docdir" value="${root}/javadoc" />
+
+	<!-- where the src lives -->
+	<property name= "srcroot" value = "${root}/src" />
+	
+	<!-- where are the lib -->
+	<property name= "sdp_api_jar" value = "sdp-api.jar" />
+
+	
+	<property name ='j2se_api' value='http://java.sun.com/j2se/1.5.0/docs/api/'/>
+	
+	<target name="all" depends="clean,compilesdpapi,javadoc" />
+
+	<!-- Clean everything -->
+	<target name="clean">
+		<delete dir="${classes}/com" />
+		<delete dir='${classes}'/>
+		<delete file="./${sdp_api_jar}"/>
+		<delete dir='javadoc'/>
+	</target>
+
+	<!-- Create ${classes} -->
+	<target name="init">
+		<mkdir dir="${classes}"/>
+	</target>
+
+	<target name="cleandocs">
+		<delete dir="${docdir}" />
+	</target>
+
+	<target name="javadoc" >
+		<mkdir dir='${docdir}'/>
+		<javadoc packagenames="com.mobeon.sdp"
+				sourcepath="${srcroot}"
+				destdir="${docdir}"
+				use="true"
+				splitindex="true"
+				windowtitle="Mobeon SDP API"
+				doctitle="Mobeon SDP API"
+				public="true"
+				author="true"
+				version="true"
+				defaultexcludes="yes"
+				additionalparam="-breakiterator">
+			<classpath>
+				<pathelement location="${sdp_api_jar}"/>
+			</classpath>
+			<link href="${j2se_api}" />
+			<header>
+				<![CDATA[<b>Mobeon SDP API </b>]]>
+			</header>
+		</javadoc>
+	</target>
+
+	<target name="compilesdpapi"  depends="init">
+		<javac	debug="${javac.debug}" debuglevel="${javac.debuglevel}"
+				source="${javac.source}" target="${javac.target}"
+				nowarn="${javac.nowarn}"
+				deprecation="${javac.deprecation}"
+				optimize="${javac.optimize}"
+				srcdir="${srcroot}"
+				includes="com/mobeon/sdp/**/*.java"
+				destdir= "${classes}">
+		</javac>
+		<jar destfile="${sdp_api_jar}" basedir="${classes}" includes="com/mobeon/sdp/**/*.class"/>
+	</target>
+
+</project>

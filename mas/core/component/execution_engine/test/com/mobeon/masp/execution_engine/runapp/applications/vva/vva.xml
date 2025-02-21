@@ -1,0 +1,70 @@
+<application>
+    <documents base="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vva/" type="application/xml+ccxml">
+        <document src="incoming_call.ccxml" root="true"/>
+    </documents>
+    <documents base="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vva/" type="application/xml+vxml">
+        <document src="Main.vxml"/>
+        <document src="CallType.vxml"/>
+        <document src="AddressMessage.vxml"/>
+        <document src="AdministerFastLogin.vxml"/>
+        <document src="AdministerGreetings.vxml"/>
+        <document src="AdministerLoginOptions.vxml"/>
+        <document src="AdministerMailbox.vxml"/>
+        <document src="AdministerPin.vxml"/>
+        <document src="AskDepositOrRetrieval.vxml"/>
+        <document src="AutoPlay.vxml"/>
+        <document src="CalledNumberLogin.vxml"/>
+        <document src="CallType.vxml"/>
+        <document src="CheckReciever.vxml"/>
+        <document src="Deposit.vxml"/>
+        <document src="DepositAskForNumber.vxml"/>
+        <document src="DepositMenu.vxml"/>
+        <document src="DepositPlayGreeting.vxml"/>
+        <document src="DisconnectActions.vxml"/>
+        <document src="FirstTimeLogin.vxml"/>
+        <document src="FirstTimeLoginDynamic.vxml"/>
+        <document src="FirstTimeLoginGreeting.vxml"/>
+        <document src="FirstTimeLoginPin.vxml"/>
+        <document src="FirstTimeLoginSpokenName.vxml"/>
+        <document src="FunGreetings.vxml"/>
+        <document src="GetMessageMenu.vxml"/>
+        <document src="GetMessages.vxml"/>
+        <document src="GetPhoneNumber.vxml"/>
+        <document src="GetPin.vxml"/>
+        <document src="Goodbye.vxml"/>
+        <document src="GreetingMenu.vxml"/>
+        <document src="Identification.vxml"/>
+        <document src="InvalidKey.vxml"/>
+        <document src="IvrToSms.vxml"/>
+        <document src="LoginActions.vxml"/>
+        <document src="Main.vxml"/>
+        <document src="MainMenu.vxml"/>
+        <document src="MessageInventory.vxml"/>
+        <document src="NewMessageAnnouncement.vxml"/>
+        <document src="NumberAnalysis.vxml"/>
+        <document src="OutboundCall.vxml"/>
+        <document src="OutdialNotification.vxml"/>
+        <document src="Pause.vxml"/>
+        <document src="PlayBody.vxml"/>
+        <document src="PlayCurrentGreetings.vxml"/>
+        <document src="PlayDateTime.vxml"/>
+        <document src="PlayFrom.vxml"/>
+        <document src="PlayHeaderAndBody.vxml"/>
+        <document src="PlayMessage.vxml"/>
+        <document src="PlayStatus.vxml"/>
+        <document src="PrintFaxOrEmail.vxml"/>
+        <document src="QuotaCheckDeposit.vxml"/>
+        <document src="QuotaCheckRetrieval.vxml"/>
+        <document src="RecordGreeting.vxml"/>
+        <document src="RecordMessage.vxml"/>
+        <document src="RespondAndForward.vxml"/>
+        <document src="SendMessage.vxml"/>
+        <document src="SendMessageMenu.vxml"/>
+        <document src="SetPreferredLanguage.vxml"/>
+        <document src="SetPromptLanguage.vxml"/>
+        <document src="SpokenNameMenu.vxml"/>
+        <document src="StorePreferredLanguage.vxml"/>
+        <document src="Transfer.vxml"/>
+        <document src="ValidateNumber.vxml"/>
+    </documents>
+</application>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--This variable contains a message recorded by the user. It has been added by the system automatically.-->
+   <var name="message" />
+   <!--This variable contains the duration of a recorded message. It has been added by the system automatically.-->
+   <var name="messageDuration" />
+   <!--This variable contains the size of a recorded message. It has been added by the system automatically.-->
+   <var name="messageSize" />
+   <!--This variable contains the termination key used in a record shape. It has been added by the system automatically.-->
+   <var name="messageTermchar" />
+   <!--This variable contains the maximum time for a record shape. It has been added by the system automatically.-->
+   <var name="messageMaxtime" />
+   <!--Seconds left of recording.-->
+   <var name="secondsLeft" />
+   <var name="maxLength" />
+   <var name="mediaType" />
+   <var name="recordingType" />
+   <var name="messageId" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_mediaType" />
+      <var name="p_recordingType" />
+      <var name="p_messageId" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="mediaType" expr="p_mediaType" />
+         <assign name="recordingType" expr="p_recordingType" />
+         <assign name="messageId" expr="p_messageId" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="mediaType == 'voice'">
+            <assign name="maxLength" expr="Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'MsgMaxLenVoice')" />
+            <goto next="#ccond1" />
+            <else />
+            <assign name="maxLength" expr="Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'emMsgMaxLenVideo')" />
+            <goto next="#ccond1" />
+         </if>
+      </block>
+   </form>
+   <form id="ccond1">
+      <block>
+         <if cond="recordingType == 'new'">
+            <assign name="secondsLeft" expr="maxLength - Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'eomsgwarning')" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(567)" />
+            </prompt>
+            <goto next="#prompt5" />
+            <elseif cond="recordingType == 're-record'" />
+            <assign name="secondsLeft" expr="maxLength - Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'eomsgwarning')" />
+            <goto next="#prompt4" />
+            <elseif cond="recordingType == 'continue'" />
+            <goto next="#assign4" />
+            <else />
+            <goto next="#assign4" />
+         </if>
+      </block>
+   </form>
+   <form id="prompt5">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(569)" />
+         </prompt>
+         <goto next="#rec1" />
+      </block>
+   </form>
+   <form id="rec1">
+      <script>System_SetProperty('com.mobeon.platform.record_maxtime', secondsLeft)</script>
+      <record name="recording" dtmfterm="false">
+         <grammar mode="dtmf" version="1.0" root="rec1_main_rule">
+            <rule id="rec1_main_rule">
+               <one-of>
+                  <item>#</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="noinput">
+            <goto next="#ptarget2" />
+         </catch>
+         <filled>
+            <assign name="message" expr="recording" />
+            <assign name="messageDuration" expr="recording$.duration" />
+            <assign name="messageSize" expr="recording$.size" />
+            <assign name="messageTermchar" expr="recording$.termchar" />
+            <assign name="messageMaxtime" expr="recording$.maxtime" />
+            <if cond="messageTermchar == '#'">
+               <var name="resultCode" />
+               <assign name="resultCode" expr="new Array(false, message)" />
+               <return namelist="resultCode" />
+               <elseif cond="messageTermchar == '#' &amp;&amp; messageMaxtime == true" />
+               <var name="resultCode" />
+               <assign name="resultCode" expr="new Array(true, message)" />
+               <return namelist="resultCode" />
+               <elseif cond="messageDuration &lt; System_GetConfig('vva.timesettings', 'minrecmsg')" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(404)" />
+               </prompt>
+               <goto next="#ptarget2" />
+               <elseif cond="messageMaxtime == true" />
+               <goto next="#prompt1" />
+               <else />
+               <goto next="#prompt1" />
+            </if>
+         </filled>
+      </record>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#prompt4" />
+      </block>
+   </form>
+   <form id="prompt4">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(568)" />
+         </prompt>
+         <goto next="#prompt5" />
+      </block>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2207, new Array(System_GetMediaQualifier('Number', Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'eomsgwarning'))))" />
+         </prompt>
+         <assign name="secondsLeft" expr="Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'eomsgwarning')" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#prompt5" />
+      </block>
+   </form>
+   <form id="assign4">
+      <block>
+         <assign name="secondsLeft" expr="maxLength - Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'eomsgwarning') - Time_GetSeconds(Message_GetContentLength(messageId))" />
+         <goto next="#prompt4" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

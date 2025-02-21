@@ -1,0 +1,616 @@
+#! /bin/sh
+# request
+#
+# Copyright (C) 2002 Mobeon AB
+# All Rights Reserved
+#
+
+# Reading of Java heap-sizes has been removed (TR31545). Instead the
+# heap-sizes are computed in the "postinstall" script;
+#
+# Niagara:
+#    INIT_HEAP_SIZE = 1024
+#    MAX_HEAP_SIZE = INIT_HEAP_SIZE
+#    NEW_GEN_HEAP_SIZE = 300
+# Other HW:
+#    INIT_HEAP_SIZE = $SIP_CHANNELS * 0.7 + 165
+#    MAX_HEAP_SIZE = INIT_HEAP_SIZE
+#    NEW_GEN_HEAP_SIZE = $SIP_CHANNELS / 50 * 20
+
+ 
+trap 'exit 3' 15
+
+PATH=/usr/sadm/bin:$PATH
+UPGR_SCRIPT=/tmp/upgr.$PKGINST
+MGR_SCRIPT=/tmp/mgr.$PKGINST
+BACKUP_DIR=/var/tmp/backup.$PKGINST
+
+HOSTNAME=`hostname`
+DOMAIN=`cat /etc/resolv.conf | grep domain |awk '{ print $2}'`
+
+REUSE_MSG="Do you want to reuse previous installed configuration and Application?"
+
+REUSE_HLP="If reuse previous installed configuration is desired, the values from the \
+ previous configuration will be used . If it is not \
+ desired, this new version will completly replace the \
+ existing configuration."
+ 
+UPGRADE_MSG="Do you want to upgrade the installed version ?"
+ 
+UPGRADE_HLP="If upgrade is desired, the existing version of the \
+	package will be replaced by this version. If it is not \
+	desired, the upgrade is canceled leaving existing version intact."
+ 
+UPGRADE_NOTICE="Conflict approval questions may be displayed. The \
+	listed files are the ones that will be upgraded. \
+	Answer \"y\" to these questions if they are presented."
+ 
+MEMORY_WARNING="WARNING: Unable to determine memory size. \
+	Refer the the tuning section in the \
+	Operate and Maintenance guide for more information."
+
+PLATFORM=`uname -i`
+HARDWARE_CLASS=`uname -m`
+	
+cat <<- _EOF
+ 
+--- MAS setup information ---
+ 
+Please provide information on system where MAS is to be installed.
+
+_EOF
+
+rtp_host_help() {
+    cat <<EOF
+
+  NOTE: If a symbolic name and not an IP-address is specified for the
+  RTP host the calling party, gateway, SIP phone or what ever must be
+  able to resolve the symbolic hostname. The default is the IP address
+  of this host.
+
+EOF
+}
+
+
+#******************************************
+#	Function to determine logical zone
+#******************************************
+
+select_logical_zone() {
+
+   McrHost="mcrhost"
+   McrUserName="IComponent"
+   McrPassword="abc123"
+   McrSearchBase="o=config"
+   DefMcrLogicalZone="unspecified"
+   McrPort="389"
+   
+   LOGICAL_ZONE_LIST=`ldapsearch -h $McrHost -p $McrPort -D  "uid=$McrUserName,emRegisterName=MessagingComponentRegister,$McrSearchBase" -w "$McrPassword" -b "emRegisterName=MessagingComponentRegister,$McrSearchBase" "(emhostname=*.$DOMAIN)" "emLogicalZone" | grep -i emLogicalZone | cut -d: -f2- | grep -v "*" | sort -u`
+
+    
+    if [ "$LOGICAL_ZONE_LIST" ]; then
+    	# Retreives the first item in list.
+        set $LOGICAL_ZONE_LIST
+        DefMcrLogicalZone=$1
+        
+        echo "The following logical zones are registered in MCR:"
+        for z in $LOGICAL_ZONE_LIST
+        do
+          echo "   $z"
+        done
+	
+	echo ""
+    fi
+
+    echo "Provide the logicalzone [$DefMcrLogicalZone]: \c"
+    read McrLogicalZone
+    if [ -z "$McrLogicalZone" ]; then
+       McrLogicalZone=$DefMcrLogicalZone
+    fi
+        
+}
+
+
+
+
+
+#********************************************************************
+#*	Check if MOBYmas already is installed
+#********************************************************************
+
+if pkginfo -q MOBYmas\*; then
+    echo " There already exists a previous installation."
+    echo " Remove the previous installed version prior"
+    echo " to install this one."
+    exit 1
+fi
+
+
+
+#********************************************************************
+#*	Read SSP values
+#********************************************************************
+
+select_SSP () {
+        SSP_HOST_LIST=""
+
+        echo
+        echo "SSP host name [ssphost:5060]: \c"
+        read SSP_HOST
+
+        if [ "$SSP_HOST" = "" ]; then
+                SSP_HOST_LIST="host=ssphost,port=5060"
+                return 0
+        fi
+
+        tmp=""
+
+        until [ "$tmp" = "done" ]
+        do
+
+                if [ "$SSP_HOST" = "" ]; then
+                        tmp="done"
+                else
+                        echo ""
+                        echo "SSP port number [5060]: \c"
+                        read SSP_PORT
+
+                        if [ "$SSP_PORT" = "" ]; then
+                                SSP_PORT="5060"
+                        fi
+
+                        SSP_HOST_LIST=$SSP_HOST_LIST" "host=$SSP_HOST,"port="$SSP_PORT
+
+                        echo ""
+                        echo "SSP host name [no more SSP hosts]: \c"
+                        read SSP_HOST
+                fi
+        done
+}
+
+#********************************************************************
+#*	read SIP PROXY values
+#********************************************************************
+
+select_SIP_PROXY () {
+	# SIP PROXY
+	PROXY_HOST=""
+	PROXY_PORT=""
+
+        echo
+	echo "SIP proxy host name [sipproxy:5060]: \c"
+	read PROXY_HOST
+
+	if [ "$PROXY_HOST" = "" ]; then
+		tmp="done"
+	else
+		echo ""
+		echo "SIP proxy port number [5060]: \c"
+		read PROXY_PORT
+	
+		if [ "$PROXY_PORT" = "" ]; then
+			PROXY_PORT="5060"
+		fi
+		SIP_PROXY_HOST="host="$PROXY_HOST",port="$PROXY_PORT
+	fi
+	
+	if [ "$PROXY_HOST" = "" ]; then
+		SIP_PROXY_HOST="host=sipproxy,port=5060"
+	fi		
+
+}
+
+#********************************************************************
+#*     Get memorysize
+#********************************************************************
+
+   DEF_INIT_HEAP_SIZE=""
+   DEF_NEW_GEN_HEAP_SIZE=""
+
+
+   chkMB()
+   {
+      if [ "$mem" -lt "1024" ]; then
+        DEF_INIT_HEAP_SIZE=96
+        DEF_NEW_GEN_HEAP_SIZE=20
+      fi
+   }
+
+
+   chkGB()
+   {
+      mem=`echo $memstring | nawk '{ print substr($0,length($0)-2,1) } '`
+      if [ "$mem" -lt "1" ]; then
+        DEF_INIT_HEAP_SIZE=96
+        DEF_NEW_GEN_HEAP_SIZE=20
+      fi
+
+   }
+
+   
+
+   # Get memmorysize from host.
+   memstring=`prtconf -p | grep "Memory size:"`
+   mem=`echo $memstring | nawk '{ print $3 } '`
+
+   # is the value in MB or GB
+   case "$mem" in
+      *[0-9]) chkMB ;;
+      *GB) chkGB ;;
+      *) echo $MEMORY_WARNING ;;
+   esac
+
+
+
+#********************************************************************
+#*	Find emanate, else exit:
+#********************************************************************
+
+pkginfo -q MOBYemanate\*
+if [ $? -eq 0 ]; then
+	SNMP_BIN_DIR=`pkgparam MOBYemanate SNMP_BIN_DIR`
+else
+	SNMP_BIN_DIR=""
+fi
+
+if [ "$SNMP_BIN_DIR" = "" ]
+then
+	if [ -d /apps/MOBYemanate ]
+	then		
+		EMANATE="OK"
+	elif [ -d /apps/snmp ]
+	then
+		EMANATE="OK"
+	else
+		echo "Installation aborted because SNMP Master Agent environment is missing."
+		exit 1
+	fi
+fi
+
+
+#********************************************************************
+#*	check if upgrade
+#********************************************************************
+
+REUSECONFIG="no"	
+echo "Checking for existing MAS installation"
+
+LATEST=/apps/backup/mas/LATEST
+
+#pkginfo -q MOBYmas\*
+#if [ $? -eq 0 ]; then
+
+#	echo "Prev install exist"
+		  	  
+#	response=`ckyorn -Q -p "$REUSE_MSG" -h "$REUSE_HLP"`
+#	if [ $response = "y" ]; then
+#		OldPkg=`pkginfo -v 1.0 -x MOBYmas.\* | nawk ' /SUNW/{print $1} '`
+#		# Initiate upgrade
+#		echo "PATH=/usr/sadm/bin:$PATH" > $UPGR_SCRIPT
+#		echo "sleep 3" >> $UPGR_SCRIPT
+#		echo "echo Now removing old instance of $PKG" >> $UPGR_SCRIPT
+#		if [ ${PKG_INSTALL_ROOT} ]; then
+#			echo "pkgrm -n -R $PKG_INSTALL_ROOT $OldPkg" >> $UPGR_SCRIPT
+#		else
+#			echo "pkgrm -n $OldPkg" >> $UPGR_SCRIPT
+#		fi
+#		echo "rm $UPGR_SCRIPT" >> $UPGR_SCRIPT
+#		echo "exit $?" >> $UPGR_SCRIPT
+ #
+#		# Get the original package's base directory
+#		OldBD=`pkgparam $OldPkg BASEDIR`
+#		echo "BASEDIR=$OldBD" > $1
+#		puttext -l 5 "$UPGRADE_NOTICE"
+#	else
+#		if [ -f $UPGR_SCRIPT ]; then
+#			rm -r $UPGR_SCRIPT
+#		fi
+#		
+#		exit 1
+#	fi
+			
+	if [ -d $LATEST ]; then
+		#mas.conf must exist, else no upgrade is possible
+		#echo "LATEST exist"
+		if [ -f $LATEST/mas.conf ]; then
+			#echo "mas.conf exist"
+			. $LATEST/backup.info  # Read data for previous installed version
+			echo "A previous installation has been detected."
+			#echo "Do you want to upgrade from previous version ?" 
+			echo "   Prev config version : $VERSION"
+			echo "   Uninstall date      : $UNINST_DATE"
+		        response=`ckyorn -Q -p "$REUSE_MSG" -h "$REUSE_HLP"`
+		        if [ $response = "y" ]; then
+				REUSECONFIG="yes"	
+			        . $LATEST/mas.conf
+				THREADPOOLSIZE=`expr $SIP_CHANNELS \* 2 + 30`
+                                HOSTNAME_TO_REGISTER_IN_MCR=$HOSTNAME
+                                McrLogicalZone=$LOGICALZONE
+			fi
+		fi
+	fi
+#fi
+
+
+
+#********************************************************************
+#*	Reads JAVA Home directory
+#*  Note! Java 1.6 is only tested on T2000 platforms, do not use it
+#* on V210/V240 hardware, it seems to cause problems.
+#********************************************************************
+echo ""
+OLD_DEFAULT_JAVADIR=/apps/java
+if [ $HARDWARE_CLASS = "sun4v" ]; then
+    if [ -d $DEF_JAVA_HOME ]; then
+	echo "sun4v hardware. Using Java version: $DEF_JAVA_HOME"
+    else
+	echo "Warning! For sun4v hardware the default Java version is: $DEF_JAVA_HOME"
+	echo "This Java version does not seem to be installed on this host. As a fallback "
+	echo "Java version $OLD_DEFAULT_JAVADIR will be used instead. Alternatively "
+	echo "stop this installation and upgrade to the latest deployment server version. "
+	echo "Thereafter run the installation again."
+	DEF_JAVA_HOME=$OLD_DEFAULT_JAVADIR
+    fi
+else
+    echo "Not sun4v hardware. Using Java version: $OLD_DEFAULT_JAVADIR"
+    DEF_JAVA_HOME=$OLD_DEFAULT_JAVADIR
+fi
+
+echo ""
+echo "Java home directory [$DEF_JAVA_HOME]: \c"
+read MY_JAVADIR
+
+
+
+if [ $REUSECONFIG = "no" ]; then
+
+	#********************************************************************
+	#*	Reads host names for various interfaces
+	#********************************************************************
+
+
+	LOCAL_IP=`ifconfig -ua | grep -w inet | awk '{print $2}'`
+	HOSTS=""
+	DEFAULT_HOSTNAME=""
+
+	# Find all hostnames on this machine
+	for IP in $LOCAL_IP
+	do 
+	  HOST=`nslookup $IP | grep -w name | awk '{print $4}' | cut -f1 -d.`
+	  HOSTS="$HOSTS $HOST"
+	  if [ "$HOST" != "" -a "$HOST" != localhost ];then
+	    DEFAULT_HOSTNAME=$HOST
+	  fi
+	done
+
+	echo
+	echo The following hostnames are found on this host: $HOSTS
+	echo
+
+	echo "SIP host name [$DEFAULT_HOSTNAME]: \c"
+	read SIP_HOSTNAME
+	if [ "$SIP_HOSTNAME" = "" ];then
+	  SIP_HOSTNAME=$DEFAULT_HOSTNAME
+	fi
+
+	echo
+	echo "XMP host name [$DEFAULT_HOSTNAME]: \c"
+	read XMP_HOSTNAME
+	if [ "$XMP_HOSTNAME" = "" ];then
+	  XMP_HOSTNAME=$DEFAULT_HOSTNAME
+	fi
+
+	DEFAULT_IP=`nslookup $DEFAULT_HOSTNAME | grep -w Address| tail -1| awk '{print $2}'`
+	rtp_host_help
+	echo "RTP host name [$DEFAULT_IP]: \c"
+	read RTP_HOSTNAME
+	if [ "$RTP_HOSTNAME" = "" ];then
+	  # We use IP address instead of hostname since stream does not support host name.
+	  RTP_HOSTNAME=$DEFAULT_IP
+	fi
+
+	echo
+	echo "Host name, under which the component will register in MCR [$XMP_HOSTNAME]: \c"
+	read HOSTNAME_TO_REGISTER_IN_MCR
+	if [ "$HOSTNAME_TO_REGISTER_IN_MCR" = "" ];then
+	  HOSTNAME_TO_REGISTER_IN_MCR=$XMP_HOSTNAME
+	fi
+
+	#********************************************************************
+	#*	Reads LOGICALZONE Home directory
+	#********************************************************************
+	echo ""
+	select_logical_zone
+
+
+	#********************************************************************
+	#*	Reads REMOTE PARTY
+	#********************************************************************
+	echo ""
+	until [ "$tmp" = "done" ]
+	do
+		echo " 1) SSP"
+		echo " 2) SIP proxy"
+		echo "Select remote party to be used: \c"
+		read remote_party
+		if [ "$remote_party" = "1" ]
+		then
+			select_SSP 
+			break
+		elif [ "$remote_party" = "2" ]
+		then
+			select_SIP_PROXY
+			break
+		fi
+	done
+	
+	
+	#********************************************************************
+	#*	Reads ACR 
+	#********************************************************************
+	
+	echo ""
+        echo "Speech recognition engine protocol [not used]: \c"
+	read ASR_PROTOCOL
+	
+	if [ "$ASR_PROTOCOL" != "" ]; then
+	
+		echo ""
+                echo "Speech recognition engine host name: \c"
+		read ASR_HOST
+	
+		echo ""
+                echo "Speech recognition engine port number: \c"
+		read ASR_PORT
+	
+	fi
+	
+	
+	
+	
+	#********************************************************************
+	#*	Reads TTS 
+	#********************************************************************
+	
+	echo ""
+        echo "Text to speech engine protocol [not used]: \c"
+	read TTS_PROTOCOL
+	
+	if [ "$TTS_PROTOCOL" != "" ]; then
+	
+		echo ""
+                echo "Text to speech engine host name: \c"
+		read TTS_HOST
+	
+		echo ""
+		echo "Text to speech engine port number: \c"
+		read TTS_PORT
+	
+	fi
+	
+	#********************************************************************
+	#*      Reads default Searchbase
+	#********************************************************************
+	echo ""
+        echo "Default LDAP search base [o=userdb]: \c"
+	read SEARCHBASE
+
+
+
+
+
+	#********************************************************************
+	#*      Reads number of channels
+	#********************************************************************
+	
+	echo ""
+        echo "Maximum number of SIP channels [60]: \c"
+	read SIP_CHANNELS
+	if [ "$SIP_CHANNELS" = "" ]; then
+	        SIP_CHANNELS=60
+	fi
+
+
+	#********************************************************************
+	#*      Reads Threadpoolsize
+	#********************************************************************
+	
+	echo ""
+
+	DEF=`expr $SIP_CHANNELS \* 2 + 30`
+        echo "Main Java thread pool size [$DEF]: \c"
+	read THREADPOOLSIZE
+
+	if [ "$THREADPOOLSIZE" = "" ]; then
+	        THREADPOOLSIZE=$DEF
+	fi
+fi
+
+
+#
+#   READ DONE. EVALUATE VALUES
+#
+
+ 
+ 
+ 
+#
+#	Create instance name
+#
+	MAS_INSTANCE_NAME="mas@$HOSTNAME"
+	
+
+
+#
+#	Create responsefile
+# 
+
+
+#
+# Set defaultvalues
+#
+#if [ "$MAS_HOST" = "" ]; then
+#        MAS_HOST=$HOSTNAME"."$DOMAIN
+#fi
+
+if [ "$MY_JAVADIR" = "" ]; then
+        MY_JAVADIR=$DEF_JAVA_HOME
+fi
+
+if [ "$LOGICALZONE" = "" ]; then
+        LOGICALZONE="unspecified"
+fi
+
+if [ "$TTS_PROTOCOL" = "" ]; then
+        TTS_PROTOCOL="none"
+fi
+
+if [ "$ASR_PROTOCOL" = "" ]; then
+        ASR_PROTOCOL="none"
+fi
+
+
+if [ "$SEARCHBASE" = "" ]; then
+        SEARCHBASE="o=userdb"
+fi
+
+REGNAME="mas"
+
+
+#***************************************************
+#*                                                 *
+#*         NOTE - WERY IMPORTANT                   *
+#*                                                 *
+#*   If changes are made to the output list below. *
+#*   Make sure that the check is updated in the    *
+#*   checkinstall script.                           *
+#*                                                 *
+#***************************************************
+
+cat >$1 <<EOF
+
+
+REGISTERED_NAME=$REGNAME
+UPGRADE=$UPGRADE
+REUSECONFIG=$REUSECONFIG
+MY_JAVA_HOME=$MY_JAVADIR
+LOGICALZONE=$McrLogicalZone
+
+SSP_HOST_LIST="$SSP_HOST_LIST"
+SIP_PROXY_HOST="$SIP_PROXY_HOST"
+
+ASR_PROTOCOL=$ASR_PROTOCOL
+ASR_HOST=$ACR_HOST
+ASR_PORT=$ACR_PORT
+TTS_PROTOCOL=$TTS_PROTOCOL
+TTS_HOST=$TTS_HOST
+TTS_PORT=$TTS_PORT
+SIP_CHANNELS=$SIP_CHANNELS
+THREADPOOLSIZE=$THREADPOOLSIZE
+SEARCHBASE=$SEARCHBASE
+SIP_HOSTNAME=$SIP_HOSTNAME
+XMP_HOSTNAME=$XMP_HOSTNAME
+RTP_HOSTNAME=$RTP_HOSTNAME
+HOSTNAME_TO_REGISTER_IN_MCR=$HOSTNAME_TO_REGISTER_IN_MCR
+
+EOF

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+dtrace='
+BEGIN {
+	printf("Analyzing lmalloc/lfree usage in pid '$1'\n");
+}
+
+
+pid'$1':libc:lmalloc:entry {
+	@sites[ustack(2)] = sum(1);
+}
+
+pid'$1':libc:lfree:entry {
+	@sites[ustack(2)] = sum(-1);
+}
+
+tick-10s {
+	printa(@sites);
+}
+'
+
+/usr/sbin/dtrace -n "$dtrace"

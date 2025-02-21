@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--If 0, the outbound call is not time limited.-->
+   <var name="outboundCallTimeLimitation" />
+   <!--Boolean to indicate if ANI is restricted-->
+   <var name="aniRestricted" />
+   <var name="ani" />
+   <!--The number to call.-->
+   <var name="destinationNumber" />
+   <!--A local copy of GlobalObject.-->
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_ani" />
+      <var name="p_destinationNumber" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="ani" expr="p_ani" />
+         <assign name="destinationNumber" expr="p_destinationNumber" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="outboundCallTimeLimitation" expr="Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'emOutboundCallTL')" />
+         <if cond="((outboundCallTimeLimitation != 0))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(2129)" />
+            </prompt>
+            <goto next="#cond2" />
+            <else />
+            <goto next="#cond2" />
+         </if>
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="((destinationNumber == ani))">
+            <goto next="#ptarget1" />
+            <else />
+            <if cond="((ani == GlobalObject.Subscriber) &amp;&amp; (Call_GetAniPi () == 0))">
+               <assign name="aniRestricted" expr="false" />
+               <goto next="#cond4" />
+               <else />
+               <assign name="aniRestricted" expr="true" />
+               <goto next="#cond4" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#prompt3" />
+      </block>
+   </form>
+   <form id="prompt3">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(601)" />
+         </prompt>
+         <goto next="#cond5" />
+      </block>
+   </form>
+   <form id="cond5">
+      <block>
+         <if cond="GlobalObject.LoggedIn == true">
+            <goto next="#sub3" />
+            <else />
+            <goto next="#sub4" />
+         </if>
+      </block>
+   </form>
+   <form id="sub3">
+      <script>System_SendTrafficEvent ('makecallstop', 'username=' + GlobalObject.Subscriber + ',operation=16,objecttype=2,callednumber=' + destinationNumber + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="sub4">
+      <script>System_SendTrafficEvent ('makecallstop', 'username=' + GlobalObject.Subscriber + ',operation=16,objecttype=6,callednumber=' + destinationNumber + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <form id="cond4">
+      <block>
+         <if cond="GlobalObject.LoggedIn == true">
+            <goto next="#sub1" />
+            <else />
+            <goto next="#sub2" />
+         </if>
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SendTrafficEvent ('makecallstart', 'username=' + GlobalObject.Subscriber + ',operation=14,objecttype=2,callednumber=' + destinationNumber + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#tc1" />
+      </block>
+   </form>
+   <form id="tc1">
+      <script>
+System_SetProperty('com.mobeon.platform.transfer_maxtime', outboundCallTimeLimitation);
+System_SetProperty('com.mobeon.platform.transfer_connecttimeout', 30);
+</script>
+      <transfer name="outboundCall" dest="destinationNumber" transferaudio="System_GetPrompt(600)">
+         <prompt bargein="true">No media content id is defined.</prompt>
+         <grammar version="1.0" mode="dtmf" root="tc1_main_rule">
+            <rule id="tc1_main_rule" scope="public">
+               <item>*</item>
+            </rule>
+         </grammar>
+         <filled>
+            <if cond="outboundcall == 'busy'">
+               <goto next="#prompt3" />
+               <elseif cond="outboundcall == 'noanswer'" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(602)" />
+               </prompt>
+               <goto next="#cond5" />
+               <elseif cond="outboundcall == 'near_end_disconnect'" />
+               <goto next="#cond5" />
+               <elseif cond="outboundcall == 'far_end_disconnect'" />
+               <goto next="#cond5" />
+               <elseif cond="outboundcall == 'max_time_disconnect'" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(604)" />
+               </prompt>
+               <goto next="#cond5" />
+            </if>
+            <throw event="error.connection" />
+         </filled>
+      </transfer>
+   </form>
+   <form id="sub2">
+      <script>System_SendTrafficEvent ('makecallstart', 'username=' + GlobalObject.Subscriber + ',operation=14,objecttype=6,callednumber=' + destinationNumber + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#tc1" />
+      </block>
+   </form>
+   <catch event="connection.disconnect.hangup">
+      <goto next="Goodbye.vxml" />
+   </catch>
+   <catch event="error.unsupported.transfer.bridge">
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt(603)" />
+      </prompt>
+      <goto next="#cond5" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

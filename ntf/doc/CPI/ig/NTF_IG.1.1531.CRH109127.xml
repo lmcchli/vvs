@@ -1,0 +1,1609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE doc PUBLIC "-//ABCXYZ//DTD XSEIF 1/FAD 110 05 R5//EN"
+ "XSEIF_R5.dtd">
+<doc new-page-level="npl1" version="XSEIF R5" xmlns="urn:x-abcxyz:r2:reg-doc:1551-fad.110.05:en:*">
+<meta-data><?Pub Dtl?>
+<confidentiality class="abcxyz-confidential"/>
+<doc-name>Installation Instructions</doc-name>
+<doc-id>
+<doc-no type="reference">1/1531-CRH 109 127</doc-no><language code="en"/>
+<rev>PAB5</rev>
+<date><y>2008</y><m>05</m><d>08</d></date>
+</doc-id>
+<company-id>
+<business-unit>Core Unit Service Network and Applications (CSNA)</business-unit>
+<company-name>Abcxyz AB</company-name>
+<company-symbol logotype="abcxyz"></company-symbol>
+</company-id>
+<title>Installation Guide NTF</title>
+<drafted-by>
+<person>
+<name>Niklas Fyhr</name><signature>MNIFY</signature>
+<location>SU</location><company>/DST</company><department>/D</department>
+</person>
+</drafted-by>
+<approved-by approved="yes">
+<person>
+<name>Magnus Bj&ouml;rkman</name><signature>ERMMABJ</signature>
+<location>SU</location><company>/DST</company><department>/D</department>
+</person>
+</approved-by>
+</meta-data>
+<front>
+<title-page>
+<copyright><p>&copy; Abcxyz AB 2001-2008 - All Rights Reserved</p>
+</copyright>
+<disclaimer>
+<p>The information in this document is subject to change without notice.</p>
+<p>Abcxyz makes no warranty of any kind with regard to this material, including,
+but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose. Abcxyz shall not be liable for errors contained
+herein nor for incidental or consequential damages in connection with the
+furnishing, performance or use of this material.</p>
+</disclaimer>
+<trademark-list>
+<tm-item><trademark>Solaris</trademark><owner>is a trademark of Sun Microsystems,
+Inc.</owner></tm-item>
+<tm-item><trademark>Apache Software Foundation</trademark><owner>This product
+includes software developed by the Apache Software Foundation (http://www.apache.org)</owner>
+</tm-item>
+</trademark-list>
+</title-page>
+</front>
+<body>
+<chl1><title>Introduction</title>
+<chl2><title>Scope</title>
+<p>This document provides step by step instructions for installation, upgrade
+and uninstallation of the software for the NTF component.</p>
+</chl2>
+<chl2><title>Audience</title>
+<p>This document is primarily written for software installation technicians.</p>
+<chl3><title>Prerequisite Knowledge</title>
+<p>The readers of this document should have a good understanding of Messaging-over-IP
+and good knowledge and experience of:</p>
+<list type="unordered">
+<list-item><p>IP based networks</p>
+</list-item>
+<list-item><p>UNIX</p>
+</list-item>
+<list-item><p>To install NTF in a HA system, the reader must be familiar with
+Solaris clusters.</p>
+</list-item>
+</list>
+<note><p>Installation of the software is only to be performed by personnel
+authorized by having attended the corresponding courses.</p>
+</note>
+</chl3>
+</chl2>
+<chl2><title>Related Documents</title>
+<p>The following documents also contain information related to the component,
+or are referred to from this document:</p>
+<list type="unordered">
+<list-item><p>Messaging-over-IP Technical Overview</p>
+</list-item>
+<list-item><p>Glossary</p>
+</list-item>
+<list-item><p>Operation and Maintenance NTF</p>
+</list-item>
+<list-item><p>Operation &amp; Maintenance Deployment Server</p>
+</list-item>
+<list-item><p>Solaris documentation (http://docs.sun.com) <emph type="low">System
+Administration Guide, Solaris 10</emph></p>
+</list-item>
+</list>
+</chl2>
+<chl2><title>Document Conventions</title>
+<chl3><title>Notational Conventions</title>
+<p>This document uses the following notational conventions:</p>
+<p><emph>Bold font</emph> style is used for emphasis, to indicate keywords
+and buttons.</p>
+<p><emph type="low">Italic font</emph> style is used for references, window/page/menu
+titles and specific terms.</p>
+<p><input>Bold Monospace font</input> is used to describe user input.</p>
+<p><output>Monospace font</output> is used for code, paths and on-screen computer
+output.</p>
+<p>Square brackets <quote>[]</quote> are used to enclose parameters that are
+optional.</p>
+<p>Curly brackets <quote>{}</quote> are used to enclose parameter values given
+as examples.</p>
+<p>Less than and greater than characters <quote>&lt;></quote> are used to
+enclose variable names.</p>
+<p>Backslash <quote>\</quote> at the end of a line means that this line is
+continued onto the next line.</p>
+<p>The dollar sign <quote>$</quote> is the UNIX Korn (and Bourne) shell prompt.</p>
+<p>The percent sign <quote>%</quote> is the UNIX C shell prompt.</p>
+<p>The number sign <quote>#</quote> is the superuser prompt.</p>
+<p>The number sign <quote>#</quote> is also used for comments.</p>
+<p>A star <quote>*</quote> matches zero or more characters.</p>
+<p>A question mark <quote>?</quote> matches one character.</p>
+<p>A tilde <quote>~</quote> means the home directory of the current user.</p>
+<p><resource-id type="file-path">&lt;BASEDIR></resource-id> is the installation
+directory for NTF, for example <resource-id type="file-path">/apps/ntf</resource-id>.</p>
+<p><resource-id type="file-path">&lt;NTF_HOME></resource-id> is the instance
+directory for NTF, for example <resource-id type="file-path">/apps/ntf</resource-id> or <resource-id
+type="file-path">/global/ms1/ntf</resource-id>.</p>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title xml:id="installation">Installation</title>
+<chl2><title>General</title>
+<p>The NTF component provides notification services, as described in <emph
+type="low">Messaging-over-IP Overview</emph>. The component includes software
+developed by the Apache Software Foundation (http://www.apache.org/).</p>
+<p>The instructions in this document covers the installation program for the
+NTF component.</p>
+<p>NTF consists of three parts, an installation an instance and a HA-agent.
+The <emph>installation</emph> is the NTF package with programs and libraries.
+The <emph>instance</emph> is the configuration files and templates. The <emph>HA-agent</emph> is
+the monitoring software needed when NTF runs in a HA system.</p>
+<p>If NTF is installed in a standard system, no HA-agent is used and the installation
+and instance are located in the same directory, so you do not need to think
+about the different parts. The terms are used in the installation process
+though, so you should recognize them.</p>
+<p>If NTF is installed in a HA system, the HA-agent is used and the installation
+and one or more instances are created separately, in different directories.
+Then the different parts are important.</p>
+<chl3><title>Container File</title>
+<p>The NTF software is delivered in a compressed tar file named:</p>
+<list type="unordered">
+<list-item><p><resource-id type="file-path">ntf_&lt;rel>.crh109127.solaris10.tar.gz</resource-id></p>
+</list-item>
+</list>
+<p>where <quote>&lt;rel></quote> gives the release number of the software.</p>
+<p>In this document, the container file is called <input>&lt;ntf_container_file></input></p>
+</chl3>
+</chl2>
+<chl2><title xml:id="prerequisites">Prerequisites</title>
+<chl3><title xml:id="reqsw">Software</title>
+<p>The NTF component requires that the following software has been installed:</p>
+<list type="unordered">
+<list-item><p>Solaris 10. Preferably, Solaris 10 shall be installed using
+the Deployment Server (see document Operation and Maintenance Deployment Server).
+Alternatively, install Solaris 10 with Sun's latest Recommended Security Patch
+Cluster for Solaris 10 (http://sunsolve.sun.com)</p>
+</list-item>
+<list-item><p>Java 1.5. Java must be installed as a package. Ntf checks for
+package <resource-id type="file-path">SUNWj5rt</resource-id> and <resource-id
+type="file-path">SUNWj5rtx</resource-id>, both packages must be version 1.5. </p>
+</list-item>
+</list>
+</chl3>
+<chl3><title>Free Memory</title>
+<p>Running the NTF component requires that there is more than 256MB virtual
+memory free.</p>
+</chl3>
+<chl3><title xml:id="diskspc">Disk space</title>
+<p>The NTF component requires that there is sufficient disk space in the following
+partitions:</p>
+<table indent="left-margin">
+<caption>NTF Disk Space Requirements</caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.83*"/><colspec colname="col2" colwidth="0.83*"/><colspec colname="col3"
+colwidth="1.33*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Partition</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Required disk space (minimum)</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Comments</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp><resource-id type="file-path">&lt;BASEDIR>. e.g.
+/apps/ntf</resource-id></tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp>20 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp>For NTF installation.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<resource-id
+type="file-path">&lt;NTF_HOME></resource-id></tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>600 MB
+per NTF instance</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp>For configuration
+files, data files and log files. </tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp><resource-id type="file-path">/etc</resource-id></tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp>2 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp>For <resource-id type="file-path">rc</resource-id> scripts.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp><resource-id type="file-path">/tmp</resource-id></tp>
+</entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp>2 MB</tp>
+</entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top"><tp>Required as temporary installation space (the
+partition may be changed by setting the <resource-id type="file-path"> TEMPDIR </resource-id> environment
+variable).</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>To check disk space, use e.g. <input> df -k </input> command. </p>
+</chl3>
+<chl3><title xml:id="depend">Component Dependencies</title>
+<p>During installation (when the NTF instance is added), the NTF component
+tries, once, to register itself in MCR. When NTF is started, it checks its
+entry in MCR and creates or updates it if necessary. If the MCR entry can
+not be created or updated, NTF will retry every five minutes until it succeeds
+or NTF is stopped.</p>
+<p>During installation (when the NTF instance is added), the NTF component
+tries, once, to register its users in MUR. When NTF is started, it checks
+its users in MUR and creates them if necessary. If the users can not be created,
+NTF will retry every five minutes until it succeeds or NTF is stopped. Since
+NTF can not receive any requests until these users are available, NTF will
+not start with anything else until the registration succeeds.</p>
+<p>The NTF interfaces with the following components: MS, MUR, MER, MCR, SMS-C,
+MMS-C, MVAS/MAS, MCC, WAP-gateway, ESI and MEMA.</p>
+</chl3>
+<chl3><title xml:id="smscsetup">Enabler Setup</title>
+<p>Usually, NTF shall be able to send notifications with SMS, MWI, WAP and
+MMS and needs to connect to an SMS-C, WAP-gateway and MMS-C. These enablers
+must be registered in MCR. This is done with the "Enabler setup" part of MUP.
+You select the name of for example the SMS-C and set the host name, password
+and protocol. It is necessary to restart NTF after an enabler has been added.
+The protocol is set to CIMD2 or SMPP, depending on what is used by the SMS-C.
+NTF adapts its behavior to the selected protocol automatically.</p>
+<p>To see how to add an Enabler, see MUP documentation.</p>
+</chl3>
+</chl2>
+<chl2><title xml:id="preinstall">Prepare Installation</title>
+<p>The following steps must be performed before starting the installation
+of the NTF component.</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>% su -</input></p>
+</sl-item>
+<sl-item><p>Make sure the port number (e.g. 18001) for NTF management and
+monitoring connections is not in use. The port number is configurable, so
+make sure that the port number you are about to select is not already in use.</p>
+<p>Use for instance: </p>
+<p><input>netstat -na | grep &lt;portno></input></p>
+<p>where <input>&lt;portno></input> is the port number listed above. </p>
+</sl-item>
+<sl-item><p>If previous, unsuccessful, installation attempts have taken place,
+uninstall such earlier installations.</p>
+<p>For instructions on how to uninstall the component, see <xref linkend="uninstall"/>.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="install">Install NTF in a Standard System</title>
+<p>The installation procedure consists of the following steps:</p>
+<step-list>
+<sl-item><p>Unpack the NTF distribution.</p>
+<p>Get the distribution and unpack it in a temporary location.</p>
+</sl-item>
+<sl-item><p>Configure installation parameters.</p>
+</sl-item>
+<sl-item><p>Install the NTF distribution.</p>
+<p>The NTF package is installed, and NTF and its users are registered in MCR
+and MUR. Backup and start/stop functionality is set up.</p>
+<note><p>Since each NTF has some configuration parameters that must be individual,
+NTF can not be automatically installed (using Deployment Server) in a standard
+system.</p>
+</note>
+</sl-item>
+<sl-item><p>Verify the installation.</p>
+<p>Check the installation log file. Start NTF and see that it runs as expected.</p>
+</sl-item>
+<sl-item><p>Customize NTF.</p>
+</sl-item>
+<sl-item><p>Start NTF.</p>
+<p>By default NTF has to be started manually, but an installation parameter
+can be set to start NTF automatically after installation.</p>
+</sl-item>
+<sl-item><p>Backup the installation.</p>
+<p>Backup the new configuration files.</p>
+</sl-item>
+</step-list>
+<chl3><title xml:id="unpack">Unpack the NTF Distribution</title>
+<step-list>
+<sl-item><p>Insert the CD that contains the software into CD-ROM drive on
+the host.</p>
+</sl-item>
+<sl-item><p>Change to CD-ROM directory.</p>
+<p><input># cd /cdrom/cdrom0</input></p>
+<p>(or type: <input> cd /cdrom/&lt;CD-ROM name></input>)</p>
+</sl-item>
+<sl-item><p>Copy the container file for the NTF component to a temporary directory
+on the host.</p>
+<note><p>The directory must be writeable.</p>
+</note>
+<p><input># cp &lt;ntf_container> &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Change to the temporary directory.</p>
+<p><input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Extract files from the container file:</p>
+<p><input># gzip -dc &lt;ntf_container_file> | tar xf -</input></p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title xml:id="config">Configure the Installation Parameters</title>
+<note><p>The parameter names are case insensitive, they are converted to all
+uppercase by the installation program</p>
+</note>
+<table indent="left-margin">
+<caption>Installation Parameters</caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.78*"/><colspec colname="col2" colwidth="1.01*"/><colspec colname="col3"
+colwidth="1.21*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Parameter</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Description</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Default Value</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>BASEDIR</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Installation
+directory for the NTF component.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>/apps/ntf</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>StartNtf</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Start NTF
+after successfull installation.</tp>
+<tp>Yes / No</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>No</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>McrHost</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Name of
+the host where the messaging component register is located.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>mcrhost</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>McrUserName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Username
+for MCR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>IComponent</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>McrPassword</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Password
+for MUR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>abc123</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>LogicalZone</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Name of
+the logical zone this NTF belongs to (if any)</tp>
+<tp>Set LogicalZone to the empty string if nearness of other components shall
+be determined from network addresses instead of zone.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>unspecified</input>.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MurHost</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The host
+where the Messaging User Registry is located</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>murhost</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MurUserName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Distinguished
+name of MUR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>cn=Directory
+Manager</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MurPassword</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Password
+for MUR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>-</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SearchBase</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Search
+base for the user registry</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>ou=site1,o=userdb</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ImapHost</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The host
+where this NTFs messaging server is located</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>-</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ImapUserName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>This is
+the basename for the notification mailboxes.  </tp>
+<tp>If several NTFs should be installed in the system, the first one should
+be named: gnotification1 and the second: gnotification2 etc. </tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<emph>gnotification1</emph></tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>The parameters in this table are used in the installation process, and
+must be correct from the start.</p>
+<table indent="column">
+<caption>Site Dependent Parameters</caption>
+<tgroup cols="1" align="left" char="" charoff="50">
+<?PubTbl tgroup dispwid="323.00px"?>
+<colspec colname="col1" colwidth="0.78*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Parameter</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>BearingNetwork</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ImapRootUserName</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ImapRootPassword</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SmeSystemId</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SmePassword</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SmeSystemType</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>All parameters from NTFs main configuration file <resource-id type="file-path">notification.cfg</resource-id> can
+be set in the response file <resource-id type="file-path">LMENtf.response</resource-id> prior
+to installation and will then appear in <resource-id type="file-path">notification.cfg</resource-id> after
+installation. The table above contains the parameters that must be changed
+on most sites, and as a convenience they are included in <resource-id type="file-path">LMENtf.response</resource-id>.
+They are documented in <xref linkend="ref.om"/> NTF Operation &amp; Maintenance,
+section Configuration Parameters.</p>
+</chl3>
+<chl3><title>Install the NTF Software</title>
+<step-list>
+<sl-item><p>Run the installation script:</p>
+<p><input># ./install.sh</input></p>
+<p><preform>Starting install of NTF R12A with the response file
+    LMENtf.response.
+Please check the IMAP user name:
+        IMAPUserName=gnotification3
+Continue:  [y,n,?]</preform></p>
+<p>Type <input>y</input> to continue or <input>n</input> to abort the installation.</p>
+<note><p>Since it is easy to forget to change the IMAP user name, the install
+script reminds you to check it, and displays the value from the response file</p>
+</note>
+</sl-item>
+<sl-item><p>The installation script will now install the NTF component with
+the output:</p>
+<p><preform>Installing NTF package
+Copying instance files and directories...
+...done. Registering component in MCR...
+...done. Registering NTF users in MUR...
+...done.
+Installation of &lt;LMENtf> was successful.
+NTF has been successfully installed.
+View log file 
+    /apps/logs/ntf/install/ntf.2006_05_30_1411.installog
+    for details</preform></p>
+</sl-item>
+<sl-item><p>Verify the installation by checking the installation log file.
+The name of the log file is displayed by the installation program.</p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title>Customize NTF</title>
+<p>Customize NTF as described in <xref linkend="customizentf"/>.</p>
+</chl3>
+<chl3><title>Start NTF</title>
+<p>Once NTF is installed and customized, you start it as described in <xref
+linkend="ref.om"/> NTF Operation &amp; Maintenance, section Start NTF.</p>
+</chl3>
+</chl2>
+<chl2><title xml:id="hainstall">Install NTF in a HA-System</title>
+<p>The installation of NTF in a HA system is a little more complicated. The
+HA-agent and NTF must be installed on all cluster nodes. Then the NTF instances
+you want to run are added in the cluster file system.</p>
+<p>The installation procedure consists of the following steps:</p>
+<step-list>
+<sl-item xml:id="hainstall-unpack"><p>Unpack the NTF distribution.</p>
+<p>Get the distribution and unpack it in a temporary location.</p>
+</sl-item>
+<sl-item><p>Install the NTF HA-Agent</p>
+<p>Install the HA-Agent on all cluster nodes and set up the resource groups.</p>
+</sl-item>
+<sl-item><p>Configure installation parameters.</p>
+<p>Define values for parameters that are different for each installation.</p>
+</sl-item>
+<sl-item xml:id="hainstall-installntf"><p>Install the NTF software.</p>
+<p>The NTF packages are installed on all cluster nodes.</p>
+<note><p>NTF can be installed manually or automatically from a Deployment
+server. The amount of customization that can be done from the Deployment server
+is limited though.</p>
+</note>
+</sl-item>
+<sl-item><p>Add NTF instances.</p>
+<p>The individual NTF instances are added in the cluster file system. The
+instances and their users are registered in MCR and MUR. Backup is set up.
+Add the wanted NTF instances as described in <xref linkend="haaddinstance"/>.</p>
+</sl-item>
+<sl-item><p>Set instance parameters.</p>
+<p>Some parameters must be unique for each instance. They must be set before
+an instance is started. Set the parameters as described in <xref linkend="setinstanceparameters"/>.</p>
+</sl-item>
+<sl-item><p>Customize NTF instances.</p>
+</sl-item>
+<sl-item><p>Start NTF.</p>
+<p>Start NTF using the cluster software.</p>
+</sl-item>
+</step-list>
+<chl3><title>Unpack the NTF Distribution</title>
+<step-list>
+<sl-item><p>Insert the CD that contains the software into CD-ROM drive on
+the host.</p>
+</sl-item>
+<sl-item><p>Change to CD-ROM directory.</p>
+<p><input># cd /cdrom/cdrom0</input></p>
+<p>(or type: <input> cd /cdrom/&lt;CD-ROM name></input>)</p>
+</sl-item>
+<sl-item><p>Copy the container file for the NTF component to a temporary directory
+on the host.</p>
+<note><p>The directory must be writeable.</p>
+</note>
+<p><input># cp &lt;ntf_container> &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Change to the temporary directory.</p>
+<p><input># cd &lt;tempdir></input></p>
+</sl-item>
+<sl-item><p>Extract files from the container file:</p>
+<p><input># gzip -dc &lt;ntf_container_file> | tar xf -</input></p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title xml:id="hainstallagent">Install the NTF HA-Agent</title>
+<chl4><title>Prerequisites</title>
+<list type="unordered">
+<list-item><p>The cluster software is operational</p>
+</list-item>
+<list-item><p>Disk management software has been installed and configured</p>
+</list-item>
+<list-item><p>Quorum devices have been configured</p>
+</list-item>
+<list-item><p>The cluster installmode property is set to disabled</p>
+</list-item>
+<list-item><p>The NTF HA Agent package has been unpacked from the NTF delivery
+file. When the delivery file is unpacked the NTF HA Agent package is located
+in the HA_Agent directory.</p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>Manual installation</title>
+<p>Install the LMEAntf package on all cluster nodes (including standby nodes)
+using the pkgadd command (preferably using the Sun cluster console software):</p>
+<p><input># cd &lt;Unpacked NTF delivery dir.>/HA_Agent/</input></p>
+<p><input># pkgadd -d LMEAntf.pkg LMEAntf</input></p>
+<p>Register the LMEA.ntf resource type with the cluster software on one cluster
+node:</p>
+<p><input># /usr/cluster/bin/scrgadm -a -t LMEA.ntf</input></p>
+</chl4>
+<chl4><title>Automatic installation (Deployment Server)</title>
+<list type="unordered">
+<list-item><p>Copy the LMEAntf.pkg package to the /apps/LMEAadmin/install/pkg/common
+directory on the Deployment server.</p>
+</list-item>
+<list-item><p>Create a new action object in the Deployment server named &ldquo;Install
+NTF HA Agent&acute;&acute;, use &ldquo;action_pkg&rdquo; in the action field
+and &ldquo;LMEAntf&rdquo; in the argument field.</p>
+</list-item>
+<list-item><p>Create a new group (if it does not already exists) called &ldquo;Cluster&rdquo;.
+Include the newly created action in the list of actions.</p>
+</list-item>
+<list-item><p>Make sure that all cluster nodes have the &ldquo;Cluster&rdquo;
+group selected.</p>
+</list-item>
+</list>
+</chl4>
+<chl4><title>Configuration</title>
+<p><emph>Prerequisites:</emph></p>
+<p>The NTF instance is installed in a cluster filesystem, typically this would
+be in the <resource-id type="file-path">/global/&lt;resouce group name>/ntf</resource-id> directory
+(e.g. <resource-id type="file-path">/global/ms1/ntf</resource-id>)</p>
+<note><p>In a typical configuration the MS and the corresponding NTF instance
+should share the same resource group.</p>
+</note>
+<p><emph>Create the NTF object:</emph></p>
+<p><input># /usr/cluster/bin/scrgadm -a -j &lt;NTF resource> -g &lt;Resource
+group> -t LMEA.ntf -y Network_resources_used=&lt;Network dependencies> -x
+Basedir=&lt;NTF installation directory></input> where:</p>
+<def-list><dl-item>
+<term>&lt;NTF resource></term><def><p>The desired name of the new resource,
+by convention this should be of the format: &lt;Resource group name>-ntf</p>
+<p>Typical example: <input>ms1-ntf</input></p>
+</def>
+</dl-item>
+<dl-item>
+<term>&lt;Resource group></term><def><p>The Sun Cluster resource group to
+which this resource should belong.</p>
+<p>Typical example: <input>ms1</input></p>
+</def>
+</dl-item>
+<dl-item>
+<term>&lt;Network dependencies></term><def><p>The name of the logical host
+object (IP address) for which the NTF component should wait before starting.
+This resource is typically named:&lt;Resource group>-logical</p>
+<p>Typical example: <input>ms1-logical</input></p>
+</def>
+</dl-item>
+<dl-item>
+<term>&lt;NTF installation directory></term><def><p>The directory where this
+NTF instance has been installed or will be installed in. This directory is
+typically called: <input>/global/&lt;Resource group name>/ntf</input></p>
+<p>Typical example: <input> /global/ms1/ntf</input></p>
+</def>
+</dl-item>
+</def-list>
+</chl4>
+</chl3>
+<chl3><title>Configure the Installation Parameters</title>
+<note><p>The parameter names are case insensitive, they are converted to all
+uppercase by the installation program</p>
+</note>
+<table indent="left-margin">
+<caption>Installation Parameters</caption>
+<tgroup cols="3" align="left" char="" charoff="50"><colspec colname="col1"
+colwidth="0.78*"/><colspec colname="col2" colwidth="1.01*"/><colspec colname="col3"
+colwidth="1.21*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Parameter</tp></entry>
+<entry colname="col2" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Description</tp></entry>
+<entry colname="col3" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Default Value</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>HAMode</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Defines
+this as an installation in a HA system.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>no</input></tp>
+<tp>Must be changed to yes.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>BASEDIR</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Installation
+directory for the NTF component.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>/apps/ntf</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>McrHost</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Name of
+the host where the messaging component register is located.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>mcrhost</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>McrUserName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Username
+for MCR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>IComponent</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>McrPassword</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Password
+for MUR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>abc123</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>LogicalZone</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Name of
+the logical zone this NTF belongs to (if any)</tp>
+<tp>Set LogicalZone to the empty string if nearness of other components shall
+be determined from network addresses instead of zone.</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>unspecified</input>.</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MurHost</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>The host
+where the Messaging User Registry is located</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>murhost</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MurUserName</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Username
+for MUR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>admin</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>MurPassword</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Password
+for MUR administrator</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>admin</input></tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SearchBase</tp>
+</entry>
+<entry colname="col2" colsep="1" rowsep="1" char="" rotate="0"><tp>Search
+base for the user registry</tp>
+</entry>
+<entry colname="col3" colsep="1" rowsep="1" char="" rotate="0"><tp> 					<input>ou=site1,o=userdb<?Pub Caret?></input></tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>The parameters in this table are used in the installation process, and
+must be correct from the start.</p>
+<table indent="column">
+<caption>Site Dependent Parameters</caption>
+<tgroup cols="1" align="left" char="" charoff="50">
+<?PubTbl tgroup dispwid="326.00px"?>
+<colspec colname="col1" colwidth="0.78*"/>
+<thead valign="bottom">
+<row>
+<entry colname="col1" morerows="0" colsep="1" rowsep="1" align="left" char=""
+rotate="0" valign="top">
+<tp>Parameter</tp></entry>
+</row>
+</thead>
+<tbody valign="top">
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>BearingNetwork</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ImapRootUserName</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>ImapRootPassword</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SmeSystemId</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SmePassword</tp>
+</entry>
+</row>
+<row>
+<entry colname="col1" colsep="1" rowsep="1" char="" rotate="0"><tp>SmeSystemType</tp>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>All parameters from NTFs main configuration file <resource-id type="file-path">notification.cfg</resource-id> can
+be set in the response file <resource-id type="file-path">LMENtf.response</resource-id> prior
+to installation and will then appear in <resource-id type="file-path">notification.cfg</resource-id> after
+installation. The table above contains the parameters that must be changed
+on most sites, and as a convenience they are included in <resource-id type="file-path">LMENtf.response</resource-id>.
+They are documented in <xref linkend="ref.om"/> NTF Operation &amp; Maintenance,
+section Configuration Parameters.</p>
+</chl3>
+<chl3><title>Install the NTF Software</title>
+<p>When NTF is installed in a HA system, no script <resource-id type="file-path">rc.ntf</resource-id> is
+installed. NTF must be started and stopped with the cluster software.</p>
+<chl4><title>Manual Installation</title>
+<step-list>
+<sl-item><p>Run the installation script:</p>
+<p><input># ./install.sh</input></p>
+<p><preform>Starting install of NTF R12A with the response file \
+    LMENtf.response.
+Please check the IMAP user name:
+        IMAPUserName=gnotification3
+Continue:  [y,n,?]</preform></p>
+<p>Type <input>y</input> to continue or <input>n</input> to abort the installation.</p>
+<note><p>Since it is easy to forget to change the IMAP user name, the install
+script reminds you to check it, and displays the value in the response file</p>
+</note>
+</sl-item>
+<sl-item><p>The installation script will now install the NTF component with
+the output:</p>
+<p><preform>Installing NTF package
+Installation of &lt;LMENtf> was successful.
+NTF has been successfully installed.
+View log file /apps/logs/ntf/install/ntf.&lt;date>.installog\
+    for details</preform></p>
+</sl-item>
+</step-list>
+</chl4>
+<chl4><title xml:id="jumpstartinstallation">Automatic installation (Deployment
+Server) </title>
+<p>If several hosts should be installed with the NTF component, the NTF can
+be installed using the Deployment Server.</p>
+<p>It is recommended to first install a single NTF and verify that it works
+as intended, for example that the language files are modified as they should
+be. Then, use the configuration files from the working NTF to configure the
+Deployment Server installation.</p>
+<step-list>
+<sl-item><p>Login to the Deployment Server.</p>
+</sl-item>
+<sl-item><p>Copy the NTF container file to the directory <resource-id type="file-path">/apps/LMEAadmin/install/dist</resource-id> and
+move to this directory.</p>
+</sl-item>
+<sl-item><p>Unzip and extract the files <resource-id type="file-path">job_install_ntf</resource-id> and <resource-id
+type="file-path">LMENtf.response</resource-id> from the tar file, e.g:</p>
+<p><input># gzip -dc &lt;ntf_container_file> | tar xf -</input></p>
+</sl-item>
+<sl-item><p>Move the script job_install_ntf to the directory /apps/LMEAadmin/install/scripts/jobs</p>
+<p><input># mv ntf_files/job_install_ntf /apps/LMEAadmin/install/scripts/jobs/</input></p>
+</sl-item>
+<sl-item><p>Configure NTF according to: <xref linkend="config"/>. Be sure
+to set <quote>StartNtf=no</quote>, so the NTFs do not start until they have
+been individually configured.</p>
+</sl-item>
+<sl-item><p>Login to the Deployment Server web interface.</p>
+</sl-item>
+<sl-item><p>Add a Group NTF with no actions (if it not already exists).</p>
+</sl-item>
+<sl-item><p>Edit the Clients that shall be installed so that they belong to
+the Group NTF(if not already done) according to O&amp;M Deployment Server,
+see <xref linkend="ref.jsmanager"/>.</p>
+</sl-item>
+<sl-item><p>Add a Job (according to O&amp;M Deployment Server, see <xref linkend="ref.jsmanager"/>)
+with the following parameters:</p>
+</sl-item>
+</step-list>
+<def-list><dl-item>
+<term>Name</term><def><p>NTF Install</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Use certificate</term><def><p>Yes</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Status</term><def><p>Scheduled</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Run a script (remote)</term><def><p>/apps/LMEAadmin/install/scripts/jobs/job_install_ntf</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Arguments</term><def><p> ntf_&lt;rel>.crh109127.solaris10.tar &lt;Deployment_Server_Hostname></p>
+</def>
+</dl-item>
+<dl-item>
+<term>Copy script to remote</term><def><p>Yes</p>
+</def>
+</dl-item>
+<dl-item>
+<term>When</term><def><p>Now</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Repeat</term><def><p>Never</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Groups</term><def><p>NTF</p>
+</def>
+</dl-item>
+</def-list>
+<step-list reset="no">
+<sl-item><p>Check the result in the log files for Jobs.</p>
+</sl-item>
+<sl-item><p>Verify the installations according to: <xref linkend="verinstall"/>.</p>
+</sl-item>
+<sl-item><p>Customize each NTF individually as described below.</p>
+</sl-item>
+</step-list>
+</chl4>
+</chl3>
+<chl3><title xml:id="haaddinstance">Add NTF instances</title>
+<p>After NTF is installed on all cluster nodes, it is not ready for use. First
+all NTF instances must be added. Repeat the following procedure for each instance:</p>
+<list type="unordered">
+<list-item><p>Log in to a host where the file system for the NTF instance
+exists.</p>
+</list-item>
+<list-item><p>Run the NTF addinstance program</p>
+<p> <input> #&lt;BASEDIR>/bin/addinstance -d /global/ms1/ntf -i ntf1@ms1.ha.domain
+-m ms1.ha.domain -u gnotification4 </input> <nl/></p>
+<p>When NTF is running in a HA system, you must supply <emph>all</emph> the
+parameters to addinstance:</p>
+<list type="unordered">
+<list-item><p> <emph>d</emph> Directory where the NTF instance shall be created</p>
+</list-item>
+<list-item><p> <emph>i</emph> The MCR name of the new NTF instance.</p>
+</list-item>
+<list-item><p> <emph>m</emph> Name of the host where this NTFs message store
+is running.</p>
+</list-item>
+<list-item><p> <emph>u</emph> Base name for NTFs gnotification users.</p>
+</list-item>
+</list>
+<note><p>The options i, m and u correspond to the parameters Mcr_Instance_Name,
+ImapHost and ImapUserName in <resource-id type="file-path">&lt;NTF_HOME>/cfg/notification.cfg</resource-id> and <resource-id
+type="file-path">addinstance</resource-id> will set these values in the configuration
+file for the new instance</p>
+</note>
+</list-item>
+</list>
+<p><preform>Copying instance files and directories...
+...done. Registering component in MCR...
+
+MCR Registration
+****************
+
+MCR Registration successful
+
+...done. Registering NTF users in MUR...
+Gnotification registration
+**************************
+gnotification4_0 registered. 
+gnotification4_1 registered. 
+... 
+Gnotification registered successful
+
+Notification.off registration
+*****************************
+notification.off.ms1.ha.domain registered. 
+Notification.off registration successful
+...done.</preform></p>
+<p>When an NTF instance is added in a HA system, NTFs MCR entry will contain
+an SNMP context.</p>
+<p>The backup script for the instance is located in &lt;NTF_HOME>/moipbackup.</p>
+</chl3>
+<chl3><title xml:id="setinstanceparameters">Set Instance Parameters</title>
+<p>A few parameters must be set individually for each instance, or the instances
+will conflict with each other:</p>
+<def-list><dl-item>
+<term>SnmpAgentPort</term><def><p>Tells the NTF instance which port (and optionally
+which IP-address) to use for communication between the NTF traffic process
+and the NTF management agent. SnmpAgentPort must be configered with IP-address
+in HA-systems. Each NTF instance must have a unique combination of IP-address
+and port number.</p>
+</def>
+</dl-item>
+</def-list>
+<p>These parameters are described in <xref linkend="ref.om"/></p>
+</chl3>
+<chl3><title>Customize NTF Instances</title>
+<p>Customize each NTF instance as described in <xref linkend="customizentf"/>.</p>
+</chl3>
+<chl3><title>Start NTF</title>
+<p>Once NTF is installed and customized, you start the instances with the
+cluster software.</p>
+<chl4><title>Enable the NTF agent</title>
+<p><input># /usr/cluster/bin/scswitch -e -j &lt;NTF resource></input></p>
+<p>where &lt;NTF resource> is the same resource as mentioned previously. The
+command will automatically start-up the NTF component if the resource group
+is active and enabled.</p>
+</chl4>
+<chl4><title>Disable the NTF agent</title>
+<p>If you need to bring the NTF instance down for service or other reasons
+you need to disable the resource.</p>
+<note><p>If the component is brought down outside of the clusters control
+it will be interpreted as an error and corrective action will be taken (typically
+involving restarts and eventually a one or more reboots).</p>
+</note>
+<p> <input># /usr/cluster/bin/scswitch -n -j &lt;NTF resource></input>  	
+			</p>
+</chl4>
+</chl3>
+<chl3><title>Verify Installation</title>
+<chl4><title xml:id="verinstall">Verify Installation of NTF</title>
+<p>Verify the installation of a NTF by performing the following steps:</p>
+<step-list>
+<sl-item><p>Check the installation log file <resource-id type="file-path"> ntf.&lt;date>.installog </resource-id> to
+see if there were any errors at the installation of the NTF component.</p>
+</sl-item>
+<sl-item><p>Start NTF and check that it is running and does not write any
+error messages.</p>
+</sl-item>
+<sl-item><p>Verification done.</p>
+</sl-item>
+</step-list>
+</chl4>
+</chl3>
+</chl2>
+<chl2><title xml:id="customizentf">Customize NTF</title>
+<p>Once the NTF software is installed, most NTF installations must be adapted
+to the customer. This is done by editing one or more of the files:</p>
+<list type="unordered">
+<list-item><p>&lt;NTF_HOME>/cfg/notification.cfg</p>
+</list-item>
+<list-item><p>&lt;NTF_HOME>/cfg/systemnotification.cfg</p>
+</list-item>
+<list-item><p>&lt;NTF_HOME/cfg/outdial-default.cfg</p>
+</list-item>
+<list-item><p>&lt;NTF_HOME/cfg/charconv.cfg</p>
+</list-item>
+<list-item><p>&lt;NTF_HOME/cfg/charconv.cimd2</p>
+</list-item>
+<list-item><p>&lt;NTF_HOME>/templates/*.cphr</p>
+</list-item>
+</list>
+<note><p>If only <resource-id type="file-path">notification.cfg</resource-id> is
+customized, you can do this prior to installation by adding the parameters
+to the response file. You can then also start NTF automatically after installation
+by setting the parameter StartNtf=yes in the response file</p>
+</note>
+<note><p>In a HA-system, where you first install the software and then create
+instances, you can pre-customize instances by editing the files in <resource-id
+type="file-path">&lt;BASEDIR>/instance_template</resource-id>. When an instance
+is created, its files are copied from this directory, so if you edit these
+files, the change will apply to all instance you create afterwards.</p>
+</note>
+<p>These files are described in <xref linkend="ref.om"/> NTF Operation &amp;
+Maintenance, section Change Configuration Parameters in File.</p>
+<note><p>In order for NTF to send any notifications, sieve filters and gnotification
+mailboxes have to be configured in MS, see Chapter 5.10 Manage Notification
+Mailboxes in <xref linkend="ref.msom"/> MS Operation &amp; Maintenance.</p>
+</note>
+<note><p>If you have customized the outdial sequence in NTF R8A (using the
+parameter OutdialDelayers), the corresponding customization must be done to
+the new outdial sequence configuration file <resource-id type="file-path">outdial-default.cfg</resource-id></p>
+</note>
+<chl3><title xml:id="phr2cphr">Upgrading Phrase Files</title>
+<p>When upgrading from MoIP 6 FD1 or earlier, a tool for converting phrase
+files is provided. The tool <emph type="medium">phr2cphr.pl</emph> (in &lt;BASEDIR>/bin/)
+can be used to convert the obsolete phrase files (*.phr) to the new phrase
+file format (*.cphr). Example usage is: <nl/><resource-id>&lt;BASEDIR>/bin/phr2cphr.pl
+&lt;NTF_HOME>/templates/en.phr > &lt;NTF_HOME>/templates/en.cphr</resource-id></p>
+<p>The resulting cphr follows the syntactical rules of the obsolete count
+specific template files that were optionally used in earlier versions.</p>
+<p>All phr files found in &lt;NTF_HOME>/templates during upgrade is converted
+to .cphr files if one does not exist.</p>
+<note><p>Please review the resulting cphr-files and verify the expected output
+using the tool <emph type="medium">generatetext</emph> (See <xref linkend="ref.om"/> NTF
+Operation &amp; Maintenance, section Configuring Notification Templates for
+Different Languages)</p>
+</note>
+</chl3>
+</chl2>
+<chl2><title xml:id="backup">Backup</title>
+<p>A backup should be taken:</p>
+<list type="unordered">
+<list-item><p>After each installation.</p>
+</list-item>
+<list-item><p>Prior to each Upgrade or Rollback procedure.</p>
+</list-item>
+<list-item><p>Any time the configuration has been changed.</p>
+</list-item>
+</list>
+<p>For information about which files that are recommended to back up, see <emph
+type="low">Operation and Maintenance NTF</emph>, section <emph type="low">Backup</emph>.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="startstop">Start and Stop</title>
+<p>The NTF component is automatically started at reboot and if specified during
+installation. To manually start/restart/stop/check status of the component,
+see <emph type="low">Operation and Maintenance NTF</emph>, section <emph type="low">Operation</emph></p>
+</chl1>
+<chl1><title xml:id="upgrade">Upgrade</title>
+<p>This chapter describes how to upgrade NTF.</p>
+<note><p>When you upgrade from NTF R8A, outdial notifications that were started
+but not completed, will be lost.</p>
+</note>
+<chl2><title>Upgrade NTF, in a Standard System from Solaris 8</title>
+<p>Upgrading NTF from version R11B or earlier uses the following procedure:</p>
+<step-list>
+<sl-item><p>Backup the NTF data and configuration files.</p>
+</sl-item>
+<sl-item><p>Install Solaris 10 using the deployment server.</p>
+</sl-item>
+<sl-item><p>Unpack the NTF distribution.</p>
+<p>Get the distribution and unpack it in a temporary location.</p>
+</sl-item>
+<sl-item><p>Install the new NTF software.</p>
+<p>Run the installation script.</p>
+</sl-item>
+<sl-item><p>Restore the old backup by running the script <resource-id type="file-path">&lt;BASEDIR>/bin/restoreOldBackup</resource-id>.
+This script reads an old backup file and extracts it to correct locations
+for the new NTF. Run this script with arguments to the old directories for
+template and data. For a typical installation upgrading from R11B where the
+location hasn't been modified this will be:</p>
+<p><preform> <emph type="medium"># &lt;BASEDIR>/bin/restoreOldBackup -d /apps/ntf \
+    -t /opt/ntf/templates -D/var/ntf/journal \
+    -l /opt/ntf/logs/NotificationTrace.log \
+    -f &lt;full path to backupfile></emph></preform></p>
+</sl-item>
+<sl-item><p>Start NTF. If upgrading from R11B patch 5 or any earlier version
+this can take some time of the slamdown_journal file has many entries. This
+is because NTF must add cosname to every entry in the file at startup, this
+will normally take 100 ms per entry. If it takes to long it is possible to
+delete the slamdown_journal.current and slamdown_journal.last file and restart
+NTF.</p>
+</sl-item>
+<sl-item><p>Customize NTF with any new functionality that should be used according
+to <xref linkend="customizentf"/>. All phrase files must be updated to the
+new format according to <xref linkend="phr2cphr"/>.</p>
+</sl-item>
+<sl-item><p>Restart NTF if NTF has been customized.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Upgrade NTF, in a Standard System from Solaris 10</title>
+<p>Upgrading NTF from version R12A or later uses the following procedure:</p>
+<step-list>
+<sl-item><p>Backup the NTF data and configuration files.</p>
+</sl-item>
+<sl-item><p>Unpack the NTF distribution.</p>
+<p>Get the distribution and unpack it in a temporary location.</p>
+</sl-item>
+<sl-item><p>Install the new NTF software.</p>
+<p>Run the installation script. The new NTF software is installed in the same
+location as the old version. The old configuration is kept.</p>
+</sl-item>
+<sl-item><p>Start NTF if NTF is not configured to start after the installation.</p>
+</sl-item>
+<sl-item><p>Customize NTF with any new functionality that should be used according
+to <xref linkend="customizentf"/>. All phrase files must be updated to the
+new format according to <xref linkend="phr2cphr"/>.</p>
+</sl-item>
+<sl-item><p>Restart NTF if NTF has been customized.</p>
+</sl-item>
+</step-list>
+<note><p>When upgrading, all installation parameters and all configuration
+is taken from the old installation. The parameters in the response file, <resource-id
+type="file-path">LMENtf.response</resource-id>, are ignored, with one exception;
+you may set <resource-id type="file-path">StartNtf</resource-id> to control
+whether NTF shall start after the upgrade or not.</p>
+</note>
+</chl2>
+<chl2><title>Upgrade from a Standard System to a High Availibility System.</title>
+<step-list>
+<sl-item><p>Backup the NTF data and configuration files.</p>
+</sl-item>
+<sl-item><p>Uninstall the old NTF using the procedure documented for that
+release.</p>
+</sl-item>
+<sl-item><p>If upgrading from R11A the following step is needed: </p>
+<p>Install Solaris 10 using Deployment Server.</p>
+</sl-item>
+<sl-item><p>Install HA Agent and NTF software as described in <xref linkend="hainstall-installntf"/></p>
+</sl-item>
+<sl-item><p>Add the wanted NTF instances as described in <xref linkend="haaddinstance"/>.</p>
+</sl-item>
+<sl-item><p>Restore the old backup by using the script <resource-id type="file-path">&lt;BASEDIR>/bin/restoreOldBackup</resource-id> if
+the old version is version R11B or lower. This script reads an old backup
+file and extracts it to correct locations for this version. Run this script
+with arguments to the old directories for template and data. For a typical
+installation upgrading from R11B where the location hasn't been modified this
+will be:</p>
+<p><preform> <emph type="medium"># &lt;BASEDIR>/bin/restoreOldBackup -d &lt;NTFHOME> \
+    -t /opt/ntf/templates -D /var/ntf/journal \
+    -l /opt/ntf/logs/NotificationTrace.log \
+    -f &lt;full path to backupfile></emph></preform></p>
+<p>The configuration can be restored according to <emph type="low">Operation
+and Maintenance NTF</emph>, section <emph type="low">Backup</emph> if the
+old version is R12 or higher</p>
+</sl-item>
+<sl-item><p>Customize NTF with any new functionality that should be used according
+to <xref linkend="customizentf"/>. All phrase files must be updated to the
+new format according to <xref linkend="phr2cphr"/>.</p>
+</sl-item>
+<sl-item><p>Start NTF using the cluster software. If upgrading from R11B patch
+5 or any earlier version this can take some time of the slamdown_journal file
+has many entries. This is because NTF must add cosname to every entry in the
+file at startup, this will normally take 100 ms per entry. If it takes to
+long it is possible to delete the slamdown_journal.current and slamdown_journal.last
+file and restart NTF.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Upgrade from NTF in a High Availability System from Solaris 8.</title>
+<step-list>
+<sl-item><p>Backup the NTF data and configuration files for all NTF instances.</p>
+</sl-item>
+<sl-item><p>Uninstall old NTF using the procedure documented for that release.</p>
+</sl-item>
+<sl-item><p>Install Solaris 10 using Deployment Server.</p>
+</sl-item>
+<sl-item><p>Install HA Agent and NTF software as described in <xref linkend="hainstall"/></p>
+</sl-item>
+<sl-item><p>Add the wanted NTF instances as described in <xref linkend="haaddinstance"/>,
+probably in the locations where old NTF was installed.</p>
+</sl-item>
+<sl-item><p>Restore the old backup by using the script <resource-id type="file-path">&lt;BASEDIR>/bin/restoreOldBackup</resource-id>.
+This script reads an old backup file and extracts it to correct locations
+for the current version. Run this script with arguments to the old template
+and datadirectory and to the old log file..</p>
+<p><preform> <emph type="medium"># &lt;BASEDIR>/bin/restoreOldBackup -d &lt;NTFHOME> \
+    -t &lt;old template directory> \
+    -D &lt;old datadirectory> -l &lt;oldlogfile> \
+    -f &lt;full path to backupfile></emph></preform></p>
+</sl-item>
+<sl-item><p>Customize NTF according to <xref linkend="customizentf"/>. All
+phrase files must be updated to the new format according to <xref linkend="phr2cphr"/>.</p>
+</sl-item>
+<sl-item><p>Start NTF. If upgrading from R11B patch 5 or any earlier version
+this can take some time of the slamdown_journal file has many entries. This
+is because NTF must add cosname to every entry in the file at startup, this
+will normally take 100 ms per entry. If it takes to long it is possible to
+delete the slamdown_journal.current and slamdown_journal.last file and restart
+NTF.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Upgrade from NTF in a High Availability System from Solaris 10.</title>
+<note><p>By migrating NTF instances and upgrading one node at a time, it is
+possible to make a more clever upgrade. It is recommended to design such an
+upgrade procedure for the configuration at hand. An example is shown in <xref
+linkend="cleverhaupgrade"/>.</p>
+</note>
+<step-list>
+<sl-item><p>Backup the NTF data and configuration files for all NTF instances.</p>
+</sl-item>
+<sl-item><p>Install the new NTF software</p>
+<p>Run the installation script on all nodes. The new NTF software is installed
+in the same location as the old version. The old configuration is kept.</p>
+</sl-item>
+<sl-item><p>Upgrade the NTF configuration. </p>
+<p>Upgrade the NTF configuration with the script &lt;BASEDIR>/bin/upgradeinstance.
+The -d option tells upgradeinstance where the instance is located.</p>
+<p><emph>#&lt;BASEDIR>/bin/upgradeinstance -d /global/ms1/ntf</emph></p>
+</sl-item>
+<sl-item><p>Customize NTF according to <xref linkend="customizentf"/>. All
+phrase files must be updated to the new format according to <xref linkend="phr2cphr"/>.</p>
+</sl-item>
+<sl-item><p>Start NTF.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title xml:id="cleverhaupgrade">Upgrade from NTF in a High Availability
+System with extra node from Solaris 10.</title>
+<p>This section describes an alternative way to upgrade NTF with less downtime.
+It can be used when an unused cluster node is available for the upgrade.</p>
+<p>This upgrade procedure uses an unused node, called new and the node where
+NTF is running, called old.</p>
+<step-list>
+<sl-item><p>Backup the old NTF data and configuration files for all NTF instances.</p>
+</sl-item>
+<sl-item><p>Install HA Agent and NTF software on the new node, as described
+in the steps <xref linkend="hainstall-unpack"/> to <xref linkend="hainstall-installntf"/>.</p>
+</sl-item>
+<sl-item><p>Stop NTF on the old node using the cluster software.</p>
+</sl-item>
+<sl-item><p>Move NTF.</p>
+<p>Move NTF from the old node to the new node using the cluster software.
+After the move, both the old and new NTF software will be on the new node.
+Since the solaris package information is for the new software, the old software
+will not be used.</p>
+</sl-item>
+<sl-item><p>Upgrade NTF instance</p>
+<p>Upgrade the NTF configuration with the script &lt;BASEDIR>/bin/upgradeinstance.</p>
+<p> the -d option tells upgradeinstance where the instance is located.</p>
+<p><preform><emph type="medium">#&lt;BASEDIR>/bin/upgradeinstance -d /global/ms1/ntf
+</emph></preform></p>
+<p>This adds any new configuration files. Existing configuration files are
+kept and are not updated or replaced.</p>
+</sl-item>
+<sl-item><p>Customize NTF according to <xref linkend="customizentf"/>.</p>
+</sl-item>
+<sl-item><p>Start NTF with the cluster software.</p>
+</sl-item>
+<sl-item><p>Install HA Agent and NTF software on the old node.</p>
+</sl-item>
+<sl-item><p>Done.</p>
+</sl-item>
+</step-list>
+<note><p>If several NTF instances shall be upgraded, you repeat the steps
+from <quote>Stop old NTF.</quote> to <quote>Remove obsolete files.</quote> for
+each instance.</p>
+</note>
+</chl2>
+<chl2><title>Procedure for Solaris 10 Live upgrade</title>
+<p>Installation of the NTF adds some files located outside the /apps file
+system on the operating system disk. When an upgrade of the operating system
+(Solaris 10) is performed, all NTF related files residing outside of /apps
+will no longer be visible. The files affected are:</p>
+<p>/etc/init.d/rc.ntf</p>
+<p>/etc/rc3.d/S99ntf (symbolic link)</p>
+<p>These files will normally be backed up and restored into the new upgraded
+operating system by the LiveUpgrade framework. Should the framework fail the
+files can be retrieved from the old Operating System version using the lumount
+command.</p>
+</chl2>
+</chl1>
+<chl1><title xml:id="rollback">Rollback</title>
+<p>To roll back to the previous installation of NTF:</p>
+<step-list>
+<sl-item><p>Make sure that you have superuser (root) privileges.</p>
+</sl-item>
+<sl-item><p>Back up the configuration data for the NTF you want to replace.</p>
+<p>See <emph type="low">Operation and Maintenance NTF</emph>, section <emph
+type="low">Backup</emph>.</p>
+</sl-item>
+<sl-item><p>Uninstall the NTF component. See <xref linkend="uninstall"/>.</p>
+</sl-item>
+<sl-item><p>Reinstall the NTF release you want to roll back to and use the
+backup made from that release as input.</p>
+</sl-item>
+<sl-item><p>Verify that the NTF has been installed correctly and that the
+NTF has started.</p>
+</sl-item>
+</step-list>
+</chl1>
+<chl1><title xml:id="uninstall">Uninstallation</title>
+<chl2><title>Uninstall NTF in a Standard System</title>
+<p>Uninstallation of an NTF component is performed by using the <resource-id
+type="file-path"> &lt;NTF_HOME>/uninstall/uninstall.sh </resource-id> program.
+It will remove the NTF instance, uninstall the NTF software and perform the
+necessary unregistrations.</p>
+<p>To uninstall the NTF component:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>% su -</input></p>
+</sl-item>
+<sl-item><p>Back up required files.</p>
+<p>For information about recommended files to back up, see <emph type="low">Operation
+and Maintenance NTF</emph>, section <emph type="low">Backup</emph>.</p>
+</sl-item>
+<sl-item><p>Change directory to: <resource-id type="file-path"> &lt;NTF_HOME>/uninstall/ </resource-id></p>
+<p><input># cd &lt;NTF_HOME>/uninstall/</input></p>
+</sl-item>
+<sl-item><p>Run the <resource-id type="file-path"> uninstall.sh </resource-id> script.</p>
+<p> <input># ./uninstall.sh</input> </p>
+<p> <preform>Do you want to uninstall the NTF component?
+Choice:  [y,n,?]</preform></p>
+<p>Type <input> y </input> to continue or <input>n</input> to abort the uninstallation.</p>
+</sl-item>
+<sl-item><p>The uninstallation script will now uninstall the NTF component
+with the output:</p>
+<p><preform>NTF has been successfully uninstalled.
+View /apps/logs/ntf/uninstall/ntf.&lt;date>.uninstallog 
+for details</preform></p>
+</sl-item>
+<sl-item><p>Manually delete the data in NTFs data directory, unless you will
+immediately install NTF again, and want to keep pending notifications.</p>
+</sl-item>
+</step-list>
+</chl2>
+<chl2><title>Uninstall NTF in a HA-System</title>
+<p>Uninstallation in a HA system consists of removing NTF instances with the
+program <resource-id type="file-path">&lt;BASEDIR>/bin/rminstance</resource-id> and
+uninstalling NTF software with the program <resource-id type="file-path">&lt;BASEDIR>/uninstall/uninstall.sh</resource-id>.
+You can remove some instances and keep some instances and the NTF software,
+or you can remove all instances and remove the NTF software.</p>
+<p>To uninstall the NTF component:</p>
+<chl3><title>Remove NTF instances</title>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>% su -</input></p>
+</sl-item>
+<sl-item><p>Back up the NTF instances you will remove.</p>
+<p>For information about recommended files to back up, see <emph type="low">Operation
+and Maintenance NTF</emph>, section <emph type="low">Backup</emph>.</p>
+</sl-item>
+<sl-item><p>Remove NTF instances that shall be uninstalled, from the cluster
+file system. This will remove the instance files and unregister the instance
+and its NTF users.</p>
+<p><preform>#/apps/ntf/bin/rminstance -d /global/ms2/ntf
+MCR unregistration
+******************
+MCR unregistration successful
+Gnotification unregistration
+****************************
+gnotification2_0 removed.
+gnotification2_1 removed.
+...
+Gnotification unregistered successful
+Notification.off unregistration
+*******************************
+notification.off.&lt;mailhost> removed.
+Notification.off unregistration successful
+Data files in /global/ms2/ntf/data are not removed \
+    automatically.
+Remove them manually if you do not want to keep\
+    pending notifications.</preform></p>
+</sl-item>
+<sl-item><p>Remove data files from the instances data directory, if you do
+not want to keep them.</p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title>Remove NTF resource</title>
+<p>As all the NTF resources are associated to the same resource type (LMEAntf),
+every NTF resource has to be removed.</p>
+<p>Remove NTF resource</p>
+<list type="alphabetic">
+<list-item><p>Become superuser (root).</p>
+<p><preform>% su -</preform></p>
+</list-item>
+<list-item><p>Stop NTF.</p>
+<p><preform># scswitch &ndash;n &ndash;j &lt;ntf resource></preform></p>
+<p>For instance, # scswitch &ndash;n &ndash;j ms1-ntf.</p>
+</list-item>
+<list-item><p>Remove the NTF resource.</p>
+<p><preform># scrgadm &ndash;r &ndash;j &lt;ntf resource></preform></p>
+<p>For instance, # scrgadm &ndash;r -j ms1-ntf.</p>
+</list-item>
+</list>
+<p>Repeat  step two and three until all NTF resources are removed.</p>
+</chl3>
+<chl3><title>Remove NTF resource type</title>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p> <input>% su -</input></p>
+</sl-item>
+<sl-item><p>Remove the NTF resource type, unless you want to reuse it later.<nl/> <input>#
+scrgadm -r -t LMEA.ntf</input></p>
+</sl-item>
+</step-list>
+</chl3>
+<chl3><title>Uninstall the NTF Software</title>
+<p>If you have removed all NTF instances that may run on a node, you can uninstall
+NTF from that node:</p>
+<step-list>
+<sl-item><p>Become superuser (root).</p>
+<p><input>% su -</input></p>
+</sl-item>
+<sl-item><p>Change directory to: <resource-id type="file-path"> &lt;BASEDIR>/uninstall/ </resource-id></p>
+<p><input># cd /apps/ntf/uninstall/</input></p>
+</sl-item>
+<sl-item><p>Run the <resource-id type="file-path"> uninstall.sh </resource-id> script.</p>
+<p><input># ./uninstall.sh</input></p>
+<p><preform>After NTF is uninstalled, the tools to remove instances\
+    are gone.
+Remember to remove the instances first if you do not wish\
+    to keep them.
+Do you want to uninstall the NTF component?
+Choice:  [y,n,?]</preform></p>
+<p>Type <input> y </input> to continue or <input>n</input> to abort the uninstallation.</p>
+</sl-item>
+<sl-item><p>The uninstallation script will now uninstall the NTF component
+with the output:</p>
+<p><preform>NTF has been successfully uninstalled.
+View /apps/logs/ntf/uninstall/ntf.&lt;date>.uninstallog\
+    for details
+#</preform></p>
+</sl-item>
+</step-list>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title xml:id="logging">Logging</title>
+<p>NTFs runtime logfiles are described in  <xref linkend="ref.om"/> NTF Operation
+&amp; Maintenance, section Log Files</p>
+<chl2><title xml:id="installog">Installation Log</title>
+<p>The installation of the NTF component produces the following log file:</p>
+<list type="unordered">
+<list-item><p><resource-id type="file-path">/apps/logs/ntf/install/ntf.&lt;date>.installog</resource-id></p>
+</list-item>
+</list>
+</chl2>
+<chl2><title xml:id="uninstallog">Uninstallation Log</title>
+<p>The uninstallation of the NTF component produces the following log file:</p>
+<list type="unordered">
+<list-item><p><resource-id type="file-path">/apps/logs/ntf/uninstall/ntf.&lt;date>.uninstallog</resource-id></p>
+</list-item>
+</list>
+</chl2>
+</chl1>
+</body>
+<back>
+<reference>
+<reference-list>
+<rf-subsection></rf-subsection>
+<rf-item><rf-title xml:id="ref1">Messaging-over-IP Overview</rf-title><doc-no
+type="reference">5/1551-HDB 101 02 Uen</doc-no>
+</rf-item>
+<rf-item><rf-title>Glossary</rf-title><doc-no type="reference">1/0033-1/HDB
+101 02 Uen</doc-no>
+</rf-item>
+<rf-item xml:id="ref.om"><rf-title>Operation &amp; Maintenance NTF</rf-title>
+<doc-no type="reference">1/1543-CRH 109 127 Uen</doc-no>
+</rf-item>
+<rf-item xml:id="ref.jsmanager"><rf-title>Operation &amp; Maintenance Deployment
+Server</rf-title><doc-no type="reference">2/1553-CRH 109 266 Uen</doc-no>
+</rf-item>
+<rf-item xml:id="ref.msom"><rf-title>Operation &amp; Maintenance MS</rf-title>
+<doc-no type="reference">1/1543-CRH 109 084 Uen</doc-no>
+</rf-item>
+</reference-list>
+</reference>
+</back>
+</doc>
+<?Pub *0000068255 0?>

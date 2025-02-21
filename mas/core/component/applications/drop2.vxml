@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<form id="menu_form">
+	<field name="menu_input">
+		<prompt> 
+			<audio src="askifdeposit.wav" />
+		</prompt>
+		<grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+		<rule id="cmnu1_main_rule">
+		  <one-of>
+			<item>1</item> 
+ 			<item>2</item> 
+		  </one-of>
+  		</rule>
+		</grammar>
+	<catch event="error.semantic">
+		<log label="ERROR">Error semantic, lastresult was: <value expr="application.lastresult$.utterance"/></log>
+		<exit/>
+  	</catch>
+	<catch event="nomatch">
+		<log label="WARN">No match, lastresult was: <value expr="application.lastresult$.utterance"/></log>
+  	</catch>
+	<catch event="noinput">
+		<log label="WARN">No input at all ...</log>
+	</catch>
+	<filled>
+		<log label="INFO">User pressed <value expr="menu_input"/></log>
+		<assign name="menu_input" expr="menu_input.replace(/ /g,'')" /> 
+		<if cond="menu_input == '1'">
+			<goto next="#main_form"/>		
+		</if>
+		<if cond="menu_input == '2'">
+			<exit/>
+		</if>
+	</filled>
+	</field>
+	</form>
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<block>
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+	</block>
+
+        <block>
+		<var name="greeting"/>
+		<log>PhoneNumber=<value expr="phoneNumber"/></log>
+		<script>
+
+			// Get the greeting if the receiver exists in MUR
+			if (!unknown_receiver) {
+				greeting = mas.subscriberGetGreeting (phoneNumber, 'allcalls', 'voice', null);
+				if (greeting == null) {
+					greeting = "welcome.wav";
+				}
+			} else {
+				greeting = "unknown.wav";
+			}
+
+		</script>
+            	<prompt>
+       		    	<audio expr="greeting"/>
+       		</prompt>
+        </block>
+
+	<record name="recording">
+		<prompt>
+			<audio src="beep.wav" />
+		</prompt>
+		<filled>
+			<script>
+				if (!unknown_receiver) {
+			        	var emailaddress = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+					var storableMessageId = mas.messageCreateNew();
+					if (!unknown_sender) {
+				        	var callerEmailAddress = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+				        	var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+	        	                	var sender = callerEmailAddress[0];
+						mas.messageSetProperty(storableMessageId, 'sender', new Array(sender));
+	        	                	var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+						if (spokenName != null) {
+							mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+						}
+					} else {
+	        	                	var sender = 'Unknown()&lt;&gt;';
+						mas.messageSetProperty(storableMessageId, 'sender', new Array(sender));
+					}
+					mas.messageSetProperty(storableMessageId, 'recipients', emailaddress);
+					mas.messageSetProperty(storableMessageId, 'subject', new Array('Hello everybody!'));
+					mas.messageSetProperty(storableMessageId, 'type', new Array('voice'));
+					mas.messageAddMediaObject(storableMessageId, recording, 'voice message', 'message', 'en');
+					mas.messageStore(storableMessageId);
+				}
+			</script>
+		</filled>
+	</record>
+
+	</form>
+
+        <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<exit/>
+       </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="numberanalyzer.xsd">
+    <numberanalyzer>
+        <rule name="INBOUNDCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="999$i1999"/>
+            </subrule>
+        </rule>
+        <rule name="RETRIEVALPREFIXRULE">
+            <subrule name="RetrievalPrefix">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="OUTBOUNDCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="CLITOSMSCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="CUTTHROUGHPAGING">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="ECHONUMBER">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="FAXPRINTRULE">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="IVRTOSMS">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="SLAMDOWNCALL">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+           <subrule name="VeryAll">
+                <input expr="^([0-9]*)$"/>
+                <return expr="$i1"/>
+            </subrule>
+        </rule>
+        <rule name="Office">
+            <subrule name="NumberLength">
+                <input expr=""/>
+                <return expr="4,12"/>
+            </subrule>
+            <subrule name="All">
+                <input expr=""/>
+                <return expr=""/>
+            </subrule>
+        </rule>
+    </numberanalyzer>
+</configuration>

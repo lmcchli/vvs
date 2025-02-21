@@ -1,0 +1,4 @@
+#! /bin/sh
+rm *.class
+javac -classpath .:activation.jar:mail.jar MWIOffSender.java
+echo "....DONE COMPILING"

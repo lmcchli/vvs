@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+<!--START DEMO BEANS
+Demo beans used for test purposes. Should be removed in deployment  -->
+
+<!-- END DEMO BEANS -->
+    <bean id="Configuration"
+          factory-bean="ConfigurationManager"
+          factory-method="getConfiguration"/>
+    <bean id="ConfigurationManager" class="com.mobeon.masp.configuration.ConfigurationManagerImpl">
+        <property name="configFile">
+            <list>                
+                <value>test/mas.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="ContentTypeMapper" class="com.mobeon.masp.mediaobject.ContentTypeMapperImpl" init-method="init">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+    </bean>
+    <bean id="MediaObjectFactory" class="com.mobeon.masp.mediaobject.factory.MediaObjectFactory">
+        <property name="bufferSize" value="8000"/>
+    </bean>
+    <bean id="IMediaContentManager" class="com.mobeon.masp.mediacontentmanager.MediaContentManager" init-method="init">
+        <property name="configuration">
+            <ref bean="Configuration"/>
+        </property>
+        <property name="mediaObjectFactory"><ref bean="MediaObjectFactory"/></property>
+        <property name="contentTypeMapper"><ref bean="ContentTypeMapper"/></property>
+    </bean>
+
+
+</beans>

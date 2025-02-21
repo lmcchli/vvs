@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <eventprocessor>
+        <transition event="ccxml.loaded" name="evt">
+            <script>
+                var parameterNames = [];
+                var parameterValues = [];
+
+                parameterNames[0] = "sendto";
+                parameterValues[0] = "12322";
+
+                parameterNames[1] = "messageaccount";
+                parameterValues[1] = "12322";
+
+                parameterNames[2] = "messageswaiting";
+                parameterValues[2] = "yes";
+
+                parameterNames[3] = "voicemessagenew";
+                parameterValues[3] = "2";
+
+                parameterNames[4] = "voicemessageold";
+                parameterValues[4] = "1";
+
+                parameterNames[5] = "faxmessagenew";
+                parameterValues[5] = "1";
+
+                parameterNames[6] = "faxmessageold";
+                parameterValues[6] = "6";
+
+                parameterNames[7] = "videomessagenew";
+                parameterValues[7] = "2";
+
+                parameterNames[8] = "videomessageold";
+                parameterValues[8] = "2";
+
+                parameterNames[9] = "emailmessagenew";
+                parameterValues[9] = "3";
+
+                parameterNames[10] = "emailmessageold";
+                parameterValues[10] = "7";
+
+                mas.systemSendSIPMessage("messagewaiting",
+                                  parameterNames,
+                                  parameterValues);
+            </script>
+        </transition>
+
+        <transition event="com.mobeon.platform.sipmessageresponse" name="evt">
+            <log expr="'TCFAIL'"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.requesttimeout" name="evt">
+            <log expr="'TCPASS CCXML'"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

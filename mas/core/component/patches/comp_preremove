@@ -1,0 +1,29 @@
+#!/bin/sh
+
+
+# Save component state
+########################
+stopped=`/etc/init.d/rc.mas status |grep ":status stopped"`
+if [ -z "$stopped" ]; then
+    info "Saving component state: Started"
+    rm -f /var/tmp/TmpMasPatchInstall_stateStopped
+else
+    info "Saving component state: Stopped"
+    touch /var/tmp/TmpMasPatchInstall_stateStopped
+fi
+    
+
+
+
+# Shutdown MAS
+###############
+
+# TODO? How to limit time allowed?
+
+
+
+# Stop MAS
+###########
+
+info "Stopping component"
+/etc/init.d/rc.mas stop

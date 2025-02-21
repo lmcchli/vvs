@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<throw event="foo.bar"/>
+		</block>
+	</form>
+	<catch event="foo">
+			<log label="error">TC 20103024 Passed (_event = <value expr="_event"/>)</log>
+		<exit/>
+	</catch>
+	<catch event="foo.bar">
+		<log label="error">TC 20103024 Failed (_event = <value expr="_event"/>)</log>
+		<exit/>
+	</catch>
+</vxml>

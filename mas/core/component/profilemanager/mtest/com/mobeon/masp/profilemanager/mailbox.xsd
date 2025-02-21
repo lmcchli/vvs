@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:element name="configuration" nillable="false">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mailbox"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mailbox">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="additionalproperty" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                    <xs:attribute name="field" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="imap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="imap">
+        <xs:complexType>
+            <xs:attribute name="connectiontimeout" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="commandtimeout" type="xs:positiveInteger" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--The length of the call in seconds.-->
+   <var name="callLength" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="assign1">
+      <block>
+         <assign name="callLength" expr="Time_GetUtcSeconds() - UtcSecondsAtConnect" />
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SendTrafficEvent ('callended', 'description=callended,operation=16,objecttype=6,messagesize=' + callLength + ',callingnumber=' + ANI)</script>
+      <block>
+         <if cond="((GlobalObject.LoggedIn == true))">
+            <goto next="#sub2" />
+            <else />
+            <disconnect />
+         </if>
+      </block>
+   </form>
+   <form id="sub2">
+      <script>System_SendTrafficEvent ('logout', 'description=logout,operation=12,objectType=2,messagesize=' + callLength + ',callingnumber=' + ANI)</script>
+      <block>
+         <disconnect />
+      </block>
+   </form>
+</vxml>

@@ -1,0 +1,14 @@
+From: sink@ipms.mobeon.com
+Subject: ipms/message
+#foreach( $event in $events )
+To: notification.off@$event.mailhost
+#end
+Ipms-Message-Type: notification
+Ipms-Notification-Version: 1.0
+Ipms-Component-From: emComponent=$events.get(0).component
+Ipms-Notification-Type: mvas.subscriber.slamdown
+Ipms-Notification-Content: body
+
+#foreach( $event in $events )
+$event.accesstype $event.callingnumber $event.mailhost $event.emailaddress
+#end

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit/>
+    </catch>
+
+    <form >
+        <transfer expr="2" name="call" destexpr="'121212'" bridge="true" connecttimeout="3s" maxtime="5s">
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+            <filled>
+                <log>ERROR</log>
+                <exit/>
+            </filled>
+        </transfer>
+        <block>
+            <if cond="call == 2">
+                <log>TCPASS</log>
+                <exit/>
+            </if>
+        </block>
+    </form>
+</vxml>

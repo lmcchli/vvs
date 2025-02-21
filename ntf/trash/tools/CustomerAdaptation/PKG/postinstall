@@ -1,0 +1,32 @@
+# postinstall script
+MCR_VERSION=__MCR_VERSION__
+setup_logfile(){
+DATE=`date +%Y_%m_%d_%H%M`
+InstallLogfile="$BASEDIR/logs/install/CustomerAdaptation.$DATE.installog"
+}
+
+update_version(){
+echo "Updating version."| tee -a  $InstallLogfile 
+
+OLD_VERSION=`grep "VERSION" $BASEDIR/VERSION | cut -f2 -d= | sed s%","%" "%g`
+for a in $OLD_VERSION
+do
+TEST=`echo $a | grep "CA"`
+if [ ! "$TEST" ];then
+NEW_VERSION="$NEW_VERSION$a, "
+fi
+done
+echo "VERSION=${NEW_VERSION}$MCR_VERSION" > $BASEDIR/VERSION
+
+MCR_USER=`pkgparam LMENtf MCRUserName`
+MCR_PASS=`pkgparam LMENtf MCRPassword`
+$BASEDIR/registrations/mcr_reg/ntf_mcr_reg.sh "$InstallLogfile" "$MCR_USER" "$MCR_PASS" > /dev/null 2>&1
+}
+
+
+#################
+#MAIN
+#################
+setup_logfile
+update_version
+echo "End Customer Adaptation installation: " `date` >> $InstallLogfile

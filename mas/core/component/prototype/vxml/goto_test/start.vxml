@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<catch event="telephone.disconnect.hangup">
+		<log>user hangup</log>
+	</catch>
+    <script src="../MAS.js"/>
+	<var name="foo" expr="'DALO WAS HERE'" />
+	<form id="main">
+        <block>
+            <prompt>
+                <audio expr="getPrompt('GOODMORNING') + getPrompt('WELCOME');"></audio>
+            </prompt>
+        </block>
+	    <block name="leaveOrRetrieve">
+			<if cond="MAS_A_NUM == MAS_C_NUM">
+                <goto next="sub1.vxml#playNumMessages"/>
+			<else />
+			    <goto next="sub2.vxml#leaveMsg"/>
+			</if>
+			Leaving block1
+		</block>
+	</form>
+</vxml>

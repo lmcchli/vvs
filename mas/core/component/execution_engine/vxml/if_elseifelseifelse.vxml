@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <var name="olle" expr="7"/>
+    <var name="kalle" expr="7"/>
+    <if cond="olle == 10">
+        <assign name="kalle" expr="11"/>
+        <exit/>
+
+        <elseif cond="kalle == 8"/>
+
+        <assign name="olle" expr="13"/>
+        <exit/>
+        <elseif cond="olle == 7">
+            <assign name="kalle" expr="20"/>
+            <assign name="olle" expr="30"/>
+            <exit/>
+        </elseif>
+
+        <else/>
+
+        <assign name="olle" expr="12"/>
+        <exit/>
+    </if>
+</vxml>

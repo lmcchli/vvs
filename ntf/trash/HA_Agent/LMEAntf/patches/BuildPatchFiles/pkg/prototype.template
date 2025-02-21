@@ -1,0 +1,3 @@
+d none LMEAntf 0775 root other
+d none LMEAntf/bin 0775 root other
+f none LMEAntf/bin/hantf-ntf.sh=/vobs/ipms/ntf/HA_Agent/LMEAntf/bin/hantf-ntf.sh 0555 root other

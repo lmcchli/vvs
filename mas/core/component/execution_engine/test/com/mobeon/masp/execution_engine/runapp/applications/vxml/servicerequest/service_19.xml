@@ -1,0 +1,8 @@
+<application>
+    <documents base="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/servicerequest/" type="application/xml+ccxml">
+        <document src="service_19.ccxml" root="true"/>
+    </documents>
+    <documents base="file:///$WORKINGDIR/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/servicerequest/" type="application/xml+vxml">
+        <document src="service_19.vxml"/>
+    </documents>
+</application>

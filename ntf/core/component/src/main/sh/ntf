@@ -1,0 +1,489 @@
+#! /bin/sh 
+#
+# FILE: ntf
+#
+# script for the NTF Component
+
+#NTF set application 
+source /export/PLATFORM/ALL/read_miostartvars.sh
+. /opt/moip/ntf/bin/ctrlScriptLib
+
+
+getConfig () {
+    param=$1
+    conf=$2
+    schema=$3
+    val=""
+
+    if [[ $conf == "" ]]; then
+        return -1
+    fi
+
+    if [[ $param == "" ]]; then
+        return -1
+    fi
+
+    if [ ! -f $conf  ]; then
+        if [ ! -f $schema ]; then
+            useSchema="true"
+        else
+	    return -1
+        fi
+    fi
+    
+    if [[ $useSchema != "true" ]]; then
+        val=`grep $param $conf | head -1`
+        if [[ $val == "" ]];then
+ 	     useSchema="true"
+        else
+             val=`sed -n '/<'"${param}"'>/,/<\/'"${param}"'>/p' $conf | sed -e 's/^[ \t]*//' | tr -d '\n\r' | sed -e 's/<'"${param}"'>//'  -e 's/<\/'"${param}"'>.*//'`
+             if [[ $val == "" ]];then 
+                 if [ ! -f $schema ]; then
+                      useSchema="true"
+                 else
+		      return 0
+                 fi
+             else
+                 return 0
+             fi
+        fi
+    fi
+    
+    if [[ $useSchema == "true" ]];then
+	val=`grep $param $schema | head -1`
+        if [[ $val == "" ]];then
+           return 0
+        else
+           val=`sed -n '/<xs:element name=.*'"${param}"'/,/<\/xs:element>/p' $schema | sed -e 's/^[ \t]*//' | tr -d '\n\r' ` 
+           if [[ $val == "" ]]; then
+              return 0 # no default defined
+           fi
+           test=`echo $val | grep default`
+           if [[ $test == "" ]];then
+                val=""  
+		return 0 # no default value
+	   fi
+           val=`echo $val | sed -e 's/.*default="//' -e 's/".*//'`
+           return 0
+        fi
+    fi
+}
+
+waitStatus() {
+    stat=$1
+    tries=$2
+    ok='n'
+    
+    log "Confirming SNMP state change.."
+    while [[ $tries != "0" ]]
+    do
+        result=`snmpget -Lo -v 2c -t 15 -r 0 -c $NTF_SNMP_SERVICE_READ localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.3.0 2>/dev/null`
+    
+    	if [ $? == 0 ]; then
+    	
+    	    result=`echo $result | awk '{print $4}'`
+    		
+    	    if [ "$result" == "$stat" ]; then
+    		    ok='y'
+    		    return
+    		else
+    		    log "Waiting for SNMP state change.."
+    		   	sleep 5
+                        tries=`expr $tries - 1`
+    		fi
+    	else
+    	    log "SNMP is not responding when checking current state, retrying.."
+                tries=`expr $tries - 1`
+    	fi
+	done
+}
+
+
+testNtf() {
+	echo "testing with com.mobeon.common.cmnaccess.MasStubLinuxTest"
+	#java -DntfHome=$CONFIGDIR junit.textui.TestRunner com.mobeon.common.cmnaccess.MasStubLinuxTest
+	$JAVA_HOME/bin/java -Djava.library.path=${LD_LIBRARY_PATH} -DntfHome=$CONFIGDIR -Xdebug com.mobeon.common.cmnaccess.MasStubLinuxTest
+}
+
+unlock() {
+    showComponentStatus
+    res=$?
+    if [ $res -ne 0 ]; then
+        log "Cannot unlock NTF, rot running."
+        exit -1
+    fi	
+	
+    log "Checking NTF status, please wait upto 30 seconds..."
+    	     
+    result=`snmpget -Lo -v 2c -t 15 -r 1 -c $NTF_SNMP_SERVICE_READ localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.3.0 2>/dev/null`
+	if [ $? == 0 ]; then
+	    	result=`echo $result | awk '{print $4}'`		    	
+	    	if [[ $result == "1" ]]
+			then
+			    log "NTF already unlocked"
+			elif [[ $result == "2" ]]
+			then
+			    log "NTF SNMP State: locked, unlocking, please wait upto 15 seconds.."
+			    unlock="y"
+			elif [[ $result == "3" ]]
+			then
+			    log "NTF SNMP State: Degraded (shutting down), unable to unlock."
+			elif [[ $result == "4" ]]
+			then
+			    log "NTF SNMP State: Down (starting or shutting down), unable to unlock."
+			else
+			   	log "NTF is in an unknown SNMP state: ($result)"
+			   	log "Attempting to unlock, please wait upto 15 seconds.."
+			   	unlock="y"				   	
+			fi
+	else
+	   log "SNMP is not responding.  Could be NTF is busy or not fully started, please try again.."
+    fi
+    
+    if [[ $unlock == "y" ]]; then
+        count=2;
+        while [[ $count != "0" ]]
+        do
+              res=`snmpset -v 2c -t 15 -r 0 -c $NTF_SNMP_SERVICE_WRITE localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.4.0 i 1 2>/dev/null`
+              if [ $? == 0 ]; then
+                #success
+                sleep 2
+                waitStatus 1 3
+                if [[ $ok == "y" ]]; then
+                    log "NTF unlocked.."
+                    count=0 # exit loop
+                else
+                    (( count = $count - 1 ))
+                    if [[ count != "0" ]]; then 
+                        log "Failed, retrying to unlock, please wait upto 15 seconds..."	
+                    else
+                        log "failed."
+                    fi
+                fi                
+              else
+                if [[ $count != "1" ]]; then
+                     log "Failed, retrying to unlock, please wait upto 15 seconds..."	                    
+                else
+                     log "Time out on response from SNMP set, during unlock. May still be unlocked, checking...." 
+                     waitStatus 1 3
+                     if [[ $ok == "y" ]]; then
+                        log "NTF unlocked.."
+                     else
+                        log "Failed to unlock."
+                        exit -1
+                     fi
+                                          
+                fi
+                count=`expr $count - 1`
+              fi	              
+        done
+    fi			  
+}
+
+
+lock()
+{
+
+    showComponentStatus
+    res=$?
+    if [ $res -ne 0 ]; then
+        log "Cannot lock NTF, rot running."
+        exit -1
+    fi
+    
+     
+	log "Checking NTF status, please wait upto 30 seconds..."
+        
+    result=`snmpget -Lo -v 2c -t 15 -r 1 -c $NTF_SNMP_SERVICE_READ localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.3.0 2>/dev/null`
+	if [ $? == 0 ]; then
+	    	result=`echo $result | awk '{print $4}'`		    	
+	    	if [[ $result == "2" ]]
+			then
+			    log "NTF already locked"
+			elif [[ $result == "1" ]]
+			then
+			    log "NTF SNMP State: unlocked, locking, please wait upto 15 seconds.."
+			    lock="y"
+			elif [[ $result == "3" ]]
+			then
+			    log "NTF SNMP State: Degraded (shutting down), unable to lock."
+			elif [[ $result == "4" ]]
+			then
+			    log "NTF SNMP State: Down (starting or shutting down), unable to lock."
+			else
+			   	log "NTF is in an unknown SNMP state: ($result)"
+			   	log "Attempting to lock, please wait upto 15 seconds.."
+			   	unlock="y"				   	
+			fi
+	else
+	   log "SNMP is not responding.  Could be NTF is busy or not fully started, please try again.."
+    fi
+    
+    if [[ $lock == "y" ]]; then
+        count=2
+        while [[ $count != "0" ]]
+        do
+              res=`snmpset -v 2c -t 15 -r 0 -c $NTF_SNMP_SERVICE_WRITE localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.4.0 i 2 2>/dev/null`
+              if [ $? == 0 ]; then
+                #success
+                sleep 2
+                waitStatus 2 3
+                if [[ $ok == "y" ]]; then
+                    log "NTF locked.."
+                    count=0 # exit loop
+                else
+                    count=`expr $count - 1`
+                    if [[ $count != "0" ]]; then 
+                        log "Failed, retrying to lock, please wait upto 15 seconds..."	
+                    else
+                        log "failed."
+                    fi
+                fi                
+              else
+                if [[ $count != "1" ]]; then
+                     log "Failed, retrying to unlock, please wait upto 15 seconds..."	                    
+                else
+                     log "Time out on response from SNMP set, during unlock. May still be unlocked, checking...." 
+                     waitStatus 2 3
+                     if [ $ok == "y" ]; then
+                        log "NTF unlocked.."
+                     else
+                        log "Failed to unlock."
+                        exit -1
+                     fi
+                                          
+                fi
+                count=`expr $count - 1`
+              fi	              
+        done
+    fi			  
+}
+
+refreshconfig()
+{
+    showComponentStatus
+    res=$?
+    if [ $res -ne 0 ]; then
+        log "Cannot lock NTF, rot running."
+        exit -1
+    fi
+	
+   log "Sending refresh config via SNMP, please wait upto 15 seconds." 
+   count=2
+    while [ $count -gt 0 ]
+    do
+      res=`snmpset -v 2c -t 15 -r 0 -c $NTF_SNMP_SERVICE_WRITE  localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.6.0 i 1 2>/dev/null`
+      if [ $? == 0 ]; then
+            log "Succesfully sent refresh config.." 
+            exit 0           
+      else
+        if [ $count -ne 1 ]; then
+             log "Failed, retrying to refresh config, please wait upto 15 seconds..."	                    
+        else
+             log "Time out on response from SNMP set.." 
+             exit -1	                                          
+        fi
+        count=`expr $count - 1` 
+      fi	              
+    done     
+}
+
+
+showNTFStatus()
+{
+    showComponentStatus
+    res=$?
+    if [[ $res != 0 ]]; then
+        return $res
+    fi
+    
+    log "Checking operational status via SNMP, please wait upto 30 seconds.."
+	result=`snmpget -Lo -v 2c -t 5 -r 1 -c $NTF_SNMP_SERVICE_READ localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.3.0 2>/dev/null`
+	if [ $? == 0 ]; then
+		result=`echo $result | awk '{print $4}'`				
+		if [[ $result == "1" ]]
+		then
+			log "NTF SNMP State: UP (Unlocked)"
+		elif [[ $result == "2" ]]
+		then
+			log "NTF SNMP State: Locked"
+		elif [[ $result == "3" ]]
+		then
+			log "NTF SNMP State: Degraded (Shutting down)"
+		elif [[ $result == "4" ]]
+		then
+			log "NTF SNMP State: Down"
+		else
+			log "NTF is in an unknown SNMP state: ($result)"
+		fi
+	else
+	    log "NTF is in an unknown state, SNMP is not responding"
+	fi 
+}
+
+
+stopNTF()
+{
+    # Return immediately if user is not the expected one
+    verifyUser || return 3;
+    
+    nbprocesses=`ps -ef | grep "$PROCESS_TO_MONITOR" | grep -v grep | wc -l`
+    
+    if [ ${nbprocesses} -gt 1 ]; then
+         log "[WARNING] ${COMPONENT_NAME} has ${nbprocesses} processes running.  I will attempt to stop all of them"
+    fi
+
+    pid=$(getPid)
+
+    if [ $pid ]; then 
+
+        setupEnv 2>/dev/null
+        getConfig "Cm.shutdownTime" "/opt/moip/config/ntf/cfg/notification.conf" "/opt/moip/config/ntf/cfg/notification.xsd"
+    
+    	if [[ $? != "0" ]]; then
+    		log "Error getting shutdownTime, assuming default of 30."
+    		count=30
+    	else
+                count=$val
+    		count=`echo $count | awk  '{ gsub(/[a-zA-Z()]/,""); print $0 }'`
+    		if [[ $count == ""  ]]; then
+    			log "Error getting shutdownTime, assuming default of 30."
+    			count=30
+                else
+			log "Shutdown time from config is $count"
+    		fi
+    	fi
+ 
+    	log "Attempting to send shutdown to NTF via SNMP, could take upto 30 seconds..."
+    	#this set command tries twice each with a timeout of 15 seconds.
+    	res=`snmpset -v 2c -t 15 -r 0 -c $NTF_SNMP_SERVICE_WRITE localhost:$NTF_SNMP_PORT .1.3.6.1.4.1.193.91.4.20.1.2.4.0 i 3 2>/dev/null`
+    	
+    	if [[ $? != "0" ]]; then 
+            log "ERROR: Failed to send shutdown via SNMP due to SNMP timeout, using SIGTERM instead."
+    		if [ "$pid" == "$pids" ]; then
+    		    kill -TERM $pid
+    	    else
+    		    `ps auxwww | grep $PROCESS_TO_MONITOR | grep -v grep | awk '{print $2}' | xargs kill -TERM`
+    	    fi
+    	fi 
+    	
+    	log "Succesfully initiated gracefull shutdown.."
+    	count=`expr $count + 10` 
+    	report=0
+    	finished="false"
+    	log "Will wait a maximum of shutdownTime + 10 seconds = $count"
+    	while [[ $finished == "false"  ]];
+    	do
+    		pid2=$(getPid)
+    		if [ $pid2 ]; then
+    			 if [[ $count != "0" ]]; then
+				 if [[ $report ==  "5" ]]; then 
+    					log "Waiting $count seconds.."
+    					report=0
+    				 fi
+    				 count=`expr $count - 1`
+    				 report=`expr $report + 1`
+    				 sleep 1
+    			else
+    				 log "NTF did not shutdown cleanly, killing..."
+    				 `ps auxwww | grep $PROCESS_TO_MONITOR | grep -v grep | awk '{print $2}' | xargs kill -KILL`
+    				 finished=true
+    			fi
+    	   else
+    			finished=true
+    	   fi
+       done
+       log "NTF Shutdown completed"
+    
+    
+    else
+        log "${COMPONENT_NAME} is not running"
+        return 1
+    fi 
+    
+}
+
+startNTF()
+{
+    pid=$(getPid)
+
+    if [ $pid ]; then
+        log "${COMPONENT_NAME} is already running (pid:$pid)"
+        return 2
+    else
+        # Return immediately if user is not the expected one
+        verifyUser || return 3;
+
+        echo "Starting ${COMPONENT_NAME}. Please wait..."
+
+        # Export the injected MiO Start variables that may be needed be the application.
+        if [ -e /export/PLATFORM/ALL/read_miostartvars.sh ]; then
+            source /export/PLATFORM/ALL/read_miostartvars.sh > /dev/null
+        fi
+
+        # process.log now handled by log4j - redirect just for jvm specific errors (kill -quit)
+        bash -c "(${START_CMD} 2>&1) >> /opt/moip/logs/ntf/process.log &"
+
+        i=1 ; max=5
+        while [ $i -le $max ]
+        do
+            echo -n .
+            sleep 1
+            i=`expr $i + 1`;
+        done
+        echo .
+        showComponentStatus
+        return $?
+    fi
+}
+
+
+if [ "$1" == "pidStatus" ]; then
+    # Only source the basic NTF environment, because a simple pidStatus only needs
+    # minimal variables to be set. Sourcing all variables may hang the status check
+    # if an OM or FS host is rebooting at the same time. Such hanging of the status
+    # check will cause Monit to restart NTF.
+    . /opt/moip/ntf/bin/ntf_basic.env
+else
+    . /opt/moip/ntf/bin/ntf.env
+fi
+
+
+case $1 in 
+'status')
+        showNTFStatus
+        ;;
+'pidStatus')
+        showComponentStatus
+        ;;
+'start')
+        startNTF
+        ;;
+'stop')
+        stopNTF
+        ;;
+'kill')
+        killComponent
+        ;;
+'test')
+        testNtf
+        ;;
+'lock')
+        lock
+        ;;
+'unlock')
+        unlock
+        ;;
+'refreshconfig')
+        refreshconfig
+        ;;
+'rotateLog')
+        rotateLog
+        ;;
+*)
+        echo "usage: $0 {start|stop|status|pidStatus|kill|lock|unlock|refreshconfig|rotateLog}"
+        exit 1
+        ;;
+
+esac
+exit $?

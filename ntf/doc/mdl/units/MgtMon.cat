@@ -1,0 +1,54 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "MgtMon"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DC6C018B"
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class_Category "MgtLog"
+	    quid       	"3AC4DC6C01A0"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "IpmsLog"
+		    quid       	"3AC4DC6C01A2"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    module     	"Component View::MgtMon::MgtLog::IpmsLog"
+		    quidu      	"3AC4DC6C016D"
+		    language   	"Java"))
+	    logical_presentations 	(list unit_reference_list))
+	(object Class_Category "MgtClient"
+	    quid       	"3AC4DC7100C0"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "IpmsIpcCli_intf"
+		    quid       	"3AC4DC7100C2"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    stereotype 	"Interface"
+		    module     	"Component View::MgtMon::MgtClient::IpmsIpcCli_intf"
+		    quidu      	"3AC4DC7100AC"
+		    language   	"Java")
+		(object Class "IpmsIpcClient_thr"
+		    quid       	"3AC4DC7100DE"
+		    documentation 	
+|@author Ahmad Mahmoudi
+|@version 1.0
+|
+		    
+		    module     	"Component View::MgtMon::MgtClient::IpmsIpcClient_thr"
+		    quidu      	"3AC4DC7100CA"
+		    language   	"Java"))
+	    logical_presentations 	(list unit_reference_list)))
+    logical_presentations 	(list unit_reference_list))

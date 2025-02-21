@@ -1,0 +1,79 @@
+#!/bin/sh
+#
+# postinstall
+#
+# Copyright (C) 2004-2005 Mobeon AB
+# All Rights Reserved
+#
+
+version=`uname -r`
+
+MAS_CONF_FILE="mas.conf"
+MAS_ENABLERESTART="enablerestart"
+LOGFILE=""
+
+
+doSetupLogDir()
+{
+
+	echo "Checking if log directory structure exists"
+	if [ -d $BASEDIR/../logs ]; then
+		sleep 0
+	else
+		mkdir $BASEDIR/../logs
+	fi
+
+	if [ -d $BASEDIR/../logs/mas ]; then
+		sleep 0
+	else
+		mkdir $BASEDIR/../logs/mas
+	fi
+}
+
+
+doChkUpgrade()
+{
+	# If a previous installation exist and upgrade is not wanted. Exit.
+	pkginfo -q MOBYmas\*
+	if [ $? -eq 0 ]; then
+		if [ ! "$REUSECONFIG" = "no" ]; then
+			echo " There already exist an installation."
+			echo " Remove the previous installed version prior"
+			echo " to install this one."
+			exit 1
+		fi
+	fi
+	
+#	# Remove mas before installing it again
+#	if [ ! "$REUSECONFIG" = "yes" ]; then
+#		pkgrm MOBYmas
+#	fi
+
+}
+
+uninstallPrevPkg () {
+
+	if [ ! "$REUSECONFIG" = "yes" ]; then
+ 	    PATH=/usr/sadm/bin:$PATH
+	    UPGR_SCRIPT=/tmp/upgr.$PKGINST
+	 
+	    if [ -f $UPGR_SCRIPT ]; then
+	    	  chmod 777 $UPGR_SCRIPT
+		  $UPGR_SCRIPT
+	    fi
+	fi
+}
+
+
+#
+# MAIN
+#
+case $version in
+	5.8)	
+				
+		doSetupLogDir
+		;;
+	*)	doSetupLogDir
+		#doChkUpgrade
+		;;
+esac

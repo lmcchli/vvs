@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml application="subdialog_11a.vxml" version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <form id="subaru">
+
+        <field>
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+        </field>
+
+    </form>
+
+    <catch event="connection.disconnect.hangup">
+        <return event="connection.disconnect.hangup" messageexpr="_message" />
+    </catch>
+
+</vxml>

@@ -1,0 +1,186 @@
+include ../../makefiles/architecture.mk
+include ../../makefiles/variables.$(SYSTEM).mk
+
+# Target libraries directory
+TARGET_DIR=../lib
+
+# Target libraries
+CCRTP_TARGET=$(TARGET_DIR)/ccrtp.lib
+CCEXT2_TARGET=$(TARGET_DIR)/ccext2.lib
+CCGNU2_TARGET=$(TARGET_DIR)/ccgnu2.lib
+TARGETS =$(CCGNU2_TARGET)
+TARGETS+=$(CCEXT2_TARGET)
+TARGETS+=$(CCRTP_TARGET)
+CCRTP_LIB = $(CCRTP_TARGET:.dll=.lib)
+CCEXT2_LIB = $(CCEXT2_TARGET:.dll=.lib)
+CCGNU2_LIB = $(CCGNU2_TARGET:.dll=.lib)
+# Distributed target libraries
+CCRTP_DIST_TARGET=../$(TARGET_DIR)/ccrtp.lib
+CCEXT2_DIST_TARGET=../$(TARGET_DIR)/ccext2.lib
+CCGNU2_DIST_TARGET=../$(TARGET_DIR)/ccgnu2.lib
+DIST_TARGETS =$(addprefix ../,$(TARGETS))
+
+
+# This is directory and version of 3PP stuff
+COMMONCPP2_DIR=$(COMMONCPP2_VERSION)
+CCRTP_DIR=$(CCRTP_VERSION)
+
+# Defining the location of the target object files
+OBJ_DIR=obj_$(SYSTEM)
+
+
+# Defining ccEXT2 source files
+CCEXT2_SRC  = cmdoptns.cpp date.cpp  digest.cpp engine.cpp 
+CCEXT2_SRC += getopt.c getopt1.c mime.cpp md5.cpp numbers.cpp network.cpp
+CCEXT2_SRC += persist.cpp serial.cpp socketport.cpp tokenizer.cpp url.cpp 
+CCEXT2_SRC += urlstring.cpp xml.cpp  
+# Prepending path to each source file
+CCEXT2_SRC := $(foreach src,$(CCEXT2_SRC), $(COMMONCPP2_DIR)/src/$(src))  
+# Defining ccEXT2 target object files
+CCEXT2_OBJ := $(CCEXT2_SRC:.cpp=.o)
+# Since there are some .c sources, we need to handle them as well
+CCEXT2_OBJ := $(CCEXT2_OBJ:.c=.o)
+
+# Defining ccGNU2 source files
+CCGNU2_SRC  = assoc.cpp exception.cpp runlist.cpp thread.cpp buffer.cpp 
+CCGNU2_SRC += file.cpp missing.cpp semaphore.cpp threadkey.cpp
+CCGNU2_SRC += friends.cpp mutex.cpp timer.cpp in6addr.cpp nat.cpp 
+CCGNU2_SRC += simplesocket.cpp inaddr.cpp slog.cpp unix.cpp
+CCGNU2_SRC += dir.cpp keydata.cpp socket.cpp dso.cpp lockfile.cpp 
+CCGNU2_SRC += peer.cpp strchar.cpp event.cpp mempager.cpp
+CCGNU2_SRC += process.cpp string.cpp zstream.cpp
+# Prepending path to each source file
+CCGNU2_SRC := $(foreach src,$(CCGNU2_SRC), $(COMMONCPP2_DIR)/src/$(src))  
+# Defining ccGNU2 target object files
+CCGNU2_OBJ := $(CCGNU2_SRC:.cpp=.o)
+
+# Defining ccRTP source files
+CCRTP_SRC  = control.cpp duplex.cpp members.cpp pool.cpp rtcppkt.cpp
+CCRTP_SRC += socket.cpp data.cpp incqueue.cpp outqueue.cpp queue.cpp 
+CCRTP_SRC += rtppkt.cpp	source.cpp
+# Prepending path to each source file
+CCRTP_SRC :=  $(foreach src,$(CCRTP_SRC), $(CCRTP_DIR)/src/$(src))
+# Defining ccRTP target object files
+CCRTP_OBJ := $(CCRTP_SRC:.cpp=.o)
+
+# Compiler and linker set up
+CCC=$(MSVC_DIR)/bin/cl
+LD=$(MSVC_DIR)/bin/lib
+STD_INC=$(MSVC_DIR)/include
+
+# Setting up lib paths
+LIBDIRS =$(MSVC_DIR)/lib $(TARGET_DIR)
+# Prepending lib path option switch
+LIBDIRS:=$(foreach lib,$(LIBDIRS),-LIBPATH:$(lib))
+
+# External dependency libraries 
+#LIBS = advapi32.lib ws2_32.lib
+LIBS =
+
+
+# Setting up defines
+# DALO: Removed _DEBUG since I didn't have a debug variant of the runtime lib.
+DEFINES =WIN32 _LIB _WINDOWS CCXX_NO_DLL
+DEFINES+=CCRTP_CAPE
+# Prepending option switch to list
+DEFINES := $(foreach def,$(DEFINES), -D$(def))
+
+# Setting up include file paths
+INCDIRS = . 
+INCDIRS+=$(COMMONCPP2_DIR)/w32 
+INCDIRS+=$(COMMONCPP2_DIR)/w32/cc++ 
+INCDIRS+=$(COMMONCPP2_DIR)/include 
+# This directory is a remedy for the misplaced pointer.h
+INCDIRS+=$(COMMONCPP2_DIR)/template 
+INCDIRS+=$(CCRTP_DIR)/src 
+INCDIRS+=$(STD_INC)
+# Prepending include option switch
+INCDIRS := $(foreach inc,$(INCDIRS), -I$(inc))
+
+# Setting up compile flags
+CFLAGS =$(DEFINES) $(INCDIRS)
+CFLAGS+=/EHsc /nologo /W3 /c
+
+# Comment the following line if compile for debug
+CFLAGS += /GF /O2 /MD
+# For DEBUG:
+#CFLAGS += /ZI /RTC1 /MDd /Od
+
+# Setting up link flags
+LDFLAGS =/NOLOGO
+LDFLAGS+=$(LIBDIRS)
+# For Debug:
+# LDFLAGS += /DEBUG
+
+PATHSEP=;
+SLASH=$(subst /,\,/)
+# Compile command set up
+COMPILE_CMD=$(CCC) -c -Fo$@ $(CFLAGS)
+# Link command setup
+LD_CMD=$(LD) -OUT:$@ $(LDFLAGS)
+
+# Defining targets which are not files
+.PHONY: all clean info install
+
+# Targets starts here
+all: $(TARGETS)
+	@echo "Done!"
+
+# Is this target really in use?
+install: all
+
+clean:
+	$(RM_CMD) $(subst /,$(SLASH),$(CCEXT2_OBJ))
+	$(RM_CMD) $(subst /,$(SLASH),$(CCGNU2_OBJ))
+	$(RM_CMD) $(subst /,$(SLASH),$(CCRTP_OBJ))
+	$(RM_CMD) $(subst /,$(SLASH),$(TARGETS))
+
+dist: $(DIST_TARGETS)
+
+distclean: clean
+	$(RM_CMD) $(subst /,$(SLASH),$(DIST_TARGETS))
+	$(RM_CMD) $(subst /,$(SLASH),$(DIST_TARGETS:.dll=.exp))
+	$(RM_CMD) $(subst /,$(SLASH),$(DIST_TARGETS:.dll=.lib))
+
+info:
+	@echo "CCC = $(CCC)"
+	@echo "LD = $(LD)"
+	@echo "CFLAGS = $(CFLAGS)"
+	@echo "LDFLAGS = $(LDFLAGS)"
+	@echo "CCEXT2_SRC = $(CCEXT2_SRC)"
+	@echo "CCGNU2_SRC = $(CCGNU2_SRC)"
+	@echo "CCRTP_SRC = $(CCRTP_SRC)"
+	@echo "CCEXT2_OBJ = $(CCEXT2_OBJ)"
+	@echo "CCGNU2_OBJ = $(CCGNU2_OBJ)"
+	@echo "CCRTP_OBJ = $(CCRTP_OBJ)"
+
+$(CCRTP_TARGET) : $(CCEXT2_TARGET) $(CCRTP_OBJ)
+	$(RM_CMD) $(subst /,$(SLASH),$(CCRTP_TARGET))
+	$(LD_CMD) $(CCRTP_OBJ) $(LIBS) $(CCEXT_LIB) $(CCGNU2_LIB)
+
+
+$(CCEXT2_TARGET) : $(CCGNU2_TARGET) $(CCEXT2_OBJ)
+	$(RM_CMD) $(subst /,$(SLASH),$(CCEXT2_TARGET))
+	$(LD_CMD) $(CCEXT2_OBJ) $(LIBS) $(CCGNU2_LIB)
+
+$(CCGNU2_TARGET) : $(CCGNU2_OBJ)
+	$(RM_CMD) $(subst /,$(SLASH),$(CCGNU2_TARGET))
+	$(LD_CMD) $(CCGNU2_OBJ) $(LIBS)
+
+$(CCRTP_DIST_TARGET) : $(CCRTP_TARGET)
+	$(CP) $(subst /,$(SLASH),$<) $(subst /,$(SLASH),$@)
+
+$(CCEXT2_DIST_TARGET) : $(CCEXT2_TARGET) 
+	$(CP) $(subst /,$(SLASH),$<) $(subst /,$(SLASH),$@)
+
+$(CCGNU2_DIST_TARGET) :  $(CCGNU2_TARGET)
+	$(CP) $(subst /,$(SLASH),$<) $(subst /,$(SLASH),$@)
+
+# Implicit rules starts here
+
+%.o : %.cpp
+	$(COMPILE_CMD) $< 
+
+%.o : %.c
+	$(COMPILE_CMD) $< 
+

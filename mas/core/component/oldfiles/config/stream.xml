@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="stream.xsd">
+    <stream
+            portpoolbase="23000"
+            portpoolsize="250"
+            threadpoolsize="5" 
+            threadpoolmaxwaittimesec="240" 
+            usepoolforrtpsessions = "true"
+            synccallmaxwaittimesec="120"
+            packetpendtimeoutmicrosec="5000"
+            sendpacketsaheadms="40"
+            expiretimeoutms="100000000"
+            streamabandonedms="800000"
+            senderscontrolfraction="0.4"
+            audioreplacewithsilencems="10"
+            dispatchdtmfonkeydown="true"
+            maximumtransmissionunit="2000"
+            audioskipms = "0"
+            maxwaitforiframems = "2000"
+            skew="0"
+            skewmethod="LOCAL_AND_RTCP"
+            defaultinboundptime="40">
+
+		<supportedcontenttype name="audio/wav"/>
+		<supportedcontenttype name="video/quicktime"/>
+		
+		<rtppayloaddef primarytype="audio" subtype="pcmu" rtppayload="0" encoding="PCMU" clockrate="8000"/>
+		<rtppayloaddef primarytype="audio" subtype="amr" rtppayload="97" encoding="AMR" clockrate="8000"/>
+		<rtppayloaddef primarytype="audio" subtype="telephone-event" rtppayload="101" encoding="telephone-event" clockrate="8000"/>
+		<rtppayloaddef primarytype="audio" subtype="cn" rtppayload="13" encoding="CN" clockrate="8000"/>
+		<rtppayloaddef primarytype="video" subtype="h263" rtppayload="34" encoding="H263" clockrate="90000"/>
+	</stream>
+</configuration>

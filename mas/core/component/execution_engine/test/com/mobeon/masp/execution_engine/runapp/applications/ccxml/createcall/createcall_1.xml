@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/createcall/" type="application/xml+ccxml">
+        <document src="createcall_1.ccxml" root="true"/>
+    </documents>
+</application>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="goto_10.vxml">
+    <var name="nisse" expr="12"></var>
+   <form id="form1">
+      <block>
+          <assign name="nisse" expr="100"></assign>
+          <var name="target" expr="'test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/goto/goto_10_2.vxml#form2'"></var>
+          <goto expr="target"></goto>
+      </block>
+       <block>
+          <log>ERROR</log>
+       </block>
+   </form>
+
+   <form id="form2">
+      <block>
+          <if cond="nisse == 12">
+              <log>TCPASS</log>
+              <else>
+                  <log>
+                      ERROR
+                  </log>
+              </else>
+          </if>
+      </block>
+   </form>
+</vxml>

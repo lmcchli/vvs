@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="root.vxml">
+	<form id="init">
+	<block>	
+		<!-- is ani subsrciber -->
+		<if cond="isSubscriber(session.connection.remote.uri)">
+			<script>
+		setPreferredLanguage(session.connection.remote.uri);
+	</script>
+		</if>
+		<!-- is redirected? -->
+		<if cond="typeof(session.connection.redirect ) =='undefined'">
+			<if cond="typeof(session.connection.remote.uri) ==  'undefined'">
+				<goto next="deposit_or_retrieval.vxml"/>
+				<else/>
+				<goto next="identification.vxml"/>
+			</if>
+		<else/>
+			<if cond="session.connection.remote.uri == session.connection.originator">
+				<log> not implemented</log>
+				<exit/>
+			<else/>
+				<goto next="deposit.vxml"/>
+			</if>
+		</if>
+		</block>
+
+	</form>
+</vxml>

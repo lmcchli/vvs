@@ -1,0 +1,126 @@
+!################################################################
+#Copyright (c) 2003 Abcxyz Radio Systems AB
+#All Rights Reserved
+#
+
+
+h=Du har ett__STATUS__ nytt __TYPE__ från __FROM__. Det kom __TIME__, __DATE__. Meddelandetexten är "__EMAIL_TEXT__".
+
+s=Du har ett nytt __SIZE__ meddelande med __NUM_ATTACHMENTS__ bilagor, angående "__SUBJECT__".
+
+c=Du har __TCOUNT__ nya meddelanden (__VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax, __ECOUNT__ nya epostmeddelanden, __MCOUNT__ nya videomeddelanden).
+c(0,0,0,0)=Du har inga nya meddelanden.
+c(0,0,0,1)=Du har ett nytt videomeddelande.
+c(0,0,0,2)=Du har __MCOUNT__ nya videomeddelanden.
+c(0,0,1,0)=Du har ett nytt epostmeddelande.
+c(0,0,1,1)=Du har ett nytt epostmeddelande och ett nytt videomeddelande.
+c(0,0,1,2)=Du har ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(0,0,2,0)=Du har __ECOUNT__ nya epostmeddelanden.
+c(0,0,2,1)=Du har __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(0,0,2,2)=Du har __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(0,1,0,0)=Du har ett nytt fax.
+c(0,1,0,1)=Du har ett nytt fax och ett nytt videomeddelande.
+c(0,1,0,2)=Du har ett nytt fax och __MCOUNT__ nya videomeddelanden.
+c(0,1,1,0)=Du har ett nytt fax och ett nytt epostmeddelande.
+c(0,1,1,1)=Du har ett nytt fax, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(0,1,1,2)=Du har ett nytt fax, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(0,1,2,0)=Du har ett nytt fax och __ECOUNT__ nya epostmeddelanden.
+c(0,1,2,1)=Du har ett nytt fax, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(0,1,2,2)=Du har ett nytt fax, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(0,2,0,0)=Du har __FCOUNT__ nya fax.
+c(0,2,0,1)=Du har __FCOUNT__ och ett nytt videomeddelande.
+c(0,2,0,2)=Du har __FCOUNT__ nya fax och __MCOUNT__ nya videomeddelanden.
+c(0,2,1,0)=Du har __FCOUNT__ nya fax och ett nytt epostmeddelande.
+c(0,2,1,1)=Du har __FCOUNT__ nya fax, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(0,2,1,2)=Du har __FCOUNT__ nya fax, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(0,2,2,0)=Du har __FCOUNT__ nya fax och __ECOUNT__ nya epostmeddelanden.
+c(0,2,2,1)=Du har __FCOUNT__ nya fax, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(0,2,2,2)=Du har __FCOUNT__ nya fax, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(1,0,0,0)=Du har ett nytt röstmeddelande.
+c(1,0,0,1)=Du har ett nytt röstmeddelande och ett nytt videomeddelande.
+c(1,0,0,2)=Du har ett nytt röstmeddelande och __MCOUNT__ nya videomeddelanden.
+c(1,0,1,0)=Du har ett nytt röstmeddelande och ett nytt epostmeddelande.
+c(1,0,1,1)=Du har ett nytt röstmeddelande, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(1,0,1,2)=Du har ett nytt röstmeddelande, ett nytt epostmeddelande och__MCOUNT__ nya videomeddelanden.
+c(1,0,2,0)=Du har ett nytt röstmeddelande och __ECOUNT__ nya epostmeddelanden.
+c(1,0,2,1)=Du har ett nytt röstmeddelande, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(1,0,2,2)=Du har ett nytt röstmeddelande, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(1,1,0,0)=Du har ett nytt röstmeddelande och ett nytt fax.
+c(1,1,0,1)=Du har ett nytt röstmeddelande, ett nytt fax och ett nytt videomeddelande.
+c(1,1,0,2)=Du har ett nytt röstmeddelande, ett nytt fax och__MCOUNT__ nya videomeddelanden.
+c(1,1,1,0)=Du har ett nytt röstmeddelande, ett nytt fax och ett nytt epostmeddelande.
+c(1,1,1,1)=Du har ett nytt röstmeddelande, ett nytt fax, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(1,1,1,2)=Du har ett nytt röstmeddelande, ett nytt fax, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(1,1,2,0)=Du har ett nytt röstmeddelande, ett nytt fax och __ECOUNT__ nya epostmeddelanden.
+c(1,1,2,1)=Du har ett nytt röstmeddelande, ett nytt fax, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(1,1,2,2)=Du har ett nytt röstmeddelande, ett nytt fax, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(1,2,0,0)=Du har ett nytt röstmeddelande och __FCOUNT__ nya fax.
+c(1,2,0,1)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax och ett nytt videomeddelande.
+c(1,2,0,2)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax och __MCOUNT__ nya videomeddelanden.
+c(1,2,1,0)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax och ett nytt epostmeddelande.
+c(1,2,1,1)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(1,2,1,2)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(1,2,2,0)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax och __ECOUNT__ nya epostmeddelanden.
+c(1,2,2,1)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(1,2,2,2)=Du har ett nytt röstmeddelande, __FCOUNT__ nya fax, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(2,0,0,0)=Du har __VCOUNT__ nya röstmeddelanden.
+c(2,0,0,1)=Du har __VCOUNT__ nya röstmeddelanden och ett nytt videomeddelande.
+c(2,0,0,2)=Du har __VCOUNT__ nya röstmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(2,0,1,0)=Du har __VCOUNT__ nya röstmeddelanden och ett nytt epostmeddelande.
+c(2,0,1,1)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(2,0,1,2)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(2,0,2,0)=Du har __VCOUNT__ nya röstmeddelanden och __ECOUNT__ nya epostmeddelanden.
+c(2,0,2,1)=Du har __VCOUNT__ nya röstmeddelanden, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(2,0,2,2)=Du har __VCOUNT__ nya röstmeddelanden, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(2,1,0,0)=Du har __VCOUNT__ nya röstmeddelanden och ett nytt fax.
+c(2,1,0,1)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax och ett nytt videomeddelande.
+c(2,1,0,2)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax och __MCOUNT__ nya videomeddelanden.
+c(2,1,1,0)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax och ett nytt epostmeddelande.
+c(2,1,1,1)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(2,1,1,2)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(2,1,2,0)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax och __ECOUNT__ nya epostmeddelanden.
+c(2,1,2,1)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+c(2,1,2,2)=Du har __VCOUNT__ nya röstmeddelanden, ett nytt fax, __ECOUNT__ nya epostmeddelanden och __MCOUNT__ nya videomeddelanden.
+c(2,2,0,0)=Du har __VCOUNT__ nya röstmeddelanden och __FCOUNT__ nya fax.
+c(2,2,0,1)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax och ett nytt videomeddelande.
+c(2,2,0,2)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax och __MCOUNT__ nya videomeddelanden.
+c(2,2,1,0)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax och ett nytt epostmeddelande.
+c(2,2,1,1)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax, ett nytt epostmeddelande och ett nytt videomeddelande.
+c(2,2,1,2)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax, ett nytt epostmeddelande och __MCOUNT__ nya videomeddelanden.
+c(2,2,2,0)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax och __ECOUNT__ nya epostmeddelanden.
+c(2,2,2,1)=Du har __VCOUNT__ nya röstmeddelanden, __FCOUNT__ nya fax, __ECOUNT__ nya epostmeddelanden och ett nytt videomeddelande.
+
+
+#Fallback template used when ett of the above templates fails.
+general=Du har nya meddelanden
+
+#WAP Push Meddelande
+WapPushText=Du har ett nytt meddelande från __FROM__.
+
+#Meddelande size subtemplates
+#VoiceSize is formatted by MVAS
+FSIZE_TEXT=__SIZE__ sidors
+ESIZE_TEXT=__SIZE__ kilobyte
+MSIZE_TEXT=längd __SIZE__ sekunder
+
+#The value to on the left (i.e. "urgent") must remain constant
+urgent=\ brådskande
+normal=
+
+#Deposit_type
+email=epostmeddelande
+fax=fax
+voice=röstmeddelande
+video=videomeddelande
+
+#System notifications
+mailquotaexceeded=Din brevlåda är full.
+
+#
+# System reminders
+#
+voicemailoffreminder=Din röstbrevlåda är avslagen.
+cfuonreminder=Du har alla samtal vidarekopplade till din röstbrevlåda.
+temporarygreetingonreminder = Du har en tillfällig prompt i din röstbrevlåda.
+
+

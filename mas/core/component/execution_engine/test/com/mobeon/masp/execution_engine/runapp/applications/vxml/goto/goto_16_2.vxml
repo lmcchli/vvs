@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US" application="goto_16.vxml">
+   <form id="form1">
+       <block>
+           <if cond="counter == 1">
+               <goto next="#form2"></goto>">
+           <else/>
+                <assign name="counter" expr="1"></assign>
+                <goto next="#form1"></goto>
+           </if>
+       </block>
+   </form>
+    <form id="form2">
+        <block>
+            <log>TCPASS</log>
+        </block>
+    </form>
+</vxml>

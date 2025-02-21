@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <catch>
+        <log>TCPOINT_CATCHALL</log>
+        <exit></exit>
+    </catch>
+    <var name="counter" expr="0"/>
+    <form>
+
+        <block name="verify">
+            <clear namelist="verify"/>
+            <assign name="counter" expr="counter+1"/>
+            <if cond="counter &gt; 1">
+                <log>TCPOINT_BLOCK</log>
+                <if cond="recording == undefined">
+                    <log>TCPOINT_UNDEFINED</log>
+                <else/>
+                    <log>TCPOINT_DEFINED</log>
+                </if>
+                <exit/>
+            <else/>
+                <goto nextitem="recording"/>
+            </if>
+        </block>
+
+        <record name="recording" dtmfterm="true" type="video/*">
+            <prompt timeout="3s">
+                3s
+            </prompt>
+            <filled>
+                <log>TCPOINT_FILLED</log>
+            </filled>
+        </record>
+
+        <noinput>
+            <log>TCPOINT_NOINPUT</log>
+        </noinput>
+
+        <!-- Should not be reached -->
+
+        <block>
+            <log>TCPOINT_AFTER</log>
+            <exit></exit>
+        </block>
+
+    </form>
+
+</vxml>

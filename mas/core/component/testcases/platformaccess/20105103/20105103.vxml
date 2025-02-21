@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="attrs"/>
+            <!-- set attribute for non-subscriber-->
+            <script>
+                var setAttr = new Array(1);
+                setAttr[0] = "111222333444";
+                mas.subscriberSetStringAttribute("99910002", 'facsimiletelephonenumber', setAttr);
+            </script>
+            <log>TC 20105103  Passed</log>
+            <exit/>
+
+        </block>
+      </form>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105103  Failed</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

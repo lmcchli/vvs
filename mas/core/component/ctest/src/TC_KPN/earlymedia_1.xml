@@ -1,0 +1,9 @@
+<application>
+    <documents base="file:/$WORKINGDIR/applications/vva0001.1/" type="application/xml+ccxml">
+        <document src="earlymedia_1.ccxml" root="true"/>
+    </documents>
+    <documents base="file:/$WORKINGDIR/applications/vva0001.1/" type="application/xml+vxml">
+        <document src="earlymedia_1a.vxml"/>
+        <document src="earlymedia_1b.vxml"/>        
+    </documents>
+</application>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- Test field local grammar -->
+    <form id="main_form">
+        <var name="a" expr="1" />
+        <field name="test" expr="a">
+                <log>TCPOINT_FIELD</log>
+        </field>
+
+        <filled>
+            <log>TCPOINT_FILLED</log>
+        </filled>
+
+        <catch event="error">
+            <log>TCPOINT_ERROR</log>
+        </catch>
+
+    </form>
+
+</vxml>

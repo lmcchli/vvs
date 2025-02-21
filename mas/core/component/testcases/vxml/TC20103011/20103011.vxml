@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+<var name="myCount" expr="0" />
+	<form id="id1">
+		<block>
+			<assign name="myCount" expr="1"/>
+			<throw event="myEvent"/>
+		</block>
+	</form>
+	<catch event="myEvent" count="2">
+		<if cond="myCount==2">
+			<log label="error">TC 20103011 Passed</log>				
+		<else/>
+			<log label="error">TC 20103011 Failed</log>				
+			<disconnect/>
+			<exit/>
+		</if>
+		<disconnect/>
+		<exit/>
+	</catch>
+	<catch event="myEvent" count="1">
+		<if cond="myCount==1">
+			<assign name="myCount" expr="2"/>
+			<throw event="myEvent"/>
+		<else/>
+			<log label="error">TC 20103011 Failed</log>				
+			<disconnect/>
+			<exit/>
+		</if>
+	</catch>
+</vxml>

@@ -1,0 +1,6 @@
+# comp_preinstall
+#
+# This script prepares for the installation of a patch,
+# e.g. shutting down and stopping the component.
+
+# No preinstall work is needed

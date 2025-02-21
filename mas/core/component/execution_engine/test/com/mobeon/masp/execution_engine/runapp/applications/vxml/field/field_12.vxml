@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <form>
+
+        <field>
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <!-- enter another DTMF while in here -->
+
+                <script>Packages.java.lang.Thread.sleep(5000);</script>
+            </filled>
+        </field>
+
+        <!-- The DTMF entered above should be able to trigger this form-->
+
+        <field>
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>2</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <block>
+                    <log>TCPASS</log>
+                    <exit></exit>
+                </block>
+
+            </filled>
+        </field>
+        
+        <!--  should never get here -->
+        <block>
+            <log>TCFAIL</log>
+            <exit></exit>
+        </block>
+    </form>
+
+</vxml>

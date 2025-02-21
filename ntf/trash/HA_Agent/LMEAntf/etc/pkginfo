@@ -1,0 +1,22 @@
+#
+# This required package information file describes characteristics of the
+# package, such as package abbreviation, full package name, package version,
+# and package architecture.
+#
+PKG="LMEAntf"
+NAME="Sun Cluster resource type Notification component (NTF)"
+ARCH="sparc"
+VERSION="3.0.0,REV=R1A"
+LMEA_PRODNAME="Sun Cluster"
+LMEA_PRODVERS="5.8/SunOS Development"
+LMEA_PKGTYPE=""
+LMEA_PKGVERS="1.0"
+LMEA_PKGTYPE=""
+MAXINST="1000"
+CATEGORY="application"
+DESC="Sun Cluster resource type for NTF"
+VENDOR="Mobeon AB"
+HOTLINE="Please contact your local service provider"
+EMAIL=""
+CLASSES="none"
+BASEDIR=/apps

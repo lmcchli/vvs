@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:element name="Abcxyz.config" type="Abcxyz.configType"/><xs:complexType name="Abcxyz.configType">
+<xs:sequence>
+<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0"/>
+<xs:element name="configFileType" type="xs:int" fixed="6" minOccurs="0" maxOccurs="0"></xs:element>
+<xs:element name="Abcxyz.FormattingRuleConfigItem" type="formattingRuleConfigItemType"/></xs:sequence></xs:complexType>
+<xs:complexType name="formattingRuleConfigItemType"><xs:all>
+<xs:element name="Cm.phoneNumberMinimumLength" default="5" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+<xs:element name="Cm.phoneNumberMaximumLength" default="15" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+<xs:element name="Cm.defaultCountryCodeLength" default="2" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+<xs:element name="Cm.defaultPhoneContext" default="+1" type="xs:string" minOccurs="0" maxOccurs="1"/>
+<xs:element name="NationalServiceNumbers.List" type="NumberListType"/>
+<xs:element name="LocalSignificantNumbers.List" type="NumberListType"/>
+<xs:element name="OperatorServiceNumbers.List" type="NumberListType"/>
+<xs:element name="Context.Table" type="ContextTableType"/></xs:all></xs:complexType>
+<xs:complexType name="ContextTableType" mixed="true"> <xs:sequence> <xs:element name="context" type="ContextType" minOccurs="0" maxOccurs="unbounded"/></xs:sequence> </xs:complexType>
+<xs:complexType name="ContextType" mixed="true"><xs:sequence><xs:element name="rules" type="xs:string" minOccurs="1"  maxOccurs="unbounded"/> </xs:sequence></xs:complexType>
+<xs:complexType name="NumberListType" mixed="true"> <xs:sequence> <xs:element name="number" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence> </xs:complexType>
+</xs:schema>

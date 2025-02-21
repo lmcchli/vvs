@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="redirNumber"/>
+	<block>
+		<log>redir=<value expr="session.connection.redirect[0].number"/></log>
+	</block>
+	<block>
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    redirNumber = session.connection.redirect[0].number;
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+                    // The subscriber do not exists, we should play unknown.wav and hangup
+                    unknown_receiver = false;
+                    }
+			} } }
+
+		 
+		</script>
+	</block>
+
+        <block>
+			<log>PhoneNumber=<value expr="phoneNumber"/></log>
+			<log>UnknownReceiver=<value expr="unknown_receiver"/></log>
+			
+			<if cond="unknown_receiver">
+				<log>TEST 20105007 PASSED</log>
+				<exit/>
+			<else/>
+				<log>TEST 20105007 FAILED</log>
+				<exit/>
+			</if>
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		 
+		<log>TEST 20105007 FAILED</log>
+	 
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

@@ -1,0 +1,5 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/passiveness/" type="application/xml+ccxml">
+        <document src="passiveness_1.ccxml" root="true"/>
+    </documents>
+</application>

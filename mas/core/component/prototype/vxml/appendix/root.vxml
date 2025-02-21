@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<link dtmf="*1" next="help.vxml" />
+	<form id="root_dialog">
+		<block>
+			<goto next="main.vxml" />
+		</block>
+	</form>
+</vxml>

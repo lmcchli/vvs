@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.semantic">
+        <log>looking fine so far</log>
+    </catch>
+    <catch event="error">
+        <!-- should never be reached-->
+        <log>FAIL</log>
+    </catch>
+
+
+    <form id="form1">
+
+        <block name="block1">
+            <!-- Throw an event. We expect execution to contine in next form item-->
+            <throw event="error.semantic"/>
+            <!-- This should never be reached-->
+            <log>TCFAIL VXML: Catch 9</log>
+        </block>
+        <block name="block2">
+            <log>TCPASS</log>
+        </block>
+    </form>
+</vxml>

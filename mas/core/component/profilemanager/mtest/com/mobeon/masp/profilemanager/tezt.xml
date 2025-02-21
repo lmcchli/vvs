@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="tezt.xsd">
+    <greetingmanagermtest host="ockelbo.lab.mobeon.com"
+                          port="143"
+                          useradmin="GrtAdm_33"
+                          password="Gr8Pw4GA"
+                          telephonenumber="19161"/>
+</configuration>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <!--The greeting to be played. Can be either a regular greeting or the spoken name for the subscriber.-->
+   <var name="currentGreeting" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markName" />
+   <!--This variable is used internally to handle for example the pause feature in play message. It has been added by the system automatically.-->
+   <var name="markTime" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#ccond1" />
+      </block>
+   </form>
+   <form id="ccond1">
+      <block>
+         <if cond="Subscriber_HasService (GlobalObject.Subscriber, 'temporarygreeting') == true &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'Temporary') &amp;&amp; Greeting_HasTemporaryActivationTimePassed(GlobalObject.Subscriber) &amp;&amp; !Greeting_HasTemporaryDeactivationTimePassed(GlobalObject.Subscriber)">
+            <if cond="((Greeting_HasTemporaryDeactivationTimePassed (GlobalObject.Subscriber) == false))">
+               <goto next="#assign1" />
+               <else />
+               <goto next="#sub1" />
+            </if>
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'CDG')" />
+            <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'cdg')" />
+            <goto next="#pmess1" />
+            <elseif cond="(Greeting_IsActive(GlobalObject.Subscriber, 'OutOfHours')) &amp;&amp; Greeting_IsOutsideBusinessHours(GlobalObject.Subscriber)" />
+            <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'outofhours')" />
+            <goto next="#pmess1" />
+            <elseif cond="Call_GetRdnisReason() == 'user busy' &amp;&amp;  Greeting_IsActive(GlobalObject.Subscriber, 'Busy')" />
+            <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'busy')" />
+            <goto next="#pmess1" />
+            <elseif cond="Call_GetRdnisReason() == 'no reply' &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'NoAnswer')" />
+            <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'noanswer')" />
+            <goto next="#pmess1" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'AllCalls')" />
+            <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'allcalls')" />
+            <goto next="#pmess1" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'SpokenName')" />
+            <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'spokenname')" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(2203, new Array(System_GetMediaQualifier(currentGreeting)))" />
+            </prompt>
+            <goto next="#Return1" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(2200, new Array(System_GetMediaQualifier('String', GlobalObject.Subscriber)))" />
+            </prompt>
+            <goto next="#Return1" />
+         </if>
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="currentGreeting" expr="Greeting_GetGreeting(GlobalObject.Subscriber,'temporary')&#xD;&#xA;" />
+         <goto next="#pmess1" />
+      </block>
+   </form>
+   <form id="pmess1">
+      <block name="playTheMessage">
+         <prompt>
+            <audio expr="currentGreeting" />
+         </prompt>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'ok'" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Subscriber_SetSingleStringAttribute (GlobalObject.Subscriber, 'emtmpgrt', '')</script>
+      <block>
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

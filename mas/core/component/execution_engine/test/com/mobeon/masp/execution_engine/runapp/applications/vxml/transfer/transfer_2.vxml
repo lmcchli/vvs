@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+
+    <!-- there was a bug (TR 27742) causing the transfer to almost be executed once again when a hangup event was thrown during transfer.
+    The "counter" variable is used as a side effect in this test case, to check that stuff is not run twice.
+
+    With "almost" I mean that much of what is done up to sending the dialog.transfer to CCXML was executed twice, but by coincedence
+    the sending of dialog.transfer happened just once.-->
+    <var name="counter" expr="0"></var>
+
+    <script>
+        function getDest()
+        {
+        counter=counter+1;
+        return '121212';
+        }
+    </script>
+    <catch event="connection.disconnect.hangup">
+        <if cond="counter == 1">
+            <log>TCPASS</log>
+            <else/>
+            <log>ERROR</log>
+        </if>
+        <exit/>
+    </catch>
+    <catch>
+        <log>ERROR</log>
+        <exit/>
+    </catch>
+
+
+    <form >
+        <transfer name="call" destexpr="getDest()" bridge="true" connecttimeout="3s" maxtime="5s">
+            <grammar mode="dtmf" root="root">
+                <rule id="root">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+        </transfer>
+        <block>
+            <log>ERROR</log>
+        </block>
+    </form>
+</vxml>

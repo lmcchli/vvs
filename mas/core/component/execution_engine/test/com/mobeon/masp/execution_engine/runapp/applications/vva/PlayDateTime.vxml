@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="daysSinceDelivery" />
+   <var name="messageId" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageId" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="messageId" expr="p_messageId" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="daysSinceDelivery" expr="Message_DaysSinceDelivery(GlobalObject.Subscriber, messageId)" />
+         <if cond="((daysSinceDelivery == 0))">
+            <if cond="((Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emPreferredTimeFormat') == '24'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2115, new Array(System_GetMediaQualifier('Time24', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss'))))" />
+               </prompt>
+               <goto next="#Return1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2111, new Array(System_GetMediaQualifier('Time12', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss'))))" />
+               </prompt>
+               <goto next="#Return1" />
+            </if>
+            <elseif cond="((daysSinceDelivery == 1))" />
+            <if cond="((Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emPreferredTimeFormat') == '24'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2116, new Array(System_GetMediaQualifier('Time24', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss'))))" />
+               </prompt>
+               <goto next="#Return1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2112, new Array(System_GetMediaQualifier('Time12', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss'))))" />
+               </prompt>
+               <goto next="#Return1" />
+            </if>
+            <elseif cond="((daysSinceDelivery &lt; 7))" />
+            <if cond="((Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emPreferredTimeFormat') == '24'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2117, new Array(System_GetMediaQualifier('Time24', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss')), System_GetMediaQualifier('DateDM', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'YYYY-MM-dd')), System_GetMediaQualifier('Weekday', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'YYYY-MM-dd'))))" />
+               </prompt>
+               <goto next="#Return1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2113, new Array(System_GetMediaQualifier('Time12', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss')), System_GetMediaQualifier('DateDM', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'YYYY-MM-dd')), System_GetMediaQualifier('Weekday', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'YYYY-MM-dd'))))" />
+               </prompt>
+               <goto next="#Return1" />
+            </if>
+            <elseif cond="((daysSinceDelivery &gt; 6))" />
+            <if cond="((Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emPreferredTimeFormat') == '24'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2118, new Array(System_GetMediaQualifier('Time24', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss')), System_GetMediaQualifier('DateDM', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'YYYY-MM-dd'))))" />
+               </prompt>
+               <goto next="#Return1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2114, new Array(System_GetMediaQualifier('Time12', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'HH:mm:ss')), System_GetMediaQualifier('DateDM', Utility_FormatTime(Message_GetProperty(messageId, 'DeliveryDate'), 'YYYY-MM-dd'))))" />
+               </prompt>
+               <goto next="#Return1" />
+            </if>
+            <else />
+            <goto next="#prompt8" />
+         </if>
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="''" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="prompt8">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2110)" />
+         </prompt>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <goto next="#prompt8" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

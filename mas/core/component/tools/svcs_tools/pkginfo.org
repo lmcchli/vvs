@@ -1,0 +1,10 @@
+PKG=MOBYMas
+NAME=M3 Media Access Server/SNMP agent
+CATEGORY=application
+ARCH=sparc
+VENDOR=Abcxyz
+BASEDIR=/apps/$PKG
+PSTAMP=mobeon-20051206
+CLASSES=none
+VERSION=R7A,Build_001
+DEF_JAVA_HOME=/usr/local/jre1.5.0_05

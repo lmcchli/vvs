@@ -1,0 +1,6 @@
+#!/usr/xpg4/bin/sh
+JAVA_HOME=/usr/local/j2sdk1.4.0
+JAVAC=$JAVA_HOME/bin/javac
+/bin/cp /vobs/ipms/ntf/src/com/mobeon/common/commandline/Command*.java .
+$JAVAC -d . -classpath .:/vobs/ipms/ntf/bin/ntf.jar Com*.java && /bin/rm -f Command*.java
+$JAVAC -d . -classpath .:/vobs/ipms/ntf/bin/ntf.jar *.java

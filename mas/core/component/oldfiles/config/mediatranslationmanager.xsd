@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <!-- -->
+    <xs:element name="configuration" nillable="false">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mediatranslationmanager"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+    <!-- -->
+    <xs:element name="mediatranslationmanager">
+		<xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mrcptexttospeech" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="mcctexttospeech" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="mrcpspeechrecognizer" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+			<xs:attribute name="tts" type="xs:string" use="required"/>
+			<xs:attribute name="asr" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- -->
+    <xs:element name="mrcptexttospeech">
+        <xs:complexType>
+            <xs:attribute name="host" type="xs:string" use="required" />
+            <xs:attribute name="port" type="xs:positiveInteger" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- -->
+    <xs:element name="mcctexttospeech">
+        <xs:complexType>
+            <xs:attribute name="parameter" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- -->
+    <xs:element name="mrcpspeechrecognizer">
+        <xs:complexType>
+            <xs:attribute name="host" type="xs:string" use="required" />
+            <xs:attribute name="port" type="xs:positiveInteger" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

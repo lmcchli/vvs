@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Grammar rules file for English language -->
+<grammar>
+    <rule type="Number" gender="Female,Male,None">
+        <condition divisor="1000000000000" atomic="true" quotientFrom="0" quotientTo="0" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">0</action>
+        </condition>
+        <condition divisor="1000000000000" atomic="false" quotientFrom="1" quotientTo="999" remainderFrom="0" remainderTo="999999999999" terminal="false" divide="true">
+            <action type="mediafile">1e12</action>
+        </condition>
+        <condition divisor="1000000000" atomic="false" quotientFrom="1" quotientTo="999" remainderFrom="0" remainderTo="999999999" terminal="false" divide="true">
+            <action type="mediafile">1e9</action>
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="1" quotientTo="999" remainderFrom="0" remainderTo="999999" terminal="false" divide="true">
+            <action type="mediafile">1e6</action>
+        </condition>
+        <condition divisor="1000" atomic="false" quotientFrom="1" quotientTo="999" remainderFrom="0" remainderTo="999" terminal="false" divide="true">
+            <action type="mediafile">1e3</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="9" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+            <action type="mediafile">100</action>
+        </condition>
+        <condition divisor="90" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">90</action>
+        </condition>
+        <condition divisor="80" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">80</action>
+        </condition>
+        <condition divisor="70" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">70</action>
+        </condition>
+        <condition divisor="60" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">60</action>
+        </condition>
+        <condition divisor="50" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">50</action>
+        </condition>
+        <condition divisor="40" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">40</action>
+        </condition>
+        <condition divisor="30" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">30</action>
+        </condition>
+        <condition divisor="20" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">20</action>
+        </condition>
+        <condition divisor="19" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">19</action>
+        </condition>
+        <condition divisor="18" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">18</action>
+        </condition>
+        <condition divisor="17" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">17</action>
+        </condition>
+        <condition divisor="16" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">16</action>
+        </condition>
+        <condition divisor="15" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">15</action>
+        </condition>
+        <condition divisor="14" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">14</action>
+        </condition>
+        <condition divisor="13" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">13</action>
+        </condition>
+        <condition divisor="12" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">12</action>
+        </condition>
+        <condition divisor="11" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">11</action>
+        </condition>
+        <condition divisor="10" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">10</action>
+        </condition>
+        <condition divisor="9" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">9</action>
+        </condition>
+        <condition divisor="8" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">8</action>
+        </condition>
+        <condition divisor="7" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">7</action>
+        </condition>
+        <condition divisor="6" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">6</action>
+        </condition>
+        <condition divisor="5" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">5</action>
+        </condition>
+        <condition divisor="4" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">4</action>
+        </condition>
+        <condition divisor="3" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">3</action>
+        </condition>
+        <condition divisor="2" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">2</action>
+        </condition>
+        <condition divisor="1" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">1</action>
+        </condition>
+    </rule>
+
+    <rule type="DateDM" gender="Female,Male,None">
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom1</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="2" quotientTo="2" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom2</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="3" quotientTo="3" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom3</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="4" quotientTo="4" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom4</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="5" quotientTo="5" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom5</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="6" quotientTo="6" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom6</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="7" quotientTo="7" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom7</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="8" quotientTo="8" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom8</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="9" quotientTo="9" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom9</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="10" quotientTo="10" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom10</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="11" quotientTo="11" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom11</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="12" quotientTo="12" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom12</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="13" quotientTo="13" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom13</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="14" quotientTo="14" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom14</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="15" quotientTo="15" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom15</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="16" quotientTo="16" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom16</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="17" quotientTo="17" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom17</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="18" quotientTo="18" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom18</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="19" quotientTo="19" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom19</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="20" quotientTo="20" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom20</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="21" quotientTo="21" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom21</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="22" quotientTo="22" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom22</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="23" quotientTo="23" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom23</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="24" quotientTo="24" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom24</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="25" quotientTo="25" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom25</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="26" quotientTo="26" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom26</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="27" quotientTo="27" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom27</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="28" quotientTo="28" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom28</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="29" quotientTo="29" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom29</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="30" quotientTo="30" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom30</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="31" quotientTo="31" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom31</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">jan</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="2" quotientTo="2" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">feb</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="3" quotientTo="3" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">mar</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="4" quotientTo="4" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">apl</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="5" quotientTo="5" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">may</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="6" quotientTo="6" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">jun</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="7" quotientTo="7" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">jul</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="8" quotientTo="8" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">aug</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="9" quotientTo="9" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">sep</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="10" quotientTo="10" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">oct</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="11" quotientTo="11" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">nov</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="12" quotientTo="12" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">dec</action>
+        </condition>
+    </rule>
+
+    <rule type="CompleteDate" gender="Female,Male,None">
+        <condition divisor="1000000" atomic="false" quotientFrom="2006" quotientTo="2006" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">year2006</action>
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="2007" quotientTo="2007" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">year2007</action>
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="2008" quotientTo="2008" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">year2008</action>
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="2009" quotientTo="2009" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">year2009</action>
+        </condition>
+
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom1</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="2" quotientTo="2" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom2</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="3" quotientTo="3" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom3</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="4" quotientTo="4" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom4</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="5" quotientTo="5" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom5</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="6" quotientTo="6" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom6</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="7" quotientTo="7" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom7</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="8" quotientTo="8" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom8</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="9" quotientTo="9" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom9</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="10" quotientTo="10" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom10</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="11" quotientTo="11" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom11</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="12" quotientTo="12" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom12</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="13" quotientTo="13" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom13</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="14" quotientTo="14" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom14</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="15" quotientTo="15" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom15</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="16" quotientTo="16" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom16</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="17" quotientTo="17" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom17</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="18" quotientTo="18" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom18</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="19" quotientTo="19" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom19</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="20" quotientTo="20" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom20</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="21" quotientTo="21" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom21</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="22" quotientTo="22" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom22</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="23" quotientTo="23" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom23</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="24" quotientTo="24" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom24</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="25" quotientTo="25" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom25</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="26" quotientTo="26" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom26</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="27" quotientTo="27" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom27</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="28" quotientTo="28" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom28</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="29" quotientTo="29" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom29</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="30" quotientTo="30" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom30</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="31" quotientTo="31" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="mediafile">dom31</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">jan</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="2" quotientTo="2" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">feb</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="3" quotientTo="3" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">mar</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="4" quotientTo="4" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">apl</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="5" quotientTo="5" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">may</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="6" quotientTo="6" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">jun</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="7" quotientTo="7" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">jul</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="8" quotientTo="8" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">aug</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="9" quotientTo="9" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">sep</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="10" quotientTo="10" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">oct</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="11" quotientTo="11" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">nov</action>
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="12" quotientTo="12" remainderFrom="0" remainderTo="999999" terminal="true" divide="true">
+            <action type="swap">-2</action>
+            <action type="mediafile">dec</action>
+        </condition>
+    </rule>
+
+    <rule type="Time12" gender="Female,Male,None">
+        <condition divisor="1000000" atomic="false" quotientFrom="0" quotientTo="23" remainderFrom="0" remainderTo="597000" terminal="false" divide="true">
+        </condition>
+        <condition divisor="1000000" atomic="false" quotientFrom="0" quotientTo="23" remainderFrom="0" remainderTo="0" terminal="true" divide="false">
+            <action type="mediafile">oclock</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="9" remainderFrom="0" remainderTo="7000" terminal="false" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">o</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="10" quotientTo="60" remainderFrom="0" remainderTo="7000" terminal="false" divide="true">
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="0" quotientTo="0" remainderFrom="0" remainderTo="0" terminal="false" divide="true">
+            <action type="mediafile">am</action>
+        </condition>
+        <condition divisor="70" atomic="false" quotientFrom="100" quotientTo="100" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">pm</action>
+        </condition>
+        <condition divisor="50" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">50</action>
+        </condition>
+        <condition divisor="40" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">40</action>
+        </condition>
+        <condition divisor="30" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">30</action>
+        </condition>
+        <condition divisor="20" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">20</action>
+        </condition>
+        <condition divisor="19" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">19</action>
+        </condition>
+        <condition divisor="18" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">18</action>
+        </condition>
+        <condition divisor="17" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">17</action>
+        </condition>
+        <condition divisor="16" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">16</action>
+        </condition>
+        <condition divisor="15" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">15</action>
+        </condition>
+        <condition divisor="14" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">14</action>
+        </condition>
+        <condition divisor="13" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">13</action>
+        </condition>
+        <condition divisor="12" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">12</action>
+        </condition>
+        <condition divisor="11" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">11</action>
+        </condition>
+        <condition divisor="10" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">10</action>
+        </condition>
+        <condition divisor="9" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">9</action>
+        </condition>
+        <condition divisor="8" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">8</action>
+        </condition>
+        <condition divisor="7" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">7</action>
+        </condition>
+        <condition divisor="6" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">6</action>
+        </condition>
+        <condition divisor="5" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">5</action>
+        </condition>
+        <condition divisor="4" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">4</action>
+        </condition>
+        <condition divisor="3" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">3</action>
+        </condition>
+        <condition divisor="2" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">2</action>
+        </condition>
+        <condition divisor="1" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">1</action>
+        </condition>
+    </rule>
+
+    <rule type="Time24" gender="Female,Male,None">
+        <condition divisor="10000" atomic="false" quotientFrom="0" quotientTo="0" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">0</action>
+            <action type="mediafile">hour</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="0" quotientTo="0" remainderFrom="1" remainderTo="5900" terminal="true" divide="true">
+            <action type="mediafile">o</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="23" remainderFrom="0" remainderTo="0" terminal="false" divide="true">
+            <action type="mediafile">hour</action>
+        </condition>
+        <condition divisor="10000" atomic="false" quotientFrom="1" quotientTo="23" remainderFrom="1" remainderTo="5900" terminal="false" divide="true">
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="10" quotientTo="60" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+        </condition>
+        <condition divisor="100" atomic="false" quotientFrom="1" quotientTo="9" remainderFrom="0" remainderTo="99" terminal="false" divide="true">
+            <action type="swap">-1</action>
+            <action type="mediafile">o</action>
+        </condition>
+        <condition divisor="60" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">60</action>
+        </condition>
+        <condition divisor="50" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">50</action>
+        </condition>
+        <condition divisor="40" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">40</action>
+        </condition>
+        <condition divisor="30" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">30</action>
+        </condition>
+        <condition divisor="20" atomic="false" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="9" terminal="true" divide="true">
+            <action type="mediafile">20</action>
+        </condition>
+        <condition divisor="19" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">19</action>
+        </condition>
+        <condition divisor="18" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">18</action>
+        </condition>
+        <condition divisor="17" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">17</action>
+        </condition>
+        <condition divisor="16" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">16</action>
+        </condition>
+        <condition divisor="15" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">15</action>
+        </condition>
+        <condition divisor="14" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">14</action>
+        </condition>
+        <condition divisor="13" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">13</action>
+        </condition>
+        <condition divisor="12" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">12</action>
+        </condition>
+        <condition divisor="11" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">11</action>
+        </condition>
+        <condition divisor="10" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">10</action>
+        </condition>
+        <condition divisor="9" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">9</action>
+        </condition>
+        <condition divisor="8" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">8</action>
+        </condition>
+        <condition divisor="7" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">7</action>
+        </condition>
+        <condition divisor="6" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">6</action>
+        </condition>
+        <condition divisor="5" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">5</action>
+        </condition>
+        <condition divisor="4" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">4</action>
+        </condition>
+        <condition divisor="3" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">3</action>
+        </condition>
+        <condition divisor="2" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">2</action>
+        </condition>
+        <condition divisor="1" atomic="true" quotientFrom="1" quotientTo="1" remainderFrom="0" remainderTo="0" terminal="true" divide="true">
+            <action type="mediafile">1</action>
+        </condition>
+    </rule>
+</grammar>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="contenttypemapper.xsd">
+	<contenttypemapper>	
+		<contenttype mimetype="video/quicktime">
+			<codec mimetype="video/h263"/>
+			<codec mimetype="audio/pcmu"/>
+			<fileext name="mov"/>
+		</contenttype>
+		<contenttype mimetype="audio/wav">
+			<codec mimetype="audio/pcmu"/>
+			<fileext name="wav"/>
+		</contenttype>
+		<contenttype mimetype="text/plain">
+			<codec mimetype="text/plain"/>
+			<fileext name="txt"/>
+		</contenttype>
+	</contenttypemapper>
+</configuration>

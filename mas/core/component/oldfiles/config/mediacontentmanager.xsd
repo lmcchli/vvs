@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Jörgen (Mobeon) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>
+            Configuration for the MediaContentManager.
+        </xs:documentation>
+	</xs:annotation>
+	<xs:element name="configuration" nillable="false">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mediacontentmanager"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mediacontentmanager">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>
+				       Cache is optional. If none given, no cache is used by the MediaContentManager.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:element ref="mediaobjectcache" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="resourcepath" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mediaobjectcache">
+		<xs:annotation>
+			<xs:documentation>
+				Configuration for the MediaObject cache.
+				Policy is the caching policy that is used. See type policyType
+                maxSize is the max number of MediaObjects in the cache.
+                elementTimeout is the timeout in seconds for an element.
+                memorySensitive If set to true the elements in the cache is available for garbage collection
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="policy" type="policyType" use="required"/>
+			<xs:attribute name="maxSize" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="elementTimeout" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="memorySensitive" type="xs:boolean" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="policyType">
+		<xs:annotation>
+			<xs:documentation>
+			           Enumeration of policy policies.
+					   LFU=  Least frequently used
+					   FIFO= First in first out
+					   LRU=  Least recently used)
+				</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FIFO"/>
+			<xs:enumeration value="LFU"/>
+			<xs:enumeration value="LRU"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

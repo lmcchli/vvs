@@ -1,0 +1,19 @@
+Test for method:
+
+public void systemSetMediaResources(String language, String voiceVariant, String videoVariant);
+
+Prerequisites:
+Two media content voice prompt packages with language en is installed. The first with priority 1, and the second with priority 2. 
+
+Action: Set resource with (en, null, null). Assert that the resource with prio 1 is sat by retriving media content with it
+with method systemGetMediaContent. 
+
+
+
+Expected result: Media from package with prio 1. 
+
+
+
+
+
+

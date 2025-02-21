@@ -1,0 +1,201 @@
+# Sun Cluster Data Services Builder template version 1.0
+# Registration information and Paramtable for ntf
+#
+# NOTE: Keywords are case insensitive, i.e. users may use any
+# capitalization style they wish
+#
+
+RESOURCE_TYPE = "ntf";
+VENDOR_ID = LMEA;
+RT_DESCRIPTION = "Notification server (NTF) agent for Sun Cluster 3.x";
+
+RT_VERSION ="1.0"; 
+API_VERSION = 2;
+FAILOVER = FALSE;
+
+INIT_NODES = RG_PRIMARIES;
+
+RT_BASEDIR=/apps/LMEAntf/bin;
+
+START				=	ntf_svc_start;
+STOP				=	ntf_svc_stop;
+
+VALIDATE			=	ntf_validate;
+UPDATE	 			=	ntf_update;
+
+MONITOR_START			=	ntf_monitor_start;
+MONITOR_STOP			=	ntf_monitor_stop;
+MONITOR_CHECK			=	ntf_monitor_check;
+
+
+# The paramtable is a list of bracketed resource property declarations 
+# that come after the resource-type declarations
+# The property-name declaration must be the first attribute
+# after the open curly of a paramtable entry
+#
+# The following are the system defined properties. Each of the system defined
+# properties have a default value set for each of the attributes. Look at 
+# man rt_reg(4) for a detailed explanation.
+#
+{  
+	PROPERTY = Start_timeout; 
+	MIN = 60;
+	DEFAULT = 300;
+}
+{
+	PROPERTY = Stop_timeout; 
+	MIN = 60;
+	DEFAULT = 300;
+}
+{ 
+	PROPERTY = Validate_timeout; 
+	MIN = 60;
+	DEFAULT = 300; 
+}
+{
+        PROPERTY = Update_timeout;
+	MIN = 60;
+        DEFAULT = 300;
+}
+{ 
+	PROPERTY = Monitor_Start_timeout; 
+	MIN = 60;
+	DEFAULT = 300;
+}
+{ 
+	PROPERTY = Monitor_Stop_timeout; 
+	MIN = 60;
+	DEFAULT = 300;
+}
+{ 
+	PROPERTY = Monitor_Check_timeout; 
+	MIN = 60;
+	DEFAULT = 300; 
+}
+{
+        PROPERTY = FailOver_Mode;
+        DEFAULT = SOFT;
+        TUNABLE = ANYTIME;
+}
+{
+        PROPERTY = Network_resources_used;
+        TUNABLE = WHEN_DISABLED;
+	DEFAULT = "";
+}
+{ 
+	PROPERTY = Thorough_Probe_Interval; 
+	MAX = 3600; 
+	DEFAULT = 60; 
+	TUNABLE = ANYTIME;
+}
+{ 
+	PROPERTY = Retry_Count; 
+	MAX = 10; 
+	DEFAULT = 2; 
+	TUNABLE = ANYTIME;
+}
+{ 
+	PROPERTY = Retry_Interval; 
+	MAX = 3600; 
+	DEFAULT = 300; 
+	TUNABLE = ANYTIME;
+}
+
+{
+	PROPERTY = Port_list;
+	DEFAULT = ;
+	TUNABLE = AT_CREATION;
+}
+
+{
+        PROPERTY = Scalable;
+	DEFAULT=false;
+        TUNABLE = AT_CREATION;
+}
+
+{
+        PROPERTY = Load_balancing_policy;
+        DEFAULT = LB_WEIGHTED;
+        TUNABLE = AT_CREATION;
+}
+
+{
+        PROPERTY = Load_balancing_weights;
+        DEFAULT = "";
+        TUNABLE = ANYTIME;
+}
+
+#
+# Extension Properties
+#
+
+# These two control the restarting of the fault monitor itself
+# (not the server daemon) by PMF.
+{
+	PROPERTY = Monitor_retry_count;
+	EXTENSION;
+	INT;
+	DEFAULT = 4;
+	TUNABLE = ANYTIME;
+	DESCRIPTION = "Number of PMF restarts allowed for the fault monitor";
+}
+
+{
+	PROPERTY = Monitor_retry_interval;
+	EXTENSION;
+	INT;
+	DEFAULT = 2;
+	TUNABLE = ANYTIME;
+	DESCRIPTION = "Time window (minutes) for fault monitor restarts";
+}
+
+
+# Child process monitoring level for PMF (-C option of pmfadm)
+# Default of -1 means: Do NOT use the -C option to PMFADM
+# A value of 0-> indicates the level of child process monitoring
+# by PMF that is desired.
+{
+	PROPERTY = Child_mon_level;
+	EXTENSION;
+	INT;
+	DEFAULT = 2;
+	TUNABLE = ANYTIME;
+	DESCRIPTION = "Child monitoring level for PMF";
+}
+
+# This is an optional property, which determines the signal sent to the
+# application for being stopped.
+#
+{
+	PROPERTY = Stop_signal;
+	EXTENSION;
+	INT;
+	MIN = 1;
+	MAX = 37;
+	DEFAULT = 15;
+	TUNABLE = WHEN_DISABLED;
+	DESCRIPTION = "The signal sent to the application for being stopped";
+}
+
+# This is an optional property, which determines whether to failover when
+# retry_count is exceeded during retry_interval.
+#
+{
+	PROPERTY = Failover_enabled;
+	EXTENSION;
+	BOOLEAN;
+	DEFAULT = TRUE;
+	TUNABLE = WHEN_DISABLED;
+	DESCRIPTION = "Determines whether to failover when retry_count is exceeded during retry_interval";
+}
+
+#
+# The Basedir parameter is used by the agent to find configuration files and to construct correct paths
+#
+{
+	PROPERTY = Basedir;
+	EXTENSION;
+	STRING;
+	TUNABLE = WHEN_DISABLED;
+	DESCRIPTION = "Used by the agent to find the configuration file and to construct proper paths";
+}

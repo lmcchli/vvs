@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml application="subdialog_12a.vxml" version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <form id="subaru">
+
+        <!-- Hangup while in here -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(6000);</script>
+            <return/>
+        </block>
+
+    </form>
+
+    <catch event="connection.disconnect.hangup">
+        <log>TCFAIL catch should not be triggered</log>
+        <exit/>
+    </catch>
+
+</vxml>

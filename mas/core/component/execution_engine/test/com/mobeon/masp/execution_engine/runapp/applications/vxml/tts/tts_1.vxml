@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR</log>
+        <exit/>
+    </catch>
+
+    <form >
+        <var name="languageString" expr="''"></var>
+
+        <script>
+
+                  <!-- first example code to code to find installed TTS languages -->
+                  var lang = util.getSupportedTTSLanguages();
+                  for(var i=0; i &lt; lang.length; i++){
+                    languageString = languageString + " " + lang[i];
+                  }
+
+                  <!-- Fetch a mail for subscriber 1234 -->
+                  var mailboxId = mas.subscriberGetMailbox('1234');
+                  var folderId = mas.mailboxGetFolder(mailboxId, 'inbox');
+
+                  <!-- Get emails -->
+                  var messageIdList = mas.mailboxGetMessageList(folderId, 'email', 'new', 'urgent', 'type', 'fifo');
+                  var messageArray = mas.mailboxGetMessages(messageIdList);
+
+                  <!-- get the first message -->
+                  var firstMessageId = messageArray[0];
+                  var messageContentIdArray = mas.messageGetContent(firstMessageId);
+
+                  <!-- get mediaobjects for subject and body -->
+                  var subject = mas.messageGetStoredProperty(firstMessageId, 'subject')[0];
+                  var subjectMediaObject = util.getMediaObject(subject);
+                  var bodyMediaObject = mas.messageGetMediaObject(messageContentIdArray[0]);
+
+                  <!-- detag the body to remove e.g. HTML markup -->
+                  var bodyText = util.convertMediaObjectsToString([bodyMediaObject]);
+                  var detaggedBodyText = util.deTag(bodyText);
+                  var detaggedBodyMediaObject = util.getMediaObject(detaggedBodyText);
+
+        </script>
+
+        <block>
+            <log>Supported TTS languages are:<value expr="languageString"/></log>
+        </block>
+
+        <block>
+            <prompt>
+                <audio expr="subjectMediaObject"></audio>
+                <audio expr="detaggedBodyMediaObject"></audio>
+            </prompt>
+        </block>
+
+    </form>
+</vxml>

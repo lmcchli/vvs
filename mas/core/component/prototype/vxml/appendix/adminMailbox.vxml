@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="start.vxml">
+	<!-- load script that simulate MAS - this is normally done once in root application -->
+<!--	<script src="dynamicMenu.js"/> -->
+	<form id="dynamic_menu">
+		<!-- create variable to control number of menu rows presented -->
+		<var name="dynamic_count" expr="0"/>
+		<!-- Create variable to control number of active services. Will be updated by each xxxActive() method. -->
+		<var name="active_services_count" expr="0"/>
+		<!-- get numbers of menu rows to play initially -->
+		<var name="nofRows" expr="getNofRowsToPlay()"/>
+		<!-- Get active services. Must be done before menu, since playPrompt() depends on number of active services -->
+		<var name="distListActive" expr="distributionListActive(active_services_count)"/>
+		<var name="callCovActive" expr="callCoverageActive(active_services_count)"/>
+		<var name="loginOptActive" expr="loginOptionsActive(active_services_count)"/>
+		<var name="notifActive" expr="notificationActive(active_services_count)"/>
+		<var name="msgPlayActive" expr="messagePlayActive(active_services_count)"/>
+		<var name="timeSetActive" expr="timeSettingsActive(active_services_count)"/>
+		<var name="defFaxActive" expr="defaultFaxActive(active_services_count)"/>
+		<var name="pausActive" expr="pauseActive(active_services_count)"/>
+		<var name="prevMenuActive" expr="previousMenuActive(active_services_count)"/>
+
+		<field name="menu">
+			<prompt cond="distributionListActive() &amp;&amp; playPrompt(dynamic_count++, nofRows)">
+				Press 1 for One
+			</prompt>
+			<prompt cond="callCoverageActive() &amp;&amp; playPrompt(dynamic_count++,nofRows)">
+				Press 2 for Two
+			</prompt>
+			<prompt cond="loginOptionsActive() &amp;&amp; playPrompt(dynamic_count++,nofRows)">
+				Press 3 for Three
+			</prompt>
+			<prompt cond="notificationActive() &amp;&amp; playPrompt(dynamic_count++,nofRows)">
+				Press 4 for four
+			</prompt>
+			<prompt cond="messagePlayActive() &amp;&amp; playPrompt(dynamic_count++,nofRows)">
+				Press 5 for five
+			</prompt>
+			<prompt cond="timeSettingsActive() &amp;&amp; playPrompt(dynamic_count++,nofRows)">
+				Press 6 for six
+			</prompt>
+			<prompt cond="defaultFaxActive() &amp;&amp; playPrompt(dynamic_count++, nofRows)" >
+				Press 7 for seven
+			</prompt>
+			<prompt cond="pauseActive() &amp;&amp; playPrompt(dynamic_count++, nofRows)" >
+				Press 8 for pause
+			</prompt>
+			<prompt cond="previousMenuActive() &amp;&amp; playPrompt(dynamic_count++, nofRows)" >
+				Press *2 for previous menu
+			</prompt>
+			<prompt cond="moreOptionsActive(active_services_count, nofRows)" >
+				Press 0 for more options
+			</prompt>
+
+			<!-- catch the events thrown in case of timeout or unknown input -->
+			<catch event="noinput nomatch">
+					<!-- Reset dynamic_count and set  nofRows to greater then number of menu rows to play them all-->
+					<assign name="dynamic_count" expr="0" />
+					<assign name="nofRows" expr="8" />
+					<log>
+						In catch count <value expr="dynamic_count" /> and max <value expr="nofRows" />
+					</log>
+					<reprompt />
+			</catch>
+			
+			<!-- The mighty local grammar -->
+			<grammar mode="dtmf">
+				<rule id="main_rule">
+					<item>1</item>
+					<item>2</item>
+					<item>3</item>
+					<item>4</item>
+					<item>5</item>
+					<item>6</item>
+					<item>7</item>
+				</rule>
+			</grammar>
+		</field>
+	</form>
+</vxml>

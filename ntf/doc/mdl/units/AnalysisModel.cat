@@ -1,0 +1,26 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object Class_Category "AnalysisModel"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"35B678170028"
+    documentation 	
+|This model is optional.
+|The Analysis Model contains a set of Analysis Classes, which describe an abstract realization of the use cases of the system.  The analysis classes evolve into associated design elements which are modeled in the Design Model.  
+    
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list)
+    logical_presentations 	(list unit_reference_list
+	(object ClassDiagram "Main"
+	    quid       	"3A6D911201C1"
+	    title      	"Main"
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list))))

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <script src="outside_script.js"/>
+    <form id="out1">
+        <block name="b1">
+            <prompt>
+                <audio src="outside_prompt.wav"/>
+            </prompt>
+            <log>Function returned <value expr="doSome();"/></log>
+            <log>TCPASS VXML: out1 OK</log>
+            <exit/>
+        </block>
+    </form>
+    <form id="out2">
+        <block name="out2">
+            <log>Function returned <value expr="doSome();"/></log>
+            <log>TCPASS VXML: out2 OK</log>
+            <exit/>
+        </block>
+    </form>
+</vxml>

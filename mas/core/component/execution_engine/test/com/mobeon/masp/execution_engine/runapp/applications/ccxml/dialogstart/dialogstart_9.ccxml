@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <var name="dialog1" />
+    <var name="dialog2" />
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+        <transition event="connection.alerting" name="evt">
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt">
+            <assign name="myState" expr="'startedOne'"></assign>
+            <dialogstart src="'dialogstart_empty.vxml'" dialogid="dialog1" />
+        </transition>
+
+        <transition event="dialog.started" state="startedOne">
+            <assign name="myState" expr="'startedTwo'"></assign>
+
+            <!-- There is no connection related with the current event so we expect an error when we do this: -->
+
+            <dialogstart src="'simple.vxml'" dialogid="dialog2" />
+        </transition>
+
+        <transition event="error.semantic" state="startedTwo">
+            <log expr="'TCPASS'"></log>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="dlg">
+                <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+                <exit/>
+        </transition>
+
+    </eventprocessor>
+</ccxml>

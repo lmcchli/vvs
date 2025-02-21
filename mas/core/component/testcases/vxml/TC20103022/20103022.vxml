@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<form id="id1">
+		<block>
+			<goto next="20103022a.vxml"/>
+		</block>
+	</form>
+	<catch event="connection.disconnect.hangup">
+		<log label="error">TC 20103022 Failed" (hangup was catched in root document)</log>
+		<exit/>
+	</catch>
+</vxml>

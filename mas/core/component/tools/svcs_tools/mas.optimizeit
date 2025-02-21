@@ -1,0 +1,184 @@
+#!/bin/ksh
+###################################################################
+# File    : mas
+# Author  : Håkan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is used in when using svcs in Solaris 10.
+#
+# OS: 	Solaris 10
+#
+# History
+#	Date		Who	What
+#	2006-01-10  	MHATU	Created
+#
+#
+####################################################################
+
+
+
+#*********************************************
+# These parameters exsist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+
+OPTIT_HOME=/usr/local/OptimizeitSuite60
+JAVA_CLASSPATH="/usr/local/OptimizeitSuite60/lib/optit.jar:"
+export OPTIT_HOME
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+mode=$1
+
+
+
+REGULARSTART=$BASEDIR"/tools/regularstart"
+ENABLERESTART=$BASEDIR"/tools/enablerestart"
+
+
+# Load config values
+. $BASEDIR/bin/mas.conf
+
+
+
+DIRNAME=`pwd`
+
+cd $BASEDIR
+
+setupEnv() {
+
+    MAS_INSTALL_PATH=$BASEDIR
+    export MAS_INSTALL_PATH    
+    
+    # Must be set. LOGNAME is not available when using svcs.
+    LOGNAME=ipms
+    export LOGNAME
+
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:/usr/local/OptimizeitSuite60/lib:/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    #LD_LIBRARY_PATH=/usr/lib/lwp:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$JAVA_CLASSPATH
+
+}
+
+#
+#  Using MIB to determine if MAS is started
+#
+doStarted()
+{
+	tick=0
+	a=0
+	result=""
+	
+	while [ $continue="" ]
+	do
+	        #result=`$SNMP_DIR/getone -v2c bilbo.ipms.lab.mobeon.com public enterprises.24261.1.1.1.3.0 `
+	        result=`$SNMP_DIR/getone -v2c localhost public enterprises.24261.1.1.1.3.0 `
+	        result=`echo $result |awk -F= '{ print $2}'`
+	        result=$(print "$result" | nawk '{gsub(/^[ ]*/,"",$0); gsub(/[ ]*$/,"",$0) ; print }')
+	
+	        #tick=`expr $tick + 1`
+	
+	
+	        if [[ $result = "1"  ||  $result = "2" ]]
+	        then
+	                STARTED="YES"
+	
+	                break
+	        fi
+	        
+	        #if [ $tick -gt 30 ]
+	        #then
+	        #        STARTED="NO"
+	        #        break
+	        #fi
+	        
+	        sleep 1
+	done
+}
+
+
+
+#
+# Start mas
+#	
+#
+start()
+{
+	#If regular start: then start.
+	#If a restart: Then restart must be enabled
+	if [ -f $REGULARSTART ] 
+	then
+		setupEnv
+  		$JAVA_HOME/bin/java -classpath $JAVA_CLASSPATH -Xrunpri:startAudit=t,filter=/usr/local/OptimizeitSuite60/filters/DefaultAllOn.oif -Xbootclasspath/a:/usr/local/OptimizeitSuite60/lib/oibcp.jar -server -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main&
+  		
+  		
+  	else
+  		# it is not a start issued from the script. The process died. 
+  		# and now svcs is trying to restart the process.
+  		# Chek if svcs is alowed to restart process.
+  		if [ -f $ENABLERESTART ]
+  		then
+  			# svcs is alowed to restart.
+			setupEnv
+  			$JAVA_HOME/bin/java -classpath $JAVA_CLASSPATH -Xrunpri:startAudit=t,filter=/usr/local/OptimizeitSuite60/filters/DefaultAllOn.oif -Xbootclasspath/a:/usr/local/OptimizeitSuite60/lib/oibcp.jar -server -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main&
+  			
+  		else
+  			#svcs is NOT alowed to restart.
+  			#set mas in maintenance state to prevent svcs from running this script over and over.
+                        svcadm mark maintenance MOBYmas:mas
+
+  		fi
+  	fi
+
+	doStarted	
+        if [[ $STARTED = "YES" ]]
+        then
+                exit 0
+        else
+                exit 1
+        fi
+
+}
+
+case "$mode" in
+	'start')	
+		start
+		;;
+
+	'status')
+		;;
+
+	'stop')
+		;;
+
+	'restart')
+
+		;;
+
+	'enableautostart')
+		;;
+
+	'disableautostart')
+		;;
+
+	*)
+		echo "Usage: `basename $0` <start|stop|restart|enableautostart|disableautostart>"
+		cd $DIRNAME
+		exit 1
+		;;
+esac
+
+cd $DIRNAME

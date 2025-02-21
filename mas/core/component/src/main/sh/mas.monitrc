@@ -1,0 +1,17 @@
+check program mas with path "/bin/sh /opt/moip/mas/bin/mas pidStatus" as uid mmas and gid mmas with timeout 60 seconds
+    group apps
+    # If healtcheck fails - restart MAS & raise alarm
+    if status != 0 then restart
+    if status != 0 then exec "/opt/monit/bin/monit_trap.sh moip 91 19 0 0 0"
+    # If healthcheck success - send clear alarm
+    else if succeeded then exec "/opt/monit/bin/monit_trap.sh moip 91 19 1 1 1"
+    start program = "/bin/sh /opt/moip/mas/bin/mas start"
+        as uid mmas and gid mmas with timeout 130 seconds
+    stop program = "/bin/sh /opt/moip/mas/bin/mas stop"
+#Timeout for stop has to be at least Cm.shutdownGracePeriod + 20 seconds grace (masSpecific.xml)
+#by default it set to 300 seconds to allow calls to drop but could be higher
+#there is no limit to how high can be set, set to 30 minutes to avoid 99.9% of cases
+#if longer should probably do a /opt/moip/bin/mas lock first b4 shutdown and wait for calls to
+#clear.
+        as uid mmas and gid mmas with timeout 1820 seconds
+    depends on fsmounted, topologyExists

@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/goto/" type="application/xml+ccxml">
+        <document src="goto_41.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/goto/" type="application/xml+vxml">
+        <document src="goto_41.vxml"/>
+    </documents>
+</application>

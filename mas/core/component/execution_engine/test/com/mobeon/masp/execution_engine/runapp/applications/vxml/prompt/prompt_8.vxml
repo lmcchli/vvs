@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+        <block name="b1">
+            <var name="kalle" expr="3"></var>
+            <prompt>The value is <value expr="kalle=5"></value></prompt>
+        </block>
+        <block>
+            <var name="olle" expr="5"></var>
+            <prompt>Another block, still no input. Prompts should be played at the implied exit. No ECMA fault should occur<value expr="olle"/>
+            </prompt>
+            <prompt>TCPASS VXML: Prompt OK<value expr="olle"/></prompt>
+        </block>
+    </form>
+</vxml>

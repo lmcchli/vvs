@@ -1,0 +1,10 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/subdialog/" type="application/xml+ccxml">
+        <document src="subdialog_6.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/subdialog/" type="application/xml+vxml">
+        <document src="subdialog_6a.vxml"/>
+        <document src="subdialog_6b.vxml"/>
+        <document src="subdialog_6c.vxml"/>
+    </documents>
+</application>

@@ -1,0 +1,31 @@
+MAS: MOBINIL.005: 08-02-27 14:14:33
+Result from test: Passed: PlatformAccess - systemSendAccountRequest - error handling: 20006010
+Result from test: Passed: UCIP - Refill - voucherActivationCode: 20016022
+Result from test: Passed: UCIP - Refill: 555
+Result from test: Passed: UCIP - UpdateAccountDetails - firstIVRCallDone: 20016019
+Result from test: Passed: UCIP - UpdateAccountDetails - languageIDNew: 20016020
+Result from test: Passed: UCIP - UpdateAccountDetails - response: 20016021
+Result from test: Passed: UCIP - UpdateAccountDetails: 666
+Result from test: Passed: UCIP - UpdateBalanceAndDate - adjustmentAmountRelative (+23): 20016001
+Result from test: Passed: UCIP - UpdateBalanceAndDate - adjustmentAmountRelative (-23): 20016002
+Result from test: Passed: UCIP - UpdateBalanceAndDate - supervisionExpiryDateRelative (+3): 20016003
+Result from test: Passed: UCIP - UpdateBalanceAndDate - supervisionExpiryDateRelative (-4): 20016004
+Result from test: Passed: UCIP - UpdateBalanceAndDate - serviceFeeExpiryDateRelative (+3): 20016005
+Result from test: Passed: UCIP - UpdateBalanceAndDate - serviceFeeExpiryDateRelative (-4): 20016006
+Result from test: Passed: UCIP - GetAccountDetails: 777
+Result from test: Passed: UCIP - GetBalanceAndDate - currency1: 20016008
+Result from test: Passed: UCIP - GetBalanceAndDate - accountValue1: 20016009
+Result from test: Passed: UCIP - GetBalanceAndDate - response: 20016010
+Result from test: Passed: UCIP - GetBalanceAndDate: 888
+Result from test: Passed: UCIP - GetAccountDetails - firstIVRCallFlag: 20016011
+Result from test: Passed: UCIP - GetAccountDetails - supervisionExpiryDate: 20016012
+Result from test: Passed: UCIP - GetAccountDetails - serviceFeeExpiryDate: 20016013
+Result from test: Passed: UCIP - GetAccountDetails - serviceClass: 20016014
+Result from test: Passed: UCIP - GetAccountDetails - languageIDCurrent: 20016015
+Result from test: Passed: UCIP - GetAccountDetails - temporaryBlockedFlag: 20016016
+Result from test: Passed: UCIP - GetAccountDetails - serviceClassCurrent: 20016017
+Result from test: Passed: UCIP - GetAccountDetails: 999
+*****************************************************
+PASSED TESTS:       26
+FAILED TESTS:        0
+*****************************************************

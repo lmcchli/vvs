@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+  <catch event="testevent">
+    <log>TCFAIL VXML: Catch 2 Wrong handler</log>
+    <exit/>
+  </catch>
+  <form>
+    <catch event="testevent">
+        <if cond="_message == undefined">
+        <log>TCPASS VXML: Catch 2</log>
+            <else/>
+            <log>TCFAIL VXML: Catch 2 message was not undefined</log>                
+        </if>
+        <exit/>
+    </catch>
+    <block>
+      <throw event="testevent"/>
+       <log>TCFAIL VXML: Catch 2 Should not be able to get here</log>
+    </block>
+  </form>
+</vxml>

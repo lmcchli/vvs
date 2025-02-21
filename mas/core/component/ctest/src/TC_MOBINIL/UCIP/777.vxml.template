@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="response1" />
+		<var name="response2" />
+		<var name="responseCode" />
+		
+		<block>
+			<script>
+				<![CDATA[
+				
+<!-- ##### TESTCASE 20016001 #####-->				
+				<!-- Value before update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetBalanceAndDate');
+				response1 = mas.systemGetAccountRequestParameter( 'accountValue1');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'adjustmentAmountRelative', 'transactionCurrency' ], [ '1903', '23', 'EUR' ]);
+				mas.systemSendAccountRequest( 'UpdateBalanceAndDate');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetBalanceAndDate');
+						response2 = mas.systemGetAccountRequestParameter( 'accountValue1');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 < response2 ){
+								mas.systemLog( 3, "TC 20016001 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016001 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016001 FAILED responseCode is wrong" );
+				}					
+
+<!-- ##### TESTCASE 20016002 #####-->				
+				<!-- Value before update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetBalanceAndDate');
+				response1 = mas.systemGetAccountRequestParameter( 'accountValue1');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'adjustmentAmountRelative', 'transactionCurrency' ], [ '1903', '-23', 'EUR' ]);
+				mas.systemSendAccountRequest( 'UpdateBalanceAndDate');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetBalanceAndDate');
+						response2 = mas.systemGetAccountRequestParameter( 'accountValue1');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 > response2 ){
+								mas.systemLog( 3, "TC 20016002 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016002 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016002 FAILED responseCode is wrong" );
+				}					
+
+<!-- ##### TESTCASE 20016003 #####-->				
+				<!-- Value before update NOTE: datumen måste hämtas med GetAccountDetails, inte GetBalanceAndDate. Och då får inte GetAccountDetails vara overridden av egen responsfil! -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetAccountDetails');
+				response1 = mas.systemGetAccountRequestParameter( 'supervisionExpiryDate');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'supervisionExpiryDateRelative' ], [ '1903', '3' ]);
+				mas.systemSendAccountRequest( 'UpdateBalanceAndDate');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetAccountDetails');
+						response2 = mas.systemGetAccountRequestParameter( 'supervisionExpiryDate');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 < response2 ){
+								mas.systemLog( 3, "TC 20016003 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016003 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016003 FAILED responseCode is wrong" );
+				}					
+
+<!-- ##### TESTCASE 20016004 #####-->				
+				<!-- Value before update NOTE: datumen måste hämtas med GetAccountDetails, inte GetBalanceAndDate. Och då får inte GetAccountDetails vara overridden av egen responsfil! -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetAccountDetails');
+				response1 = mas.systemGetAccountRequestParameter( 'supervisionExpiryDate');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'supervisionExpiryDateRelative' ], [ '1903', '-4' ]);
+				mas.systemSendAccountRequest( 'UpdateBalanceAndDate');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetAccountDetails');
+						response2 = mas.systemGetAccountRequestParameter( 'supervisionExpiryDate');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 > response2 ){
+								mas.systemLog( 3, "TC 20016004 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016004 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016004 FAILED responseCode is wrong" );
+				}					
+
+<!-- ##### TESTCASE 20016005 #####-->				
+				<!-- Value before update NOTE: datumen måste hämtas med GetAccountDetails, inte GetBalanceAndDate. Och då får inte GetAccountDetails vara overridden av egen responsfil! -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetAccountDetails');
+				response1 = mas.systemGetAccountRequestParameter( 'serviceFeeExpiryDate');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'serviceFeeExpiryDateRelative' ], [ '1903', '3' ]);
+				mas.systemSendAccountRequest( 'UpdateBalanceAndDate');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetAccountDetails');
+						response2 = mas.systemGetAccountRequestParameter( 'serviceFeeExpiryDate');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 < response2 ){
+								mas.systemLog( 3, "TC 20016005 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016005 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016005 FAILED responseCode is wrong" );
+				}					
+
+<!-- ##### TESTCASE 20016006 #####-->				
+				<!-- Value before update NOTE: datumen måste hämtas med GetAccountDetails, inte GetBalanceAndDate. Och då får inte GetAccountDetails vara overridden av egen responsfil! -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+				mas.systemSendAccountRequest( 'GetAccountDetails');
+				response1 = mas.systemGetAccountRequestParameter( 'serviceFeeExpiryDate');
+				mas.systemLog( 3, "ResponsResult1: " + response1 );
+				<!-- Perform the update -->
+				mas.systemSetAccountRequestParameters( [ 'subscriberNumber', 'serviceFeeExpiryDateRelative' ], [ '1903', '-4' ]);
+				mas.systemSendAccountRequest( 'UpdateBalanceAndDate');
+				responseCode = mas.systemGetAccountRequestParameter( 'responseCode');
+					mas.systemLog( 3, "ResponsCode: " + responseCode );
+				<!-- Verify the Value after update --
+				if ( responseCode = "0" ){
+						mas.systemSetAccountRequestParameters( [ 'subscriberNumber' ], [ '1903' ]);
+						mas.systemSendAccountRequest( 'GetAccountDetails');
+						response2 = mas.systemGetAccountRequestParameter( 'serviceFeeExpiryDate');
+						mas.systemLog( 3, "ResponsResult2: " + response2 );
+						if ( response1 > response2 ){
+								mas.systemLog( 3, "TC 20016006 PASSED" );
+						}else {
+								mas.systemLog( 3, "TC 20016006 FAILED account value is wrong" );
+						}					
+				} 
+				else {
+						mas.systemLog( 3, "TC 20016006 FAILED responseCode is wrong" );
+				}					
+	
+				]]>
+			</script>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 777 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

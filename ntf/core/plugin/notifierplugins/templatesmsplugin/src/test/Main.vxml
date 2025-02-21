@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/vxml http://www.w3.org/TR/voicexml20/vxml.xsd">
+   <script src="libMas.js" />
+   <var name="inlineProcedure" />
+   <!--The analyzed DNIS.-->
+   <var name="DNIS" />
+   <var name="ANI" />
+   <!--The analyzed RDNIS.-->
+   <var name="RDNIS" />
+   <!--The time when the call was connected, in UTC seconds.-->
+   <var name="UtcSecondsAtConnect" />
+   <!--This variable contains the latest input made in a menu.-->
+   <var name="LastMenuInput" />
+   <!--This variable contains the latest input made in a digit input.-->
+   <var name="LastDigitInput" />
+   <!--Contains the new language that has been chosen by the caller at Set Preferred Language at Login, otherwise an empty string.-->
+   <var name="NewLanguageChosen" />
+   <!--The type of greeting to work on. AllCalls, busy etc.-->
+   <var name="GreetingType" />
+   <!--The media type for a greeting. Can be voice or video.-->
+   <var name="GreetingMediaType" />
+   <!--This variable holds the the greeting that was fetched. Contains 'null' if no greeting could be fetched.-->
+   <var name="GreetingFile" />
+   <!--If true, the reprompt should be played instead of init prompts. Used in GreetingMenu to play reprompt when returning from FunGreeting service.-->
+   <var name="GreetingPlayReprompt" />
+   <!--If true, subcriber works with voice greetings in a video call.-->
+   <var name="GreetingWorkWithVoice" />
+   <!--A list of message Id's that is used in MainMenu to been able to use an already fetched list from the message store.-->
+   <var name="MessageIdList" />
+   <!--The state (new/old) for the messages to get.-->
+   <var name="VoiceSmsMessageState" />
+   <!--Has the value true if the call has been disconnected.-->
+   <var name="Disconnected" />
+   <!--The message type that is sent in events to MER-->
+   <var name="EventMessageType" />
+   <!--A VoiceXML system variable that defines which event that has occured.-->
+   <var name="_event" />
+   <!--Used in caller dependent greeting. Contains the phone number of a caller that has a specific greeting.-->
+   <var name="GreetingCallersPhoneNumber" />
+   <!--The number of new messages at login.-->
+   <var name="CounterMsgAtLogin" />
+   <!--This variable contains the start time, in seconds, for a retrieval.-->
+   <var name="RetrievalStartTime" />
+   <!--This variable contains the start time, in seconds, for a deposit.-->
+   <var name="DepositStartTime" />
+   <var name="menuInput" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="ProcedureResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="ProcedureResult2" />
+   <!--The pressed key(s) in DigitInput-->
+   <var name="DigitInput" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="ProcedureResult3" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="ProcedureResult4" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="ProcedureResult5" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="ProcedureResult6" />
+   <var name="bc_pauseResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <var name="tprop" expr="" />
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('Main.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt('690')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt('691')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt('698')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt('699')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt('702')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt('703')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt('711')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt('712')" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt('14')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt('15')" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true)) &amp;&amp; false">
+            <audio expr="System_GetPrompt('16')" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>5</item>
+                  <item>*</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#prompt5" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <goto next="#prompt5" />
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+        <assign name="ANI" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callingnumberrule'), Call_GetAni(), '')"/>
+        <assign name="DNIS" expr="PhoneNumber_GetAnalyzedNumber(System_GetConfig('vva.numberanalysis', 'callednumberrule'), Call_GetDnis(), '')" />
+            <log label="info" expr="'euwyzcd Subscriber and ANI Subscriber=' + ANI + ' ANI=' + DNIS" />
+            <!-- Option 1 - MRN -->
+            <if cond="menu_input == '1'">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt('19')" />
+               </prompt>
+		
+	      <script>System_SendTrafficEvent ('mrn', 'callednumber='+DNIS+',sender='+ANI)</script>
+               <disconnect />
+            </if>
+            <!-- Option 2 - Cmail (bytes) -->
+            <if cond="menu_input == '2'">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt('19')" />
+               </prompt>
+					<script>System_SendTrafficEvent ('cmail', 'callednumber='+DNIS+',sender='+ANI+',payload_type=bytes,payload=48656c6c6f21')</script>
+               <disconnect />
+            </if>
+            <!-- Option 3 - Cmail (string) -->
+            <if cond="menu_input == '3'">
+                    <script>System_SendTrafficEvent ('cmail', 'callednumber='+DNIS+',sender='+ANI+',payload_type=string,payload=Hello!')</script>
+               <disconnect />
+            </if>
+	    <!-- Option 4 - getPayloadInventory -->
+            <if cond="menu_input == '4'">
+               <log label="info" expr="'Getting payload inventory (4)'" />
+							 <script>System_getPayloadFileCount(DNIS, 'cmail')</script>
+               <disconnect />
+            </if>
+	    <!-- Option 5 - Slamdown -->
+	    <if cond="menu_input == '5'">
+               <log label="error" expr="'Sending slamdown via SMS_SendSlamdownInformation (5)'" />
+		<!-- normal: sender='+ANI+' and callingnumber='+ANI+' -->
+               <script>System_SendTrafficEvent('slamdowninformation', 'sender='+ANI+',callingnumber='+ANI+',callednumber='+DNIS)</script>
+	       <disconnect />
+            </if>
+
+            <if cond="menu_input == '*'">
+               <disconnect />
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*0'">
+               <goto next="#proc12000" />
+            </if>
+            <if cond="menu_input == '0'">
+               <goto next="#ptarget22000" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <throw event="com.mobeon.vva.mainmenu" messageexpr="''" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true)) &amp;&amp; false">
+                  <goto next="#proc32000" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="prompt5">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt('19')" />
+         </prompt>
+         <disconnect />
+      </block>
+   </form>
+   <form id="proc12000">
+      <subdialog name="sub" src="Pause.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <goto next="#ptarget22000" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget22000">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc32000">
+      <subdialog name="sub" src="Transfer.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <goto next="#ptarget22000" />
+         </filled>
+      </subdialog>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <log label="error" expr="'error.com.mobeon.platform.profileread: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <log label="error" expr="'error.com.mobeon.platform.profilewrite: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('135')" />
+      </prompt>
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <log label="error" expr="'error.com.mobeon.platform.mailbox: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('410')" />
+      </prompt>
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <log label="error" expr="'error.com.mobeon.platform.numberanalysis: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <log label="error" expr="'error.com.mobeon.platform.datanotfound: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error.com.mobeon.platform.system">
+      <log label="error" expr="'error.com.mobeon.platform.system: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="error">
+      <log label="error" expr="'event: ' +_event +  ', message: ' + _message + ' Subscriber=' + GlobalObject.Subscriber + ' ANI=' + GlobalObject.ANI" />
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnected">
+      <assign name="Disconnected" expr="true" />
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <if cond="((Disconnected == true))">
+         <exit />
+         <else />
+         <assign name="Disconnected" expr="true" />
+         <goto next="DisconnectActions.vxml" />
+      </if>
+   </catch>
+   <catch event="com.mobeon.vva.goodbye">
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt('4')" />
+      </prompt>
+      <goto next="DisconnectActions.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <goto next="MainMenu.vxml" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <goto expr="Menu_GetPrevious()" />
+   </catch>
+</vxml>

@@ -1,0 +1,6 @@
+# Test script for SIPP perl compiler
+description "Verify that MAS switches between available service instances"
+
+connect voicesms
+#sleep 16000
+disconnect

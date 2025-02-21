@@ -1,0 +1,5 @@
+<application>
+    <documents type="application/xml+ccxml">
+        <document src="transition-platform-access1.ccxml" root="true"/>
+    </documents>
+</application>

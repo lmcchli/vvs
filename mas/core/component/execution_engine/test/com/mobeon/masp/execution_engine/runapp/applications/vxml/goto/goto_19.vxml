@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <script>
+        function f(x){return x+1;}
+    </script>
+   <form>
+      <block>
+         <goto next="goto_19_2.vxml"/>
+      </block>
+       <block>
+          <log>ERROR</log>
+       </block>
+   </form>
+</vxml>

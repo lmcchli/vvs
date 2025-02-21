@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+=pod
+  Descr.  : Retrieves the component version from MCR and compares it
+            to the component version in the VERSION file in the
+            installation directory.
+    Exit code: 0    OK
+               1    Could not retrieve version from MCR
+               2    Different versions in MCR and installation directory.
+=cut
+
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+require "$Bin/ntfbase";
+
+my $h = &getconfig("mcrhost");
+my $p = &getconfig("mcrport");
+my $u = &getconfig("mcrusername");
+my $pw = &getconfig("mcrpassword");
+my $o = &getconfig("mcrorg");
+
+$u = "uid=$u,emRegisterName=MessagingComponentRegister,$o";
+
+chomp($MCRVERSION = `ldapsearch -r -h $h -p $p -b $o -D $u -w $pw emcomponentname=$NTFINSTANCENAME emcomponentversion | grep emcomponentversion`);
+$MCRVERSION =~ s/^[^=]+=\s*//;
+$MCRVERSION =~ s/\s*$//;
+if ($MCRVERSION) {
+    print "Component version registered in MCR: $MCRVERSION\n";
+    if ($MCRVERSION eq $FILEVERSION) {
+        exit 0;
+    } else {
+        print "The version registered in MCR is different from the one in $BASEDIR/VERSION\n";
+        exit 2;
+    }
+} else {
+    print "Failed to retrieve component version from MCR\n";
+    exit 1;
+}

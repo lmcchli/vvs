@@ -1,0 +1,31 @@
+#! /usr/xpg4/bin/sh
+
+# This script scans all files visible in the current config spec and
+# compares them to LATEST on the first of the listed branches
+# where the file exists The names of differing files are printed to
+# stdout
+
+#Usage versionconsistency branch [branch...]
+
+if [ $# = 0 ]; then
+    BRANCHES="dev_r11a sus_r10a/dev_r11a"
+else
+    BRANCHES="$*"
+fi
+
+verdiff () {
+    for b in $BRANCHES; do
+        if [ -r "$1@@/main/$b/LATEST" ]; then
+            if diff $1 "$1@@/main/$b/LATEST">/dev/null 2>&1; then
+                echo "== $1"
+            else
+                echo "!= $1"
+            fi
+            return
+        fi
+    done
+}
+
+for f in `find . -type f`; do
+    verdiff $f
+done

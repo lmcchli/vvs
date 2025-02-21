@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+	<catch event="telephone.disconnect.hangup">
+		<log>user hangup</log>
+	</catch>
+	<var name="foo" expr="'your   mother'" />
+	<var name="bar" expr="'your daddi'" />
+	<script>
+		function test(val) { if (val == 1) return true; else return false;};
+        function getAudio(audio) { if (audio == 1) return "one_UL.wav"; else return "two_UL.wav";};
+	</script>
+	<form>
+        <field name="q1">
+            <prompt>
+                <audio src="UM_1371.wav UM_4107.wav">
+					Alternative text 1
+                </audio>
+            </prompt>
+            <grammar mode="dtmf">
+                <rule id="main_rule">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                    </one-of>
+                </rule>
+            </grammar>
+        </field>
+		<block name="block1">
+			Some text
+			<prompt>
+				<audio src="UM_3847.wav">
+					Alternative text 1
+				</audio>
+			</prompt>
+			<if cond="test(q1)">
+			
+				<prompt>
+					<audio expr="getAudio(1)">
+					    Hello
+					 </audio>
+				</prompt>
+			<else />
+				<prompt>
+                    <audio expr="getAudio(2)">
+					    Tadam  blam
+                    </audio>
+				</prompt>
+			</if>
+			<prompt>
+				<audio src="goodmorning.wav">
+					Alternative text 2
+				</audio>
+			</prompt>
+		</block>
+	</form>
+</vxml>

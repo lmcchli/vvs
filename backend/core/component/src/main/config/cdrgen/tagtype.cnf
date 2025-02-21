@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The follwing 2 rows are only used when XSL is used. The first row replaces the one above. -->
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> -->
+<!-- <?xml-stylesheet type="text/xsl" href="mer.xsl"?> -->
+
+<!DOCTYPE config SYSTEM "mer.dtd">
+
+<config>
+	<attr>
+		<tagtype number="1" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="5" type="0" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="25" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="26" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="30" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="31" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="32" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="40" type="0" datatype="E" mandatory="1"/>
+	</attr>
+	<attr>
+		<tagtype number="44" type="0" datatype="S" mandatory="1"/>
+	</attr>
+	<attr>
+		<tagtype number="46" type="0" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="50" type="0" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="51" type="0" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="0" type="1" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="1" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="2" type="1" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="3" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="4" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="5" type="1" datatype="T" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="6" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="7" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="8" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="9" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="10" type="1" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="11" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="12" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="13" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="14" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="15" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="16" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="17" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="18" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="19" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="20" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="21" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="22" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="23" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="24" type="1" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="25" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="26" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="27" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="28" type="1" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="29" type="1" datatype="I" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="30" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="31" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="32" type="1" datatype="E" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="33" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="34" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="35" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="36" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="37" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+		<tagtype number="38" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>                
+		<tagtype number="67" type="1" datatype="S" mandatory="0"/>        
+	</attr>
+	<attr>
+		<tagtype number="68" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="69" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="70" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="71" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="72" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="73" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="74" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="75" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="76" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="77" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="78" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="79" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="80" type="1" datatype="S" mandatory="0"/>
+	</attr>
+	<attr>
+	        <tagtype number="81" type="1" datatype="S" mandatory="0"/>
+	</attr>
+</config>

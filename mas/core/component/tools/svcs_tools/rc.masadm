@@ -1,0 +1,306 @@
+#!/bin/ksh
+###################################################################
+# File    : rc.masadm /masadm
+# Author  : Håkan Tunell
+# Created : 2006-01-10
+#
+# Description:
+#	This file is is renamed to masadm if installed on a Solaris 8 system.
+#	This file is always called to operate on mas. Except on start restart.
+#
+# OS: 	Solaris 8
+#
+# History
+#	Date		Who	What
+#	2006-01-10  	MHATU	Created
+#
+#
+####################################################################
+
+
+#*********************************************
+# These parameters exsist in mas.conf file
+# INSTALL_DIR=#__INSTALL_DIR__#
+# JAVA_HOME=#__JAVA_HOME__#
+#*********************************************
+
+HOSTNAME=`hostname`
+
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+BASE=$BASEDIR/MAS
+mode=$1
+param=$2
+
+
+export MAS_INSTALL_PATH=$BASEDIR
+#export com.sun.jndi.ldap.connect.pool.maxsize=25
+#export com.sun.jndi.ldap.connect.pool.timeout=300000
+#export com.sun.jndi.ldap.connect.pool.debug=fine  # uncomment for debug
+
+
+REGULARSTART=$BASEDIR"/etc/regularstart"
+
+# Load config values
+. $BASEDIR/etc/mas.conf
+
+
+
+setupEnv() {
+    
+    # Check if pkg ncurses & gcc is installed.
+    # if not installed, monitor will not run.
+    
+    tmp_curses=`pkginfo | grep ncurses`
+    tmp_gcc=`pkginfo | grep gcc`
+    
+    if [  tmp_curses != "" ] 
+    then
+    	PKG_CURSES="INSTALLED"
+    fi
+    
+    if [  tmp_gcc != "" ] 
+    then
+    	PKG_GCC="INSTALLED"
+    fi
+
+    RUN_MONITOR="FALSE"
+    if [ PKG_CURSES = "INSTALLED" ]
+    then
+    	if [ PKG_GCC = "INSTALLED" ]
+    	then
+    		RUN_MONITOR="TRUE"
+    	fi
+    fi
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:$BASDIR/conf:$JAVA_CLASSPATH
+        
+    DIRNAME=`pwd`
+
+}
+
+
+#setupEnv() {
+#    
+#    # set up library path
+#    LD_LIBRARY_PATH=/usr/lib/lwp:$BASE/lib
+#    export LD_LIBRARY_PATH
+#     
+#    # Setup java class path
+#    libs=`ls $BASE/lib/*.jar`
+#    for lib in $libs
+#    do 
+#       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+#    done
+#
+#    # Add lib directory to class path
+#    JAVA_CLASSPATH=$BASE/lib:$JAVA_CLASSPATH
+#
+#}
+
+doMasStart() {
+   setupEnv
+   ALIVE=""
+   # check if MAS is already running
+   #Get pid
+   if [[ -f $BASEDIR/etc/mas.pid ]]
+   then
+   	PID=`cat $BASEDIR/etc/mas.pid`
+   	ALIVE=`ps -eo pid | grep $PID`
+   fi
+   
+   
+   #Check if process is running
+   #ALIVE=`ps -eo pid | grep $PID`
+   if [ $ALIVE ]
+   then
+	echo "mas:$HOSTNAME:start ok [ MAS already started ]"
+   else 
+   	 cd $INSTALL_DIR
+	 $JAVA_HOME/bin/java -server -Xms$INIT_HEAP_SIZE -Xmx$MAX_HEAP_SIZE -cp $JAVA_CLASSPATH com.mobeon.masp.execution_engine.Main&
+	 echo $! > $BASEDIR/etc/mas.pid
+	 cd $DIRNAME
+
+         PID=`cat $BASEDIR/etc/mas.pid`
+
+	
+   	 #Check if process is running
+   	 ALIVE=`ps -eo pid | grep $PID`
+   	 if [ $ALIVE ]
+   	 then
+   	 	echo "mas:$HOSTNAME:start ok"
+   	 else
+   	 	echo "mas:$HOSTNAME:start error [ MAS did not start ]"
+   	 fi
+   fi
+}
+
+doAgentStart() {
+   setupEnv
+   ALIVE=""
+   # check if SNMP Agent is already running
+   #Get pid
+   if [[ -f $BASEDIR/etc/agent.pid ]]
+   then
+   	PID=`cat $BASEDIR/etc/agent.pid`
+   	ALIVE=`ps -eo pid | grep $PID`
+   fi
+   
+   
+   #Check if process is running
+   #ALIVE=`ps -eo pid | grep $PID`
+   if [ $ALIVE ]
+   then
+	echo "agent:$HOSTNAME:start ok [ SnmpAgent already started ]"
+   else 
+   	 cd $INSTALL_DIR
+	 $JAVA_HOME/bin/java -server -cp $JAVA_CLASSPATH com.mobeon.masp.masagent.MasAgent&
+	 echo $! > $BASEDIR/etc/agent.pid
+	 cd $DIRNAME
+
+         PID=`cat $BASEDIR/etc/agent.pid`
+
+	
+   	 #Check if process is running
+   	 ALIVE=`ps -eo pid | grep $PID`
+   	 if [ $ALIVE ]
+   	 then
+   	 	echo "agent:$HOSTNAME:start ok"
+   	 else
+   	 	echo "agent:$HOSTNAME:start error [ SnmpAgent did not start ]"
+   	 fi
+   fi
+}
+
+doMasStop()
+{
+        #Get pid
+        if [[ -f $BASEDIR/etc/mas.pid ]]
+	then
+	        PID=`cat $BASEDIR/etc/mas.pid`
+        	#Check if process is running
+        	ALIVE=`ps -eo pid | grep $PID`
+        fi
+        
+        if [ $ALIVE ]
+        then
+                kill -9 $PID
+                sleep 2
+                ALIVE=`ps -eo pid | grep $PID`
+                if [ $ALIVE ]
+                then
+                        echo "mas:$HOSTNAME:stop error [ MAS not stopped ]"
+
+                else
+                        echo "mas:$HOSTNAME:stop ok"
+                fi
+        else
+                echo "mas:$HOSTNAME:stop ok [ MAS already stopped ]"
+        fi
+
+}
+
+doAgentStop()
+{
+        #Get pid
+        if [[ -f $BASEDIR/etc/agent.pid ]]
+	then
+	        PID=`cat $BASEDIR/etc/agent.pid`
+        	#Check if process is running
+        	ALIVE=`ps -eo pid | grep $PID`
+        fi
+        
+        if [ $ALIVE ]
+        then
+                kill -9 $PID
+                sleep 2
+                ALIVE=`ps -eo pid | grep $PID`
+                if [ $ALIVE ]
+                then
+                        echo "agent:$HOSTNAME:stop error [ SnmpAgent not stopped ]"
+
+                else
+                        echo "agent:$HOSTNAME:stop ok"
+                fi
+        else
+                echo "mas:$HOSTNAME:stop ok [ SnmpAgent already stopped ]"
+        fi
+
+}
+
+doStatus()
+{
+        #Get pid
+        PID=`cat $BASEDIR/etc/mas.pid`
+
+        #Check if process is running
+        ALIVE=`ps -eo pid | grep $PID`
+        if [ $ALIVE ]
+        then
+                echo "mas:$HOSTNAME:status started"
+        else
+                echo "mas:$HOSTNAME:status stopped"
+        fi
+}
+
+
+case "$mode" in
+	'start')
+		doMasStart
+		doAgentStart;;
+	'stop')
+		doMasStop	 
+		doAgentStop;;
+	'restart')
+		doMasStop
+		doAgentStop
+		doMasStart
+		doAgentStart;;
+	'status')
+		doStatus;;
+	'enableautostart')
+		$BASEDIR/etc/mascommon enableautostart
+		;;
+	'disableautostart')
+		$BASEDIR/etc/mascommon disableautostart
+		;;
+	'lock')
+		$BASEDIR/etc/mascommon lock
+		;;
+	'unlock')
+		$BASEDIR/etc/mascommon unlock
+		;;
+	'shutdown')
+		$BASEDIR/etc/mascommon shutdown
+		;;
+	'monitor')
+		$BASEDIR/etc/mascommon monitor
+		;;
+	'viewmib')
+		$BASEDIR/etc/mascommon viewmib
+		;;
+        'installmcp')
+                $BASEDIR/etc/mascommon installmcp $param
+                ;;
+        'installapp')
+                $BASEDIR/etc/mascommon installapp $param
+                ;;
+		
+		
+	*)
+		echo "Usage: `basename $0` <start|stop|restart|enableautostart|disableautostart>"
+		exit 1
+		;;
+esac

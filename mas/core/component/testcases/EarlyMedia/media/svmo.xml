@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mediaobjects>
+   <mediaobject type="MediaFile" src="svfile3.wav">
+		      <spokentext><![CDATA[b]]></spokentext>
+ 		      <sourcetext><![CDATA[b]]></sourcetext>
+ 		      <comment><![CDATA[]]></comment>
+   </mediaobject>
+</mediaobjects>

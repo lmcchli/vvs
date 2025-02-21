@@ -1,0 +1,3 @@
+Success
+money=3
+currency=SEK

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="main_form">
+        <var name="attrs"/>
+        <var name="passed"/>
+        <block>
+
+            <!--get facs number attribute -->
+            <script>
+
+                attrs = mas.subscriberGetStringAttribute('99910002', 'facsimiletelephonenumber');
+                passed = false;
+                if (typeof(attrs[0]) != 'undefined') {
+                    if (attrs[0] == '111222333444') {
+                        passed = true;
+                    }
+                }
+            </script>
+            <log>facsimiletelephonenumber=<value expr="attrs[0]"/></log>
+            <if cond="passed">
+                <log>TC 20105110 Passed</log>
+            <else/>
+                <log>TC 20105110 Failed</log>
+            </if>
+
+            <exit/>
+
+        </block>
+      </form>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105110 Failed</log>
+
+		<exit/>
+   </catch>
+
+    <catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

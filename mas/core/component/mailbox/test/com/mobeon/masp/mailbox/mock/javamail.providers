@@ -1,0 +1,2 @@
+protocol=imap; type=store; class=com.mobeon.masp.mailbox.mock.StoreMock; vendor=Mobeon, Inc.;
+protocol=mockimapstore; type=store; class=com.mobeon.masp.mailbox.mock.ImapStoreMock; vendor=Mobeon, Inc.;

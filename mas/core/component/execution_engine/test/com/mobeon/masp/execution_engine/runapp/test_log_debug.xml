@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="MOCK" class="com.mobeon.masp.execution_engine.runapp.TestAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{mm:ss.sss} [TID:%t] [SID:%X{session}] %c{2} %5p %m%n"/>
+        </layout>
+        <!-- <contentResourceProperties class="com.mobeon.masp.logging.SessionFilter"/> -->
+    </appender>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %c %5p [SID:%X{session}]  - %m%n"/>
+        </layout>
+        <!-- <contentResourceProperties class="com.mobeon.masp.logging.SessionFilter"/> -->
+    </appender>
+
+    <appender name="ROLLFILE" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="moboen.log"/>
+        <param name="Append" value="false" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %c %5p [SID:%X{session}]  - %m%n"/>
+        </layout>
+        <!-- if session filtering should be used, uncomment the following line -->
+        <!-- <contentResourceProperties class="com.mobeon.masp.logging.SessionFilter"/> -->
+    </appender>
+
+
+    <category name="com.mobeon.masp.execution_engine.compiler">
+          <priority value="debug" />
+     </category>
+
+    <category name="com.mobeon.masp.execution_engine">
+      <priority value="debug" />
+    </category>
+
+    <category name="com.mobeon.masp.execution_engine.runapp.mock">
+      <priority value="debug" />
+    </category>
+
+    <category name="com.mobeon.masp.execution_engine.runapp">
+      <priority value="debug" />
+    </category>
+
+    <category name="com.mobeon.masp.execution_engine.compiler.operations.Log">
+        <priority value="debug" />
+    </category>
+
+    <category name="com.mobeon.masp.execution_engine.compiler.operations.Log_TM">
+        <priority value="info" />
+    </category>
+
+    <category name="Application">
+        <priority value="debug" />
+    </category>
+
+
+    <category name="com.mobeon.masp.execution_engine.util.TestEventGenerator">
+        <priority value="info" />
+    </category>
+
+    <root>
+        <priority value ="warn" />
+        <appender-ref ref="MOCK" />
+    </root>
+
+
+</log4j:configuration>

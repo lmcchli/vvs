@@ -1,0 +1,11 @@
+# Tested in lab w/o iMux. 
+# MAS version: DP5.004
+MAS: MAS_DP5.004: 08-05-16 13:45:15
+Result from test: Passed: ESS - Events - Send event: 10002000
+Result from test: Passed: ESS - Events - Error handling: 10002001
+Result from test: Passed: ESS - Events - Check section essconfig in mas.xml: 10002002
+Result from test: Passed: ESS - Events - Check section essconfig in mas.xsd: 10002003
+*****************************************************
+PASSED TESTS:        4
+FAILED TESTS:        0
+*****************************************************

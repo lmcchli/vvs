@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <!-- when hangup-event arrives we except testVar to have expected value.-->
+
+    <var name="testVar"></var>
+    <var name="lab1"></var>
+
+
+    <!-- It is important for the test case that several script tags are used, since the
+    hangup-event shall NOT be handled in between any of them-->
+
+    <script>
+        lab1 = new Packages.com.mobeon.masp.execution_engine.runapp.WaitASec();
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+    <script>
+        lab1.waitASec();
+    </script>
+
+    <script>
+        testVar=2;
+    </script>
+
+    <catch event="connection.disconnect.hangup">
+        <if cond="testVar == 2">
+            <log>TCPASS</log>
+            <exit/>
+        </if>
+    </catch>
+
+    <form>
+        <field/>
+    </form>
+</vxml>

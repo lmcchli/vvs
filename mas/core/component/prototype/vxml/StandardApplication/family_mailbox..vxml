@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="root.vxml">
+
+	<form id="family_mailbox" >
+		<block>
+				<if cond="newFamilyMailboxMessageExist()" >
+						<goto next="#list_mailboxes" />
+				</if>
+				<goto next="getMailboxExtension" />
+		</block>
+	</form>
+	
+	
+	<form id="get_mail_box_extension">
+		<!-- builtin grammer set by field type attrib not supported by the MAS prototype -->
+		<field name="extension" type="digits"> 
+			<prompt>
+				<audio expr="getPrompt('ENTER_MAIL_BOX_EXTENSION')" >
+					Please enter your mailbox extension number. Press the # key or just wait to access the common mailbox.
+				</audio>
+				<audio expr="getFamilyMailboxList()">
+				
+				</audio>
+			</prompt>
+		
+		</field>
+	</form>
+	
+	<form id="list_mailboxes">
+		<prompt>
+			<audio expr="getPrompt('NEW_MESSAGE_FOR')">
+				New message for 
+			</audio>
+		
+			<audio expr="getFamilyMailboxName(session.connection.remote.uri)">
+					Mailbox name
+			</audio>
+		</prompt>
+		<block>
+			<if cond="nextMailBox(session.connection.remote.uri)">
+				<goto next="#list_mailboxes" />
+				<else />
+					<goto next="#get_mailbox_extension" />
+			</if>
+		</block>
+	
+	</form>
+</vxml>

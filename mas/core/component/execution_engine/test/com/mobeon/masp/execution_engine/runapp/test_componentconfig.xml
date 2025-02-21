@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="CallManager" class="com.mobeon.masp.execution_engine.runapp.mock.CallManagerMock" init-method="init">
+        <property name="streamFactory"><ref bean="StreamFactory"/></property>
+        <property name="applicationManagment"><ref bean="IApplicationManagement"/></property>
+        <property name="sessionFactory"><ref bean="ISessionFactory"/></property>
+    </bean>
+
+    <bean id="PlatformAccessFactory" class="com.mobeon.masp.execution_engine.platformaccess.PlatformAccessFactoryImpl">
+        <constructor-arg index="0"><ref bean="NumberAnalyzer"/></constructor-arg>
+        <constructor-arg index="1"><ref bean="ProfileManager"/></constructor-arg>
+        <constructor-arg index="2"><ref bean="ConfigurationMock"/></constructor-arg>
+        <constructor-arg index="3"><ref bean="StorableMessageFactory"/></constructor-arg>
+        <constructor-arg index="4"><ref bean="MediaContentManager"/></constructor-arg>
+        <constructor-arg index="5"><ref bean="TrafficEventSender"/></constructor-arg>
+        <constructor-arg index="6"><ref bean="IMediaQualifierFactory"/></constructor-arg>
+	    <constructor-arg index="7"><ref bean="MediaObjectFactory"/></constructor-arg>
+		<constructor-arg index="8"><ref bean="MediaTranslationManager" /></constructor-arg>
+		<constructor-arg index="9"><ref bean="MediaHandlerFactory" /></constructor-arg>
+		<constructor-arg index="10"><ref bean="ContentTypeMapper" /></constructor-arg> 	      
+		 <constructor-arg index="11"><ref bean="AuthenticationConfigManager"/></constructor-arg>  
+    </bean>
+
+    <bean id="TrafficEventSender" class="com.mobeon.masp.execution_engine.runapp.mock.TrafficEventSenderMock"/>
+
+    <bean id="IApplicationManagement" class="com.mobeon.masp.execution_engine.ApplicationManagmentImpl" init-method="init">
+        <!-- &lt;property name=&quot;componentManager&quot;&gt;&lt;ref bean=&quot;IComponentManager&quot;/&gt;&lt;/property&gt; -->
+        <property name="applicationCompiler"><ref bean="IApplicationCompiler"/></property>
+        <property name="mapServiceToApplicationURI">
+            <map>
+                <entry>
+                    <key><value>Default</value></key>
+                    <value>test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/log/log_1.xml</value>
+                </entry>
+
+
+                <entry>
+                    <key>
+                        <value>outdial_notification</value>
+                    </key>
+                    <value>test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/servicerequest/service_1.xml</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>pager_notification</value>
+                    </key>
+                    <value>test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/servicerequest/service_1.xml</value>
+                </entry>
+
+            </map>
+        </property>
+        <property name="mapProtocolToService">
+            <map>
+                <entry>
+                    <key>
+                        <value>sip</value>
+                    </key>
+                    <list>
+                        <value>Default:5060</value>
+                    </list>
+                </entry>
+                <entry>
+                    <key>
+                        <value>xmp</value>
+                    </key>
+                    <list>
+                        <value>outdial_notification:88</value>
+                        <value>pager_notification:99</value>
+                    </list>
+                </entry>
+
+            </map>
+        </property>
+        <property name="mapProtocolToServiceEnabler">
+            <map>
+                <entry>
+                    <key>
+                        <value>sip</value>
+                    </key>
+                    <ref bean="CallManager"/>
+                </entry>
+                <entry>
+                    <key>
+                        <value>xmp</value>
+                    </key>
+                    <ref bean="ServiceRequestManager"/>
+                </entry>
+
+            </map>
+        </property>
+        <property name="applicationExecutionFactory"><ref bean="ApplicationExecutionFactory"/></property>
+        <property name="sessionFactory"><ref bean="ISessionFactory"/></property>
+        <property name="mediaObjectFactory"><ref bean="MediaObjectFactory"/></property>
+        <property name="platformAccessFactory"><ref bean="PlatformAccessFactory"/></property>
+        <property name="callManager"><ref bean="CallManager"/></property>
+        <property name="supervision"><ref bean="OmManager"/></property>
+        <property name="serviceRequestManager"><ref bean="ServiceRequestManager"/></property>
+        <property name="mediaTranslationManager"><ref bean="MediaTranslationManager"/></property>
+        <property name="configurationManager"><ref bean="ConfigurationManagerMock"/></property>
+        <property name="configuration"><ref bean="ConfigurationMock"/></property>
+
+
+    </bean>
+
+    <bean id="IApplicationExecution" class="com.mobeon.masp.execution_engine.ApplicationExecutionImpl" init-method="initialize" singleton="false">
+        <property name="session"><ref bean="ISession"/></property>
+        <property name="callManager"><ref bean="ICallManager"/></property>
+        <property name="mediaObjectFactory"><ref bean="MediaObjectFactory"/></property>
+    </bean>
+
+    <bean id="IApplicationCompiler" class="com.mobeon.masp.execution_engine.compiler.ApplicationCompilerImpl">
+        <property name="configurationManager"><ref bean="ConfigurationManagerMock"/></property>        
+    </bean>
+
+    <bean id="ISession" class="com.mobeon.masp.execution_engine.session.SessionImpl" singleton="false"/>
+
+    <bean id="IComponentManager" class="com.mobeon.masp.util.component.SpringComponentManager"/>
+
+    <bean id="ExecutorServiceManager" class="com.mobeon.masp.util.executor.ExecutorServiceManager">
+       <!-- Should add config for different Category/ExecutorService mappings-->
+    </bean>
+
+    <bean id="StreamFactory" class="com.mobeon.masp.execution_engine.runapp.mock.StreamFactoryMock" init-method="init">
+        <property name="contentTypeMapper"><ref bean="ContentTypeMapper"/></property>
+    </bean>
+
+    <bean id="MediaObjectCache" class="com.mobeon.masp.mediacontentmanager.MediaObjectCacheImpl" init-method="init">
+        <property name="policy" value="LFU"/>
+        <!-- number of maximum media objects in cache -->
+        <property name="maxSize" value="100" />
+        <!-- Timeout in milliseconds (current is 10 minutes)-->
+        <property name="elementTimeout" value="600000"/>
+    </bean>
+    <bean id="MediaObjectFactory" class="com.mobeon.masp.mediaobject.factory.MediaObjectFactory">
+        <property name="bufferSize" value="8000"/>
+    </bean>
+
+    <bean id="ApplicationExecutionFactory" class="com.mobeon.masp.execution_engine.ApplicationExecutionFactoryImpl"/>
+
+     <bean id="NumberAnalyzer" class="com.mobeon.masp.execution_engine.runapp.mock.NumberAnalyzerMock"/>
+
+     <bean id="ProfileManager" class="com.mobeon.masp.execution_engine.runapp.mock.ProfileManagerMock">
+        <property name="serviceLocator"><null/></property>
+        <property name="mailboxAccountManager"><ref bean="MailboxAccountManager"/></property>
+     </bean>
+
+    <!--
+     <bean id="ServiceLocator" class="com.mobeon.masp.externalcomponentregister.ExternalComponentRegister">
+     </bean>
+        -->
+
+     <bean id="MailboxAccountManager" class="com.mobeon.masp.execution_engine.runapp.mock.MailboxAccountManagerMock"/>
+
+    <bean id="ConfigurationManagerMock" class="com.mobeon.masp.execution_engine.runapp.mock.ConfigurationManagerMock"/>
+
+    <bean id="ConfigurationMock" class="com.mobeon.masp.execution_engine.runapp.mock.ConfigurationMock"/>
+
+     <bean id="StorableMessageFactory" class="com.mobeon.masp.execution_engine.runapp.mock.StorableMessageFactoryMock">
+         <property name="internetMailSender"><ref bean="MailSender"/></property>
+     </bean>
+
+    <bean id="MailSender" class="com.mobeon.masp.execution_engine.runapp.mock.MailSenderFactoryMock"/>
+
+    <bean id="ContentTypeMapper" class="com.mobeon.masp.mediaobject.ContentTypeMapperImpl" />
+
+    <bean id="MediaContentManager" class="com.mobeon.masp.execution_engine.runapp.mock.MediaContentManagerMock" init-method="init">
+        <property name="configuration"><ref bean="ConfigurationMock"/></property>
+        <property name="mediaObjectFactory"><ref bean="MediaObjectFactory"/></property>
+        <property name="contentTypeMapper"><ref bean="ContentTypeMapper"/></property>
+        <property name="mediaObjectCache"><ref bean="MediaObjectCache"/></property>
+    </bean>
+
+    <bean id="IMediaQualifierFactory" class="com.mobeon.masp.execution_engine.runapp.mock.MediaQualifierFactoryMock">
+    </bean>
+
+    <bean id="OmManager" class="com.mobeon.masp.execution_engine.runapp.mock.SupervisionMock"/>
+
+    <bean id="ServiceRequestManager" class="com.mobeon.masp.execution_engine.runapp.mock.ServiceRequestManagerMock" init-method="init">
+        <property name="applicationManagment"><ref bean="IApplicationManagement"/></property>
+        <property name="sessionFactory"><ref bean="ISessionFactory"/></property>
+    </bean>
+
+    <bean id="MediaTranslationManager" class="com.mobeon.masp.execution_engine.runapp.mock.MediaTranslationManagerMock"/>
+
+    <bean id="ISessionFactory" class="com.mobeon.masp.execution_engine.SessionFactory"/>
+    
+    <bean id="MediaHandlerFactory" class="com.mobeon.masp.mediahandler.MediaHandlerFactoryImpl">
+    </bean>
+
+    <bean id="AuthenticationConfigManager" class="com.mobeon.masp.execution_engine.platformaccess.AuthenticationConfigManager" init-method="init">
+    </bean>
+
+</beans>

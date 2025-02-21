@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  ~ Copyright (c) 2005 Mobeon AB. All Rights Reserved.
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.mobeon.com"
+           xmlns="http://www.mobeon.com">
+    <xs:element name="result">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="interpretation"/>
+            </xs:sequence>
+            <xs:attribute name="grammar" type="xs:string" use="optional"/>
+            <xs:attribute name="x-model" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="interpretation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="input" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="model" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="instance" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="confidence" type="xs:int" use="optional"/>
+            <xs:attribute name="grammar" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="instance">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="SWI_literal"/>
+                <xs:element ref="SWI_grammarName"/>
+                <xs:element ref="SWI_meaning"/>
+            </xs:sequence>
+            <xs:attribute name="confidence" type="xs:int" use="optional"/>
+            <xs:attribute name="grammar" type="xs:string" use="optional"/>
+            <xs:attribute name="x-model" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="SWI_literal" type="xs:string"/>
+    <xs:element name="SWI_grammarName" type="xs:string"/>
+    <xs:element name="SWI_meaning" type="xs:string"/>
+
+    <xs:element name="model">
+    </xs:element>
+
+    <xs:element name="input">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element ref="input" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="timestamp-start" type="xs:int" use="optional"/>
+            <xs:attribute name="timestamp-end" type="xs:int" use="optional"/>
+            <xs:attribute name="confidence" type="xs:int" use="optional"/>
+            <xs:attribute name="mode" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

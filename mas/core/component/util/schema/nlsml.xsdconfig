@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2005, Mobeon. All Rights Reserved.
+  -->
+
+<xb:config xmlns:xb="http://xml.apache.org/xmlbeans/2004/02/xbean/config">
+
+  <xb:namespace uri="http://www.mobeon.com">
+    <xb:package>com.mobeon.masp.util.xml.nlsml</xb:package>
+  </xb:namespace>
+
+</xb:config>

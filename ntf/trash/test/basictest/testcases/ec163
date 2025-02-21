@@ -1,0 +1,69 @@
+BTS EC163
+2008-01-07
+Lennart Rasmusson
+-------------------------------------------------------------------------
+
+CONFIGURATION
+=============
+~ 1000 users
+
+
+VALIDITY TIME FOR NON-LIST SLAMDOWN
+===================================
+
+SET
+SlamdownList=no
+Validity_slamdown=17
+
+VERIFY
+Verify that slamdown SMS has 17 hours validity.
+Verify that new message notification has 1 day validity.
+
+SET
+SlamdownList=yes
+
+VERIFY
+Verify that slamdown SMS list has 17 hours validity.
+
+SET
+Validity_slamdown not in config file
+
+VERIFY
+Verify that slamdown SMS list has 1 day validity
+
+SET
+SlamdownList=no
+
+VERIFY
+Verify that slamdown SMS has 1 day validity
+
+
+NOTIFICATION HOLDBACK TIMEOUT WHEN INBOX NOT AVAILABLE
+======================================================
+VERIFY
+Send a login event
+Kill the MS
+Send a logout event
+Verify that NTF tries several times to activate the pending
+notification
+
+VERIFY
+Send a login event
+Change the gnotification password
+Send a logout event
+Verify that NTF tries several times to activate the pending
+notification
+
+
+NOTIFICATION HOLDBACK TIMEOUT DURING LOAD
+=========================================
+VERIFY
+Send a login event
+Send heavy load of events around the timeout time
+Verify that no exceptions occur
+
+
+SLAMDOWN NPE
+============
+Send a heavy load of mixed slamdown for a long time
+Verify that no Exceptions occur

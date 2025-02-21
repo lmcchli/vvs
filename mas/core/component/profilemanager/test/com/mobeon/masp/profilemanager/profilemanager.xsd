@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="profilemanager"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="profilemanager">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="userregister"/>
+                <xs:element ref="connectionpool"/>
+                <xs:element ref="provisioning"/>
+                <xs:element ref="attributemap"/>
+            </xs:sequence>
+            <xs:attribute name="limitscope" type="xs:boolean" use="required"/>
+            <xs:attribute name="coscachetimeout" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="userregister">
+        <xs:complexType>
+            <xs:attribute name="readtimeout" type="xs:integer" use="required"/>
+            <xs:attribute name="writetimeout" type="xs:integer" use="required"/>
+            <xs:attribute name="admin" type="xs:string" use="required"/>
+            <xs:attribute name="password" type="xs:string" use="required"/>
+            <xs:attribute name="defaultsearchbase" type="xs:string" use="required"/>
+            <xs:attribute name="trylimit" type="xs:integer" use="required"/>
+            <xs:attribute name="trytimelimit" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="connectionpool">
+        <xs:complexType>
+            <xs:attribute name="maxsize" type="xs:integer" use="required"/>
+            <xs:attribute name="connectionlifetime" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="provisioning">
+        <xs:complexType>
+            <xs:attribute name="password" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="attributemap">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="addressbookserver" type="provisioning"/>
+                <xs:element name="autoplay" type="booleanmetadata"/>
+                <xs:element name="billingnumber" type="stringmetadatareadonly"/>
+                <xs:element name="badlogincount" type="integermetadata"/>
+                <xs:element name="callerxfer" type="booleanmetadatareadonly"/>
+                <xs:element name="callerxfertocoverage" type="booleanmetadatareadonly"/>
+                <xs:element name="cn" type="stringmetadatareadonly"/>
+                <xs:element name="cdgmax" type="integermetadatareadonly"/>
+                <xs:element name="cosdn" type="stringmetadatareadonly"/>
+                <xs:element name="cosname" type="stringmetadatareadonly"/>
+                <xs:element name="dlentriesmax" type="integermetadatareadonly"/>
+                <xs:element name="emallowedmaildomains" type="stringmetadatareadonly"/>
+                <xs:element name="emftl" type="stringmetadata"/>
+                <xs:element name="emftlfunctions" type="stringmetadatareadonly"/>
+                <xs:element name="emservicedn" type="stringmetadatareadonly"/>
+                <xs:element name="emservicednuser" type="stringmetadatareadonly"/>
+                <xs:element name="inhoursdow" type="stringmetadata"/>
+                <xs:element name="inhoursend" type="stringmetadata"/>
+                <xs:element name="inhoursstart" type="stringmetadata"/>
+                <xs:element name="mail" type="stringmetadatareadonly"/>
+                <xs:element name="mailhost" type="stringmetadatareadonly"/>
+                <xs:element name="password" type="stringmetadatareadonly"/>
+                <xs:element name="uid" type="stringmetadatareadonly"/>
+                <xs:element name="umpassword" type="stringmetadata"/>
+
+                <!-- Elements not in attribute document -->
+                <xs:element name="admininfo" type="stringmetadatareadonly"/>
+                <xs:element name="uniqueidentifier" type="stringmetadatareadonly"/>
+            </xs:all>
+            <xs:attribute name="searchorder" type="searchorder" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="datatype">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="string"/>
+            <xs:enumeration value="xstring"/>
+            <xs:enumeration value="integer"/>
+            <xs:enumeration value="boolean"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="writelevel">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="billing"/>
+            <xs:enumeration value="user"/>
+            <xs:enumeration value="cos"/>
+            <xs:enumeration value="community"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Type used for pure provisioning attributes -->
+    <xs:complexType name="provisioning">
+        <xs:attribute name="provisioningname" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!-- Base type for all user register attributes -->
+    <xs:complexType name="metadatareadonly">
+        <xs:attribute name="userregistername" type="xs:string" use="required"/>
+        <xs:attribute name="provisioningname" type="xs:string"/>
+        <xs:attribute name="searchorder" type="searchorder"/>
+    </xs:complexType>
+
+    <!-- Todo: Add more complicated searchorders -->
+    <xs:simpleType name="searchorder">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="community"/>
+            <xs:enumeration value="community,cos"/>
+            <xs:enumeration value="community,cos,user"/>
+            <xs:enumeration value="community,cos,user,billing"/>
+            <xs:enumeration value="community,cos,billing,user"/>
+            <xs:enumeration value="cos"/>
+            <xs:enumeration value="cos,user"/>
+            <xs:enumeration value="cos,user,billing"/>
+            <xs:enumeration value="cos,billing,user"/>
+            <xs:enumeration value="user"/>
+            <xs:enumeration value="user,billing"/>
+            <xs:enumeration value="billing"/>
+            <xs:enumeration value="billing,user"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="stringmetadatareadonly">
+        <xs:complexContent>
+            <xs:extension base="metadatareadonly">
+                <xs:attribute name="default" type="xs:string"/>
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="string"/>
+                            <xs:enumeration value="xstring"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="stringmetadata">
+        <xs:complexContent>
+            <xs:extension base="stringmetadatareadonly">
+                <xs:attribute name="writelevel" type="writelevel" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="integermetadatareadonly">
+        <xs:complexContent>
+            <xs:extension base="metadatareadonly">
+                <xs:attribute name="default" type="xs:integer"/>
+                <xs:attribute name="min" type="xs:integer"/>
+                <xs:attribute name="max" type="xs:integer"/>
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="integer"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="integermetadata">
+        <xs:complexContent>
+            <xs:extension base="integermetadatareadonly">
+                <xs:attribute name="writelevel" type="writelevel" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="booleanmetadatareadonly">
+        <xs:complexContent>
+            <xs:extension base="metadatareadonly">
+                <xs:attribute name="default" type="xs:string"/>
+                <xs:attribute name="true" type="xs:string" use="required"/>
+                <xs:attribute name="false" type="xs:string" use="required"/>
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="boolean"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="booleanmetadata">
+        <xs:complexContent>
+            <xs:extension base="booleanmetadatareadonly">
+                <xs:attribute name="writelevel" type="writelevel" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

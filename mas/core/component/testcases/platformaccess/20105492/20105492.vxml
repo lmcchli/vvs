@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.w3.org/2001/vxml
+  http://www.w3.org/TR/voicexml21/vxml.xsd">
+
+	<form id="main_form">
+
+    <var name="cos"/>
+    <block>
+
+            <!-- set greetings for all types-->
+            <script>
+
+                cos = mas.subscriberGetCosAttribute('99910002', 'cosdn');
+                mas.systemLog(3, 'cosdn=' + cos);
+                <!--
+              attrs = mas.subscriberGetBooleanAttribute("99999999",'someattr');-->
+            </script>
+            <log>TC 20105492  Failed</log>
+            <exit/>
+
+        </block>
+    </form>
+	<catch event="error.com.mobeon.platform.datanotfound">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105492  Passed</log>
+
+		<exit/>
+   </catch>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105492  Failed</log>
+
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

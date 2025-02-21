@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="checkmate execution_engine" default="all">
+
+  <property name="module" value="execution_engine" />  
+
+   <!-- Import project generic properties -->
+  <property name="project.basedir" value=".."/>
+  <import file="${project.basedir}/projdefs.xml"/>
+  
+  
+  <!-- Module definitions -->
+  <dirname property="module.basedir" file="${ant.file}"/>
+
+  <property name="module.jarname" value="mobeon_execution_engine.jar"/>  
+  <property name="module.output.dir" value="${module.basedir}/classes"/>
+  <property name="module" value="execution_engine"/>
+
+  <path id="module.sourcepath">
+    <dirset dir="${module.basedir}">
+        <include name="src"/>
+        <include name="interface"/>
+    </dirset>
+  </path>
+
+  <path id="module.testpath">
+    <dirset dir="${module.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+
+  <patternset id="excluded.from.module"/>
+
+  <path id="module.classpath">
+    <path refid="${module.jdk.classpath.checkmate}"/>
+  </path>
+
+  <!-- Add &lt;include&gt; directives for all modules
+       this modules depends on -->
+  <path id="module.dependencypath">
+     <dirset dir="${project.basedir}">
+        <include name="logging/interface"/>
+        <include name="util/interface"/>
+        <include name="util/src"/>
+        <include name="eventnotifier/interface"/>
+        <include name="session/interface"/>
+        <include name="stream/interface"/>
+        <include name="mediaobject/interface"/>
+        <include name="callmanager/interface"/>
+        <include name="mailbox/interface"/>
+        <include name="configurationmanager/interface"/>
+        <include name="mediacontentmanager/interface"/>
+        <include name="mediatranslationmanager/interface"/>
+        <include name="externalcomponentregister/interface"/>
+        <include name="profilemanager/interface"/>
+        <include name="numberanalyzer/interface"/>
+        <include name="trafficeventsender/interface"/>
+        <include name="message_sender/interface"/>
+        <include name="operateandmaintainmanager/interface"/>
+        <include name="servicerequestmanager/interface"/>
+	<include name="chargingaccountmanager/interface"/>
+         
+         <!-- Includes neede by the ExecutionEngine test cases -->
+        <!--include name="stream/src"/>
+        <include name="mediaobject/src"/>
+        <include name="configurationmanager/src"/>
+        <include name="trafficeventsender/src"/>
+        <include name="mediacontentmanager/src"/-->
+     </dirset>
+  </path>
+
+  <path id="module.dependencypath.test">
+  <dirset dir="${project.basedir}">
+        <include name="mediaobject/src/*"/>
+        <include name="mediacontentmanager/src"/>
+     </dirset>
+  </path>
+  <!-- And similarly add  &lt;exclude&gt; directives for
+       all modules this modules depends on -->
+  <patternset id="module.jar.files">
+      <include name="**/com/mobeon/masp/execution_engine/**"/>
+      <exclude name="**/com/mobeon/masp/**/*Case*"/>
+      <patternset refid="excluded.from.module"/>
+  </patternset>
+
+  <patternset id="excluded.from.compilation">
+    <patternset refid="excluded.from.module"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+
+
+  <!-- Local and/or overridden targets -->
+     <!-- Build needed packages -->
+  <target name="builddepedencies">
+  </target>
+
+  <!-- Import generic targets -->
+  <import file="${project.basedir}/cobertura.xml"/>
+  <import file="${project.basedir}/targets.xml"/>
+</project>

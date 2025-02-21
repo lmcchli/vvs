@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/exit/" type="application/xml+ccxml">
+        <document src="exit_2.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/exit/" type="application/xml+vxml">
+        <document src="exit_2.vxml"/>
+    </documents>
+</application>

@@ -1,0 +1,144 @@
+.if n .tr \--
+.TH ntf_config 1M "August 3, 2001" "Sun Cluster 3.0"
+.SH NAME
+ntf_config \- ntf server configuration file 
+.SH SYNOPSIS
+/apps/LMEAntf/util/ntf_config 
+.SH DESCRIPTION
+The 
+.B ntf_config
+file contains a set of configuration parameters that 
+.BR startntf (1M),
+.BR stopntf (1M),
+and
+.BR removentf (1M)
+read before executing. You can edit the parameters in
+.B ntf_config
+with a text editor to change certain default behaviors of these
+commands.
+.LP
+The following list describes the parameters in
+.BR ntf_config . 
+.TP 15
+.B RS_NAME
+The name of the ntf server resource. For a scalable service, the default name is
+.BR ntf-sars .
+For a failover service, the default name is
+.BR ntf-hars .
+.TP
+.B RG_NAME
+The name of the resource group containing the ntf server 
+resource identified by 
+.BR RS_NAME .
+For a scalable service, the default name is
+.BR ntf-sarg .
+For a failover service, the default name is
+.BR ntf-harg.
+.TP
+.B SA_RG_NAME
+The resource group containing the shared address resource. This
+parameter is available for scalable services only. The default name is
+.BR sa-rg-${HOSTNAME},
+where ${HOSTNAME} is the hostname you specify on the
+.BR startntf (1M) 
+command line.
+.B 
+.TP
+.B MAXIMUM_PRIMARIES
+The maximum primaries of the resource group
+specified by 
+.BR RG_NAME .
+For a scalable service, 
+.B  MAXIMUM_PRIMARIES 
+is the number of nodes in the cluster. For a
+failover service, it is 1.
+.TP
+.B DESIRED_PRIMARIES
+The desired number of primaries for the resource group specified by
+.BR RG_NAME .
+For a scalable service, 
+.B  DESIRED_PRIMARIES 
+is the number of nodes in the cluster. For a
+failover service, it is 1.
+.LP
+These parameters are in a 
+.IR KEY = value 
+form, as follows (default values
+are shown):
+.LP
+For a scalable service:
+.ft B 
+   RS_NAME=ntf-sars
+   RG_NAME=ntf-sarg
+   SA_RG_NAME=sa-rg-${HOSTNAME}
+   MAXIMUM_PRIMARIES=${NO_OF_NODES}
+   DESIRED_PRIMARIES=${NO_OF_NODES}
+.ft P
+.LP
+For a failover service:
+.ft B 
+   RS_NAME=ntf-hars
+   RG_NAME=ntf-harg
+   MAXIMUM_PRIMARIES=1
+   DESIRED_PRIMARIES=1
+.ft P
+.LP
+Agent Builder uses the application name 
+to assign the 
+.B RS_NAME 
+and 
+.B RG_NAME
+values in the
+.B ntf_config
+file. The 
+.BR startntf ,
+.BR stopntf ,
+and
+.B removentf
+commands derive the value for 
+.B SA_RG_NAME 
+(the shared address resource group name)
+from the hostname you specify with the 
+\-h
+option on the command line.
+For a scalable service, the
+.B startntf
+command dynamically derives the value for 
+.B MAXIMUM_PRIMARIES
+and 
+.B DESIRED_PRIMARIES
+by determining the number of nodes in your cluster. For a failover service,
+these parameters are set to 1.
+You can edit
+.B ntf_config
+to assign different values to any of these parameters. 
+.LP
+.BR Important:
+Edit 
+.B ntf_config
+before running 
+.B startntf
+to start ntf on a cluster.
+.SH EXAMPLES
+In the following example, for a scalable service, the 
+.B ntf_config
+file has been edited with new values, including fixed values for 
+.B MAXIMUM_PRIMARIES
+and
+.BR DESIRED_PRIMARIES .
+.LP
+.ft B
+    RS_NAME=rs_app
+    RG_NAME=rg_app
+    SA_RG_NAME=sa_rg
+    MAXIMUM_PRIMARIES=4
+    DESIRED_PRIMARIES=4
+.ft P
+.SH "SEE ALSO"
+.BR scdsbuilder (1HA),
+.BR removentf (1M),
+.BR scrgadm (1M),
+.BR scswitch (1M),
+.BR startntf (1M),
+.BR stopntf (1M),
+.BR rg_properties (5)

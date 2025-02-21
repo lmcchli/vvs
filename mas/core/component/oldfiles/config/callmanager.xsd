@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Malin (Mobeon) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="configuration" nillable="false">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="callmanager"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="callmanager">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="requiredoutboundaudiomedia"/>
+				<xs:element ref="requiredoutboundvideomedia"/>
+				<xs:element ref="responsecodemappings" minOccurs="0"/>
+				<xs:element ref="remoteparty"/>
+				<xs:element ref="siptimers" minOccurs="0"/>
+				<xs:element ref="diagnoseservice" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="callnotacceptedtimer" type="callnotacceptedtimer" use="optional"/>
+			<xs:attribute name="registerbackofftimer" type="registerbackofftimer" use="optional"/>
+			<xs:attribute name="registerbeforeexpirationtime" type="registerbeforeexpirationtime" use="optional"/>
+			<xs:attribute name="blacklisttimer" type="blacklisttimer" use="optional"/>
+			<xs:attribute name="inboundaudiomedia" type="xs:string" use="required"/>
+			<xs:attribute name="inboundvideomedia" type="xs:string" use="required"/>
+			<xs:attribute name="ptime" type="xs:int" use="optional"/>
+			<xs:attribute name="registeredname" type="letterdigitonlystring" use="optional"/>
+			<xs:attribute name="defaultcalltype" type="calltype" use="optional"/>
+			<xs:attribute name="outboundcallcallingparty" type="xs:string" use="required"/>
+			<xs:attribute name="outboundcallconnecttimeout" type="callnotacceptedtimer" use="optional"/>
+			<xs:attribute name="disconnectonsiptimeout" type="xs:boolean" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="calltype">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="voice"/>
+			<xs:enumeration value="video"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="callnotacceptedtimer">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="32000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="registerbackofftimer">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="5000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="registerbeforeexpirationtime">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="30000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="blacklisttimer">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="diagnoseservice">
+		<xs:complexType>
+			<xs:attribute name="host" type="xs:string" use="optional"/>
+			<xs:attribute name="port" type="xs:positiveInteger" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="siptimers">
+		<xs:complexType>
+			<xs:attribute name="t2" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="t4" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerb" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerc" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerd" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerf" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerh" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="timerj" type="xs:positiveInteger" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="requiredoutboundaudiomedia">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mediatype" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="requiredoutboundvideomedia">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mediatype" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mediatype">
+		<xs:complexType>
+			<xs:attribute name="encoding" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="responsecodemappings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mapping" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="defaultnetworkstatuscode" type="networkstatuscode" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mapping">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="sipresponsecodeintervals" type="sipresponsecodeintervals" use="required"/>
+			<xs:attribute name="networkstatuscode" type="networkstatuscode" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="letterdigitonlystring">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sipresponsecodeintervals">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[3-6][0-9][0-9](-[3-6][0-9][0-9])?(,[3-6][0-9][0-9](-[3-6][0-9][0-9])?)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="networkstatuscode">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="601"/>
+			<xs:maxInclusive value="634"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="remoteparty">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ssplist"/>
+				<xs:element ref="phone"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ssplist">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="address" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="phone">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="address"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="address">
+		<xs:complexType>
+			<xs:attribute name="host" type="xs:string" use="required"/>
+			<xs:attribute name="port" type="xs:positiveInteger" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

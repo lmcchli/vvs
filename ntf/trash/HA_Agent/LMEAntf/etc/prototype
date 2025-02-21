@@ -1,0 +1,48 @@
+# Sun Cluster Data Services Builder template version 1.0
+# packaging files
+i pkginfo
+i postinstall
+i postremove
+i depend
+
+#
+# source locations relative to the prototype file
+#
+# LMEAntf
+#
+
+# top-level directories and sub-directories
+d none LMEAntf 0755 root bin
+d none LMEAntf/bin 0755 root bin
+d none LMEAntf/etc 0755 root bin
+d none LMEAntf/util 0755 root bin
+d none LMEAntf/man/ 0755 root bin
+d none LMEAntf/man/man1m 0755 root bin
+
+# the readme file
+f none LMEAntf/README.ntf 0644 root bin
+
+# binaries for various methods
+f none LMEAntf/bin/ntf_monitor_check 0555 root bin
+f none LMEAntf/bin/ntf_monitor_start 0555 root bin
+f none LMEAntf/bin/ntf_monitor_stop 0555 root bin
+f none LMEAntf/bin/ntf_probe 0555 root bin
+f none LMEAntf/bin/ntf_svc_start 0555 root bin
+f none LMEAntf/bin/ntf_svc_stop 0555 root bin
+f none LMEAntf/bin/ntf_update 0555 root bin
+f none LMEAntf/bin/ntf_validate 0555 root bin
+f none LMEAntf/bin/hantf-ntf.sh 0555 root bin
+f none LMEAntf/bin/hantf-agt.sh 0555 root bin
+
+# The RTR file
+f none LMEAntf/etc/LMEA.ntf 0555 root bin
+
+f none LMEAntf/util/startntf 0555 root bin
+f none LMEAntf/util/removentf 0555 root bin
+f none LMEAntf/util/stopntf 0555 root bin
+f none LMEAntf/util/ntf_config 0644 root bin
+
+f none LMEAntf/man/man1m/startntf.1m 0644 root bin
+f none LMEAntf/man/man1m/removentf.1m 0644 root bin
+f none LMEAntf/man/man1m/stopntf.1m 0644 root bin
+f none LMEAntf/man/man1m/ntf_config.1m 0644 root bin

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+	<form id="main_form">
+        <record name="recording">
+            <filled>
+                <log>TCPASS: record ok 1</log>
+            </filled>
+        </record>
+        <filled>
+            <log>TCPASS: record ok 2</log>
+            <exit/>
+        </filled>
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+        </catch>
+    </form>
+</vxml>

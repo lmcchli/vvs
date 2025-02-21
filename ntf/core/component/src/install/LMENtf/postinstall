@@ -1,0 +1,77 @@
+#! /usr/xpg4/bin/sh
+# postinstall script
+LOG="/apps/logs/ntf/install/log"
+export LOG
+FAIL="0"
+TR="/usr/xpg4/bin/tr"
+
+. $BASEDIR/bin/common.sh
+
+mcrinstance(){
+    HostName=`hostname`
+    DOMAINNAME=`grep domain "/etc/resolv.conf" | sed 's/domain//' | $TR -d " "`
+    echo "ntf1@$HostName.$DOMAINNAME"
+}
+
+install_rc_script(){
+    if isha ; then
+        :
+    else
+        cp $BASEDIR/uninstall/rc.ntf /etc/init.d/ >> $LOG && rm $BASEDIR/uninstall/rc.ntf
+    fi
+}
+
+start_ntf(){
+    if equalsignorecase "$STARTNTF" "yes" ; then
+        /etc/init.d/rc.ntf enableautostart >> $LOG 2>&1
+        echo "Starting NTF. " | tee -a  $LOG  
+        /etc/init.d/rc.ntf start >> $LOG 2>&1
+    fi
+}
+
+link_selfdiag() {
+    if [ ! -d /apps/selfdiag/ntf ]; then
+        mkdir -p /apps/selfdiag/ntf  > /dev/null 2>&1
+    fi
+
+    if [ ! -f /apps/selfdiag/ntf/selfdiag ]; then
+        ln -s $BASEDIR/selfdiag/selfdiag /apps/selfdiag/ntf/selfdiag > /dev/null 2>&1
+    fi
+}
+
+
+hainstall() {
+    cp -f $INSTALL_DIR/LMENtf.response $BASEDIR/instance_template/cfg/notification.cfg
+}
+
+install() {
+    cp -f $INSTALL_DIR/LMENtf.response $BASEDIR/instance_template/cfg/notification.cfg
+    install_rc_script
+    $BASEDIR/bin/addinstance -i `mcrinstance` -d $BASEDIR || FAIL="1"
+}
+
+upgrade() {
+    install_rc_script
+    if [ -x $BASEDIR/bin/upgradeinstance ]; then
+        $BASEDIR/bin/upgradeinstance -d $BASEDIR || FAIL="1"
+    fi
+}
+
+#################
+#    MAIN	#
+#################
+
+if isha ; then
+    hainstall
+    link_selfdiag
+else 
+    if isupgrade ; then
+        upgrade
+    else
+        install
+    fi
+    link_selfdiag
+    start_ntf
+fi
+
+exit 0

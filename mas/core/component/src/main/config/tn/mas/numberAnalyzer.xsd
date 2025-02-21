@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType" />
+
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						The numberAnalyzer.conf file must contain ALL the tables defined in this xsd.
+
+						If a rule must contain regioncoderule, input or return parameters (at rule level, not sub rule level)
+						these parameters must be added in a sub rule named 'RuleLevelValues'.
+
+						For example: 
+							<RETRIEVALPREFIXRULE.Table>
+								<subRuleName>RuleLevelValues
+									<input></input>
+									<return></return>
+								</subRuleName>
+					   			<subRuleName>RetrievalPrefix
+									<input>^([0-9]*)$</input>
+									<return>$i1</return>
+								</subRuleName>
+							</RETRIEVALPREFIXRULE.Table>    
+					</xs:documentation>
+				</xs:annotation>			
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="INBOUNDCALL.Table" 			type="ruleTableType"/>
+			<xs:element name="RETRIEVALPREFIXRULE.Table"	type="ruleTableType"/>
+			<xs:element name="OUTBOUNDCALL.Table" 			type="ruleTableType"/>
+			<xs:element name="CLITOSMSCALL.Table" 			type="ruleTableType"/>
+			<xs:element name="CUTTHROUGHPAGING.Table" 		type="ruleTableType"/>
+			<xs:element name="ECHONUMBER.Table" 			type="ruleTableType"/>
+			<xs:element name="FAXPRINTRULE.Table" 			type="ruleTableType"/>
+			<xs:element name="IVRTOSMS.Table" 				type="ruleTableType"/>
+			<xs:element name="SLAMDOWNCALL.Table" 			type="ruleTableType"/>
+			<xs:element name="Office.Table" 				type="ruleTableType"/>
+			<xs:element name="SUBSCRIBEROUTDIAL.Table" 		type="ruleTableType"/>
+			<xs:element name="MISSEDCALLNOTIFICATION.Table"	type="ruleTableType"/>
+            			<xs:element name="MWINOTIFICATION.Table"	    type="ruleTableType"/>			
+            			<xs:element name="CALLEROUTDIAL.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE1.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE2.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE3.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE4.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE5.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE6.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE7.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE8.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE9.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE10.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE11.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE12.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE13.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE14.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE15.Table"	    type="ruleTableType"/>
+            			<xs:element name="EXTRARULE16.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE17.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE18.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE19.Table"	    type="ruleTableType"/>			
+            			<xs:element name="EXTRARULE20.Table"	    type="ruleTableType"/>	            						
+            			
+
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="ruleTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="subRuleName" type="subRuleType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="subRuleType" mixed="true">
+		<xs:all>
+			<xs:element name="regioncoderule" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="input" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="return" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="priority" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+		</xs:all>
+	</xs:complexType>
+
+</xs:schema>

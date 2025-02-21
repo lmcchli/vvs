@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="connection.disconnect.hangup">
+        <log>TCPASS2</log>
+        <exit/>
+    </catch>
+
+    <form id="volvo">
+        <subdialog name="v40" src="subdialog_12b.vxml">
+        </subdialog>
+
+        <block>
+            <log>TCPASS1</log>
+        </block>
+        <!-- This field is here to trigger waiting state should not be executed -->
+        <field>
+            <filled>
+                <log>TCFAIL filled</log>
+                <exit/>
+            </filled>
+        </field>
+
+        <noinput>
+            <log>TCFAIL noinput</log>
+            <exit/>
+        </noinput>
+        <block>
+            <log>TCFAIL block</log>
+            <exit/>
+        </block>
+
+    </form>
+
+</vxml>

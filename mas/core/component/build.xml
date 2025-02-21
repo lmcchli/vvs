@@ -1,0 +1,120 @@
+<project name="Checkmate" default="all">
+    <property name="project.basedir" value="." />
+    <import file="${project.basedir}/projdefs.xml"/>
+
+            <macrodef name="iterate">
+                <attribute name="target"/>
+                <sequential>
+
+                  <subant target="@{target}" failonerror="${build.failoncomponenterror}" verbose="true">
+                        <fileset dir=".">
+				<include name="*/build.xml"/>
+				<exclude name="sipcommunicator/**"/>
+			</fileset>
+                   </subant>
+                </sequential>
+            </macrodef>
+
+            <target name="all">
+                <iterate target="all"/>
+            </target>
+
+            <target name="javadoc">
+                <iterate target="javadoc"/>
+            </target>
+
+            <target name="runtest">
+                <iterate target="runtest"/>
+            </target>
+
+            <target name="runcoverage">
+                <iterate target="runcoverage"/>
+            </target>
+
+	    <target name="testreport">
+		<mkdir dir="testreports"/>
+		<junitreport todir="./testreports">
+		   <fileset dir=".">
+    		      <include name="**/testreports/TEST-*.xml"/>
+ 	           </fileset>
+                   <report format="frames" todir="./testreports"/>
+	        </junitreport>
+	    </target>
+
+            <target name="compile">
+                <iterate target="compile"/>
+            </target>
+
+            <target name="compile.tests">
+                <iterate target="compile.tests"/>
+            </target>
+
+            <target name="clean">
+                <delete>
+                    <fileset dir="lib" includes="**/mobeon_*.jar"/>
+                </delete>
+                <delete dir="doc/api"/>
+                <delete dir="testreports"/>
+                <iterate target="clean"/>
+            </target>
+
+            <target name="distclean">
+                <iterate target="distclean"/>
+            </target>
+
+            <target name="jar">
+                <iterate target="jar"/>
+            </target>
+
+            <target name="distjar">
+                <iterate target="distjar"/>
+            </target>
+
+        <path id="all.sourcepath">
+            <dirset dir=".">
+                <exclude name="prototype/**"/>
+                <exclude name="sipcommunicator/**"/>
+                <include name="**/src"/>
+                <include name="**/interface"/>
+                <include name="**/test"/>
+                <include name="**/mtest"/>
+            </dirset>
+        </path>
+
+        <target name="alljavadoc" description="Generates JavaDoc">
+        <mkdir dir="doc/api"/>
+        <javadoc destdir="doc/api" author="true"
+            version="true" use="true"
+            packagenames="*" source="1.5">
+            <classpath/>
+            <sourcepath refid="all.sourcepath" />
+
+            <classpath>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+
+            </classpath>
+            <link href="http://java.sun.com/j2se/1.4.2/docs/api/" />
+            <link href="http://www.junit.org/junit/javadoc/3.8.1/" />
+            <doctitle><![CDATA[<h1>]]>MAS<![CDATA[</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2005 Mobeon AB. All Rights Reserved.</i>]]></bottom>
+            <tag name="todo" scope="all" description="To do:"/>
+        </javadoc>
+    </target>
+
+    <target name="disttar">
+        <tar destfile="MAS_drop.tar" longfile="gnu">
+            <tarfileset dir="lib">
+                <include name="**"/>
+            </tarfileset>
+            <tarfileset dir="doc">
+                <include name="api/**"/>
+            </tarfileset>
+        </tar>
+
+
+    </target>
+    <target name="makedist" depends="clean, distjar, disttar"/>
+
+</project>

@@ -1,0 +1,8 @@
+com/mobeon/ntf/NtfMain.java
+com/mobeon/common/smscom/smpp/SMPPCom.java
+com/mobeon/common/smscom/cimd2/CIMD2Com.java
+com/mobeon/ntf/out/outdial/verify/Verifyer.java
+com/mobeon/ntf/out/outdial/generate/Generator.java
+com/mobeon/common/email/EmailClient.java
+com/mobeon/ntf/out/email/EmailTestClient.java
+com/mobeon/ntf/text/TemplateConverter.java

@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/send/" type="application/xml+ccxml">
+        <document src="send_3.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/ccxml/send/" type="application/xml+vxml">
+        <document src="empty.vxml"/>
+    </documents>
+</application>

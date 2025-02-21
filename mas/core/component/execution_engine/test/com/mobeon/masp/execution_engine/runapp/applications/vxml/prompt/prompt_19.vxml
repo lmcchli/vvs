@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <property name="timeout" value="0s"/>
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>*</item>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+
+        <field name="f1">
+            <prompt>
+                <audio src="../prompt35s.wav"></audio>
+            </prompt>
+        </field>
+
+        <filled>
+            <if cond="f1$.utterance != '*'">
+                <log>TCFAIL wrong utterance: <value expr="f1$.utterance"/></log>
+                <exit></exit>
+            </if>
+            <goto next="#form2"></goto>
+        </filled>
+    </form>
+    <form id="form2">
+
+        <!-- Wait a while to allow any lingering playFinished from
+             form1 to arrive in this form (which it shouldn't, that was a bug-->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(5000);</script>
+        </block>
+
+        <!-- the second DTMF entered while we were in form1 should be able to fill this field -->
+        <field name="f2">
+            <filled>
+                <if cond="f2$.utterance == '1'">
+                    <log>TCPASS</log>
+                    <exit></exit>
+                </if>
+
+            </filled>
+
+        </field>
+
+        <block>
+            <log>TCFAIL should not get here</log>
+            <exit></exit>
+        </block>
+    </form>
+
+</vxml>

@@ -1,0 +1,1656 @@
+(Æm0€@%@CMAS_CG.1.CG.MAS0001.sdifi€k€CMAS_CG.1.CG.MAS0001.sdifB0d€}<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE doc PUBLIC "-//ABCXYZ//DTD XSEIF} 1/FAD 110 05 R5//EN"
+ "XSEIF_R5.dtd">
+<doc new-page-level="npl0" version="XSEIF R5" xmlns="urn:x-abcxyz:r2:reg-doc:1551-fa|d.110.05:en:*"><?Pub Caret1?>
+<meta-data><?Pub Dtl?>
+<confidentiality class="abcxyz-confidential"/>
+<doc-name>Operation Di}rections</doc-name>
+<doc-id><doc-no type="reference">1/CG-MAS0001</doc-no><language code="en"/>
+<rev>B</rev><date><y>2006</y>{<m>12</m><d>06</d></date></doc-id>
+<company-id>
+<business-unit>SDC</business-unit>
+<company-name>Mobeon AB</company-name>
+<{company-symbol logotype="abcxyz"></company-symbol>
+</company-id>
+<title>Customization Guide MAS</title>
+<drafted-by>
+<per}son>
+<name>Kenneth Selin</name><signature>ERMKESE</signature>
+<location>SU</location><company>Mobeon</company><department>Prezsentation</department>
+</person>
+</drafted-by>
+<approved-by approved="yes">
+<person>
+<name>Magnus Bj&ouml;rkman</name><sig|nature>ERMMABJ</signature>
+<location>SU</location><company>Mobeon</company><department>Presentation</department>
+</person>
+<z/approved-by>
+</meta-data>
+<front>
+<title-page>
+<copyright><p>&copy; Abcxyz AB 2001-2002 - All Rights Reserved</p>
+</cop|yright>
+<disclaimer><p>The information in this document is subject to change without
+notice.</p>
+<p>Abcxyz makes no warran~ty of any kind with regard to this material, including,
+but not limited to, the implied warranties of merchantability and fitn}ess
+for a particular purpose. Abcxyz shall not be liable for errors contained
+herein nor for incidental or consequential da{mages in connection with the
+furnishing, performance or use of this material.</p>
+</disclaimer>
+<trademark-list>
+<tm-item><}trademark>Solaris is a trademark of Sun Microsystems, Inc.</trademark>
+<owner></owner></tm-item>
+<tm-item><trademark>UNIX is ya trademark of X/Open Company, Ltd.</trademark>
+<owner></owner></tm-item>
+</trademark-list>
+</title-page>
+</front>
+<body>}
+<chl1><title>Introduction</title>
+<chl2><title>Scope</title>
+<p>This document provides information on how the MAS component |can be customized.</p>
+</chl2>
+<chl2><title>Audience</title>
+<p>The document is primarily written for personnel responsible |for development
+and customization.</p>
+<chl3><title>Prerequisite Knowledge</title>
+<p>The readers of this document should ha|ve a good understanding of Messaging-over-IP
+and good knowledge and experience of:</p>
+<list type="unordered">
+<list-item><py>UNIX</p>
+</list-item>
+</list>
+</chl3>
+</chl2>
+<chl2><title>Related Documents</title>
+<p>The following documents also con|tain information related to the component,
+or are referred to from this document:</p>
+<list type="unordered">
+<list-item><p>{Installation Guide MAS</p>
+</list-item>
+<list-item><p>Operation &amp; Maintenance MAS</p>
+</list-item>
+<list-item><p>Solari|s Documentation (http://docs.sun.com) <emph type="low">System
+Administration Guide, Solaris 10</emph></p>
+</list-item>
+</lis{t>
+</chl2>
+<chl2><title>Document Conventions</title>
+<chl3><title>Notational Conventions</title>
+<p>This document uses the }following notational conventions:</p>
+<p> 						<emph>Bold font</emph> style is used for emphasis, to indicate keywords
+and b}uttons.</p>
+<p> 						<emph type="low">Italic font</emph> style is used for references,
+window/page/menu titles and specific }terms.</p>
+<p> 						<input>Bold Monospace font</input> is used to describe user input.</p>
+<p> 						<output>Monospace font<}/output> is used for code, paths and on-screen
+computer output.</p>
+<p>Square brackets <quote>[]</quote> are used to enclose |parameters that are
+optional.</p>
+<p>Curly brackets <quote>{}</quote> are used to enclose parameter values given
+as examples|.</p>
+<p>Less than and greater than characters <quote>&lt;></quote> are used to
+enclose variable names.</p>
+<p>Backslash <qu}ote>\</quote> at the end of a line means that this line is
+continued onto the next line.</p>
+<p>The dollar sign <quote>$</quo}te> is the UNIX Korn (and Bourne) shell prompt.</p>
+<p>The percent sign <quote>%</quote> is the UNIX C shell prompt.</p>
+<p>T~he number sign <quote>#</quote> is the superuser prompt.</p>
+<p>The number sign <quote>#</quote> is also used for comments.</p}>
+<p>A star <quote>*</quote> matches zero or more characters.</p>
+<p>A question mark <quote>?</quote> matches one character.<}/p>
+<p>A tilde <quote>~</quote> means the home directory of the current user.</p>
+<p> 						<quote>&lt;MAS_HOME></quote> is tzhe installation directory for MAS,
+for example <quote>/apps/mas</quote>.</p>
+</chl3>
+</chl2>
+</chl1>
+<chl1><title>General<}/title>
+<p>The MAS Application and Media Content Package building software is a development
+kit for building Media Content Pa}ckages and Application Packages for the MAS
+component. The development kit is delivered in a container file described
+in<xref} linkend="containerfile"/>. This kit is used to produce additional
+language that can be installed on an MAS component .</p>
+<}p>First, take a look at <xref linkend="containerfile"/> , to find out what
+the container file contains.</p>
+<p>Then, go throu~gh all steps in <xref linkend="buildmcp"/> , to produce the
+Media Content Package or <xref linkend="buildapp"/> to produce an |Application
+Package.</p>
+<chl2><title xml:id="containerfile">Container File</title>
+<p>The MAS language building software is} delivered in a container file named:</p>
+<list type="unordered">
+<list-item><p> 							<resource-id type="file-path">amcpm.&{lt;rel>.swu0044.1.solaris10</resource-id> 
+					</p>
+</list-item>
+</list>
+<p>where <quote>&lt;rel></quote> gives the releas}e number of the software.</p>
+<p>In this document, the container file is called <input>&lt;amcpm_builder_file></input></p>
+<p}>The container file contains a directory hierarchy as follows:</p>
+<def-list><dl-item>
+<term>amcpm/</term><def><p>Root directzory including all directories and files
+described below.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>amcpm/mkapp.sh</term><def><zp>The script to use to build an Application
+Package</p>
+</def>
+</dl-item>
+<dl-item>
+<term>amcpm/mkmcp.sh</term><def><p>Thez script to use to build a Media Content
+Package.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>amcpm/app_properties.cfg</term><def}><p>The configuration file that specifies
+the characteristics of the Application Package to be built. This file shall
+be modi{fied to reflect the actual application characteristics.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>amcpm/mcp_properties.cfg</ter}m><def><p>The configuration file that specifies
+the characteristics of the Media Content Package to be built. This file shall{
+be modified to reflect the actual media characteristics.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>amcpm/VERSION</term><def><p{>Shows the version of the amcpm_builder_file.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>amcpm/tools/grammarfiletool/*</term><deyf><p>Grammar File Tool. Used
+to check the number rules in a grammar rule file.</p>
+</def>
+</dl-item>
+</def-list>
+</chl2>
+}<chl2><title>Pre-requisites</title>
+<p>The MAS Application and Media Content Package builder requires that the
+following soft}ware has been installed on the host where the software is built:</p>
+<list type="unordered">
+<list-item><p>Solaris 10 or latezr with the latest recommended patches</p>
+</list-item>
+</list>
+</chl2>
+<chl2><title>Prepare building environment</title>
+<|step-list>
+<sl-item><p>Login to the building host.</p>
+</sl-item>
+<sl-item><p>Copy the MAS Application and Media Content Pac}kage delivery file
+to a any directory (here called &lt;building_dir> ) on the host.</p>
+<p> 							<input># cp &lt;amcpm_buil{der_file> &lt;building_dir></input> 
+					</p>
+</sl-item>
+<sl-item><p>Change to the building directory.</p>
+<p> 							<inp}ut># cd &lt;building_dir></input> 						</p>
+</sl-item>
+<sl-item><p>Extract files from the MAS Application and Media Content zPackage
+delivery file.</p>
+<p> 							<input># tar xf &lt;amcpm_builder_file></input> 						</p>
+</sl-item>
+</step-list>
+<|/chl2>
+</chl1>
+<chl1><title xml:id="buildmcp">Building an Media Content Package</title>
+<chl2><title xml:id="buildmcpgeneral}">General</title>
+<p>This chapter describes how to build a Media Content Package that can be
+installed on a MAS component.</p|>
+<p>A Media Content Package has the following characteristics:</p>
+<def-list><dl-item>
+<term>Type</term><def><p>An arbitrar}ly human readable tag that indicates the
+semantics of the Media Content Package, for example "prompt", "fungreeting"
+etc.</p>x
+</def>
+</dl-item>
+<dl-item>
+<term>Language</term><def><p>Language as specified in the RFC 2798</p>
+</def>
+</dl-item>
+<d}l-item>
+<term>Voice Variant</term><def><p>An arbitrarly human readable tag that indicates
+the voice variant, for example, "bo{b", "male" etc.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Video Variant</term><def><p>An arbitrarly human readable tag that indzicates
+the video variant, for example, "blue", "autumn" etc.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>Audio encoding</term><d{ef><p>The encoding used for the audio in this
+package. For example "audio/pcmu", "audio/amr" etc.</p>
+</def>
+</dl-item>
+<dl|-item>
+<term>Video encoding</term><def><p>The encoding used for the video in this
+package. For example "video/h263" etc</p>
+{</def>
+</dl-item>
+</def-list>
+<p>A Media Content Package can be built using any combination of the listed
+properties above.|</p>
+</chl2>
+<chl2><title xml:id="installworkflow">Building Workflow</title>
+<p>The building of a Media Content Package incl}udes the steps described in
+subsections below. These steps should be performed in the following order:</p>
+<list type="alphab|etic">
+<list-item><p> 							<xref linkend="configuremcppropertiescfg"/> 						</p>
+</list-item>
+<list-item><p> 							<xref{ linkend="buildmcpdeliveryfile"/> 						</p>
+</list-item>
+</list>
+</chl2>
+<chl2><title xml:id="configuremcppropertiescfg">C}onfigure mcp_properties.cfg</title>
+<p>The mcp_properties.cfg file defines the characteristics of the Media Content
+Package t|o be built.</p>
+<step-list>
+<sl-item><p>Change to the &lt;building_dir>/amcpm directory</p>
+<p> 							<input># cd &lt;build}ing_dir>/amcpm</input> 						</p>
+</sl-item>
+<sl-item><p>Edit the mcp_properties.cfg. See <xref linkend="explanationofmcppropyertiescfg"/> for
+details.</p>
+</sl-item>
+<sl-item><p>Save the file and exit the editor.</p>
+</sl-item>
+</step-list>
+<chl3}><title xml:id="explanationofmcppropertiescfg">Explanation of the mcp_properties.cfg
+file</title>
+<p>The mcp_properties.cfg c|ontains a number of properties possible to modify
+according to the description below.</p>
+<p>Explanation: </p>
+<def-list><dl}-item>
+<term>mediafiles</term><def><p>The name (including path) to the mediafiles
+to be included for this Media Content Packa|ge. The path can be specified using
+wildcards or by listing the files one by one, e.g</p>
+<list type="unordered">
+<list-item}><p>mediafiles=/vobs/ipms/vva/prompts/*.wav</p>
+</list-item>
+<list-item><p>mediafiles=/vobs/ipms/vva/prompts/myfile.wav /vobsx/ipms/vva/prompts/yourfile.wav</p>
+</list-item>
+</list>
+<p>This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<~term>mediacontentfiles</term><def><p>The name (including path) to the mediacontentfiles
+to be included for this Media Content |Package. The path can be specified using
+wildcards or by listing the files one by one, e.g</p>
+<list type="unordered">
+<list}-item><p>mediacontentfiles=/vobs/ipms/vva/mc/*.xml</p>
+</list-item>
+<list-item><p>mediacontentfiles=/vobs/ipms/vva/mc/MediaCo|ntent_Voice.xml /vobs/ipms/vva/mc/MediaContent_Voice_System.xml</p>
+</list-item>
+</list>
+<p>A media content file lists all Mzedia Content Id:s as specified in #sce.
+This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>mediaobjectfiles~</term><def><p>The name (including path) to the mediaobjectfiles
+to be included for this Media Content Package. The path can b|e specified using
+wildcards or by listing the files one by one, e.g</p>
+<list type="unordered">
+<list-item><p>mediaobjectfil}es=/vobs/ipms/vva/mo/*.xml</p>
+</list-item>
+<list-item><p>mediaobjecttfiles=/vobs/ipms/vva/mo/MediaObject_Voice.xml /vobs/ipm|s/vva/mo/MediaObject_System.xml</p>
+</list-item>
+</list>
+<p>A media object file lists all Media Objects as specified in #scez. This
+property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>grammarfile</term><def><p>The name (including path) to| the grammarfile
+to be included for this Media Content Package. There can be only one grammar
+file specified e.g.</p>
+<list {type="unordered">
+<list-item><p>grammarfile=/vobs/ipms/vva/prompts/grammar.xml</p>
+</list-item>
+</list>
+<p>For details abouzt the grammar file see <xref linkend="writerulefile"/>.
+This property is optional.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>n~ame </term><def><p>The name of the Media Content Package. This part
+is used to identify the Media Content Package as a customezr adaptation</p>
+<list type="unordered">
+<list-item><p>name=ca_vva</p>
+</list-item>
+</list>
+<p>This property is mandatory.z</p>
+</def>
+</dl-item>
+<dl-item>
+<term>type</term><def><p>The type of the Media Content Package and is the
+same as the typ{e described in<xref linkend="buildmcpgeneral"/> e.g.</p>
+<list type="unordered">
+<list-item><p>type=prompt</p>
+</list-item>z
+</list>
+<p>This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>customer</term><def><p>The name of the custo|mer the Media Content Package
+is intended for. This part can include both the customer name as well as the
+CIS number.</p>
+<{list type="unordered">
+<list-item><p>customer=customername.cis0001</p>
+</list-item>
+</list>
+<p>This property is mandatory.<z/p>
+</def>
+</dl-item>
+<dl-item>
+<term>productid</term><def><p>The product identifier for the Media Content
+Package. Togeth|er with the variant and type this will be used to uniquely
+identify a Media Content Package e.g.</p>
+<list type="unordered">y
+<list-item><p>productid=mcp0001/1</p>
+</list-item>
+</list>
+<p>This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item|>
+<term>rstate</term><def><p>The R-state of the Media Content Package e.g.</p>
+<list type="unordered">
+<list-item><p>rstate=yp2a_007</p>
+</list-item>
+</list>
+</def>
+</dl-item>
+<dl-item>
+<term>lang</term><def><p>The language of the Media Content P|ackage and is
+the same as the language described in<xref linkend="buildmcpgeneral"/> e.g.</p>
+<list type="unordered">
+<list-xitem><p>lang=en</p>
+</list-item>
+</list>
+<p>This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>voicevaria~nt</term><def><p>The voice variant of the Media Content Package
+and is the same as the voice variant described in<xref linkendz="buildmcpgeneral"/> e.g.</p>
+<list type="unordered">
+<list-item><p>voicevariant=female</p>
+</list-item>
+</list>
+<p>One of{ voicevariant or videovariant must be specified.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>videovariant</term><def><p>The video~ variant of the Media Content Package
+and is the same as the video variant described in<xref linkend="buildmcpgeneral"/> e.g.<z/p>
+<list type="unordered">
+<list-item><p>videovariant=flowers</p>
+</list-item>
+</list>
+<p>One of voicevariant or videovar{iant must be specified.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>audioencoding</term><def><p>The encoding of the audiopart of }the Media
+Content Package and is the same as the audioencoding described in<xref linkend="buildmcpgeneral"/> e.g.</p>
+<list tzype="unordered">
+<list-item><p>audioencoding=audio/pcmu</p>
+</list-item>
+</list>
+<p>This property is mandatory.</p>
+</def>{
+</dl-item>
+<dl-item>
+<term>videoendcoding</term><def><p>The encoding of the video part of the Media
+Content Package and is| the same as the the videoencoding described in<xref
+linkend="buildmcpgeneral"/>.</p>
+<list type="unordered">
+<list-item><p>zvideoencoding=video/quicktime</p>
+</list-item>
+</list>
+<p> This property is mandatory if videovariant is used.</p>
+</def>
+z</dl-item>
+</def-list>
+</chl3>
+<chl3><title>Example on mcp_properties.cfg</title>
+<p> 						<preform>
+mediafiles=/vobs/ipm}s/vva/prompts/*.wav
+mediacontentfiles=/vobs/ipms/vva/mediacontents/MediaContent_Voice_English.xml
+mediaobjectfiles=/vobs/ipms{/vva/mediaobjects/MediaObjects_Voice_English.xml
+grammarfile=/vobs/ipms/vva/grammar/grammar.xml
+name=ca_vva    
+type=prompty
+customer=company.cis0001
+productid=mcp0001
+rstate=r1a.001
+lang=sv
+videovariant=video1
+audioencoding=audio/pcmu
+videoenco|ding=video/h263
+      </preform> 					</p>
+<p>The deliveryfilename is obtained from the properties file as follows:</p>
+<p>&}lt;name>.&lt;type>.&lt;lang>.&lt;videovariant>.&lt;customer>.&lt;rstate>.&lt;productid>.tar</p>
+<p>or</p>
+<p>&lt;name>.&lt;ty|pe>.&lt;lang>.&lt;voicevariant>.&lt;customer>.&lt;rstate>.&lt;productid>.tar</p>
+<p>for example:</p>
+<p> 						<preform>
+ca_{vva.prompt.sv.video1.company.cis0001.r1a.001.mcp0001.tar
+      </preform> 					</p>
+</chl3>
+</chl2>
+<chl2><title xml:id="bu}ildmcpdeliveryfile">Build the delivery file</title>
+<list type="alphabetic">
+<list-item><p>Goto the location where the build |script is located:</p>
+<p> 							<input>cd &lt;building_dir></input> 						</p>
+</list-item>
+<list-item><p>Build the delive}ry file by issuing the following command (if
+the &lt;mcppropertiescfg> argument is left out in the command line the script
+tr~ies to use mcp_properties.cfg file in the current directory if i exits):</p>
+<p> 							<input>./mkmcp.sh [&lt;mcppropertiescf|g>]</input> 						</p>
+</list-item>
+<list-item><p>A printout on the terminal shows where the delivery file can
+be obtained.<z/p>
+</list-item>
+</list>
+</chl2>
+<chl2><title>Example</title>
+<p>Below is shown an example of the printouts when building za Media Content
+Package.</p>
+<p> 					<preform>
+#./mkmcp.sh
+Gather Media Content Package properties ...
+About to create ca|_vva.prompt.sv.video1.company.cis0001.r1a.001.mcp0001 Media
+Content Package!
+Copy files to temporary directory ...
+Make deliyvery file ...
+./mediatmp/
+./mediatmp/media/
+./mediatmp/media/0.wav
+./mediatmp/media/1.wav
+./mediatmp/media/10.wav
+./media{tmp/media/100.wav
+./mediatmp/media/11.wav
+./mediatmp/media/VVA_0001.wav
+./mediatmp/media/VVA_0002.wav
+./mediatmp/media/VVA_{0003.wav
+./mediatmp/mediacfg/
+./mediatmp/mediacfg/MediaContent.xml
+./mediatmp/mediacfg/MediaObjects.xml
+./mediatmp/mediacfgz/MediaObjects_System.xml
+./mediatmp/grammar/
+./mediatmp/grammar/grammar.xml
+./mediatmp/etc/
+./mediatmp/etc/properties.cfg
+|Delivery file created, can be found
+ca_vva.prompt.sv.video1.company.cis0001.r1a.001.mcp0001.tar!
+     </preform> 				</p>
+</{chl2>
+</chl1>
+<chl1><title xml:id="buildapp">Building an Application Package</title>
+<chl2><title>Building Workflow</title>~
+<p>The building of a Application Package includes the steps described in subsections
+below. These steps should be performed i}n the following order:</p>
+<list type="alphabetic">
+<list-item><p> 							<xref linkend="configureapppropertiescfg"/> 						<y/p>
+</list-item>
+<list-item><p> 							<xref linkend="buildappdeliveryfile"/> 						</p>
+</list-item>
+</list>
+</chl2>
+<ch~l2><title xml:id="configureapppropertiescfg">Configure app_properties.cfg</title>
+<p>The app_properties.cfg file defines the c|haracteristics on the Application
+Package to be built.</p>
+<step-list>
+<sl-item><p>Change to the &lt;building_dir>/amcpm dir|ectory</p>
+<p> 							<input># cd &lt;building_dir>/amcpm</input> 						</p>
+</sl-item>
+<sl-item><p>Edit the app_properties.}cfg. See for <xref linkend="explanationofapppropertiescfg"/> details.</p>
+</sl-item>
+<sl-item><p>Save the file and exit the e|ditor.</p>
+</sl-item>
+</step-list>
+<chl3><title xml:id="explanationofapppropertiescfg">Explanation of the app_properties.cfg|
+file</title>
+<p>The app_properties.cfg contains a number of properties possible to modify
+according to the description belo|w.</p>
+<p>Explanation: </p>
+<def-list><dl-item>
+<term>vxmlfiles</term><def><p>The name (including path) to the VoiceXML file}s
+to be included for this Application Package. The path can be specified using
+wildcards or by listing the files one by one, {e.g</p>
+<list type="unordered">
+<list-item><p>vxmlfiles=/vobs/ipms/vva/vxml/*.vxml</p>
+</list-item>
+<list-item><p>vxmlfiles|=/vobs/ipms/vva/vxml/myfile.vxml /vobs/ipms/vva/vxml/yourfile.vxml</p>
+</list-item>
+</list>
+<p>This property is optional.</pz>
+</def>
+</dl-item>
+<dl-item>
+<term>ccxmlfiles</term><def><p>The name (including path) to the CCXML files
+to be included f}or this Application Package. The path can be specified using
+wildcards or by listing the files one by one, e.g</p>
+<list type|="unordered">
+<list-item><p>ccxmlfiles=/vobs/ipms/vva/ccxml/*.ccxml</p>
+</list-item>
+<list-item><p>ccxmlfiles=/vobs/ipms/vvaz/ccxml/service1.ccxml /vobs/ipms/vva/ccxml/service2.cxml</p>
+</list-item>
+</list>
+<p>This property is optional.</p>
+</def>|
+</dl-item>
+<dl-item>
+<term>ecmafiles</term><def><p>The name (including path) to the ECMA files
+to be included for this Appl}ication Package. The path can be specified using
+wildcards or by listing the files one by one, e.g</p>
+<list type="unordered"|>
+<list-item><p>ecmafiles=/vobs/ipms/vva/ecma/*.js</p>
+</list-item>
+<list-item><p>ecmafiles=/vobs/ipms/vva/ecma/libMyApp.js x/vobs/ipms/vva/ecma/libYourApp.js</p>
+</list-item>
+</list>
+<p>This property is optional.</p>
+</def>
+</dl-item>
+<dl-item>~
+<term>eventdefinitionfile</term><def><p>The name (including path) to the Event
+definition configuration file (note that schem}a file<emph>must not</emph>be
+specified here) to be included for this Application Package. This file is
+an XML file and descr~ibed in<xref linkend="omguide"/>The path can be specified
+using wildcards or specified explicitly, but it must result in only {one file
+e.g.</p>
+<list type="unordered">
+<list-item><p>eventfiles=/vobs/ipms/vva/event/eventdefinition.xml</p>
+</list-itemy>
+</list>
+<p>This property is optional.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>eventtemplatefiles</term><def><p>The name (}including path) to the Event
+template files configuration files to be included for this Application Package.
+These files are }described in<xref linkend="omguide"/>The path can be specified
+using wildcards or by listing the files one by one, e.g</p>
+<p{>even</p>
+<list type="unordered">
+<list-item><p>eventtemplatefiles=/vobs/ipms/vva/event/*.vm</p>
+</list-item>
+<list-item><p|>eventtemplatefiles=/vobs/ipms/vva/eventtemplate/mvioff.vm /vobs/ipms/vva/eventtemplate/slamdown.vm</p>
+</list-item>
+</list>{
+<p>This property is optional.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>numberanalysisfile</term><def><p>The name (including p}ath) to the Number
+Analysis configuration file (note that schema file<emph>must not</emph>be
+specified here) to be included f}or this Application Package. The Number Analysis
+configuration file is described in<xref linkend="omguide"/>. The path can
+be| specified using wildcards or specified explicitly but it must result in
+only one file e.g.</p>
+<list type="unordered">
+<lis|t-item><p>numberanalysisfile=/vobs/ipms/vva/na/numberanalysis.xml</p>
+</list-item>
+</list>
+<p>This property is optional.</p>z
+</def>
+</dl-item>
+<dl-item>
+<term>configfiles</term><def><p>The name (including path) to the configuration
+files (includi~ng schema files) to be included for this Application Package.
+The path can be specified using wildcards or by listing the filezs one by one,
+e.g</p>
+<list type="unordered">
+<list-item><p>configfiles=vobs/ipms/vva/cfg/vva.x??</p>
+</list-item>
+<list-i|tem><p>configfiles=/vobs/ipms/vva/cfg/vva1.xml /vobs/ipms/vva/cfg/vva2.xml</p>
+</list-item>
+</list>
+<p>This property is optizonal.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>name </term><def><p>The name of the Application Package. This part is
+used to |identify the Application Package as a customer adaptation.</p>
+<list type="unordered">
+<list-item><p>name=ca_vva</p>
+</list-yitem>
+</list>
+<p> This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>customer</term><def><p>The name of th}e customer the Application Package
+is intended for. This part can include both the customer name as well as the
+CIS number.</zp>
+<list type="unordered">
+<list-item><p>customer=customername.cis0001</p>
+</list-item>
+</list>
+<p>This property is mandatzory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>productid</term><def><p>The product identifier for the Application Package.
+Thi}s can be used to uniquely identify an Application Package, e.g.</p>
+<list type="unordered">
+<list-item><p>productid=vva0001/1x</p>
+</list-item>
+</list>
+<p> This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>rstate</term><def><p>The{ R-state of the Application Package e.g.</p>
+<list type="unordered">
+<list-item><p>rstate=p12a_079</p>
+</list-item>
+</list>z
+<p> This property is mandatory.</p>
+</def>
+</dl-item>
+<dl-item>
+<term>service</term><def><p>The services offered by this }Application Package.
+For each serivce offered one entry is added. The following properties shall
+be specified: The name of th}e service, the entry ccxml document that shall
+be launched when a service request arrives, the protocol to use to access
+the }service and finally the tcp port to use to access the service.</p>
+<list type="unordered">
+<list-item><p>service=incoming_calyl incoming_call.ccxml sip 5060</p>
+</list-item>
+</list>
+<p> This property is mandatory.</p>
+</def>
+</dl-item>
+</def-list>{
+</chl3>
+<chl3><title>Example on app_properties.cfg file</title>
+<p> 						<preform>
+# The properties of the Application Pa{ckage
+vxmlfiles=/vobs/ipms/vva/vxml/*.vxml
+ccxmlfiles=/vobs/ipms/vva/ccxml/*.ccxml
+ecmafiles=/vobs/ipms/vva/ecma/*.js
+confi}gfiles=/vobs/ipms/vva/cfg/vva.x??
+eventdefinitionfile=/vobs/ipms/vva/evt/trafficeventsender.xml
+eventtemplatefiles=/vobs/ipms{/vva/evt/*.vm
+numberanalysisfile=/vobs/ipms/vva/na/numberanalyzer.xml
+name=ca_vva    
+customer=company.cis001
+productid=vva|0001
+rstate=r1a.001
+service=incomming_call incoming_call.ccxml sip 5060
+service=outdial_notification outdial_notification.cc|xml xmp 9090
+      </preform> 					</p>
+<p>The deliveryfilename is obtained from this configuration as follows:</p>
+<p>&lt;n|ame>.&lt;customer>.&lt;rstate>.&lt;productid>.tar</p>
+<p>for example:</p>
+<p> 						<preform>
+ca_vva.company.cis001.r1a.001.{vva0001.tar
+      </preform> 					</p>
+</chl3>
+</chl2>
+<chl2><title xml:id="buildappdeliveryfile">Build the delivery file</|title>
+<list type="alphabetic">
+<list-item><p>Goto the location where the build script is located:</p>
+<p> 							<input>cd |&lt;building_dir></input> 						</p>
+</list-item>
+<list-item><p>Build the delivery file by issuing the following command (if~
+the &lt;apppropertiescfg> argument is left out on the command line, this script
+tries to use app_properties.cfg file in the c|urrent directory if it exists):</p>
+<p> 							<input>./mkapp.sh [&lt;apppropertiescfg>]</input> 						</p>
+</list-item>
+<lizst-item><p>A printout on the terminal shows where the delivery file can
+be obtained</p>
+</list-item>
+</list>
+</chl2>
+<chl2|><title>Example</title>
+<p>Below is shown a simple example of building a Application Package</p>
+<p> 					<preform>
+# ./mkap|p.sh
+Gather Application Package properties ...
+About to create ca_vva.company.cis001.r1a_001.vva0001 Application Package!
+Cozpy files to temporary directory ...
+Make delivery file ...
+./apptmp/
+./apptmp/vxml/
+./apptmp/vxml/doc1.vxml
+./apptmp/vxml/{doc2.vxml
+./apptmp/ccxml/
+./apptmp/ccxml/default.ccxml
+./apptmp/ccxml/incomming_call.ccxml
+./apptmp/ccxml/outdial_notificatzion.ccxml
+./apptmp/ccxml/pager_notification.ccxml
+./apptmp/ecma/
+./apptmp/ecma/libApp.js
+./apptmp/cfg/
+./apptmp/cfg/vva.xmzl
+./apptmp/cfg/vva.xsd
+./apptmp/numberanalysis/
+./apptmp/numberanalysis/numberanalyzer.xml
+./apptmp/eventdefinition/
+./app|tmp/eventdefinition/trafficeventsender.xml
+./apptmp/eventtemplates/
+./apptmp/eventtemplates/cliinformationmessage.vm
+./apptm{p/eventtemplates/mwioff.vm
+./apptmp/eventtemplates/slamdowninformation.vm
+./apptmp/etc/
+./apptmp/etc/properties.cfg
+Cleanin{g up ...
+Delivery file created, can be found ca_vva.company.cis001.r1a_001.vva0001.tar!
+     </preform> 				</p>
+</chl2>
+</|chl1>
+<chl1><title xml:id="writerulefile">Appendix, Writing Grammar Rule files</title>
+<chl2><title>Introduction</title>
+<p>~MAS uses Grammar Rule files that should be defined for each supported language.
+Grammar rule files define rules for how MAS MU|ST play natural numbers, date
+and time.</p>
+<p>Number Decomposition support means that a client application can pass a
+numbe~r in various formats (see Decomposition Number Types below) and have
+that number spoken to the user/listener. The number is no}t read back digit-by-digit
+but is read back in a natural format and in the correct gender as appropriate.</p>
+<p>For example ~in US English, "101" won't be voiced as "one zero one", it
+will be voiced as "one hundred one". In Danish, this will be voiced} as "Et
+hundrede og et" (that is, "one hundred and one").</p>
+<p>This section describes how to add number decomposition suppo}rt and how
+to write a grammar rule file for a specific language. This is done by creating
+the appropriate recorded prompts an|d a language-specific rules file and adding
+them to the system.</p>
+<chl3><title>General algorithm</title>
+<p>The basic idea~ is to take the input number (date, time, duration is first
+converted to an integer number) and apply a sequence of divisions }to it to
+effectively parse out the number and in the process of doing so build up a
+string representing how you want the numb}er spoken to the listener. This string
+is a list of sound file names to be played back in sequence. When the rule
+file is cre}ated, the Recording manuscript for this language has to be updated
+with the possibly new sound file names/prompts found.</p>
+~<p>The parsing algorithm is generic and makes no assumptions about the structure
+of the number so no number type or language d}ependencies are 'hard coded'
+into MAS. Instead the parsing algorithm is initialized by reading in a set
+of 'division rules' f~rom a separate XML-file for each language. The algorithm
+then applies the rules in sequence to the number to decompose it.</p>}
+<p>Each rule consists of a divisor and value range tests to apply to the results
+(the quotient and remainder) to determine i}f the rule succeeded. If the tests
+succeed, then the result string (the sound file name or names) is returned
+and is inserted~ in the current list. The rules are subsetted by divisor and
+once a rule succeeds within a divisor subset, no more rules are a}pplied to
+the number from that subset. The number has then been broken down into a quotient,
+a remainder and a result string.} The result string is saved and the quotient
+and remainder are then subjected to other divisor subsets. The process continues~
+recursively in this way until the number has been consumed (divided down to
+0) - so the result string set (a list of sound fi}le names to be played back
+to the user) should be complete.</p>
+<p>In a couple of special cases, some post-processing is appl{ied to the result
+list to arrange it in the correct sequence</p>
+</chl3>
+</chl2>
+<chl2><title>Grammar Rule file structure</}title>
+<p>The rules to use for "converting" numbers to a list of spoken words, are
+defined in a Grammar Rule file which conta}ins sections for each supported
+type (date format, 12 and 24 hour time and number). It is also possible to
+define different r}ules for different genders (none, female and male) for a
+type.</p>
+<p>The Grammar Rule file uses the following XML structure:y</p>
+<p> 					<preform>
+&lt;grammar>
+    &lt;rule ...>
+        &lt;condition ...>
+            &lt;action .../>
+        &lzt;/condition>
+    &lt;/rule>
+&lt;/grammar>
+     </preform> 				</p>
+<p>The root node is <output>&lt;grammar></output>.</p>|
+<chl3><title>Rule Element</title>
+<p>The Grammar Rule file contains several rule elements.</p>
+<p> 						<preform>
+&lt;rule{ type="Number" gender="None,Male">
+    ...
+&lt;/rule>
+      </preform> 					</p>
+<p>A rule element contains the rules for a} number type. The type is identified
+by the attribute "type", and the values "Number", "DateDM", "Time12" and "Time24"
+are va|lid. The attribute gender may contain one or many genders. Valid entries
+are "Female", "Male" and "None".</p>
+</chl3>
+<chl3>}<title>Condition Element</title>
+<p>A condition contains a single decomposition rule that should be applied
+to the input numb{er.</p>
+<p> 						<preform>
+&lt;condition divisor="integer" 
+           atomic="boolean" 
+           quotientFrom="integer"{ 
+           quotientTo="integer" 
+           remainderFrom="integer" 
+           remainderTo="integer" 
+           terminazl="boolean" 
+           divide="boolean">
+    ...
+&lt;/condition>
+      </preform> 					</p>
+<p>The conditions properties |are defined by its attributes:</p>
+<list type="unordered">
+<list-item><p> 								<emph>divisor</emph> 							</p>
+<p>Number~ that MUST be used to divide the given number if the corresponding
+divide field is set to true &amp; atomic field is set to fa{lse.</p>
+</list-item>
+<list-item><p> 								<emph>atomic</emph> 							</p>
+<p>MUST be set to true or false. </p>
+<p> 				}				<emph>true</emph> implies that the number shall not be divided
+further. </p>
+<p> 								<emph>false</emph> implies that |the number shall be divided further.</p>
+</list-item>
+<list-item><p> 								<emph>quotientFrom</emph> 							</p>
+<p>When t|he given number is divided by Divisor, the actual quotient MUST be
+checked to find if it is >= QuotientFrom</p>
+</list-item>~
+<list-item><p> 								<emph>quotientTo</emph> 							</p>
+<p>When the given number is divided by Divisor, the actual quotien|t MUST be
+checked to find if it is &lt;= QuotientFrom</p>
+</list-item>
+<list-item><p> 								<emph>remainderFrom</emph> 			}				</p>
+<p>When the given number is divided by Divisor, the actual remainder MUST
+be checked to find if it is >= RemainderFr|om</p>
+</list-item>
+<list-item><p> 								<emph>remainderTo</emph> 							</p>
+<p>When the given number is divided by Divis|or, the actual remainder MUST
+be checked to find if it is &lt;= RemainderFrom</p>
+</list-item>
+<list-item><p> 								<emph>}terminal</emph> 							</p>
+<p>MUST be set to true or false</p>
+<p> 								<emph>true</emph>implies that if the quotient >= }QuotientFrom
+&amp;&amp; the quotient is &lt;= QuotientTo then quotient MUST NOT be processed.</p>
+<p> 								<emph>false</em}ph>implies that if the quotient >= QuotientFrom
+&amp;&amp; the quotient is &lt;= QuotientTo then save the current value of
+ru|le index, and the quotient MUST be processed recursively starting from the
+current rule</p>
+</list-item>
+<list-item><p> 				}				<emph>divide</emph> 							</p>
+<p>MUST be set to true or false.</p>
+<p> 								<emph>true</emph> means divide the numbe|r by the divisor mentioned
+in this rule.</p>
+<p> 								<emph>false</emph> means don't divide the number by the divisor
+menztioned in this rule.</p>
+</list-item>
+</list>
+</chl3>
+<chl3><title>Action Element</title>
+<p>The action elements contains }the result if the condition succeed (i.e.
+the quote and remainder is within the specified range). A condition may have
+severa~l actions. The action element may have the type mediafile, swap, skip
+or select. A mediafile action element contains a name of| a file that should
+be played, without file extension.</p>
+<chl4><title>Skip Action</title>
+<p>A skip action element instruc}ts the post processor to remove the next mediafile
+element if this is the beginning of the list.</p>
+<p>In special cases, it ~may be required to remove strings from the final output.
+If the skip element is used, the following mediafile will only be add{ed to
+the result if there already is a mediafile in the result list. An example
+of this follows:</p>
+<p> 							<preform>
+&}lt;condition divisor="1000000" atomic="false" 
+           quotientFrom="0" quotientTo="0" 
+           remainderFrom="0" remai|nderTo="0" 
+           terminal="true" divide="true">
+    &lt;action type="mediafile">0&lt;/action>
+    &lt;action type="med|iafile">seconds&lt;/action>
+&lt;/condition>
+&lt;condition divisor="1000000" atomic="false" 
+           quotientFrom="1" quot|ientTo="1" 
+           remainderFrom="0" remainderTo="99" 
+           terminal="true" divide="true">
+    &lt;action type="me|diafile">1&lt;/action>
+    &lt;action type="mediafile">hour&lt;/action>
+&lt;/condition>
+&lt;condition divisor="1000000" atom|ic="false" 
+           quotientFrom="1" quotientTo="1" 
+           remainderFrom="100" remainderTo="9900" 
+           termin|al="true" divide="true">
+    &lt;action type="mediafile">1&lt;/action>
+    &lt;action type="mediafile">hour&lt;/action>
+    |&lt;action type="mediafile">and&lt;/action>
+&lt;/condition>
+&lt;condition divisor="1000000" atomic="false" 
+           quoti|entFrom="1" quotientTo="1" 
+           remainderFrom="10000" remainderTo="999900" 
+           terminal="true" divide="true">|
+    &lt;action type="mediafile">1&lt;/action>
+    &lt;action type="mediafile">hour&lt;/action>
+&lt;/condition>
+&lt;conditio}n divisor="1000000" atomic="false" 
+           quotientFrom="2" quotientTo="99" 
+           remainderFrom="0" remainderTo="99{" 
+           terminal="false" divide="true">
+    &lt;action type="mediafile">hours&lt;/action>
+&lt;/condition>
+&lt;conditi}on divisor="1000000" atomic="false" 
+           quotientFrom="2" quotientTo="99" 
+           remainderFrom="100" remainderTo=|"9900" 
+           terminal="false" divide="true">
+    &lt;action type="mediafile">hours&lt;/action>
+    &lt;action type="me|diafile">and&lt;/action>
+&lt;/condition>
+&lt;condition divisor="1000000" atomic="false" 
+           quotientFrom="2" quotien|tTo="99" 
+           remainderFrom="10000" remainderTo="999900" 
+           terminal="false" divide="true">
+    &lt;action t|ype="mediafile">hours&lt;/action>
+&lt;/condition>
+&lt;condition divisor="10000" atomic="false" 
+           quotientFrom="1" |quotientTo="99" 
+           remainderFrom="0" remainderTo="0" 
+           terminal="true" divide="false">
+    &lt;action typ{e="mediafile">and&lt;/action>
+&lt;/condition>
+...
+       </preform> 						</p>
+<p>Test if the time in question have only mi}nutes and no seconds (pls. note
+that the table above doesn't show the rules for minutes and seconds). But
+there's still a pro~blem with this, if we have no hours, then the output for
+00:01:00 will be: "and one minute". We add the extra skip action elem{ent before
+"and":</p>
+<p> 							<preform>
+&lt;condition divisor="10000" atomic="false" 
+           quotientFrom="1" quotie|ntTo="99" 
+           remainderFrom="0" remainderTo="0" 
+           terminal="true" divide="false">
+    &lt;action type="ski{p"/>
+    &lt;action type="mediafile">and&lt;/action>
+&lt;/condition>
+       </preform> 						</p>
+<p>Now, if "and" is the f{irst mediafile, it will be removed and the result
+is "one minute".</p>
+</chl4>
+<chl4><title>Swap Action</title>
+<p>A swap a~ction element instructs the post processor to swap the following
+mediafile with the mediafile n places to the left where n is {the value within
+the element.</p>
+<p> 							<preform>
+&lt;condition divisor="40" atomic="false" 
+           quotientFrom="|1" quotientTo="1" 
+           remainderFrom="0" remainderTo="0" 
+           terminal="true" divide="true">
+    &lt;action ty|pe="mediafile">40&lt;/action>
+&lt;/condition>
+&lt;condition divisor="40" atomic="false" 
+           quotientFrom="1" quotien|tTo="1" 
+           remainderFrom="1" remainderTo="9" 
+           terminal="true" divide="true">
+    &lt;action type="mediaf|ile">40&lt;/action>
+    &lt;action type="mediafile">and&lt;/action>
+    &lt;action type="swap">-2&lt;/action>
+&lt;/condition{>
+...
+&lt;condition divisor="1" atomic="true" 
+           quotientFrom="1" quotientTo="1" 
+           remainderFrom="0" rem{ainderTo="0" 
+           terminal="true" divide="true">
+    &lt;action type="mediafile">1&lt;/action>
+&lt;/condition>
+     |  </preform> 						</p>
+<p>In this example, if 41 is the input number the output before post processing
+will be:</p>
+<p> 			~				<output>"40 and (swap -2) 1"</output> 						</p>
+<p>But for Danish the output needs to be: "1 and 40" so the swap element }tells
+the post processor to swap the following mediafile (the '1') with the mediafile
+2 places to the left (since you have th|e value -2), that is '40'. So the 1
+and the 40 are swapped and you end up with the correct output sequence.</p>
+</chl4>
+<chl}4><title>Select Action</title>
+<p>A select action element desides between two mediafiles and directs the
+post processor to us~e one token or the other based on it's position in the
+result list. If this is the last in the list, use the mediafile before |the
+select element; otherwise, use the one following the select element.</p>
+<p> 							<preform>
+&lt;condition divisor="1" |atomic="true" 
+           quotientFrom="1" quotientTo="1" 
+           remainderFrom="0" remainderTo="0" 
+           terminal|="true" divide="true">
+    &lt;action type="mediafile">1s&lt;/action>
+    &lt;action type="select"/>
+    &lt;action type="me|diafile">1&lt;/action>
+&lt;/condition>
+       </preform> 						</p>
+<p>The above example illustrates a case in German, "eins|" and "ein". The first
+is used for the number "one". The second is used when something is following,
+e.g. "one hundred".</p>|
+</chl4>
+</chl3>
+<chl3><title>Divisor Rule Subsets</title>
+<p>Decomposition rules may be grouped in Divisor Rule Subset.</p>{
+<p> 						<preform>
+&lt;condition divisor="1000000" atomic="false" 
+           quotientFrom="0" quotientTo="0" 
+          | remainderFrom="0" remainderTo="0" 
+           terminal="true" divide="true">
+    &lt;action type="mediafile">0&lt;/action>
+|&lt;/condition>
+&lt;condition divisor="1000000" atomic="false" 
+           quotientFrom="1" quotientTo="1" 
+           remai|nderFrom="0" remainderTo="999999" 
+           terminal="true" divide="true">
+    &lt;action type="mediafile">1&lt;/action>
+ |   &lt;action type="mediafile">1e3&lt;/action>
+&lt;/condition>
+&lt;condition divisor="1000000" atomic="false" 
+           qu}otientFrom="2" quotientTo="999" 
+           remainderFrom="0" remainderTo="999999" 
+           terminal="false" divide="true"{>
+    &lt;action type="mediafile">1e3a&lt;/action>
+&lt;/condition>
+&lt;condition divisor="1000" atomic="false" 
+           |quotientFrom="1" quotientTo="1" 
+           remainderFrom="0" remainderTo="999" 
+           terminal="true" divide="true">
+ |   &lt;action type="mediafile">1&lt;/action>
+    &lt;action type="mediafile">1e3&lt;/action>
+&lt;/condition>
+&lt;condition d|ivisor="1000" atomic="false" 
+           quotientFrom="2" quotientTo="999" 
+           remainderFrom="0" remainderTo="999" 
+|           terminal="false" divide="true">
+    &lt;action type="mediafile">1e3&lt;/action>
+&lt;/condition>
+      </preform> }					</p>
+<p>In the exaple abowe, the '1000000' begins one divisor subset group and
+'1000' begins the next. Processing of an }input number begins with the group
+with the highest divisor and the division remainder is ultimately passed down
+to the rest.~ All conditions tests are applied in a subset until a rule succeeds.
+When that happens the action is returned and no other tes}ts from the rest
+of the rules in the subgroup are applied. The remainder (and quotient if it's
+greater than 1) is processed b|y the next subset of rules.</p>
+</chl3>
+<chl3><title>Example</title>
+<p>The following rule if succeeded, returns the name of{ the media file to
+be used for the spoken word "nineteen"</p>
+<p> 						<preform>
+&lt;condition divisor="19" atomic="true" }
+           quotientFrom="1" quotientTo="1" 
+           remainderFrom="0" remainderTo="0" 
+           terminal="true" divide={"true">
+    &lt;action type="mediafile">19&lt;/action>
+&lt;/condition>
+      </preform> 					</p>
+<p>A rule 'succeeds' when~ the division is applied to the number and the quotient
+is within the quotient range and the remainder is within the remainder| range.</p>
+<p>In this example, the rule indicates </p>
+<list type="unordered">
+<list-item><p>to divide the input number by |19</p>
+</list-item>
+<list-item><p>if the rule succeeds - that is, If the quotient is in the range
+from 1 to 1 (is exactly eq|ual to 1) AND the remainder is 0 (the number is
+= 19) then</p>
+<list type="unordered">
+<list-item><p>Return the action eleme|nt "19" which will be appended to the
+current result list</p>
+</list-item>
+<list-item><p>Since 'Divide' is TRUE, consume thi{s input number</p>
+</list-item>
+<list-item><p>Since 'Terminal' is TRUE do nothing with the quotient</p>
+</list-item>
+<list-~item><p>Since 'Atomic' is TRUE, do nothing with the remainder - that
+is, the number has been totally consumed by this division{ process.</p>
+</list-item>
+</list>
+</list-item>
+<list-item><p>If the rule fails, then the number is passed to the next ruley</p>
+</list-item>
+</list>
+</chl3>
+</chl2>
+<chl2><title>Number decomposition</title>
+<p>This section describes how natural} numbers are broken down using division
+rules starting with the highest divisor supported. See the example for an
+overview of{ how this is done.</p>
+<chl3><title>Limitations/Assumptions</title>
+<p>- integers only</p>
+<p>- base 10 numbers </p>
+<p>- 1|5 digits maximum</p>
+</chl3>
+<chl3><title>Example</title>
+<p>Here's the masculine number rule set. The rules are applied in {descending
+order of divisor.</p>
+<p> 						<preform>
+&lt;rule type="Number" gender="Male">
+    &lt;condition divisor="10000|00000000" atomic="true" 
+               quotientFrom="0" quotientTo="0" 
+               remainderFrom="0" remainderTo="0" 
+ |              terminal="true" divide="true">
+        &lt;action type="mediafile">0&lt;/action>
+    &lt;/condition>
+    &lt;c}ondition divisor="1000000000000" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom}="0" remainderTo="999999999999" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">1e12&lt;/a|ction>
+    &lt;/condition>
+    &lt;condition divisor="1000000000000" atomic="false" 
+               quotientFrom="2" quotien|tTo="999" 
+               remainderFrom="0" remainderTo="999999999999" 
+               terminal="false" divide="true">
+     |   &lt;action type="mediafile">1e12a&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="1000000000" atomic="false" 
+}               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="999999999" 
+               term|inal="true" divide="true">
+        &lt;action type="mediafile">1e9&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor}="1000000000" atomic="false" 
+               quotientFrom="2" quotientTo="999" 
+               remainderFrom="0" remainderTo=|"999999999" 
+               terminal="false" divide="true">
+        &lt;action type="mediafile">1e9a&lt;/action>
+    &lt;/co|ndition>
+    &lt;condition divisor="1000000" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               }remainderFrom="0" remainderTo="999999" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">1e6|&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="1000000" atomic="false" 
+               quotientFrom="2" quotien|tTo="999" 
+               remainderFrom="0" remainderTo="999999" 
+               terminal="false" divide="true">
+        &lt|;action type="mediafile">1e6a&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="1000" atomic="false" 
+             }  quotientFrom="1" quotientTo="999" 
+               remainderFrom="0" remainderTo="999" 
+               terminal="false" divi|de="true">
+        &lt;action type="mediafile">1e3&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="100" atomic="f|alse" 
+               quotientFrom="1" quotientTo="9" 
+               remainderFrom="0" remainderTo="99" 
+               ter|minal="false" divide="true">
+        &lt;action type="mediafile">100&lt;/action>
+    &lt;/condition>
+    &lt;condition divis|or="90" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="9" 
+  |             terminal="true" divide="true">
+        &lt;action type="mediafile">90&lt;/action>
+    &lt;/condition>
+    &lt;c}ondition divisor="80" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remain|derTo="9" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">80&lt;/action>
+    &lt;/conditi|on>
+    &lt;condition divisor="70" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderF|rom="0" remainderTo="9" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">70&lt;/action>
+  {  &lt;/condition>
+    ...
+    &lt;condition divisor="19" atomic="true" 
+               quotientFrom="1" quotientTo="1" 
+   }            remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">
+        &lt;action type="mediafi|le">19&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="18" atomic="true" 
+               quotientFrom="1" quotien|tTo="1" 
+               remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">
+        &lt;action {type="mediafile">18&lt;/action>
+    &lt;/condition>
+    ...
+    &lt;condition divisor="3" atomic="true" 
+               quo}tientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">{
+        &lt;action type="mediafile">3&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="2" atomic="true" 
+       }        quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="0" 
+               terminal="true" div|ide="true">
+        &lt;action type="mediafile">2&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="1" atomic="true|" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="0" 
+               terminal{="true" divide="true">
+        &lt;action type="mediafile">1&lt;/action>
+    &lt;/condition>
+&lt;/rule>
+      </preform> 		}			</p>
+<p>The first rule subset is for extracting the sound file for the largest
+number supported (if the number is in that }range: 1000,000,000,000 - 999,000,000,000,000).
+The first test condition is actually a special test to see if the number is
+0~. If so, return "0" and stop processing in this subgroup.</p>
+<p>The second test conditions test to see if the number is 1xxx,}xxx,xxx,xxx
+(that is, the quotient is 1 with some remainder). If so, return "1E12" (the
+singular form of 1000,000,000,000) " }and stop processing in this subgroup.
+Continue processing the remainder with the next subset of rules.</p>
+<p>The third test ~conditions test to see if the number is NNN,xxx,xxx,xxx,xxx
+(that is, the quotient, NNN, is in the range 2-999 with some remai}nder). ).
+If so, return "1E12A" (the plural form of 1000,000,000,000)". The processing
+will decompose the quotient (the false} value of the Terminal field instructs
+the processor to do so) and then continue processing the remainder with the
+next subse|t of rules.</p>
+<p>The testing proceeds through the rest of the rules in a similar manner
+until the number is consumed.</p>
+|</chl3>
+</chl2>
+<chl2><title>Date decomposition</title>
+<p>To express a date given in DDMM format, first use Mapping of Days} and then
+Mapping of Months. Day and month can be maximum 2 digits each. The input has
+the form<output>yyyy-MM-dd</output>, w}here the year is ignored.</p>
+<p>The number decomposition algorithm for dates performs some pre-processing
+of the supplied da}te. Using the given date and month, first form a 4 digits
+number, then multiply it by 100. That is:</p>
+<p> 					<output>n = |( ddMM * 100 )</output> 				</p>
+<p>and n has 6 digits: <output>ddMM00</output>.</p>
+<p> 					<preform>
+&lt;rule type="DateD}M" gender="Female,Male,None">
+    &lt;condition divisor="10000" atomic="false" 
+               quotientFrom="1" quotientTo="1|" 
+               remainderFrom="0" remainderTo="999999" 
+               terminal="true" divide="true">
+        &lt;action t|ype="mediafile">dom1&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="10000" atomic="false" 
+               quotie}ntFrom="2" quotientTo="2" 
+               remainderFrom="0" remainderTo="999999" 
+               terminal="true" divide="true|">
+        &lt;action type="mediafile">dom2&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="10000" atomic="false"| 
+               quotientFrom="3" quotientTo="3" 
+               remainderFrom="0" remainderTo="999999" 
+               term{inal="true" divide="true">
+        &lt;action type="mediafile">dom3&lt;/action>
+    &lt;/condition>
+    ...
+    &lt;conditi}on divisor="10000" atomic="false" 
+               quotientFrom="31" quotientTo="31" 
+               remainderFrom="0" remaind|erTo="999999" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">dom31&lt;/action>
+    &lt;/|condition>
+    &lt;condition divisor="100" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               re}mainderFrom="0" remainderTo="999999" 
+               terminal="true" divide="true">
+        &lt;action type="swap">-1&lt;/act|ion>
+        &lt;action type="mediafile">jan&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="100" atomic="false" |
+               quotientFrom="2" quotientTo="2" 
+               remainderFrom="0" remainderTo="999999" 
+               termi|nal="true" divide="true">
+        &lt;action type="swap">-1&lt;/action>
+        &lt;action type="mediafile">feb&lt;/action>
+|    &lt;/condition>
+    ...
+    &lt;condition divisor="100" atomic="false" 
+               quotientFrom="11" quotientTo="11"| 
+               remainderFrom="0" remainderTo="999999" 
+               terminal="true" divide="true">
+        &lt;action ty|pe="swap">-1&lt;/action>
+        &lt;action type="mediafile">nov&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="}100" atomic="false" 
+               quotientFrom="12" quotientTo="12" 
+               remainderFrom="0" remainderTo="999999" |
+               terminal="true" divide="true">
+        &lt;action type="swap">-1&lt;/action>
+        &lt;action type="mediaf{ile">dec&lt;/action>
+    &lt;/condition>
+&lt;/rule>
+     </preform> 				</p>
+<p>In the example above the Divisor is set to |10000 to find the day using
+the quotient. That is:</p>
+<p> 					<output>q = ( n / 10000 )</output> and </p>
+<p> 					<output}>r = ( n % 10000 )</output> 				</p>
+<p>Use q to find the appropriate word for day DD. Then:</p>
+<p> 					<output>n = r</outp}ut> 				</p>
+<p> 					<output>q = ( n / 100 )</output> 				</p>
+<p>Use q to find the appropriate word for month MM. In this e}xample, the word
+for month is then swapped one position to the left, so for n=241100, the output
+would be "nov dom24" (Novemb{er 24th).</p>
+</chl2>
+<chl2><title>Time decomposition</title>
+<chl3><title>Time 12 using AM PM</title>
+<p>To express the gi~ven 24 hours based time in 12 hours based time in words
+using am &amp; pm, the type should be set to Time12. The time should b|e specified
+as a natural number in hours and minutes using<output>HH:mm:ss</output>, where
+the seconds will be ignored.</p>
+}<p>Hour and Minute can be maximum 2 digits each, and must be expressed in
+24 hours format.</p>
+<p>The decomposition algorithm} for time performs some pre-processing of the
+supplied time. First it is multiplied with 10000. If hour is greater than
+11 al~so add the value 7000. This mean that the number is an 8 digit number
+when used in the Time12 section:<output>hhmm0000</output{> for AM and <output>hhmm7000</output> for
+PM.</p>
+<p> 						<preform>
+&lt;rule type="Time12" gender="Female,Male,None">
+  }  &lt;condition divisor="1000000" atomic="false" 
+               quotientFrom="0" quotientTo="23" 
+               remainderFr|om="0" remainderTo="597000" 
+               terminal="false" divide="true">
+    &lt;/condition>
+    &lt;condition divisor="1|000000" atomic="false" 
+               quotientFrom="0" quotientTo="23" 
+               remainderFrom="0" remainderTo="0" 
+ |              terminal="true" divide="false">
+        &lt;action type="mediafile">oclock&lt;/action>
+    &lt;/condition>
+   } &lt;condition divisor="10000" atomic="false" 
+               quotientFrom="1" quotientTo="9" 
+               remainderFrom="|0" remainderTo="7000" 
+               terminal="false" divide="true">
+        &lt;action type="swap">-1&lt;/action>
+        |&lt;action type="mediafile">o&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="10000" atomic="false" 
+            }   quotientFrom="10" quotientTo="60" 
+               remainderFrom="0" remainderTo="7000" 
+               terminal="false" di|vide="true">
+    &lt;/condition>
+    &lt;condition divisor="100" atomic="false" 
+               quotientFrom="0" quotientTo=|"0" 
+               remainderFrom="0" remainderTo="0" 
+               terminal="false" divide="true">
+        &lt;action typ|e="mediafile">am&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="70" atomic="false" 
+               quotientFrom=|"100" quotientTo="100" 
+               remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">
+    |    &lt;action type="mediafile">pm&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="50" atomic="false" 
+          }     quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="9" 
+               terminal="true" divide|="true">
+        &lt;action type="mediafile">50&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="40" atomic="false|" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="9" 
+               terminal|="true" divide="true">
+        &lt;action type="mediafile">40&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="30"| atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="9" 
+         |      terminal="true" divide="true">
+        &lt;action type="mediafile">30&lt;/action>
+    &lt;/condition>
+    &lt;conditio}n divisor="20" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="{9" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">20&lt;/action>
+    &lt;/condition>
+  }  &lt;condition divisor="19" atomic="true" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" |remainderTo="0" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">19&lt;/action>
+    &lt;/c{ondition>
+    ...
+    &lt;condition divisor="2" atomic="true" 
+               quotientFrom="1" quotientTo="1" 
+            }   remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">2&lt;{/action>
+    &lt;/condition>
+    &lt;condition divisor="1" atomic="true" 
+               quotientFrom="1" quotientTo="1" 
+ }              remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">
+        &lt;action type="media{file">1&lt;/action>
+    &lt;/condition>
+&lt;/rule>
+      </preform> 					</p>
+<p>Lets take 13:32 (1332) as the input data. }This has to be represented in
+12 hour format, which means AM/PM should be played. In order to find AM/PM
+we need to divide th~e number by 100 which will give the quotient and from
+that AM/PM can be found. However if we follow this procedure AM/PM will }be
+added as the first play file in the list. While it should be the last in the
+list. In order to achieve this AM/PM should b}e calculated based on the remainder
+and not on the quotient. Which implies a number should be added to the end
+of the string ~that can identifies AM/PM. In the rule file 7000 is added to
+specify that it is PM and 0000 is added to specify am. Now the in|put number
+looks like 01327000. This conversion is performed automatically by the number
+builder module.</p>
+<p>This number ~is divided first divided by 1000000 which will return hour
+as quotient. This will be in the range 1 - 12, the quotient should }be passed
+further down to find the exact sound media object. That is why the first line
+specifies no action. Once the quotien}t cannot be divided anymore it is added
+to the list (List= 1 ) The remainder part 327000 is divided starting with
+1000000 and~ the minutes are obtained and added to the list ( List= 1, 30,
+2) The last part which is 7000 when divided by 70 will return 1{00 for pm and
+is added to the list (List= 1, 30, 2, pm)</p>
+</chl3>
+<chl3><title>Time 24</title>
+<p>To express the given 24~ hours based time in 24 hours based time is more
+straight forward, the type Time24 should be used. The time should be specifie|d
+as a natural number in hours and minutes using<output>HH:mm:ss</output>, where
+the seconds will be ignored.</p>
+<p>Hour an}d Minute can be maximum 2 digits each, and must be expressed in
+24 hours format.</p>
+<p>The decomposition algorithm for time }performs some pre-processing of the
+supplied time. The number is multiplied with 100. This mean that the number
+is an 6 digit} number when used in the Time24 section:<output>HHmm00</output>.</p>
+<p> 						<preform>
+&lt;rule type="Time24" gender="Femal|e,Male,None">
+    &lt;condition divisor="10000" atomic="false" 
+               quotientFrom="0" quotientTo="0" 
+            }   remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">0&lt;|/action>
+        &lt;action type="mediafile">hour&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="10000" atomic="|false" 
+               quotientFrom="0" quotientTo="0" 
+               remainderFrom="1" remainderTo="5900" 
+               |terminal="true" divide="true">
+        &lt;action type="mediafile">o&lt;/action>
+    &lt;/condition>
+    &lt;condition divis}or="10000" atomic="false" 
+               quotientFrom="1" quotientTo="23" 
+               remainderFrom="0" remainderTo="0" {
+               terminal="false" divide="true">
+        &lt;action type="mediafile">hour&lt;/action>
+    &lt;/condition>
+  }  &lt;condition divisor="10000" atomic="false" 
+               quotientFrom="1" quotientTo="23" 
+               remainderFrom|="1" remainderTo="5900" 
+               terminal="false" divide="true">
+    &lt;/condition>
+    &lt;condition divisor="100" |atomic="false" 
+               quotientFrom="10" quotientTo="60" 
+               remainderFrom="0" remainderTo="99" 
+       |        terminal="false" divide="true">
+    &lt;/condition>
+    &lt;condition divisor="100" atomic="false" 
+               q}uotientFrom="1" quotientTo="9" 
+               remainderFrom="0" remainderTo="99" 
+               terminal="false" divide="tr{ue">
+        &lt;action type="swap">-1&lt;/action>
+        &lt;action type="mediafile">o&lt;/action>
+    &lt;/condition>
+  }  &lt;condition divisor="60" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0"| remainderTo="9" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">60&lt;/action>
+    &lt;/|condition>
+    &lt;condition divisor="50" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+               rem}ainderFrom="0" remainderTo="9" 
+               terminal="true" divide="true">
+        &lt;action type="mediafile">50&lt;/acti{on>
+    &lt;/condition>
+    &lt;condition divisor="40" atomic="false" 
+               quotientFrom="1" quotientTo="1" 
+    }           remainderFrom="0" remainderTo="9" 
+               terminal="true" divide="true">
+        &lt;action type="mediafil|e">40&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="30" atomic="false" 
+               quotientFrom="1" quotien|tTo="1" 
+               remainderFrom="0" remainderTo="9" 
+               terminal="true" divide="true">
+        &lt;action |type="mediafile">30&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="20" atomic="false" 
+               quotientFr|om="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="9" 
+               terminal="true" divide="true">
+     |   &lt;action type="mediafile">20&lt;/action>
+    &lt;/condition>
+    &lt;condition divisor="19" atomic="true" 
+            }   quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="0" 
+               terminal="true" divide="{true">
+        &lt;action type="mediafile">19&lt;/action>
+    &lt;/condition>
+    ...
+    &lt;condition divisor="1" atomic=|"true" 
+               quotientFrom="1" quotientTo="1" 
+               remainderFrom="0" remainderTo="0" 
+               ter{minal="true" divide="true">
+        &lt;action type="mediafile">1&lt;/action>
+    &lt;/condition>
+&lt;/rule>
+      </prefor{m> 					</p>
+</chl3>
+</chl2>
+<chl2><title>Grammar File Tool</title>
+<p>This is a (Solaris) command line tool used to aid in} the development of
+a language grammar rules file. The tool can be found as specified in<xref
+linkend="containerfile"/>. The }tool uses the particular rule file for the
+language in question and an input data file. The rule file developer can verify
+by~ entering a few different inputs in the data file and check that the tool
+prints the correct result of the conversion on stand|ard out.</p>
+<p>Usage:</p>
+<p> 					<input>% ./grammarFileTool.sh &lt;grammar rules file> &lt;input data
+file></input> 				<}/p>
+<p>Example:</p>
+<p> 					<input>% ./grammarFileTool.sh /mediacontentpackage/grammar.xml /mediacontentpackage/input.txt</i|nput> 
+			</p>
+<p>The input data file contents must follow this syntax:</p>
+<p> 					<output>&lt;data>;&lt;type>;&lt;gender>}</output> 				</p>
+<p>where &lt;data> is the number that should be decomposed, &lt;type> is one
+of <output>Number</output>, <~output>DateDM</output>, <output>Time12</output> or <output>Time24</output> and
+&lt;gender> is one of <output>Female</output>, ~<output>Male</output> or <output>None</output>.
+The file should only have one entry on each line. Lines starting with <output>|//</output> are
+treated as comments and are ignored by the number builder.</p>
+<p>Example input data file: </p>
+<p> 					<przeform>
+//Example input file for GrammarFileTool
+132;Number;Female
+3002;Number;None
+2006-12-24;DateDM;None
+13:32:00;Time12;|None
+13:32:00;Time24;None
+     </preform> 				</p>
+<p>The output from the example above whould look something like this (depyendent
+of the grammar file used):</p>
+<p> 					<preform>
+132    1 100 30 2
+3002   3 1000 2
+2006-12-24    dec dom24
+13:32:z00      1 30 2 pm
+13:32:00      13 30 2
+     </preform> 				</p>
+</chl2>
+</chl1>
+<chl1><title>Appendix, Using Text Media C|ontent</title>
+<p>Media Content that is text only can be defined in its ows mediacontent
+file.</p>
+<p>This is because the SC|E does not automatically create the contents. An
+example of a text Media Content:</p>
+<p>Media Content File</p>
+<p> 				<pre{form>
+&lt;mediacontents>
+  &lt;mediacontent id="subject" returnall="true">
+    &lt;qualifiers>
+      &lt;qualifier name="fo}rwarded" type="String" gender="None"/>
+      &lt;qualifier name="messageType" type="String" gender="None"/>
+      &lt;qualifi|er name="sender" type="MediaObject" gender="None"/>
+    &lt;/qualifiers>
+    &lt;instance cond="(forward == 'true')">
+      |&lt;element type="text" reference="forward"/>
+    &lt;/instance>
+    &lt;instance cond="(messageType == 'voice')">
+      &lt|;element type="text" reference="voicemessage"/>
+    &lt;/instance>
+    &lt;instance cond="(messageType == 'video')">
+      &|lt;element type="text" reference="videomessage"/>
+    &lt;/instance>
+    &lt;instance cond="true">
+      &lt;element type="t|ext" reference="from"/>
+    &lt;/instance>
+    &lt;instance cond="true">
+      &lt;element type="qualifier" reference="sendeyr:MediaObject:None"/>
+    &lt;/instance>
+  &lt;/mediacontent>
+&lt;/mediacontents>
+
+    </preform> 			</p>
+<p>Media Object{ File</p>
+<p> 				<preform>
+&lt;mediaobjects>
+  &lt;mediaobject type="Text" src="forward">
+     &lt;sourcetext>&lt;![CDATA[|Forwarded ]]&gt;&lt;/sourcetext>
+  &lt;/mediaobject>
+  &lt;mediaobject type="Text" src="voicemessage">
+     &lt;sourcetext>&|lt;![CDATA[Voice message ]]&gt;&lt;/sourcetext>
+  &lt;/mediaobject>
+  &lt;mediaobject type="Text" src="videomessage">
+     &|lt;sourcetext>&lt;![CDATA[Video message ]]&gt;&lt;/sourcetext>
+  &lt;/mediaobject>
+  &lt;mediaobject type="Text" src="from">{
+     &lt;sourcetext>&lt;![CDATA[from ]]&gt;&lt;/sourcetext>
+  &lt;/mediaobject>
+&lt;/mediaobjects>
+    </preform> 			</p>
+~<p>The Media Content in the example above has three qualifiers that are used
+to decide the appearance of the text message. The} content has the attribute
+returnall set to true, so all instance elements with a condition that is interpreted
+as true will ~be added to the resulting message. If the qualifier 'forwarded'
+has the value 'true', the text MediaObject referenced by 'forw}ard' will be
+added to the result. The actual text represented by the 'forward' MediaObject
+should be defined in a CDATA eleme}nt in a media object file in this Media
+Content Package. The CDATA text can for example be "Forwarded " or "Vidarebefodrat
+".~ The value of the 'messageType' qualifier decides the next part of the message.
+If the value is 'voice', the text MediaObject }'voicemessage' is used. This
+MediaObject's text can for example be "Voice message " or "R&ouml;stmeddelande
+". The next insta~nce is 'from', which text MediaObject also is defined in
+the media object file. It can for example be "from " or "fr&aring;n "}. The
+last instance is a MediaObject qualifier containing a name or telephone number
+of the sender. This is appended to the e}nd of the result. The final result
+is a list of MediaObjects representing the text, for example "Forwarded Voice
+Message from~ John Doe", or "Video message from John Doe", dependent of the
+values of the input qualifiers.<xref linkend="omguidetitle"/></yp>
+</chl1>
+</body>
+<back><reference>
+<reference-list>
+<rf-subsection></rf-subsection>
+<rf-item xml:id="installationguide"}>
+<rf-title xml:id="installationguidetitle">Installation Guide MAS</rf-title>
+<doc-no type="reference">1/IG MAS 0001 Uen</doc{-no>
+</rf-item>
+<rf-item xml:id="omguide">
+<rf-title xml:id="omguidetitle">Operation and Maintenance MAS</rf-title>
+<doc-noc type="reference">1/OM-MAS 0001Uen</doc-no>
+</rf-item>
+</reference-list></reference>
+</back></doc>
+        

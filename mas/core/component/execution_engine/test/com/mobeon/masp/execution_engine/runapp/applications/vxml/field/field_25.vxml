@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>**</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <catch event="error">
+        <log>TCFAIL caught an error</log>
+        <exit></exit>
+    </catch>
+
+    <form id="form1">
+
+        <property name ="interdigittimeout" value="1s"></property>
+
+        <block>
+            <prompt><audio src="beep.wav"></audio></prompt>
+        </block>
+
+        <field name="f1">
+            <nomatch>
+                <if cond="f1$.utterance == '*'">
+                <goto next="#form2"></goto>
+                    <else/>
+                    <log>TCFAIL f1 was not *</log>
+                </if>
+                <exit></exit>
+            </nomatch>
+        </field>
+
+        <filled>
+            <log>TCFAIL should not be filled</log>
+            <exit></exit>
+        </filled>
+    </form>
+
+    <form id="form2">
+        <block>
+            <log>TCPASS</log>
+        </block>
+    </form>
+</vxml>

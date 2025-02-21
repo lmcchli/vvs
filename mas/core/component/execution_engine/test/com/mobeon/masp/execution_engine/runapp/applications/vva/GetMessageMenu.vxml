@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <var name="sendersPhoneNumber" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResultRespondAndForward" />
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResultHeader" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResultBody" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResultInvalid" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult2" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResult3" />
+   <var name="messageId" />
+   <!--The length of this array determines if replay, fast forward or rewind is allowed.-->
+   <var name="playableObjectArray" />
+   <!--This parameter indicates if any DTMF is already pressed-->
+   <var name="key" />
+
+   <var name="key2" />        <!-- added -->
+
+   <var name="ani" />
+   <!--A local copy of GlobalObject.-->
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageId" />
+      <var name="p_playableObjectArray" />
+      <var name="p_key" />
+      <var name="p_ani" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="messageId" expr="p_messageId" />
+         <assign name="playableObjectArray" expr="p_playableObjectArray" />
+         <assign name="key" expr="p_key" />
+         <assign name="ani" expr="p_ani" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#cmnu1" />
+      </block>
+   </form>
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('GetMessageMenu.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+
+      <!--field name="menu_input"-->         <!-- removed -->
+      <field name="menu_input" expr="key" >  <!-- added -->
+
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'voice') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(238)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'voice') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(239)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'video') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(242)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'video') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(243)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'fax') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(246)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'fax') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(247)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'email') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(250)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'email') &amp;&amp; (Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(251)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'voice') &amp;&amp; (Message_GetProperty (messageId, 'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(240)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'voice') &amp;&amp; (Message_GetProperty (messageId, 'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(241)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'video') &amp;&amp; (Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(244)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'video') &amp;&amp; (Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(245)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'fax') &amp;&amp; (Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(248)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'fax') &amp;&amp; (Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(249)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'email') &amp;&amp; (Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(252)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'type')[0] == 'email') &amp;&amp; (Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(253)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(212)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(213)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(210)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(211)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <audio expr="System_GetPrompt(214)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <audio expr="System_GetPrompt(215)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true) &amp;&amp; (Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0]) != ''))">
+            <audio expr="System_GetPrompt(216)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true) &amp;&amp; (Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0]) != ''))">
+            <audio expr="System_GetPrompt(217)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(218)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'state')[0] != 'deleted'))">
+            <audio expr="System_GetPrompt(219)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_GetProperty (messageId, 'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(220)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_GetProperty (messageId, 'state')[0] == 'deleted'))">
+            <audio expr="System_GetPrompt(221)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'Respond') == true))">
+            <audio expr="System_GetPrompt(222)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'Respond') == true))">
+            <audio expr="System_GetPrompt(223)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(224)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(225)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'MakeNew') == true))">
+            <audio expr="System_GetPrompt(226)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'MakeNew') == true))">
+            <audio expr="System_GetPrompt(227)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <audio expr="System_GetPrompt(228)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <audio expr="System_GetPrompt(229)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <audio expr="System_GetPrompt(230)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+            <audio expr="System_GetPrompt(231)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'CLIviaSMS') == true))">
+            <audio expr="System_GetPrompt(232)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'CLIviaSMS') == true))">
+            <audio expr="System_GetPrompt(233)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Message_IsPrintable (playableObjectArray) == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'fax') == true))">
+            <audio expr="System_GetPrompt(234)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Message_IsPrintable (playableObjectArray) == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'fax') == true))">
+            <audio expr="System_GetPrompt(235)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; 1">
+            <audio expr="System_GetPrompt(236)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; 1">
+            <audio expr="System_GetPrompt(237)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(14)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>#</item>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>5</item>
+                  <item>6</item>
+                  <item>7</item>
+                  <item>9</item>
+                  <item>1 0</item>
+                  <item>1 1</item>
+                  <item>*</item>
+                  <item>* 4</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+
+         </field>                                             <!-- added -->
+
+         <catch event="nomatch">
+
+            <if cond="key2 != undefined" >                    <!-- added -->
+            <assign name="LastMenuInput" expr="key2" />       <!-- added -->
+            <else />                                          <!-- added -->
+
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+
+            </if>                                             <!-- added -->
+
+            <goto next="#proc2004" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes') &amp;&amp; (GlobalObject.MainMenuValid == true))">
+<throw event="com.mobeon.vva.mainmenu" />
+                  <else />
+                  <goto next="Goodbye.vxml" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+
+            <goto nextitem="filled" />              <!-- added -->
+         </filled>                                  <!-- added -->
+         <block name="filled" >                     <!-- added -->
+            <assign name="key2" expr="key" />       <!-- added -->
+            <assign name="key" expr="undefined" />  <!-- added -->
+
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '#'">
+               <if cond="((Message_GetProperty (messageId,'state')[0] != 'deleted'))">
+                  <if cond="((Message_GetProperty (messageId, 'state')[0] == 'saved'))">
+                     <goto next="#Return1" />
+                     <else />
+                     <goto next="#sub1" />
+                  </if>
+               </if>
+            </if>
+            <if cond="menu_input == '#'">
+               <if cond="((Message_GetProperty (messageId,'state')[0] == 'deleted'))">
+                  <goto next="#sub6" />
+               </if>
+            </if>
+            <if cond="menu_input == '1'">
+               <if cond="((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+                  <goto next="#proc3" />
+               </if>
+            </if>
+            <if cond="menu_input == '2'">
+               <if cond="((Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true) &amp;&amp; (Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0]) != ''))">
+                  <assign name="sendersPhoneNumber" expr="Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0])" />
+                  <goto next="#proc6" />
+               </if>
+            </if>
+            <if cond="menu_input == '2'">
+               <if cond="((Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true) &amp;&amp; (Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0]) == ''))">
+                  <goto next="#prompt1" />
+               </if>
+            </if>
+            <if cond="menu_input == '3'">
+               <if cond="((Message_GetProperty (messageId, 'state')[0] != 'deleted'))">
+                  <goto next="#sub2" />
+               </if>
+            </if>
+            <if cond="menu_input == '3'">
+               <if cond="((Message_GetProperty (messageId, 'state')[0] == 'deleted'))">
+                  <goto next="#sub5" />
+               </if>
+            </if>
+            <if cond="menu_input == '4'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'Respond') == true))">
+                  <goto next="#proc1" />
+               </if>
+            </if>
+            <if cond="menu_input == '5'">
+               <goto next="#proc2" />
+            </if>
+            <if cond="menu_input == '6'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'MakeNew') == true))">
+                  <if cond="((Message_GetProperty (messageId, 'state')[0] == 'new'))">
+                     <goto next="#prompt3" />
+                     <else />
+                     <goto next="#sub3" />
+                  </if>
+               </if>
+            </if>
+            <if cond="menu_input == '7'">
+               <if cond="((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+                  <goto next="#ptarget3" />
+               </if>
+            </if>
+            <if cond="menu_input == '9'">
+               <if cond="((Utility_GetArrayLength (playableObjectArray) &gt; 0))">
+                  <goto next="#ptarget3" />
+               </if>
+            </if>
+            <if cond="menu_input == '10'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'CLIviaSMS') == true))">
+                  <assign name="sendersPhoneNumber" expr="Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0])" />
+                  <if cond="(Message_GetSendersPhoneNumber(Message_GetProperty(messageId, 'sender')[0]) != '')">
+                     <goto next="#sub4" />
+                     <else />
+                     <prompt bargein="true">
+                        <audio expr="System_GetPrompt(346)" />
+                     </prompt>
+                     <goto next="#ptarget1" />
+                  </if>
+               </if>
+            </if>
+            <if cond="menu_input == '11'">
+               <if cond="((Message_IsPrintable (playableObjectArray) == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'fax') == true))">
+                  <goto next="#proc5" />
+               </if>
+            </if>
+            <if cond="menu_input == '*'">
+               <if cond="1">
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="&quot;prevMsg&quot;" />
+                  <return namelist="resultCode" />
+               </if>
+            </if>
+            <if cond="menu_input == '*4'">
+               <if cond="((Subscriber_HasService (1234, 'TTS') == 'true'))">
+                  <goto next="#ptarget3" />
+               </if>
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*0'">
+               <goto next="#proc2007" />
+            </if>
+            <if cond="menu_input == '0'">
+               <goto next="#ptarget2002" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2005" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2003" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+
+         <!--/filled-->       <!-- removed -->
+      <!--/field-->           <!-- removed -->
+      </block>                <!-- added -->
+
+   </form>
+   <form id="proc2004">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastMenuInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult" expr="sub.resultCode" />
+            <goto next="#ptarget2001" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2001">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="&quot;nextMsg&quot;" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Message_SetProperty (messageId, 'state', ['read'])</script>
+      <block>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <form id="sub6">
+      <script>System_SendTrafficEvent ('messagerecovered', 'username=' + GlobalObject.Subscriber + ',operation=3,objecttype=1,messagetype=' + Event_GetMessageType(messageId) + ',messageencoding=' + Event_GetMessageEncoding(messageId) + ',messagesize=' + Event_GetMessageSize(messageId) + ',callingnumber=' + ani)</script>
+      <block>
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="proc3">
+      <subdialog name="sub" src="PlayHeaderAndBody.vxml">
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_headerOrBody" expr="'body'" />
+         <param name="p_playableObjectArray" expr="playableObjectArray" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResultBody" expr="sub.resultCode" />
+            <goto next="#ptarget1" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#cmnu1" />
+      </block>
+   </form>
+   <form id="proc6">
+      <subdialog name="sub" src="NumberAnalysis.vxml">
+         <param name="p_phoneNumber" expr="sendersPhoneNumber" />
+         <param name="p_rule" expr="System_GetConfig('vva.numberanalysis', 'callsenderrule')" />
+         <param name="p_additionalPhoneNumber" expr="ani" />
+         <filled>
+            <assign name="procedureResult2" expr="sub.resultCode" />
+            <if cond="1">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(2127, new Array(System_GetMediaQualifier(Message_GetSpokenNameOfSender(messageId))))" />
+               </prompt>
+               <goto next="#proc7" />
+               <else />
+               <goto next="#prompt1" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc7">
+      <subdialog name="sub" src="OutboundCall.vxml">
+         <param name="p_ani" expr="ani" />
+         <param name="p_destinationNumber" expr="sendersPhoneNumber" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult3" expr="sub.resultCode" />
+            <goto next="#ptarget2" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#cmnu1_reprompt" />
+      </block>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(290)" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="sub2">
+      <script>Message_SetProperty (messageId, 'state', 'deleted')</script>
+      <block>
+         <goto next="#sub5" />
+      </block>
+   </form>
+   <form id="sub5">
+      <script>System_SendTrafficEvent ('messagedeleted', 'username=' + GlobalObject.Subscriber + ',operation=6,objecttype=1,messagetype=' + Event_GetMessageType(messageId) + ',messageencoding=' + Event_GetMessageEncoding(messageId) + ',messagesize=' + Event_GetMessageSize(messageId) + ',callingnumber=' + ani)</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(288)" />
+         </prompt>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="&quot;nextMsg&quot;" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="RespondAndForward.vxml">
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResultRespondAndForward" expr="sub.resultCode" />
+            <goto next="#ptarget2" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="PlayHeaderAndBody.vxml">
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_headerOrBody" expr="'header'" />
+         <param name="p_playableObjectArray" expr="playableObjectArray" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResultHeader" expr="sub.resultCode" />
+            <goto next="#ptarget1" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="prompt3">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(291)" />
+         </prompt>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="&quot;nextMsg&quot;" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="sub3">
+      <script>Message_SetProperty (messageId, 'state', ['new'])</script>
+      <block>
+         <goto next="#prompt3" />
+      </block>
+   </form>
+   <form id="ptarget3">
+      <block>
+         <goto next="#proc4" />
+      </block>
+   </form>
+   <form id="proc4">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="menuInput" />
+         <filled>
+            <assign name="procedureResultInvalid" expr="sub.resultCode" />
+            <goto next="#ptarget1" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub4">
+      <script>System_SendTrafficEvent ('cliinformationmessage', 'mailhost=' + Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'mailhost') + ',emailaddress=' + Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'mail') + ',sender=' + sendersPhoneNumber)</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(345)" />
+         </prompt>
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="proc5">
+      <subdialog name="sub" src="PrintFaxOrEmail.vxml">
+         <param name="p_messageId" expr="messageId" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <goto next="#ptarget2" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2007">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2002">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2005">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult" expr="sub.resultCode" />
+<throw event="com.mobeon.vva.mainmenu" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2003">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <prompt bargein="true">
+         <audio expr="System_GetPrompt(2128, new Array(System_GetMediaQualifier('String', sendersPhoneNumber)))" />
+      </prompt>
+      <goto next="#proc7" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

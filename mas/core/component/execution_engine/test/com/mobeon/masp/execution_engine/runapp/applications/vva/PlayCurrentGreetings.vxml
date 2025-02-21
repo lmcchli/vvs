@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="mediaType" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="ccond2">
+      <block>
+         <if cond="Call_IsVoice() == true || GlobalObject.WorkWithVoiceGreetings == true">
+            <goto next="#assign1" />
+            <elseif cond="Subscriber_HasService(GlobalObject.Subscriber, 'video') == false" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(432)" />
+            </prompt>
+            <goto next="#assign1" />
+            <elseif cond="Subscriber_HasService(GlobalObject.Subscriber, 'video') == true" />
+            <goto next="#prompt10" />
+            <else />
+            <goto next="#prompt10" />
+         </if>
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="mediaType" expr="'voice'" />
+         <goto next="#ccond1" />
+      </block>
+   </form>
+   <form id="ccond1">
+      <block>
+         <if cond="Greeting_IsActive(GlobalObject.Subscriber, 'Extended_Absence', mediaType) == true">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(433)" />
+            </prompt>
+            <goto next="AdministerGreetings.vxml" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'Temporary', mediaType) == true &amp;&amp; Subscriber_HasService(GlobalObject.Subscriber, 'temporarygreeting') == true" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(434)" />
+            </prompt>
+            <goto next="AdministerGreetings.vxml" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'NoAnswer', mediaType) == false &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'Busy', mediaType) == false &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'OutOfHours', mediaType) == false &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'AllCalls', mediaType) == false" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(435)" />
+            </prompt>
+            <goto next="AdministerGreetings.vxml" />
+            <elseif cond="Greeting_IsActive(GlobalObject.Subscriber, 'NoAnswer', mediaType) == false &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'Busy', mediaType) == false &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'OutOfHours', mediaType) == false &amp;&amp; Greeting_IsActive(GlobalObject.Subscriber, 'AllCalls', mediaType) == true" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(436)" />
+            </prompt>
+            <goto next="AdministerGreetings.vxml" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(437)" />
+            </prompt>
+            <if cond="Greeting_IsActive(GlobalObject.Subscriber, 'NoAnswer', '') == true">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(438)" />
+               </prompt>
+               <goto next="#cond2" />
+               <else />
+               <goto next="#cond2" />
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="Greeting_IsActive(GlobalObject.Subscriber, 'Busy', '') == true">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(439)" />
+            </prompt>
+            <goto next="#cond3" />
+            <else />
+            <goto next="#cond3" />
+         </if>
+      </block>
+   </form>
+   <form id="cond3">
+      <block>
+         <if cond="((Greeting_IsActive (GlobalObject.Subscriber, 'OutOfHours', '') == true))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(440)" />
+            </prompt>
+            <goto next="#cond4" />
+            <else />
+            <goto next="#cond4" />
+         </if>
+      </block>
+   </form>
+   <form id="cond4">
+      <block>
+         <if cond="((Greeting_IsActive (GlobalObject.Subscriber, 'AllCalls', '') == true))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(442)" />
+            </prompt>
+            <goto next="AdministerGreetings.vxml" />
+            <else />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(441)" />
+            </prompt>
+            <goto next="AdministerGreetings.vxml" />
+         </if>
+      </block>
+   </form>
+   <form id="prompt10">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(431)" />
+         </prompt>
+         <assign name="mediaType" expr="'video'" />
+         <goto next="#ccond1" />
+      </block>
+   </form>
+</vxml>

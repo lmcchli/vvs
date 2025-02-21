@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+	<var name="phoneNumber"/>
+	<var name="origPhoneNumber"/>
+	<var name="unknown_sender"/>
+	<var name="unknown_receiver"/>
+	<var name="mailboxid"/>
+	<var name="mailboxfolderid"/>
+	<var name="mailboxlistid"/>
+	<var name="nofm"/>
+	<var name="msglist"/>
+	<var name="msgno"/>
+	<var name="contentno"/>
+	<var name="contentlist"/>
+	<var name="mob"/>
+    <var name="mediaProperties"/>
+    <var name="props"/>
+    <var name="length"/>
+    <var name="size"/>
+    <var name="storableMessageId"/>
+    <block>
+
+		<!-- Get hold of the retriever -->
+		<script>
+			// Assume nothing exists in MUR
+			unknown_sender = true;
+			unknown_receiver = true;
+
+			// Check to see if the receiver exists in MUR
+			if (typeof(session.connection.redirect) != 'undefined') {
+			if (typeof(session.connection.redirect[0]) != 'undefined') {
+			if (typeof(session.connection.redirect[0].number) != 'undefined') {
+			    phoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.redirect[0].number, null);
+			    if (mas.subscriberExist(phoneNumber)) {
+				// The subscriber do not exists, we should play unknown.wav and hangup
+				unknown_receiver = false;
+			    }
+			} } }
+
+			// Check to see if the sender exists in MUR
+			if (typeof(session.connection.remote.number) != "undefined") {
+				origPhoneNumber = mas.systemAnalyzeNumber("INBOUNDCALL", session.connection.remote.number, null);
+				unknown_sender = !mas.subscriberExist(origPhoneNumber);
+			}
+		</script>
+
+
+		<!-- Create a message and store it -->
+		<script>
+
+
+            <!--
+            storableMessageId = mas.messageCreateNew();
+
+            var sender = mas.subscriberGetStringAttribute(origPhoneNumber, 'mail');
+            var recipients = mas.subscriberGetStringAttribute(phoneNumber, 'mail');
+            var secondaryrecipients = new Array('99910003@hurr9.lab.mobeon.com');
+            var subject = new Array('test 20105401');
+            var replytoaddr = new Array('99910001@hurr9.lab.mobeon.com');
+            var type = new Array('email');
+            var language = new Array('en');
+            var urgent = new Array('true');
+            var confidential = new Array('true');
+
+            mas.messageSetStorableProperty(storableMessageId, 'sender', sender);
+            mas.messageSetStorableProperty(storableMessageId, 'recipients', recipients);
+            mas.messageSetStorableProperty(storableMessageId, 'secondaryrecipients', secondaryrecipients);
+            mas.messageSetStorableProperty(storableMessageId, 'subject', subject);
+            mas.messageSetStorableProperty(storableMessageId, 'replytoaddr', replytoaddr);
+            mas.messageSetStorableProperty(storableMessageId, 'type', type);
+            mas.messageSetStorableProperty(storableMessageId, 'language', language);
+            mas.messageSetStorableProperty(storableMessageId, 'urgent', urgent);
+            mas.messageSetStorableProperty(storableMessageId, 'confidential', confidential);
+
+            var callerName = mas.subscriberGetStringAttribute(origPhoneNumber, 'cn');
+            var spokenName = mas.subscriberGetSpokenName(origPhoneNumber,'voice');
+            if (spokenName != null) {
+                mas.messageSetSpokenNameOfSender(storableMessageId, spokenName, 'spoken name','spoken','en');
+            }
+
+            mas.messageStore(storableMessageId);
+            -->
+            <!-- Retreive the message just stored and read its properties -->
+
+            mailboxid = mas.subscriberGetMailbox (phoneNumber);
+            mailboxfolderid = mas.mailboxGetFolder (mailboxid, 'inbox');
+            mailboxlistid = mas.mailboxGetMessageList (mailboxfolderid, null, null, null, null, 'lifo');
+            nofm = mas.mailboxGetNumberOfMessages (mailboxlistid, null, null, null);
+            mas.systemLog(3, 'Total number of messages (nofm) in inbox=' + nofm);
+
+            msglist = mas.mailboxGetMessages (mailboxlistid);
+            msgno = 0;
+
+            props = mas.messageGetStoredProperty(msglist[msgno], 'receiveddate');
+            mas.systemLog(3, 'Received date of message :' + props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'sender');
+            mas.systemLog(3, 'Sender of message :' + props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'recipients');
+            mas.systemLog(3, 'Recipients of message :' + props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'secondaryrecipients');
+            mas.systemLog(3, 'Secondary recipients of message :' + props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'subject');
+            mas.systemLog(3, 'Subject of message :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'subject');
+            mas.systemLog(3, 'Subject of message :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'replytoaddr');
+            mas.systemLog(3, 'ReplyToAddr of message :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'type');
+            mas.systemLog(3, 'Type of message :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'state');
+            mas.systemLog(3, 'State of message :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'language');
+            mas.systemLog(3, 'Language of message :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'urgent');
+            mas.systemLog(3, 'Message urgent :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'confidential');
+            mas.systemLog(3, 'Message confidential :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'forwarded');
+            mas.systemLog(3, 'Message forwarded :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'deliveryreport');
+            mas.systemLog(3, 'Message is deliveryreport :'+ props[0]);
+            props = mas.messageGetStoredProperty(msglist[msgno], 'deliverystatus');
+            mas.systemLog(3, 'Message deliverystatus :'+ props[0]);
+
+         </script>
+
+        <log>TC 20105401 PASSED</log>
+	</block>
+
+
+	</form>
+
+    <catch event="error">
+		 <log>TC 20105401 FAILED Error caught <value expr="_event"/></log>
+	    <exit/>
+    </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+
+</vxml>
+

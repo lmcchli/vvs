@@ -1,0 +1,44 @@
+This file contains a list of changes made to the downloaded SipUnit
+-------------------------------------------------------------------
+
+The downloaded SipUnit is handled in the same branch as the other JAIN SIP
+products. Therefore, the first checked in version of SipUnit is placed in 
+dev_r3a since it was downloaded for JAIN SIP development in branch dev_r3a. 
+
+When upgrading SipUnit in the future, use a similar procedure as when 
+updating the SIP stack version.
+
+
+
+SIPUNIT_VERSION_006b
+--------------------
+The SipUnit version was downloaded from the cafesip project found here:
+http://www.cafesip.org/projects/sipunit/
+
+The downloaded release was 0.0.6b which only is a beta version.
+This release was imported in the vob and labeled with the above label. 
+
+
+
+START_SIPUNIT_R3A
+------------------
+After the download, changes was made to the downloaded version to make it 
+compile.
+It is the start for this branch and is labeled with the above label.
+
+
+SIPUNIT_P3A_01
+--------------
+Minor error corrections was made to get sipunit working with MAS. 
+The following files were modified:
+- src/org/cafesip/sipunit/SipSession.java
+- src/org/cafesip/sipunit/SipStack.java
+- src/org/cafesip/sipunit/SipTransaction.java
+
+SIPUNIT_P3A_02
+--------------
+Minor corrections to make unsolicited NOTIFY's to work.
+The following files were modified:
+- src/org/cafesip/sipunit/SipPhone.java
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form id="uno">
+       <block name="b1">
+           <script>
+               var testObj = new Packages.com.mobeon.masp.execution_engine.runapp.applications.vxml.ecma.ECMADummy();
+               testObj.raisePlatformAccessException();
+           </script>
+           <log>TCFAIL VXML: ECMA NOK</log>
+       </block>
+       <catch event="datanotfound">
+           <log>TCPASS VXML: ECMA OK caught <value expr="_event"/></log>
+           <goto nextitem="b2"/>
+       </catch>
+       <block name="b2">
+           <log>TCPASS VXML: ECMA OK Done</log>
+       </block>
+   </form>
+</vxml>

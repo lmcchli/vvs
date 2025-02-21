@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" application="subdialog_8_main.vxml" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <var name="lab"/>
+    <script>
+        lab = new Packages.com.mobeon.masp.execution_engine.runapp.EventReporter();
+    </script>
+
+
+   <form id="volvo">
+
+       <block>
+           <script>
+               lab.reportEvent(_context,'reported.event');
+               lab.log('TCFAIL VXML: subdialog_cs-002');
+           </script>
+       </block>
+
+       <filled>
+           <log>TCFAIL VXML: subdialog_c-003</log>
+           <exit/>
+       </filled>
+   </form>
+
+</vxml>

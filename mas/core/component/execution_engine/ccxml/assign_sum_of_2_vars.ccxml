@@ -1,0 +1,6 @@
+<ccxml version="1.0">
+   <var name="kalle"/>
+   <var name="olle" expr="7"/>
+   <var name="pelle" expr="22"/>
+   <assign name="kalle" expr="olle+pelle"/>
+</ccxml>

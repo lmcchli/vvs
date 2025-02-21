@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="root.vxml">
+	<form id="inventory">
+		<block>
+			<if cond="!quotaOK(session.connection.remote.uri)" >
+					<goto next="quota.vxml" />
+			</if>
+			
+			<prompt>
+				<audio expr= "getListInventoryPrompt('LIST_INVENTORY') ">
+						<value expr="getString('LIST_INVENTORY')" />
+				</audio>
+			</prompt>
+			
+			<goto next="main_menu.vxml" />
+		</block>
+	
+	</form>
+</vxml>

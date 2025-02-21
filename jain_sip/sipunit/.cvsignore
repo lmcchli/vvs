@@ -1,0 +1,14 @@
+.classpath
+.project
+testAgent_log.txt
+questions
+testAgent_debug.txt
+.settings
+sipunit-0.0.2a.zip
+testNotify_log.txt
+testNotify_debug.txt
+testPresence_debug.txt
+testPresence_log.txt
+sipunit-*.zip
+*log.txt
+*debug.txt

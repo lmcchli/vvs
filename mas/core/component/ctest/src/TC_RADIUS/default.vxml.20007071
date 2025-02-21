@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR: Event caught, should not happen!</log>
+        <exit/>
+    </catch>
+
+    <form>
+        <block>
+            <script>
+                var propertyNames = [];
+                var propertyValues = [];
+
+                propertyNames[0]	= 'sessionid';
+                propertyValues[0]	= '20007071';
+                propertyNames[1]	= 'username';
+                propertyValues[1]	= '1234';
+                propertyNames[2]	= 'sssporttype';
+                propertyValues[2]	= '14';
+                propertyNames[3]	= 'description';
+                propertyValues[3]	= 'TC 20007071.1';
+                mas.trafficEventSend(
+					'accountingdebit',
+					propertyNames,
+					propertyValues,
+					false);
+
+                propertyValues[2]	= '123456789';
+                propertyValues[3]	= 'TC 20007071.2';
+                mas.trafficEventSend(
+					'accountingdebit',
+					propertyNames,
+					propertyValues,
+					false);
+            </script>
+        </block>
+    </form>
+</vxml>

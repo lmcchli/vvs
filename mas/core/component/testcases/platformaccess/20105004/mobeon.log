@@ -1,0 +1,793 @@
+2006-03-07 14:46:51,861 com.mobeon.masp.execution_engine.Main  INFO [TID:main] [SID:]  - MAS beginning startup...
+2006-03-07 14:46:52,232 org.springframework.beans.factory.xml.XmlBeanDefinitionReader  INFO [TID:main] [SID:]  - Loading XML bean definitions from URL [file:/apps/mas/lib/ComponentConfig.xml]
+2006-03-07 14:46:53,198 org.springframework.core.CollectionFactory  INFO [TID:main] [SID:]  - JDK 1.4+ collections available
+2006-03-07 14:46:53,218 org.springframework.core.CollectionFactory  INFO [TID:main] [SID:]  - Commons Collections 3.x available
+2006-03-07 14:46:54,905 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration group: callmanager.diagnoseservice
+2006-03-07 14:46:54,911 com.mobeon.masp.callmanager.diagnoseservice.DiagnoseServiceConfiguration DEBUG [TID:main] [SID:]  - Could not retreive the diagnose service configuration, using default values instead. Exception: com.mobeon.masp.configuration.UnknownGroupException: Could not find configuration group: diagnoseservice
+2006-03-07 14:46:54,923 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - INIT SIP Stack
+2006-03-07 14:46:55,182 org.springframework.context.support.ClassPathXmlApplicationContext  INFO [TID:main] [SID:]  - Bean factory for application context [org.springframework.context.support.ClassPathXmlApplicationContext;hashCode=6460284]: org.springframework.beans.factory.support.DefaultListableBeanFactory defining beans [DemoBean,CallManager,PlatformAccessFactory,ApplicationManagement,ApplicationExecution,ApplicationCompiler,Session,ComponentManager,ExecutorServiceManager,StreamFactory,ApplicationExecutionFactory,SessionFactory,EventDispatcher,NumberAnalyzer,ProfileManager,ServiceLocator,ProfileManagerContext,ExternalComponentRegisterContext,FaxImagePageCounter,MailboxContextFactory,MailboxAccountManager,ConfigurationManager,Configuration,StorableMessageFactory,MailSender,OmManager,ContentTypeMapper,MediaObjectFactory,MediaContentManager,TrafficEventSender,MediaQualifierFactory]; root of BeanFactory hierarchy
+2006-03-07 14:46:55,200 org.springframework.context.support.ClassPathXmlApplicationContext  INFO [TID:main] [SID:]  - 31 beans defined in application context [org.springframework.context.support.ClassPathXmlApplicationContext;hashCode=6460284]
+2006-03-07 14:46:55,210 org.springframework.context.support.ClassPathXmlApplicationContext  INFO [TID:main] [SID:]  - Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@16c79d7]
+2006-03-07 14:46:55,212 org.springframework.context.support.ClassPathXmlApplicationContext  INFO [TID:main] [SID:]  - Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@16c9867]
+2006-03-07 14:46:55,213 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Pre-instantiating singletons in factory [org.springframework.beans.factory.support.DefaultListableBeanFactory defining beans [DemoBean,CallManager,PlatformAccessFactory,ApplicationManagement,ApplicationExecution,ApplicationCompiler,Session,ComponentManager,ExecutorServiceManager,StreamFactory,ApplicationExecutionFactory,SessionFactory,EventDispatcher,NumberAnalyzer,ProfileManager,ServiceLocator,ProfileManagerContext,ExternalComponentRegisterContext,FaxImagePageCounter,MailboxContextFactory,MailboxAccountManager,ConfigurationManager,Configuration,StorableMessageFactory,MailSender,OmManager,ContentTypeMapper,MediaObjectFactory,MediaContentManager,TrafficEventSender,MediaQualifierFactory]; root of BeanFactory hierarchy]
+2006-03-07 14:46:55,217 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'DemoBean'
+2006-03-07 14:46:55,258 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created SIP stack.
+2006-03-07 14:46:55,405 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'CallManager'
+2006-03-07 14:46:55,416 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'StreamFactory'
+2006-03-07 14:46:55,429 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ContentTypeMapper'
+2006-03-07 14:46:55,438 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'Configuration'
+2006-03-07 14:46:55,439 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ConfigurationManager'
+2006-03-07 14:46:56,054 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created udp listening point.
+2006-03-07 14:46:56,065 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created udp provider
+2006-03-07 14:46:56,075 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created tcp listening point.
+2006-03-07 14:46:56,075 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created tcp provider
+2006-03-07 14:46:56,075 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Listening for requests on 0.0.0.0:5090
+2006-03-07 14:46:56,394 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created message factories
+2006-03-07 14:46:56,717 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:main] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:46:56,984 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:main] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:46:56,988 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:main] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:46:56,993 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:main] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:46:57,012 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:main] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:46:57,079 com.mobeon.masp.masagent.MasConnection DEBUG [TID:main] [SID:]  - Unable to aquire new MIB attribute values.
+2006-03-07 14:46:57,081 com.mobeon.masp.masagent.MasConnection DEBUG [TID:main] [SID:]  - Unable to aquire new MIB attribute values.
+2006-03-07 14:46:57,082 com.mobeon.masp.masagent.MasConnection DEBUG [TID:main] [SID:]  - Unable to aquire new MIB attribute values.
+2006-03-07 14:46:57,084 com.mobeon.masp.masagent.MasConnection DEBUG [TID:main] [SID:]  - Unable to aquire new MIB attribute values.
+2006-03-07 14:46:58,082 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - <contenttype>video/quicktime
+2006-03-07 14:46:58,088 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<codec>video/h263
+2006-03-07 14:46:58,088 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<codec>audio/pcmu
+2006-03-07 14:46:58,089 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<fileext>mov
+2006-03-07 14:46:58,089 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - <contenttype>audio/wav
+2006-03-07 14:46:58,089 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<codec>audio/pcmu
+2006-03-07 14:46:58,089 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<fileext>wav
+2006-03-07 14:46:58,090 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - <contenttype>text/plain
+2006-03-07 14:46:58,090 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<codec>text/plain
+2006-03-07 14:46:58,090 com.mobeon.masp.mediaobject.ContentTypeMapperImpl DEBUG [TID:main] [SID:]  - 	<fileext>txt
+2006-03-07 14:46:58,090 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'EventDispatcher'
+2006-03-07 14:46:58,392 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: localhostname using default: 10.8.9.50
+2006-03-07 14:46:58,393 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Supported contentType=video/quicktime
+2006-03-07 14:46:58,393 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Supported contentType=audio/wav
+2006-03-07 14:46:58,398 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Added RTP payload def: PayloadType=34, MimeType=video/h263, Encoding=H263, ClockRate=90000
+2006-03-07 14:46:58,398 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Added RTP payload def: PayloadType=13, MimeType=audio/cn, Encoding=CN, ClockRate=8000
+2006-03-07 14:46:58,399 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Added RTP payload def: PayloadType=101, MimeType=audio/telephone-event, Encoding=telephone-event, ClockRate=8000
+2006-03-07 14:46:58,399 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Added RTP payload def: PayloadType=97, MimeType=audio/amr, Encoding=AMR, ClockRate=8000
+2006-03-07 14:46:58,400 com.mobeon.masp.stream.StreamConfiguration DEBUG [TID:main] [SID:]  - Added RTP payload def: PayloadType=0, MimeType=audio/pcmu, Encoding=PCMU, ClockRate=8000
+2006-03-07 14:46:58,507 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'PlatformAccessFactory'
+2006-03-07 14:46:58,508 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'MediaContentManager'
+2006-03-07 14:46:58,601 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'MediaObjectFactory'
+2006-03-07 14:46:58,639 com.mobeon.masp.mediacontentmanager.MediaContentManager DEBUG [TID:main] [SID:]  - Loading media content packages from root directory:applications/mediacontentpackages
+2006-03-07 14:46:58,641 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'MediaQualifierFactory'
+2006-03-07 14:46:58,649 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ProfileManager'
+2006-03-07 14:46:58,662 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ProfileManagerContext'
+2006-03-07 14:46:58,813 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ServiceLocator'
+2006-03-07 14:46:58,819 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ExternalComponentRegisterContext'
+2006-03-07 14:46:58,847 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'MailboxAccountManager'
+2006-03-07 14:46:58,855 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'MailboxContextFactory'
+2006-03-07 14:46:58,863 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'MailSender'
+2006-03-07 14:46:59,201 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'FaxImagePageCounter'
+2006-03-07 14:46:59,323 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: searchorder using default: community,cos,user,billing
+2006-03-07 14:46:59,342 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emlogindate
+2006-03-07 14:46:59,342 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emlogindate
+2006-03-07 14:46:59,343 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,343 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute empreferreddateformat
+2006-03-07 14:46:59,343 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute empreferreddateformat
+2006-03-07 14:46:59,343 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,344 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [10] found for attribute dlmax
+2006-03-07 14:46:59,344 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute dlmax
+2006-03-07 14:46:59,344 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emnotifnumber
+2006-03-07 14:46:59,344 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emnotifnumber
+2006-03-07 14:46:59,345 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [0800] found for attribute inhoursstart
+2006-03-07 14:46:59,345 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute inhoursstart
+2006-03-07 14:46:59,345 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,345 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [4] found for attribute passwdlenmax
+2006-03-07 14:46:59,346 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute passwdlenmax
+2006-03-07 14:46:59,346 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute passwordskipenabled
+2006-03-07 14:46:59,346 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute passwordskipenabled
+2006-03-07 14:46:59,347 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,347 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emsmppcenterid
+2006-03-07 14:46:59,347 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emsmppcenterid
+2006-03-07 14:46:59,347 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,348 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute callerxfertocoverage
+2006-03-07 14:46:59,348 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute callerxfertocoverage
+2006-03-07 14:46:59,348 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,348 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute inboundfaxno
+2006-03-07 14:46:59,349 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute inboundfaxno
+2006-03-07 14:46:59,349 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [yes] found for attribute urgentmsgplay
+2006-03-07 14:46:59,349 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute urgentmsgplay
+2006-03-07 14:46:59,350 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,350 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute caattr
+2006-03-07 14:46:59,350 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute caattr
+2006-03-07 14:46:59,350 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,351 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emgroupmember
+2006-03-07 14:46:59,351 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emgroupmember
+2006-03-07 14:46:59,351 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,351 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute mailquota
+2006-03-07 14:46:59,352 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute mailquota
+2006-03-07 14:46:59,352 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,352 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute subscribertimezone
+2006-03-07 14:46:59,352 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute subscribertimezone
+2006-03-07 14:46:59,353 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [12] found for attribute empreferredtimeformat
+2006-03-07 14:46:59,353 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute empreferredtimeformat
+2006-03-07 14:46:59,353 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,354 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute preferredlanguage
+2006-03-07 14:46:59,354 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute preferredlanguage
+2006-03-07 14:46:59,354 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,354 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emmin
+2006-03-07 14:46:59,354 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emmin
+2006-03-07 14:46:59,355 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,355 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute mail
+2006-03-07 14:46:59,355 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute mail
+2006-03-07 14:46:59,356 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,356 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute emcnl
+2006-03-07 14:46:59,356 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emcnl
+2006-03-07 14:46:59,356 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,356 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [10] found for attribute emmaxgroupmember
+2006-03-07 14:46:59,357 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emmaxgroupmember
+2006-03-07 14:46:59,357 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute fastloginenabled
+2006-03-07 14:46:59,357 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute fastloginenabled
+2006-03-07 14:46:59,358 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,358 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [-1] found for attribute emreadlevel
+2006-03-07 14:46:59,358 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emreadlevel
+2006-03-07 14:46:59,358 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute facsimiletelephonenumber
+2006-03-07 14:46:59,359 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute facsimiletelephonenumber
+2006-03-07 14:46:59,359 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,359 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute admininfo
+2006-03-07 14:46:59,359 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute admininfo
+2006-03-07 14:46:59,471 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,471 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute uniqueidentifier
+2006-03-07 14:46:59,471 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute uniqueidentifier
+2006-03-07 14:46:59,471 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,472 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emservicedn
+2006-03-07 14:46:59,472 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,472 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [180] found for attribute emmsglenmaxvideo
+2006-03-07 14:46:59,473 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emmsglenmaxvideo
+2006-03-07 14:46:59,473 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,473 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [30] found for attribute eomsgwarning
+2006-03-07 14:46:59,473 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute eomsgwarning
+2006-03-07 14:46:59,474 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emntd
+2006-03-07 14:46:59,474 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emntd
+2006-03-07 14:46:59,474 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute coverphonenumber
+2006-03-07 14:46:59,474 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute coverphonenumber
+2006-03-07 14:46:59,475 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,475 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute billingnumber
+2006-03-07 14:46:59,475 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute billingnumber
+2006-03-07 14:46:59,476 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,476 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [active] found for attribute mailuserstatus
+2006-03-07 14:46:59,476 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute mailuserstatus
+2006-03-07 14:46:59,476 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emca
+2006-03-07 14:46:59,477 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emca
+2006-03-07 14:46:59,477 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,477 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute cosdn
+2006-03-07 14:46:59,477 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute cosdn
+2006-03-07 14:46:59,478 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,478 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [none] found for attribute emvuiaccess
+2006-03-07 14:46:59,478 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emvuiaccess
+2006-03-07 14:46:59,478 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute emautoprintfax
+2006-03-07 14:46:59,479 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emautoprintfax
+2006-03-07 14:46:59,479 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,479 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [4] found for attribute passwdlenmin
+2006-03-07 14:46:59,479 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute passwdlenmin
+2006-03-07 14:46:59,480 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,480 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emusersd
+2006-03-07 14:46:59,480 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emusersd
+2006-03-07 14:46:59,481 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,481 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute callerxfer
+2006-03-07 14:46:59,481 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute callerxfer
+2006-03-07 14:46:59,481 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,482 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [00,F,PIN:M,SPO:M,ACG:M] found for attribute emftlfunctions
+2006-03-07 14:46:59,482 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emftlfunctions
+2006-03-07 14:46:59,482 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [1700] found for attribute inhoursend
+2006-03-07 14:46:59,482 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute inhoursend
+2006-03-07 14:46:59,483 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,483 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute welcomegrt
+2006-03-07 14:46:59,483 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute welcomegrt
+2006-03-07 14:46:59,483 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,484 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute subscriberxfer
+2006-03-07 14:46:59,484 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute subscriberxfer
+2006-03-07 14:46:59,484 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,484 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute sn
+2006-03-07 14:46:59,484 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute sn
+2006-03-07 14:46:59,485 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,485 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute emallowedmaildomains
+2006-03-07 14:46:59,485 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emallowedmaildomains
+2006-03-07 14:46:59,486 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,486 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emcustomerid
+2006-03-07 14:46:59,486 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emcustomerid
+2006-03-07 14:46:59,486 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute emftl
+2006-03-07 14:46:59,487 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emftl
+2006-03-07 14:46:59,487 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,487 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute mailalternateaddress
+2006-03-07 14:46:59,487 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute mailalternateaddress
+2006-03-07 14:46:59,488 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,488 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [SUBSCRIBEROUTDIAL] found for attribute phonenumberdialingsection
+2006-03-07 14:46:59,488 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute phonenumberdialingsection
+2006-03-07 14:46:59,489 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,489 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [0] found for attribute emoutboundcalltl
+2006-03-07 14:46:59,489 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emoutboundcalltl
+2006-03-07 14:46:59,489 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [FIFO,LIFO] found for attribute emmsgplayorder
+2006-03-07 14:46:59,490 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emmsgplayorder
+2006-03-07 14:46:59,490 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,490 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [yes] found for attribute messageinventory
+2006-03-07 14:46:59,490 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute messageinventory
+2006-03-07 14:46:59,491 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,491 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [yes] found for attribute includespokenname
+2006-03-07 14:46:59,491 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute includespokenname
+2006-03-07 14:46:59,492 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute userlevel
+2006-03-07 14:46:59,492 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute userlevel
+2006-03-07 14:46:59,492 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,492 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute reinventory
+2006-03-07 14:46:59,492 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute reinventory
+2006-03-07 14:46:59,493 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,493 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute ttsemailenabled
+2006-03-07 14:46:59,493 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute ttsemailenabled
+2006-03-07 14:46:59,494 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,494 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [10] found for attribute cdgmax
+2006-03-07 14:46:59,494 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute cdgmax
+2006-03-07 14:46:59,494 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emtmpgrt
+2006-03-07 14:46:59,495 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emtmpgrt
+2006-03-07 14:46:59,495 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,495 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [6] found for attribute maxloginlockout
+2006-03-07 14:46:59,495 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute maxloginlockout
+2006-03-07 14:46:59,496 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,496 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute noforfirstname
+2006-03-07 14:46:59,496 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute noforfirstname
+2006-03-07 14:46:59,496 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,497 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [F] found for attribute gender
+2006-03-07 14:46:59,497 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute gender
+2006-03-07 14:46:59,497 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,497 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute uid
+2006-03-07 14:46:59,498 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute uid
+2006-03-07 14:46:59,498 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,498 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [CALLEROUTDIAL] found for attribute phonenumbercalleraccesssection
+2006-03-07 14:46:59,498 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute phonenumbercalleraccesssection
+2006-03-07 14:46:59,499 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,499 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emsecnb
+2006-03-07 14:46:59,499 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emsecnb
+2006-03-07 14:46:59,499 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute activegreetingid
+2006-03-07 14:46:59,500 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute activegreetingid
+2006-03-07 14:46:59,500 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emfilter
+2006-03-07 14:46:59,500 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emfilter
+2006-03-07 14:46:59,501 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,501 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute noforlastname
+2006-03-07 14:46:59,501 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute noforlastname
+2006-03-07 14:46:59,501 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,502 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emmmscenterid
+2006-03-07 14:46:59,502 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emmmscenterid
+2006-03-07 14:46:59,502 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,502 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [60] found for attribute greetingsecmax
+2006-03-07 14:46:59,503 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute greetingsecmax
+2006-03-07 14:46:59,503 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,503 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute empnc
+2006-03-07 14:46:59,503 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute empnc
+2006-03-07 14:46:59,504 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,504 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [-1] found for attribute emnoofmailquota
+2006-03-07 14:46:59,504 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emnoofmailquota
+2006-03-07 14:46:59,504 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute emodlpinskip
+2006-03-07 14:46:59,505 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emodlpinskip
+2006-03-07 14:46:59,505 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [12345] found for attribute inhoursdow
+2006-03-07 14:46:59,505 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute inhoursdow
+2006-03-07 14:46:59,506 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,506 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emtuiblockedmenu
+2006-03-07 14:46:59,506 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emtuiblockedmenu
+2006-03-07 14:46:59,506 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute autoplay
+2006-03-07 14:46:59,507 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute autoplay
+2006-03-07 14:46:59,507 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,507 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute faxenabled
+2006-03-07 14:46:59,507 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute faxenabled
+2006-03-07 14:46:59,508 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,508 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [180] found for attribute msglenmaxvoice
+2006-03-07 14:46:59,508 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute msglenmaxvoice
+2006-03-07 14:46:59,508 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [both] found for attribute messageplayemail
+2006-03-07 14:46:59,509 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute messageplayemail
+2006-03-07 14:46:59,509 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emactivecdg
+2006-03-07 14:46:59,509 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emactivecdg
+2006-03-07 14:46:59,510 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emdeliveryprofile
+2006-03-07 14:46:59,510 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emdeliveryprofile
+2006-03-07 14:46:59,510 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,510 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute fastloginavailable
+2006-03-07 14:46:59,511 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute fastloginavailable
+2006-03-07 14:46:59,511 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,511 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute mailhost
+2006-03-07 14:46:59,511 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute mailhost
+2006-03-07 14:46:59,512 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,512 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute emtmpgrtavailable
+2006-03-07 14:46:59,512 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emtmpgrtavailable
+2006-03-07 14:46:59,512 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [both] found for attribute messageplayvoice
+2006-03-07 14:46:59,513 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute messageplayvoice
+2006-03-07 14:46:59,513 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,513 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute password
+2006-03-07 14:46:59,513 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute password
+2006-03-07 14:46:59,514 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute umpassword
+2006-03-07 14:46:59,514 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute umpassword
+2006-03-07 14:46:59,514 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,515 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute telephonenumber
+2006-03-07 14:46:59,515 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute telephonenumber
+2006-03-07 14:46:59,515 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [both] found for attribute messageplayvideo
+2006-03-07 14:46:59,515 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute messageplayvideo
+2006-03-07 14:46:59,516 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,516 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [std] found for attribute emtuiaccess
+2006-03-07 14:46:59,516 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emtuiaccess
+2006-03-07 14:46:59,516 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [0] found for attribute badlogincount
+2006-03-07 14:46:59,517 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute badlogincount
+2006-03-07 14:46:59,517 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,517 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute xamtevatitle
+2006-03-07 14:46:59,517 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute xamtevatitle
+2006-03-07 14:46:59,518 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,518 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [0.15] found for attribute diskspaceremainingwarninglevel
+2006-03-07 14:46:59,518 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute diskspaceremainingwarninglevel
+2006-03-07 14:46:59,518 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [] found for attribute emuserntd
+2006-03-07 14:46:59,519 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute emuserntd
+2006-03-07 14:46:59,519 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,519 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute cn
+2006-03-07 14:46:59,519 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute cn
+2006-03-07 14:46:59,520 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,520 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute cosname
+2006-03-07 14:46:59,520 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute cosname
+2006-03-07 14:46:59,521 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,521 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [no] found for attribute passwordskipavailable
+2006-03-07 14:46:59,521 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute passwordskipavailable
+2006-03-07 14:46:59,522 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,522 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value [15] found for attribute dlentriesmax
+2006-03-07 14:46:59,522 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute dlentriesmax
+2006-03-07 14:46:59,522 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: writelevel using default: unknown
+2006-03-07 14:46:59,523 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Default value not found for attribute subsearchbase
+2006-03-07 14:46:59,523 com.mobeon.masp.profilemanager.ProfileMetaData DEBUG [TID:main] [SID:]  - Using default search order for attribute subsearchbase
+2006-03-07 14:46:59,523 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: readtimeout using default: 5000
+2006-03-07 14:46:59,523 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: coscachetimeout using default: 300000
+2006-03-07 14:46:59,526 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'StorableMessageFactory'
+2006-03-07 14:46:59,534 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'TrafficEventSender'
+2006-03-07 14:46:59,749 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: multievent using default: false
+2006-03-07 14:46:59,750 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration group: trafficeventsender.event.emailqueue
+2006-03-07 14:46:59,750 com.mobeon.masp.trafficeventsender.TrafficEventSenderConfiguration DEBUG [TID:main] [SID:]  - emailqueue group is missing for event login
+2006-03-07 14:46:59,751 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: multievent using default: false
+2006-03-07 14:46:59,752 com.mobeon.masp.trafficeventsender.EmailConfiguration DEBUG [TID:main] [SID:]  - In EmailConfiguration: templateEngineProperties={file.resource.loader.path=/data/mas/lib, file.resource.loader.cache=true, file.resource.loader.modificationCheckInterval=0}
+2006-03-07 14:46:59,832 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - ************************************************************** 
+2006-03-07 14:46:59,832 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Starting Jakarta Velocity v1.4
+2006-03-07 14:46:59,832 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - RuntimeInstance initializing.
+2006-03-07 14:46:59,832 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2006-03-07 14:46:59,839 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2006-03-07 14:46:59,845 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2006-03-07 14:46:59,846 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - FileResourceLoader : initialization starting.
+2006-03-07 14:46:59,846 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - FileResourceLoader : adding path '/data/mas/lib'
+2006-03-07 14:46:59,846 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - FileResourceLoader : initialization complete.
+2006-03-07 14:46:59,849 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2006-03-07 14:46:59,849 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Default ResourceManager initialization complete.
+2006-03-07 14:46:59,853 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2006-03-07 14:46:59,856 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2006-03-07 14:46:59,936 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2006-03-07 14:46:59,940 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2006-03-07 14:46:59,943 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2006-03-07 14:47:00,032 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Created: 20 parsers.
+2006-03-07 14:47:00,046 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : initialization starting.
+2006-03-07 14:47:00,046 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2006-03-07 14:47:00,053 com.mobeon.masp.trafficeventsender.email.EmailLogSystem ERROR [TID:main] [SID:]  - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2006-03-07 14:47:00,054 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2006-03-07 14:47:00,054 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro :  VM library template macro registration complete.
+2006-03-07 14:47:00,054 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2006-03-07 14:47:00,054 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2006-03-07 14:47:00,054 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2006-03-07 14:47:00,054 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : messages on  : VM system will output logging messages
+2006-03-07 14:47:00,055 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2006-03-07 14:47:00,055 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocimacro : initialization complete.
+2006-03-07 14:47:00,055 com.mobeon.masp.trafficeventsender.email.EmailLogSystem DEBUG [TID:main] [SID:]  - Velocity successfully started.
+2006-03-07 14:47:00,069 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: multievent using default: false
+2006-03-07 14:47:00,069 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration group: trafficeventsender.event.emailqueue
+2006-03-07 14:47:00,069 com.mobeon.masp.trafficeventsender.TrafficEventSenderConfiguration DEBUG [TID:main] [SID:]  - emailqueue group is missing for event login
+2006-03-07 14:47:00,070 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration parameter: multievent using default: false
+2006-03-07 14:47:00,076 com.mobeon.masp.trafficeventsender.RadiusConfiguration DEBUG [TID:main] [SID:]  - In RadiusConfiguration: serviceName=eventreporting,instanceName=MAS@su-pc185,queueSize=2000
+2006-03-07 14:47:00,079 com.mobeon.masp.externalcomponentregister.ComponentRegisterHandlerImpl DEBUG [TID:main] [SID:]  - Request for cached service instance
+2006-03-07 14:47:00,080 com.mobeon.masp.externalcomponentregister.ComponentRegisterHandlerImpl DEBUG [TID:main] [SID:]  - Return service instance eventreporting{hostname=bishop.hurr9.lab.mobeon.com, port=1813}
+2006-03-07 14:47:00,082 com.mobeon.masp.trafficeventsender.RadiusClient DEBUG [TID:main] [SID:]  - In loadRadiusServers: Loaded RadiusServerEntries [bishop.hurr9.lab.mobeon.com:1813 (null)]
+2006-03-07 14:47:00,101 com.mobeon.masp.trafficeventsender.RadiusClient DEBUG [TID:main] [SID:]  - RadiusErrorHandler Info: Preferred RadiusServer is: bishop.hurr9.lab.mobeon.com at port: 1813
+2006-03-07 14:47:00,112 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'NumberAnalyzer'
+2006-03-07 14:47:00,145 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ApplicationManagement'
+2006-03-07 14:47:00,220 com.mobeon.masp.trafficeventsender.RadiusClient DEBUG [TID:RadiusEventSender] [SID:]  - RadiusErrorHandler Info: RadiusEventSender thread started, number of send retries is set to: 2
+2006-03-07 14:47:00,398 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ApplicationCompiler'
+2006-03-07 14:47:00,475 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ApplicationExecutionFactory'
+2006-03-07 14:47:00,481 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'SessionFactory'
+2006-03-07 14:47:00,486 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'OmManager'
+2006-03-07 14:47:00,505 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Install directory found. (/apps/mas)
+2006-03-07 14:47:00,514 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Save timeout is set to :5
+2006-03-07 14:47:00,655 com.mobeon.masp.operateandmaintainmanager.RPCExecution DEBUG [TID:main] [SID:]  - RPC execution: awaiting command
+2006-03-07 14:47:00,655 com.mobeon.masp.operateandmaintainmanager.RPCServer DEBUG [TID:main] [SID:]  - RPC Server initilized. [Port:8081]
+2006-03-07 14:47:00,692 com.mobeon.masp.operateandmaintainmanager.RPCServer DEBUG [TID:main] [SID:]  - RPC Server running.
+2006-03-07 14:47:00,963 com.mobeon.masp.execution_engine.compiler.ApplicationCompilerImpl DEBUG [TID:main] [SID:]  - Compilation of file:/apps/mas/applications/default.ccxml took 208.06 ms
+2006-03-07 14:47:01,011 com.mobeon.masp.execution_engine.voicexml.compiler.VXML DEBUG [TID:main] [SID:]  - Compiling VXML
+2006-03-07 14:47:01,036 com.mobeon.masp.execution_engine.voicexml.compiler.FormCompiler DEBUG [TID:main] [SID:]  - Compiling Form (FIA)
+2006-03-07 14:47:01,060 com.mobeon.masp.execution_engine.voicexml.compiler.Catch DEBUG [TID:main] [SID:]  - Compiling Catch
+2006-03-07 14:47:01,065 com.mobeon.masp.execution_engine.voicexml.compiler.Catch DEBUG [TID:main] [SID:]  - Compiling Catch
+2006-03-07 14:47:01,066 com.mobeon.masp.execution_engine.compiler.ApplicationCompilerImpl DEBUG [TID:main] [SID:]  - Compilation of file:/apps/mas/applications/patest_analyzenumber.vxml took 60.596333 ms
+2006-03-07 14:47:01,322 com.mobeon.masp.configuration.IGroup  INFO [TID:main] [SID:]  - Unable to find configuration group: callmanager.remoteparty.phone
+2006-03-07 14:47:01,322 com.mobeon.masp.callmanager.configuration.CallManagerConfiguration DEBUG [TID:main] [SID:]  - Remote party phone could not be retrieved from configuration.
+2006-03-07 14:47:01,414 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - get service enabler statistic [sip:0.0.0.0:5060]
+2006-03-07 14:47:01,415 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - register service enabler [sip:0.0.0.0:5060]
+2006-03-07 14:47:01,570 com.mobeon.masp.operateandmaintainmanager.ServiceEnabler DEBUG [TID:main] [SID:]  - Service enabler created [sip:0.0.0.0:5060]
+2006-03-07 14:47:01,627 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - INIT SIP Stack
+2006-03-07 14:47:01,735 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created SIP stack.
+2006-03-07 14:47:01,856 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created udp listening point.
+2006-03-07 14:47:01,866 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created udp provider
+2006-03-07 14:47:01,872 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created tcp listening point.
+2006-03-07 14:47:01,872 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created tcp provider
+2006-03-07 14:47:01,872 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Listening for requests on 0.0.0.0:5060
+2006-03-07 14:47:02,023 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:main] [SID:]  - Created message factories
+2006-03-07 14:47:02,023 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - Setting threshold in state: MaxLoad
+2006-03-07 14:47:02,025 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - New threshold results in lower water mark reached. (State=MaxLoad, Current calls=0, Max calls=60, HWM=50, LWM=40)
+2006-03-07 14:47:02,025 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - Load Regulation state set to: NormalLoad
+2006-03-07 14:47:02,025 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - Setting threshold results in load regulation action: START_TRAFFIC
+2006-03-07 14:47:02,025 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Something triggerd. Check MAS Status 
+2006-03-07 14:47:02,029 com.mobeon.masp.operateandmaintainmanager.OperateMAS ERROR [TID:main] [SID:]  - MAS operational state is DISABLED. :No provided service registered
+2006-03-07 14:47:02,029 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:main] [SID:]  - Unlock request received. (State=Locked)
+2006-03-07 14:47:02,030 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:main] [SID:]  - The load situation is normal so unregistration towards all SSPs is initiated. (State=Locked)
+2006-03-07 14:47:02,042 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Try to register provided service [sip:0.0.0.0:5060.Default]
+2006-03-07 14:47:02,046 com.mobeon.masp.operateandmaintainmanager.ProvidedServiceEntry DEBUG [TID:main] [SID:]  - Provided service created [Default]
+2006-03-07 14:47:02,046 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Something triggerd. Check MAS Status 
+2006-03-07 14:47:02,048 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - Setting threshold in state: NormalLoad
+2006-03-07 14:47:02,048 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - New threshold does not affect load situation. (State=NormalLoad, Current calls=0, Max calls=50, HWM=100, LWM=10)
+2006-03-07 14:47:02,049 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:main] [SID:]  - Setting threshold results in load regulation action: UNCHANGED_TRAFFIC
+2006-03-07 14:47:02,049 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Something triggerd. Check MAS Status 
+2006-03-07 14:47:02,049 com.mobeon.masp.operateandmaintainmanager.OperateMAS  WARN [TID:main] [SID:]  - MAS operational state is ENABLED.
+2006-03-07 14:47:02,049 com.mobeon.masp.operateandmaintainmanager.ServiceEnabler DEBUG [TID:main] [SID:]  - Threshold set to 50 for [sip:0.0.0.0:5060]
+2006-03-07 14:47:02,049 com.mobeon.masp.operateandmaintainmanager.ServiceEnabler DEBUG [TID:main] [SID:]  - HigWaterMark set to 100 for [sip:0.0.0.0:5060]
+2006-03-07 14:47:02,049 com.mobeon.masp.operateandmaintainmanager.ServiceEnabler DEBUG [TID:main] [SID:]  - LowWaterMArk set to 10 for [sip:0.0.0.0:5060]
+2006-03-07 14:47:02,050 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Something triggerd. Check MAS Status 
+2006-03-07 14:47:02,050 com.mobeon.masp.operateandmaintainmanager.OperateMAS  WARN [TID:main] [SID:]  - MAS operational state is ENABLED.
+2006-03-07 14:47:02,050 com.mobeon.masp.operateandmaintainmanager.OperateMAS DEBUG [TID:main] [SID:]  - Something triggerd. Check MAS Status 
+2006-03-07 14:47:02,050 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ComponentManager'
+2006-03-07 14:47:02,055 org.springframework.beans.factory.support.DefaultListableBeanFactory  INFO [TID:main] [SID:]  - Creating shared instance of singleton bean 'ExecutorServiceManager'
+2006-03-07 14:47:02,061 com.mobeon.masp.execution_engine.Main  INFO [TID:main] [SID:]  - MAS started!
+2006-03-07 14:47:02,142 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-1] [SID:]  - DoCommand: RegisterEvent
+2006-03-07 14:47:02,142 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-1] [SID:]  - doRegister received. Registration is started. (State=Unregistered, SSP=ssp1.mobeon.com:5060)
+2006-03-07 14:47:02,180 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-2] [SID:]  - DoCommand: RegisterEvent
+2006-03-07 14:47:02,180 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-2] [SID:]  - doRegister received. Registration is started. (State=Unregistered, SSP=ssp2.mobeon.com:5060)
+2006-03-07 14:47:02,229 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Generated the tag: 1878160076
+2006-03-07 14:47:02,230 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Generated the tag: 276825142
+2006-03-07 14:47:02,362 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-1] [SID:]  - Exception occurred when registering. The backoff timer is scheduled for a REGISTER retry later. (State=Unregistered, SSP=ssp1.mobeon.com:5060)
+2006-03-07 14:47:02,362 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-1] [SID:]  - Scheduling backoff after 120 seconds.
+2006-03-07 14:47:02,364 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-1] [SID:]  - Registration state set to: Registering
+2006-03-07 14:47:02,368 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-2] [SID:]  - Exception occurred when registering. The backoff timer is scheduled for a REGISTER retry later. (State=Unregistered, SSP=ssp2.mobeon.com:5060)
+2006-03-07 14:47:02,369 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-2] [SID:]  - Scheduling backoff after 120 seconds.
+2006-03-07 14:47:02,369 com.mobeon.masp.callmanager.registration.SspInstance DEBUG [TID:pool-1-thread-2] [SID:]  - Registration state set to: Registering
+2006-03-07 14:47:41,870 com.mobeon.masp.callmanager.CallManagerImpl DEBUG [TID:EventScannerThread] [SID:]  - SIP request received.
+2006-03-07 14:47:41,870 com.mobeon.masp.callmanager.sip.SipMessageSenderImpl DEBUG [TID:EventScannerThread] [SID:]  - Creating a new server transaction.
+2006-03-07 14:47:41,886 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Processing SIP request event: SipRequestEvent: method=INVITE
+2006-03-07 14:47:41,888 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - Looking for call with dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:41,889 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - Looking for call with earlyDialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:username@10.16.2.129:5060
+2006-03-07 14:47:41,889 com.mobeon.masp.callmanager.SipRequestDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - Matching call was not found. The To tag is examined to determine how to handle the request.
+2006-03-07 14:47:41,890 com.mobeon.masp.callmanager.SipRequestDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - The SIP request was received out-of-dialog.
+2006-03-07 14:47:41,890 com.mobeon.masp.callmanager.sip.SipStackWrapperImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Generated the tag: 739430854
+2006-03-07 14:47:41,890 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Session-creating INVITE was validated OK
+2006-03-07 14:47:41,891 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Trying to create a new inbound call.
+2006-03-07 14:47:41,891 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Adding a new inbound call. (State=Unlocked)
+2006-03-07 14:47:41,891 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:pool-1-thread-2] [SID:]  - Adding call in state: NormalLoad
+2006-03-07 14:47:41,891 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:pool-1-thread-2] [SID:]  - Adding call does not affect load situation. (State=NormalLoad, Current calls=1, Max calls=50, HWM=100, LWM=10)
+2006-03-07 14:47:41,891 com.mobeon.masp.callmanager.loadregulation.LoadRegulator DEBUG [TID:pool-1-thread-2] [SID:]  - Adding call results in load regulation action: UNCHANGED_TRAFFIC
+2006-03-07 14:47:41,965 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - Inserting call with early dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:41,965 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - DoCommand: SipRequestEvent: method=INVITE
+2006-03-07 14:47:41,966 com.mobeon.masp.callmanager.callhandling.states.inbound.IdleInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - SIP INVITE received in Idle state.
+2006-03-07 14:47:41,968 com.mobeon.masp.callmanager.sdp.SessionDescriptionFactory DEBUG [TID:pool-1-thread-1] [SID:]  - Parsing SDP: v=0
+o=Username 1141719255 1141719255 IN IP4 10.16.2.129
+s=Kapanga [1141719255]
+c=IN IP4 10.16.2.129
+t=0 0
+m=audio 5196 RTP/AVP 0 8 101
+a=rtpmap:0 pcmu/8000
+a=sendrecv
+a=silenceSupp:off - - -
+a=ptime:20
+a=rtpmap:8 pcma/8000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+m=video 5198 RTP/AVP 34 98
+a=rtpmap:34 h263/90000
+a=fmtp:34 QCIF=4
+a=sendrecv
+a=rtpmap:98 theora/90000
+a=fmtp:98 sampling=YCbCr-4:2:0; width=176, height=144;
+
+2006-03-07 14:47:41,990 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-2] [SID:]  - A new outbound call has been created: com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c
+2006-03-07 14:47:42,065 com.mobeon.masp.callmanager.sdp.SessionDescriptionFactory DEBUG [TID:pool-1-thread-1] [SID:]  - Parsed SDP: SessionDescriptionImpl: <ConnectionAddress = 10.16.2.129>
+2006-03-07 14:47:42,066 com.mobeon.masp.callmanager.callhandling.states.inbound.IdleInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Remote SDP offer was parsed.
+2006-03-07 14:47:42,066 com.mobeon.masp.callmanager.callhandling.states.inbound.IdleInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - SDP offer was included in the INVITE.
+2006-03-07 14:47:42,075 com.mobeon.masp.callmanager.sip.CallParameterRetrieval DEBUG [TID:pool-1-thread-1] [SID:]  - Trying to retrieve call parameters using Request-URI <sip:1000@pawn.hurr9.lab.mobeon.com:5060;test=on;calling=99910001;called=12345;redir=99910002>
+2006-03-07 14:47:42,077 com.mobeon.masp.callmanager.sip.CallParameterRetrieval DEBUG [TID:pool-1-thread-1] [SID:]  - Created Called Party: Uri: sip:1000@pawn.hurr9.lab.mobeon.com:5060;test=on;calling=99910001;called=12345;redir=99910002, SipUser: null, TelephoneNumber: 12345
+2006-03-07 14:47:42,079 com.mobeon.masp.callmanager.sip.CallParameterRetrieval DEBUG [TID:pool-1-thread-1] [SID:]  - Created Calling Party: Uri: sip:1000@pawn.hurr9.lab.mobeon.com:5060;test=on;calling=99910001;called=12345;redir=99910002, SipUser: null, TelephoneNumber: 99910001, Presentation Indicator: unknown
+2006-03-07 14:47:42,089 com.mobeon.masp.callmanager.sip.CallParameterRetrieval DEBUG [TID:pool-1-thread-1] [SID:]  - Created Redirecting Party: Uri: sip:1000@pawn.hurr9.lab.mobeon.com:5060;test=on;calling=99910001;called=12345;redir=99910002, SipUser: null, TelephoneNumber: 99910002, Presentation Indicator: unknown, Redirection Cause: unknown
+2006-03-07 14:47:42,464 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-1] [SID:]  - Entered handler scope. Depth is now 1
+2006-03-07 14:47:42,506 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-1] [SID:]  - com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor.onSetExecutionContext(CCXMLEventProcessor.java:81) added extractor Extractor{ upstreamRule=or(, , ), downstreamRule=TRUE, func=com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor@1898115 } to event stream created at com.mobeon.masp.execution_engine.ccxml.runtime.ExecutionContextImpl.<init>(ExecutionContextImpl.java:48)
+2006-03-07 14:47:42,529 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-1] [SID:]  - com.mobeon.masp.execution_engine.ApplicationExecutionImpl.createRuntimes(ApplicationExecutionImpl.java:64) added injector Injector{ upstreamRule=TRUE, downstreamRule=FALSE } to event stream created at com.mobeon.masp.execution_engine.ApplicationExecutionImpl.createRuntimes(ApplicationExecutionImpl.java:62)
+2006-03-07 14:47:42,544 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-1] [SID:]  - com.mobeon.masp.execution_engine.ApplicationExecutionImpl.createRuntimes(ApplicationExecutionImpl.java:82) added extractor Extractor{ upstreamRule=FALSE, downstreamRule=TRUE, func=com.mobeon.masp.execution_engine.runtime.RuntimeControl@18c458 } to event stream created at com.mobeon.masp.execution_engine.ccxml.runtime.ExecutionContextImpl.<init>(ExecutionContextImpl.java:48)
+2006-03-07 14:47:42,545 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-1] [SID:]  - Received com.mobeon.masp.execution_engine.runtime.event.LifecycleEvent@2a2cc
+2006-03-07 14:47:42,593 com.mobeon.masp.callmanager.callhandling.states.inbound.IdleInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Service was loaded.
+2006-03-07 14:47:42,597 com.mobeon.masp.callmanager.sip.SipMessageSenderImpl  INFO [TID:pool-1-thread-1] [SID:]  - SIP 100 (Trying) response is sent.
+2006-03-07 14:47:42,597 com.mobeon.masp.callmanager.callhandling.states.inbound.IdleInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Trying response is sent.
+2006-03-07 14:47:42,598 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Fire event: AlertingEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c>
+2006-03-07 14:47:42,598 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-1] [SID:]  - Received AlertingEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c>
+2006-03-07 14:47:42,599 com.mobeon.masp.execution_engine.ccxml.ConnectionImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Performing Transition{currentState=START, newState=ALERTING, automatonEvent=EVENT_ALERTING, enterAction=Action{ send=connection.alerting }, exitAction=null}
+2006-03-07 14:47:42,605 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-1] [SID:]  - Received CCXMLEvent{ event=connection.alerting, uri=null, from=Connection{ id=1 }, priority=0 }
+2006-03-07 14:47:42,605 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Event put on queue, calling runAsNeeded !
+2006-03-07 14:47:42,605 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Runner is dead or dying and will have to be reanimated
+2006-03-07 14:47:42,606 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Reanimate called, creating thread
+2006-03-07 14:47:42,606 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Alive !
+2006-03-07 14:47:42,606 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Prepared to execute: file:/apps/mas/applications/default.ccxml
+2006-03-07 14:47:42,607 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Notification released !
+2006-03-07 14:47:42,607 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >ProductImpl<#1,ccxml@<2,62>>(__internal_1)[...] 
+2006-03-07 14:47:42,608 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:]  - Entered handler scope. Depth is now 2
+2006-03-07 14:47:42,609 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >ProductImpl<#2,log@<3,33>>(__internal_2)[...] 
+2006-03-07 14:47:42,609 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >Mark_P()
+2006-03-07 14:47:42,610 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >EvaluateECMA_P(''Drop3Loading'')
+2006-03-07 14:47:42,661 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P DEBUG [TID:pool-1-thread-2] [SID:]  - Evaluation of ''Drop3Loading'' resulted in 'Drop3Loading'
+2006-03-07 14:47:42,663 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >Log_TM()
+2006-03-07 14:47:42,672 com.mobeon.masp.execution_engine.compiler.operations.Log_TM  INFO [TID:pool-1-thread-2] [SID:]  - Drop3Loading
+2006-03-07 14:47:42,672 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >ProductImpl<#3,eventprocessor@<4,21>>(__internal_3)[...] 
+2006-03-07 14:47:42,675 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >ECMAVar('_state')
+2006-03-07 14:47:42,676 com.mobeon.masp.execution_engine.compiler.operations.ECMAVar DEBUG [TID:pool-1-thread-2] [SID:]  - Setting the variable _state to null
+2006-03-07 14:47:42,676 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >UseStateVariable('_state')
+2006-03-07 14:47:42,676 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >Hidden()[ ... ]
+2006-03-07 14:47:42,676 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >Hidden()[ ... ]
+2006-03-07 14:47:42,677 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >Hidden()[ ... ]
+2006-03-07 14:47:42,677 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >SetEventsEnabled(true)
+2006-03-07 14:47:42,677 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Events enabled
+2006-03-07 14:47:42,682 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Offered : Entry{event=CCXMLEvent{ event=connection.alerting, uri=null, from=Connection{ id=1 }, priority=0 }, handler=EventHandler{predicate=TruePredicate(__internal_5, )[ ... ]}}
+2006-03-07 14:47:42,683 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:]  - Entered handler scope. Depth is now 3
+2006-03-07 14:47:42,683 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Events disabled
+2006-03-07 14:47:42,683 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-2] [SID:]  - Prepared : Entry{event=CCXMLEvent{ event=connection.alerting, uri=null, from=Connection{ id=1 }, priority=0 }, handler=EventHandler{predicate=TruePredicate(__internal_5, )[ ... ]}}
+2006-03-07 14:47:42,683 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >SetEventVar('evt')
+2006-03-07 14:47:42,684 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >EvaluateECMA_P('evt.connectionid')
+2006-03-07 14:47:42,684 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P DEBUG [TID:pool-1-thread-2] [SID:]  - Evaluation of 'evt.connectionid' resulted in '1'
+2006-03-07 14:47:42,684 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) >ConnectionAccept_T()
+2006-03-07 14:47:42,685 com.mobeon.masp.execution_engine.ccxml.ConnectionImpl DEBUG [TID:pool-1-thread-2] [SID:]  - No mimetype set from main, using audio/pcmu
+2006-03-07 14:47:42,688 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-2] [SID:]  - Left handler scope. Depth is now 2
+2006-03-07 14:47:42,688 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Events enabled
+2006-03-07 14:47:42,688 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Dying
+2006-03-07 14:47:42,692 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Inbound call state is set to Alerting.
+2006-03-07 14:47:42,692 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - DoCommand: AcceptEvent
+2006-03-07 14:47:42,692 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Accept received in Alerting state
+2006-03-07 14:47:42,695 com.mobeon.masp.callmanager.sip.SipMessageSenderImpl  INFO [TID:pool-1-thread-1] [SID:]  - SIP 180 (Ringing) response is sent.
+2006-03-07 14:47:42,695 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Ringing response is sent.
+2006-03-07 14:47:42,695 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Trying to find SDP intersection.
+2006-03-07 14:47:42,699 com.mobeon.masp.callmanager.sdp.SdpMediaComparison DEBUG [TID:pool-1-thread-1] [SID:]  - Media Description: MediaDescriptionImpl: <MediaType = audio>, <MediaPort = 5196>, <MediaPortCount = 0>, <MediaFormats = [0, 8, 101]>, <MediaProtocol = RTP/AVP>, <Connection = 10.16.2.129>, <RtpMap's = [8 pcma/8000, 101 telephone-event/8000, 0 pcmu/8000]>, <pTime = 20>, <Fmtp's = [101 0-15]>
+2006-03-07 14:47:42,699 com.mobeon.masp.callmanager.sdp.SdpMediaComparison DEBUG [TID:pool-1-thread-1] [SID:]  - Looking if mandatory media types are supported
+2006-03-07 14:47:42,699 com.mobeon.masp.callmanager.sdp.MediaDescriptionImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Checking if static RTP payload type <101> is among media formats for mime type <audio/telephone-event>.
+2006-03-07 14:47:42,700 com.mobeon.masp.callmanager.sdp.MediaDescriptionImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Checking if static RTP payload type <0> is among media formats for mime type <audio/pcmu>.
+2006-03-07 14:47:42,700 com.mobeon.masp.callmanager.sdp.SdpMediaComparison DEBUG [TID:pool-1-thread-1] [SID:]  - Media Description: MediaDescriptionImpl: <MediaType = video>, <MediaPort = 5198>, <MediaPortCount = 0>, <MediaFormats = [34, 98]>, <MediaProtocol = RTP/AVP>, <Connection = 10.16.2.129>, <RtpMap's = [34 h263/90000, 98 theora/90000]>, <pTime = null>, <Fmtp's = [34 QCIF=4, 98 sampling=YCbCr-4:2:0;]>
+2006-03-07 14:47:42,700 com.mobeon.masp.callmanager.sdp.SdpMediaComparison DEBUG [TID:pool-1-thread-1] [SID:]  - Looking if mandatory media types are supported
+2006-03-07 14:47:42,700 com.mobeon.masp.callmanager.sdp.MediaDescriptionImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Checking if static RTP payload type <34> is among media formats for mime type <video/h263>.
+2006-03-07 14:47:42,701 com.mobeon.masp.callmanager.sdp.SdpMediaComparison DEBUG [TID:pool-1-thread-1] [SID:]  - Looking if selectable audio types are supported
+2006-03-07 14:47:42,701 com.mobeon.masp.callmanager.sdp.SdpMediaComparison DEBUG [TID:pool-1-thread-1] [SID:]  - Checking if selectable audio mime type is supported: audio/pcmu
+2006-03-07 14:47:42,701 com.mobeon.masp.callmanager.sdp.MediaDescriptionImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Checking if static RTP payload type <0> is among media formats for mime type <audio/pcmu>.
+2006-03-07 14:47:42,704 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - SDP intersection found.
+2006-03-07 14:47:42,728 com.mobeon.masp.stream.StreamFactoryImpl DEBUG [TID:pool-1-thread-1] [SID:]  - No media translation manager set in stream  factory, no conversions can be made.
+2006-03-07 14:47:42,729 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Creating outbound stream with RTP Payloads: [audio/pcma, audio/telephone-event, audio/pcmu]
+2006-03-07 14:47:42,730 com.mobeon.masp.stream.StreamContentInfo DEBUG [TID:pool-1-thread-1] [SID:]  - Payload: audio/pcma
+2006-03-07 14:47:42,730 com.mobeon.masp.stream.StreamContentInfo DEBUG [TID:pool-1-thread-1] [SID:]  - Payload: audio/telephone-event
+2006-03-07 14:47:42,730 com.mobeon.masp.stream.StreamContentInfo DEBUG [TID:pool-1-thread-1] [SID:]  - Payload: audio/pcmu
+2006-03-07 14:47:42,732 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Streams are created.
+2006-03-07 14:47:42,735 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - SDP answer is created.
+2006-03-07 14:47:42,743 com.mobeon.masp.callmanager.sip.SipMessageSenderImpl  INFO [TID:pool-1-thread-1] [SID:]  - SIP 200 (OK) response is sent.
+2006-03-07 14:47:42,744 com.mobeon.masp.callmanager.callhandling.states.inbound.AlertingInboundState DEBUG [TID:pool-1-thread-1] [SID:]  - Ok response is sent.
+2006-03-07 14:47:42,744 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Inbound call state is set to Accepting.
+2006-03-07 14:47:42,744 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - Updating call with established dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:739430854:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:42,896 com.mobeon.masp.callmanager.CallManagerImpl DEBUG [TID:EventScannerThread] [SID:]  - SIP request received.
+2006-03-07 14:47:42,896 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Processing SIP request event: SipRequestEvent: method=ACK
+2006-03-07 14:47:42,896 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - Looking for call with dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:739430854:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:42,897 com.mobeon.masp.callmanager.SipRequestDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - Matching call was found for SIP request event. It is handled as mid-dialog.
+2006-03-07 14:47:42,897 com.mobeon.masp.callmanager.SipRequestDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - The SIP request event (SipRequestEvent: method=ACK) was received mid-dialog.
+2006-03-07 14:47:42,897 com.mobeon.masp.callmanager.sip.header.SipHeaderAccessImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Content-Type header is missing.
+2006-03-07 14:47:42,897 com.mobeon.masp.callmanager.SipRequestDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - The SIP request event (SipRequestEvent: method=ACK) was validated ok. It is queued in the call (com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c).
+2006-03-07 14:47:42,946 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:]  - DoCommand: SipRequestEvent: method=ACK
+2006-03-07 14:47:42,947 com.mobeon.masp.callmanager.callhandling.states.inbound.AcceptingInboundState DEBUG [TID:pool-1-thread-2] [SID:]  - SIP ACK request received in Accepting state.
+2006-03-07 14:47:42,947 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Fire event: ConnectedEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c>
+2006-03-07 14:47:42,947 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-2] [SID:]  - Received ConnectedEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c>
+2006-03-07 14:47:42,948 com.mobeon.masp.execution_engine.ccxml.ConnectionImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Performing Transition{currentState=ALERTING, newState=CONNECTED, automatonEvent=ACCEPT, enterAction=Action{ send=connection.connected }, exitAction=null}
+2006-03-07 14:47:42,948 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-2] [SID:]  - Received CCXMLEvent{ event=connection.connected, uri=null, from=Connection{ id=1 }, priority=0 }
+2006-03-07 14:47:42,948 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Event put on queue, calling runAsNeeded !
+2006-03-07 14:47:42,948 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Runner is dead or dying and will have to be reanimated
+2006-03-07 14:47:42,949 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Reanimate called, creating thread
+2006-03-07 14:47:42,949 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Alive !
+2006-03-07 14:47:42,949 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Prepared to execute: file:/apps/mas/applications/default.ccxml
+2006-03-07 14:47:42,949 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-2] [SID:]  - (CCXML) Notification released !
+2006-03-07 14:47:42,950 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Offered : Entry{event=CCXMLEvent{ event=connection.connected, uri=null, from=Connection{ id=1 }, priority=0 }, handler=EventHandler{predicate=TruePredicate(__internal_7, )[ ... ]}}
+2006-03-07 14:47:42,950 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-1] [SID:]  - Entered handler scope. Depth is now 3
+2006-03-07 14:47:42,950 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Events disabled
+2006-03-07 14:47:42,951 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-1] [SID:]  - Prepared : Entry{event=CCXMLEvent{ event=connection.connected, uri=null, from=Connection{ id=1 }, priority=0 }, handler=EventHandler{predicate=TruePredicate(__internal_7, )[ ... ]}}
+2006-03-07 14:47:42,951 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >SetEventVar('evt')
+2006-03-07 14:47:42,951 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >ProductImpl<#8,dialogstart@<9,65>>(__internal_8)[...] 
+2006-03-07 14:47:42,951 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >EvaluateECMA_P(''patest_analyzenumber.vxml'')
+2006-03-07 14:47:42,952 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P DEBUG [TID:pool-1-thread-1] [SID:]  - Evaluation of ''patest_analyzenumber.vxml'' resulted in 'patest_analyzenumber.vxml'
+2006-03-07 14:47:42,952 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >Text_P('application/xml+vxml')
+2006-03-07 14:47:42,954 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >TextArray_P({  })
+2006-03-07 14:47:42,955 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >CreateDialogStartBySrcTypeNamelist_T3P()
+2006-03-07 14:47:42,961 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >SendEvent_T()
+2006-03-07 14:47:42,962 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-1] [SID:]  - Received DialogStartEvent{Dialog{dialogId=1, connection=Connection{connectionId=1}, src=patest_analyzenumber.vxml, mimeType=application/xml+vxml}}
+2006-03-07 14:47:42,989 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-1] [SID:]  - Entered handler scope. Depth is now 1
+2006-03-07 14:47:43,002 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (NO EXECUTION CONTEXT!!) Events enabled
+2006-03-07 14:47:43,015 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-1] [SID:]  - com.mobeon.masp.execution_engine.voicexml.runtime.VoiceXMLEventProcessor.onSetExecutionContext(VoiceXMLEventProcessor.java:107) added extractor Extractor{ upstreamRule=FALSE, downstreamRule=or(, , , , , , ), func=com.mobeon.masp.execution_engine.voicexml.runtime.VoiceXMLEventProcessor@aa2ef2 } to event stream created at com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl.<init>(ExecutionContextImpl.java:148)
+2006-03-07 14:47:43,017 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-1] [SID:]  - Received CCXMLEvent{ event=dialog.started, uri=null, from=null, priority=0 }
+2006-03-07 14:47:43,017 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Event put on queue, calling runAsNeeded !
+2006-03-07 14:47:43,017 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Runner is alive and will examine queue before exiting
+2006-03-07 14:47:43,017 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Notification released !
+2006-03-07 14:47:43,017 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (VXML) Runner is dead or dying and will have to be reanimated
+2006-03-07 14:47:43,018 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (VXML) Reanimate called, creating thread
+2006-03-07 14:47:43,018 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (VXML) Notification released !
+2006-03-07 14:47:43,018 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-1] [SID:]  - Left handler scope. Depth is now 2
+2006-03-07 14:47:43,018 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Events enabled
+2006-03-07 14:47:43,019 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Dying
+2006-03-07 14:47:43,020 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) Alive !
+2006-03-07 14:47:43,021 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) Prepared to execute: file:/apps/mas/applications/patest_analyzenumber.vxml
+2006-03-07 14:47:43,021 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#11,vxml@<2,57>>(__internal_11)[...] 
+2006-03-07 14:47:43,023 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#12,vxml@<2,57>>(__internal_12)[...] 
+2006-03-07 14:47:43,023 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:]  - Entered handler scope. Depth is now 2
+2006-03-07 14:47:43,023 com.mobeon.masp.execution_engine.voicexml.compiler.operations.AddEventHandler DEBUG [TID:pool-1-thread-3] [SID:]  - Adding event handler for error (PredicateImpl<#32,catch@<35,23>>(__internal_32)[...] )
+2006-03-07 14:47:43,024 com.mobeon.masp.execution_engine.voicexml.compiler.operations.AddEventHandler DEBUG [TID:pool-1-thread-3] [SID:]  - Adding event handler for connection.disconnect.hangup (PredicateImpl<#41,catch@<49,46>>(__internal_41)[...] )
+2006-03-07 14:47:43,024 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >SetExecutingModule(file:/apps/mas/applications/patest_analyzenumber.vxml)
+2006-03-07 14:47:43,024 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >SetEventsEnabled(true)
+2006-03-07 14:47:43,024 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >DeclareReadOnlyVar(lastresult$)
+2006-03-07 14:47:43,025 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#44,vxml@<2,57>>(__internal_44)[...] 
+2006-03-07 14:47:43,025 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Execute()
+2006-03-07 14:47:43,025 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#13,vxml@<2,57>>(__internal_13)[...] 
+2006-03-07 14:47:43,025 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >FormPredicate<#14,form@<4,23>>(main_form)[...] 
+2006-03-07 14:47:43,026 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:]  - Entered handler scope. Depth is now 3
+2006-03-07 14:47:43,026 com.mobeon.masp.execution_engine.voicexml.compiler.operations.SetFIAState DEBUG [TID:pool-1-thread-3] [SID:]  - Setting FIA Object
+2006-03-07 14:47:43,037 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:]  - Setting state to mobeon.waiting
+2006-03-07 14:47:43,038 com.mobeon.masp.execution_engine.voicexml.compiler.operations.InitializeCatchFIA DEBUG [TID:pool-1-thread-3] [SID:]  - Initializing FormItem FIA
+2006-03-07 14:47:43,038 com.mobeon.masp.execution_engine.voicexml.compiler.operations.InitializeVarFIA DEBUG [TID:pool-1-thread-3] [SID:]  - Initializing Var FIA
+2006-03-07 14:47:43,038 com.mobeon.masp.execution_engine.voicexml.compiler.operations.InitializeFormItemsFIA DEBUG [TID:pool-1-thread-3] [SID:]  - Initializing FormItem FIA
+2006-03-07 14:47:43,038 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#17,form@<4,23>>(VARSANDSCRIPTS)[...] 
+2006-03-07 14:47:43,039 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#19,var@<5,27>>(__internal_19)[...] 
+2006-03-07 14:47:43,039 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ECMAVar('phoneNumber')
+2006-03-07 14:47:43,039 com.mobeon.masp.execution_engine.compiler.operations.ECMAVar DEBUG [TID:pool-1-thread-3] [SID:]  - Setting the variable phoneNumber to null
+2006-03-07 14:47:43,040 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >BinaryProduct<#20,var@<5,27>>(__internal_20) <trueProducts>{[
+getParam_P('phoneNumber')
+AssignECMAVar_T('phoneNumber')
+]} <falseProducts>{[
+]} }
+2006-03-07 14:47:43,041 com.mobeon.masp.execution_engine.compiler.products.BinaryProduct DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluating condition: null was false
+2006-03-07 14:47:43,041 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#21,var@<6,31>>(__internal_21)[...] 
+2006-03-07 14:47:43,041 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ECMAVar('origPhoneNumber')
+2006-03-07 14:47:43,041 com.mobeon.masp.execution_engine.compiler.operations.ECMAVar DEBUG [TID:pool-1-thread-3] [SID:]  - Setting the variable origPhoneNumber to null
+2006-03-07 14:47:43,042 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >BinaryProduct<#22,var@<6,31>>(__internal_22) <trueProducts>{[
+getParam_P('origPhoneNumber')
+AssignECMAVar_T('origPhoneNumber')
+]} <falseProducts>{[
+]} }
+2006-03-07 14:47:43,042 com.mobeon.masp.execution_engine.compiler.products.BinaryProduct DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluating condition: null was false
+2006-03-07 14:47:43,042 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#23,var@<7,30>>(__internal_23)[...] 
+2006-03-07 14:47:43,043 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ECMAVar('unknown_sender')
+2006-03-07 14:47:43,043 com.mobeon.masp.execution_engine.compiler.operations.ECMAVar DEBUG [TID:pool-1-thread-3] [SID:]  - Setting the variable unknown_sender to null
+2006-03-07 14:47:43,043 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >BinaryProduct<#24,var@<7,30>>(__internal_24) <trueProducts>{[
+getParam_P('unknown_sender')
+AssignECMAVar_T('unknown_sender')
+]} <falseProducts>{[
+]} }
+2006-03-07 14:47:43,043 com.mobeon.masp.execution_engine.compiler.products.BinaryProduct DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluating condition: null was false
+2006-03-07 14:47:43,044 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#25,var@<8,32>>(__internal_25)[...] 
+2006-03-07 14:47:43,044 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ECMAVar('unknown_receiver')
+2006-03-07 14:47:43,044 com.mobeon.masp.execution_engine.compiler.operations.ECMAVar DEBUG [TID:pool-1-thread-3] [SID:]  - Setting the variable unknown_receiver to null
+2006-03-07 14:47:43,045 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >BinaryProduct<#26,var@<8,32>>(__internal_26) <trueProducts>{[
+getParam_P('unknown_receiver')
+AssignECMAVar_T('unknown_receiver')
+]} <falseProducts>{[
+]} }
+2006-03-07 14:47:43,045 com.mobeon.masp.execution_engine.compiler.products.BinaryProduct DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluating condition: null was false
+2006-03-07 14:47:43,045 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#16,form@<4,23>>(CATCH)[...] 
+2006-03-07 14:47:43,045 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >SelectPhaseFIA(main_form)
+2006-03-07 14:47:43,046 com.mobeon.masp.execution_engine.voicexml.compiler.operations.SelectPhaseFIA DEBUG [TID:pool-1-thread-3] [SID:]  - Selected item __internal_27
+2006-03-07 14:47:43,046 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >CollectPhaseRegisterCatchAndPropsFIA(main_form)
+2006-03-07 14:47:43,046 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >CollectPhaseDeterminePromptsFIA(main_form)
+2006-03-07 14:47:43,047 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >CollectPhaseCollectUtteranceFIA(main_form)
+2006-03-07 14:47:43,047 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CollectPhaseCollectUtteranceFIA DEBUG [TID:pool-1-thread-3] [SID:]  - Collecting input for __internal_27
+2006-03-07 14:47:43,047 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Text_P('1')
+2006-03-07 14:47:43,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >AssignECMAVar_T('__internal_27')
+2006-03-07 14:47:43,048 com.mobeon.masp.execution_engine.compiler.operations.AssignECMAVar_T DEBUG [TID:pool-1-thread-3] [SID:]  - Assigning the value 1 to the variable __internal_27
+2006-03-07 14:47:43,048 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >PredicateImpl<#27,block@<9,9>>(__internal_27)[...] 
+2006-03-07 14:47:43,048 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:]  - Entered handler scope. Depth is now 4
+2006-03-07 14:47:43,049 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#28,script@<10,11>>(SCRIPT)[...] 
+2006-03-07 14:47:43,049 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >CompileCacheAndEvaluate(file:/apps/mas/applications/patest_analyzenumber.vxml#script_ProductImpl<#28,script@<10,11>>)
+2006-03-07 14:47:43,095 com.mobeon.masp.execution_engine.platformaccess.PlatformAccessImpl DEBUG [TID:pool-1-thread-3] [SID:]  - Exception in systemAnalyzeNumber com.mobeon.masp.numberanalyzer.NumberAnalyzerException: Wrong max length on number 13 > 12
+2006-03-07 14:47:43,098 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) Event put on queue, calling runAsNeeded !
+2006-03-07 14:47:43,098 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) Runner is alive and will examine queue before exiting
+2006-03-07 14:47:43,098 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) Notification released !
+2006-03-07 14:47:43,099 com.mobeon.masp.execution_engine.runtime.scoping.ScopeImpl DEBUG [TID:pool-1-thread-3] [SID:]  - com.mobeon.masp.execution_engine.platformaccess.PlatformAccessException: error.com.mobeon.platform.numberanalysis error.com.mobeon.platform.numberanalysis systemAnalyzeNumber:MAX=12%Wrong max length on number 13 > 12
+2006-03-07 14:47:43,099 com.mobeon.masp.execution_engine.voicexml.compiler.operations.CompileCacheAndEvaluate DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluation of 'org.mozilla.javascript.InterpretedFunction@18bbb61' resulted in 'org.mozilla.javascript.Undefined@1c4795e'
+2006-03-07 14:47:43,100 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) Offered : Entry{event=SimpleEventImpl{ event=error.com.mobeon.platform.numberanalysis, uri=file:/apps/mas/applications/patest_analyzenumber.vxml, from=null, message=systemAnalyzeNumber:MAX=12%Wrong max length on number 13 > 12, priority=0 }, handler=EventHandler{predicate=PredicateImpl<#32,catch@<35,23>>(__internal_32)[...] }}
+2006-03-07 14:47:43,100 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-3] [SID:]  - Entered handler scope. Depth is now 5
+2006-03-07 14:47:43,101 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-3] [SID:]  - Prepared : Entry{event=SimpleEventImpl{ event=error.com.mobeon.platform.numberanalysis, uri=file:/apps/mas/applications/patest_analyzenumber.vxml, from=null, message=systemAnalyzeNumber:MAX=12%Wrong max length on number 13 > 12, priority=0 }, handler=EventHandler{predicate=PredicateImpl<#32,catch@<35,23>>(__internal_32)[...] }}
+2006-03-07 14:47:43,101 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >RetrieveCurrentEvent()
+2006-03-07 14:47:43,102 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#33,log@<36,8>>(__internal_33)[...] 
+2006-03-07 14:47:43,102 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Mark_P()
+2006-03-07 14:47:43,103 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Text_P('Error caught ')
+2006-03-07 14:47:43,103 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#34,value@<36,43>>(__internal_34)[...] 
+2006-03-07 14:47:43,103 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >EvaluateECMA_P('_event')
+2006-03-07 14:47:43,104 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluation of '_event' resulted in 'error.com.mobeon.platform.numberanalysis'
+2006-03-07 14:47:43,104 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Print_TM()
+2006-03-07 14:47:43,104 Application  INFO [TID:pool-1-thread-3] [SID:]  - /apps/mas/applications/patest_analyzenumber.vxml:36 Error caught error.com.mobeon.platform.numberanalysis
+2006-03-07 14:47:43,105 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >BinaryProduct<#35,if@<37,66>>(__internal_35) <trueProducts>{[
+BinaryProduct<#36,if@<38,47>>(__internal_36)
+  <trueProducts>{[
+  ProductImpl<#37,log@<39,10>>(__internal_37)
+    <main>{[
+    Mark_P()
+    Text_P('TEST 20105001 PASSED')
+    Print_TM()
+    ]}
+  ProductImpl<#38,exit@<40,12>>(__internal_38)
+    <main>{[
+    PlayQueuedPrompts()
+    SendDialogEvent(dialog.exit, <exit> tag in VoiceXML document)
+    EngineShutdown(true)
+    ]}
+  ]}
+  <falseProducts>{[
+  ]}
+}
+]} <falseProducts>{[
+]} }
+2006-03-07 14:47:43,106 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluation of '_event =='error.com.mobeon.platform.numberanalysis'' resulted in 'true'
+2006-03-07 14:47:43,106 com.mobeon.masp.execution_engine.compiler.products.BinaryProduct DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluating condition: _event =='error.com.mobeon.platform.numberanalysis' was true
+2006-03-07 14:47:43,107 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >BinaryProduct<#36,if@<38,47>>(__internal_36) <trueProducts>{[
+ProductImpl<#37,log@<39,10>>(__internal_37)
+  <main>{[
+  Mark_P()
+  Text_P('TEST 20105001 PASSED')
+  Print_TM()
+  ]}
+ProductImpl<#38,exit@<40,12>>(__internal_38)
+  <main>{[
+  PlayQueuedPrompts()
+  SendDialogEvent(dialog.exit, <exit> tag in VoiceXML document)
+  EngineShutdown(true)
+  ]}
+]} <falseProducts>{[
+]} }
+2006-03-07 14:47:43,108 com.mobeon.masp.execution_engine.compiler.operations.EvaluateECMA_P DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluation of '_message.indexOf('MAX') >= 0' resulted in 'true'
+2006-03-07 14:47:43,108 com.mobeon.masp.execution_engine.compiler.products.BinaryProduct DEBUG [TID:pool-1-thread-3] [SID:]  - Evaluating condition: _message.indexOf('MAX') >= 0 was true
+2006-03-07 14:47:43,108 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#37,log@<39,10>>(__internal_37)[...] 
+2006-03-07 14:47:43,108 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Mark_P()
+2006-03-07 14:47:43,109 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Text_P('TEST 20105001 PASSED')
+2006-03-07 14:47:43,109 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >Print_TM()
+2006-03-07 14:47:43,109 Application  INFO [TID:pool-1-thread-3] [SID:]  - /apps/mas/applications/patest_analyzenumber.vxml:39 TEST 20105001 PASSED
+2006-03-07 14:47:43,109 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >ProductImpl<#38,exit@<40,12>>(__internal_38)[...] 
+2006-03-07 14:47:43,109 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >PlayQueuedPrompts()
+2006-03-07 14:47:43,109 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:]  - No prompts to play
+2006-03-07 14:47:43,110 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >SendDialogEvent(dialog.exit, <exit> tag in VoiceXML document)
+2006-03-07 14:47:43,110 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-3] [SID:]  - Received CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 }
+2006-03-07 14:47:43,110 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (CCXML) Event put on queue, calling runAsNeeded !
+2006-03-07 14:47:43,110 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (CCXML) Runner is dead or dying and will have to be reanimated
+2006-03-07 14:47:43,110 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (CCXML) Reanimate called, creating thread
+2006-03-07 14:47:43,111 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-3] [SID:]  - (CCXML) Notification released !
+2006-03-07 14:47:43,111 com.mobeon.masp.execution_engine.voicexml.compiler.operations.SendDialogEvent DEBUG [TID:pool-1-thread-3] [SID:]  - Event CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 } sent
+2006-03-07 14:47:43,111 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-3] [SID:]  - (VXML) >EngineShutdown(true)
+2006-03-07 14:47:43,111 com.mobeon.masp.execution_engine.voicexml.runtime.ExecutionContextImpl DEBUG [TID:pool-1-thread-3] [SID:]  - Shutting down file:/apps/mas/applications/patest_analyzenumber.vxml
+2006-03-07 14:47:43,112 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-3] [SID:]  - Removed old swap com.mobeon.masp.execution_engine.runtime.event.EventStream$Swap@1
+2006-03-07 14:47:43,120 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Alive !
+2006-03-07 14:47:43,160 com.mobeon.masp.execution_engine.runtime.EventProcessorBase$EngineRunner DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Prepared to execute: file:/apps/mas/applications/default.ccxml
+2006-03-07 14:47:43,162 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Offered : Entry{event=CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 }, handler=EventHandler{predicate=TruePredicate(__internal_10, )[ ... ]}}
+2006-03-07 14:47:43,162 com.mobeon.masp.execution_engine.runtime.event.HandlerLocator DEBUG [TID:pool-1-thread-1] [SID:]  - Entered handler scope. Depth is now 3
+2006-03-07 14:47:43,162 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Events disabled
+2006-03-07 14:47:43,162 com.mobeon.masp.execution_engine.runtime.ExecutionContextBase DEBUG [TID:pool-1-thread-1] [SID:]  - Prepared : Entry{event=CCXMLEvent{ event=dialog.exit, uri=null, from=null, priority=0 }, handler=EventHandler{predicate=TruePredicate(__internal_10, )[ ... ]}}
+2006-03-07 14:47:43,162 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >SetEventVar('dlg')
+2006-03-07 14:47:43,163 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >SendCCXMLEvent('ccxml.exit', 'CCXML Exiting')
+2006-03-07 14:47:43,163 com.mobeon.masp.execution_engine.ccxml.runtime.CCXMLEventProcessor DEBUG [TID:pool-1-thread-1] [SID:]  - Received CCXMLEvent{ event=ccxml.exit, uri=null, from=Tag{ tag='transition' location=(11,52) }, priority=0 }
+2006-03-07 14:47:43,163 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Event put on queue, calling runAsNeeded !
+2006-03-07 14:47:43,163 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Runner is alive and will examine queue before exiting
+2006-03-07 14:47:43,164 com.mobeon.masp.execution_engine.runtime.EventProcessorBase DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) Notification released !
+2006-03-07 14:47:43,164 com.mobeon.masp.execution_engine.runtime.Engine DEBUG [TID:pool-1-thread-1] [SID:]  - (CCXML) >EngineShutdown(true)
+2006-03-07 14:47:43,164 com.mobeon.masp.execution_engine.runtime.event.EventStream DEBUG [TID:pool-1-thread-1] [SID:]  - Removed old swap com.mobeon.masp.execution_engine.runtime.event.EventStream$Swap@1
+2006-03-07 14:47:43,148 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Inbound call state is set to Connected.
+2006-03-07 14:47:43,167 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:]  - DoCommand: DisconnectEvent
+2006-03-07 14:47:43,167 com.mobeon.masp.callmanager.callhandling.states.inbound.ConnectedInboundState DEBUG [TID:pool-1-thread-2] [SID:]  - Disconnect received in Connected state. The call is disconnected.
+2006-03-07 14:47:43,169 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Fire event: DisconnectedEvent <Call=com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c>, <Reason=NEAR_END>, <AlreadyDisconnected=false>
+2006-03-07 14:47:43,243 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Inbound call state is set to Linger.
+2006-03-07 14:47:43,395 com.mobeon.masp.callmanager.CallManagerImpl DEBUG [TID:EventScannerThread] [SID:]  - SIP response received.
+2006-03-07 14:47:43,398 com.mobeon.masp.callmanager.CallManagerImpl DEBUG [TID:EventScannerThread] [SID:]  - It is a SIP 200 response.
+2006-03-07 14:47:43,399 com.mobeon.masp.callmanager.CallManagerControllerImpl DEBUG [TID:pool-1-thread-2] [SID:]  - Processing SIP response event: Sip Response Event: code=200
+2006-03-07 14:47:43,399 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - Looking for call with dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:739430854:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:43,400 com.mobeon.masp.callmanager.SipResponseDispatcher DEBUG [TID:pool-1-thread-2] [SID:]  - Response is queued in call: com.mobeon.masp.callmanager.callhandling.InboundCallImpl@1d59d3c
+2006-03-07 14:47:43,400 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - DoCommand: javax.sip.ResponseEvent[source=gov.nist.javax.sip.SipProviderImpl@18782a7]
+2006-03-07 14:47:43,401 com.mobeon.masp.callmanager.callhandling.states.inbound.LingerInboundState  INFO [TID:pool-1-thread-1] [SID:]  - A 200 (OK) response was received for BYE request. The call is now disconnected.
+2006-03-07 14:47:43,401 com.mobeon.masp.callmanager.callhandling.InboundCallImpl DEBUG [TID:pool-1-thread-1] [SID:]  - Inbound call state is set to Disconnected.
+2006-03-07 14:47:43,401 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - Removing established call with dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:739430854:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:43,401 com.mobeon.masp.callmanager.callhandling.CallDispatcher DEBUG [TID:pool-1-thread-1] [SID:]  - Removing early call with dialogId=12104403-bc82-b05b-9515-ed1de3b6e3e1@10.16.2.129:1000@pawn.hurr9.lab.mobeon.com:username@10.16.2.129:5060:1141739274
+2006-03-07 14:47:56,400 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:Timer-1] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:47:56,801 com.mobeon.masp.masagent.DiagnoseHandler DEBUG [TID:Timer-1] [SID:]  - Unable to match service: Default to a DiagnoseService object.
+2006-03-07 14:48:56,410 com.mobeon.masp.rpcclient.RpcClient DEBUG [TID:Timer-1] [SID:]  - RPC Client initilized [Port:8081host:localhost]
+2006-03-07 14:48:56,443 com.mobeon.masp.masagent.DiagnoseHandler DEBUG [TID:Timer-1] [SID:]  - Unable to match service: Default to a DiagnoseService object.

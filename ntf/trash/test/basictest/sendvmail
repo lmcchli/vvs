@@ -1,0 +1,96 @@
+#!/usr/local/bin/perl
+use Socket;
+
+$USER=$ARGV[0];
+$DOMAIN="ipms.su.erm.abcxyz.se";
+$MAILHOST="jawa.$DOMAIN";
+$port = 25;
+
+sub Usage {
+    print "$0 sends voice mail\n";
+    print "Usage\n";
+    exit;
+}
+
+sub fail {
+    print "Failed SMPP Bind to $host:$port as $user($pass) $systype @_\n";
+}
+
+$hostname= `hostname`;
+open (F, "nslookup $hostname|");
+while ($_= <F>) {
+    if (/Name:/) {
+	($hostname)= /Name:\s*(\S+)/;
+    }
+}
+close F;
+
+if ($ARGV[0] eq "-v") {
+    $verbose= 1;
+    shift;
+}
+
+$verbose = 1;
+
+
+$sockaddr= 'S n a4 x8';
+    
+($name, $aliases, $proto)= getprotobyname('tcp');
+($name, $aliases, $type, $len, $thisaddr)= gethostbyname($hostname);
+($name, $aliases, $type, $len, $thataddr)= gethostbyname($MAILHOST);
+
+$this= pack($sockaddr, &AF_INET, 0, $thisaddr);
+$that= pack($sockaddr, &AF_INET, $port, $thataddr);
+
+
+if (!socket(M, &PF_INET, &SOCK_STREAM, $proto)) {
+    &fail("socket failed $!");
+    exit;
+}
+
+if (!bind(M, $this)) {
+    &fail("bind failed $!");
+    exit;
+}
+
+if (!connect(M, $that)) {
+    &fail("connect failed $!");
+    exit;
+}
+
+select((select(M), $| = 1)[0]);
+
+&sendline("");
+&sendline("ehlo sun118.su.erm.abcxyz.se\n");
+&sendline("MAIL FROM: lennart.rasmusson\@mobeon.com\n");
+&sendline("RCPT TO: $USER\@$DOMAIN\n");
+&sendline("data\n");
+&sendline("To: $USER\@$DOMAIN
+Subject: test v $$
+MIME-Version: 1.0
+Content-Type: MULTIPART/Voice-Message; Version=2.0; BOUNDARY=\"-222222222-222222222-2222222222=:22222\"
+
+
+---222222222-222222222-2222222222=:22222
+Content-Type: AUDIO/wav
+Content-Transfer-Encoding: BASE64
+Content-Description: Abcxyz voice Message
+Content-Disposition: inline; voice=Voice-Message; filename=\"message.wav\"
+
+UklGRhRjAgBXQVZFZm10IBAAAAAHAAEAQB8AAEAfAAABAAgAZGF0YfBiAgBf
+bHZ1e/jr5u30cm7u7+rvaXd8cfJ7c+74fvp5fu5+aGxwb/ns7vB0b/rt5e52
+
+---222222222-222222222-2222222222=:22222--
+.\n");
+sendline("QUIT\n");
+
+
+
+sub sendline {
+    print "Sending: $_[0]" if $verbose;
+    print M $_[0];
+    do {
+        $line = <M>;
+        print "Read line: $line" if $verbose;
+    } while (substr($line, 3, 1) eq "-");
+}

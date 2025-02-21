@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+<!-- This file has been modified -->
+
+   <!--The index in the configuration parameter array LanguageNumbers.-->
+   <var name="index" />
+   <!--The number of times that the menu has been presented for the caller.-->
+   <var name="attempts" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="storePreferredLanguageResult" />
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput2" />
+   <!--This variable contains the input made from a user in a menu. It has been added by the system automatically.-->
+   <var name="menuInput" />
+   <!--The message sent in error.-->
+   <var name="_message" />
+   <!--A copy of the global variable GlobalObject.-->
+   <var name="GlobalObject" />
+   <!--A copy of the global variable ANI-->
+   <var name="ani" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_GlobalObject" />
+      <var name="p_ani" />
+      <block>
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <assign name="ani" expr="p_ani" />
+         <goto next="#cond5" />
+      </block>
+   </form>
+   <form id="cond5">
+      <block>
+         <if cond="((GlobalObject.LoggedIn == true) || (Login_ShallPreferredLanguageBeSet (GlobalObject.Subscriber) == true))">
+            <goto next="#assign6" />
+            <else />
+            <goto next="#Return4" />
+         </if>
+      </block>
+   </form>
+   <form id="assign6">
+      <block>
+         <assign name="attempts" expr="0" />
+         <assign name="index" expr="0" />
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="((System_GetLanguageCode (index) != ''))">
+            <goto next="#sub1" />
+            <else />
+            <goto next="#cmnu2" />
+         </if>
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SetPromptLanguage (System_GetLanguageCode(index), System_GetConfig('vva.media', 'variantvoice'), System_GetConfig('vva.media', 'variantvideo'))</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2004, new Array(System_GetMediaQualifier('Number', System_GetLanguageNumber(index))))" />
+         </prompt>
+         <assign name="index" expr="index + 1" />
+         <goto next="#ptarget1" />
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <form id="cmnu2">
+      <block>
+         <script>Menu_SetUri('SetPreferredLanguage.vxml#cmnu2')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu2_menu" />
+      </block>
+   </form>
+   <form id="cmnu2_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu2_menu" />
+      </block>
+   </form>
+   <form id="cmnu2_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <grammar version="1.0" root="cmnu2_main_rule" mode="dtmf">
+            <rule id="cmnu2_main_rule">
+               <one-of>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>5</item>
+                  <item>6</item>
+                  <item>7</item>
+                  <item>8</item>
+                  <item>9</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#assign3" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 1">
+               <if cond="((attempts &gt;= 2))">
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="new Array(&quot;NotOK&quot;)" />
+                  <return namelist="resultCode" />
+                  <else />
+                  <assign name="attempts" expr="attempts + 1" />
+                  <goto next="#assign3" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu2_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '1'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '2'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '3'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '4'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '5'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '6'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '7'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '8'">
+               <goto next="#cond2" />
+            </if>
+            <if cond="menu_input == '9'">
+               <goto next="#cond2" />
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="assign3">
+      <block>
+         <assign name="index" expr="0" />
+         <goto next="#cond3" />
+      </block>
+   </form>
+   <form id="cond3">
+      <block>
+         <if cond="((System_GetLanguageCode (index) != ''))">
+            <goto next="#sub3" />
+            <else />
+            <assign name="index" expr="0" />
+            <goto next="#ptarget1" />
+         </if>
+      </block>
+   </form>
+   <form id="sub3">
+      <script>System_SetPromptLanguage (System_GetLanguageCode(index), System_GetConfig('vva.media', 'variantvoice'), System_GetConfig('vva.media', 'variantvideo'))</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(128)" />
+         </prompt>
+         <assign name="index" expr="index + 1" />
+         <goto next="#ptarget2" />
+      </block>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#cond3" />
+      </block>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="((System_GetConfig ('vva.dialogbehaviour', 'languagenumbers').indexOf(menuInput) != -1))">
+            <goto next="#sub2" />
+            <else />
+            <assign name="index" expr="0" />
+            <goto next="#ptarget2" />
+         </if>
+      </block>
+   </form>
+   <form id="sub2">
+      <script>System_SetPromptLanguage (System_GetLanguageCode(menuInput), System_GetConfig('vva.media', 'variantvoice'), System_GetConfig('vva.media', 'variantvideo'))</script>
+      <block>
+         <goto next="#cmnu1" />
+      </block>
+   </form>
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('SetPreferredLanguage.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(129)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(130)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(131)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(132)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(133)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>#</item>
+                  <item>*</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput2" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput2" />
+            <goto next="#ptarget3" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <var name="resultCode" />
+               <assign name="resultCode" expr="new Array(&quot;NotOK&quot;)" />
+               <return namelist="resultCode" />
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput2" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '#'">
+               <goto next="#proc1" />
+            </if>
+            <if cond="menu_input == '*'">
+               <assign name="index" expr="0" />
+               <goto next="#ptarget1" />
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="ptarget3">
+      <block>
+         <goto next="#cmnu1_reprompt" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="StorePreferredLanguage.vxml">
+         <param name="p_ani" expr="ani" />
+         <param name="p_languageNumber" expr="menuInput" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="storePreferredLanguageResult" expr="sub.resultCode" />
+            <var name="resultCode" />
+            <assign name="resultCode" expr="storePreferredLanguageResult" />
+            <return namelist="resultCode" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="Return4">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="new Array(&quot;NotSet&quot;)" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <if cond="(_message.indexOf('attrName=userlevel') != -1)">
+         <if cond="((Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'emftl').substring(3,4) == 'T'))">
+            <goto next="#assign6" />
+            <else />
+            <goto next="#Return4" />
+         </if>
+         <else />
+         <goto next="#Return4" />
+      </if>
+   </catch>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

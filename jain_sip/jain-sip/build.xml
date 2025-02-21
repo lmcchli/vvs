@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<project name="NIST-SIP" default="all">
+
+  <target name="all">
+    <ant dir="jain-sip-api" target="all"/>
+    <ant dir="sdp-api" target="all"/>
+    <ant dir="jain-sip-ri" target="all"/>
+  </target>
+
+  <target name="compile">
+    <ant dir="jain-sip-api" target="compilejainsipapi"/>
+    <ant dir="sdp-api" target="compilesdpapi"/>
+    <ant dir="jain-sip-ri" target="make"/>
+  </target>
+
+  <target name="clean">
+    <ant dir="jain-sip-api" target="clean"/>
+    <ant dir="sdp-api" target="clean"/>
+    <ant dir="jain-sip-ri" target="clean"/>
+  </target>
+
+</project>

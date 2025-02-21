@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <property name="timeout" value="1s"></property>
+
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <catch event="error">
+        <log>TCFAIL caught an error</log>
+        <exit></exit>
+    </catch>
+
+    <catch event="nomatch">
+        <log>TCPASS2</log>
+        <exit></exit>
+    </catch>
+
+    <form id="form1">
+
+        <field name="f1">
+        </field>
+
+        <noinput>
+            <log>TCPASS1</log>
+            <throw event="nomatch"></throw>
+        </noinput>
+
+        <block>
+            <log>TCFAIL should not get here</log>
+            <exit/>
+        </block>
+    </form>
+
+</vxml>

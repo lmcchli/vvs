@@ -1,0 +1,30 @@
+h=header __FROM__
+s=angående __SUBJECT__
+general=Du har nya meddelanden
+NumNewTotText=totalt __COUNT__ nya meddelanden
+NumNewFaxText=__COUNT__ nya fax,
+NumNewVoiceText=__COUNT__ nya röstmeddelanden,
+NumNewEmailText=__COUNT__ nya email
+NumNewTotText0=inga nya meddelanden alls
+NumNewFaxText0=
+NumNewVoiceText0=
+NumNewEmailText0=inga nya email
+NumNewTotText1=ett nytt meddelande
+NumNewFaxText1=ett nytt fax,
+NumNewVoiceText1=ett nytt röstmeddelande,
+NumNewEmailText1=ett nytt email
+urgent=\ brådskande
+normal=
+fax=fax
+voice=röst
+email=email
+x=Du har ett__STATUS__ meddelande om __SUBJECT__ från __FROM__, \
+__MSG_SIZE__ stort, med __NUM_ATTACHMENTS__ bilagor. Texten är \
+"__E-mail_TEXT__". Det är totalt __NUM_NEW_TOT__ nya meddelanden \
+(__NUM_NEW_VOICE__ röst, __NUM_NEW_FAX__ fax och __NUM_NEW_EMAIL__ email). \
+Det senaste meddelandet kom __DATE____TIME__ och har typen \
+__DEPOSIT_TYPE__. Du har __NUM_NEW_TOT_TEXT__ \
+(__NUM_NEW_VOICE_TEXT____NUM_NEW_FAX_TEXT____NUM_NEW_EMAIL_TEXT__)
+FaxSize=__SIZE__ sidor
+VoiceSize=__SIZE__ sekunder
+EmailSize=__SIZE__ KB

@@ -1,0 +1,986 @@
+#!/usr/local/bin/perl
+use Socket;
+
+#print "Running $0 ";
+#foreach $word (@ARGV) {
+#    print " $word";
+#}
+#print "\n";
+
+&init;
+&handleArgs;
+print "Sending $count $mailtype to $firstuser" . ($firstuser eq $lastuser ? "" : "..$lastuser") . "\n";
+if ($mailtype eq "regression") {
+    &doRegressionTest();
+} else {
+    &connectToMailHost;
+    &initMailContent;
+    &main;
+}
+
+sub init {
+#    print "init...\n";
+    @monname=('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+    @dayname=('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+    $starttime = time();
+    $DOMAIN=$ENV{"TEST_DOMAIN"};
+    $DOMAIN = "lab.mobeon.com" unless $DOMAIN;
+    $MAILHOST=$ENV{"TEST_MAILHOST"};
+    $MAILHOST="jawa.lab.mobeon.com" unless $MAILHOST;
+    $hostname= `hostname`;
+    open (F, "nslookup $hostname|");
+    while ($_= <F>) {
+        if (/Name:/) {
+            ($hostname)= /Name:\s*(\S+)/;
+        }
+    }
+    close F;
+    $from=$ENV{'USER'};
+    $caller = 100000;
+    $port = 25;
+    $mon += 1;
+    $year+= 1900;
+    $action= "reminder";
+    $unsetforwards= "cf-busy,cf-no-reply,cf-not-reachable";
+    $forwardingnumber= "133";
+    $deferred = &mailtime(time);
+    $mailtypes = "voice video fax email off mwidis groupoff cut cli slam ivr vmoff cfu tmpgrt faxprintfail faxprintfailheaders quota psc regression";
+    @mailtypesdoc = ("voice mail",
+                     "video mail",
+                     "fax mail",
+                     "email",
+                     "mwi off",
+                     "mwi disabled",
+                     "MVAS-buffered mwi off",
+                     "cut-throught paging",
+                     "smscli",
+                     "slamdown, can have another -t specifying \"voice\" or \"video\"",
+                     "ivr to sms",
+                     "voicemail off reminder",
+                     "call-forwarding unconditional reminder",
+                     "temporary greeting on reminder",
+                     "fax print failure report",
+                     "fax print failure report with rfc822-headers content type",
+                     "MS quota exceed message",
+                     "phone state changed event",
+                     "mixed high-volume traffic for regression tests");
+}
+
+sub main {
+    &sendread("");
+    &sendread("ehlo $hostname\r\n");
+    if ($mailtype eq "slam" || $mailtype eq "ivr" || $mailtype eq "groupoff") {
+        &sendListMails;
+    }
+    elsif( $mailfile ) {
+        &sendFile;
+    }
+    else {
+        &sendMails;
+    }
+    &sendread("QUIT\r\n");
+    &writeSummary;
+}
+
+sub doRegressionTest() {
+
+    &runAsync($count, 2, "$firstuser..$lastuser", "-t voice");
+    &runAsync($count, 1, "$firstuser..$lastuser", "-t fax");
+    &runAsync($count, 1, "$firstuser..$lastuser", "-t video");
+#    &runAsync($count, 3, "$firstuser..$lastuser", "-t off -p retrieved=1 -p new=1 -p time=5");
+    sleep 5;
+}
+
+sub runAsync() {
+    my ($count, $rate, $to, $rest) = @_;
+
+    my @args = ($0, "-n", $count*$rate, "-r", $rate, split(/ /, $rest), $to);
+    my $word;
+    my $child;
+
+    if (($child= fork()) == 0) {
+        print "Starting $$:";
+        foreach $word (@args) {
+            print " $word";
+        }
+        print "\n";
+        system (@args);
+        exit;
+    }
+}
+
+sub checkRate {
+    while ($mailno > $rate * (time() - $starttime)) {
+        sleep(1);
+    }
+}
+
+sub sendFile {
+   open(FILE, $mailfile);
+   read(FILE, $mail, 99999999);
+   &sendread("MAIL FROM: $from\@mobeon.com\r\n");
+   &sendread("RCPT TO: niklasf1\@$DOMAIN\r\n");
+   &sendread("data\r\n");
+   &sendonly($mail);
+   &sendread(".\r\n");
+
+}
+
+sub sendMails {
+    for ($mailno = 0; $mailno < $count; $mailno++) {
+        &checkRate;
+        &sendread("MAIL FROM: $from\@mobeon.com\r\n");
+        if ($mailtype eq "off" || $mailtype eq "mwidis" ||
+           $mailtype eq "groupoff" || $mailtype eq "psc") {
+            &sendread("RCPT TO: notification.off\@$MAILHOST\r\n");
+        } else {
+            &sendread("RCPT TO: $user\@$DOMAIN\r\n");
+        }
+        &sendread("data\r\n");
+        if (%parameters && $header{$mailtype . "_param"}) {
+            $x = &substitute($header{$mailtype . "_param"});
+        } else {
+            $x = &substitute($header{$mailtype});
+        }
+        $x .= "X-Priority: 1\r\n" if $parameters{'urgent'} eq 'yes';
+        if (%parameters && $body{$mailtype . "_param"}) {
+            $y = &substitute($body{$mailtype . "_param"});
+        } else {
+            $y = &substitute($body{$mailtype});
+        }
+        &sendonly($x . "\r\n" . $y);
+        if ($user eq $lastuser) {
+            $user = $firstuser;
+        } else {
+            ++$user;
+        }
+        &sendread(".\r\n");
+#    sleep 5 if $mailno % 20 == 0;
+#    sleep 15 if $mailno % 100 == 0;
+    }
+}
+
+sub sendListMails {
+    for ($mailno = 0; $mailno < $count; $mailno++) {
+        &checkRate;
+        if ($mailno % 100 == 0) {
+            if ($mailno != 0) {
+                sendread(".\r\n");
+            }
+            &sendread("MAIL FROM: $from\@mobeon.com\r\n");
+            &sendread("RCPT TO: notification.off\@$MAILHOST\r\n");
+            &sendread("data\r\n");
+            if (%parameters && $header{$mailtype . "_param"}) {
+                $x = &substitute($header{$mailtype . "_param"});
+            } else {
+                $x = &substitute($header{$mailtype});
+            }
+            $x .= "X-Priority: 1\r\n" if $parameters{'urgent'} eq 'yes';
+            &sendonly($x . "\r\n");
+        }
+        $caller++;
+        $users{$user} = 1;
+        $callers{$caller} = 1;
+        $$mailtype{$user . "/" . $caller}++;
+        if (%parameters && $body{$mailtype . "_param"}) {
+            $y = &substitute($body{$mailtype . "_param"});
+        } else {
+            $y = &substitute($body{$mailtype});
+        }
+        &sendonly($y);
+        if ($user eq $lastuser) {
+            $user = $firstuser;
+        } else {
+            ++$user;
+        }
+#    sleep 5 if $mailno % 20 == 0;
+#    sleep 15 if $mailno % 100 == 0;
+    }
+    sendread(".\r\n");
+}
+
+sub field {
+    local($v) = pop(@_) . "                ";
+    $v = substr($v, 0, 11) . "|";
+    return $v;
+}
+
+sub writeSummary {
+    foreach $mailtype ('slam') {
+        open(F, ">$mailtype.summary") || die ("Failed to write $mailtype.summary\n");
+        foreach $user (sort(keys %$mailtype)) {
+            print F "$user $$mailtype{$user}\n";
+        }
+        print F "\n\n";
+        print F &field("");
+        foreach $user (sort(keys %users)) {
+            print F &field($user);
+        }
+        print F "\n";
+        print F &field("--------------------");
+        foreach $user (sort(keys %users)) {
+            print F &field("--------------------");
+        }
+        print F "\n";
+        foreach $caller (sort(keys %callers)) {
+            print F &field($caller);
+            foreach $user (sort(keys %users)) {
+                print F &field($$mailtype{"$user/$caller"});
+            }
+            print F "\n";
+        }
+        close F;
+    }
+}
+
+sub Usage {
+    print "$0 sends mail\n";
+    print "Usage: $0 [sendoptions] user \n";
+    print "       user can be one mail address or a range e.g. xx001 or xx001..xx199\n";
+    print "       sendoptions is any of the following:\n";
+    print "\n";
+    print "       -v            Lots of logging (verbose)\n";
+    print "       -n howmany    How many mails to send\n";
+    print "       -r rate       How many to send per second\n";
+    print "       -a action     \n";
+    print "       -u unsetforwards     \n";
+    print "       -f forwardingnumber   \n";
+    print "       -d deferred   \n";
+    print "       -c caller     \n";
+    print "       -w attachmentfile (for voice and video only)  \n";
+    print "       -m mailfile   \n";
+    print "       -p name=value Parameters depending on type of mail. There may be several -p.\n";
+    print "       -t mailtype   Type of mail or type of slamdown, one of:\n";
+    @mailtypes = split /\s+/, $mailtypes;
+    for ($i = 0; $i <= $#mailtypes; $i++) {
+         print "                         $mailtypes[$i]\t$mailtypesdoc[$i]\n";
+    }
+    print "\n";
+    print "Parameters valid for all mail types are:\n";
+    print "    urgent      if the mail is urgent, values \"yes\" and \"no\"\n";
+    print "For mail type \"off\", the parameter names are:\n";
+    print "    time        time of last inventory, either the full time in email format, or how many seconds (less than 10000) ago\n";
+    print "    new         estimated number of new messages remaining at logout\n";
+    print "    retrieved   number of new messages retrieved in the session\n";
+    print "\n";
+    print "For mail type \"psc\", the parameter names are:\n";
+    print "    mwi         if the new phone supports mwi, values \"mwi\" or \"nomwi\"\n";
+    print "    flash       if the new phone supports flash, values \"flash\" or \"noflash\"\n";
+    print "    replace     if the new phone supports replace, values \"replace\" or \"noreplace\"\n";
+    print "\n";
+    print "Set the environment variables TEST_DOMAIN and TEST_MAILHOST to the domain and\n";
+    print "mailhost of your users\n";
+    exit;
+}
+
+sub fail {
+    print "Failed @_\n";
+}
+
+
+sub sendonly {
+    print "$_[0]" if $verbose;
+    print M $_[0];
+}
+
+sub sendread {
+    &sendonly($_[0]);
+    do {
+        $line = <M>;
+        print "\t\t$line" if $verbose;
+    } while (substr($line, 3, 1) eq "-");
+}
+
+#Converts a time (in seconds) to a string with mail time format
+sub mailtime() {
+    my $t = pop;
+    ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($t);
+    if (length($hour) == 1) {
+        $hour = "0$hour";
+    }
+    if (length($min) == 1) {
+        $min = "0$min";
+    }
+    if (length($sec) == 1) {
+        $sec = "0$sec";
+    }
+    $t = $dayname[$wday] . ", $mday " . $monname[$mon] . " " . ($year+1900) . " $hour:$min:$sec " . ($isdst ?"+0200" :"+0100");
+    return $t
+}
+
+sub substitute {
+    local($par) = pop;
+    $now = &mailtime(time);
+    ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+    $par =~ s.__DATE__.$now.g;
+    $par =~ s.__TO__.$user\@$DOMAIN.g;
+    $par =~ s.__TOPHONE__.$user.g;
+    $par =~ s.__ID__.$mon-$mday-$hour-$min-$sec.g;
+    $par =~ s.__MAILHOST__.$MAILHOST.g;
+    $par =~ s.__CALLER__.$caller.g;
+    $par =~ s.__DEFERRED__.$deferred.g;
+    $par =~ s.__ACTION__.$action.g;
+    $par =~ s.__FORWARDINGNUMBER__.$forwardingnumber.g;
+    $par =~ s.__UNSETFORWARDS__.$unsetforwards.g;
+    $par =~ s.__SUBTYPE__.$mailsubtype.g;
+    foreach $key (keys %parameters) {
+        $KEY = "\U$key";
+        if ($key eq "time" && length($parameters{$key}) < 5) {
+            $t = &mailtime(time - $parameters{$key});
+            print &mailtime(time) . "\n";
+            print &mailtime(time - $parameters{$key}) . "\n";
+            $par =~ s.__PAR_${KEY}__.$t.g;
+        } else {
+            $par =~ s.__PAR_${KEY}__.$parameters{$key}.g;
+        }
+    }
+    return $par;
+}
+
+
+sub handleArgs {
+#    print "handleArgs...\n";
+    $count = 1;
+    $rate = 10;
+    $mailtype = "voice";
+
+    while ($ARGV[0] =~ m/^-/) {
+        if ($ARGV[0] eq "-v") {
+            $verbose= 1;
+        } elsif ($ARGV[0] eq "-r") {
+            shift @ARGV;
+            $rate = $ARGV[0];
+        } elsif ($ARGV[0] eq "-n") {
+            shift @ARGV;
+            $count = $ARGV[0];
+        } elsif ($ARGV[0] eq "-t") {
+            shift @ARGV;
+            $mailsubtype = $mailtype;
+            $mailtype = $ARGV[0];
+        } elsif ($ARGV[0] eq "-a") {
+            shift @ARGV;
+            $action = $ARGV[0];
+        } elsif ($ARGV[0] eq "-u") {
+            shift @ARGV;
+            $unsetforwards = $ARGV[0];
+        } elsif ($ARGV[0] eq "-f") {
+            shift @ARGV;
+            $forwardingnumber = $ARGV[0];
+        } elsif ($ARGV[0] eq "-d") {
+            shift @ARGV;
+            $deferred = &mailtime(time() + $ARGV[0]);
+        } elsif ($ARGV[0] eq "-c") {
+            shift @ARGV;
+            $caller = $ARGV[0];
+        } elsif ($ARGV[0] eq "-w") {
+            shift @ARGV;
+            $wavfile = $ARGV[0];
+        } elsif ($ARGV[0] eq "-m") {
+            shift @ARGV;
+            $mailfile = $ARGV[0];
+        } elsif ($ARGV[0] eq "-p") {
+            shift @ARGV;
+            ($name, $value) = split /=/, $ARGV[0], 2;
+            $parameters{$name} = $value;
+        } else {
+            Usage;
+        }
+        shift @ARGV;
+        if ($action eq 'none') {
+            $action = "";
+        }
+    }
+
+    if ($mailsubtype eq "slam") {
+        $mailsubtype = $mailtype;
+        $mailtype = "slam";
+    }
+    if ($mailtype eq "slam" && $mailsubtype eq "none" ) {
+        $mailsubtype = "";
+    }
+
+    if (index (" $mailtypes ", " $mailtype ") < 0) {
+        &Usage;
+    }
+
+    if (index ("  ", " $mailtype ") >= 0) {
+        print "Sorry, type $mailtype is not implemented\n";
+        exit;
+    }
+    ($firstuser, $lastuser) = split(/\.\./, $ARGV[0]);
+    shift @ARGV;
+    $lastuser = $firstuser unless $lastuser;
+    $user = $firstuser;
+    Usage unless $user;
+}
+
+sub connectToMailHost {
+#    print "connectToMailHost...\n";
+    $sockaddr= 'S n a4 x8';
+
+    ($name, $aliases, $proto)= getprotobyname('tcp');
+    ($name, $aliases, $type, $len, $thisaddr)= gethostbyname($hostname);
+    ($name, $aliases, $type, $len, $thataddr)= gethostbyname($MAILHOST);
+
+    $this= pack($sockaddr, &AF_INET, 0, $thisaddr);
+    $that= pack($sockaddr, &AF_INET, $port, $thataddr);
+
+
+    if (!socket(M, &PF_INET, &SOCK_STREAM, $proto)) {
+        &fail("$MAILHOST:$port socket failed $!");
+        exit;
+    }
+
+    if (!bind(M, $this)) {
+        &fail("$MAILHOST:$port bind failed $!");
+        exit;
+    }
+
+    if (!connect(M, $that)) {
+        &fail("$MAILHOST:$port connect failed $!");
+        exit;
+    }
+
+    select((select(M), $| = 1)[0]);
+}
+
+#------------------------------------------------------------
+# Encode Attachment to base64
+# Usage: attachment infile outfile
+#------------------------------------------------------------
+sub attachment {
+    my($in,$out)=@_;
+    my($cmd,$info,$code);
+
+    $cmd="./base64 -e $in > $out";
+    $info=`$cmd`;
+    $code=(0xffff & $?)/256;
+    if ( $code!=0 ) {
+        die "base64 failed";
+    }
+}
+
+sub initMailContent {
+#    print "initMailContent...\n";
+    $subject = "$from  $year-$mon-$mday  $hour:$min:$sec";
+    $border = "-222222222-222222222-2222222222=:22222";
+
+    
+    $header = "Date: __DATE__\r\n"
+        . "MIME-Version: 1.0\r\n";
+
+    $header{'voice'} = $header
+        . "From: $from (123456789) $from\@mobeon.com\r\n"
+        . "To: __TO__\r\n"
+        . "Subject: voice message __ID__\r\n"
+        . "Content-Type: multipart/voice-message; BOUNDARY=\"-222222222-222222222-2222222222=:22222\"\r\n";
+
+    if( $wavfile ) {
+        my $enc_attachment="/tmp/encoded_attachment.tmp";
+        attachment($wavfile, $enc_attachment);
+        open(FILE, $enc_attachment);
+        read(FILE, $attachment, 99999999);
+    } else {
+        if( $mailtype =~ /video/ ) {
+            $attachment="AACKnG1kYXT/+/x9fv59e3v+/n1///5+/fx9fvr5/n7+/n76+39+//r8fv9+en3/fHz+/fz7\r\n"
+            . "+vz9/n1/fHx9e33/fH38/n79f/78f//9/3t8fH19e3x9/vz8/319fnt4ev/9/Pz9/v78+/3/\r\n"
+            . "/f58fH5+//79f3x+/vz+/f39/P39/v9+/358fv99fH5+ff/9/fv8/n7+/f7+fn7+fn1+fn1+\r\n"
+            . "fnx+fnt8ff/9/v79/f7//n59fnx6fHx9fX7+/P7++vz9/P3+f319fv/+/Pz+/v/+/v7/ff7+\r\n";
+        } else {    
+            $attachment="UklGRhRjAgBXQVZFZm10IBAAAAAHAAEAQB8AAEAfAAABAAgAZGF0YfBiAgBf\r\n"
+            . " bHZ1e/jr5u30cm7u7+rvaXd8cfJ7c+74fvp5fu5+aGxwb/ns7vB0b/rt5e52\r\n";
+        }
+    }
+
+    $body{'voice'} = "---222222222-222222222-2222222222=:22222\r\n"
+        . "Content-Type: AUDIO/wav\r\n"
+        . "Content-Transfer-Encoding: BASE64\r\n"
+        . "Content-Description: Abcxyz voice Message\r\n"
+        . "Content-Duration: 42\r\n"
+        . "Content-Disposition: inline; voice=Voice-Message; filename=\"message.wav\"\r\n"
+        . "\r\n"
+        . $attachment
+        . "\r\n"
+        . "---222222222-222222222-2222222222=:22222--\r\n";
+
+    $header{'video'} = $header
+        . "From: $from (123456789) $from\@mobeon.com\r\n"
+        . "To: __TO__\r\n"
+        . "Subject: video message __ID__\r\n"
+        . "Content-Type: multipart/x-video-message; BOUNDARY=\"-222222222-222222222-2222222222=:22222\"\r\n";
+
+    $body{'video'} = "---222222222-222222222-2222222222=:22222\r\n"
+        . "Content-Type: video/quicktime\r\n"
+        . "Content-Transfer-Encoding: base64\r\n"
+        . "Content-Disposition: inline; filename=message.mov; video=Video-Message\r\n"
+        . "Content-Duration: 42\r\n"
+        . "Content-Description:\r\n"
+        . "\r\n"
+        . $attachment
+        . "\r\n"
+        . "---222222222-222222222-2222222222=:22222--\r\n";
+
+    $header{'fax'} = $header
+        . "From: $from (123456789) $from\@mobeon.com\r\n"
+        . "To: __TO__\r\n"
+        . "Subject: fax message __ID__\r\n"
+        . "Content-Type: multipart/fax-message; BOUNDARY=\"-222222222-222222222-2222222222=:22222\"\r\n";
+
+    $body{'fax'} = "---222222222-222222222-2222222222=:22222\r\n"
+        . "Content-ID: <2EFF2002135054556\@faxe.>\r\n"
+        . "Content-Type: image/tiff; name=\"FaxMessage.tif\"; application=faxbw\r\n"
+        . "Content-Transfer-Encoding: base64\r\n"
+        . "\r\n"
+        . "SUkqAAgAAAAYAP4ABAABAAAAAgAAAAABAwABAAAAwAYAAAEBAwABAAAAeQQAAAIBAwABAAAAAQAA\r\n"
+        . "AAMBAwABAAAAAwAAAAYBAwABAAAAAAAAAAoBAwABAAAAAQAAAA4BAgAKAAAALgEAABEBBAABAAAA\r\n"
+        . "ggEAABIBAwABAAAAAQAAABUBAwABAAAAAQAAABYBBAABAAAA/////xcBBAABAAAAVIMAABoBBQAB\r\n"
+        . "AAAAOAEAABsBBQABAAAAQAEAABwBAwABAAAAAQAAACQBBAABAAAABAAAACgBAwABAAAAAgAAACkB\r\n"
+        . "AwACAAAAAAAAADEBAgAmAAAASAEAADIBAgAUAAAAbgEAAEYBBAABAAAAAAAAAEcBAwABAAAAAAAA\r\n"
+        . "AEgBAwABAAAAAAAAANaEAABGYXggSW1hZ2UAzAAAAAEAAABiAAAAAQAAAENpc2NvIE5ldFdvcmtz\r\n"
+        . "IFNvZnR3YXJlIFRJRkYtRiBFbmdpbmUAMjAwMjoxMjoxNiAxMzo1MDoxNQAAAU2agAHYuEcdDt49\r\n"
+        . "jvHZ27PQXAnN1WZB1mRFy8k5kQgpl5cS2LhUMdQErMIfBKjoNqCYAAHZSuVq/PO6LeUV+d2JOs8X\r\n"
+        . "K+4uj5NIx0M878y6RjoYuWed+drklLPMf7zxci6L+fLkIVE1CkAB2UqF6xX/wh1CHW8Q6hDqP+EP\r\n"
+        . "2k69WoXKaLqiMI+6pevVr18hH3SvxerXo+lLlihYtFCUIR/4oQRUQ7agoAAB2Un5YqKE6HTreJ0O\r\n"
+        . "nUKihPwk69WfIDVEOYNU4VL16tevkKnCUfL1a9U0tZ2sVrQ1CEKiwwip3tQSAAHZSoXqPFRQnnW8\r\n"
+        . "TzqFRQrTpOvVqFyA1TxF1MVOvVr0XUxS/NerXr8zLBIVjhQlCEKixQgiqTUEgAHZSkLFi9WvW8Xq\r\n"
+        . "16tYh0nXdrlH6LqniLrRUv878/kLRCM/nfnns1R16j9YuRdF165JFNemoJAAAdi48O6BwcHsc4OB\r\n"
+        . "wd9QlhMGnE804k3OoczpeJNpxfOZ8KtDt44FgJWInHgxgmDagmABTZqAAU2agAFNmoABTZqAAU2a\r\n"
+        . "gAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqA\r\n"
+        . "AU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoAB\r\n"
+        . "TZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFN\r\n"
+        . "moABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2a\r\n"
+        . "gAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqA\r\n"
+        . "AU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFN\r\n"
+        . "moABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2a\r\n"
+        . "gAFNmoABTZqAAU2agAFNmoABTZqAAWspxIbLWAABaiPai3MyRsqcAAFpKHbA3bSj2DMrzDJMU3M9\r\n"
+        . "+9ozdKABbh3Wwp7pJ2h7JgxpaFs5bHiQoIwdsyYLCplcEF8fQ54FwWwlQJDHOAgZm62AAZAwQMtl\r\n"
+        . "ygeywe+LUcx7UBnINAm6FsdiUndmYPf4OHdlZYP8ewInEgWCThcCwFgEhjkOH1OzHcO2yVgAAZDA\r\n"
+        . "YIJZ0hQMbYpihb86ioW1BjgiBnY8LQoex2NFxY7PoQ7eCQxz4WsJWEcI43Mc4EcPWFHbt4YduDs4\r\n"
+        . "bnDtuHHD1PHYttkrAAGVYvGGZKagXD5+u7LzIeGTuO16+LvPCw8PgtlZAwkG54Kn7KJAnmMHg3Gn\r\n"
+        . "C2cG5QKLsaFcJDs4ErcHAIOFgLU3Osx9w7u2528dnUGgdQ07xw+cN3btu6NQ8Y5u7bJWAAGVQzzi\r\n"
+        . "wcClxIBhOHxwFchyHEcJAI4tQPBuTkOJWNzHCW3CwCOThawRyHJwoMqwuDqCjhBxagdycnNxBdjZ\r\n"
+        . "wHc4NwtTg3Nyc3bgmsOOs7Dw+Et2dnUdBYhjxweOG7ytudw53VO27h2xkbpQAAGVRaBxzHDpwbjj\r\n"
+        . "rBEB3JyHG4dwdzGA7nBuC6c4Y5jk5uY5wDjkOCak5OcGOCFyqMcudYEDtzGE5DlBubiC7GzgO5wY\r\n"
+        . "4ep24Mc4N25whASs8Z3ZDu3Z46zuHTlGMKHBQcNzg4cBXC1BYBHOszdbAAGVRaBxzHMcqwUDmnKD\r\n"
+        . "ICuTm5QHg3J2IKCHODgHGEO3DubhYKA44JoVm5wY4IIKo4KzrBvBjDs3ODc3EF2NnB0ODHMI7cBL\r\n"
+        . "NzHPOpw6zwnbu3Dt4UOsK85uVQPAW25wblAlipxON3BjM3SgAZVDIBBzcLWHcR2nKCQHc3IcoDwc\r\n"
+        . "G5iDsxzg4NxBgsB4bh3KA45X1HZwbmOVwwqjwnNOV8CDmMOzc4NzcQXY2cB3ODcLqTnAWDc3C6g+\r\n"
+        . "g8CQMcNmB047Ftg7YGbICAABlWRBXDmOHrG4YHacbkchycxxjk5DlBuTmMKCHOCHEchBQQ5QxwRy\r\n"
+        . "chyHBNQeAQcOnHqBA7EAuOQ46yc3KAQcQXY2K4jjHG4lZuTgg5DnYxhuwNrgxWQtAAGVYmAwOGjU\r\n"
+        . "GqoMUBxwRwzRycdYI43AuIPA0nDjijhawSARxBgmgKC4QcI4tQeBwHHEF2Jvjw4PGJvmzRMAAZDA\r\n"
+        . "xAQchwesRwjkMDoDwFgY4IOTlBpwtjsI4qj8OObh8HhWQML3amwhVhsCHg+hh7qewQHZooABkDCe\r\n"
+        . "VnDdl35yqKQsW04u+PdT2FBGaLAAATZYFkKltOPeC71bTAwAATZYHIX11ltMDAABaNFsf2G0ptMD\r\n"
+        . "AAFerMzCzoSsTZqKaFuCMz3Qa22mBgABkpGrNKIKKhBA5kHSyLIGRm9oJbbTAwABkpGoIpMM\r\n"
+        . "lI74IIcRmHSzE150QZyorEmRS2mBgAHZnCXowgqcrKxoHgdx4JAWhQKcHsCBygWBazoI4sB7EcSB\r\n"
+        . "wI4I4sCUOAlBwGHFs7EOEgSCcnCOHgILtpgYAAHZKCgcI4JgQGE0CjhnmFcFDgYoThKA7hochwb6\r\n"
+        . "nMNg4O4NxxBwynJwTzcxzOTmOGBzghw/gg5jk5wbhHAwLtpgYAHZIQ4NxycEcnMQY40HALjnQM45\r\n"
+        . "OEg7KDObhTm5DkOTnBucA5BHKA45QQ52GwcEHODcnBPOwiAkHwSAI85nZubnB8dguUTTAwAB2SEO\r\n"
+        . "blgVychzgxgYoXhXOgdw7hIOygzm4U5uThYODhwVrQyDs3oKCHOzoCUODcnLQ3DkC2eBYMc9Dmdm\r\n"
+        . "5ucHx2ExFE0wMAHZKEgrDuTmOUGnBiZYO8cqFDHCQFg7KDOY5Dmc3Jwlm5RYTs5xTKCdjlBDnYxx\r\n"
+        . "Rw45jnBuUB/NzHIMsOzHKDHD+CDnBubnB8cGOFKJpgYAAdkollBDk5OQ5OcSD8cwa+BWwMTMcH8n\r\n"
+        . "IcEcHHOw8wfygOODjlgNrk4xw/DHB0HhWCDk4WYVw8BswPAQommBgAHZKGeAzRwccpj4WYUcI4sw\r\n"
+        . "g4adg/CjgnjHDY4Z+EmD8JARw7i4I4jiONygrHMbhw3YthxxuKQPy8K45lMiqaYGAAHZIGyAzIDj\r\n"
+        . "nQfCUHY8MgoB3ncF4iDujUBjEoxLfpYQsm+s0wMAAdqo3G/LQMbUBjagm5JNMDAB2qglalYfaQLs\r\n"
+        . "mK3VZuXZzaCUAAHZKJIw2U1m6cThWgkAATYGZLBbGnu2ZHtVNSm9YTDaFoAB2ZPY2w3Qz1nNggRU\r\n"
+        . "MFJILtySi2qGpzeuc8NoWgAB2llsaNB+OZ4fGWhSt9BRKwm3JLPao1Nt6oNtC2AB2llvF5hmc+Kh\r\n"
+        . "TOzQOA5xcFsPgEOVi2HDCwIcXwTAltycJQ4EgWY3McJZwJDcnDRQEc4McNlhAub1RDaEoAHayEsJ\r\n"
+        . "Aew9i2HcRB+Fg5joUHQKOCUFgOODuGhycO4IcEcPMXww4I7g3CzMcG9CcGINwruDcNFARzg3DY4c\r\n"
+        . "Km+roNoSgAHZKHcHHBIBHCQCOMh8GyhHODmGgcqHZwQ5DkOcGOdkOcEOTnQ7McEmRychzshzc4Mg\r\n"
+        . "hwbnN24WDHBHoODsIc3ODc4ODhjhsKJvq6G0GQAB2SG5OdkObk5ObhXJzcgzsIOEOaCc/BxzcqHB\r\n"
+        . "QQ5wFodkOdmOTnMrMcPQ0HYWyHNzgwzHCwKgSAsGOHig4PBDnBubnBwbmOcxSib6tnQAAdqpQY5W\r\n"
+        . "Q5uTk5wEcnJzDOCHDBzQTn5UNyocFBDnBjlic7IcoMc4OZWY5XeSDsLZDm5wZBDle4qBYIc4Mcr3\r\n"
+        . "cG5Zjjobm5wcHBuY5Qxxi7b6tnQAAdqpQY5WQ5uTk5jh3JzcgzgG9CQcHMEHNyodk5uTmOCDnZDj\r\n"
+        . "HNyc6A44J5kE5Djc4CwYZuC45oKwRzcO4ccrMc6G5OCObk5DhQub6vdTOTKUAAHaqDuTk5uT\r\n"
+        . "k5jgg5OQ4hzgFxymaCg6BRweY7CwQ4xwrjHHASCHHQHHC+RAJAew45EDcIOIGdhscJAaLCTJxuHH\r\n"
+        . "DA5QKpS5ShcxsM5MpispQAAB2SBgcO4OOMcNNxTvg9n5kHZnFs3KY+LjcrHzgsLnZkCcVDDCUKjH\r\n"
+        . "\r\n"
+        . "---222222222-222222222-2222222222=:22222--\r\n";
+
+    $header{'faxprintfail'} = $header
+        . "From: $from (123456789) $from\@mobeon.com\r\n"
+        . "Return-path: <>\r\n"
+        . "Received: from ha-node-1 (ha-node-1 [10.21.0.35]) by ms2.ha.su.erm.abcxyz.se\r\n"
+        . " (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . " with ESMTP id <0IAZ003AB5C0IB\@ms2.ha.su.erm.abcxyz.se> for\r\n"
+        . " 19171000\@ha.su.erm.abcxyz.se; Thu, 27 Jan 2005 13:00:00 +0100 (MET)\r\n"
+        . "Received: from process-daemon.ms1.ha.su.erm.abcxyz.se by\r\n"
+        . " ms1.ha.su.erm.abcxyz.se\r\n"
+        . " (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . " id <0IAZ007015C0C3\@ms1.ha.su.erm.abcxyz.se> for\r\n"
+        . " 19171000\@ha.su.erm.abcxyz.se (ORCPT 19171000\@ha.su.erm.abcxyz.se); Thu,\r\n"
+        . " 27 Jan 2005 13:00:00 +0100 (MET)\r\n"
+        . "Received: from ms1.ha.su.erm.abcxyz.se\r\n"
+        . " (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . " id <0IAZ007015C0BZ\@ms1.ha.su.erm.abcxyz.se>; Thu,\r\n"
+        . " 27 Jan 2005 13:00:00 +0100 (MET)\r\n"
+        . "Subject: Delivery Notification: Delivery has timed out and failed\r\n"
+        . "To: __TO__\r\n"
+        . "Message-id: <0IAZ007045C0BZ\@ms1.ha.su.erm.abcxyz.se>\r\n"
+        . "MIME-version: 1.0\r\n"
+        . "Content-type: multipart/report;\r\n"
+        . " boundary=\"Boundary_(ID_d+kOhF8mdqNZD+2CbIqd3Q)\"; report-type=delivery-status\r\n"
+        . "Original-recipient: rfc822;19171000\@ha.su.erm.abcxyz.se\r\n";
+
+    $body{'faxprintfail'} = "--Boundary_(ID_d+kOhF8mdqNZD+2CbIqd3Q)\r\n"
+        . "Content-type: text/plain; charset=us-ascii\r\n"
+        . "Content-language: EN-US\r\n"
+        . "\r\n"
+        . "This report relates to a message you sent with the following header fields:\r\n"
+        . "\r\n"
+        . "  Return-path: <>\r\n"
+        . "  Received: from tcp_fax-daemon.ms1.ha.su.erm.abcxyz.se by\r\n"
+        . "   ms1.ha.su.erm.abcxyz.se\r\n"
+        . "   (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . "   id <0IAZ007015C0BZ\@ms1.ha.su.erm.abcxyz.se>; Thu,\r\n"
+        . "   27 Jan 2005 13:00:00 +0100 (MET)\r\n"
+        . "  Received: from ms1.ha.su.erm.abcxyz.se\r\n"
+        . "   (micke01.ha.su.erm.abcxyz.se [10.21.0.92]) by ms1.ha.su.erm.abcxyz.se\r\n"
+        . "   (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . "   with ESMTP id <0IAZ00F5W1YVPY\@ms1.ha.su.erm.abcxyz.se> for FAX=66666666\@mfc;\r\n"
+        . "   Thu, 27 Jan 2005 11:47:20 +0100 (MET)\r\n"
+        . "  Date: Thu, 27 Jan 2005 15:45:23 +0500\r\n"
+        . "  From: 19171000\@ha.su.erm.abcxyz.se\r\n"
+        . "  Subject: Fax Message\r\n"
+        . "  To: FAX=66666666\@fax.ha.su.erm.abcxyz.se\r\n"
+        . "  Errors-to: 19171000\@ha.su.erm.abcxyz.se\r\n"
+        . "  Reply-to: 19171000\@ha.su.erm.abcxyz.se\r\n"
+        . "  Message-id: <41F8C643.000035.00B84\@unknown.host>\r\n"
+        . "  MIME-version: 1.0 (Voice 2.0)\r\n"
+        . "  Content-type: MULTIPART/fax-message;\r\n"
+        . "   boundary=\"------------Boundary-01=_NV1ZWCJ00M3NTT4D7TH0\"\r\n"
+        . "\r\n"
+        . "Your message is being returned; it has been enqueued and undeliverable for\r\n"
+        . "1 hour to the following recipients:\r\n"
+        . "\r\n"
+        . "  Recipient address: FAX=66666666\@fax.ha.su.erm.abcxyz.se\r\n"
+        . "  Original address: FAX=66666666\@mfc\r\n"
+        . "  Reason: unable to deliver this message after 1 hour\r\n"
+        . "\r\n"
+        . "\r\n"
+        . "Delivery attempt history for your mail:\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 12:23:11 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 12:17:26 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 12:11:41 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 12:05:56 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 12:00:07 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 11:54:22 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "Thu, 27 Jan 2005 11:48:37 +0100 (MET)\r\n"
+        . "Temporary error from SMTP partner: smtp;450 4.4.2 Modem timed out\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_d+kOhF8mdqNZD+2CbIqd3Q)\r\n"
+        . "Content-type: message/delivery-status\r\n"
+        . "\r\n"
+        . "Reporting-MTA: dns;ms1.ha.su.erm.abcxyz.se (tcp_fax-daemon)\r\n"
+        . "\r\n"
+        . "Original-recipient: rfc822;FAX=66666666\@mfc\r\n"
+        . "Final-recipient: rfc822;FAX=66666666\@fax.ha.su.erm.abcxyz.se\r\n"
+        . "Action: failed\r\n"
+        . "Status: 4.4.7 (unable to deliver this message after 1 hour)\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_d+kOhF8mdqNZD+2CbIqd3Q)\r\n"
+        . "Content-type: message/rfc822\r\n"
+        . "\r\n"
+        . "Return-path: <>\r\n"
+        . "Received: from tcp_fax-daemon.ms1.ha.su.erm.abcxyz.se by\r\n"
+        . " ms1.ha.su.erm.abcxyz.se\r\n"
+        . " (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . " id <0IAZ007015C0BZ\@ms1.ha.su.erm.abcxyz.se>; Thu,\r\n"
+        . " 27 Jan 2005 13:00:00 +0100 (MET)\r\n"
+        . "Received: from ms1.ha.su.erm.abcxyz.se\r\n"
+        . " (micke01.ha.su.erm.abcxyz.se [10.21.0.92]) by ms1.ha.su.erm.abcxyz.se\r\n"
+        . " (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . " with ESMTP id <0IAZ00F5W1YVPY\@ms1.ha.su.erm.abcxyz.se> for FAX=66666666\@mfc;\r\n"
+        . " Thu, 27 Jan 2005 11:47:20 +0100 (MET)\r\n"
+        . "Date: Thu, 27 Jan 2005 15:45:23 +0500\r\n"
+        . "From: 19171000\@ha.su.erm.abcxyz.se\r\n"
+        . "Subject: Fax Message\r\n"
+        . "To: FAX=66666666\@fax.ha.su.erm.abcxyz.se\r\n"
+        . "Errors-to: 19171000\@ha.su.erm.abcxyz.se\r\n"
+        . "Reply-to: 19171000\@ha.su.erm.abcxyz.se\r\n"
+        . "Message-id: <41F8C643.000035.00B84\@unknown.host>\r\n"
+        . "MIME-version: 1.0 (Voice 2.0)\r\n"
+        . "Content-type: multipart/fax-message;\r\n"
+        . " boundary=\"Boundary_(ID_ztqk+q04Pi9gBa04NSsztQ)\"\r\n"
+        . "\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_ztqk+q04Pi9gBa04NSsztQ)\r\n"
+        . "Content-type: message/rfc822\r\n"
+        . "\r\n"
+        . "Return-path: <FAX=number.withheld\@as5400-1.ha.su.erm.abcxyz.se>\r\n"
+        . "Received: from as5400-1 (as5400-1.ha.su.erm.abcxyz.se [10.21.0.74])\r\n"
+        . " by ms2.ha.su.erm.abcxyz.se\r\n"
+        . " (iPlanet Messaging Server 5.2 Patch 2 (built Jul 14 2004))\r\n"
+        . " with ESMTP id <0IAI00AWOCTFTH\@ms2.ha.su.erm.abcxyz.se> for\r\n"
+        . " FAX=1119171000\@ha.su.erm.abcxyz.se; Tue, 18 Jan 2005 11:25:00 +0100 (MET)\r\n"
+        . "Received: by as5400-1 for <FAX=1119171000\@ha.su.erm.abcxyz.se>\r\n"
+        . " (with Cisco NetWorks); Tue, 18 Jan 2005 11:22:27 +0100\r\n"
+        . "Date: Tue, 18 Jan 2005 11:22:27 +0100\r\n"
+        . "From: FAX=number.withheld\@as5400-1.ha.su.erm.abcxyz.se\r\n"
+        . "Subject: Fax Message\r\n"
+        . "To: 1119171000 <FAX=1119171000\@ha.su.erm.abcxyz.se>\r\n"
+        . "Message-id: <01DB2005112227393\@as5400-1>\r\n"
+        . "MIME-version: 1.0\r\n"
+        . "X-Mailer: IOS (tm) 5400 Software (C5400-JS-M)\r\n"
+        . "Content-type: multipart/fax-message;\r\n"
+        . " boundary=\"Boundary_(ID_J8ruYyuypYzSMgl2mbA8mw)\"\r\n"
+        . "X-Account-Id:\r\n"
+        . "Original-recipient: rfc822;FAX=1119171000\@ha.su.erm.abcxyz.se\r\n"
+        . "\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_J8ruYyuypYzSMgl2mbA8mw)\r\n"
+        . "Content-id: <01DC2005112315393\@as5400-1>\r\n"
+        . "Content-type: image/tiff; name=\"FaxMessage.tif\"; application=faxbw\r\n"
+        . "Content-transfer-encoding: base64\r\n"
+        . "\r\n"
+        . "SUkqAAgAAAAYAP4ABAABAAAAAgAAAAABAwABAAAAwAYAAAEBAwABAAAAcwQAAAIBAwABAAAAAQAA\r\n"
+        . "AAMBAwABAAAAAwAAAAYBAwABAAAAAAAAAAoBAwABAAAAAQAAAA4BAgAKAAAALgEAABEBBAABAAAA\r\n"
+        . "TZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFN\r\n"
+        . "moABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqAAU2agAFNmoABTZqA\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_J8ruYyuypYzSMgl2mbA8mw)--\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_ztqk+q04Pi9gBa04NSsztQ)--\r\n"
+        . "\r\n"
+        . "--Boundary_(ID_d+kOhF8mdqNZD+2CbIqd3Q)--\r\n";
+
+    $header{'faxprintfailheaders'} = $header
+      . "Return-path: <>\r\n"
+      . "Date: Mon, 31 Mar 2008 14:50:59 +0000\r\n"
+      . "From: Fax Daemon <postmaster@mobeon.com>\r\n"
+      . "Subject: Delivery Status Notification\r\n"
+      . "To: __TO__\r\n"
+      . "MIME-version: 1.0\r\n"
+      . "Content-type: multipart/report; report-type=delivery-status;\r\n"
+      . " boundary=\"yradnuoB=_00902008145058746.mgw01\"\r\n"
+      . "Original-recipient: rfc822;qraslen0001@lab.mobeon.com\r\n";
+
+    $body{'faxprintfailheaders'} = $header
+      . "--yradnuoB=_00902008145058746.mgw01\r\n"
+      . "Content-ID: <00922008145059282@mgw01>\r\n"
+      . "\r\n"
+      . "\r\n"
+      . "This is a Delivery Status Notification for your message\r\n"
+      . "  dated: Mon, 31 Mar 2008 15:50:40 +0100 (IST)\r\n"
+      . "  subject: Fax Message\r\n"
+      . "  received at: Mon, 31 Mar 2008 14:50:43 +0000\r\n"
+      . "\r\n"
+      . "\r\n"
+      . "Delivery was unsuccessful to the following recipient(s):\r\n"
+      . "  <FAX=014@fax.lab.mobeon.com> \r\n"
+      . "Failed with the status of: 554 5.3.0 An unknown error occurred\r\n"
+      . "The cause code is: call rejected (21)\r\n"
+      . "The fax error text is: none\r\n"
+      . "\r\n"
+      . "--yradnuoB=_00902008145058746.mgw01\r\n"
+      . "Content-ID: <00932008145059282@mgw01>\r\n"
+      . "Content-Type: message/delivery-status\r\n"
+      . "\r\n"
+      . "Reporting-MTA: x-local-hostname; mgw01.lab.mobeon.com\r\n"
+      . "Received-From-MTA: \r\n"
+      . "Arrival-Date: Mon, 31 Mar 2008 14:50:43 +0000\r\n"
+      . "\r\n"
+      . "Original-Recipient: rfc822;FAX=014@mfc\r\n"
+      . "Final-Recipient: rfc822; FAX=014@fax.lab.mobeon.com\r\n"
+      . "Action: failed with cause code - call rejected (21); fax error text - none\r\n"
+      . "Status: 554 5.3.0 An unknown error occurred\r\n"
+      . "X-Total-Pages: 0\r\n"
+      . "X-Accept-Features: (| (TIFF-S) (TIFF-F) )\r\n"
+      . "\r\n"
+      . "--yradnuoB=_00902008145058746.mgw01\r\n"
+      . "Content-ID: <00942008145059282@mgw01>\r\n"
+      . "Content-Type: message/rfc822-headers\r\n"
+      . "\r\n"
+      . "Received: from lilleskutt (lilleskutt.heavytest.lab.su.sw.abcxyz.se [10.80.2.5]) by pamuk.lab.mobeon.com (Sun Java System Messaging Server 6.2-8.02 (built Dec 21 2006)) with SMTP id <0JYL00H0XNWG1X00@lab.mobeon.com> for FAX=014@mfc; Mon, 31 Mar 2008 15:50:40 +0100 (IST)\r\n"
+      . "\r\n"
+      . "--yradnuoB=_00902008145058746.mgw01--\r\n";
+
+
+    $header{'email'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: __TO__\r\n"
+        . "Subject: email message __ID__\r\n"
+        . "Content-type: text/plain\r\n";
+
+    $body{'email'} = "This is line 1 of the test email\r\n"
+      . "This is line 2 of the test email\r\n"
+      . "This is line 3 of the test email\r\n"
+      . "This is line 4 of the test email\r\n"
+      . "This is line 5 of the test email\r\n"
+      . "This is line 6 of the test email\r\n"
+      . "This is line 7 of the test email\r\n"
+      . "This is line 8 of the test email\r\n"
+      . "This is line 9 of the test email\r\n"
+      . "This is line 10 of the test email\r\n"
+      . "This is line 11 of the test email\r\n"
+      . "This is line 12 of the test email\r\n"
+      . "This is line 13 of the test email\r\n"
+      . "This is line 14 of the test email\r\n"
+      . "This is line 15 of the test email\r\n"
+      . "This is line 16 of the test email\r\n"
+      . "This is line 17 of the test email\r\n"
+      . "This is line 18 of the test email\r\n"
+        . "This is line 19 of the test email\r\n";
+
+    $header{'off'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: mvas.subscriber.logout\r\n"
+        . "Ipms-Notification-Content: __TOPHONE__\r\n";
+
+    $body{'off'} = "Junk\r\n";
+
+    $body{'off_param'} = "lastinventory=__PAR_TIME__\r\n"
+        . "new=__PAR_NEW__\r\n"
+        . "retrieved=__PAR_RETRIEVED__\r\n";
+
+    $header{'groupoff'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: mvas.subscriber.logout\r\n"
+        . "Ipms-Notification-Content: body\r\n";
+
+    $body{'groupoff'} = "__TOPHONE__ __MAILHOST__\r\n";
+
+    $header{'mwidis'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: mwidisabled\r\n"
+        . "Ipms-Notification-Content: __TOPHONE__\r\n";
+
+    $body{'mwidis'} = "Junk\r\n";
+
+    $header{'slam'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: mvas.subscriber.slamdown\r\n"
+        . "Ipms-Notification-Content: body\r\n";
+
+    $body{'slam'} = "__SUBTYPE__ __CALLER__ __MAILHOST__ __TO__\r\n";
+
+    $header{'psc'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: phone.state.changed\r\n"
+        . "Ipms-Notification-Content: body\r\n";
+
+    $body{'psc'} = "__TOPHONE__ __MAILHOST__ terminal __PAR_MWI__ __PAR_FLASH__ __PAR_REPLACE__\r\n";
+
+    $header{'ivr'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: ivrtosms\r\n"
+        . "Ipms-Notification-Content: body\r\n";
+
+    $body{'ivr'} = "__CALLER__ en __TOPHONE__\r\n";
+
+    $header{'vmoff'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "To: __TO__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: voicemailoff\r\n"
+        . "Ipms-Notification-Content: body\r\n"
+        . "X-Ipms-Deferred-Delivery: __DEFERRED__\r\n";
+
+    $body{'vmoff'} = "action=__ACTION__\r\nforwardingnumber=__FORWARDINGNUMBER__\r\nunsetforwards=__UNSETFORWARDS__\r\n";
+
+    $header{'cfu'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "To: __TO__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: cfuon\r\n"
+        . "Ipms-Notification-Content: body\r\n"
+        . "X-Ipms-Deferred-Delivery: __DEFERRED__\r\n";
+
+    $body{'cfu'} = "action=__ACTION__\r\nforwardingnumber=__FORWARDINGNUMBER__\r\n";
+
+    $header{'quota'} = "From: Mail_Administrator\r\n"
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "Date: __DATE__\r\n"
+        . "MIME-Version: 1.0\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "To: __TO__\r\n"
+        . "Received:([x.x.x.x]) by\r\n"
+        . "Subject: WARNING: Quota exceeded\r\n";
+
+    $body{'quota'} = "action=__ACTION__\r\nforwardingnumber=__FORWARDINGNUMBER__\r\n";
+
+
+    $header{'tmpgrt'} = $header
+        . "From: ($from) $from\@mobeon.com\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "To: __TO__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: temporarygreetingon\r\n"
+        . "Ipms-Notification-Content: body\r\n"
+        . "X-Ipms-Deferred-Delivery: __DEFERRED__\r\n";
+
+    $body{'tmpgrt'} = "action=__ACTION__\r\nforwardingnumber=__FORWARDINGNUMBER__\r\n";
+
+    $header{'cut'} = "From: sink\r\n"
+        . "From: Sink\@ipms.mobeon.com\r\n"
+        . "Date: __DATE__\r\n"
+        . "MIME-Version: 1.0\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "To: __TO__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: sendshortmessage\r\n"
+        . "Ipms-Notification-Content: body\r\n";
+
+    $body{'cut'} = "__CALLER__\r\n";
+
+    $header{'cli'} = "From: sink\r\n"
+        . "From: Sink\@ipms.mobeon.com\r\n"
+        . "Date: __DATE__\r\n"
+        . "MIME-Version: 1.0\r\n"
+        . "To: notification.off\@__MAILHOST__\r\n"
+        . "To: __TO__\r\n"
+        . "Ipms-Message-Type: notification\r\n"
+        . "Ipms-Notification-Version: 1.0\r\n"
+        . "Ipms-Component-From: some-mvas\r\n"
+        . "Ipms-Notification-Type: mvas.subscriber.caller_cli\r\n"
+        . "Ipms-Notification-Content: __CALLER__\r\n"
+        . "Subject: __CALLER__";
+
+    $body{'cli'} = "\r\n";
+}

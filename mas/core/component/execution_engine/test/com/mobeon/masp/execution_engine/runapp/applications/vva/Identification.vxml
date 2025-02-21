@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--The number of login attempts during this call.-->
+   <var name="loginAttempts" />
+   <var name="setPreferredLanguageResult" />
+   <var name="numberAndLoginAttempts" />
+   <var name="pinCorrectAndLoginAttempts" />
+   <var name="procedureResult" />
+   <!--The message in error events.-->
+   <var name="_message" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="assign1">
+      <block>
+         <assign name="loginAttempts" expr="0" />
+         <goto next="#proc4" />
+      </block>
+   </form>
+   <form id="proc4">
+      <subdialog name="sub" src="SetPreferredLanguage.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <param name="p_ani" expr="ANI" />
+         <filled>
+            <assign name="setPreferredLanguageResult" expr="sub.resultCode" />
+            <if cond="((setPreferredLanguageResult[0] == 'NotSet'))">
+               <if cond="((Time_IsMorning (ANI) == true))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(1)" />
+                  </prompt>
+                  <goto next="#cond5" />
+                  <elseif cond="((Time_IsAfternoon (ANI) == true))" />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(2)" />
+                  </prompt>
+                  <goto next="#cond5" />
+                  <elseif cond="((Time_IsEvening (ANI) == true))" />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(3)" />
+                  </prompt>
+                  <goto next="#cond5" />
+                  <else />
+                  <goto next="#cond5" />
+               </if>
+               <elseif cond="((setPreferredLanguageResult[0] == 'OK'))" />
+               <if cond="((setPreferredLanguageResult.length == 2))">
+                  <assign name="NewLanguageChosen" expr="setPreferredLanguageResult[1]" />
+                  <goto next="#cond5" />
+                  <else />
+                  <goto next="#cond5" />
+               </if>
+               <else />
+               <goto next="Goodbye.vxml" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="cond5">
+      <block>
+         <if cond="((GlobalObject.Subscriber != ''))">
+            <goto next="#cond1" />
+            <else />
+            <goto next="#sub4" />
+         </if>
+      </block>
+   </form>
+   <form id="cond1">
+      <block>
+         <if cond="((Login_GetPhoneNumber (GlobalObject.Subscriber) == false))">
+            <if cond="((Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'maiuserstatus') == 'inactive'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(56)" />
+               </prompt>
+               <goto next="Goodbye.vxml" />
+               <elseif cond="((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'badlogincount') &gt;= Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'maxloginlockout')))" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(57)" />
+               </prompt>
+               <goto next="Goodbye.vxml" />
+               <elseif cond="!(Login_IsOwnPhoneCheckOk(GlobalObject.Subscriber, ANI) == true)" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(60)" />
+               </prompt>
+               <goto next="Goodbye.vxml" />
+               <elseif cond="((Call_IsVideo () == true) &amp;&amp; (Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emvuiaccess') == 'none'))" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(58)" />
+               </prompt>
+               <goto next="#ptarget2" />
+               <elseif cond="((Call_IsVoice () == true) &amp;&amp; (Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emtuiaccess') == 'none'))" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(59)" />
+               </prompt>
+               <goto next="#ptarget2" />
+               <else />
+               <goto next="#cond2" />
+            </if>
+            <else />
+            <goto next="#proc2" />
+         </if>
+      </block>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#proc2" />
+      </block>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="GetPhoneNumber.vxml">
+         <param name="p_loginAttempts" expr="loginAttempts" />
+         <param name="p_ani" expr="ANI" />
+         <filled>
+            <assign name="numberAndLoginAttempts" expr="sub.resultCode" />
+            <goto next="#sub5" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub5">
+      <script>Utility_SetGlobalObject ('Subscriber', numberAndLoginAttempts[0])</script>
+      <block>
+         <assign name="loginAttempts" expr="numberAndLoginAttempts[1]" />
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="SetPromptLanguage.vxml">
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResult" expr="sub.resultCode" />
+            <if cond="((Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'maiuserstatus') == 'inactive'))">
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(56)" />
+               </prompt>
+               <goto next="Goodbye.vxml" />
+               <elseif cond="((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'badlogincount') &gt;= Subscriber_GetSingleIntegerAttribute(GlobalObject.Subscriber, 'maxloginlockout')))" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(57)" />
+               </prompt>
+               <goto next="Goodbye.vxml" />
+               <elseif cond="!(Login_IsOwnPhoneCheckOk(GlobalObject.Subscriber, ANI) == true)" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(60)" />
+               </prompt>
+               <goto next="Goodbye.vxml" />
+               <elseif cond="((Call_IsVideo () == true) &amp;&amp; (Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emvuiaccess') == 'none'))" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(58)" />
+               </prompt>
+               <goto next="#ptarget2" />
+               <elseif cond="((Call_IsVoice () == true) &amp;&amp; (Subscriber_GetSingleStringAttribute (GlobalObject.Subscriber, 'emtuiaccess') == 'none'))" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(59)" />
+               </prompt>
+               <goto next="#ptarget2" />
+               <else />
+               <goto next="#cond2" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="cond2">
+      <block>
+         <if cond="((GlobalObject.Subscriber == ANI) &amp;&amp; (Subscriber_GetSingleBooleanAttribute (GlobalObject.Subscriber, 'passwordskipavailable') == true) &amp;&amp; (Subscriber_GetSingleBooleanAttribute (GlobalObject.Subscriber, 'passwordskipenabled') == true))">
+            <goto next="#sub1" />
+            <else />
+            <goto next="#proc3" />
+         </if>
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SendTrafficEvent ('login', 'description=login,operation=1,objecttype=2,callingnumber=' + ANI)</script>
+      <block>
+         <goto next="#sub3" />
+      </block>
+   </form>
+   <form id="sub3">
+      <script>Utility_SetGlobalObject ('LoggedIn', true)</script>
+      <block>
+         <if cond="((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'badlogincount') == 0))">
+            <goto next="FirstTimeLogin.vxml" />
+            <else />
+            <goto next="#sub2" />
+         </if>
+      </block>
+   </form>
+   <form id="sub2">
+      <script>Subscriber_SetSingleIntegerAttribute (GlobalObject.Subscriber, 'badlogincount', 0)</script>
+      <block>
+         <goto next="FirstTimeLogin.vxml" />
+      </block>
+   </form>
+   <form id="proc3">
+      <subdialog name="sub" src="GetPin.vxml">
+         <param name="p_loginAttempts" expr="loginAttempts" />
+         <param name="p_ani" expr="ANI" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="pinCorrectAndLoginAttempts" expr="sub.resultCode" />
+            <if cond="((pinCorrectAndLoginAttempts[0] == true))">
+               <goto next="#sub1" />
+               <else />
+               <assign name="loginAttempts" expr="pinCorrectAndLoginAttempts[1]" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(64)" />
+               </prompt>
+               <goto next="#ptarget2" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="sub4">
+      <script>Utility_SetGlobalObject ('Subscriber', ANI)</script>
+      <block>
+         <goto next="#cond1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <if cond="(_message.indexOf('attrName=userlevel') != -1)">
+         <if cond="((Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'emftl').indexOf('PIN') == -1))">
+            <goto next="#cond2" />
+            <else />
+            <goto next="#prompt9" />
+         </if>
+         <else />
+         <goto next="#prompt9" />
+      </if>
+   </catch>
+   <form id="prompt9">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(60)" />
+         </prompt>
+         <goto next="Goodbye.vxml" />
+      </block>
+   </form>
+</vxml>

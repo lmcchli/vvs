@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="externalcomponentregister"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="externalcomponentregister">
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="mcr"/>
+                <xs:element ref="propertymap"/>
+                <xs:element ref="services"/>
+                <xs:element ref="algorithms"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mcr">
+        <xs:complexType>
+            <xs:attribute name="hostname" type="xs:string"/>
+            <xs:attribute name="port" type="xs:integer"/>
+            <xs:attribute name="timeout" type="xs:integer"/>
+            <xs:attribute name="userid" type="xs:string"/>
+            <xs:attribute name="password" type="xs:string"/>
+            <xs:attribute name="suffix" type="xs:string"/>
+            <xs:attribute name="periodicity" type="xs:integer"/>
+            <xs:attribute name="trylimit" type="xs:integer" use="required"/>
+            <xs:attribute name="trytimelimit" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="value">
+        <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:element name="propertymap">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="port" type="mcrproperty"/>
+                <xs:element name="protocol" type="mcrproperty"/>
+                <xs:element name="version" type="mcrproperty"/>
+                <xs:element name="hostname" type="mcrproperty"/>
+                <xs:element name="logicalzone" type="mcrproperty"/>
+                <xs:element name="component" type="mcrproperty"/>
+                <xs:element name="type" type="mcrproperty"/>
+                <xs:element name="rootoid" type="mcrproperty"/>
+                <xs:element name="language" type="mcrproperty"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="mcrproperty">
+        <xs:attribute name="mcrname" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:element name="services">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="storage" type="service"/>
+                <xs:element name="smtpstorage" type="service"/>
+                <xs:element name="userregister" type="service"/>
+                <xs:element name="userregisterwrite" type="service" minOccurs="0"/>
+                <xs:element name="eventreporting" type="service"/>
+                <xs:element name="texttospeech" type="service"/>
+                <xs:element name="speechrecognition" type="service"/>
+                <xs:element name="provision" type="service"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="service">
+        <xs:sequence>
+            <xs:element name="default" type="instanceproperties" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="instance" type="instanceproperties" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="overridemcr" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="yes|no"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="instanceproperties">
+        <xs:attribute name="port" type="xs:string"/>
+        <xs:attribute name="hostname" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="protocol" type="xs:string"/>
+        <xs:attribute name="component" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:element name="algorithms">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="localrandomchooser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="localrandomchooser">
+        <xs:complexType>
+            <xs:attribute name="logicalzone" type="xs:string"/>
+            <xs:attribute name="netmask" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

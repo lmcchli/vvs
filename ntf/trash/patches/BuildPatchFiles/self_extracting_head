@@ -1,0 +1,248 @@
+#!/bin/sh
+NAME=$0
+DIR=`dirname $0`
+FILE=`basename $0`
+ARG=`echo $1 | /usr/bin/tr '[:upper:]' '[:lower:]'`
+ARG2=`echo $2 | /usr/bin/tr '[:upper:]' '[:lower:]'`
+VERSION=""
+version=`echo $VERSION | /usr/bin/tr '[:upper:]' '[:lower:]'`
+cd $DIR
+PWD=`pwd`
+FILENAME=install.tar
+FILENAME_CODED=install2.tar
+EXECUTABLE=install.sh
+NTF_DIR=/apps/ntf
+PATCH_DIR=$NTF_DIR/patches
+HA=""
+
+# FUNCTIONS
+unpack_files(){
+
+# If this file is changed, the tail +<num> must be changed to correct line number. 
+# It should be the line number of the last blank line in the file.
+cd $PWD
+tail +249 $FILE > $FILENAME_CODED
+uudecode $FILENAME_CODED
+rm -f $FILENAME_CODED
+if [ "." != "$PATCH_DIR" ]; then
+    mv $FILENAME $PATCH_DIR
+    cd $PATCH_DIR
+fi
+tar xf $FILENAME
+rm $FILENAME
+}
+
+check_ntf_installation(){
+    NTF_DIR=`pkgparam LMENtf BASEDIR`
+    PATCH_DIR="$NTF_DIR/patches"
+    if [ $? != 0 ]; then
+	echo "ERROR: NTF is not installed on this host!"
+	echo "Exiting."
+	exit 1
+    fi
+    # HAMODE valid value: Yes, true, 1 
+    HA=`pkgparam LMENtf HAMODE | egrep "[YyTt1][EeRr]?[SsUu]?[Ee]?"`
+    
+}
+
+check_install_type(){
+if [ "$ARG" = "uninstall" ];then
+    check_ntf_installation
+    if [ ! -d $NTF_DIR/patches/$VERSION ];then
+	echo "ERROR: This patch is not installed on this NTF."
+	echo "Exiting."
+	exit 1	
+    fi
+elif [ "$ARG" = "unpack" ];then
+    PATCH_DIR=.
+    unpack_files
+    echo "INFO: Patch unpacked successfully."
+    exit 0
+else
+    check_ntf_installation
+    ARG=install
+    if [ -d $NTF_DIR/patches/$VERSION ];then
+	echo "ERROR: This patch is already installed!"
+	echo "Exiting."
+	exit 0
+    fi
+    if [ ! -d $PATCH_DIR ]; then
+	mkdir -p $PATCH_DIR
+    fi
+fi
+}
+
+uninstall_obsoleted_patches() {
+    # This patch ID without build number is set as initial value to be shure that 
+    # this patch ID with lower build number are uninstalled before this version is installed
+    version_without_buildnr=`echo $VERSION | sed 's%\(.*\)\..*%\1%'`
+    obsoleted_patches=""
+    obsoleted_patches_from_file=""
+    if [ -f  $PATCH_DIR/$VERSION/obsoleted_patches ]; then
+	obsoleted_patches_from_file=`cat $PATCH_DIR/$VERSION/obsoleted_patches`
+    fi
+    obsoleted_patches="$version_without_buildnr $obsoleted_patches_from_file"
+    
+    for patch_version in $obsoleted_patches; do
+	latest_version=`get_latest_version $patch_version`
+	while [ $? -eq 0 ]; do
+	    uninstall_script=$PATCH_DIR/$latest_version/uninstallation_files/uninstall.sh
+	    if [ -f $uninstall_script ]; then
+		same_patch_id=`echo $latest_version | grep $version_without_buildnr`
+		if [ -z "$same_patch_id" ]; then
+		    echo "INFO: Uninstalling obsoleted patch $latest_version"
+		else
+		    echo "INFO: Uninstalling patch $latest_version"
+		fi
+		$uninstall_script uninstall $NTF_DIR
+		
+		if [ $? != 0 ]; then
+		    echo "ERROR: An Error occured during uninstallation of obsoleted patch: $latest_version"
+		    echo "Manually uninstall obsoleted patch $latest_version and reinstall patch $VERSION"
+		    echo "Exiting."
+		    exit 1
+		fi
+	    fi
+	    latest_version=`get_latest_version $patch_version`
+	done
+    done
+}
+
+install_or_uninstall_this_file(){
+    if [ "$ARG" = "uninstall" ];then
+	echo "INFO: Uninstall patch $VERSION"
+	$PATCH_DIR/$VERSION/uninstallation_files/uninstall.sh
+	if [ -f $PATCH_DIR/$EXECUTABLE ]; then
+	    rm $PATCH_DIR/$EXECUTABLE
+	fi
+	unpack_prev_versions
+	reinstall_previous_patches
+	return 0
+    fi
+    # install
+    echo "INFO: Install patch $VERSION"
+    $PATCH_DIR/$EXECUTABLE > /dev/null 2>&1
+    rm $PATCH_DIR/$EXECUTABLE
+    cp $PWD/$FILE $PATCH_DIR/$VERSION/uninstallation_files/
+}
+
+start_ntf(){
+    /etc/init.d/rc.ntf start > /dev/null 2>&1
+    echo "INFO: NTF started"
+}
+
+stop_ntf(){
+    /etc/init.d/rc.ntf stop > /dev/null 2>&1
+    echo "INFO: NTF stopped"
+}
+
+completed(){
+    if [ "$ARG" = "uninstall" ];then
+	echo "INFO: Patch uninstallation completed successfully."
+    else
+	echo "INFO: Patch installation completed successfully."	
+    fi
+}
+
+get_latest_version() {
+    version=$1
+    version_without_buildnr=`echo $version | sed 's%\(.*\)\..*%\1%'`
+    versions_with_buildnr=`ls -l $PATCH_DIR | grep $version_without_buildnr. | awk '{ print $9 }'`
+    max_value=0
+    latest_version=""
+    
+    for version_buildnr in $versions_with_buildnr; do
+	num=`echo $version_buildnr | sed 's%.*\.\([0-9]*\)%\1%'`
+	if [ $num -gt $max_value ] && [ "$VERSION" != "$version_without_buildnr.$num" ]; then
+	    max_value=$num
+	fi
+    done
+    
+    if [ $max_value -gt 0 ]; then
+	latest_version=`ls -l $PATCH_DIR | grep $version_without_buildnr.$max_value | awk '{ print $9 }'`
+    else
+	latest_version=`ls -l $PATCH_DIR | grep $version_without_buildnr | awk '{ print $9 }'`
+    fi
+
+    if [ -n "$latest_version" ] && [ "$VERSION" != "$latest_version" ]; then
+	echo $latest_version
+	return 0
+    else 
+	return 1
+    fi
+}
+
+compress_prev_versions() {
+    cd $NTF_DIR
+    obsoleted_patches_from_file=""
+    if [ -f  $PATCH_DIR/$VERSION/obsoleted_patches ]; then
+	obsoleted_patches_from_file=`cat $PATCH_DIR/$VERSION/obsoleted_patches`
+    fi
+    if [ -n "$obsoleted_patches_from_file" ]; then
+	tar cf .prev_patches.$version.tar patches VERSION
+	gzip .prev_patches.$version.tar
+	mv .prev_patches.$version.tar.gz $PATCH_DIR
+    fi
+}
+
+unpack_prev_versions() {
+    if [ ! -d $NTF_DIR/tmp ]; then
+	mkdir $NTF_DIR/tmp
+    fi
+    cd $NTF_DIR/tmp
+    if [ -f $PATCH_DIR/.prev_patches.$version.tar.gz ]; then
+	gzip -dc $PATCH_DIR/.prev_patches.$version.tar.gz | tar xf -
+	rm  $PATCH_DIR/.prev_patches.$version.tar.gz
+    fi
+}
+
+reinstall_previous_patches() {
+    cd $NTF_DIR/tmp
+    if [ -f VERSION ]; then
+	prev_patch_ids=`cat VERSION | sed 's/.*=R11B[,$].\(.*\)/\1/' | grep -v VERSION`
+	prev_patch_ids=`echo $prev_patch_ids | sed '1,$ s/,//g'`
+    
+	for prev_patch_id in $prev_patch_ids; do
+	    lower_prev_patch_id=`echo $prev_patch_id | /usr/bin/tr '[:upper:]' '[:lower:]'`
+	    install_file=`ls patches/$prev_patch_id/uninstallation_files | grep $lower_prev_patch_id`
+	    if [ -f patches/$prev_patch_id/uninstallation_files/$install_file ]; then
+		echo "INFO: Re-install previous patch $prev_patch_id"
+		patches/$prev_patch_id/uninstallation_files/$install_file install frominstall > /dev/null 2>&1
+		if [ $? != 0 ]; then
+		    echo "ERROR: An Error occured during re-installation of previous patch: $prev_patch_id"  
+		    echo "Manually install the previous patches $prev_patch_ids"
+		fi
+	    fi
+	done
+    fi
+    cd $NTF_DIR
+    rm -rf tmp
+}
+
+link_selfdiag() {
+    if [ ! -d /apps/selfdiag/ntf ]; then
+	mkdir -p /apps/selfdiag/ntf  > /dev/null 2>&1
+    fi
+
+    if [ ! -f /apps/selfdiag/ntf/selfdiag ]; then
+	ln -s $NTF_DIR/selfdiag/selfdiag /apps/selfdiag/ntf/selfdiag > /dev/null 2>&1
+    fi
+}
+
+#MAIN
+check_install_type
+if [ -z "$HA" ] && [ "$ARG2" != "frominstall" ]; then
+    stop_ntf
+fi
+if [ "$ARG" = "install" ]; then
+    unpack_files
+    compress_prev_versions
+    uninstall_obsoleted_patches
+fi
+install_or_uninstall_this_file
+link_selfdiag
+if [ -z "$HA" ] && [ "$ARG2" != "frominstall" ]; then
+    start_ntf
+fi
+completed
+exit 0

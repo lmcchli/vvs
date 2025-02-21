@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<vxml version="2.0"  xmlns="http://www.w3.org/2001/vxml">
+
+	<catch event="telephone.disconnect.hangup">
+		<log>user hangup</log>
+	</catch>
+	
+	<!--  
+		load the ECMA file. This is now in the outer, application
+		scope.
+	-->
+	<script src="throw.js" />
+
+	<form>
+	<!-- declaration of a form var - only visible in this form but
+	visible in all ECMA expression in the form -->
+		<var name="davids_mamma" />
+		<block>
+			<if cond="a.getNofMessages() &lt; 7"> <!-- note need to write &lt; and not '<', the latter is not a valid in vxml outside of CDATA -->
+				hej du har <value expr="bar(1)" /> meddelanden
+			<else />
+				Du har massar med meddelanden
+			</if>
+		</block>
+		
+		<field name="f1" >
+			
+			<prompt>
+				Enter message to delete
+			</prompt>
+			<filled>
+				<!-- 
+				 Example of inline script - f1 who is a vxml field is used as an argument and
+				 the result is stored in a vxml variable
+				-->
+				<script>
+					david_mamma = bar(f1);
+				</script>
+				
+				Tjo vad <value expr="davids_mamma" />
+			</filled>
+			<grammar mode="dtmf">
+				<rule id="r">
+					
+					<item>1</item>
+					
+				</rule>
+			</grammar>
+		</field>
+	</form>
+</vxml>

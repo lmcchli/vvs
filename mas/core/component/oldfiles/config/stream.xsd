@@ -1,0 +1,122 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType" />
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+			
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType"/>
+			<xs:element name="SupportedContentType.List" type="supportedContentTypeTableType" />
+			<xs:element name="RtpPayloadDef.Table" type="rtpPayloadDefTableType" />			
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+		<xs:all>				
+
+			<!-- sendpacketsaheadms: If &gt; 0, packets will be dispatched this amount of ms ahead of their timestamp. -->
+			<!-- sendpacketsaheadms: If > 0, packets will be dispatched this amount of ms ahead of their timestamp. -->
+			<!-- maximumtransmissionunit: The IP layer can accept packets up to 65535 octets. The largest
+			       packet an Ethernet can deliver is 1500 octets. 1500 is a typical value because virtually
+			       all backbone network links hava an MTU of 1500 or more. -->
+			<!-- skew: Number of milliseconds the audio should be sent ahead of the video. If the video
+			       should be sent ahead of the audio, this should be a negative value. -->
+			<!-- skewmethod: "LOCAL" / "LOCAL_AND_RTCP" / "RTCP" -->
+			<!-- maxwaitforiframems: Maximum time in milliseconds a record-operation will wait for an I-frame
+			       before the recording starts. -->
+			<!-- defaultinboundptime: Default pTime for inbound sessions. Note that this value is only applicable
+			       for uncompressed encodings like PCMU. -->
+			<!-- Primary type in lower-case, for example &quot;audio&quot;, &quot;video&quot;, &quot;text&quot;  -->
+			<!-- Sub-type in lower-case, for example &quot;pcmu&quot;, &quot;h263&quot;, &quot;telephone-event&quot;  -->
+			<!-- RTP payload (as defined in RFC3551 for static types).  -->
+			<!-- Encoding as defined by IANA (case-sensitive). -->
+			<!-- Clockrate in Hz. -->
+			<!-- bitrate in bit/s -->		
+			
+			<xs:element name="Cm.portPoolBase" type="xs:integer" default="23000" minOccurs="0"/>
+			<xs:element name="Cm.portPoolSize" type="xs:integer" default="1440" minOccurs="0"/>
+			<xs:element name="Cm.movFileVersion" type="movFileVersionEnumType" default="1" minOccurs="0"/>
+			<xs:element name="Cm.syncCallMaxWaitTimeSec" type="xs:integer" default="120" minOccurs="0"/>
+			<xs:element name="Cm.sendPacketsAheadms" type="xs:integer" default="40" minOccurs="0"/>
+			<xs:element name="Cm.expireTimeOutms" type="xs:integer" default="40000" minOccurs="0" />
+			<xs:element name="Cm.streamAbandonedms" type="xs:integer" default="32000" minOccurs="0"/>
+			<xs:element name="Cm.sendersControlFraction" type="xs:float" default="0.4" minOccurs="0"/>
+			<xs:element name="Cm.audioReplaceWithSilencems" type="xs:integer" default="10" minOccurs="0"/>
+			<xs:element name="Cm.dispatchDtmfOnKeyDown" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="Cm.maximumTransmissionUnit" type="xs:integer" default="2000" minOccurs="0"/>
+			<xs:element name="Cm.audioSkipms" type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.maxWaitForIframems" type="xs:integer" default="2000" minOccurs="0"/>
+			<xs:element name="Cm.skew" type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.skewMethod" type="skewMethodEnumType" default="LOCAL" minOccurs="0" />
+			<xs:element name="Cm.defaultInboundPtime" type="defaultInboundPtimeEnumType" default="40" minOccurs="0"/>
+			<xs:element name="Cm.defaultInboundMaxPtime" type="xs:integer" default="40" minOccurs="0" />
+			<xs:element name="Cm.outputProcessors" type="xs:integer" default="4" minOccurs="0"/>
+			<xs:element name="Cm.inputProcessors" type="xs:integer" default="16" minOccurs="0"/>
+			<xs:element name="Cm.silenceDetectionMode" type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.silenceThreshold" type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.initialSilenceFrames" type="xs:integer" default="40" minOccurs="0"/>
+			<xs:element name="Cm.signalDeadband" type="xs:integer" default="10" minOccurs="0"/>
+			<xs:element name="Cm.silenceDeadband" type="xs:integer" default="150" minOccurs="0"/>
+			<xs:element name="Cm.detectionFrames" type="xs:integer" default="10" minOccurs="0"/>
+			<xs:element name="Cm.silenceDetectionDebugLevel" type="xs:integer" default="0" minOccurs="0"/>
+			<xs:element name="Cm.localHostName" type="xs:string" default="localhost" minOccurs="0"/>
+
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="supportedContentTypeTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="supportedContentType" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="rtpPayloadDefTableType" mixed="true">
+		<xs:sequence>
+			<xs:element name="rtpPayloadDef" type="rtpPayloadDefType"  minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="rtpPayloadDefType" mixed="true">
+		<xs:sequence>
+			<xs:element name="primaryType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="subType" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="rtpPayload" type="xs:integer" minOccurs="1" maxOccurs="1" />
+			<xs:element name="encoding" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="clockRate" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="bitRate" type="xs:integer" minOccurs="1" maxOccurs="1" />
+			<xs:element name="mediaFormatParameters" type="xs:string" minOccurs="0"/>
+			<xs:element name="minrs" type="xs:integer" minOccurs="0"/>
+			<xs:element name="maxrs" type="xs:integer" minOccurs="0"/>
+			<xs:element name="minrr" type="xs:integer" minOccurs="0"/>
+			<xs:element name="maxrr" type="xs:integer" minOccurs="0"/>
+			<xs:element name="rr" type="xs:integer" minOccurs="0"/>
+			<xs:element name="rs" type="xs:integer" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="movFileVersionEnumType">
+		<xs:restriction base="xs:integer">
+			<xs:enumeration value="0" />
+			<xs:enumeration value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="defaultInboundPtimeEnumType">
+		<xs:restriction base="xs:integer">
+			<xs:enumeration value="20" />
+			<xs:enumeration value="40" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="skewMethodEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LOCAL" />
+			<xs:enumeration value="RTCP" />
+			<xs:enumeration value="LOCAL_AND_RTCP" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

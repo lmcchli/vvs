@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+
+		<var name="newMsg" />
+		<var name="msg1" />
+		<var name="msg2" />
+
+	<form id="main_form">
+		
+
+<!-- Get two prompts from the MCP package -->
+
+
+		<!-- Record a message that is 5 seconds long
+		<record  name="msg1" beep="true" maxtime="5s" dtmfterm="true" type="audio/x-wav" />
+		<record  name="msg2" beep="true" maxtime="5s" dtmfterm="true" type="audio/x-wav" />
+		-->
+
+		<!-- append the two recordings -->
+		<block>
+			<script>
+				<![CDATA[
+				msg1 = mas.systemGetMediaContent( "prompt", "3");
+				msg2 = mas.systemGetMediaContent( "prompt", "1");
+				newMsg = util.systsemGetMediaContent( msg1, msg2);
+				
+				]]>
+			</script>
+		</block>
+		<!-- Play the appended result -->
+		<!--audio expr="msg1" /-->
+		<audio src="welcome.wav" />
+
+		<exit />
+	</form>
+	
+
+	<catch event="error">
+		<log>TC 10002000 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

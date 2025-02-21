@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <catch>
+          <prompt>In Catch</prompt>
+          <log>TCPASS VXML: Prompt OK</log>
+          <exit/>
+      </catch>
+    <form id="form1">
+      <block name="b1">
+          <var name="thecond" expr="1"/>
+          <if cond="thecond == 1">
+              <prompt>In true</prompt>
+              <throw event="testevent"/>
+          <else/>
+              <prompt>In false</prompt>
+          </if>
+      </block>
+   </form>
+</vxml>

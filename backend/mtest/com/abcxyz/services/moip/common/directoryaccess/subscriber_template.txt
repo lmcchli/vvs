@@ -1,0 +1,16 @@
+MSID=msid:1111118888ffff
+Identity=tel:8888
+MOIPMail=lmcdant@des8.com
+MOIPSn=testing
+MOIPNotifNumber=8888
+MOIPCosIdentity=cos:1
+CNServices=MOIP
+MOIPPreferredLanguage=en
+MOIPBadLoginCount=0
+MOIPMailDeliveryOption=mailbox
+MOIPPreferredDateFormat=mm/dd/yyyy
+MOIPPreferredTimeFormat=12
+MOIPSubscriberTimeZone=GMT
+MOIPActiveGreetingId=SpokenName,AllCalls
+MOIPFtl=00,F
+moipSmppCenterId=smscsim

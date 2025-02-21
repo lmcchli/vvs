@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <assign name="test1" expr="1234"/>
+            <!--accept connectionid="evt.connectionid"/-->
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'assign_empty.vxml'"/>
+        </transition>
+        <transition event="dialog.exit" name="dlg">
+                <exit/>
+        </transition>
+        <transition event="error.semantic" name="evt">
+            <log expr="'TCPASS CCXML: Assign ok'"/>
+            <exit/>
+        </transition>
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

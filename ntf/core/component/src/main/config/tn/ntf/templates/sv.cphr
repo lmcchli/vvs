@@ -1,0 +1,164 @@
+################################################################
+#Copyright (c) 2003 Abcxyz Radio Systems AB
+#All Rights Reserved
+#
+
+#sms notificationtype is set to header
+h = {
+"Du har ett nytt " TYPE " från " FROM ". Inkommet " TIME ", " DATE 
+}
+
+#sms notificationtype is set to subject
+s = {
+"Du har ett nytt " TYPE " angående " QUOTE  SUBJECT  QUOTE ". Inkommet " TIME ", " DATE 
+}
+
+#flash notifieringar
+f = {
+"Du har ett viktigt " TYPE " meddelande från " FROM ". "
+}
+
+#sms notificationtype is set to count, this is used if caount fails.
+# V F E M selects a different template depending on count (0, 1, 2 or more)
+c = {
+(*,*,*,*) "Du"
+(*,*,*,*) " har"
+(0,0,0,0) " inga nya meddelanden"
+(1,*,*,*) " ett"
+(2-,*,*,*) " "
+(2-,*,*,*) VCOUNT
+(2-,*,*,*) " nya"
+(1,*,*,*) " nytt"
+(2-,*,*,*) " röstmeddelanden"
+(1,*,*,*) " röstmeddelande"
+(1-,1-,1-,*) ","
+(1-,0,1-,1-) ","
+(1-,1-,0,0) " och"
+(1-,0,1-,0) " och"
+(1-,0,0,1-) " och"
+(*,1,*,*) " ett"
+(*,2-,*,*) " "
+(*,2-,*,*) FCOUNT
+(*,2-,*,*) " nya"
+(*,1,*,*) " nytt"
+(*,1-,*,*) " fax"
+(*,1-,1-,1-) ","
+(*,1-,1-,0) " och"
+(*,1-,0,1-) " och"
+(*,*,1,*) " ett"
+(*,*,2-,*) " "
+(*,*,2-,*) ECOUNT
+(*,*,2-,*) " nya"
+(*,*,1,*) " nytt"
+(*,*,2-,*) " epostmeddelanden"
+(*,*,1,*) " epostmeddelande"
+(*,*,1-,1-) " och"
+(*,*,*,1) " ett"
+(*,*,*,2-) " "
+(*,*,*,2-) MCOUNT
+(*,*,*,2-) " nya"
+(*,*,*,1) " nytt"
+(*,*,*,1) " videomeddelande"
+(*,*,*,2-) " videomeddelanden"
+(*,*,*,*) "."
+}
+
+#Fallback template used when one of the above templates fails.
+general = {
+"Du har nya meddelanden."
+}
+
+#WAP Push Message
+WapPushText = {
+"Du har ett nytt meddelande från " FROM "."
+}
+
+#Slamdown
+slamdown = {
+ FROM " ringde ett " TYPE " samtal men lämnade inget meddelande."
+}
+
+#Message size subtemplates
+#VoiceSize is formatted by MVAS
+FSIZE_TEXT = {
+"SIZE sidor."
+}
+ESIZE_TEXT = {
+"SIZE kilobyte stort."
+}
+MSIZE_TEXT = {
+"längd SIZE sekunder"
+}
+
+#The value on the left (i.e. "urgent") must remain constant
+urgent = {
+"viktigt"
+}
+normal = {
+"vanligt"
+}
+
+#Deposit_type
+email = {
+"epostmeddelande"
+}
+voice = {
+"röstmeddelande"
+}
+fax = {
+"faxmeddelande"
+}
+video = {
+"videomeddelande"
+}
+
+#System notifications
+mailquotaexceeded = {
+"Din brevlåda är full"
+}
+mailquotahighlevelexceeded = {
+" Din brevlåda är nästan full"
+}
+
+#MMS notifications
+mms_sender = {
+"Från: " FROM 
+}
+mms_date = {
+"Mottaget: " DATE 
+}
+
+mms_subject = {"Voice message from " }
+
+#When listening to messages in the inbox, the subscriber can
+#request that the callers number is sent as an SMS.
+#This template specifies the format of such messages.
+smscli = {
+"Avsändarens nummer: +" SUBJECT "."
+}
+
+#cutthroughpaging=+__EMAIL_TEXT__ ringde __TIME__, __DATE__.
+
+
+#
+# System reminders
+#
+voicemailoffreminder = {
+"Din röstbrevlåda är avslagen."
+}
+cfuonreminder = {
+"Du har alla samtal vidarekopplade till din röstbrevlåda."
+}
+temporarygreetingonreminder = {
+" Du har en tillfällig prompt i din röstbrevlåda."
+}
+
+#
+# Templates for fallback
+#
+outdialtosms = {
+" Du har nya meddelanden i din röstbrevlåda, det gick ej att ringa ut och meddela detta."
+}
+sipmwitosms = {
+" Du har nya meddelanden i din röstbrevlåda."
+}

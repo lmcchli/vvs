@@ -1,0 +1,20 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "sun"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3A9D74360363"
+    physical_models 	(list unit_reference_list
+	(object SubSystem "misc"
+	    quid       	"3A9D74380009"
+	    physical_models 	(list unit_reference_list
+		(object module "BASE64Encoder" "NotAModuleType" "NotAModulePart"
+		    quid       	"3A9D74380095"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list))

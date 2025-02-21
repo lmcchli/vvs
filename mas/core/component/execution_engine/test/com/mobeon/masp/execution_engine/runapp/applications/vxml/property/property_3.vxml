@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <grammar mode='dtmf' root='rule1'>
+            <rule id='rule1'>
+                <one-of>
+                    <item>1</item>
+                </one-of>
+            </rule>
+    </grammar>
+    <form>
+        <script>
+            mas.systemSetProperty('timeout', '2s');
+        </script>
+
+        <block name="block1">
+            <script>
+                mas.systemSetProperty('timeout', '3s');
+            </script>
+        </block>
+
+        <block name="block2">
+            <script>
+                mas.systemSetProperty('timeout', '4s');
+            </script>
+            <exit/>
+        </block>
+    </form>
+</vxml>

@@ -1,0 +1,11 @@
+#Domain
+domain=vespa.ipms.su.erm.abcxyz.se
+#User prefix
+userprefix=ql
+#User range
+userstart=5
+userend=5
+#Mail type frequency
+mailfreq=1
+voicefreq=0
+faxfreq=0

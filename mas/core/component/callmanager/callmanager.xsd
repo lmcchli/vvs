@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Abcxyz.config" type="Abcxyz.configType"/>
+	<xs:complexType name="Abcxyz.configType">
+		<xs:all>
+			<xs:element name="isHash" type="xs:boolean" fixed="true" minOccurs="0" maxOccurs="0" />
+			<xs:element name="configFileType" type="xs:integer" fixed="5" minOccurs="0" maxOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Call Manager configuration
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Abcxyz.component-specific" type="ComponentSpecificType"/>
+		</xs:all>
+ 	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificType" mixed="true">
+		<xs:all>
+			<xs:element name="Abcxyz.ComponentSpecificConfigItem" type="ComponentSpecificConfigItemType"/>
+			<xs:element name="ReleaseCauseMappings.Table" type="releaseCauseMappingsTableType"/>
+			<!-- Required Outbound Lists -->
+			<xs:element name="RequiredOutboundAudioMedia.List"	type="requiredOutboundMediaListType"/>
+			<xs:element name="RequiredOutboundVideoMedia.List"	type="requiredOutboundMediaListType"/>
+			<xs:element name="UserAgentWithPhoneInSipUriButNoUserParameter.List"	type="userAgentWithPhoneInSipUriButNoUserParameterListType"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="ComponentSpecificConfigItemType" mixed="true">
+		<xs:all>
+			<xs:element name="Cm.callNotAcceptedTimer"	type="callNotAcceptedTimerType" default="32000" minOccurs="0"/>
+			<xs:element name="Cm.registerBackoffTimer"	type="registerBackoffTimerType" default="120000" minOccurs="0"/>
+			<xs:element name="Cm.registerBeforeExpirationTime"	type="registerBeforeExpirationTimeType" default="5000" minOccurs="0"/>
+			<xs:element name="Cm.blackListTimer"	type="blackListTimerType" default="60000" minOccurs="0"/>
+			<xs:element name="Cm.inboundAudioMedia"	type="xs:string" default="amr" minOccurs="0"/>
+			<xs:element name="Cm.inboundVideoMedia"	 type="xs:string" default="h263" minOccurs="0"/>
+			<xs:element name="Cm.ptime"	type="xs:positiveInteger" default="40" minOccurs="0"/>
+			<xs:element name="Cm.registeredName"	type="letterDigitOnlyStringType" default="mas" minOccurs="0"/>
+			<xs:element name="Cm.defaultCall"	type="defaultCallType" default="voice" minOccurs="0"/>
+			<xs:element name="Cm.outboundCallCallingParty"	type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.outboundCallConnectTimeout"	type="callNotAcceptedTimerType" default="30000" minOccurs="0"/>
+			<xs:element name="Cm.contactUriOverride"	type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.viaOverride"	type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Cm.disconnectOnSipTimeout"	type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="Cm.sendProvisionalResponsesReliable"		type="reliableResponsesType" default="sdponly" minOccurs="0"/>
+			<xs:element name="Cm.supportTestInput"	type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="Cm.outboundCallServerPort"		type="xs:positiveInteger" default="5060" minOccurs="0"/>
+
+			<!-- Sip Timers -->
+			<xs:element name="Cm.sipTimerT2"	type="xs:positiveInteger" default="8" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerT4"	type="xs:positiveInteger" default="10" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerB"	type="xs:positiveInteger" default="6" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerC"	type="xs:positiveInteger" default="360" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerD"	type="xs:positiveInteger" default="64" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerF"	type="xs:positiveInteger" default="18" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerH"	type="xs:positiveInteger" default="64" minOccurs="0"/>
+			<xs:element name="Cm.sipTimerJ"	type="xs:positiveInteger" default="64" minOccurs="0"/>
+
+			<!-- Load regulation -->
+			<xs:element name="Cm.loadRegulationInitialRampHWM"		type="xs:int" default="0" minOccurs="0"/>
+			<xs:element name="Cm.loadRegulationChannelsToIncrease"	type="xs:positiveInteger" default="1" minOccurs="0"/>
+			<xs:element name="Cm.loadRegulationNumberOfIncrements"	type="xs:positiveInteger" default="1" minOccurs="0"/>
+
+			<!-- Remote Party -->
+			<xs:element name="Cm.remotePartySipProxyHost"	type="xs:string" default="sipproxy" minOccurs="0"/>
+			<xs:element name="Cm.remotePartySipProxyPort"	type="xs:positiveInteger" default="5060" minOccurs="0"/>
+
+			<!-- Support For Redirecting Rtp -->
+			<xs:element name="Cm.supportForRedirectingRtpUserAgents"	type="xs:string" minOccurs="0"/>
+			<xs:element name="Cm.supportForRedirectingRtpTimeout"		type="xs:int" default="0" minOccurs="0"/>
+
+			<!-- Release Cause Mappings -->
+			<xs:element name="Cm.defaultNetworkStatusCode"	type="networkStatusCodeType" default="621" minOccurs="0"/>
+
+			<!-- Restricted Outbound Headers -->
+			<xs:element name="Cm.restrictedOutboundHeaderRemotePartyId"	type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="Cm.restrictedOutboundHeaderPAssertedIdentity"	type="xs:boolean" default="false" minOccurs="0"/>
+
+            <!-- Maximum value for the Expires header in Subscribe requests ( seconds - 24 hours  )-->
+            <xs:element name="Cm.subscribeMaxExpires" type="xs:int" default="86400" minOccurs="0"/>   
+
+			<!-- Proxy -->
+            <xs:element name="Cm.applicationProxyMode" type="xs:boolean" default="false" minOccurs="0"/>
+
+		</xs:all>
+	</xs:complexType>
+
+	<xs:simpleType name="callNotAcceptedTimerType">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="32000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="registerBackoffTimerType">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="5000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="registerBeforeExpirationTimeType">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="30000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="blackListTimerType">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="letterDigitOnlyStringType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="defaultCallType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="voice"/>
+			<xs:enumeration value="video"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="reliableResponsesType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="yes"/>
+			<xs:enumeration value="no"/>
+			<xs:enumeration value="sdponly"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="sipResponseCodeIntervalsType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[3-6][0-9][0-9](-[3-6][0-9][0-9])?(,[3-6][0-9][0-9](-[3-6][0-9][0-9])?)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+		<xs:simpleType name="q850CauseIntervalsType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7]))(-(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7])))?(,(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7]))(-(([0-9])|([1-9][0-9])|([1][0-1][0-9])|([1][2][0-7])))?)*"/>
+			<!-- Valid range is 0-127 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="q850LocationIntervalsType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(([0-9])|([1][0-5]))(-(([0-9])|([1][0-5])))?(,(([0-9])|([1][0-5]))(-(([0-9])|([1][0-5])))?)*"/>
+			<!-- Valid range is 0-15 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="networkStatusCodeType">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="601"/>
+			<xs:maxInclusive value="634"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Definition of complex types (Lists) -->
+
+	<xs:complexType name="requiredOutboundMediaListType" mixed="true">
+		<xs:sequence>
+			<xs:element name="encoding" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="userAgentWithPhoneInSipUriButNoUserParameterListType" mixed="true">
+		<xs:sequence>
+			<xs:element name="userAgentWithPhoneInSipUriButNoUserParameter" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Definition of Release Cause Mappings Table Type -->
+
+	<xs:complexType name="releaseCauseMappingsTableType">
+			<xs:sequence>
+				<xs:element name="mapping" type="mappingType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mappingType" mixed="true">
+		<xs:all>
+			<xs:element name="networkStatusCode" type="networkStatusCodeType" />
+			<xs:element name="sipResponseCodeIntervals" type="sipResponseCodeIntervalsType" />
+			<xs:element name="q850CauseIntervals" type="q850CauseIntervalsType"/>
+			<xs:element name="q850LocationIntervals" type="q850LocationIntervalsType" minOccurs="0" />
+			<xs:element name="q850Priority" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+		</xs:all>
+	</xs:complexType>
+
+</xs:schema>
+

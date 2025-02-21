@@ -1,0 +1,43 @@
+#!/bin/sh
+
+DATE=`date +%Y_%m_%d_%H%M`
+MAS_INSTANCE_NAME=$REGISTERED_NAME"@"$MAS_HOST
+
+
+check_osversion() {
+    echo check_osversion
+    case "$PLATFORM" in
+        SOL_8)
+            if [ `uname -r` != "5.8" ]; then
+                error "This patch can only be installed on Solaris 8."
+            fi
+            ;;
+        SOL_10)
+            if [ `uname -r` != "5.10" ]; then
+                error "This patch can only be installed on Solaris 10."
+            fi
+            ;;
+        "")
+            ;;
+        *)
+            error "This patch is for an unknown platform."
+            ;;
+    esac
+    return 0
+}
+
+# Set PATCH_LOGFILE to mas install log
+#######################################
+PATCH_LOGFILE="$BASEDIR/../logs/mas/$MAS_INSTANCE_NAME.$DATE.installog"
+
+
+# Check that OS version is correct
+###################################
+check_osversion
+
+
+# Export to pkgparam
+#####################
+cat >>$1 <<EOF
+PATCH_LOGFILE=$PATCH_LOGFILE
+EOF

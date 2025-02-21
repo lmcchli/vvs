@@ -1,0 +1,16 @@
+#! /usr/xpg4/bin/sh
+if [ -n "$1" ] ; then
+    CFGPARAM="-DconfigFile=$1"
+fi
+
+if [ -r xmpserver/Main.clas ]; then
+    :
+else
+    rm xmpserver/*.class xmpserver/config/*.class xmpserver/responsecodes/*.class 
+    /usr/local/j2sdk1.4.0/bin/javac -classpath .:../../../ntf_oem/xerces/xerces-2_2_1/xmlParserAPIs.jar:../../../ntf_oem/xerces/xerces-2_2_1/xercesImpl.jar:/vobs/ipms/ntf/bin/mail.jar xmpserver/Main.java 
+fi
+
+if [ -r xmpserver/Main.class ]; then
+    cd xmpserver/logs && /usr/local/j2sdk1.4.0/bin/java -cp .:..:../..:/vobs/ipms/ntf_oem/xerces/xerces-2_2_1/xmlParserAPIs.jar:/vobs/ipms/ntf_oem/xerces/xerces-2_2_1/xercesImpl.jar:/vobs/ipms/ntf/bin/mail.jar:/vobs/ipms/ntf/bin/activation.jar $CFGPARAM xmpserver/Main
+    echo $! >> xmpserverpids
+fi

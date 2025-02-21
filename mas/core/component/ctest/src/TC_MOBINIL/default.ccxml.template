@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+	<var name="dlgid" />
+	<var name="tc" />
+	<eventprocessor>
+		<transition event="connection.alerting" name="evt">
+			<accept connectionid="evt.connectionid" />
+		</transition>
+		<transition event="connection.connected" name="evt">
+			<assign name="tc" expr="evt.connection.local.number" />
+			<log expr="'Executing test case __TESTCASE__.vxml'" />
+			<dialogstart dialogid="dlgid" src="'__TESTCASE__.vxml'" />
+		</transition>
+		<transition event="dialog.disconnect" name="dlg">
+			<disconnect connectionid="dlg.connectionid" />
+		</transition>
+		<transition event="connection.disconnected" name="dlg">
+			<send data="'connection.disconnect.hangup'" target="dlgid"
+				targettype="'dialog'" />
+		</transition>
+		<transition event="dialog.exit" name="dlg">
+			<exit />
+		</transition>
+		<transition event="error.*" name="dlg">
+			<log expr="'TC' + tc + 'FAILED IN CCXML. Error = ' + dlg.name + '. Reason = ' + dlg.reason" />
+			<exit />
+		</transition>
+	</eventprocessor>
+</ccxml>
+

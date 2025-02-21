@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/backend/" type="application/xml+ccxml">
+        <document src="folder_1.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/backend/" type="application/xml+vxml">
+        <document src="folder_1.vxml"/>
+    </documents>
+</application>

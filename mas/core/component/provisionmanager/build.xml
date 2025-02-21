@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="checkmate provisionmanager" default="all">
+
+    <property name="module" value="provisionmanager" />  
+    <!-- Import project generic properties -->
+    <property name="project.basedir" value=".." />
+    <import file="${project.basedir}/projdefs.xml"/>
+
+    <!-- Module definitions -->
+    <dirname property="module.basedir" file="${ant.file}"/>
+    <property name="module.jarname" value="mobeon_provisionmanager.jar" />
+    <property name="module.output.dir" value="${module.basedir}/classes" />
+
+    <path id="module.sourcepath">
+        <dirset dir="${module.basedir}">
+            <include name="src"/>
+            <include name="interface"/>
+        </dirset>
+    </path>
+
+    <path id="module.dependencypath.test">
+    </path>
+
+    <path id="module.testpath">
+        <dirset dir="${module.basedir}">
+            <include name="test"/>
+        </dirset>
+    </path>
+
+    <patternset id="excluded.from.module"/>
+
+    <path id="module.classpath">
+        <path refid="${module.jdk.classpath.checkmate}"/>
+    </path>
+
+    <!-- Add <include> directives for all modules this modules depends on -->
+    <path id="module.dependencypath">
+        <dirset dir="${project.basedir}">
+            <include name="logging/interface"/>
+            <include name="configurationmanager/interface"/>
+            <include name="configurationmanager/src"/>
+            <include name="externalcomponentregister/interface"/>
+            <include name="eventnotifier/interface"/>
+            <include name="util/interface"/>
+        </dirset>
+    </path>
+
+    <!-- And similarly add <exclude> directives for all modules this modules depends on -->
+    <patternset id="module.jar.files">
+        <include name="**/com/mobeon/masp/provisionmanager/**"/>
+        <exclude name="**/com/mobeon/masp/**/*Test*"/>
+        <exclude name="**/com/mobeon/masp/**/*Case*"/>
+        <patternset refid="excluded.from.module"/>
+    </patternset>
+
+    <!-- Local and/or overridden targets -->
+    <!-- Build needed packages -->
+    <target name="builddepedencies" >
+    </target>
+
+    <!-- Import generic targets -->
+    <import file="${project.basedir}/cobertura.xml"/>
+    <import file="${project.basedir}/targets.xml"/>
+</project>

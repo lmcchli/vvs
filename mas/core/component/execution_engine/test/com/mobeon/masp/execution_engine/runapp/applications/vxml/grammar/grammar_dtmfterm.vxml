@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <grammar mode='dtmf' root='root'>
+        <rule id='root'>
+            <one-of>
+                <item>1</item>
+                <item>2</item>
+                <item>#</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="form1">
+        <grammar mode='dtmf' root='form_rule1'>
+            <rule id='form_rule1'>
+                <one-of>
+                    <item>1</item>
+                </one-of>
+            </rule>
+        </grammar>
+        <record name="rec" dtmfterm="true">
+             <prompt> Say something </prompt>
+        </record>
+
+
+        <filled>
+            <log>TCPASS</log>
+            <exit/>
+        </filled>
+    </form>
+
+
+</vxml>

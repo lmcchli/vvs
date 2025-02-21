@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+<var name="myvar" expr="0"/>
+<form>
+	<record name="myrecording" dtmfterm="true">
+	</record>
+	<filled>
+       	<script>Packages.java.lang.Thread.sleep(10000);</script>
+		<goto next="#form2"/>
+	</filled>
+</form>
+<form id="form2">
+	<block>
+	  <assign name="myvar" expr="1"/>
+	</block>
+	<field></field>
+	<block>
+	  <assign name="myvar" expr="2"/>
+	</block>
+</form>
+<catch event="connection.disconnect.hangup">
+	<if cond="myvar=='1'">
+	   <log label="error">TC 20103027 Passed</log>
+	<else/>
+	   <if cond="myvar=='0'">
+	      <log label="error">TC 20103027 Failed (filled was never executed)</log>
+	   <else/>
+	      <log label="error">TC 20103027 Failed (code after wait was executed)</log>
+	   </if>
+	</if>
+</catch>
+</vxml>

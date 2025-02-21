@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="messageOrderNew" />
+   <var name="messageOrderOld" />
+   <var name="messageListNew" />
+   <var name="messageListOld" />
+   <var name="messageListPointer" />
+   <var name="listIdNew" />
+   <var name="listIdOld" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResultOld" />
+   <!--This variable contains the return result from a called procedure. It has been added by the system automatically.-->
+   <var name="procedureResultNew" />
+   <var name="messageType" />
+   <var name="messageListId" />
+   <var name="ani" />
+   <!--A local copy of GlobalObject.-->
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_messageType" />
+      <var name="p_messageListId" />
+      <var name="p_ani" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="messageType" expr="p_messageType" />
+         <assign name="messageListId" expr="p_messageListId" />
+         <assign name="ani" expr="p_ani" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#assign9" />
+      </block>
+   </form>
+   <form id="assign9">
+      <block>
+         <assign name="messageOrderNew" expr="Utility_ConvertToLowerCase(Utility_GetSubString(Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'emmsgplayorder'), 0,4))" />
+         <assign name="listIdNew" expr="Mailbox_GetMessageSubList(messageListId, messageType, 'new', 'urgent,nonurgent','', messageOrderNew)" />
+         <assign name="messageListNew" expr="Mailbox_GetMessages(listIdNew)" />
+         <assign name="messageOrderOld" expr="Utility_ConvertToLowerCase(Utility_GetSubString(Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'emmsgplayorder'), 5,9))" />
+         <assign name="listIdOld" expr="Mailbox_GetMessageSubList(messageListId, messageType, 'read', 'urgent,nonurgent','', messageOrderOld)" />
+         <assign name="messageListOld" expr="Mailbox_GetMessages(listIdOld)" />
+         <if cond="((Utility_GetArrayLength (messageListNew) &gt; 0))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(2100, new Array(System_GetMediaQualifier('Number', Utility_GetArrayLength (messageListNew))))" />
+            </prompt>
+            <assign name="messageListPointer" expr="0" />
+            <goto next="#proc2" />
+            <else />
+            <if cond="((Utility_GetArrayLength (messageListOld) &gt; 0))">
+               <goto next="#prompt14" />
+               <else />
+               <if cond="((Mailbox_GetNumberOfMessages (messageListId, 'voice,video,fax,email', 'new,read', 'urgent,nonurgent') &gt; 0))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(2109, new Array(System_GetMediaQualifier('String', messageType)))" />
+                  </prompt>
+                  <goto next="#Return2" />
+                  <else />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(284)" />
+                  </prompt>
+                  <goto next="#Return2" />
+               </if>
+            </if>
+         </if>
+      </block>
+   </form>
+   <form id="proc2">
+      <subdialog name="sub" src="PlayMessage.vxml">
+         <param name="p_messageId" expr="messageListNew[messageListPointer]" />
+         <param name="p_messageCounter" expr="0" />
+         <param name="p_inAutoPlay" expr="0" />
+         <param name="p_ani" expr="ani" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResultNew" expr="sub.resultCode" />
+            <if cond="procedureResultNew == 'nextMsg'">
+               <if cond="((messageListPointer + 1) &gt;= Utility_GetArrayLength(messageListNew))">
+                  <if cond="((Utility_GetArrayLength (messageListOld) &gt; 0))">
+                     <prompt bargein="true">
+                        <audio expr="System_GetPrompt(2107, new Array(System_GetMediaQualifier('String', messageType)))" />
+                     </prompt>
+                     <goto next="#prompt14" />
+                     <else />
+                     <prompt bargein="true">
+                        <audio expr="System_GetPrompt(2108, new Array(System_GetMediaQualifier('String', messageType)))" />
+                     </prompt>
+                     <var name="resultCode" />
+                     <assign name="resultCode" expr="'ok'" />
+                     <return namelist="resultCode" />
+                  </if>
+                  <else />
+                  <assign name="messageListPointer" expr="messageListPointer + 1" />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(280)" />
+                  </prompt>
+                  <goto next="#ptarget1" />
+               </if>
+               <elseif cond="procedureResultNew == 'prevMsg'" />
+               <goto next="#cond8" />
+               <else />
+               <goto next="#cond8" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="prompt14">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(2101, new Array(System_GetMediaQualifier('Number', Utility_GetArrayLength (messageListOld))))" />
+         </prompt>
+         <assign name="messageListPointer" expr="0" />
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="proc1">
+      <subdialog name="sub" src="PlayMessage.vxml">
+         <param name="p_messageId" expr="messageListOld[messageListPointer]" />
+         <param name="p_messageCounter" expr="0" />
+         <param name="p_inAutoPlay" expr="0" />
+         <param name="p_ani" expr="ani" />
+         <param name="p_GlobalObject" expr="GlobalObject" />
+         <filled>
+            <assign name="procedureResultOld" expr="sub.resultCode" />
+            <if cond="procedureResultOld == 'nextMsg'">
+               <if cond="((messageListPointer + 1) &gt;= Utility_GetArrayLength(messageListOld))">
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(2108, new Array(System_GetMediaQualifier('String', messageType)))" />
+                  </prompt>
+                  <var name="resultCode" />
+                  <assign name="resultCode" expr="'ok'" />
+                  <return namelist="resultCode" />
+                  <else />
+                  <assign name="messageListPointer" expr="messageListPointer + 1" />
+                  <prompt bargein="true">
+                     <audio expr="System_GetPrompt(280)" />
+                  </prompt>
+                  <goto next="#ptarget2" />
+               </if>
+               <elseif cond="procedureResultOld == 'prevMsg'" />
+               <goto next="#cond9" />
+               <else />
+               <goto next="#cond9" />
+            </if>
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2">
+      <block>
+         <goto next="#proc1" />
+      </block>
+   </form>
+   <form id="cond9">
+      <block>
+         <if cond="((messageListPointer == 0))">
+            <if cond="((Utility_GetArrayLength (messageListNew) &gt; 0))">
+               <assign name="messageListPointer" expr="Utility_GetArrayLength(messageListNew) - 1" />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(279)" />
+               </prompt>
+               <goto next="#ptarget1" />
+               <else />
+               <prompt bargein="true">
+                  <audio expr="System_GetPrompt(278)" />
+               </prompt>
+               <var name="resultCode" />
+               <assign name="resultCode" expr="'ok'" />
+               <return namelist="resultCode" />
+            </if>
+            <else />
+            <assign name="messageListPointer" expr="messageListPointer - 1" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(279)" />
+            </prompt>
+            <goto next="#ptarget2" />
+         </if>
+      </block>
+   </form>
+   <form id="ptarget1">
+      <block>
+         <goto next="#proc2" />
+      </block>
+   </form>
+   <form id="cond8">
+      <block>
+         <if cond="((messageListPointer == 0))">
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(278)" />
+            </prompt>
+            <var name="resultCode" />
+            <assign name="resultCode" expr="'ok'" />
+            <return namelist="resultCode" />
+            <else />
+            <assign name="messageListPointer" expr="messageListPointer - 1" />
+            <prompt bargein="true">
+               <audio expr="System_GetPrompt(279)" />
+            </prompt>
+            <goto next="#ptarget1" />
+         </if>
+      </block>
+   </form>
+   <form id="Return2">
+      <block>
+         <var name="resultCode" />
+         <assign name="resultCode" expr="'noMsg'" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

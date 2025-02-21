@@ -1,0 +1,9 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/grammar/" type="application/xml+ccxml">
+        <document src="grammar_gsne.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/grammar/" type="application/xml+vxml">
+        <document src="grammar_gsne.vxml"/>
+        <document src="grammar_gsne_main.vxml"/>
+    </documents>
+</application>

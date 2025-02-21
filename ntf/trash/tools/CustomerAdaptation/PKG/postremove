@@ -1,0 +1,27 @@
+#! /usr/xpg4/bin/sh
+#Postremove script
+
+get_backup(){
+    
+    if ls $PKGSAV/*.phr > /dev/null 2>&1;then
+	cp $PKGSAV/*.phr $BASEDIR/templates/
+    fi
+    
+}
+
+update_version(){
+    echo "Updating version."| tee -a  $InstallLogfile 
+    
+    NEW_VERSION=`grep "VERSION" $BASEDIR/VERSION | sed s%", CA[^,]*"%""%g`
+    
+    echo "${NEW_VERSION}" > $BASEDIR/VERSION
+    
+    MCR_USER=`pkgparam LMENtf MCRUserName`
+    MCR_PASS=`pkgparam LMENtf MCRPassword`
+    $BASEDIR/registrations/mcr_reg/ntf_mcr_reg.sh "" "$MCR_USER" "$MCR_PASS" > /dev/null 2>&1
+}
+
+
+#Main
+get_backup
+update_version

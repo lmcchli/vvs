@@ -1,0 +1,8 @@
+<application>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/script/" type="application/xml+ccxml">
+        <document src="script_5.ccxml" root="true"/>
+    </documents>
+    <documents base="test:/test/com/mobeon/masp/execution_engine/runapp/applications/vxml/script/" type="application/xml+vxml">
+        <document src="script_5.vxml"/>
+    </documents>
+</application>

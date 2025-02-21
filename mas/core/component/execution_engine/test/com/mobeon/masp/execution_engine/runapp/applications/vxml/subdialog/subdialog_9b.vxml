@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml application="subdialog_9_main.vxml" version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <var name="lab1"/>
+    <script>
+        lab1 = new Packages.com.mobeon.masp.execution_engine.runapp.EventReporter();
+    </script>
+    <form id="volvo">
+        <block>
+            <log>TCPASS VXML: subdialog_b-001</log>
+            <if cond="lab1.reportEvent(_context,'error.com.mobeon.platform.datanotfound')">
+                <log>TCFAIL VXML: subdialog_b-002</log>
+                <else/>
+                <log>TCFAIL VXML: subdialog_b-003</log>
+            </if>
+        </block>
+    </form>
+</vxml>

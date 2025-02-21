@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="event1Arrived" expr="false"></var>
+    <var name="event2Arrived" expr="false"></var>
+
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart src="'empty.vxml'"/>
+        </transition>
+
+        <transition event="dialog.started" name="evt">
+            <send data="'event2'" target="session.id" delay="'10s'"/>
+            <send data="'event1'" target="session.id" delay="'5s'"/>
+        </transition>
+
+        <transition event="event1" name="evt">
+            <assign name="event1Arrived" expr="true"></assign>
+            <if cond="event2Arrived == true">
+                <log expr="'TCFAIL'"></log>
+                <exit/>
+            </if>
+        </transition>
+
+        <transition event="event2" name="evt">
+            <assign name="event2Arrived" expr="true"></assign>
+            <if cond="event1Arrived == true">
+                <log expr="'TCPASS'"></log>
+                <exit/>
+                <else/>
+                <log expr="'TCFAIL'"></log>
+                <exit/>
+            </if>
+        </transition>
+
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

@@ -1,0 +1,79 @@
+.TH stopntf 1M "August 3, 2001" "Sun Cluster 3.0"
+.SH NAME
+stopntf \- take the ntf server offline.
+.SH SYNOPSIS
+For network-aware (client-server model) applications:
+
+.B stopntf
+[
+.B \-h
+.I hostname
+]
+
+For non network-aware (client-less) applications:
+
+.B stopntf
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B stopntf
+is a customized command that takes
+the ntf server offline. Note that 
+.B stopntf 
+can only stop ntf servers created with the
+.BR startntf (1M) 
+command because
+.B stopntf
+and
+.B startntf
+use particular internal conventions for naming resources and resource groups.
+.B stopntf 
+executes 
+.BR scswitch (1M) 
+commands to do the following:
+.RS 5
+.TP 2
+\(bu
+Disable the ntf resource.
+.TP
+\(bu
+Move the resource group containing the ntf resource offline.
+.LP
+.RS -5
+.B stopntf
+is idempotent, that is, you can call it
+more than once without an intervening call to
+.BR startntf .
+.SH OPTIONS
+.TP 12
+.BI \-h \0hostname
+If specified,
+this optional parameter indicates the name of the
+logical hostname or shared address
+resource
+used by the ntf server application to communicate with its clients
+over the network.
+.B stopntf
+disables this network resource along with the ntf server resource.
+.TP
+.B \-v
+Turn on verbose output to
+print all the
+.BR scswitch (1M)
+commands 
+.B stopntf
+executes.
+.SH EXIT STATUS
+.TP 10
+.B 0
+Command completed successfully.
+.TP
+.B >0
+Command did not complete.
+.SH "SEE ALSO"
+.BR scdsbuilder (1HA),
+.BR removentf (1M),
+.BR scrgadm (1M),
+.BR scswitch (1M),
+.BR startntf (1M)

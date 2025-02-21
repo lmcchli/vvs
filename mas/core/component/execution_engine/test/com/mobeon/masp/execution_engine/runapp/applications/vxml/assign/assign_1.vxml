@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <catch event="error.semantic">
+        <log>pass</log>
+        <exit/>
+    </catch>
+    <form>
+        <!-- verify that assigning to an undefined variable, "olle",
+        results in error.semantic-->
+        <block>
+            <assign name="olle" expr="4"></assign>
+            <log>TCFAIL: Should not be here!</log>
+        </block>
+    </form>
+</vxml>

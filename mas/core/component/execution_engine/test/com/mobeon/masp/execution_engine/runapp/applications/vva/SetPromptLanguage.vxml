@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <!--The language that shall be set.-->
+   <var name="language" />
+   <!--The variant for the voice language.-->
+   <var name="voiceVariant" />
+   <!--The variant for the video language.-->
+   <var name="videoVariant" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#assign2" />
+      </block>
+   </form>
+   <form id="assign2">
+      <block>
+         <assign name="voiceVariant" expr="System_GetConfig('vva.media', 'variantvoice')" />
+         <assign name="videoVariant" expr="System_GetConfig('vva.media', 'variantvideo')" />
+         <assign name="language" expr="Subscriber_GetSingleStringAttribute(GlobalObject.Subscriber, 'preferredlanguage')" />
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>System_SetPromptLanguage (language, voiceVariant, videoVariant)</script>
+      <block>
+         <goto next="#Return1" />
+      </block>
+      <catch event="error.mas.murread">
+         <goto next="#assign4" />
+      </catch>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="assign4">
+      <block>
+         <assign name="language" expr="System_GetConfig('vva.media', 'defaultlanguage')" />
+         <goto next="#sub2" />
+      </block>
+   </form>
+   <form id="sub2">
+      <script>System_SetPromptLanguage (language, voiceVariant, videoVariant)</script>
+      <block>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <goto next="#assign4" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

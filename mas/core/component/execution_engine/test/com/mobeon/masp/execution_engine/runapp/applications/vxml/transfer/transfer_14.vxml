@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch>
+        <log>ERROR  <value expr="_event" /></log>
+        <exit/>
+    </catch>
+
+    <form >
+        <transfer name="call" dest="121212" bridge="true" connecttimeout="30s" maxtime="30s" transferaudio="beep.wav">
+            <filled>
+                <if cond="call == 'far_end_disconnect'">
+                    <log>TCPASS</log>
+                    <exit/>
+                </if>
+            </filled>
+        </transfer>
+        <block>
+            <log>ERROR</log>
+        </block>
+    </form>
+</vxml>

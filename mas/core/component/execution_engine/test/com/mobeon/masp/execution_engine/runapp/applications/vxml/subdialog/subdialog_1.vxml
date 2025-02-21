@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event=".">
+        <log>Ouch, caugh an event!!!</log>
+        <exit/>>
+    </catch>
+
+   <form id="volvo">
+       <subdialog name="v40" src="#subaru">
+           <filled>
+               <log>Subdialog:s filled got called</log>
+               <exit></exit>
+           </filled>
+       </subdialog>
+       <filled>
+           <log>Form Volvo:s filled got called</log>
+           <exit/>
+       </filled>
+   </form>
+
+    <form id="subaru">
+        <block>
+            <log>Subaru subdialog got started!</log>
+            <return/>
+        </block>
+        <filled>
+            <log>Form Subaru:s filled got called</log>
+            <return/>
+        </filled>
+    </form>
+
+</vxml>

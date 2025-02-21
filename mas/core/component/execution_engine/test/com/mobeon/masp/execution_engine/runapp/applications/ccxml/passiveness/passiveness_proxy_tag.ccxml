@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+
+        <transition event="connection.alerting" name="evt">
+            <assign name="myState" expr="'proxying'"></assign>
+            <proxy connectionid="evt.connectionid" server="'172.123.45'" port="'1111'"/>
+        </transition>
+
+		<transition event="connection.proxied" name="evt"state="proxying" >	
+			<log expr="'connection.proxied received: ' +  'Reason = '+evt.reason"/>
+			<exit/>	
+		</transition>	
+			
+		<transition event="connection.disconnected" name="evt" state="proxying">
+			<log expr="'connection.disconnected received: ' +  'Reason = '+evt.reason"/>
+			<exit/>			
+		</transition>		
+		
+		<transition event="error.connection" name="evt" state="proxying">		
+			<log expr="'error.connection received: ' +  'Reason = '+evt.reason"/>
+			<exit/>	
+		</transition>	
+		
+		<transition event="connection.failed" name="evt" state="proxying">	
+            <log expr="'connection.failed received: ' +  'Reason = '+evt.reason"/>
+			<exit/>		
+		</transition>				
+		
+        <transition event="error.notallowed" name="evt" state="proxying">
+            <log expr="'error.notallowed received: ' +  'Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+        
+    </eventprocessor>
+</ccxml>

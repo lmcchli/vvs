@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="configuration" nillable="false">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="executionengine"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="executionengine">
+        <xs:complexType mixed="true">
+            <xs:attribute name="enginestacksize" type="enginestacksize" use="required"/>
+            <xs:attribute name="callmanagerwaittime" type="callmanagerwaittime" use="required"/>
+            <xs:attribute name="accepttimeout" type="accepttimeout" use="required"/>
+            <xs:attribute name="createcalladditionaltimeout" type="createcalladditionaltimeout" use="required"/>
+            <xs:attribute name="traceenabled" type="xs:boolean" use="required"/>
+            <xs:attribute name="alwayscompile" type="xs:boolean" use="required"/>
+            <xs:attribute name="generateops" type="xs:boolean" use="required"/>
+            <xs:attribute name="opspath" type="xs:string" use="required"/>
+            <xs:attribute name="hostname" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="enginestacksize">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="100"/>
+            <xs:maxInclusive value="10000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="callmanagerwaittime">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="3000"/>
+            <xs:maxInclusive value="100000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="accepttimeout">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="3000"/>
+            <xs:maxInclusive value="100000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="createcalladditionaltimeout">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="10000"/>
+            <xs:maxInclusive value="30000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+   <form>
+
+       <!-- test that it is possible to go from the third item to the first-->
+       <var name="firstVisit" expr="true"></var>
+
+       <block name="block1" cond="false">
+           <if cond="firstVisit == false">
+               <log>TCPASS</log>
+           </if>
+       </block>
+
+       <block>
+           <log>second block</log>
+       </block>
+
+       <block name="block3">
+           <assign name="firstVisit" expr="false"></assign>
+           <goto nextitem="block1"></goto>
+       </block>
+       </form>
+</vxml>

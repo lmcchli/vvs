@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="profilemanager.xsd">
+    <profilemanager limitscope="true" coscachetimeout="1000">
+        <userregister readtimeout="2000" writetimeout="3000" admin="cn=directory manager" password="emmanager"
+                defaultsearchbase="o=mobeon.com" trylimit="3" trytimelimit="1000"/>
+        <connectionpool maxsize="25" connectionlifetime="300000"/>
+        <provisioning password="configuredpassword"/>
+        <attributemap searchorder="community,cos,user,billing">
+            <addressbookserver provisioningname="ADDRESSBOOK_SERVER"/>
+            <autoplay userregistername="autoplay" type="boolean" writelevel="billing" true="yes" false="no" default="no"/>
+            <badlogincount userregistername="badlogincount" type="integer" writelevel="user" default="0"/>
+            <billingnumber userregistername="billingnumber" type="string" provisioningname="TELEPHONENUMBER"/>
+            <callerxfer userregistername="callerxfer" type="boolean" true="yes" false="no" default="no"/>
+            <callerxfertocoverage userregistername="callerxfertocoverage" type="boolean" true="yes" false="no" default="no"/>
+            <cdgmax userregistername="cdgmax" type="integer" default="10"/>
+            <cn userregistername="cn" type="string"/>
+            <cosdn userregistername="cosdn" type="string" provisioningname="COSDN"/>
+            <cosname userregistername="cosname" type="string"/>
+            <dlentriesmax userregistername="dlentriesmax" type="integer" default="15"/>
+            <emallowedmaildomains userregistername="emallowedmaildomains" type="string"/>
+            <emftl userregistername="emftl" type="string" writelevel="user"/>
+            <emftlfunctions userregistername="emftlfunctions" type="string" default="00,F,PIN:M,SPO:M,ACG:M"/>
+            <emservicedn userregistername="emservicedn" type="string" searchorder="cos"/>
+            <emservicednuser userregistername="emservicedn" type="string" searchorder="user"/>
+            <inhoursdow userregistername="inhoursdow" type="string" writelevel="billing" default="12345"/>
+            <inhoursend userregistername="inhoursend" type="string" writelevel="billing" default="1700"/>
+            <inhoursstart userregistername="inhoursstart" type="string" writelevel="billing" default="0800"/>
+            <mail userregistername="mail" type="string" default="" provisioningname="MAILADDRESS"/>
+            <mailhost userregistername="mailhost" type="string" provisioningname="MAILHOST"/>
+            <password userregistername="password" type="xstring" provisioningname="MAILBOX_PW"/>
+            <uid userregistername="uid" type="string" provisioningname="UID"/>
+            <umpassword userregistername="umpassword" type="xstring" writelevel="user" provisioningname="PIN"/>
+
+            <!-- Elements not in attribute document -->
+            <admininfo userregistername="admininfo" type="string"/>
+            <uniqueidentifier userregistername="uniqueidentifier" type="string"/>
+        </attributemap>
+    </profilemanager>
+</configuration>

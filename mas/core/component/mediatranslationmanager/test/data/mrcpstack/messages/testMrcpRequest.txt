@@ -1,0 +1,6 @@
+ANNOUNCE anyUrl RTSP/1.0
+CSeq: 1
+Content-Type: application/mrcp
+Content-Length: 27
+
+RECOGNIZE 4711 MRCP/1.0

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="messagesender.xsd">
+    <messagesender
+            smtpservicename="smtpstorage"
+            smtpretries="3"
+            smtpconnectiontimeout="3000"
+            smtpcommandtimeout="3000"
+            />
+</configuration>

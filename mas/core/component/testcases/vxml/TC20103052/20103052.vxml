@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+	<var name="num" expr="1"/>
+	<form id="id1">
+		<script>num=2</script>
+		<block>
+			<if cond="num == 2">
+				<log label="error">TC 20103052 Passed</log>
+			<else/>
+				<log label="error">TC 20103052 Failed</log>
+			</if>
+			<exit/>
+		</block>
+	</form>
+	<catch event="connection.disconnect.hangup">
+		<exit/>
+	</catch>
+</vxml>

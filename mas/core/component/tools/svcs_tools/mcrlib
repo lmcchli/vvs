@@ -1,0 +1,78 @@
+
+JAVA_CLASSPATH=""
+BASEDIR=`pkgparam MOBYmas BASEDIR`
+CRONFILE="/tmp/mas.cron"
+
+setupEnv() {
+
+    MAS_INSTALL_PATH=$BASEDIR
+    export MAS_INSTALL_PATH    
+
+    
+    # set up library path
+    LD_LIBRARY_PATH=/usr/lib/lwp:/usr/sfw/lib:/opt/sfw/lib:$BASEDIR/lib
+    export LD_LIBRARY_PATH
+     
+    # Setup java class path
+    libs=`ls $BASEDIR/lib/*.jar`
+    for lib in $libs
+    do 
+       JAVA_CLASSPATH=$JAVA_CLASSPATH$lib":"
+    done
+
+    # Add lib directory to class path
+    JAVA_CLASSPATH=$BASEDIR/lib:$BASEDIR/etc:$BASDIR/cfg:$JAVA_CLASSPATH
+
+}
+
+
+register()
+{
+
+        CURDIR=`pwd`
+        cd $BASEDIR
+
+        setupEnv
+        $JAVA_HOME/bin/java -cp $JAVA_CLASSPATH com.mobeon.masp.externalcomponentregister.RegisterInstance $params
+        exitCode=$?
+        if [ $exitCode -gt 0 ]
+        then
+                # error
+                exit $exitCode 
+        else
+                #remove from cron if exist and success.
+                crontab -l root > $CRONFILE
+                CRONEXIST=`grep "mcrlib $params" $CRONFILE` 
+                if [ "$CRONEXIST" != "" ]; then
+                        sed -e /"mcrlib $params"/d < $CRONFILE > $CRONFILE.tmp
+                        crontab $CRONFILE.tmp
+                fi
+
+                exit 0
+        fi
+        
+        cd $CURDIR
+}
+
+
+
+#
+#  MAIN
+#
+params="$@"
+mode=$1
+
+case "$mode" in
+	'register')
+		register
+		;;
+
+	'unregister')
+		register
+		;;
+
+	*)
+		echo "Usage: `basename $0` <register [params] | unregister [params]>"
+		exit 1
+		;;
+esac

@@ -1,0 +1,17 @@
+<mediacontentpackage id="en_audio_1"
+                     language="en"
+                     type="prmpt"
+                     priority="1">
+
+
+    <voice variant="mal" />
+
+    <codecs>
+        <codec mimete="aud/pcmu" />
+    </codecs>
+
+    <grammarfile path="./grammar.xml" />
+    <contentfile path="./MediaContent_Voice.xml"/>
+    <objectfile path="./MediaObject_Voice.xml" />
+
+</mediacontentpackage>

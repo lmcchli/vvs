@@ -1,0 +1,38 @@
+<mediacontents>
+    <mediacontent id="subject" returnall="true">
+        <qualifiers>
+            <qualifier name="forward" type="String" gender="None"/>
+            <qualifier name="urgent" type="String" gender="None"/>
+            <qualifier name="confidential" type="String" gender="None"/>
+            <qualifier name="messageType" type="String" gender="None"/>
+            <qualifier name="sender" type="MediaObject" gender="None"/>
+        </qualifiers>
+        <instance cond="(forward == 'true')">
+            <element type="text" reference="forward"/>
+        </instance>
+        <instance cond="(urgent == 'true')">
+            <element type="text" reference="urgent"/>
+        </instance>
+        <instance cond="(confidential == 'true')">
+            <element type="text" reference="confidential"/>
+        </instance>
+        <instance cond="(messageType == 'voice')">
+            <element type="text" reference="voice"/>
+        </instance>
+        <instance cond="(messageType == 'video')">
+            <element type="text" reference="video"/>
+        </instance>
+        <instance cond="(messageType == 'email')">
+            <element type="text" reference="email"/>
+        </instance>
+        <instance cond="(messageType == 'fax')">
+            <element type="text" reference="fax"/>
+        </instance>
+        <instance cond="true">
+            <element type="text" reference="from"/>
+        </instance>
+        <instance cond="true">
+            <element type="qualifier" reference="sender:MediaObject:None"/>
+        </instance>
+    </mediacontent>
+</mediacontents>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <property name="timeout" value="0s"/>
+    <grammar version="1.0" mode="dtmf" root="myRoot">
+        <rule id="myRoot">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <catch event="error">
+        <log>TCFAIL caught an error</log>
+        <exit></exit>
+    </catch>
+
+    <nomatch>
+        <log>TCFAIL nomatch</log>
+        <exit></exit>
+    </nomatch>
+
+    <form id="form1">
+        <property name="timeout" value="10s"></property>
+
+        <block>
+            <if cond="application.lastresult$.utterance != undefined">
+                <log>TCFAIL lastresult$ was not undefined. Value was <value expr="application.lastresult$.utterance"/></log>
+                <exit></exit>
+            </if>
+            <if cond="application.lastresult$.confidence != undefined">
+                <log>TCFAIL lastresult$ was not undefined. Value was <value expr="application.lastresult$.confidence"/></log>
+                <exit></exit>
+            </if>
+            <if cond="application.lastresult$.inputmode != undefined">
+                <log>TCFAIL lastresult$ was not undefined. Value was <value expr="application.lastresult$.inputmode"/></log>
+                <exit></exit>
+            </if>
+            <if cond="application.lastresult$.interpretation != undefined">
+                <log>TCFAIL lastresult$ was not undefined. Value was <value expr="application.lastresult$.interpretation"/></log>
+                <exit></exit>
+            </if>
+        </block>
+
+        <field name="f1">
+        </field>
+
+        <filled>
+            <if cond="f1$.utterance != '1'">
+                <log>TCFAIL wrong utterance</log>
+                <exit></exit>
+                <else/>
+                <log>TCPASS</log>
+            </if>
+        </filled>
+    </form>
+
+</vxml>

@@ -1,0 +1,11 @@
+PKG=LMENtf
+NAME=NTF
+CATEGORY=application
+ARCH=sparc
+VENDOR=Mobeon AB
+BASEDIR=/apps/ntf
+CLASSES=none
+VERSION=__VERSION__
+DESC=Notification Component
+PSTAMP=__DATE__
+TERM=dtterm

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %c %5p [SID:%X{session}]  - %m%n"/>
+        </layout>
+        <!-- <contentResourceProperties class="com.mobeon.masp.logging.SessionFilter"/> -->
+    </appender>
+
+    <appender name="PLUGIN" class="com.webspherious.log4jmonitor.log4j.IntelliJAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %c %5p [SID:%X{session}]  - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="ROLLFILE" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="log/mobeon.log"/>
+        <param name="Append" value="true" />
+    	<param name="MaxFileSize" value="10MB" />
+        <param name="MaxBackupIndex" value="1" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %c %5p [TID:%t] [SID:%X{session}]  - %m%n"/>
+        </layout>
+        <!-- if session filtering should be used, uncomment the following line -->
+        <!-- <contentResourceProperties class="com.mobeon.masp.logging.SessionFilter"/> -->
+    </appender>
+
+
+
+    <category name="org.springframework">
+      <priority value="info" />
+    </category>
+
+    <category name="info">
+      <priority value="info" />
+    </category>
+
+    <root>
+        <priority value ="warn" />
+        <appender-ref ref="ROLLFILE" />
+    </root>
+
+    <!-- if log level of a specifide class/component should be used, uncomment the following lines -->
+    <!-- and change category name to class/component name -->
+    <!-- <category name="com.mobeon.masp.operateandmaintainmanager"> -->
+    <!--    <priority value="debug"/> -->
+    <!-- </category> -->
+
+
+</log4j:configuration>

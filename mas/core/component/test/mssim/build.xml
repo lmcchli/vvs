@@ -1,0 +1,52 @@
+<project name="MSsim" default="compile">
+    <description>
+        Ant build file for MSSim Java code
+    </description>
+
+    <!-- set global properties for this build -->
+    <property name="project.basedir" value="."/>
+    <property name="module.basedir" value="."/>
+    <import file="${project.basedir}/projdefs.xml"/>
+    <property name="src" location="${module.basedir}/src"/>
+    <property name="classes" location="${module.basedir}/classes"/>
+    <property name="libdir" location="${module.basedir}/lib"/>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the classes directory structure used by compile -->
+        <mkdir dir="${classes}"/>
+    </target>
+
+    <target name="compile" depends="init" description="Compile the source ">
+        <!-- Compile the java code from ${src} into ${classes} -->
+        <javac srcdir="${src}" destdir="${classes}" debug="${compiler.debug}" source="${compiler.source.version}">
+            <classpath>
+                <fileset dir="${libdir}">
+                    <include name="**/*.jar" />
+                </fileset>
+            </classpath>
+            <compilerarg line="${compiler.args}" />
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile" description="Build the MSsim JAR file">
+        <!-- Put everything in ${classes} into the mssim.jar file -->
+        <jar jarfile="${module.basedir}/mssim.jar" basedir="${classes}">
+            <!-- Dont include the Test classes in the jar file -->
+            <patternset refid="module.jar.files" />
+        </jar>
+    </target>
+
+    <target name="dist" depends="clean, jar" description="Package the whole Thing">
+
+    </target>
+
+    <target name="clean" description="Clean up" >
+        <!-- Delete the directory trees created during the build -->
+        <delete dir="${classes}"/>
+        <delete file="mssim.jar"/>
+    </target>
+
+</project>
+

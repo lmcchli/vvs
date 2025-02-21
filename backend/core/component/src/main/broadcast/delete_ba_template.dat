@@ -1,0 +1,10 @@
+# this is a create template for an imsm subscriber
+@operation
+# the operation to be executed - mandatory
+delete
+
+@identities
+# the identities of the subscriber - muid is mandatory for
+# create and delete
+muid:<ENTER BA MUID HERE>
+

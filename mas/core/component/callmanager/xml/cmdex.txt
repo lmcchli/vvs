@@ -1,0 +1,2 @@
+scomp -javasource 1.5 -src ../src -out ../../lib/media_control.jar .
+

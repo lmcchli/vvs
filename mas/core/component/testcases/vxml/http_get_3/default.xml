@@ -1,0 +1,6 @@
+<application>
+    <documents base="file:///$WORKINGDIR/applications/"
+               type="application/xml+ccxml">
+        <document src="default.ccxml" root="true"/>
+    </documents>
+</application>

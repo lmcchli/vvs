@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+    <catch event="connection.disconnect.hangup">
+        <log>TCPASS: OK</log>
+        <exit/>
+    </catch>
+    <catch event="datanotfound">
+        <log>Got DataNotFound</log>
+    </catch>
+    <form id="form1">
+        <block name="b1">
+            <log>Start running the scripts</log>
+            <script>Packages.java.lang.Thread.sleep(3000);</script>
+            <log>In between the scripts</log>
+            <script>Packages.java.lang.Thread.sleep(3000);</script>
+            <script>
+                var testObj = new Packages.com.mobeon.masp.execution_engine.runapp.applications.vxml.ecma.ECMADummy();
+                testObj.raisePlatformAccessException();
+            </script>
+            <log>Done running the scripts</log>            
+        </block>
+        <field name="f1">
+            <prompt>In fiels f1</prompt>
+            <filled>
+                <log>TCFAIL: Should not be here</log>
+            </filled>
+        </field>
+    </form>
+</vxml>

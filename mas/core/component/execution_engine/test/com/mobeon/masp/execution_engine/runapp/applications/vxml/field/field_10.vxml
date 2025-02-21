@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+    <form id="form2">
+
+        <!-- enter both DTMF while in this block -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(8000);</script>
+        </block>
+
+        <property name="timeout" value="10s"/>
+        <field name="field1">
+
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>1</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <if cond="field1 == '1'">
+                    <log>TCPASS 1</log>
+                </if>
+            </filled>
+        </field>
+
+        <field name="field2">
+
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>2</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <if cond="field2 == '2'">
+                    <log>TCPASS 2</log>
+                </if>
+            </filled>
+        </field>
+
+        <catch event="noinput">
+            <log label="info">TCFAIL: noinput.</log>
+            <exit/>
+        </catch>
+    </form>
+</vxml>

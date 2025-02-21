@@ -1,0 +1,38 @@
+#!/bin/sh
+
+
+# Back up configuration and data
+#################################
+
+
+# mas.conf will be overwritten by a dummy file, make sure 
+# to save a copy before that happen
+cp $BASEDIR/etc/mas.conf $BASEDIR/etc/mas.conf.$SUNW_PATCHID
+
+
+
+# Save component state
+########################
+stopped=`/etc/init.d/rc.mas status |grep ":status stopped"`
+if [ -z "$stopped" ]; then
+    info "Saving component state: Started"
+    rm -f /var/tmp/TmpMasPatchInstall_stateStopped
+else
+    info "Saving component state: Stopped"
+    touch /var/tmp/TmpMasPatchInstall_stateStopped
+fi
+    
+
+
+
+# Shutdown MAS
+###############
+
+# TODO? How to limit time allowed?
+
+
+
+# Stop MAS
+###########
+info "Stopping component"
+/etc/init.d/rc.mas stop

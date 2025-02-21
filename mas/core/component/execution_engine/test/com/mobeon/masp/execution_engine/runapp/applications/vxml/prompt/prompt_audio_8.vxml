@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <grammar version="1.0" mode="dtmf" root="menu_rule">
+        <rule id="menu_rule">
+            <one-of>
+                <item>1</item>
+                <item>2</item>
+            </one-of>
+        </rule>
+    </grammar>
+    <form>
+        <field name="f1">
+            <property name="timeout" value="500ms"/>
+            <prompt bargein="false">
+                <audio expr="'beep.wav'"/>
+            </prompt>
+            <filled>
+                <log>TCFAIL: filled f1</log>
+                <exit/>
+            </filled>
+            <catch event="noinput">
+                <log>TCPASS: OK f1</log>
+                <goto nextitem="f2"/>
+            </catch>
+        </field>
+
+        <field name="f2">
+            <prompt bargein="true">
+                <audio expr="'beep.wav'"/>
+            </prompt>
+            <filled>
+
+                <!-- DTMF 1'1 shall have been discared due to bargein=false above, only DTMF 2 is ok now -->
+                <if cond="f2$.utterance == '2'">
+                    <log>TCPASS: OK f2</log>
+                    <exit/>
+                </if>
+            </filled>
+            <catch event="noinput">
+                <log>TCFAIL: noinput f2</log>
+                <exit/>
+            </catch>
+        </field>
+
+    </form>
+</vxml>

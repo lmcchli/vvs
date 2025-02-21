@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.w3.org/2001/vxml
+			http://www.w3.org/TR/voicexml21/vxml.xsd">
+	<form id="main_form">
+		<var name="PHONE_NUMBER" expr="'___PHONE_NUMBER___'" />
+		<var name="MAIL_HOST" expr="'___MAIL_HOST___'" />
+		<var name="ADMIN_UID" expr="'___ADMIN_UID___'" />
+		<var name="COS_NAME" expr="'___COS_NAME___'" />
+		
+		<block>
+			<script>
+				<![CDATA[
+				mas.subscriberCreate(
+					[ 'telephonenumber', 'mailhost' ],	// names
+					[ PHONE_NUMBER, MAIL_HOST ],		// values
+					ADMIN_UID,
+					COS_NAME);
+				]]>
+			</script>
+			<log>TC 10001000 PASSED</log>
+			<exit />
+		</block>
+	</form>
+
+	<catch event="error">
+		<log>TC 10001000 FAILED <value expr="_event" /> <value expr="_message" /></log>
+		<exit />
+	</catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit />
+	</catch>
+</vxml>
+

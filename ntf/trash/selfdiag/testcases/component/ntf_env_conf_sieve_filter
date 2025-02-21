@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+use FindBin qw($Bin);
+use lib "$Bin/../..";
+use SelfDiag_Modules::CommandHandler;
+require "$Bin/ntfbase";
+
+my $gnotif = &getconfig("imapusername");
+my $numgnotif = &getconfig("imapthreads");
+
+my $MSGROOT;
+my $HOSTNAME = `hostname`;
+$HOSTNAME =~ s/(.+)$/$1/;
+$HOSTNAME = $1;
+
+if($HA) {
+    $NTF_HOME =~ s%(/global/.*)/.*%$1%;
+    $MSGROOT = $1."/msgsrv/opt/";
+    $NTF_HOME =~ s%/global/(.*)%$1%;
+    $HOSTNAME = $1;
+}
+else {
+    open (X, "pkgparam LMEMs BASEDIR|");
+    $_ = <X>;
+    chop;
+    $MSGROOT=$_."/instance/";
+}
+
+if(!$MSGROOT) {
+    print "Cannot find root directory path for Messaging Server.\n";
+    exit(1);
+}
+
+my $NOTIFYFILE = $MSGROOT."SUNWmsgsr/config/notify.filter";
+
+if(! -f $NOTIFYFILE ) {
+    print "Cannot find notification filter file $NOTIFYFILE.\n";
+    exit(1); 
+}
+
+my $gnotifcounter = 0;
+open(INFILE, $NOTIFYFILE);
+while($line = <INFILE>) {
+    if($line =~ /redirect \"$gnotif_/) {
+	$gnotifcounter++;
+    }
+}
+
+if($gnotifcounter ne $numgnotif) {
+    print "Notification filter file notify.filter doesn't correspond to NTF IMAP users\n";
+    print "$gnotif_0 ... $gnotif_$numgnotif.\n";
+    exit(1);
+}
+
+print "Notification filter file $NOTIFYFILE in MS is OK.\n";
+exit(0);

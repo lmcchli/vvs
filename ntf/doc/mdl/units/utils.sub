@@ -1,0 +1,12 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "utils"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3AC4DC590280"
+    physical_models 	(list unit_reference_list)
+    physical_presentations 	(list unit_reference_list))

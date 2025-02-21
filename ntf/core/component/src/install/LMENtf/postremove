@@ -1,0 +1,3 @@
+#! /usr/xpg4/bin/sh
+# postremove script
+exit 0

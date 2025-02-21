@@ -1,0 +1,15 @@
+c = {
+	(1,1,1,9)	"empty string"
+	(1-,1,1,1)	
+#	(1,1,1,1)       "comment"
+    	(1-,1,1,1)  	" test string"
+	(0,0,0,0)	" start string
+	(a,b,1,1)	"NOT numbers in condition"
+	(2,2,2,2)      	No tags
+	(3,3,3,3)	"(You have)"
+	(4,4,4,4)	(4,4,4,4)
+}
+
+H = {
+	(1,0,0,0)	"test of header"
+}	

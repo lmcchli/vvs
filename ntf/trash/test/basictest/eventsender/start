@@ -1,0 +1,2 @@
+CLASSPATH=/proj/ipms/activemq/java/4.1.1/apache-activemq-4.1.1.jar:/proj/ipms/java/P1A_03_JAVA1_4/foundation.jar
+java -cp $CLASSPATH:`dirname $0` EventSender $1

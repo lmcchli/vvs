@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <!-- We will exit when we have received both dialog.exit
+    and connection.disconnected. This variable is true if we have
+    received wither of them. -->
+
+    <var name="timeToExit" expr="false"/>
+    <var name="dialogid"/>
+
+    <eventprocessor>
+        <transition event="connection.alerting" name="evt">
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+        <transition event="connection.connected" name="evt">
+            <dialogstart dialogid="dialogid" src="'sessioninfo_6.vxml'"/>
+        </transition>
+
+        <transition event="connection.disconnected" name="dlg">
+            <if cond="timeToExit">
+                <log expr="'exiting correctly'"></log>
+                <exit/>
+            </if>
+            <assign name="timeToExit" expr="true"></assign>
+
+            <log expr="'caught connection.disconnected'"></log>
+            <send data="'connection.disconnect.hangup'"
+                  target="dialogid" targettype="'dialog'"/>
+        </transition>
+
+        <transition event="dialog.exit" name="dlg">
+
+            <if cond="timeToExit">
+                <log expr="'exiting correctly'"></log>
+                <exit/>
+            </if>
+            <assign name="timeToExit" expr="true"></assign>
+
+        </transition>
+        <transition event="error.*" name="dlg">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

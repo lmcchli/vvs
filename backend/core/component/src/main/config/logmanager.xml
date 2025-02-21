@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="15">
+    <Configuration status="WARN" packages="com.mobeon.common.logging.SessionFilter"/>
+
+    <Properties>
+        <Property name="path">/opt/moip/logs/mas</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT">
+            <PatternLayout>
+                <pattern>"%d{ISO8601} #TZ# %c %5p [SID:%X{session}]  - %m%n"</pattern>
+            </PatternLayout>
+            <!-- if session filtering should be used, uncomment the following: -->
+            <!-- <SessionFilter TraceItem="calling:1234"/> -->
+        </Console>
+
+        <!--
+           For com.webspherious.log4jmonitor.log4j.IntelliJAppender
+           Commented out until properly tested with log4j2
+        -->
+        <!--
+        <IntelliJAppender name="PLUGIN">
+            <PatternLayout>
+                <pattern>"%d{ISO8601} #TZ# %c %5p [SID:%X{session}]  - %m%n"</pattern>
+            </PatternLayout>
+        </IntelliJAppender>
+        -->
+
+        <RollingFile name="ROLLFILE" filename="${path}/backend.log" filePattern="${path}/backend-%d{yyyy-MM-dd}.log">
+            <param name="Append" value="true" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+            <PatternLayout>
+                <pattern>"%d{ISO8601} #TZ# %c %5p [TID:%t] [SID:%X{session}]  - %m%n"</pattern>
+            </PatternLayout>
+
+            <!--
+               For com.mobeon.common.logging.RepetitiveLoggingFilter
+               Commented out until properly tested with log4j2
+            -->
+            <!-- <RepetitiveLoggingFilter/> -->
+
+            <!-- if session filtering should be used, uncomment the following: -->
+            <!-- <SessionFilter TraceItem="calling:1234"/> -->
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="LoggerLogger" level="warn">
+            <AppenderRef ref="ROLLFILE"/>
+        </Logger>
+
+        <Logger name="org.springframework" level="warn" additivity="false">
+            <AppenderRef ref="ROLLFILE"/>
+        </Logger>
+
+        <Logger name="info" level="info" additivity="false">
+            <AppenderRef ref="ROLLFILE"/>
+        </Logger>
+
+        <!--
+           if log level of a specific class/component should be used, uncomment the following lines
+           and change category name to class/component name
+        -->
+        <!--
+        <Logger name="com.mobeon.common.profilemanager" level="debug" additivity="false">
+            <AppenderRef ref="ROLLFILE"/>
+        </Logger>
+        -->
+
+        <Root level="WARN">
+            <AppenderRef ref="ROLLFILE"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

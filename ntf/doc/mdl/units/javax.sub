@@ -1,0 +1,1735 @@
+
+(object Petal
+    version    	44
+    _written   	"Rose 7.0.9420.17"
+    charSet    	0)
+
+(object SubSystem "javax"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3A958BFE0197"
+    physical_models 	(list unit_reference_list
+	(object SubSystem "xml"
+	    quid       	"3A958BFE01A1"
+	    physical_models 	(list unit_reference_list
+		(object SubSystem "parsers"
+		    quid       	"3A958BFE01A2"
+		    physical_models 	(list unit_reference_list
+			(object module "DocumentBuilderFactory" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\xml\\parsers\\DocumentBuilderFactory.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3A958BFE01A3"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DocumentBuilder" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\xml\\parsers\\DocumentBuilder.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3A958BFE02E2"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SAXParserFactory" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\xml\\parsers\\SAXParserFactory.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3A958BFE03DC"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SAXParser" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\xml\\parsers\\SAXParser.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3A958BFF00EE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FactoryConfigurationError" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\xml\\parsers\\FactoryConfigurationError.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3A958CA80029"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ParserConfigurationException" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\xml\\parsers\\ParserConfigurationException.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3A958CA800E7"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "mail"
+	    quid       	"3AD75A220395"
+	    physical_models 	(list unit_reference_list
+		(object module "Address" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Address.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A23003A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "AuthenticationFailedException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\AuthenticationFailedException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2300E4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessagingException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\MessagingException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A230102"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Authenticator" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Authenticator.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A230224"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "BodyPart" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\BodyPart.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2303AB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Part" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Part.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2303D3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Multipart" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Multipart.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2303E7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FetchProfile" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\FetchProfile.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A240121"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FetchProfile$Item" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\FetchProfile$Item.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2402F8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Flags" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Flags.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A25006F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Flags$Flag" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Flags$Flag.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2503CC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Folder" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Folder.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2602E7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Store" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Store.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A26030F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventQueue" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\EventQueue.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2603C3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FolderClosedException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\FolderClosedException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A27023E"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FolderNotFoundException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\FolderNotFoundException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A270361"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UIDFolder" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\UIDFolder.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A28000F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UIDFolder$FetchProfileItem" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\UIDFolder$FetchProfileItem.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2801D1"
+		    stereotype 	""
+		    realized_interfaces 	(list realize_rel_list
+			(object Realize_Relationship
+			    quid       	"3AD75A2801F9"
+			    supplier   	"Logical View::javax::mail::UIDFolder"
+			    quidu      	"3AD75A280023"))
+		    language   	"Java")
+		(object module "Header" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Header.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2802C2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "IllegalWriteException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\IllegalWriteException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2803A8"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Message" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Message.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A29010B"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Session" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Session.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A290165"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Message$RecipientType" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Message$RecipientType.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2903DC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageAware" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\MessageAware.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2A00DA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageContext" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\MessageContext.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2A0184"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MethodNotSupportedException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\MethodNotSupportedException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2A031F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "NoSuchProviderException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\NoSuchProviderException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2A03BF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "PasswordAuthentication" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\PasswordAuthentication.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2C012D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ReadOnlyFolderException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\ReadOnlyFolderException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2C0263"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "SendFailedException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\SendFailedException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2D00A2"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Service" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Service.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2D02FB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLName" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\URLName.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A2D0341"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "StoreClosedException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\StoreClosedException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A3003DC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Transport" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Transport.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A310116"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Provider" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Provider.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A32035C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "Provider$Type" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\Provider$Type.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A3301AF"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "EventQueue$QueueElement" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\EventQueue$QueueElement.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A3401ED"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MessageRemovedException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\MessageRemovedException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A480340"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MultipartDataSource" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\mail\\MultipartDataSource.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75A5B021D"
+		    stereotype 	""
+		    language   	"Java")
+		(object SubSystem "event"
+		    quid       	"3AD75A340265"
+		    physical_models 	(list unit_reference_list
+			(object module "MailEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\MailEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A340266"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ConnectionAdapter" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\ConnectionAdapter.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A340337"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ConnectionListener" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\ConnectionListener.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A34035F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ConnectionEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\ConnectionEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A350021"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FolderAdapter" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\FolderAdapter.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A350162"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FolderListener" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\FolderListener.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A350180"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FolderEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\FolderEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3502DE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageChangedEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\MessageChangedEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A360272"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageChangedListener" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\MessageChangedListener.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A360330"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageCountAdapter" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\MessageCountAdapter.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3603DA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageCountListener" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\MessageCountListener.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A370010"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageCountEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\MessageCountEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A37016F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "StoreEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\StoreEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A370327"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "StoreListener" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\StoreListener.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A380008"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TransportAdapter" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\TransportAdapter.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3800A8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TransportListener" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\TransportListener.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3800D0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "TransportEvent" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\event\\TransportEvent.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3802E3"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "search"
+		    quid       	"3AD75A390140"
+		    physical_models 	(list unit_reference_list
+			(object module "AddressTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\AddressTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A39014A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SearchTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\SearchTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A390169"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AddressStringTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\AddressStringTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A39023A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "StringTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\StringTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A390258"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AndTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\AndTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A39035C"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "BodyTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\BodyTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3A0065"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ComparisonTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\ComparisonTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3A012D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "DateTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\DateTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3A023B"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FlagTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\FlagTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3A0386"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FromTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\FromTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3B0084"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "FromStringTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\FromStringTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3B014D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "HeaderTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\HeaderTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3B0247"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "IntegerComparisonTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\IntegerComparisonTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3B0341"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageIDTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\MessageIDTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3C0022"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MessageNumberTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\MessageNumberTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3C00EA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "NotTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\NotTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3C0202"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "OrTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\OrTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3C034D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RecipientTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\RecipientTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3D00AF"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "RecipientStringTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\RecipientStringTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3D01F0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SearchException" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\SearchException.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3D02E0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SentDateTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\SentDateTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3D03A8"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ReceivedDateTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\ReceivedDateTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3E0089"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SizeTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\SizeTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3E0147"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SubjectTerm" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\search\\SubjectTerm.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3E035A"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list))
+		(object SubSystem "internet"
+		    quid       	"3AD75A3F022F"
+		    physical_models 	(list unit_reference_list
+			(object module "InternetAddress" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\InternetAddress.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A3F0239"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AddressException" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\AddressException.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A400118"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ParseException" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\ParseException.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A40014A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "HeaderTokenizer" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\HeaderTokenizer.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A400320"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "HeaderTokenizer$Token" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\HeaderTokenizer$Token.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A410105"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeUtility" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimeUtility.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4200C0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "AsciiOutputStream" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\AsciiOutputStream.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4202E7"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ContentType" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\ContentType.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A430068"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ParameterList" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\ParameterList.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4300D6"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "ContentDisposition" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\ContentDisposition.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4302FD"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "InternetHeaders" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\InternetHeaders.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A44007D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "hdr" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\hdr.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4401AA"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "matchEnum" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\matchEnum.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A44033A"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MailDateFormat" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MailDateFormat.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4500D9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MailDateParser" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MailDateParser.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4501C9"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeMessage$RecipientType" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimeMessage$RecipientType.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A46031F"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeMessage" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimeMessage.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A460352"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimePart" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimePart.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4701AE"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "NewsAddress" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\NewsAddress.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A480137"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "SharedInputStream" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\SharedInputStream.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A480232"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "UniqueValue" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\UniqueValue.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A4802A0"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeBodyPart" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimeBodyPart.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A55035D"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimePartDataSource" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimePartDataSource.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75A5B0207"
+			    stereotype 	""
+			    language   	"Java")
+			(object module "MimeMultipart" "NotAModuleType" "NotAModulePart"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Java"
+				    name       	"FileName"
+				    value      	"javax\\mail\\internet\\MimeMultipart.class")
+				(object Attribute
+				    tool       	"Java"
+				    name       	"RootPath"
+				    value      	""))
+			    quid       	"3AD75B60037F"
+			    stereotype 	""
+			    language   	"Java"))
+		    physical_presentations 	(list unit_reference_list)))
+	    physical_presentations 	(list unit_reference_list))
+	(object SubSystem "activation"
+	    quid       	"3AD75AEA01B2"
+	    physical_models 	(list unit_reference_list
+		(object module "ActivationDataFlavor" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\ActivationDataFlavor.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEA01BC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MimeType" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\MimeType.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEA0249"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CommandInfo" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\CommandInfo.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEA03A7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CommandMap" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\CommandMap.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEB010A"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "CommandObject" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\CommandObject.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEB01BE"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataContentHandler" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\DataContentHandler.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEB0218"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataContentHandlerFactory" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\DataContentHandlerFactory.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEB0272"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataHandler" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\DataHandler.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEC02BA"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataSource" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\DataSource.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEC02EC"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataHandlerDataSource" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\DataHandlerDataSource.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AED022F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "DataSourceDataContentHandler" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\DataSourceDataContentHandler.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AED03E7"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "ObjectDataContentHandler" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\ObjectDataContentHandler.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEE021C"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileDataSource" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\FileDataSource.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEF006F"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "FileTypeMap" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\FileTypeMap.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AEF00C9"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MimeTypeParameterList" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\MimeTypeParameterList.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AF00020"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MailcapCommandMap" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\MailcapCommandMap.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AF0023D"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MimeTypeParseException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\MimeTypeParseException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AF100F4"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "MimetypesFileTypeMap" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\MimetypesFileTypeMap.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AF102CB"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "URLDataSource" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\URLDataSource.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AF200C3"
+		    stereotype 	""
+		    language   	"Java")
+		(object module "UnsupportedDataTypeException" "NotAModuleType" "NotAModulePart"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Java"
+			    name       	"FileName"
+			    value      	"javax\\activation\\UnsupportedDataTypeException.class")
+			(object Attribute
+			    tool       	"Java"
+			    name       	"RootPath"
+			    value      	""))
+		    quid       	"3AD75AF2018C"
+		    stereotype 	""
+		    language   	"Java"))
+	    physical_presentations 	(list unit_reference_list)))
+    physical_presentations 	(list unit_reference_list))

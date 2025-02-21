@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="ConfigurationManager" class="com.mobeon.masp.configuration.ConfigurationManagerImpl">
+        <property name="configFile">
+            <list>
+                <value>test/com/mobeon/masp/profilemanager/mas.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="Configuration"
+          factory-bean="ConfigurationManager"
+          factory-method="getConfiguration"/>
+
+    <bean id="EventDispatcher" class="com.mobeon.masp.eventnotifier.MulticastDispatcher"/>
+    <bean id="ServiceLocator" class="com.mobeon.masp.externalcomponentregister.ExternalComponentRegister"/>
+    <bean id="MailboxAccountManager" class="com.mobeon.masp.mailbox.javamail.JavamailMailboxAccountManager"/>
+    <bean id="MediaObjectFactory" class="com.mobeon.masp.mediaobject.factory.MediaObjectFactory"/>
+    <bean id="Provisioning" class="com.mobeon.masp.provisionmanager.Provisioning"/>
+</beans>

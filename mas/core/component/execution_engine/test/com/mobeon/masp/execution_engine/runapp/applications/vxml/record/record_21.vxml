@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+       <grammar mode="dtmf" root="root">
+        <rule id="root">
+            <one-of>
+                <item>1</item>
+            </one-of>
+        </rule>
+    </grammar>
+
+    <form id="main_form">
+        <catch event="nomatch">
+            <log>TCFAIL: record 7 catch</log>
+            <exit></exit>
+        </catch>
+        <record name="recording">
+            <prompt>
+                <audio src="beep.wav"></audio>
+            </prompt>
+            <filled>
+                <goto next="#form2"></goto>
+            </filled>
+        </record>
+
+        <catch event="error">
+            <log>TCFAIL: record nok</log>
+            <exit></exit>
+        </catch>
+    </form>
+
+    <form id="form2">
+        <block>
+            <log>TCPASS</log>
+            <exit></exit>
+        </block>
+
+    </form>
+</vxml>

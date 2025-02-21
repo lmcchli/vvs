@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <catch event="error.badfetch">
+        <!-- We expect an event to be thrown if both "src" and "expr"
+        are specified -->
+        <log>pass</log>
+    </catch>
+   <form id="uno">
+       <var name="file" expr="'beep.wav'"></var>
+       <block>
+            <prompt>
+                <audio src="beep.wav" expr="file"></audio>
+            </prompt>
+            <exit/>
+       </block>
+   </form>
+</vxml>

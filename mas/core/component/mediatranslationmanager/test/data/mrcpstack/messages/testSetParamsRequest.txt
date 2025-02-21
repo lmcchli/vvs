@@ -1,0 +1,7 @@
+ANNOUNCE rtsp://localhost.mobeon.com:4712/media/speechsynthesizer RTSP/1.0
+CSeq: 1
+Content-Type: application/mrcp
+Content-Length: 24
+
+SET-PARAMS 1 MRCP/1.0
+

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<ccxml xmlns="http://www.w3.org/2002/09/ccxml" version="1.0">
+
+    <var name="vxml_maxtime"/>
+    <var name="out_connectionid"/>
+    <var name="in_connectionid"/>
+    <var name="results"/>
+    <var name="dialogid"/>
+
+
+    <var name="myState" expr="'init'"></var>
+
+    <eventprocessor statevariable="myState">
+        <transition event="connection.alerting" name="evt">
+            <assign name="in_connectionid" expr="evt.connectionid" />
+            <accept connectionid="evt.connectionid"/>
+        </transition>
+
+
+        <transition event="connection.connected" name="evt" state="init">
+            <assign name="myState" expr="'outgoingCallActive'"/>
+
+            <dialogstart src="'transfer_1.vxml'" dialogid="dialogid"/>
+        </transition>
+
+        <transition event="connection.connected" name="evt" state="dialing">
+            <log>DIALING</log>
+            <assign name="myState" expr="'outgoingCallActive'"/>
+            <join id1="in_connectionid" id2="out_connectionid" duplex="'full'" />
+        </transition>
+
+        <transition event="connection.disconnected" name="evt">
+            <log expr="'received connection.disconnected for connection ID' +evt.connectionid"></log>
+            <if cond="evt.connectionid == in_connectionid">
+                <log>inbound call disconnected</log>
+                <exit></exit>
+                <else/>
+                    <log>outbound call disconnected</log>
+                    <assign name="results" expr="'far_end_disconnect'" />
+                    <send data="'dialog.vxml.transfer.complete'"
+                          target="dialogid"
+                          targettype="'dialog'"
+                          namelist="results" />
+
+            </if>
+        </transition>
+
+
+        <!-- Handle joined complete for transfer -->
+        <transition state="outgoingCallActive" event="conference.joined" name="evt">
+            <log>JOINED</log>
+
+            <!-- If maxtime has been set we setup a timer -->
+            <if cond="vxml_maxtime != null">
+                <send data="'maxtime'" target="session.id" delay="vxmlMaxTime" sendid="maxtimeSendid" />
+            </if>
+        </transition>
+
+        <transition event="dialog.transfer" name="evt">
+            <log expr="'in transfer'"></log>
+            <!-- Branch on transfer type -->
+            <if cond="evt.type == 'bridge'">
+                <createcall dest="evt.URI" connectionid="out_connectionid"/>
+                <assign name="myState" expr="'dialing'"></assign>
+
+                <log expr="out_connectionid"></log>
+
+                <else>
+                    <log expr="evt.type ">ERROR</log>
+                    <exit></exit>
+                </else>
+            </if>
+
+        </transition>
+
+        <transition event="dialog.exit" name="dlg">
+            <exit/>
+        </transition>
+        <transition event="error.*" name="evt">
+            <log expr="'TCFAIL CCXML: Error = ' + evt.name + ', Reason = '+evt.reason"/>
+            <exit/>
+        </transition>
+    </eventprocessor>
+</ccxml>

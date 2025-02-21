@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="menuInput" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="cmnu1">
+      <block>
+         <script>Menu_SetUri('AdministerMailbox.vxml#cmnu1')</script>
+         <assign name="promptCount" expr="1" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_reprompt">
+      <block>
+         <assign name="promptCount" expr="2" />
+         <goto next="#cmnu1_menu" />
+      </block>
+   </form>
+   <form id="cmnu1_menu">
+      <property name="termchar" value="A" />
+      <block>
+         <assign name="LastMenuInput" expr="''" />
+      </block>
+      <field name="menu_input">
+         <prompt bargein="true" cond="promptCount == 1">
+            <audio expr="System_GetPrompt(67)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(68)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'dlmax') &gt; 0)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'distributionlist') == true))">
+            <audio expr="System_GetPrompt(69)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'dlmax') &gt; 0)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'distributionlist') == true))">
+            <audio expr="System_GetPrompt(70)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Subscriber_GetSingleBooleanAttribute (GlobalObject.Subscriber, 'callerxfertocoverage') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'attcallcoverage') == true))">
+            <audio expr="System_GetPrompt(71)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Subscriber_GetSingleBooleanAttribute (GlobalObject.Subscriber, 'callerxfertocoverage') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'attcallcoverage') == true))">
+            <audio expr="System_GetPrompt(72)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'loginoptions') == true))">
+            <audio expr="System_GetPrompt(73)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'loginoptions') == true))">
+            <audio expr="System_GetPrompt(74)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Subscriber_HasService (GlobalObject.Subscriber, 'notification') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'notification') == true))">
+            <audio expr="System_GetPrompt(75)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Subscriber_HasService (GlobalObject.Subscriber, 'notification') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'notification') == true))">
+            <audio expr="System_GetPrompt(76)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'messageplayoptions') == true))">
+            <audio expr="System_GetPrompt(77)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'messageplayoptions') == true))">
+            <audio expr="System_GetPrompt(78)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'timeformat') == true))">
+            <audio expr="System_GetPrompt(79)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'timeformat') == true))">
+            <audio expr="System_GetPrompt(80)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Subscriber_HasService (GlobalObject.Subscriber, 'fax') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'defaultfaxnumber') == true))">
+            <audio expr="System_GetPrompt(81)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Subscriber_HasService (GlobalObject.Subscriber, 'fax') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'defaultfaxnumber') == true))">
+            <audio expr="System_GetPrompt(82)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'setpreferredlanguagemenu') == true))">
+            <audio expr="System_GetPrompt(83)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'setpreferredlanguagemenu') == true))">
+            <audio expr="System_GetPrompt(84)" />
+         </prompt>
+         <!--Basic command prompts and reprompts-->
+         <prompt bargein="true" cond="promptCount == 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(12)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.PreviousMenuValid == true))">
+            <audio expr="System_GetPrompt(13)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1">
+            <audio expr="System_GetPrompt(14)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.MainMenuValid == true))">
+            <audio expr="System_GetPrompt(15)" />
+         </prompt>
+         <prompt bargein="true" cond="promptCount &gt; 1 &amp;&amp; ((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+            <audio expr="System_GetPrompt(16)" />
+         </prompt>
+         <grammar version="1.0" root="cmnu1_main_rule" mode="dtmf">
+            <rule id="cmnu1_main_rule">
+               <one-of>
+                  <item>1</item>
+                  <item>2</item>
+                  <item>3</item>
+                  <item>4</item>
+                  <item>5</item>
+                  <item>6</item>
+                  <item>7</item>
+                  <item>8</item>
+                  <item>*</item>
+                  <item>* 0</item>
+                  <item>0</item>
+                  <item>* *</item>
+                  <item>* 8</item>
+               </one-of>
+            </rule>
+         </grammar>
+         <catch event="nomatch">
+            <assign name="menuInput" expr="application.lastresult$.utterance" />
+            <assign name="LastMenuInput" expr="menuInput" />
+            <goto next="#proc2004" />
+         </catch>
+         <catch event="noinput">
+            <if cond="promptCount &gt; 3">
+               <if cond="((System_GetConfig ('vva.dialogbehaviour', 'timeouttomainmenu') == 'yes') &amp;&amp; (GlobalObject.MainMenuValid == true))">
+                  <goto next="MainMenu.vxml" />
+                  <else />
+                  <goto next="Goodbye.vxml" />
+               </if>
+            </if>
+            <assign name="promptCount" expr="promptCount + 1" />
+            <goto next="#cmnu1_menu" />
+         </catch>
+         <filled>
+            <assign name="menu_input" expr="menu_input.replace(/ /g,'')" />
+            <assign name="menuInput" expr="menu_input" />
+            <assign name="LastMenuInput" expr="menu_input" />
+            <if cond="menu_input == '1'">
+               <if cond="((Subscriber_GetSingleIntegerAttribute (GlobalObject.Subscriber, 'dlmax') &gt; 0)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'distributionlist') == true))">
+                  <goto next="AdministerDistributionLists.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '2'">
+               <if cond="((Subscriber_GetSingleBooleanAttribute (GlobalObject.Subscriber, 'callerxfertocoverage') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'attcallcoverage') == true))">
+                  <goto next="AdministerCallCoverage.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '3'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'loginoptions') == true))">
+                  <goto next="AdministerLoginOptions.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '4'">
+               <if cond="((Subscriber_HasService (GlobalObject.Subscriber, 'notification') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'notification') == true))">
+                  <goto next="AdministerNotifications.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '5'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'messageplayoptions') == true))">
+                  <goto next="AdministerMessagePlay.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '6'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'timeformat') == true))">
+                  <goto next="AdministerTimeFormat.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '7'">
+               <if cond="((Subscriber_HasService (GlobalObject.Subscriber, 'fax') == true)) &amp;&amp; ((Menu_IsAllowed (GlobalObject.Subscriber, 'defaultfaxnumber') == true))">
+                  <goto next="AdministerFaxNumber.vxml" />
+               </if>
+            </if>
+            <if cond="menu_input == '8'">
+               <if cond="((Menu_IsAllowed (GlobalObject.Subscriber, 'setpreferredlanguagemenu') == true))">
+                  <goto next="AdministerPreferredLanguage.vxml" />
+               </if>
+            </if>
+            <!--Basic command options-->
+            <if cond="menu_input == '*'">
+               <if cond="((GlobalObject.PreviousMenuValid == true))">
+                  <goto expr="Menu_GetPrevious()" />
+               </if>
+            </if>
+            <if cond="menu_input == '*0'">
+               <goto next="#proc2007" />
+            </if>
+            <if cond="menu_input == '0'">
+               <goto next="#ptarget2002" />
+            </if>
+            <if cond="menu_input == '**'">
+               <if cond="((GlobalObject.MainMenuValid == true))">
+                  <goto next="#proc2005" />
+               </if>
+            </if>
+            <if cond="menu_input == '*8'">
+               <if cond="((GlobalObject.LoggedIn == true) &amp;&amp; (Call_IsVoice() == true) &amp;&amp; (Subscriber_HasService (GlobalObject.Subscriber, 'outdial') == true))">
+                  <goto next="#proc2003" />
+               </if>
+            </if>
+            <throw event="nomatch" />
+         </filled>
+      </field>
+   </form>
+   <form id="proc2004">
+      <subdialog name="sub" src="InvalidKey.vxml">
+         <param name="p_Key" expr="LastMenuInput" />
+         <filled>
+            <assign name="bc_invalidKeyResult" expr="sub.resultCode" />
+            <goto next="#ptarget2001" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2001">
+      <block>
+         <goto expr="Menu_GetCurrent()" />
+      </block>
+   </form>
+   <form id="proc2007">
+      <subdialog name="sub" src="Pause.vxml">
+         <filled>
+            <assign name="bc_pauseResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="ptarget2002">
+      <block>
+         <goto expr="Menu_GetCurrent() + '_reprompt'" />
+      </block>
+   </form>
+   <form id="proc2005">
+      <subdialog name="sub" src="NewMessageAnnouncement.vxml">
+         <filled>
+            <assign name="bc_newMsgAnnResult" expr="sub.resultCode" />
+            <goto next="MainMenu.vxml" />
+         </filled>
+      </subdialog>
+   </form>
+   <form id="proc2003">
+      <subdialog name="sub" src="Transfer.vxml">
+         <filled>
+            <assign name="bc_transferResult" expr="sub.resultCode" />
+            <goto next="#ptarget2002" />
+         </filled>
+      </subdialog>
+   </form>
+</vxml>

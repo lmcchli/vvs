@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+	<form id="main_form">
+    <block>
+            <var name="attrs"/>
+            <!-- set greetings for all types-->
+            <script>
+                var setAttr = new Array(2);
+                setAttr[0] = 'hello';
+                setAttr[1] = 'there';
+                mas.subscriberSetStringAttribute("99910002", 'someattr', setAttr);
+
+                attrs = mas.subscriberGetStringAttribute("99910002",'someattr');
+            </script>
+            <log>TC 20105100  Failed</log>
+            <exit/>
+
+        </block>
+    </form>
+	<catch event="error.com.mobeon.platform.profilewrite">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105100  Passed</log>
+
+		<exit/>
+   </catch>
+    <catch event="error">
+		<log>Error caught <value expr="_event"/></log>
+		<log>TC 20105100  Failed</log>
+
+		<exit/>
+   </catch>
+
+	<catch event="connection.disconnect.hangup">
+		<log>Hung up!</log>
+		<exit/>
+	</catch>
+</vxml>
+

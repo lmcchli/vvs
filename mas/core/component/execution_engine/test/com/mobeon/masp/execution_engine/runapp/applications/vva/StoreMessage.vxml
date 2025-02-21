@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml" application="Main.vxml">
+   <var name="messageId" />
+   <var name="ani" />
+   <var name="depositMessage" />
+   <var name="messageType" />
+   <var name="GlobalObject" />
+   <var name="bc_pauseResult" />
+   <var name="bc_newMsgAnnResult" />
+   <var name="bc_transferResult" />
+   <var name="bc_invalidKeyResult" />
+   <var name="bc_ProcedureResult" />
+   <var name="bc_pauseResult2" />
+   <var name="bc_newMsgAnnResult2" />
+   <var name="bc_transferResult2" />
+   <var name="bc_invalidKeyResult2" />
+   <var name="promptCount" expr="0" />
+   <form id="substart">
+      <var name="p_ani" />
+      <var name="p_depositMessage" />
+      <var name="p_messageType" />
+      <var name="p_GlobalObject" />
+      <block>
+         <assign name="ani" expr="p_ani" />
+         <assign name="depositMessage" expr="p_depositMessage" />
+         <assign name="messageType" expr="p_messageType" />
+         <assign name="GlobalObject" expr="p_GlobalObject" />
+         <goto next="#assign1" />
+      </block>
+   </form>
+   <form id="assign1">
+      <block>
+         <assign name="messageId" expr="Message_CreateNew(GlobalObject.Subscriber, ani, depositMessage, messageType)" />
+         <goto next="#sub1" />
+      </block>
+   </form>
+   <form id="sub1">
+      <script>Message_SendToMailbox (messageId)</script>
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(424)" />
+         </prompt>
+         <goto next="#sub2" />
+      </block>
+      <catch event="error.mas.murread">
+         <if cond="'errorType' == 'error.com.mobeon.platform.mailbox'">
+            <goto next="#prompt1" />
+            <else />
+            <goto next="#prompt1" />
+         </if>
+      </catch>
+   </form>
+   <form id="sub2">
+      <script>System_SendTrafficEvent ('messagedeposited', 'description=messagedeposited,operation=1,objecttype=2,callingnumber=' + ani)</script>
+      <block>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <form id="Return1">
+      <block>
+         <var name="resultCode" />
+         <return namelist="resultCode" />
+      </block>
+   </form>
+   <form id="prompt1">
+      <block>
+         <prompt bargein="true">
+            <audio expr="System_GetPrompt(428)" />
+         </prompt>
+         <goto next="#Return1" />
+      </block>
+   </form>
+   <catch event="error.com.mobeon.platform.profileread">
+      <return event="error.com.mobeon.platform.profileread" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.profilewrite">
+      <return event="error.com.mobeon.platform.profilewrite" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.mailbox">
+      <return event="error.com.mobeon.platform.mailbox" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.numberanalysis">
+      <return event="error.com.mobeon.platform.numberanalysis" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.datanotfound">
+      <return event="error.com.mobeon.platform.datanotfound" messageexpr="_message" />
+   </catch>
+   <catch event="error.com.mobeon.platform.systemerror">
+      <return event="error.com.mobeon.platform.systemerror" messageexpr="_message" />
+   </catch>
+   <catch event="connection.disconnect.hangup">
+      <return event="connection.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.disconnect.hangup">
+      <return event="com.mobeon.vva.disconnect.hangup" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.mainmenu">
+      <return event="com.mobeon.vva.mainmenu" messageexpr="_message" />
+   </catch>
+   <catch event="com.mobeon.vva.previousmenu">
+      <return event="com.mobeon.vva.previousmenu" messageexpr="_message" />
+   </catch>
+</vxml>

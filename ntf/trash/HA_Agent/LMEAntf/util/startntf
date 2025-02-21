@@ -1,0 +1,515 @@
+#!/bin/ksh
+# Sun Cluster Data Services Builder template version 1.0
+
+PATH=/bin:/usr/bin:/usr/cluster/bin:/usr/sbin:$PATH
+
+VERBOSE=false
+LB_WEIGHTS_IS_SET=false
+
+NODES=`scha_cluster_get -O ALL_NODEIDS`
+if [[ $? != 0 ]]; then
+	printf "FAILED: scha_cluster_get -O ALL_NODEIDS\n"
+	exit 1
+fi
+NO_OF_NODES=`echo $NODES | wc -w | tr -d " "`
+
+function run_cmd
+{
+	if [[ $VERBOSE == true ]]; then
+		printf "\n%s\n" "$@"
+	fi
+
+	eval "$@"
+	if [[ $? != 0 ]]; then
+		printf "FAILED: %s\n" "$@"
+		exit 1
+	fi
+}
+
+#
+# Check the existence of RG, RT or RS
+# 	return 0 if exists
+#	return non-zero if not exist or scha call fails
+#
+function exists
+{
+	case "$1" in
+	RG)
+		scha_cluster_get -O ALL_RESOURCEGROUPS | \
+		    egrep -e '^'$2'$' > /dev/null 2>&1
+		;;
+
+	RT)
+		scha_cluster_get -O ALL_RESOURCETYPES | \
+		    egrep -e '^'$2'$' > /dev/null 2>&1
+		;;
+
+	RS)
+		scha_resource_get -O TYPE -R "$2" > /dev/null 2>&1
+		;;
+	esac
+}
+
+#
+# Validate configuration
+#
+function validate_rtconfig
+{
+	if [[ -z "$RG_NAME" ]]; then
+        	printf "RG_NAME is empty in %s_config file" $RT_NAME
+        	exit 1
+	fi
+
+	if [[ -z "$RS_NAME" ]]; then
+        	printf "RS_NAME is empty in %s_config file" $RT_NAME
+        	exit 1
+	fi
+
+	if [[ $STAND_ALONE == false ]] ; then
+		# $HOSTNAME is not required for stop and remove scripts
+		# therefore we don't validate it here.
+
+		if [[ $SCALABLE == true && -z "$SA_RG_NAME" ]]; then
+			printf "The name of resource group for SharedAddress \
+must be specified in %s_config file.\n" $RT_NAME
+			exit 1
+		fi
+	else
+		if [[ ! -z "$HOSTNAME" ]]; then
+			printf "Network resource should not be specified for \
+stand-alone service.\n"
+			usage
+			exit 1
+		fi
+	fi
+}
+
+#
+# Return the number of resources in the given RG
+# 
+function count_rs_in_rg
+{
+	RS=`scha_resourcegroup_get -O RESOURCE_LIST -G $1`
+	echo $RS | wc -w | tr -d " "
+}
+
+#
+# Find the nodelist listed in the input string which is in format:
+# "netif1@node1,netif2@node2,...".  This function parses the input string,
+# takes node(n) and generate a string as "-h nodename1,nodename2,...".
+# This string is stored in global variable NODELIST.  It will be used in
+# scrgadm command when creating the containing RG for network resource.
+#
+function compute_nodelist
+{
+	netiflist="$1"
+	NODELIST=
+
+	while [ "$netiflist" != "" ] ; do
+		netif=`echo $netiflist | cut -f1 -d,`
+		node=`echo $netif | cut -f2 -d@`
+
+		# Convert nodeid to nodename if necessary
+		# Assume it is a nodeid if the first character is a digit.
+		echo $node | grep '^[0-9]' > /dev/null 2>&1
+		if [[ $? -eq 0 ]] ; then  
+			nodename=`scha_cluster_get -O NODENAME_NODEID $node`
+			if [[ $? -ne 0 ]] ; then
+				lmsg=`gettext 'Nodeid %s specified in -n \
+option is invalid.'`
+				printf "${lmsg}\n" "$node"
+				exit 1
+			fi
+			NODELIST="$NODELIST,$nodename"
+		else
+			NODELIST="$NODELIST,$node"
+		fi
+
+		netiflist=`echo $netiflist | sed -e "s/$netif//" -e "s/^,//"`
+	done
+
+	# add -h and get rid of an extra comma
+	NODELIST="-h `echo $NODELIST | sed -e "s/^,//"`"
+}
+
+
+#
+# Find all of the "other" nodes that are not listed in the SharedAddress
+# Rg's Nodelist and store the result in global variable AUXNODELIST.
+# It will be used in scrgadm command when creating SharedAddress resource.
+#
+function compute_auxnodelist
+{
+	all_nodes=`scha_cluster_get -O ALL_NODENAMES`
+	AUXNODELIST=
+
+	for node in $all_nodes; do
+		echo $NODELIST | grep -w $node > /dev/null 2>&1
+		if [[ $? -ne 0 ]] ; then
+			AUXNODELIST="$AUXNODELIST,$node"
+		fi
+	done
+
+	# AUXNODELIST can be empty when NODELIST contains all nodes
+	if [[ -n $AUXNODELIST ]] ; then
+		# add -X and get rid of an extra comma
+		AUXNODELIST="-X `echo $AUXNODELIST | sed -e "s/^,//"`"
+	fi
+}
+
+
+#
+# Usage
+#
+function usage
+{
+	printf "For failover services:\n\
+Usage: %s -h <logical host name>\n\
+	 -p <port and protocol list>\n\
+	 [-n <nafogroup/adapter list>]\n\
+	 [-v]\n" `basename $0`
+
+	printf "For scalable services:\n\
+Usage: %s \n\
+	 -h <shared adderss name>\n\
+	 -p <port and protocol list>\n\
+	 [-l <load balancing policy>] \n\
+	 [-n <nafogroup/adapter list>]\n\
+	 [-w <load balancing weights>] [-v] \n" `basename $0`
+
+	printf "For stand-alone (non-network aware applications):\n\
+Usage: %s [-v]\n" `basename $0`
+}
+
+#
+# Parse program arguments
+#
+function parse_args # [args ...]
+{
+	typeset opt
+
+	while getopts 'vh:p:n:l:w:' opt
+	do
+		case "$opt" in
+			v)
+				# Set verbose to true
+				VERBOSE=true
+				;;
+			h)
+				# Name of LogicalHostname or SharedAddress
+				# resource
+				HOSTNAME=$OPTARG
+				;;
+			p)
+				# List of port/protocol combination
+				PORTLIST=$OPTARG
+				;;
+			n)
+				# List of nafo groups or network adapters
+				NAFOLIST="-n $OPTARG"
+
+				# Get the Nodelist for resource group and
+				# AuxNodelist for SharedAddress resource
+				compute_nodelist $OPTARG
+				compute_auxnodelist
+				;;
+			l)
+				# Load balancing policy
+				LB_POLICY=$OPTARG
+				;;
+			w)
+				# Load Balancing Weights
+				LB_WEIGHTS=$OPTARG
+
+				# Use a separate flag to distinguish between
+				# option -w not specified and -w specified
+				# with empty string (ie. -w "")
+				LB_WEIGHTS_IS_SET=true
+				;;
+			*)
+				usage
+			 	exit 1
+				;;
+		esac
+	done
+
+	shift $((OPTIND - 1))
+
+	# Make sure there are no remaining args
+	if [[ $# -ne 0 ]]; then
+		usage
+		exit 1
+	fi
+}
+
+#########################################
+#					#
+#		Main			#
+#					#
+#########################################
+
+# RT_NAME, RT_VENDOR, SCALABLE and STAND_ALONE are filled in at the time
+# of package creation.
+RT_NAME=ntf
+RT_VENDOR=LMEA
+SCALABLE=false
+STAND_ALONE=true
+
+RT_FULLNAME=LMEA.ntf
+
+
+parse_args "$@"
+
+. `dirname $0`/${RT_NAME}_config
+
+
+#
+# Validate the arguments and content of <app>_config
+#
+
+validate_rtconfig
+
+if [[ $STAND_ALONE == false ]] ; then
+	if [[ -z "$HOSTNAME" ]]; then
+		printf "Resource name of LogicalHostname or SharedAddress \
+must be specified.\n"
+		usage
+		exit 1
+	fi
+
+	if [[ -z "$PORTLIST" ]]; then
+		printf "Portlist must be specified for network aware service.\n"
+		usage
+		exit 1
+	fi
+
+	if [[ $SCALABLE == true ]]; then
+		if [[ -z "$LB_POLICY" ]]; then
+			printf "Load balancing policy not specified ... \
+using LB_WEIGHTED policy.\n"
+			LB_POLICY=LB_WEIGHTED
+		fi
+
+		if [[ $LB_WEIGHTS_IS_SET == false ]]; then
+			printf "Load balancing weights not specified ... \
+using the equal load distribution.\n"
+			LB_WEIGHTS=""
+		fi
+	else
+		if [[ ! -z "$LB_POLICY" || $LB_WEIGHTS_IS_SET == true ]]; then
+			printf "Either LB_WEIGHTS or LB_POLICY is set. \
+These parameters should only be set for scalable services.\n"
+			usage
+			exit 1
+		fi
+	fi
+
+	if [[ -z "$NAFOLIST" ]]; then
+		printf "No nafo groups or network adapters specified ... \
+will try to auto-discover the network adapters and configure them into nafo \
+groups.\n"
+	fi
+else
+	# For stand-alone service
+	if [[ ! -z "$PORTLIST" || ! -z "$NAFOLIST" || ! -z "$LB_POLICY" || \
+		$LB_WEIGHTS_IS_SET == true ]] ; then
+		printf "Network-related argument should not be specified for \
+stand-alone service.\n"
+		usage
+		exit 1
+	fi
+fi
+
+
+#
+# Create RT, RG and RS ......
+#
+
+if [[ $SCALABLE == false ]]; then
+	printf "Creating a failover instance ...\n"
+else
+	printf "Creating a scalable instance ...\n"
+fi
+
+# Add the resource type if it doesn't exist
+exists RT $RT_FULLNAME
+if [[ $? != 0 ]]; then
+	printf "Registering resource type <%s>..." $RT_FULLNAME
+	run_cmd "scrgadm -a -t ${RT_FULLNAME}"
+	printf "done.\n"
+else
+	printf "Resource type <%s> has been registered already\n" $RT_FULLNAME
+fi
+
+if [[ $STAND_ALONE == false ]]; then
+	# The service is network-aware.
+	# Creating resource group for the network resource
+	# Also create the network resource and setup apropriate
+	# dependencies/parameters.
+	if [[ $SCALABLE == true ]]; then
+		# Create resource group for the SharedAddress resource.
+		exists RG $SA_RG_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating resource group for the Shared Address \
+<%s>..." $SA_RG_NAME
+			run_cmd "scrgadm -a -g $SA_RG_NAME $NODELIST"
+			printf "done.\n"
+		else
+			printf "Resource group <%s> already exists\n" \
+				$SA_RG_NAME
+		fi
+
+		# Create the SharedAddress resource.
+		exists RS $HOSTNAME
+		if [[ $? != 0 ]]; then
+			printf "Creating resource for the Shared Address \
+<%s>..." $HOSTNAME
+			run_cmd "scrgadm -a -S -g $SA_RG_NAME \
+				-l $HOSTNAME \
+				$NAFOLIST $AUXNODELIST"
+			printf "done.\n"
+		else
+			printf "Resource <%s> already exists\n" $HOSTNAME
+		fi
+
+		# Create the RG to house the scalable service itself.
+		exists RG $RG_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating scalable resource group <%s>..." \
+$RG_NAME
+			run_cmd "scrgadm -a -g $RG_NAME \
+				-y Maximum_primaries=${MAXIMUM_PRIMARIES} \
+				-y Desired_primaries=${DESIRED_PRIMARIES} \
+				-y RG_dependencies=$SA_RG_NAME"
+			printf "done.\n"
+		else
+			printf "Resource group <%s> already exists\n" $RG_NAME
+		fi
+
+		# Create the resource for the scalable service itself.
+		exists RS $RS_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating scalable resource <%s> for the \
+resource type <%s>..." $RS_NAME $RT_FULLNAME
+			run_cmd "scrgadm -a -j $RS_NAME \
+				-g $RG_NAME \
+				-t $RT_FULLNAME \
+				-y Scalable=true \
+				-y Port_list=$PORTLIST \
+				-y Load_balancing_policy=$LB_POLICY \
+				-y Load_balancing_weights=$LB_WEIGHTS \
+				-y Network_resources_used=$HOSTNAME"
+			printf "done.\n"
+		else
+			printf "Resource <%s> already exists\n" $RS_NAME
+		fi
+	else
+		# The service is failover,
+		# therefore add the resource group containing the
+		# LogicalHostname resource and the failover service itself.
+		exists RG $RG_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating failover resource group <%s>..." \
+				$RG_NAME
+			run_cmd "scrgadm -a -g $RG_NAME $NODELIST"
+			printf "done.\n"
+		else
+			printf "Resource group <%s> already exists\n" $RG_NAME
+		fi
+
+		# Create the resource for the LogicalHostname resource.
+		exists RS $HOSTNAME
+		if [[ $? != 0 ]]; then
+			printf "Creating logical host resource <%s>..." \
+				$HOSTNAME
+			run_cmd "scrgadm -a -L -g $RG_NAME \
+				-l $HOSTNAME \
+				$NAFOLIST"
+			printf "done.\n"
+		else
+			printf "Resource <%s> already exists\n" $HOSTNAME
+		fi
+
+		# Create the resource for the failover service itself.
+		exists RS $RS_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating resource <%s> for the resource type \
+<%s>..." $RS_NAME $RT_FULLNAME
+			run_cmd "scrgadm -a -j $RS_NAME \
+				-g $RG_NAME \
+				-t $RT_FULLNAME \
+				-y scalable=false \
+				-y Port_list=$PORTLIST \
+				-y Network_resources_used=$HOSTNAME"
+			printf "done.\n"
+		else
+			printf "Resource <%s> already exists\n" $RS_NAME
+		fi
+	fi
+else
+	# This is a stand-alone (non-network aware) service.
+	# No network resources are created in this case.
+	if [[ $SCALABLE == true ]]; then
+		# Create the RG to house the stand-alone scalable service.
+		exists RG $RG_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating scalable resource group <%s>..." \
+				$RG_NAME
+			run_cmd "scrgadm -a -g $RG_NAME \
+				-y Maximum_primaries=${MAXIMUM_PRIMARIES} \
+				-y Desired_primaries=${DESIRED_PRIMARIES}"
+			printf "done.\n"
+		else
+			printf "Resource group <%s> already exists\n" $RG_NAME
+		fi
+	else
+		# Create the RG to house the stand-alone failover service.
+		exists RG $RG_NAME
+		if [[ $? != 0 ]]; then
+			printf "Creating failover resource group <%s>..." \
+				$RG_NAME
+			run_cmd "scrgadm -a -g $RG_NAME"
+			printf "done.\n"
+		else
+			printf "Resource group <%s> already exists\n" $RG_NAME
+		fi
+	fi
+
+	# Create the resource for the stand-alone service.
+	exists RS $RS_NAME
+	if [[ $? != 0 ]]; then
+		printf "Creating resource <%s> for the resource type <%s>..." \
+			$RS_NAME $RT_FULLNAME
+		run_cmd "scrgadm -a -j $RS_NAME \
+			-g $RG_NAME \
+			-t $RT_FULLNAME \
+			-y Scalable=false"
+		printf "done.\n"
+	else
+		printf "Resource <%s> already exists\n" $RS_NAME
+	fi
+fi
+
+
+#
+# Bring the service online
+#
+
+if [[ $STAND_ALONE == false ]]; then
+	# The service is network-aware.
+	# Bring online the RG containing the network resources
+	# (for the scalable case).
+	if [[ $SCALABLE == true ]]; then
+		printf "Bringing the resource group <%s> online..." \
+			$SA_RG_NAME
+		run_cmd "scswitch -Z -g $SA_RG_NAME"
+		printf "done.\n"
+	fi
+fi
+
+# Bring RG online
+printf "Bringing resource group <%s> online..." $RG_NAME
+run_cmd "scswitch -Z -g $RG_NAME"
+printf "done.\n"
+
+exit 0

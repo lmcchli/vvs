@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="null" debug="null">
+
+<appender name="FileAp" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="/tmp/NotificationTrace.log"/>
+    <param name="MaxFileSize" value="1MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="10"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p  %c - %m%n"/>
+    </layout>
+  </appender>
+  
+  <appender name="ErrorFileAp" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="/tmp/error.log"/>
+    <param name="MaxFileSize" value="1MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="5"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p  %c - %m%n"/>
+    </layout>
+  </appender>
+  
+  <appender name="MM7FileAp" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="/tmp/MM7Out.log"/>
+    <param name="MaxFileSize" value="1MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="5"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p  %c - %m%n"/>
+    </layout>
+  </appender>
+
+    <category name="com.mobeon.ntf.util" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="FileAp" />        
+    </category>
+    
+     <category name="com.mobeon.ntf.util.DelayLoggerProxy" additivity="false">
+        <priority value="FATAL" />
+        <appender-ref ref="ErrorFileAp" />        
+    </category>
+    
+     <category name="LoggerLogger" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="FileAp" />        
+    </category>
+    
+    <category name="com.mobeon.ntf.out.mms" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="MM7FileAp" />        
+    </category>
+</log4j:configuration> 

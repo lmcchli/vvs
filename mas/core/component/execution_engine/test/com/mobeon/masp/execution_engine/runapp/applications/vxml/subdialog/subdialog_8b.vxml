@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding ="iso-8859-1"?>
+<vxml application="subdialog_8_main.vxml" version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+    <form id="subaru">
+        <subdialog name="v40" src="subdialog_8c.vxml">
+            <filled>
+                <log>TCFAIL VXML: subdialog_b-002</log>
+            </filled>
+        </subdialog>
+    </form>
+
+</vxml>

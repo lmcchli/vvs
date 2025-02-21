@@ -1,0 +1,298 @@
+#!/bin/ksh
+# Sun Cluster Data Services Builder template version 1.0
+
+PATH=/bin:/usr/bin:/usr/cluster/bin:/usr/sbin:$PATH
+
+VERBOSE=false
+
+NODES=`scha_cluster_get -O ALL_NODEIDS`
+if [[ $? != 0 ]]; then
+	printf "FAILED: scha_cluster_get -O ALL_NODEIDS\n"
+	exit 1
+fi
+NO_OF_NODES=`echo $NODES | wc -w | tr -d " "`
+
+function run_cmd
+{
+	if [[ $VERBOSE == true ]]; then
+		printf "\n%s\n" "$@"
+	fi
+
+	eval "$@"
+	if [[ $? != 0 ]]; then
+		printf "FAILED: %s\n" "$@"
+		exit 1
+	fi
+}
+
+#
+# Check the existence of RG, RT or RS
+# 	return 0 if exists
+#	return non-zero if not exist or scha call fails
+#
+function exists
+{
+	case "$1" in
+	RG)
+		scha_cluster_get -O ALL_RESOURCEGROUPS | \
+		    egrep -e '^'$2'$' > /dev/null 2>&1
+		;;
+
+	RT)
+		scha_cluster_get -O ALL_RESOURCETYPES | \
+		    egrep -e '^'$2'$' > /dev/null 2>&1
+		;;
+
+	RS)
+		scha_resource_get -O TYPE -R "$2" > /dev/null 2>&1
+		;;
+	esac
+}
+
+#
+# Validate configuration
+#
+function validate_rtconfig
+{
+	if [[ -z "$RG_NAME" ]]; then
+        	printf "RG_NAME is empty in %s_config file" $RT_NAME
+        	exit 1
+	fi
+
+	if [[ -z "$RS_NAME" ]]; then
+        	printf "RS_NAME is empty in %s_config file" $RT_NAME
+        	exit 1
+	fi
+
+	if [[ $STAND_ALONE == false ]] ; then
+		# $HOSTNAME is not required for stop and remove scripts
+		# therefore we don't validate it here.
+
+		if [[ $SCALABLE == true && -z "$SA_RG_NAME" ]]; then
+			printf "The name of resource group for SharedAddress \
+must be specified in %s_config file.\n" $RT_NAME
+		exit 1
+		fi
+	else
+		if [[ ! -z "$HOSTNAME" ]]; then
+			printf "Network resource should not be specified for \
+stand-alone service.\n"
+			exit 1
+		fi
+	fi
+}
+
+#
+# Return the number of resources in the given RG
+# 
+function count_rs_in_rg
+{
+	RS=`scha_resourcegroup_get -O RESOURCE_LIST -G $1`
+	echo $RS | wc -w | tr -d " "
+}
+
+#
+# Usage
+#
+function usage
+{
+	printf "Usage: %s [-h <hostname>] [-v] \n" `basename $0`	
+}
+
+
+#
+# Parse program arguments
+#
+function parse_args
+{
+	typeset opt
+
+	while getopts 'vh:' opt
+	do
+		case "$opt" in
+		h)
+			# Also remove the given Network resource and its
+			# containing RG
+			HOSTNAME=$OPTARG
+			;;
+		v)
+			# Timeout for the stop method.
+			VERBOSE=true
+			;;
+		*)
+			usage
+			exit 1
+			;;
+		esac
+	done
+
+	shift $((OPTIND - 1))
+
+	# Make sure there are no remaining args
+	if [[ $# -ne 0 ]]; then
+		usage
+		exit 1
+	fi
+}
+
+#
+# Remove resource group
+#
+function remove_rg
+{
+	typeset RG=$1
+
+	exists RG $RG
+	if [[ $? != 0 ]]; then
+		# already removed
+		printf "Resource group <%s> has been removed already\n" $RG
+		return
+	fi
+
+	if [[ $(echo `count_rs_in_rg ${RG}`) == 0 ]]; then
+		# RG is empty.
+		# Determine if the RG is managed and offline it only
+		# in that case.
+		scrgadm -pv -g $RG | grep 'Res Group management state:' | \
+			grep -w 'Managed' > /dev/null 2>&1
+		if [[ $? == 0 ]]; then
+			printf "Offlining the resource group <%s> ..." $RG
+			run_cmd "scswitch -z -g $RG -h \"\""
+			printf "done.\n"
+		fi
+
+		printf "Unmanaging the resource group <%s> ..." $RG
+		run_cmd "scswitch -u -g $RG"
+		printf "done.\n"
+
+		printf "Removing the resource group <%s> ..." $RG
+		run_cmd "scrgadm -r -g $RG"
+		printf "done.\n"
+	else
+		printf "Resource group <%s> contains other resources; \
+not removed...\n" $RG
+	fi
+}
+
+#########################################
+#					#
+#		Main			#
+#					#
+#########################################
+
+# RT_NAME, RT_VENDOR, SCALABLE and STAND_ALONE are filled in at the time
+# of package creation.
+RT_NAME=ntf
+RT_VENDOR=LMEA
+SCALABLE=false
+STAND_ALONE=true
+
+RT_FULLNAME=LMEA.ntf
+
+parse_args "$@"
+
+. `dirname $0`/${RT_NAME}_config
+
+validate_rtconfig
+
+if [[ $STAND_ALONE == true && ! -z "$HOSTNAME" ]]; then
+	printf "Network resource should not be specified for \
+stand-alone service"
+	exit 1
+fi
+
+#
+# Remove the service
+#
+exists RS $RS_NAME
+if [[ $? == 0 ]]; then
+	printf "Disabling the resource <%s> ..." $RS_NAME
+	run_cmd "scswitch -n -j $RS_NAME"
+	printf "done.\n"
+
+	printf "Removing the resource <%s> ..." $RS_NAME
+	run_cmd "scrgadm -r -j $RS_NAME"
+	printf "done.\n"
+else
+	printf "Resource <%s> has been removed already\n" $RS_NAME
+fi
+
+#
+# Remove RT
+#
+exists RT $RT_FULLNAME
+if [[ $? == 0 ]]; then
+	scrgadm -p | grep 'Res resource type:' | 
+		grep -w $RT_FULLNAME /dev/null 2>&1
+	if [[ $? == 0 ]]; then
+		printf "There are still some resource of resource type <%s> \
+exists; not delete" $RT_FULLNAME
+	else
+		printf "Removing the resource type <%s> ..." $RT_FULLNAME
+		run_cmd "scrgadm -r -t $RT_FULLNAME"
+		printf "done.\n"
+	fi
+else
+	printf "Resource type <%s> has been un-registered already\n" \
+		$RT_FULLNAME
+fi
+
+
+#
+# For non-network aware service, there is no network resource configurated
+# by the start script.  We may just remove the RG and exit. 
+#
+if [[ $STAND_ALONE == true ]]; then
+	remove_rg $RG_NAME
+	exit 0
+fi
+
+#
+# Service is network aware.
+# Remove the network resource and its containing RG
+#
+if [[ ! -z "$HOSTNAME" ]]; then
+	# Since the HOSTNAME is specified, disable and remove it,
+	exists RS $HOSTNAME
+	if [[ $? == 0 ]]; then
+		printf "Disabling the resource <%s> ..." $HOSTNAME
+		run_cmd "scswitch -n -j $HOSTNAME"
+		printf "done.\n"
+
+		printf "Removing the resource <%s> ..." $HOSTNAME
+		run_cmd "scrgadm -r -j $HOSTNAME"
+		printf "done.\n"
+	else
+		printf "Resource <%s> has been removed already\n" $HOSTNAME
+	fi
+
+	#
+	# Remove RG
+	#
+	remove_rg $RG_NAME
+
+	# For scalable service, unmanage and remove the scalable resource
+	# group containing the HOSTNAME.
+	# For failover service, the LogicalHostname resource is configured
+	# in the RG_NAME which has been removed previously.
+	if [[ $SCALABLE == true ]]; then
+		remove_rg $SA_RG_NAME
+	fi
+else
+	# HOSTNAME is not specified for network-aware service.
+	# Won't remove the Network Resource and its containing RG.
+	printf "\nNetwork Resource not removed...\n\
+You may run %s again with the -h option to remove network resource.\n" \
+`basename $0`
+
+	if [[ $SCALABLE == true ]]; then
+		# For failover service,  we can't remove
+		# the resource group for the applicaiton since the
+		# LogicalHostname resource is configured in the same RG.
+		# For scalable service, the SharedAddress resource is
+		# configured in SA_RG_NAME.
+		remove_rg $RG_NAME
+	fi
+fi
+
+exit 0

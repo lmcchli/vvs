@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0" xmlns="http://www.w3.org/2001/vxml">
+    <form id="form2">
+
+        <!-- queue prompts with bargein true -->
+        <block>
+            <prompt bargein="true">
+                <audio src="beep.wav"></audio>
+            </prompt>
+            <prompt bargein="true">
+                <audio src="beep.wav"></audio>
+            </prompt>
+        </block>
+
+        <!-- enter both DTMF while in this block -->
+        <block>
+            <script>Packages.java.lang.Thread.sleep(6000);</script>
+        </block>
+
+        <field name="field1">
+
+            <grammar version="1.0" mode="dtmf" root="myRoot">
+                <rule id="myRoot">
+                    <one-of>
+                        <item>12</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <if cond="field1 == '12'">
+                    <log>TCPASS</log>
+                </if>
+            </filled>
+        </field>
+
+        <catch event="noinput">
+            <log label="info">TCFAIL: noinput.</log>
+            <exit/>
+        </catch>
+    </form>
+</vxml>
